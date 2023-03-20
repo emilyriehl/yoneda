@@ -87,11 +87,12 @@
 #def identity : (A : U) -> (a : A) -> A
   := \A -> \a -> a  
 
-#def composition-identity : (A : U) -> (composition A A A (identity A) (identity A)) =_{(z : A) -> A} (identity A)
+-- checking partial evaluations of functions
+#def identity-identity-composition : (A : U) -> (composition A A A (identity A) (identity A)) =_{(z : A) -> A} (identity A)
   := \A -> refl_{identity A : (a : A) -> A}
 
--- #def Segal-restriction-equiv : (A : U) -> (AisSegal : isSegal A) 
---  -> isEquiv (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) (horn-restriction A)
---  :=
+#def Segal-restriction-equiv : (A : U) -> (AisSegal : isSegal A) 
+  -> isEquiv (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) (horn-restriction A)
+  :=
 
 -- ```

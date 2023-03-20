@@ -24,8 +24,14 @@
   := \A -> \x -> \y -> \z -> \p -> \q -> idJ(A, y, \(w : A) -> \(_ : y =_{A} w) -> (x =_{A} w), p, z, q)
 
 -- an alternative construction of path composition by induction on the first path
-#def altconcat : (A : U) -> (x : A) -> (y : A) -> (p : x =_{A} y) -> (z : A) -> (q : y =_{A} z) -> (x =_{A} z)
-  := \A -> \x -> \y -> \p -> idJ(A, x, \(y' : A) -> \(_ : x =_{A} y') -> (z' : A) -> (q' : y' =_{A} z') -> (x =_{A} z'), \(z' : A) -> \(q' : x =_{A} z') -> q', y, p)
+#def altconcat : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : y =_{A} z) -> (x =_{A} z)
+  := \A -> \x -> \y -> \z -> \p -> idJ(A, x, \(y' : A) -> \(_ : x =_{A} y') -> (q' : y' =_{A} z) -> (x =_{A} z), \(q' : x =_{A} z) -> q', y, p)
+
+#def triple-concat : (A : U) -> (w : A) -> (x : A) -> (y : A) -> (z : A) -> (p : w =_{A} x) -> (q : x =_{A} y) -> (r : y =_{A} z)
+  -> (w =_{A} z)
+  := \A -> \w -> \x -> \y -> \z -> \p -> \q -> \r -> idJ(A, y, \z' -> \r' -> (w =_{A} z'), concat A w x y p q, z, r)
+
+
 
 -- application of functions to paths
 #def ap : (A : U) -> (B : U) -> (x : A) -> (y : A) -> (f : (x : A) -> B) -> (p : x =_{A} y) -> (f x =_{B} f y)
@@ -46,4 +52,5 @@
   := \A -> \B -> \x -> \y -> \f -> \p -> idJ(A, x, \(y' : A) -> \(p' : x =_{A} y') 
   -> ((transport A B x y' p' (f x)) =_{B y'} f y'), refl_{f x : B x}, y, p)
 ```  
+
 
