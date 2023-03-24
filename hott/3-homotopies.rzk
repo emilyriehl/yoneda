@@ -1,0 +1,50 @@
+#lang rzk-1
+
+-- homotopies
+
+#def homotopy : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (g : (_ : A) -> B) -> U
+    := \A -> \B -> \f -> \g -> (a : A) -> (f a =_{B} g a)
+    
+#def homotopy-rev : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (g : (_ : A) -> B) 
+    -> (_ : homotopy A B f g) -> homotopy A B g f
+    := \A -> \B -> \f -> \g -> \H -> \a -> rev B (f a) (g a) (H a)
+
+#def homotopy-composition : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (g : (_ : A) -> B) -> (h : (_ : A) -> B)
+    -> (H : homotopy A B f g) -> (K : homotopy A B g h) -> homotopy A B f h
+    := \A -> \B -> \f -> \g -> \h -> \H -> \K -> \a -> concat B (f a) (g a) (h a) (H a) (K a)
+
+#def homotopy-postwhisker : (A : U) -> (B : U) -> (C : U) -> (f : (_ : A) -> B) -> (g : (_ : A) -> B) 
+    -> (H : homotopy A B f g) -> (h : (_ : B) -> C) -> homotopy A C (\(x : A) -> h (f x)) (\(x : A) -> h (g x))
+    := \A -> \B -> \C -> \f -> \g -> \H -> \h -> \a -> ap B C (f a) (g a) h (H a)
+
+#def homotopy-prewhisker : (A : U) -> (B : U) -> (C : U) -> (f : (_ : B) -> C) -> (g : (_ : B) -> C) 
+    -> (H : homotopy B C f g) -> (h : (_ : A) -> B) -> homotopy A C (\(x : A) -> f (h x)) (\(x : A) -> g (h x))
+    := \A -> \B -> \C -> \f -> \g -> \H -> \h -> \a -> H (h a)
+
+#def nat-htpy : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (g : (_ : A) -> B) -> (H : (a : A) -> ((f a) =_{B} (g a))) 
+    -> (x : A) -> (y : A) -> (p : x =_{A} y) -> (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =_{(f x) =_{B} (g y)} 
+    (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
+    := \A -> \B -> \f -> \g -> \H -> \x -> \y -> \p -> idJ(A, x, \y' -> \p' -> (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =_{(f x) =_{B} (g y')} (concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')), refl-concat B (f x) (g x) (H x), y, p)
+
+#def a-cylinder-homotopy-coherence : (A : U) -> (f : (_ : A) -> A) -> (H : (x : A) -> ((f x) =_{A} x)) -> (a : A) 
+    -> (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =_{(f (f a)) =_{A} a} (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (\x -> x) (H a)))
+    := \A -> \f -> \H -> \a -> nat-htpy A A f (\x -> x) H (f a) a (H a)
+
+#def another-cylinder-homotopy-coherence : (A : U) -> (f : (_ : A) -> A) -> (H : (x : A) -> ((f x) =_{A} x)) -> (a : A) 
+    -> (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =_{(f (f a)) =_{A} a} 
+    (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+    := \A -> \f -> \H -> \a -> concat ((f (f a)) =_{A} a) (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) 
+    (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (\x -> x) (H a)))
+     (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+     (a-cylinder-homotopy-coherence A f H a)
+     (concat-homotopy A (f (f a)) (f a) (H (f a)) a (ap A A (f a) a (\x -> x) (H a)) (H a) (ap-id A (f a) a (H a)))
+
+#def cylinder-homotopy-coherence : (A : U) -> (f : (_ : A) -> A) -> (H : (x : A) -> ((f x) =_{A} x)) -> (a : A) 
+    -> (ap A A (f a) a  f (H a)) =_{f (f a) =_{A} f a} (H (f a)) 
+    := \A -> \f -> \H -> \a -> concat-right-cancel A (f (f a)) (f a) a (ap A A (f a) a  f (H a)) (H (f a)) (H a) 
+    (another-cylinder-homotopy-coherence A f H a)
+
+#def rev-cylinder-homotopy-coherence : (A : U) -> (f : (_ : A) -> A) -> (H : (x : A) -> ((f x) =_{A} x)) -> (a : A) 
+    -> (H (f a)) =_{f (f a) =_{A} f a} (ap A A (f a) a  f (H a))  
+    := \A -> \f -> \H -> \a -> rev (f (f a) =_{A} f a) (ap A A (f a) a  f (H a)) (H (f a)) (concat-right-cancel A (f (f a)) (f a) a (ap A A (f a) a  f (H a)) (H (f a)) (H a) 
+    (another-cylinder-homotopy-coherence A f H a))

@@ -1,0 +1,14 @@
+#lang rzk-1
+
+#def prod : (A : U) -> (B : U) -> U
+  := \(A : U) -> \(B : U) -> ∑ (x : A), B
+
+-- defined to illustrate the syntax for terms in sigma types
+#def diagonal : (A : U) -> (_ : A) -> prod A A
+  := \A -> \a -> (a , a)
+
+#def composition : (A : U) -> (B : U) -> (C : U) -> (g : (b : B) -> C) -> (f : (a : A) -> B) -> (z : A) -> C
+  := \A -> \B -> \C -> \g -> \f -> \z -> g (f z)
+
+#def identity : (A : U) -> (a : A) -> A
+  := \A -> \a -> a  
