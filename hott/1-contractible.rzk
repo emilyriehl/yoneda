@@ -1,0 +1,11 @@
+#lang rzk-1
+
+-- contractible types
+#def isContr : (A : U) -> U
+  := \(A : U) -> ∑ (x : A), (y : A) -> x =_{A} y
+
+#def contraction-center : (A : U) -> (_ : isContr A) -> A
+  := \(A : U) -> \Aiscontr -> (first Aiscontr)
+
+#def contracting-htpy : (A : U) -> (Aiscontr : isContr A) -> (z : A) -> (contraction-center A Aiscontr) =_{A} z
+  := \A -> \Aiscontr -> second Aiscontr

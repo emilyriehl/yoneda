@@ -1,0 +1,92 @@
+#lang rzk-1
+
+-- some path algebra that we need here
+
+-- path reversal
+#def rev : (A : U) -> (x : A) -> (y : A) -> (p : x =_{A} y) -> y =_{A} x
+  := \(A : U) -> \(x : A) -> \(y : A) -> \(p : x =_{A} y) 
+  -> idJ(A, x, \z -> \(_ : x =_{A} z) -> z =_{A} x, refl_{x : A}, y, p)
+
+-- path composition by induction on the second path
+#def concat : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : y =_{A} z) -> (x =_{A} z)
+  := \A -> \x -> \y -> \z -> \p -> \q -> idJ(A, y, \(w : A) -> \(_ : y =_{A} w) -> (x =_{A} w), p, z, q)
+
+-- an alternative construction of path composition by induction on the first path
+#def altconcat : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : y =_{A} z) -> (x =_{A} z)
+  := \A -> \x -> \y -> \z -> \p -> idJ(A, x, \(y' : A) -> \(_ : x =_{A} y') -> (q' : y' =_{A} z) -> (x =_{A} z), \(q' : x =_{A} z) -> q', y, p)
+
+-- the coherence we don't have definitionally
+#def refl-concat : (A : U) -> (x : A) -> (y : A) -> (p : x =_{A} y) -> (concat A x x y (refl_{x : A}) p) =_{x =_{A} y} p
+    := \A -> \x -> \y -> \p -> idJ(A, x, \y' -> \p' -> (concat A x x y' (refl_{x : A}) p') =_{x =_{A} y'} p', refl_{refl_{x : A} : x =_{A} x}, y, p)
+
+#def concat-altconcat : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : y =_{A} z)
+    -> (concat A x y z p q) =_{x =_{A} z} altconcat A x y z p q
+    := \A -> \x -> \y -> \z -> \p -> idJ(A, x, \y' -> \p' -> (q' : y' =_{A} z) -> (concat A x y' z p' q') =_{x =_{A} z} altconcat A x y' z p' q', \q' -> refl-concat A x z q', y, p)
+
+#def altconcat-concat : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : y =_{A} z)
+    -> (altconcat A x y z p q) =_{x =_{A} z} concat A x y z p q
+    := \A -> \x -> \y -> \z -> \p -> \q 
+    -> rev (x =_{A} z) (concat A x y z p q) (altconcat A x y z p q) (concat-altconcat A x y z p q)
+
+#def concat-right-cancel : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : x =_{A} y) -> (r : y =_{A} z)
+    -> (H : (concat A x y z p r) =_{x =_{A} z} (concat A x y z q r)) -> (p =_{x =_{A} y} q)
+    := \A -> \x -> \y -> \z -> \p -> \q -> \r -> idJ(A, y, \z' -> \r' -> (H : (concat A x y z' p r') =_{x =_{A} z'} (concat A x y z' q r')) -> (p =_{x =_{A} y} q), \H -> H, z, r)    
+
+-- prewhiskering paths of paths
+#def concat-homotopy : (A : U) -> (x : A) -> (y : A) -> (p : x =_{A} y) -> (z : A) -> (q : y =_{A} z) -> (r : y =_{A} z)
+    -> (H : q =_{y =_{A} z} r) -> (concat A x y z p q) =_{x =_{A} z} (concat A x y z p r)
+    := \A -> \x -> \y -> \p -> idJ(A, x, \y' -> \p' -> (z : A) -> (q : y' =_{A} z) -> (r : y' =_{A} z) -> (H : q =_{y' =_{A} z} r) -> (concat A x y' z p' q) =_{x =_{A} z} (concat A x y' z p' r), \z -> \q -> \r -> \H -> concat (x =_{A} z) (concat A x x z refl_{x : A} q) r (concat A x x z refl_{x : A} r) (concat (x =_{A} z) (concat A x x z refl_{x : A} q) q r (refl-concat A x z q) H) (rev (x =_{A} z) (concat A x x z refl_{x : A} r) r (refl-concat A x z r)), y, p)
+
+-- postwhiskering paths of paths
+#def homotopy-concat : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : x =_{A} y) -> (H : p =_{x =_{A} y} q) 
+    -> (r : y =_{A} z) -> (concat A x y z p r) =_{x =_{A} z} (concat A x y z q r)
+    := \A -> \x -> \y -> \z -> \p -> \q -> \H -> \r -> idJ(A, y, \z' -> \r' -> (concat A x y z' p r') =_{x =_{A} z'} (concat A x y z' q r'), H, z, r)
+
+#def alt-triangle-rotation : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} z) -> (q : x =_{A} y) -> (r : y =_{A} z)
+  -> (H : p =_{x =_{A} z} altconcat A x y z q r) -> (altconcat A y x z (rev A x y q) p) =_{y =_{A} z} r
+  := \A -> \x -> \y -> \z -> \p -> \q -> idJ(A, x, \y' -> \q' -> (r' : y' =_{A} z) -> (H' : p =_{x =_{A} z} altconcat A x y' z q' r') -> (altconcat A y' x z (rev A x y' q') p) =_{y' =_{A} z} r', \r' -> \H' -> H', y, q)
+
+#def half-alt-triangle-rotation : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} z) -> (q : x =_{A} y) -> (r : y =_{A} z)
+  -> (H : p =_{x =_{A} z} altconcat A x y z q r) -> (concat A y x z (rev A x y q) p) =_{y =_{A} z} r
+  := \A -> \x -> \y -> \z -> \p -> \q -> \r -> \H -> concat (y =_{A} z)  (concat A y x z (rev A x y q) p)  (altconcat A y x z (rev A x y q) p) r
+  (concat-altconcat A y x z (rev A x y q) p)
+  (alt-triangle-rotation A x y z p q r H)
+
+#def triangle-rotation : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} z) -> (q : x =_{A} y) -> (r : y =_{A} z)
+   -> (H : p =_{x =_{A} z} concat A x y z q r) -> (concat A y x z (rev A x y q) p) =_{y =_{A} z} r
+    := \A -> \x -> \y -> \z -> \p -> \q -> \r -> \H -> 
+    half-alt-triangle-rotation A x y z p q r (concat (x =_{A} z) p (concat A x y z q r) (altconcat A x y z q r) H (concat-altconcat A x y z q r))
+
+-- application of functions to paths
+#def ap : (A : U) -> (B : U) -> (x : A) -> (y : A) -> (f : (x : A) -> B) -> (p : x =_{A} y) -> (f x =_{B} f y)
+  := \A -> \B -> \x -> \y -> \f -> \p -> idJ(A, x, \(y' : A) -> \(_ : x =_{A} y') -> (f x =_{B} f y'), refl_{f x : B}, y, p)
+
+#def ap-id : (A : U) -> (x : A) -> (y : A) -> (p : x =_{A} y) -> (ap A A x y (\z -> z) p) =_{x =_{A} y} p
+    := \A -> \x -> \y -> \p -> idJ(A, x, \y' -> \p' -> (ap A A x y' (\z -> z) p') =_{x =_{A} y'} p', refl_{refl_{x : A} : x =_{A} x}, y, p)
+
+#def ap-htpy : (A : U) -> (B : U) -> (x : A) -> (y : A) -> (f : (_ : A) -> B) -> (p : x =_{A} y) -> (q : x =_{A} y) 
+    -> (H : p =_{x =_{A} y} q) -> (ap A B x y f p) =_{f x =_{B} f y} (ap A B x y f q)
+    := \A -> \B -> \x -> \y -> \f -> \p -> \q -> \H -> idJ(x =_{A} y, p, \q' -> \H' -> (ap A B x y f p) =_{f x =_{B} f y} (ap A B x y f q'), refl_{ap A B x y f p : f x =_{B} f y}, q, H)
+
+#def ap-comp : (A : U) -> (B : U) -> (C : U) -> (x : A) -> (y : A) -> (f : (_ : A) -> B) -> (g : (_ : B) -> C) 
+    -> (p : x =_{A} y) -> (ap A C x y (\z -> g (f z)) p) =_{g (f x) =_{C} g (f y)} (ap B C (f x) (f y) g (ap A B x y f p))
+    := \A -> \B -> \C -> \x -> \y -> \f -> \g -> \p -> idJ(A, x, \y' -> \p' -> (ap A C x y' (\z -> g (f z)) p') =_{g (f x) =_{C} g (f y')} (ap B C (f x) (f y') g (ap A B x y' f p')), refl_{refl_{(g (f x)) : C} : g (f x) =_{C} g (f x)}, y, p)
+
+#def rev-ap-comp : (A : U) -> (B : U) -> (C : U) -> (x : A) -> (y : A) -> (f : (_ : A) -> B) -> (g : (_ : B) -> C) 
+    -> (p : x =_{A} y) -> (ap B C (f x) (f y) g (ap A B x y f p)) =_{g (f x) =_{C} g (f y)} (ap A C x y (\z -> g (f z)) p) 
+    := \A -> \B -> \C -> \x -> \y -> \f -> \g -> \p -> rev (g (f x) =_{C} g (f y)) (ap A C x y (\z -> g (f z)) p) (ap B C (f x) (f y) g (ap A B x y f p)) (ap-comp A B C x y f g p)
+    
+-- transport in a type family along a path in the base
+#def transport : (A : U) -> (B : (a : A) -> U) -> (x : A) -> (y : A) -> (p : x =_{A} y) -> (u : B x) -> B y
+  := \A -> \B -> \x -> \y -> \p -> \u -> idJ(A, x, \(y' : A) -> \(_ : x =_{A} y') -> B y', u, y, p)
+
+-- for later use, some higher transport
+#def transport2 : (A : U) -> (B : (a : A) -> U) -> (x : A) -> (y : A) -> (p : x =_{A} y) -> (q : x =_{A} y) 
+  -> (H : p =_{x =_{A} y} q) -> (u : B x) -> (transport A B x y p u) =_{B y} (transport A B x y q u)
+  := \A -> \B -> \x -> \y -> \p -> \q -> \H -> \u -> idJ(x =_{A} y, p, \q' -> \H' -> (transport A B x y p u) =_{B y} (transport A B x y q' u), refl_{transport A B x y p u : B y}, q, H)  
+
+-- application of dependent functions to paths
+#def apd : (A : U) -> (B : (a : A) -> U) -> (x : A) -> (y : A) -> (f : (z : A) -> B z) -> (p : x =_{A} y) 
+  -> ((transport A B x y p (f x)) =_{B y} f y)
+  := \A -> \B -> \x -> \y -> \f -> \p -> idJ(A, x, \(y' : A) -> \(p' : x =_{A} y') 
+  -> ((transport A B x y' p' (f x)) =_{B y'} f y'), refl_{f x : B x}, y, p)

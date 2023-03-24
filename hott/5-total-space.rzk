@@ -1,0 +1,142 @@
+#lang rzk-1
+
+-- In what follows we apply the above to show that the projection from the total space of a sigma type is an equivalence if and only if its fibers are contractible
+#def total-space-projection : (A : U) -> (B : (a : A) -> U) -> (_ : ∑ (x : A), B x) -> A
+  := \A -> \B -> \z -> first z
+
+#def contractible-fibers : (A : U) -> (B : (a : A) -> U) -> U
+  := \A -> \B -> ((x : A) -> isContr (B x))
+
+#def contractible-fibers-section : (A : U) -> (B : (a : A) -> U) 
+    -> (_ : contractible-fibers A B) -> (x : A) -> B x
+  := \A -> \B -> \ABcontrfib -> \x -> contraction-center (B x) (ABcontrfib x)
+
+#def contractible-fibers-actual-section : (A : U) -> (B : (a : A) -> U) 
+    -> (_ : contractible-fibers A B) -> (x : A) -> ∑ (x : A), B x
+  := \A -> \B -> \ABcontrfib -> \x -> (x , contractible-fibers-section A B ABcontrfib x)
+
+#def contractible-fibers-section-htpy : (A : U) -> (B : (a : A) -> U)
+        -> (ABcontrfib : contractible-fibers A B) -> (x : A) -> ((total-space-projection A B) ((contractible-fibers-actual-section A B ABcontrfib) (x))) =_{A} x
+    := \A -> \B -> \ABcontrfib -> \x -> refl_{x : A}
+
+#def contractible-fibers-section-is-section : (A : U) -> (B : (a : A) -> U)
+        -> (_ : contractible-fibers A B) -> hasSection (∑ (x : A), B x) A (total-space-projection A B)
+    := \A -> \B -> \ABcontrfib -> (contractible-fibers-actual-section A B ABcontrfib , contractible-fibers-section-htpy A B  ABcontrfib)
+
+-- thankfully we have judgmental eta rules
+#def check : (A : U) -> (B : (a : A) -> U) -> (z : ∑ (x : A), B x) -> (z =_{∑ (x : A), B x} (first z, second z))
+    := \A -> \B -> \z -> refl_{z : ∑ (x : A), B x}
+
+#def fibered-path-to-sigma-path : (A : U) -> (B : (a : A) -> U) -> (x : A) -> (u : B x) -> (v : B x) -> (p : u =_{B x} v) 
+    -> (x , u) =_{∑ (a : A), B a} (x , v)
+    := \A -> \B -> \x -> \u -> \v -> \p -> idJ(B x, u, \v' -> \p' -> (x , u) =_{∑ (a : A), B a} (x , v'), refl_{(x , u) : ∑ (a : A), B a}, v, p)
+
+#def contractible-fibers-retraction-htpy : (A : U) -> (B : (a : A) -> U)
+        -> (ABcontrfib : contractible-fibers A B) -> (z : ∑ (x : A), B x) -> ((contractible-fibers-actual-section A B ABcontrfib) (first z)) =_{∑ (x : A), B x} z
+     := \A -> \B -> \ABcontrfib -> \z -> fibered-path-to-sigma-path A B (first z) ((contractible-fibers-section A B ABcontrfib) (first z)) (second z) (contracting-htpy (B (first z)) (ABcontrfib (first z)) (second z))
+
+#def contractible-fibers-retraction : (A : U) -> (B : (a : A) -> U)
+        -> (_ : contractible-fibers A B) -> hasRetraction (∑ (x : A), B x) A (total-space-projection A B)
+    := \A -> \B -> \ABcontrfib -> (contractible-fibers-actual-section A B ABcontrfib , contractible-fibers-retraction-htpy A B  ABcontrfib)
+
+-- The first half of our main result
+#def contractible-fibers-projection-equiv : (A : U) -> (B : (a : A) -> U) 
+    -> (_ : contractible-fibers A B) -> isEquiv (∑ (x : A), B x) A (total-space-projection A B)
+  := \A -> \B -> \ABcontrfib -> (contractible-fibers-retraction A B ABcontrfib , contractible-fibers-section-is-section A B ABcontrfib)
+
+#def total-path-to-base-path : (A : U) -> (B : (a : A) -> U) -> (z : ∑ (a : A), B a) -> (w : ∑ (a : A), B a) 
+    -> (p : z =_{∑ (a : A), B a} w) -> ((first z) =_{A} first w)
+    := \A -> \B -> \z -> \w -> \p -> ap (∑ (a : A), B a) A z w (total-space-projection A B) p 
+
+#def total-path-to-fibered-path : (A : U) -> (B : (a : A) -> U) -> (z : ∑ (a : A), B a) -> (w : ∑ (a : A), B a) 
+    -> (p : z =_{∑ (a : A), B a} w) -> (transport A B (first z) (first w) (total-path-to-base-path A B z w p) (second z)) =_{B (first w)} (second w)
+    := \A -> \B -> \z -> \w -> \p -> idJ((∑ (a : A), B a), z, \w' -> \p' -> (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) =_{B (first w')} (second w'), refl_{second z : B (first z)}, w, p)
+
+-- From a projection equivalence, it's not hard to inhabit fibers
+#def projection-equiv-implies-inhabited-fibers : (A : U) -> (B : (a : A) -> U) 
+    -> (_ : isEquiv (∑ (x : A), B x) A (total-space-projection A B)) -> (x : A) -> B x
+    := \A -> \B -> \ABprojequiv -> \x -> transport A B (first ((first (second ABprojequiv)) x)) x ((second (second ABprojequiv)) x) (second ((first (second ABprojequiv)) x))
+
+-- this is great but I'll need more coherence to show that the inhabited fibers are contractible; the following proof fails
+-- #def projection-equiv-implies-contractible-fibers : (A : U) -> (B : (a : A) -> U) 
+--    -> (_ : isEquiv (∑ (x : A), B x) A (total-space-projection A B)) -> contractible-fibers A B
+--    := \A -> \B -> \ABprojequiv -> \x -> (second ((first (first ABprojequiv)) x) , 
+--    \(u : B x) -> total-path-to-fibered-path A B ((first (first ABprojequiv)) x) (x, u) ((second (first ABprojequiv)) (x, u)) )
+
+-- we start over from a strong hypothesis of a half adjoint equivalence
+#def projection-coherent-equiv-inverse : (A : U) -> (B : (x : A) -> U)
+    -> (_ : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)) -> (a : A) -> ∑ (x : A), B x
+    := \A -> \B -> \ABprojcequiv -> \a -> (first (first ABprojcequiv)) a
+
+#def projection-coherent-equiv-base-htpy : (A : U) -> (B : (x : A) -> U)
+    -> (ABprojcequiv : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
+    -> (a : A) -> (first (projection-coherent-equiv-inverse A B ABprojcequiv a)) =_{A} a
+    := \A -> \B -> \ABprojcequiv -> \a -> (second (second (first ABprojcequiv))) a
+
+#def projection-coherent-equiv-section : (A : U) -> (B : (x : A) -> U)
+    -> (ABprojcequiv : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
+    -> (a : A) -> B a
+    := \A -> \B -> \ABprojcequiv -> \a -> transport A B (first (projection-coherent-equiv-inverse A B ABprojcequiv a)) a 
+    (projection-coherent-equiv-base-htpy A B ABprojcequiv a) (second (projection-coherent-equiv-inverse A B ABprojcequiv a))
+
+#def projection-coherent-equiv-total-htpy : (A : U) -> (B : (x : A) -> U)
+    -> (ABprojcequiv : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
+    -> (z : (∑ (x : A), B x)) -> (projection-coherent-equiv-inverse A B ABprojcequiv (first z)) =_{∑ (x : A), B x} z
+    := \A -> \B -> \ABprojcequiv -> \z -> (first (second (first ABprojcequiv))) z
+
+#def projection-coherent-equiv-fibered-htpy : (A : U) -> (B : (x : A) -> U)
+    -> (ABprojcequiv : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
+    -> (w : (∑ (x : A), B x)) 
+    -> (transport A B (first ((projection-coherent-equiv-inverse A B ABprojcequiv (first w)))) (first w) 
+    (total-path-to-base-path A B (projection-coherent-equiv-inverse A B ABprojcequiv (first w)) w (projection-coherent-equiv-total-htpy A B ABprojcequiv w)) 
+    (second (projection-coherent-equiv-inverse A B ABprojcequiv (first w)))) =_{B (first w)} (second w)
+    := \A -> \B -> \ABprojcequiv -> \w 
+    -> total-path-to-fibered-path A B (projection-coherent-equiv-inverse A B ABprojcequiv (first w)) w  (projection-coherent-equiv-total-htpy A B ABprojcequiv w)
+
+#def projection-coherent-equiv-base-coherence : (A : U) -> (B : (x : A) -> U)
+    -> (ABprojcequiv : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
+    -> (w : (∑ (x : A), B x)) -> (projection-coherent-equiv-base-htpy A B ABprojcequiv (first w)) =_{(first (projection-coherent-equiv-inverse A B ABprojcequiv (first w))) =_{A} (first w)} (total-path-to-base-path A B (projection-coherent-equiv-inverse A B ABprojcequiv (first w)) w (projection-coherent-equiv-total-htpy A B ABprojcequiv w)) 
+    := \A -> \B -> \ABprojcequiv -> \w -> (second ABprojcequiv) w
+
+#def projection-coherent-equiv-transport-coherence : (A : U) -> (B : (x : A) -> U)
+    -> (ABprojcequiv : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
+    -> (w : (∑ (x : A), B x)) -> (projection-coherent-equiv-section A B ABprojcequiv (first w))
+    =_{B (first w)}
+    (transport A B (first ((projection-coherent-equiv-inverse A B ABprojcequiv (first w)))) (first w) 
+    (total-path-to-base-path A B (projection-coherent-equiv-inverse A B ABprojcequiv (first w)) w (projection-coherent-equiv-total-htpy A B ABprojcequiv w)) 
+    (second (projection-coherent-equiv-inverse A B ABprojcequiv (first w))))
+    := \A -> \B -> \ABprojcequiv -> \w -> transport2 A B (first (projection-coherent-equiv-inverse A B ABprojcequiv (first w))) (first w) 
+    (projection-coherent-equiv-base-htpy A B ABprojcequiv (first w)) 
+    (total-path-to-base-path A B (projection-coherent-equiv-inverse A B ABprojcequiv (first w)) w (projection-coherent-equiv-total-htpy A B ABprojcequiv w))
+    (projection-coherent-equiv-base-coherence A B ABprojcequiv w)
+    (second (projection-coherent-equiv-inverse A B ABprojcequiv (first w)))
+
+#def projection-coherent-equiv-fibered-contracting-htpy : (A : U) -> (B : (x : A) -> U)
+    -> (ABprojcequiv : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
+    -> (w : (∑ (x : A), B x)) 
+    -> (projection-coherent-equiv-section A B ABprojcequiv (first w)) =_{B (first w)} (second w)
+    := \A -> \B -> \ABprojcequiv -> \w 
+    -> concat (B (first w)) (projection-coherent-equiv-section A B ABprojcequiv (first w))
+    (transport A B (first ((projection-coherent-equiv-inverse A B ABprojcequiv (first w)))) (first w) 
+    (total-path-to-base-path A B (projection-coherent-equiv-inverse A B ABprojcequiv (first w)) w (projection-coherent-equiv-total-htpy A B ABprojcequiv w)) 
+    (second (projection-coherent-equiv-inverse A B ABprojcequiv (first w))))
+    (second w)
+    (projection-coherent-equiv-transport-coherence A B ABprojcequiv w)
+    (projection-coherent-equiv-fibered-htpy A B ABprojcequiv w)
+
+-- finally we have
+#def projection-coherent-equiv-contractible-fibers : (A : U) -> (B : (a : A) -> U) 
+    -> (ABprojcequiv : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B))-> contractible-fibers A B
+    := \A -> \B -> \ABprojcequiv -> \x -> ((projection-coherent-equiv-section A B ABprojcequiv x), 
+    \(u : B x) -> (projection-coherent-equiv-fibered-contracting-htpy A B ABprojcequiv (x, u)))
+    
+-- the converse to our first result    
+#def projection-equiv-contractible-fibers : (A : U) -> (B : (a : A) -> U) 
+    -> (ABprojequiv : isEquiv (∑ (x : A), B x) A (total-space-projection A B)) -> contractible-fibers A B
+    := \A -> \B -> \ABprojequiv -> projection-coherent-equiv-contractible-fibers A B (isEquiv-isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B) ABprojequiv)
+    
+-- the main theorem    
+#def projection-theorem : (A : U) -> (B : (a : A) -> U) 
+    -> iff (isEquiv (∑ (x : A), B x) A (total-space-projection A B)) (contractible-fibers A B)
+    := \A -> \B 
+    -> (\ABprojequiv -> projection-equiv-contractible-fibers A B ABprojequiv, \ABcontrfib -> contractible-fibers-projection-equiv A B ABcontrfib)
