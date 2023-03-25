@@ -10,5 +10,10 @@
 #def composition : (A : U) -> (B : U) -> (C : U) -> (g : (b : B) -> C) -> (f : (a : A) -> B) -> (z : A) -> C
   := \A -> \B -> \C -> \g -> \f -> \z -> g (f z)
 
+#def triple-composition 
+  : (A : U) -> (B : U) -> (C : U) -> (D : U) -> (h : (c : C) -> D) -> (g : (b : B) -> C) -> (f : (a : A) -> B)
+    -> (z : A) -> D  
+  := \A -> \B -> \C -> \D -> \h -> \g -> \f -> \z -> h (g (f z))
+
 #def identity : (A : U) -> (a : A) -> A
   := \A -> \a -> a  
