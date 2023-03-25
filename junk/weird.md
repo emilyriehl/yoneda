@@ -128,6 +128,6 @@
         -> ∑ (fhasinverse : (hasInverse A B f)), (hasInverse-inverse A B f fhasinverse) =_{(_ : B) -> A} (hasInverse-inverse A B f fhasinverse)
 
 -- FAILURE
--- #def weird-but-fails : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> U
---     := \A -> \B -> \f 
---        -> ∑ (fhasinverse : (hasInverse A B f)), (hasInverse-inverse A B f fhasinverse) =_{(_ : B) -> A} (first (fhasinverse))
+#def weird-but-fails : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> U
+     := \A -> \B -> \f 
+        -> ∑ (fhasinverse : (hasInverse A B f)), (hasInverse-inverse A B f fhasinverse) =_{(_ : B) -> A} (first (fhasinverse))

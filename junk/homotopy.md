@@ -67,19 +67,13 @@
     -> (H : homotopy B C f g) -> (h : (_ : A) -> B) -> homotopy A C (\(x : A) -> f (h x)) (\(x : A) -> g (h x))
     := \A -> \B -> \C -> \f -> \g -> \H -> \h -> \a -> H (h a)
 
-#def nat-htpy : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (g : (_ : A) -> B) -> (H : (a : A) -> ((f a) =_{B} (g a))) 
-    -> (x : A) -> (y : A) -> (p : x =_{A} y) -> (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =_{(f x) =_{B} (g y)} 
+#def nat-htpy : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (g : (_ : A) -> B) -> (H : homotopy A B f g)
+  -> (x : A) -> (y : A)
+    -> (p : x =_{A} y) -> (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =_{(f x) =_{B} (g y)} 
     (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
-    := \A -> \B -> \f -> \g -> \H -> \x -> \y -> \p -> idJ(A, x, \y' -> \p' -> (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =_{(f x) =_{B} (g y')} (concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')), refl-concat B (f x) (g x) (H x), y, p)
-
--- this is identical to the above but fails
--- #def fails-nat-htpy : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (g : (_ : A) -> B) -> (H : homotopy A B f g)
---  -> (x : A) -> (y : A)
---    -> (p : x =_{A} y) -> (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =_{(f x) =_{B} (g y)} 
---    (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
---    := \A -> \B -> \f -> \g -> \H -> \x -> \y -> \p -> idJ(A, x, \y' -> \p' 
---     -> (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =_{(f x) =_{B} (g y')} (concat B (f x) (g x) (g y') (H x) 
---    (ap A B x y' g p')), refl-concat B (f x) (g x) (H x), y, p)
+    := \A -> \B -> \f -> \g -> \H -> \x -> \y -> \p -> idJ(A, x, \y' -> \p' 
+     -> (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =_{(f x) =_{B} (g y')} (concat B (f x) (g x) (g y') (H x) 
+    (ap A B x y' g p')), refl-concat B (f x) (g x) (H x), y, p)
 
 #def a-cylinder-homotopy-coherence : (A : U) -> (f : (_ : A) -> A) -> (H : (x : A) -> ((f x) =_{A} x)) -> (a : A) 
     -> (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =_{(f (f a)) =_{A} a} (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (\x -> x) (H a)))
