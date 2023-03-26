@@ -7,10 +7,87 @@ This is a literate `rzk` file:
 ```rzk
 #lang rzk-1
 ```
+## Prerequisites
+
+- `hott/4-equivalences.rzk` — contains the definitions of `Eq` and `compose_Eq`
+- the file `hott/4-equivalences.rzk` relies in turn on the previous files in `hott/`
 
 ## Commutation of arguments and currying
 
-To be done.
+```rzk
+-- [RS17, Theorem 4.1]
+#def flip-ext-fun 
+   : (I : CUBE) ->
+      (psi : (t : I) -> TOPE) ->
+      (phi : {(t : I) | psi t} -> TOPE) ->
+      (X : U) ->
+      (Y : <{t : I | psi t } -> (x : X) -> U >) ->
+      (f : <{t : I | phi t } -> (x : X) -> Y t x >) ->
+      Eq (<{t : I | psi t} -> (x : X) -> Y t x [ phi t |-> f t ]>)
+       ((x : X) -> <{t : I | psi t} -> Y t x [ phi t |-> f t x]>)
+   := \I -> \psi -> \phi -> \X -> \Y -> \f -> 
+         (\g -> \x -> \{t : I | psi t} -> g t x, -- the one-way map; needs the context for t to typecheck
+            ((\h -> \{t : I | psi t} -> \x -> (h x) t, -- the retraction
+            \g -> refl_{g}), -- the retracting homotopy
+            (\h -> \{t : I | psi t} -> \x -> (h x) t, -- the section
+            \h -> refl_{h})))
+
+-- [RS17, Theorem 4.2]
+#def curry-uncurry :
+   (I : CUBE) ->
+   (J : CUBE) ->
+   (psi : (t : I) -> TOPE) -> 
+   (phi : {(t : I) | psi t} -> TOPE) ->
+   (zeta : (s : J) -> TOPE) ->
+   (chi : {(s : J) | zeta s} -> TOPE) ->   
+   (X : <{t : I | psi t} -> <{s : J | zeta s} -> U > >) ->
+   (f : <{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -> X t s >) ->
+   Eq (<{t : I | psi t} -> <{ s : J | zeta s} -> X t s [ chi s |-> f (t, s) ]> [ phi t |-> \{s : J | zeta s} -> f (t, s) ]>)
+      (<{(t, s) : I * J | psi t /\ zeta s} -> X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-> f (t , s)]>)
+   := \I -> \J -> \psi -> \phi -> \zeta -> \chi -> \X -> \f -> 
+      (\g -> \{(t, s) : I * J | psi t /\ zeta s} -> (g t) s, -- the one way map
+         ((\h -> \{t : I | psi t} -> \{ s : J | zeta s} -> h (t , s) -- its retraction
+            ,\g -> refl_{g} ), -- the retracting homotopy 
+         (\h -> \{t : I | psi t} -> \{ s : J | zeta s} -> h (t , s) -- its section
+            ,\h -> refl_{h})))  -- the section homotopy
+
+#def uncurry-opcurry :
+   (I : CUBE) ->
+   (J : CUBE) ->
+   (psi : (t : I) -> TOPE) -> 
+   (phi : {(t : I) | psi t} -> TOPE) ->
+   (zeta : (s : J) -> TOPE) ->
+   (chi : {(s : J) | zeta s} -> TOPE) ->   
+   (X : <{t : I | psi t} -> <{s : J | zeta s} -> U > >) ->
+   (f : <{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -> X t s >) ->
+   Eq (<{(t, s) : I * J | psi t /\ zeta s} -> X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-> f (t , s)]>) 
+      (<{s : J | zeta s} -> <{ t : I | psi t} -> X t s [ phi t |-> f (t, s) ]> [ chi s |-> \{t : I | psi t} -> f (t, s) ]>)
+   := \I -> \J -> \psi -> \phi -> \zeta -> \chi -> \X -> \f -> 
+      (\h -> \{s : J | zeta s} -> \{t : I | psi t} -> h (t , s) , -- the one way map
+      ((\g -> \{(t, s) : I * J | psi t /\ zeta s} -> (g s) t -- its retraction
+            ,\h -> refl_{h} ), -- the retracting homotopy 
+      (\g -> \{(t, s) : I * J | psi t /\ zeta s} -> (g s) t -- its section
+            ,\g -> refl_{g}))) -- the section homotopy
+
+#def fubini : 
+   (I : CUBE) ->
+   (J : CUBE) ->
+   (psi : (t : I) -> TOPE) -> 
+   (phi : {(t : I) | psi t} -> TOPE) ->
+   (zeta : (s : J) -> TOPE) ->
+   (chi : {(s : J) | zeta s} -> TOPE) ->   
+   (X : <{t : I | psi t} -> <{s : J | zeta s} -> U > >) ->
+   (f : <{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -> X t s >) ->
+   Eq (<{t : I | psi t} -> <{ s : J | zeta s} -> X t s [ chi s |-> f (t, s) ]> [ phi t |-> \{s : J | zeta s} -> f (t, s) ]>)
+      (<{s : J | zeta s} -> <{ t : I | psi t} -> X t s [ phi t |-> f (t, s) ]> [ chi s |-> \{t : I | psi t} -> f (t, s) ]>)
+   := \I -> \J -> \psi -> \phi -> \zeta -> \chi -> \X -> \f 
+      -> compose_Eq
+         (<{t : I | psi t} -> <{ s : J | zeta s} -> X t s [ chi s |-> f (t, s) ]> [ phi t |-> \{s : J | zeta s} -> f (t, s) ]>)
+         (<{(t, s) : I * J | psi t /\ zeta s} -> X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-> f (t , s)]>)
+         (<{s : J | zeta s} -> <{ t : I | psi t} -> X t s [ phi t |-> f (t, s) ]> [ chi s |-> \{t : I | psi t} -> f (t, s) ]>)
+         (curry-uncurry I J psi phi zeta chi X f)
+         (uncurry-opcurry I J psi phi zeta chi X f)
+```
 
 ## Extending into ∑-types (the non-axiom of choice)
 
