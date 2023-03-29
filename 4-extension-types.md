@@ -93,19 +93,6 @@ This is a literate `rzk` file:
 
 ```rzk
 -- [RS17, Theorem 4.3]
-#def un-axiom-choice 
-   : (I : CUBE) ->
-     (psi : (t : I) -> TOPE) ->
-     (phi : {(t : I) | psi t} -> TOPE) ->
-     (X : <{t : I | psi t} -> U >) ->
-     (Y : <{t : I | psi t} -> (x : X t) -> U >) ->
-     (a : <{t : I | phi t} -> X t >) ->
-     (b : <{t : I | phi t} -> Y t (a t) >) ->
-     (h : ∑ (f : (<{t : I | psi t} -> X t [phi t |-> a t ]>)), (<{t : I | psi t} -> Y t (f t) [ phi t |-> b t ]>)) ->
-     (<{t : I | psi t} -> (∑ (x : X t), Y t x) [ phi t |-> (a t , b t) ]>)
-      := \I -> \psi -> \phi -> \X -> \Y -> \a -> \b -> 
-      \h -> \{t : I | psi t} -> ((first h) t, (second h) t)
-
 #def axiom-choice 
    : (I : CUBE) ->
      (psi : (t : I) -> TOPE) ->
@@ -114,10 +101,14 @@ This is a literate `rzk` file:
      (Y : <{t : I | psi t} -> (x : X t) -> U >) ->
      (a : <{t : I | phi t} -> X t >) ->
      (b : <{t : I | phi t} -> Y t (a t) >) ->
-     (g : <{t : I | psi t} -> (∑ (x : X t), Y t x) [ phi t |-> (a t , b t) ]>) ->
+     Eq (<{t : I | psi t} -> (∑ (x : X t), Y t x) [ phi t |-> (a t , b t) ]>) 
      (∑ (f : (<{t : I | psi t} -> X t [phi t |-> a t ]>)), (<{t : I | psi t} -> Y t (f t) [ phi t |-> b t ]>)) 
      := \I -> \psi -> \phi -> \X -> \Y -> \a -> \b -> 
-         \g -> (\{t : I | psi t} -> (first (g t)), \{t : I | psi t} -> second (g t))
+         (\g -> (\{t : I | psi t} -> (first (g t)), \{t : I | psi t} -> second (g t))  , -- the one way map
+            ((\h -> \{t : I | psi t} -> ((first h) t, (second h) t) -- its retraction
+            , \g -> refl_{g}), -- the retracting homotopy
+            (\h -> \{t : I | psi t} -> ((first h) t, (second h) t) -- its section
+            , \h -> refl_{h}))) -- the section homotopy
 ```
 
 ## Composites and unions of cofibrations
