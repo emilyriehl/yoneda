@@ -77,7 +77,6 @@ This is a literate `rzk` file:
       ((\k -> (\(t : 2) -> k (t, t), \{(t, s) : 2 * 2 | Δ² (t, s)} -> k (t, s)), \hh -> refl_{hh}),
        (\k -> (\(t : 2) -> k (t, t), \{(t, s) : 2 * 2 | Δ² (t, s)} -> k (t, s)), \hh -> refl_{hh})))
 
-
 #def restriction-equiv
   : (A : U) ->
     Eq (<{t : 2 * 2 | Δ² t} -> A >)
@@ -118,6 +117,30 @@ This is a literate `rzk` file:
             (\k -> AisSegal (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
                             (\t -> k (t, 0_2)) (\t -> k (1_2, t)))))
 ```
+
+#def restriction-equiv-Segal : (A : U) 
+  -> (e : Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >)) 
+  -> isSegal A
+  := \A -> \e -> \x -> \y -> \z -> \f -> \g ->
+      (projection-equiv-contractible-fibers 
+        (<{t : 2 * 2 | Λ t} -> A >)
+        (\k -> ∑ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
+                        hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
+                            (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h)
+        e)
+      (horn A x y z f g)
+
+-- Theorem 5.5 justifies an alternate definition of isSegal
+#def isSegal' : (A : U) -> U
+  := \A -> Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >)
+
+-- [RS17, Theorem 5.6(i)] : if X is a type and A : X -> U is such that A(x) is a Segal type then (x : X) -> A x is a Segal type
+#def Segal-function-types : 
+  (X : U) -> (A : (_ : X) -> U) ->
+  (x : X) -> (_ : isSegal' (A x)) ->
+  (_ : isSegal' ((z : X) -> A z)) ->
+  U
+  := \X -> \A -> \x -> \AxisSegal -> \whatever -> X
 
 ## Identity
 
