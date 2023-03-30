@@ -116,8 +116,45 @@ This is a literate `rzk` file:
                             (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h)
             (\k -> AisSegal (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
                             (\t -> k (t, 0_2)) (\t -> k (1_2, t)))))
+
+-- Theorem 5.5 justifies an alternate definition of isSegal
+#def isSegal' : (A : U) -> U
+  := \A -> Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >)
+
+#def isSegal-isSegal' : (A : U) -> (_ : isSegal A) -> isSegal' A
+  := \A -> \AisSegal -> Segal-restriction-equiv A AisSegal  
+
+-- [RS17, Theorem 5.6(i)] : if X is a type and A : X -> U is such that A(x) is a Segal type then (x : X) -> A x is a Segal type
+#def next-Segal-function-types : (_ : FunExt) -> 
+   (X : U) -> (A : (_ : X) -> U) ->
+  (_ : (x : X) -> isSegal' (A x)) -> 
+  Eq ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)((x : X) -> <{t : 2 * 2 | Λ t} -> A x >) 
+  := \funext -> \X -> \A -> \fiberwiseAisSegal -> 
+    fibered-equiv-function-equiv funext X (\x -> <{t : 2 * 2 | Δ² t} -> A x >) (\x -> <{t : 2 * 2 | Λ t} -> A x >) fiberwiseAisSegal
+
+#def partial-Segal-function-types : 
+   (X : U) -> (A : (_ : X) -> U) ->
+  (_ : (x : X) -> isSegal' (A x)) -> 
+  Eq (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >) ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)
+  := \X -> \A -> \fiberwiseAisSegal -> (flip-ext-fun (2 * 2) Δ² BOT X A recBOT)
+
+#def Segal-function-types : (_ : FunExt) ->
+  (X : U) -> (A : (_ : X) -> U) ->
+  (_ : (x : X) -> isSegal' (A x)) ->
+  isSegal' ((x : X) -> A x) 
+  := \funext -> \X -> \A -> \fiberwiseAisSegal -> 
+    triple_compose_Eq
+      (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >)
+      ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >) 
+      ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >) 
+      (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >)
+      (flip-ext-fun (2 * 2) Δ² BOT X A recBOT)
+      (fibered-equiv-funcion-equiv funext X (\x -> <{t : 2 * 2 | Δ² t} -> A x >) (\x -> <{t : 2 * 2 | Λ t} -> A x >) fiberwiseAisSegal)
+      (sym_Eq (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >) ((x : X) -> <{t : 2 * 2 | Λ t} -> A x>) (flip-ext-fun (2 * 2) Λ BOT X A recBOT)) 
 ```
 
+-- the converse implication isSegal' A -> isSegal A doesn't quite work because the definition isSegal A is slightly wrong
+-- we want a particular map to be an equivalence, not just an abstract equivalence
 #def restriction-equiv-Segal : (A : U) 
   -> (e : Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >)) 
   -> isSegal A
@@ -130,17 +167,6 @@ This is a literate `rzk` file:
         e)
       (horn A x y z f g)
 
--- Theorem 5.5 justifies an alternate definition of isSegal
-#def isSegal' : (A : U) -> U
-  := \A -> Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >)
-
--- [RS17, Theorem 5.6(i)] : if X is a type and A : X -> U is such that A(x) is a Segal type then (x : X) -> A x is a Segal type
-#def Segal-function-types : 
-  (X : U) -> (A : (_ : X) -> U) ->
-  (x : X) -> (_ : isSegal' (A x)) ->
-  (_ : isSegal' ((z : X) -> A z)) ->
-  U
-  := \X -> \A -> \x -> \AxisSegal -> \whatever -> X
 
 ## Identity
 
