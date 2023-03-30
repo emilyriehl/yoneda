@@ -273,13 +273,22 @@
     : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fisequiv : isEquiv A B f) -> isHalfAdjointEquiv A B f
     := \A -> \B -> \f -> \fisequiv -> hasInverse-isHalfAdjointEquiv A B f (isEquiv-hasInverse A B f fisequiv)
 
+-- the type of logical equivalences between types
+#def iff : (A : U) -> (B : U) -> U
+  := \A -> \B -> prod ((_ : A) -> B) ((_ : B) -> A)
+
 -- the type of equivalences between types
 #def Eq : (A : U) -> (B : U) -> U
   := \(A : U) -> \(B : U) -> ∑ (f : (_ : A) -> B), ((isEquiv A) B) f
 
--- the type of logical equivalences between types
-#def iff : (A : U) -> (B : U) -> U
-  := \A -> \B -> prod ((_ : A) -> B) ((_ : B) -> A)
+-- the data of an equivalence is not symmetric so we promote an equivalence to an invertible map to prove symmetry
+#def sym_Eq : (A : U) -> (B : U) -> (e : Eq A B) -> Eq B A
+    := \A -> \B -> \e -> 
+        (first (isEquiv-hasInverse A B (first e) (second e)) , 
+            (( first e , 
+                second (second (isEquiv-hasInverse A B (first e) (second e))) ) , 
+            ( first e , 
+                first (second (isEquiv-hasInverse A B (first e) (second e))) ) ))
 
 -- a composition of two equivalences (perhaps, using projections everywhere is not a good style?)
 #def compose_Eq
@@ -315,3 +324,44 @@
                 (first B=C)
                 ((second (second (second A=B))) ((first (second (second B=C))) c)))
           ((second (second (second B=C))) c)))))
+
+-- a composition of three equivalences
+#def triple_compose_Eq
+  : (A : U) ->
+    (B : U) ->
+    (C : U) ->
+    (D : U) -> 
+    (A=B : Eq A B) ->
+    (B=C : Eq B C) ->
+    (C=D : Eq C D) ->
+    Eq A D
+  := \A -> \B -> \C -> \D -> \A=B -> \B=C -> \C=D ->
+    compose_Eq A B D (A=B) (compose_Eq B C D B=C C=D)  
+
+-- the next result requires function extensionality
+#def FunExt : U
+    := (X : U) -> (A : (_ : X) -> U) -> (f : (x : X) -> A x) -> (g : (x : X) -> A x) ->
+        (px : (x : X) -> f x =_{A x} g x) -> f =_{(x : X) -> A x} g
+
+#def funext_test : (_ : FunExt) -> (X : U) -> (A : (_ : X) -> U) -> (f : (x : X) -> A x) -> (g : (x : X) -> A x) ->
+        (px : (x : X) -> f x =_{A x} g x) -> f =_{(x : X) -> A x} g
+    := \funext -> \X -> \A -> \f -> \g -> \px -> funext X A f g px
+
+-- A fibered equivalence defines functions between dependent function types
+#def fibered-equiv-function-iff :
+    (X : U) -> (A : (_ : X) -> U) -> (B : (_ : X) -> U) -> (_ : (x : X) -> Eq (A x) (B x)) ->
+    iff ((x : X) -> A x) ((x : X) -> B x)
+    := \X -> \A -> \B -> \fibequiv -> 
+        ((\a -> \x -> (first (fibequiv x)) (a x)) ,
+        (\b -> \x -> (first (first (second fibequiv x))) (b x)))
+
+-- A fiberwise equivalence defines an equivalence of dependent function types
+#def fibered-equiv-function-equiv :
+    (_ : FunExt) -> (X : U) -> (A : (_ : X) -> U) -> (B : (_ : X) -> U) -> (_ : (x : X) -> Eq (A x) (B x)) ->
+    Eq ((x : X) -> A x) ((x : X) -> B x)
+    := \funext -> \X -> \A -> \B -> \fibequiv -> 
+        ((\a -> \x -> (first (fibequiv x)) (a x)),
+            (((\b -> \x -> (first (first (second (fibequiv x)))) (b x)),
+                \a -> funext X A (\x -> (first (first (second fibequiv x))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
+           ((\b -> \x -> (first (second (second fibequiv x))) (b x)),
+            (\b -> funext X B (\x -> (first (fibequiv x)) ((first (second (second fibequiv x))) (b x))) b (\x -> (second (second (second fibequiv x))) (b x))))))

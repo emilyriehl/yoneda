@@ -17,3 +17,6 @@
 
 #def identity : (A : U) -> (a : A) -> A
   := \A -> \a -> a  
+
+#def constant : (X : U) -> (A : U) -> (a : A) -> (_ : X) -> A
+  := \X -> \A -> \a -> \x -> a
