@@ -45,7 +45,7 @@ This is a literate `rzk` file:
 ```rzk
 -- more generally, there is a restriction along any subspace inclusion
 #def horn-restriction : (A : U) -> (f : <{t : 2 * 2 | Δ² t} -> A >) -> <{t : 2 * 2 | Λ t} -> A >
-  := \A -> \f -> \t -> f t
+  := \A -> \f -> \{t : 2 * 2 | Λ t } -> f t
 
 -- checking partial evaluations of functions
 #def identity-identity-composition : (A : U) -> (composition A A A (identity A) (identity A)) =_{(z : A) -> A} (identity A)
@@ -117,6 +117,14 @@ This is a literate `rzk` file:
             (\k -> AisSegal (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
                             (\t -> k (t, 0_2)) (\t -> k (1_2, t)))))
 
+-- Verify that the mapping in (Segal-restriction-equiv A AisSegal)
+-- is exactly (horn-restriction A)
+#def Segal-restriction-equiv-test
+  : (A : U) ->
+    (AisSegal : isSegal A) ->
+    (first (Segal-restriction-equiv A AisSegal)) =_{(_ : <{t : 2 * 2 | Δ² t} -> A >) -> <{t : 2 * 2 | Λ t} -> A >} (horn-restriction A)
+  := \A -> \AisSegal -> refl_{horn-restriction A}
+
 -- Theorem 5.5 justifies an alternate definition of isSegal
 #def isSegal' : (A : U) -> U
   := \A -> Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >)
@@ -133,30 +141,35 @@ This is a literate `rzk` file:
     fibered-equiv-function-equiv funext X (\x -> <{t : 2 * 2 | Δ² t} -> A x >) (\x -> <{t : 2 * 2 | Λ t} -> A x >) fiberwiseAisSegal
 
 #def partial-Segal-function-types : 
-   (X : U) -> (A : (_ : X) -> U) ->
+  (X : U) -> (A : (_ : X) -> U) ->
   (_ : (x : X) -> isSegal' (A x)) -> 
   Eq (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >) ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)
-  := \X -> \A -> \fiberwiseAisSegal -> (flip-ext-fun (2 * 2) Δ² BOT X A recBOT)
+  := \X -> \A -> \fiberwiseAisSegal ->
+    flip-ext-fun
+      (2 * 2)
+      Δ² (\{t : 2 * 2 | Δ² t} -> BOT)
+      X
+      (\{t : 2 * 2 | Δ² t} -> A)
+      (\{t : 2 * 2 | BOT} -> recBOT)
 
-#def Segal-function-types : (_ : FunExt) ->
-  (X : U) -> (A : (_ : X) -> U) ->
-  (_ : (x : X) -> isSegal' (A x)) ->
-  isSegal' ((x : X) -> A x) 
-  := \funext -> \X -> \A -> \fiberwiseAisSegal -> 
-    triple_compose_Eq
-      (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >)
-      ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >) 
-      ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >) 
-      (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >)
-      (flip-ext-fun (2 * 2) Δ² BOT X A recBOT)
-      (fibered-equiv-funcion-equiv funext X (\x -> <{t : 2 * 2 | Δ² t} -> A x >) (\x -> <{t : 2 * 2 | Λ t} -> A x >) fiberwiseAisSegal)
-      (sym_Eq (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >) ((x : X) -> <{t : 2 * 2 | Λ t} -> A x>) (flip-ext-fun (2 * 2) Λ BOT X A recBOT)) 
-```
+-- #def Segal-function-types : (_ : FunExt) ->
+--   (X : U) -> (A : (_ : X) -> U) ->
+--   (_ : (x : X) -> isSegal' (A x)) ->
+--   isSegal' ((x : X) -> A x) 
+--   := \funext -> \X -> \A -> \fiberwiseAisSegal -> 
+--     triple_compose_Eq
+--       (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >)
+--       ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >) 
+--       ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >) 
+--       (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >)
+--       (flip-ext-fun (2 * 2) Δ² BOT X A recBOT)
+--       (fibered-equiv-funcion-equiv funext X (\x -> <{t : 2 * 2 | Δ² t} -> A x >) (\x -> <{t : 2 * 2 | Λ t} -> A x >) fiberwiseAisSegal)
+--       (sym_Eq (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >) ((x : X) -> <{t : 2 * 2 | Λ t} -> A x>) (flip-ext-fun (2 * 2) Λ BOT X A recBOT)) 
 
 -- the converse implication isSegal' A -> isSegal A doesn't quite work because the definition isSegal A is slightly wrong
 -- we want a particular map to be an equivalence, not just an abstract equivalence
 #def restriction-equiv-Segal : (A : U) 
-  -> (e : Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >)) 
+  -> (e : isEquiv (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) (horn-restriction A)) 
   -> isSegal A
   := \A -> \e -> \x -> \y -> \z -> \f -> \g ->
       (projection-equiv-contractible-fibers 
@@ -164,9 +177,24 @@ This is a literate `rzk` file:
         (\k -> ∑ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
                         hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
                             (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h)
-        e)
+        (second (compose_Eq
+          (∑ (k : <{t : 2 * 2 | Λ t} -> A >),
+            ∑ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
+            hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
+                    (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h)
+          (<{t : 2 * 2 | Δ² t} -> A >)
+          (<{t : 2 * 2 | Λ t} -> A >)
+          (sym_Eq
+            (<{t : 2 * 2 | Δ² t} -> A >)
+            (∑ (k : <{t : 2 * 2 | Λ t} -> A >),
+              ∑ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
+              hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
+                      (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h)
+            (restriction-equiv A))
+          (horn-restriction A, e)
+        )))
       (horn A x y z f g)
-
+```
 
 ## Identity
 
