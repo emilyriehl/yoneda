@@ -32,6 +32,22 @@ This is a literate `rzk` file:
             (\h -> \{t : I | psi t} -> \x -> (h x) t, -- the section
             \h -> refl_{h})))
 
+#def flip-ext-fun-inv 
+   : (I : CUBE) ->
+      (psi : (t : I) -> TOPE) ->
+      (phi : {(t : I) | psi t} -> TOPE) ->
+      (X : U) ->
+      (Y : <{t : I | psi t } -> (x : X) -> U >) ->
+      (f : <{t : I | phi t } -> (x : X) -> Y t x >) ->
+      Eq ((x : X) -> <{t : I | psi t} -> Y t x [ phi t |-> f t x]>)
+      (<{t : I | psi t} -> (x : X) -> Y t x [ phi t |-> f t ]>)
+   := \I -> \psi -> \phi -> \X -> \Y -> \f -> 
+         (\h -> \{t : I | psi t} -> \x -> (h x) t, -- the one-way map
+            ((\g -> \x -> \{t : I | psi t} -> g t x, -- the retraction
+            \h -> refl_{h}), -- the retracting homotopy
+            (\g -> \x -> \{t : I | psi t} -> g t x, -- the section
+            \g -> refl_{g})))
+
 -- [RS17, Theorem 4.2]
 #def curry-uncurry :
    (I : CUBE) ->

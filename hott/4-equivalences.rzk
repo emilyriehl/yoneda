@@ -299,7 +299,7 @@
     (B=C : Eq B C) ->
     Eq A C
   := \A -> \B -> \C -> \A=B -> \B=C ->
-    (\a -> (first B=C) ((first A=B) a),
+    (\a -> (first B=C) ((first A=B) a), -- the composite equivalence 
      ((\c -> (first (first (second A=B))) ((first (first (second (B=C)))) c),
      (\a -> 
         concat A
@@ -325,6 +325,42 @@
                 ((second (second (second A=B))) ((first (second (second B=C))) c)))
           ((second (second (second B=C))) c)))))
 
+-- now we compose the functions that are equivalences
+#def compose_isEquiv
+  : (A : U) ->
+    (B : U) ->
+    (C : U) ->
+    (f : (_ : A) -> B) ->
+    (_ : isEquiv A B f) ->
+    (g : (_ : B) -> C) ->
+    (_ : isEquiv B C g) -> 
+    isEquiv A C (composition A B C g f)
+  := \A -> \B -> \C -> \f -> \fisequiv -> \g -> \gisequiv ->
+    ((composition C B A (isEquiv-retraction A B f fisequiv) (isEquiv-retraction B C g gisequiv), 
+    \a -> 
+        concat A
+          ((isEquiv-retraction A B f fisequiv) ((isEquiv-retraction B C g gisequiv) (g (f a))))
+          ((isEquiv-retraction A B f fisequiv) (f a))
+          a
+          (ap B A
+                ((isEquiv-retraction B C g gisequiv) (g (f a))) -- should be inferred
+                (f a) -- should be inferred
+                (isEquiv-retraction A B f fisequiv)
+                ((second (first gisequiv)) (f a)))
+          ((second (first fisequiv)) a)),
+    (composition C B A (isEquiv-section A B f fisequiv) (isEquiv-section B C g gisequiv),
+    \c ->
+        concat C
+          (g (f ((first (second fisequiv)) ((first (second gisequiv)) c))))
+          (g ((first (second gisequiv)) c))
+          c
+          (ap B C
+                (f ((first (second fisequiv)) ((first (second gisequiv)) c))) -- should be inferred
+                ((first (second gisequiv)) c) -- should be inferred
+                g
+               ((second (second fisequiv)) ((first (second gisequiv)) c)))
+          ((second (second gisequiv)) c)))  
+
 -- a composition of three equivalences
 #def triple_compose_Eq
   : (A : U) ->
@@ -337,6 +373,22 @@
     Eq A D
   := \A -> \B -> \C -> \D -> \A=B -> \B=C -> \C=D ->
     compose_Eq A B D (A=B) (compose_Eq B C D B=C C=D)  
+
+#def triple_compose_isEquiv
+  : (A : U) ->
+    (B : U) ->
+    (C : U) ->
+    (D : U) -> 
+    (f : (_ : A) -> B) ->
+    (_ : isEquiv A B f) ->
+    (g : (_ : B) -> C) ->
+    (_ : isEquiv B C g) -> 
+    (h : (_ : C) -> D) ->
+    (_ : isEquiv C D h) ->
+    isEquiv A D (triple-composition A B C D h g f)    
+  := \A -> \B -> \C -> \D -> \f -> \fisequiv -> \g -> \gisequiv -> \h -> \hisequiv
+    -> compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
+
 
 -- the next result requires function extensionality
 #def FunExt : U
