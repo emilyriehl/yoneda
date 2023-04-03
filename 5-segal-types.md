@@ -162,82 +162,6 @@ This is a literate `rzk` file:
   := \A -> (isSegal-isSegal' A , isSegal'-isSegal A)
 
 -- [RS17, Theorem 5.6(i)] : if X is a type and A : X -> U is such that A(x) is a Segal type then (x : X) -> A x is a Segal type
-#def partial-Segal-function-types : 
-  (X : U) -> (A : (_ : X) -> U) ->
-  (_ : (x : X) -> isSegal' (A x)) -> 
-  Eq (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >) ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)
-  := \X -> \A -> \fiberwiseAisSegal ->
-    flip-ext-fun
-      (2 * 2)
-      Δ² (\{t : 2 * 2 | Δ² t} -> BOT)
-      X
-      (\{t : 2 * 2 | Δ² t} -> A)
-      (\{t : 2 * 2 | BOT} -> recBOT)
-
-#def last-Segal-function-types : 
-  (X : U) -> (A : (_ : X) -> U) ->
-  (_ : (x : X) -> isSegal' (A x)) -> 
-  Eq (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >) ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >)
-  := \X -> \A -> \fiberwiseAisSegal ->
-    flip-ext-fun
-      (2 * 2)
-      Λ (\{t : 2 * 2 | Λ t} -> BOT)
-      X
-      (\{t : 2 * 2 | Λ t} -> A)
-      (\{t : 2 * 2 | BOT} -> recBOT)
-
-
-#def next-Segal-function-types : (_ : FunExt) -> 
-   (X : U) -> (A : (_ : X) -> U) ->
-  (_ : (x : X) -> isSegal' (A x)) -> 
-  Eq ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)((x : X) -> <{t : 2 * 2 | Λ t} -> A x >) 
-  := \funext -> \X -> \A -> \fiberwiseAisSegal -> 
-    fibered-equiv-function-equiv funext X (\x -> <{t : 2 * 2 | Δ² t} -> A x >) (\x -> <{t : 2 * 2 | Λ t} -> A x >) (\x -> (horn-restriction (A x) , fiberwiseAisSegal x))
-
-#def last-Segal-function-types-inv : 
-  (X : U) -> (A : (_ : X) -> U) ->
-  (_ : (x : X) -> isSegal' (A x)) -> 
-  Eq ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >)(<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >) 
-  := \X -> \A -> \fiberwiseAisSegal ->
-    flip-ext-fun-inv
-      (2 * 2)
-      Λ (\{t : 2 * 2 | Λ t} -> BOT)
-      X
-      (\{t : 2 * 2 | Λ t} -> A)
-      (\{t : 2 * 2 | BOT} -> recBOT)
-
-
-#def partial-Segal-function-types' : 
-  (X : U) -> (A : (_ : X) -> U) ->
-  (_ : (x : X) -> isSegal' (A x)) -> 
-  isEquiv (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >) ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)(\g -> \x -> \{t : 2 * 2 | Δ² t} -> g t x)
-  := \X -> \A -> \fiberwiseAisSegal ->
-    second (flip-ext-fun
-      (2 * 2)
-      Δ² (\{t : 2 * 2 | Δ² t} -> BOT)
-      X
-      (\{t : 2 * 2 | Δ² t} -> A)
-      (\{t : 2 * 2 | BOT} -> recBOT))
-
-#def next-Segal-function-types' : (_ : FunExt) -> 
-   (X : U) -> (A : (_ : X) -> U) ->
-  (_ : (x : X) -> isSegal' (A x)) -> 
-  isEquiv ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)((x : X) -> <{t : 2 * 2 | Λ t} -> A x >) (\h -> \x -> \{t : 2 * 2 | Λ t} -> h x t)
-  := \funext -> \X -> \A -> \fiberwiseAisSegal -> 
-    second (fibered-equiv-function-equiv funext X (\x -> <{t : 2 * 2 | Δ² t} -> A x >) (\x -> <{t : 2 * 2 | Λ t} -> A x >) (\x -> (horn-restriction (A x) , fiberwiseAisSegal x)))
-
-#def last-Segal-function-types-inv' : 
-  (X : U) -> (A : (_ : X) -> U) ->
-  (_ : (x : X) -> isSegal' (A x)) -> 
-  isEquiv ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >)(<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >) (\h -> \{t : 2 * 2 | Λ t} -> \x -> (h x) t)
-  := \X -> \A -> \fiberwiseAisSegal ->
-    second(flip-ext-fun-inv
-      (2 * 2)
-      Λ (\{t : 2 * 2 | Λ t} -> BOT)
-      X
-      (\{t : 2 * 2 | Λ t} -> A)
-      (\{t : 2 * 2 | BOT} -> recBOT))      
-
 #def Segal-function-types-function : 
   (X : U) -> (A : (_ : X) -> U) -> (_ : (x : X) -> isSegal' (A x)) -> 
   (_ : <{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >) -> (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >)
@@ -307,24 +231,27 @@ This is a literate `rzk` file:
        ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >) 
        (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >)
         (\g -> \x -> \{t : 2 * 2 | Δ² t} -> g t x) -- first equivalence
-        (partial-Segal-function-types' X A fiberwiseAisSegal)
+            (second (flip-ext-fun
+              (2 * 2)
+              Δ² (\{t : 2 * 2 | Δ² t} -> BOT)
+              X
+              (\{t : 2 * 2 | Δ² t} -> A)
+              (\{t : 2 * 2 | BOT} -> recBOT)))
         (\h -> \x -> \{t : 2 * 2 | Λ t} -> h x t) -- second equivalence
-        (next-Segal-function-types' funext X A fiberwiseAisSegal)
+          (second (fibered-equiv-function-equiv 
+              funext 
+              X 
+              (\x -> <{t : 2 * 2 | Δ² t} -> A x >) 
+              (\x -> <{t : 2 * 2 | Λ t} -> A x >) 
+              (\x -> (horn-restriction (A x) , fiberwiseAisSegal x))))
         (\h -> \{t : 2 * 2 | Λ t} -> \x -> (h x) t) -- third equivalence
-        (last-Segal-function-types-inv' X A fiberwiseAisSegal)
+          (second(flip-ext-fun-inv
+            (2 * 2)
+            Λ (\{t : 2 * 2 | Λ t} -> BOT)
+            X
+            (\{t : 2 * 2 | Λ t} -> A)
+            (\{t : 2 * 2 | BOT} -> recBOT)))
 ```      
-
-triple_compose_isEquiv
-  : (A : U) ->
-    (B : U) ->
-    (C : U) ->
-    (D : U) -> 
-    (f : (_ : A) -> B) ->
-    (_ : isEquiv A B f) ->
-    (g : (_ : B) -> C) ->
-    (_ : isEquiv B C g) -> 
-    (h : (_ : C) -> D) ->
-    (_ : isEquiv C D h) ->
 
 ## Identity
 
