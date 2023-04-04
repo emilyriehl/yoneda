@@ -318,7 +318,95 @@ This is a literate `rzk` file:
        (\h -> \{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> h s t)
        (\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s)) 
        (Segal-extension-types-function-pointwise-check I psi A fiberwiseAisSegal) 
+
+#def Segal-extension-types-start : 
+  (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
+  (A : <{s : I | psi s} -> U >) -> 
+  (_ : <{s : I | psi s} -> isSegal' (A s) >) -> 
+  Eq   (<{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >)
+      (<{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
+   := \I -> \psi -> \A -> \fiberwiseAisSegal ->  
+        ((\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s), -- first equivalence
+          (second(fubini
+            (2 * 2)
+            I 
+            Δ²
+            (\{t : 2 * 2 | Δ² t} -> BOT)
+            psi
+            (\{s : I | psi s} -> BOT)
+            (\{t : 2 * 2 | Δ² t} -> \{s : I | psi s} -> A s)
+            (\{u : (2 * 2) * I | BOT} -> recBOT)))
+        )
+
+
+#def Segal-extension-types-last : 
+  (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
+  (A : <{s : I | psi s} -> U >) -> 
+  (_ : <{s : I | psi s} -> isSegal' (A s) >) -> 
+  Eq   (<{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s > >)
+        (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
+   := \I -> \psi -> \A -> \fiberwiseAisSegal ->  
+        ((\h -> \{t : 2 * 2 | Λ t} -> \{s : I | psi s} -> (h s) t), -- third equivalence
+          (second(fubini
+            I 
+            (2 * 2)
+            psi
+            (\{s : I | psi s} -> BOT)
+            Λ
+            (\{t : 2 * 2 | Λ t} -> BOT)
+            (\{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> A s)
+            (\{u : I * (2 * 2) | BOT} -> recBOT)))
+        )
 ```
+
+#def Segal-extension-types : (_ : ExtExt) ->
+  (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
+  (A : <{s : I | psi s} -> U >) -> 
+  (_ : <{s : I | psi s} -> isSegal' (A s) >) -> 
+   isSegal' (<{s : I | psi s} -> A s >) 
+   := \extext -> \I -> \psi -> \A -> \fiberwiseAisSegal ->  
+     triple_compose_isEquiv
+        (<{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) 
+        (<{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
+        (<{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s > >)
+        (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
+        (\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s)  -- first equivalence
+          (second (fubini
+              (2 * 2)
+              Δ² (\{t : 2 * 2 | Δ² t} -> BOT)
+              X
+              (\{t : 2 * 2 | Δ² t} -> A)
+              (\{t : 2 * 2 | BOT} -> recBOT)))
+        (\h -> \{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> h s t) -- second equivalence
+          (second (fibered-equiv-function-equiv 
+              funext 
+              X 
+              (\x -> <{t : 2 * 2 | Δ² t} -> A x >) 
+              (\x -> <{t : 2 * 2 | Λ t} -> A x >) 
+              (\x -> (horn-restriction (A x) , fiberwiseAisSegal x))))
+        (\h -> \{t : 2 * 2 | Λ t} -> \{s : I | psi s} -> (h s) t) -- third equivalence
+          (second(fubini
+            I 
+            2 * 2
+            psi
+            (\{s : I | psi t} -> BOT)
+            Λ
+            (\{t : 2 * 2 | Λ t} -> BOT)
+            (\{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> A s)
+            (\{u : I * (2 * 2) | BOT} -> recBOT)))
+
+
+   (I : CUBE) ->
+   (J : CUBE) ->
+   (psi : (t : I) -> TOPE) -> 
+   (phi : {(t : I) | psi t} -> TOPE) ->
+   (zeta : (s : J) -> TOPE) ->
+   (chi : {(s : J) | zeta s} -> TOPE) ->   
+   (X : <{t : I | psi t} -> <{s : J | zeta s} -> U > >) ->
+   (f : <{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -> X t s >) ->
+   Eq (<{t : I | psi t} -> <{ s : J | zeta s} -> X t s [ chi s |-> f (t, s) ]> [ phi t |-> \{s : J | zeta s} -> f (t, s) ]>)
+      (<{s : J | zeta s} -> <{ t : I | psi t} -> X t s [ phi t |-> f (t, s) ]> [ chi s |-> \{t : I | psi t} -> f (t, s) ]>)  
+
 
 ## Identity
 
