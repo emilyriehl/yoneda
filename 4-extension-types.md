@@ -12,6 +12,19 @@ This is a literate `rzk` file:
 - `hott/4-equivalences.rzk` — contains the definitions of `Eq` and `compose_Eq`
 - the file `hott/4-equivalences.rzk` relies in turn on the previous files in `hott/`
 
+## A projection, forgetting tope constraints
+```rzk
+#def extension-projection 
+   : (I : CUBE) ->
+      (psi : (t : I) -> TOPE) ->
+      (phi : {(t : I) | psi t} -> TOPE) ->
+      (A : <{t : I | psi t} -> U >) ->
+      (a : <{t : I | phi t} -> A t >) ->
+      (_ : <{t : I | psi t} -> A t [ phi t |-> a t ]>) ->
+      <{t : I | psi t} -> A t >
+   := \I -> \psi -> \phi -> \A -> \a -> \f -> \{t : I | psi t} -> f t
+```
+
 ## Commutation of arguments and currying
 
 ```rzk

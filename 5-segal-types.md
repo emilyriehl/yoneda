@@ -40,9 +40,26 @@ This is a literate `rzk` file:
   := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> first (first (AisSegal x y z f g))
 
 -- Segal types have composition witnesses
-#def Segal-comp : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
+#def Segal-comp-witness : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
   -> (f : hom A x y) -> (g : hom A y z) -> hom2 A x y z f g (Segal-comp A AisSegal x y z f g)
   := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> second (first (AisSegal x y z f g))
+
+#def unfolding-square : (A : U) -> (_ : <{u : 2 * 2 | Δ² u} -> A >) -> <{ts : 2 * 2 | TOP} -> A >
+  := \A -> \simp -> \{(t, s) : 2 * 2 | TOP} -> recOR(t <= s, s <= t, simp (s, t), simp (t, s))
+
+-- for use in the proof of associativity
+#def Segal-comp-witness-square : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
+  -> (f : hom A x y) -> (g : hom A y z) -> <{ts : 2 * 2 | TOP} -> A >
+  := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> unfolding-square A 
+        (extension-projection
+          2 * 2
+          Δ²
+          ∂Δ²
+          (\{t : 2 * 2 | Δ² t} -> A)
+          (\{(t, s) : 2 * 2 | ∂Δ² (t, s)} -> 
+            recOR(s === 0_2, t === 1_2 \/ s === t, f t, 
+              recOR(t === 1_2, s === t, g s, (Segal-comp A AisSegal x y z f g) s))) 
+          (Segal-comp-witness A AisSegal x y z f g))
 ```
 
 ### Characterizing Segal types
@@ -425,7 +442,7 @@ This is a literate `rzk` file:
         Δ¹
         (\{t : 2 | Δ¹ t} -> A)
         (\{t : 2 | Δ¹ t} -> AisSegal)  
-
+```
 -- this adds about 45 minutes to the typechecking, while the function above is instantaneous
 #def Segal-arrow-types : (extext : ExtExt) ->
   (A : U) -> (AisSegal : isSegal A) -> isSegal (arr A)
@@ -437,7 +454,7 @@ This is a literate `rzk` file:
         Δ¹
         (\{t : 2 | Δ¹ t} -> A)
         (\{t : 2 | Δ¹ t} -> (isSegal-isSegal' A AisSegal)))
-```
+
 
 ## Identity
 
