@@ -34,10 +34,15 @@ This is a literate `rzk` file:
 ```
 
 ```rzk
--- Segal types have a composition functor
+-- Segal types have a composition functor; written in diagrammatic order to match the order of arguments in isSegal
 #def Segal-comp : (A : U) -> (_ : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
-  -> (_ : hom A y z) -> (_ : hom A x y) -> hom A x z
-  := \A -> \AisSegal -> \x -> \y -> \z -> \g -> \f -> first (first (AisSegal x y z f g))
+  -> (_ : hom A x y) -> (_ : hom A y z) -> hom A x z
+  := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> first (first (AisSegal x y z f g))
+
+-- Segal types have composition witnesses
+#def Segal-comp : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
+  -> (f : hom A x y) -> (g : hom A y z) -> hom2 A x y z f g (Segal-comp A AisSegal x y z f g)
+  := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> second (first (AisSegal x y z f g))
 ```
 
 ### Characterizing Segal types
@@ -327,7 +332,7 @@ This is a literate `rzk` file:
       (<{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
    := \I -> \psi -> \A -> \fiberwiseAisSegal ->  
         ((\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s), -- first equivalence
-          (second(fubini
+        (second(fubini
             (2 * 2)
             I 
             Δ²
@@ -338,6 +343,18 @@ This is a literate `rzk` file:
             (\{u : (2 * 2) * I | BOT} -> recBOT)))
         )
 
+
+#def Segal-extension-types-middle : (_ : ExtExt) ->
+  (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
+  (A : <{s : I | psi s} -> U >) -> 
+  (_ : <{s : I | psi s} -> isSegal' (A s) >) -> 
+  Eq  (<{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
+     (<{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s > >)
+  := \extext -> \I -> \psi -> \A -> \fiberwiseAisSegal -> 
+    fibered-equiv-extension-equiv extext I psi  
+      (\{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s >)
+      (\{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s >)
+      (\{s : I | psi s} -> (horn-restriction (A s), fiberwiseAisSegal s))     
 
 #def Segal-extension-types-last : 
   (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
@@ -357,7 +374,6 @@ This is a literate `rzk` file:
             (\{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> A s)
             (\{u : I * (2 * 2) | BOT} -> recBOT)))
         )
-```
 
 #def Segal-extension-types : (_ : ExtExt) ->
   (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
@@ -371,42 +387,57 @@ This is a literate `rzk` file:
         (<{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s > >)
         (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
         (\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s)  -- first equivalence
-          (second (fubini
+            (second(fubini
               (2 * 2)
-              Δ² (\{t : 2 * 2 | Δ² t} -> BOT)
-              X
-              (\{t : 2 * 2 | Δ² t} -> A)
-              (\{t : 2 * 2 | BOT} -> recBOT)))
+              I 
+              Δ²
+              (\{t : 2 * 2 | Δ² t} -> BOT)
+              psi
+              (\{s : I | psi s} -> BOT)
+              (\{t : 2 * 2 | Δ² t} -> \{s : I | psi s} -> A s)
+              (\{u : (2 * 2) * I | BOT} -> recBOT)))
         (\h -> \{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> h s t) -- second equivalence
-          (second (fibered-equiv-function-equiv 
-              funext 
-              X 
-              (\x -> <{t : 2 * 2 | Δ² t} -> A x >) 
-              (\x -> <{t : 2 * 2 | Λ t} -> A x >) 
-              (\x -> (horn-restriction (A x) , fiberwiseAisSegal x))))
+          (second (fibered-equiv-extension-equiv extext I psi  
+            (\{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s >)
+            (\{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s >)
+            (\{s : I | psi s} -> (horn-restriction (A s), fiberwiseAisSegal s))     ))
         (\h -> \{t : 2 * 2 | Λ t} -> \{s : I | psi s} -> (h s) t) -- third equivalence
           (second(fubini
             I 
-            2 * 2
+            (2 * 2)
             psi
-            (\{s : I | psi t} -> BOT)
+            (\{s : I | psi s} -> BOT)
             Λ
             (\{t : 2 * 2 | Λ t} -> BOT)
             (\{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> A s)
-            (\{u : I * (2 * 2) | BOT} -> recBOT)))
+            (\{u : I * (2 * 2) | BOT} -> recBOT)))        
 
+-- maybe it's useful to have notation for arrow types? Prefix notation would be nicer
+#def arr : (A : U) -> U
+  := \A -> <{t : 2 | Δ¹ t} -> A >
 
-   (I : CUBE) ->
-   (J : CUBE) ->
-   (psi : (t : I) -> TOPE) -> 
-   (phi : {(t : I) | psi t} -> TOPE) ->
-   (zeta : (s : J) -> TOPE) ->
-   (chi : {(s : J) | zeta s} -> TOPE) ->   
-   (X : <{t : I | psi t} -> <{s : J | zeta s} -> U > >) ->
-   (f : <{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -> X t s >) ->
-   Eq (<{t : I | psi t} -> <{ s : J | zeta s} -> X t s [ chi s |-> f (t, s) ]> [ phi t |-> \{s : J | zeta s} -> f (t, s) ]>)
-      (<{s : J | zeta s} -> <{ t : I | psi t} -> X t s [ phi t |-> f (t, s) ]> [ chi s |-> \{t : I | psi t} -> f (t, s) ]>)  
+#def Segal'-arrow-types : (extext : ExtExt) ->
+  (A : U) -> (AisSegal : isSegal' A) -> isSegal' (arr A)
+  := \extext -> \A -> \AisSegal -> 
+    Segal-extension-types
+        extext
+        2
+        Δ¹
+        (\{t : 2 | Δ¹ t} -> A)
+        (\{t : 2 | Δ¹ t} -> AisSegal)  
 
+-- this adds about 45 minutes to the typechecking, while the function above is instantaneous
+#def Segal-arrow-types : (extext : ExtExt) ->
+  (A : U) -> (AisSegal : isSegal A) -> isSegal (arr A)
+  := \extext -> \A -> \AisSegal -> 
+    isSegal'-isSegal (arr A)
+      (Segal-extension-types
+        extext
+        2
+        Δ¹
+        (\{t : 2 | Δ¹ t} -> A)
+        (\{t : 2 | Δ¹ t} -> (isSegal-isSegal' A AisSegal)))
+```
 
 ## Identity
 

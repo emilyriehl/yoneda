@@ -184,58 +184,34 @@ A more complete treatment still needs to be done.
       (_ : <{t : I | psi t} -> (f t =_{A t} g t) [ phi t |-> refl_{a t} ]>) ->
       (f =_{<{t : I | psi t} -> A t [ phi t |-> a t ]>} g)
 
-
--- A fibered equivalence defines functions between extension types, for simplicity extending from BOT
-#def fibered-function-function :
-   (I : CUBE) ->
-   (psi : (t : I) -> TOPE) ->
-   (A : <{t : I | psi t } -> U >) ->
-   (B : <{t : I | psi t } -> U >) ->
-   (_ : <{t : I | psi t } -> ((_ : (A t)) -> (B t)) >) ->
-   (a : <{t : I | psi t } -> A t >) -> (<{t : I | psi t } -> B t >)
-    := \I -> \psi -> \A -> \B -> \fibfun -> \a -> 
-        \{t : I | psi t } -> (fibfun t) (a t)
-
-#def fibered-equiv-function :
+-- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
+#def fibered-equiv-extension-equiv : (_ : ExtExt) ->
    (I : CUBE) ->
    (psi : (t : I) -> TOPE) ->
    (A : <{t : I | psi t } -> U >) ->
    (B : <{t : I | psi t } -> U >) ->
    (_ : <{t : I | psi t } -> (Eq (A t) (B t)) >) ->
-   (a : <{t : I | psi t } -> A t >) -> (<{t : I | psi t } -> B t >)
-    := \I -> \psi -> \A -> \B -> \fibequiv -> \a -> 
-        \{t : I | psi t } -> ((first (fibequiv t)) (a t))       
+   Eq (<{t : I | psi t } -> A t >) (<{t : I | psi t } -> B t >)
+    := \extext -> \I -> \psi -> \A -> \B -> \fibequiv -> 
+        ((\a -> \{t : I | psi t } -> (first (fibequiv t)) (a t)),
+            (((\b -> \{t : I | psi t } -> (first (first (second fibequiv t))) (b t)),
+                \a -> extext
+                        I
+                        psi
+                        (\{t : I | psi t} -> BOT)
+                        A
+                        (\{u : I | BOT} -> recBOT)
+                        (\{t : I | psi t} -> (first (first (second fibequiv t))) ((first (fibequiv t)) (a t))) 
+                        a 
+                        (\{t : I | psi t} -> (second (first (second (fibequiv t)))) (a t))), 
+           ((\b -> \{t : I | psi t } -> (first (second (second fibequiv t))) (b t)),
+               (\b -> extext 
+                        I
+                        psi
+                        (\{t : I | psi t} -> BOT)
+                        B 
+                        (\{u : I | BOT} -> recBOT)
+                        (\{t : I | psi t} -> (first (fibequiv t)) ((first (second (second fibequiv t))) (b t))) 
+                        b 
+                        (\{t : I | psi t} -> (second (second (second fibequiv t))) (b t))))))              
 ```        
-
--- A fibered equivalence defines functions between extension types, for simplicity extending from BOT
-#def fibered-equiv-function-iff :
-   (I : CUBE) ->
-   (psi : (t : I) -> TOPE) ->
-   (A : <{t : I | psi t } -> U >) ->
-   (B : <{t : I | psi t } -> U >) ->
-   (_ : <{t : I | psi t } -> (Eq (A t) (B t)) >) ->
-   iff (<{t : I | psi t } -> A t >) (<{t : I | psi t } -> B t >)
-    := \I -> \psi -> \A -> \B -> \fibequiv -> 
-        ((\a -> \{t : I | psi t } -> (first (fibequiv t)) (a t)) ,
-        (\b -> \{t : I | psi t } -> (first (first (second fibequiv t))) (b t)))
-
-```
-
--- A fibered equivalence defines functions between dependent function types
-#def fibered-equiv-function-iff :
-    (X : U) -> (A : (_ : X) -> U) -> (B : (_ : X) -> U) -> (_ : (x : X) -> Eq (A x) (B x)) ->
-    iff ((x : X) -> A x) ((x : X) -> B x)
-    := \X -> \A -> \B -> \fibequiv -> 
-        ((\a -> \x -> (first (fibequiv x)) (a x)) ,
-        (\b -> \x -> (first (first (second fibequiv x))) (b x)))
-
--- A fiberwise equivalence defines an equivalence of dependent function types
-#def fibered-equiv-function-equiv :
-    (_ : FunExt) -> (X : U) -> (A : (_ : X) -> U) -> (B : (_ : X) -> U) -> (_ : (x : X) -> Eq (A x) (B x)) ->
-    Eq ((x : X) -> A x) ((x : X) -> B x)
-    := \funext -> \X -> \A -> \B -> \fibequiv -> 
-        ((\a -> \x -> (first (fibequiv x)) (a x)),
-            (((\b -> \x -> (first (first (second (fibequiv x)))) (b x)),
-                \a -> funext X A (\x -> (first (first (second fibequiv x))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
-           ((\b -> \x -> (first (second (second fibequiv x))) (b x)),
-            (\b -> funext X B (\x -> (first (fibequiv x)) ((first (second (second fibequiv x))) (b x))) b (\x -> (second (second (second fibequiv x))) (b x))))))
