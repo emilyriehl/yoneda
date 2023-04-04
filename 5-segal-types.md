@@ -161,7 +161,7 @@ This is a literate `rzk` file:
 #def isSegal-iff-isSegal' : (A : U) -> iff (isSegal A) (isSegal' A)      
   := \A -> (isSegal-isSegal' A , isSegal'-isSegal A)
 
--- [RS17, Theorem 5.6(i)] : if X is a type and A : X -> U is such that A(x) is a Segal type then (x : X) -> A x is a Segal type
+-- [RS17, Corollary 5.6(i)] : if X is a type and A : X -> U is such that A(x) is a Segal type then (x : X) -> A x is a Segal type
 #def Segal-function-types-function : 
   (X : U) -> (A : (_ : X) -> U) -> (_ : (x : X) -> isSegal' (A x)) -> 
   (_ : <{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >) -> (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >)
@@ -251,7 +251,74 @@ This is a literate `rzk` file:
             X
             (\{t : 2 * 2 | Λ t} -> A)
             (\{t : 2 * 2 | BOT} -> recBOT)))
-```      
+
+-- [RS17, Corollary 5.6(ii)] : if X is a shape and A : X -> U is such that A(x) is a Segal type then (x : X) -> A x is a Segal type
+#def Segal-extension-types-function : 
+  (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
+  (A : <{s : I | psi s} -> U >) -> 
+  (_ : <{s : I | psi s} -> isSegal' (A s) >) -> 
+  (_ : <{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) -> (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
+  := \I -> \psi -> \A -> \fiberwiseAisSegal -> horn-restriction (<{s : I | psi s} -> A s >)
+
+#def Segal-extension-types-function' : 
+  (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
+  (A : <{s : I | psi s} -> U >) -> 
+  (_ : <{s : I | psi s} -> isSegal' (A s) >) -> 
+  (_ : <{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) -> (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
+  := \I -> \psi -> \A -> \fiberwiseAisSegal ->
+    (triple-composition 
+    (<{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) 
+    (<{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
+    (<{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s > >)
+    (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
+     (\h -> \{t : 2 * 2 | Λ t} -> \{s : I | psi s} -> (h s) t)
+     (\h -> \{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> h s t)
+     (\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s))
+
+#def Segal-extension-types-function-pointwise-check : 
+  (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
+  (A : <{s : I | psi s} -> U >) -> 
+  (_ : <{s : I | psi s} -> isSegal' (A s) >) -> 
+  (f : <{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) ->
+  (horn-restriction <{s : I | psi s} -> A s >) f =_{<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >}
+  (triple-composition 
+    (<{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) 
+    (<{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
+    (<{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s > >)
+    (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
+     (\h -> \{t : 2 * 2 | Λ t} -> \{s : I | psi s} -> (h s) t)
+     (\h -> \{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> h s t)
+     (\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s)) f
+  := \I -> \psi -> \A -> \fiberwiseAisSegal -> \f -> refl_{(horn-restriction (<{s : I | psi s} -> A s >)) f}     
+
+#def Segal-extension-types-function-check : (_ : FunExt) -> 
+  (I : CUBE) -> (psi : (s : I) -> TOPE) ->  
+  (A : <{s : I | psi s} -> U >) -> 
+  (_ : <{s : I | psi s} -> isSegal' (A s) >) -> 
+  (horn-restriction <{s : I | psi s} -> A s >) =_{(_ : <{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) -> <{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >}
+  (triple-composition 
+    (<{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) 
+    (<{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
+    (<{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s > >)
+    (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
+     (\h -> \{t : 2 * 2 | Λ t} -> \{s : I | psi s} -> (h s) t)
+     (\h -> \{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> h s t)
+     (\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s)) 
+  := \funext -> \I -> \psi -> \A -> \fiberwiseAisSegal -> 
+    funext 
+      <{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >
+      (\base -> (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >))
+      (horn-restriction (<{s : I | psi s} -> A s >))
+      (triple-composition 
+        (<{t : 2 * 2 | Δ² t} -> <{s : I | psi s} -> A s > >) 
+        (<{s : I | psi s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
+        (<{s : I | psi s} -> <{t : 2 * 2 | Λ t} -> A s > >)
+        (<{t : 2 * 2 | Λ t} -> <{s : I | psi s} -> A s > >)
+       (\h -> \{t : 2 * 2 | Λ t} -> \{s : I | psi s} -> (h s) t)
+       (\h -> \{s : I | psi s} -> \{t : 2 * 2 | Λ t} -> h s t)
+       (\g -> \{s : I | psi s} -> \{t : 2 * 2 | Δ² t} -> g t s)) 
+       (Segal-extension-types-function-pointwise-check I psi A fiberwiseAisSegal) 
+```
 
 ## Identity
 

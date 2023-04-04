@@ -168,4 +168,19 @@ This is a literate `rzk` file:
 
 ## Relative function extensionality
 
-To be done.
+A more complete treatment still needs to be done.
+
+```rzk
+-- [RS17, Proposition 4.8(ii)]
+-- as suggested by footnote 8, we assert this as an "extension extensionality" axiom
+#def ExtExt : U
+   := (I : CUBE) ->
+      (psi : (t : I) -> TOPE) ->
+      (phi : {(t : I) | psi t} -> TOPE) ->
+      (A : <{t : I | psi t } -> U >) ->
+      (a : <{t : I | phi t } -> A t >) ->
+      (f : <{t : I | psi t} -> A t [ phi t |-> a t ]>) ->
+      (g : <{t : I | psi t} -> A t [ phi t |-> a t ]>) ->
+      (_ : <{t : I | psi t} -> (f t =_{A t} g t) [ phi t |-> refl_{a t} ]>) ->
+      (f =_{<{t : I | psi t} -> A t [ phi t |-> a t ]>} g)
+```
