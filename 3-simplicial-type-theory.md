@@ -34,8 +34,8 @@ Boundaries of simplices:
   := \(t : 2) -> (t === 0_2 \/ t === 1_2)
 
 -- boundary of a 2-simplex
-#def ∂Δ² : (t : 2 * 2) -> TOPE
-  := \(t, s) -> (s === 0_2 \/ t === 1_2 \/ s === t)
+#def ∂Δ² : {(ts : 2 * 2) | Δ² ts} -> TOPE
+  := \{ts : 2 * 2 | Δ² ts} -> ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
 ```
 
 Horns:
