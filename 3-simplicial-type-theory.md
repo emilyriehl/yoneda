@@ -46,6 +46,25 @@ Horns:
   := \(t, s) -> (s === 0_2 \/ t === 1_2)
 ```
 
+The Square:
+
+```rzk
+-- the product of topes defines the product of shapes
+#def shapeProd : (I : CUBE) -> (J : CUBE) ->
+                 (psi : (t : I) -> TOPE) ->
+                 (chi : (s : J) -> TOPE) ->
+                 (ts : I * J) -> TOPE
+  := \I -> \J -> \psi -> \chi -> \(t, s) -> psi t /\ chi s
+
+-- the square as a product
+#def Δ¹×Δ¹ : (t : 2 * 2) -> TOPE
+  := shapeProd 2 2 Δ¹ Δ¹
+
+-- the vertical boundary of the square 
+#def ∂Δ¹×Δ¹ : (t : 2 * 2) -> TOPE
+  := shapeProd 2 2 ∂Δ¹ Δ¹
+```  
+
 More to be done.
 
 ## Joins of simplices

@@ -17,15 +17,20 @@ This is a literate `rzk` file:
 
 ```rzk
 -- [RS17, Definition 5.1]
--- The type of arrow in A from x to y
+-- The type of arrows in A from x to y
 #def hom : (A : U) -> (x : A) -> (y : A) -> U
   := \A -> \x -> \y -> <{t : 2 | Δ¹ t } -> A [ ∂Δ¹ t |-> recOR(t === 0_2, t === 1_2, x, y) ]>
 
 -- [RS17, Definition 5.2]
 #def hom2 : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) -> (h : hom A x z) -> U
   := \A -> \x -> \y -> \z -> \f -> \g -> \h ->
-    <{(t, s) : 2 * 2 | Δ² (t, s)} -> A	[ ∂Δ² (t, s) |->
-        	recOR(s === 0_2, t === 1_2 \/ s === t, f t, recOR(t === 1_2, s === t, g s, h s)) ]>
+    <{(t1, t2) : 2 * 2 | Δ² (t1, t2)} -> A	[ ∂Δ² (t1, t2) |->
+        	recOR(t2 === 0_2, t1 === 1_2 \/ t2 === t1, f t1, recOR(t1 === 1_2, t2 === t1, g t2, h t2)) ]>
+
+-- for later use
+#def hom2-triangle : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) -> (h : hom A x z) 
+  -> (_ : hom2 A x y z f g h) -> <{(t, s) : 2 * 2 | Δ² (t, s)} -> A	>
+  := \A -> \x -> \y -> \z -> \f -> \g -> \h -> \alpha -> \{(t, s) : 2 * 2 | Δ² (t, s)} -> alpha (t, s)
 
 -- [RS17, Definition 5.3]
 #def isSegal : (A : U) -> U
@@ -426,7 +431,7 @@ This is a literate `rzk` file:
         (\{t : 2 | Δ¹ t} -> A)
         (\{t : 2 | Δ¹ t} -> AisSegal)  
 ```
--- this adds about 45 minutes to the typechecking, while the function above is instantaneous
+-- this adds about 45 seconds to the typechecking, while the function above is instantaneous
 #def Segal-arrow-types : (extext : ExtExt) ->
   (A : U) -> (AisSegal : isSegal A) -> isSegal (arr A)
   := \extext -> \A -> \AisSegal -> 
@@ -463,25 +468,78 @@ This is a literate `rzk` file:
 ## Associativity
 
 ```rzk
-#def unfolding-square : (A : U) -> (_ : <{vu : 2 * 2 | Δ² vu} -> A >) -> <{ts : 2 * 2 | TOP} -> A >
-  := \A -> \simp -> \{(t, s) : (2 * 2) | TOP} -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+#def unbounded-arrow : (A : U) -> (x : A) -> (y : A) -> (f : hom A x y) -> arr A
+  := \A -> \x -> \y -> \f -> \{t : 2 | Δ¹ t} -> f t
+
+#def unfolding-square : (A : U) -> (_ : <{vu : 2 * 2 | Δ² vu} -> A >) -> <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A >
+  := \A -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+
+#def unfolding-square-test : (A : U) -> (x : A) -> 
+  (_ : <{vu : 2 * 2 | Δ² vu} -> A [(first vu) === 0_2 /\ (second vu) === 0_2 |-> x ] >) -> 
+  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 0_2 /\ (second ts) === 0_2 |-> x ] >
+  := \A -> \x -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+
+#def unfolding-square-another-test : (A : U) -> (f : <{t : 2 | Δ¹ t} -> A >) -> 
+  (_ : <{vu : 2 * 2 | Δ² vu} -> A [(second vu) === 0_2 |-> f (first vu) ] >) -> 
+  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 0_2 |-> f (second ts) ] >
+  := \A -> \f -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+
+#def unfolding-square-yet-another-test : (A : U) -> (x : A) -> (y : A) -> (f : hom A x y) -> 
+  (_ : <{vu : 2 * 2 | Δ² vu} -> A [(second vu) === 0_2 |-> f (first vu) ] >) -> 
+  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 0_2 |-> f (second ts) ] >
+  := \A -> \x -> \y -> \f -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+
+#def unfolding-square-horn-left-test : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) ->
+  (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) -> 
+  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 0_2 |-> f (second ts)] >
+  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+
+#def unfolding-square-horn-right-test : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) ->
+  (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) -> 
+  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 1_2 |-> g(second ts) ] >
+  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+
+-- #def unfolding-square-horn-combined-test : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) ->
+--  (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) -> 
+--  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [ (first ts) === 0_2 \/ (first ts) === 1_2 |-> recOR ((first ts) === 0_2, (first ts) === 1_2, f(second ts), g(second ts)) ] >
+--  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+
+-- #def boundary-unfolding-square : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) 
+--   -> (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) 
+--  -> <{ts : 2 * 2 | □ ts} -> 
+--      A [ || ts |-> recOR((first ts) === 0_2, (first ts) === 1_2, f (second ts), g (second ts))] >
+--  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | □ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
 
 #def square-to-arr-in-arr : (A : U) -> (_ : <{vu : 2 * 2 | TOP} -> A >) -> (<{t : 2 | Δ¹ t} -> <{s : 2 | Δ¹ s} -> A > >)
   := \A -> \square -> \{t : 2 | Δ¹ t} -> \{s : 2 | Δ¹ s} -> square ((t , s))
 
+-- the following failed until I changed the variable names in hom2 to (t2, t1); now this isn't needed
+#def Segal-comp-witness-triangle : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
+  -> (f : hom A x y) -> (g : hom A y z) -> <{(t, s) : 2 * 2 | Δ² (t, s)} -> A	>
+  := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> 
+    hom2-triangle A x y z f g
+      (Segal-comp A AisSegal x y z f g)
+      (Segal-comp-witness A AisSegal x y z f g)
+
 -- for use in the proof of associativity
 #def Segal-comp-witness-square : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
-  -> (f : hom A x y) -> (g : hom A y z) -> <{ts : 2 * 2 | TOP} -> A >
+  -> (f : hom A x y) -> (g : hom A y z) -> <{w : 2 * 2 | TOP} -> A >
   := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> unfolding-square A 
         (extension-projection
           (2 * 2)
           (Δ²)
           (∂Δ²)
-          (\{u : 2 * 2 | Δ² u} -> A)
-          (\{(t, s) : 2 * 2 | ∂Δ² (t, s)} -> 
-            recOR(s === 0_2, t === 1_2 \/ s === t, f t, 
-              recOR(t === 1_2, s === t, g s, (Segal-comp A AisSegal x y z f g) s))) 
+          (\{w : 2 * 2 | Δ² w} -> A)
+          (\{(v, u) : 2 * 2 | ∂Δ² (v, u)} -> 
+            recOR(u === 0_2, v === 1_2 \/ u === v, f v, 
+              recOR(v === 1_2, u === v, g u, (Segal-comp A AisSegal x y z f g) u))) 
           (Segal-comp-witness A AisSegal x y z f g))
+
+```
+#def Segal-arr-in-arr : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
+  -> (f : hom A x y) -> (g : hom A y z) -> hom (arr A) (unbounded-arrow A x y f) (unbounded-arrow A y z g)
+  := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> 
+    square-to-arr-in-arr A (Segal-comp-witness-square A AisSegal x y z f g)
 ```
 
 ## Homotopies
