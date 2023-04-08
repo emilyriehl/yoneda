@@ -382,7 +382,7 @@
 -- the type of logical equivalences between types
 #def iff : (A : U) -> (B : U) -> U
   := \A -> \B -> prod ((_ : A) -> B) ((_ : B) -> A)
-
+  
 -- In what follows we apply the above to show that the projection from the total space of a sigma type is an equivalence if and only if its fibers are contractible
 #def total-space-projection : (A : U) -> (B : (a : A) -> U) -> (_ : ∑ (x : A), B x) -> A
   := \A -> \B -> \z -> first z
