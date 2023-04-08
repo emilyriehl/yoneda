@@ -207,24 +207,24 @@ A more complete treatment still needs to be done.
    Eq (<{t : I | psi t } -> A t >) (<{t : I | psi t } -> B t >)
     := \extext -> \I -> \psi -> \A -> \B -> \fibequiv -> 
         ((\a -> \{t : I | psi t } -> (first (fibequiv t)) (a t)),
-            (((\b -> \{t : I | psi t } -> (first (first (second fibequiv t))) (b t)),
+            (((\b -> \{t : I | psi t } -> (first (first (second (fibequiv t)))) (b t)),
                 \a -> extext
                         I
                         psi
                         (\{t : I | psi t} -> BOT)
                         A
                         (\{u : I | BOT} -> recBOT)
-                        (\{t : I | psi t} -> (first (first (second fibequiv t))) ((first (fibequiv t)) (a t))) 
+                        (\{t : I | psi t} -> (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
                         a 
                         (\{t : I | psi t} -> (second (first (second (fibequiv t)))) (a t))), 
-           ((\b -> \{t : I | psi t } -> (first (second (second fibequiv t))) (b t)),
+           ((\b -> \{t : I | psi t } -> (first (second (second (fibequiv t)))) (b t)),
                (\b -> extext 
                         I
                         psi
                         (\{t : I | psi t} -> BOT)
                         B 
                         (\{u : I | BOT} -> recBOT)
-                        (\{t : I | psi t} -> (first (fibequiv t)) ((first (second (second fibequiv t))) (b t))) 
+                        (\{t : I | psi t} -> (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
                         b 
-                        (\{t : I | psi t} -> (second (second (second fibequiv t))) (b t))))))              
+                        (\{t : I | psi t} -> (second (second (second (fibequiv t)))) (b t))))))              
 ```        
