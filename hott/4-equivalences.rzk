@@ -65,7 +65,7 @@
                 (composition A B A (isEquiv-section A B f fisequiv) f) 
                 (composition A B A (isEquiv-retraction A B f fisequiv) f) 
                 (identity A)  
-                    (homotopy-prewhisker A B A (isEquiv-section A B f fisequiv) (isEquiv-retraction A B f fisequiv) (isEquiv-htpic-inverses A B f fisequiv) f) second (first fisequiv) , second (second  fisequiv)))
+                    (homotopy-prewhisker A B A (isEquiv-section A B f fisequiv) (isEquiv-retraction A B f fisequiv) (isEquiv-htpic-inverses A B f fisequiv) f) (second (first fisequiv)) , second (second  fisequiv)))
 
 #def hasInverse-retraction-composite : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : hasInverse A B f) -> (_ : A) -> A
     := \A -> \B -> \f -> \fhasinverse -> composition A B A (hasInverse-inverse A B f fhasinverse) f 
@@ -405,7 +405,7 @@
     iff ((x : X) -> A x) ((x : X) -> B x)
     := \X -> \A -> \B -> \fibequiv -> 
         ((\a -> \x -> (first (fibequiv x)) (a x)) ,
-        (\b -> \x -> (first (first (second fibequiv x))) (b x)))
+        (\b -> \x -> (first (first (second (fibequiv x)))) (b x)))
 
 -- A fiberwise equivalence defines an equivalence of dependent function types
 #def fibered-equiv-function-equiv :
@@ -414,6 +414,6 @@
     := \funext -> \X -> \A -> \B -> \fibequiv -> 
         ((\a -> \x -> (first (fibequiv x)) (a x)),
             (((\b -> \x -> (first (first (second (fibequiv x)))) (b x)),
-                \a -> funext X A (\x -> (first (first (second fibequiv x))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
-           ((\b -> \x -> (first (second (second fibequiv x))) (b x)),
-            (\b -> funext X B (\x -> (first (fibequiv x)) ((first (second (second fibequiv x))) (b x))) b (\x -> (second (second (second fibequiv x))) (b x))))))
+                \a -> funext X A (\x -> (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
+           ((\b -> \x -> (first (second (second (fibequiv x)))) (b x)),
+            (\b -> funext X B (\x -> (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -> (second (second (second (fibequiv x)))) (b x))))))

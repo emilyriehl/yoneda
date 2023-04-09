@@ -23,6 +23,7 @@ TODO
   := \A -> \x -> \y -> \z -> \f -> \g -> \h -> \alpha -> \C -> \u -> \v -> \w -> \ff -> \gg -> \hh -> <{(t1, t2) : 2 * 2 | Δ² (t1, t2)} -> C (alpha (t1, t2)) [ ∂Δ² (t1, t2) |->
         	recOR(t2 === 0_2, t1 === 1_2 \/ t2 === t1, ff t1, recOR(t1 === 1_2, t2 === t1, gg t2, hh t2)) ]>
         	
+<<<<<<< HEAD
 -- [RS17, Definition 8.2]
 #def isCovFam : (A : U) -> (C : (a : A) -> U) -> U
 	:= \A -> \C -> (x : A) -> (y : A) -> (f : hom A x y) -> (u : C x) 
@@ -56,3 +57,9 @@ TODO
 --#def isCovFam-iff-CovFam' : (A : U) -> (C : (a : A) -> (_ : isCovFam A C) -> --isCovFam' A C
 --	:= TODO
 
+=======
+        	
+ 
+
+```
+>>>>>>> 330845f4ee011257fe3f1fa93c84f8879f3627aa
