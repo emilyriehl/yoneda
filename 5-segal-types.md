@@ -584,19 +584,19 @@ This is a literate `rzk` file:
   := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \((t, s), r) -> 
     (Segal-associativity-prism extext A AisSegal w x y z f g h) ((t, r), s)
 
--- the diagonal composite; fails to recognize that the codomain is z (long error message)
-#def Segal-triple-composite-fails : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
-  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
-  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> <{t : 2 | Δ¹ t} -> A [t === 0_2 |-> w] >
-  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \t ->
-    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), t)
-
 -- the diagonal composite; fails to recognize that the codomain is z (more comprehensible error message)
 #def Segal-triple-composite-also-fails : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
   -> (w : A) -> (x : A) -> (y : A) -> (z : A)
-  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> <{t : 2 | Δ¹ t} -> A [t === 0_2 |-> w] >
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> hom A w z -- <{t : 2 | Δ¹ t} -> A [t === 0_2 |-> w] >
   := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \t ->
     (Segal-associativity-prism extext A AisSegal w x y z f g h) ((t, t), t)
+
+-- the diagonal composite; fails to recognize that the codomain is z (long error message)
+#def Segal-triple-composite-fails : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> hom A w z -- <{t : 2 | Δ¹ t} -> A [t === 0_2 |-> w] > 
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \t ->
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), t)
 
 -- the diagonal composite can be found here
 #def Segal-triple-composite : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
