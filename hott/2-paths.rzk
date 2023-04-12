@@ -38,6 +38,16 @@
   := \A -> \x -> \y -> \z -> \p -> \q 
     -> rev (x =_{A} z) (concat A x y z p q) (altconcat A x y z p q) (concat-altconcat A x y z p q)
 
+-- concatenation of two paths with common codomain; defined using concat and rev
+#def zig-zag-concat : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : z =_{A} y) -> (x =_{A} z)
+  := \A -> \x -> \y -> \z -> \p -> \q 
+    -> concat A x y z p (rev A z y q)
+
+-- concatenation of two paths with common domain; defined using concat and rev
+#def zag-zig-concat : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : y =_{A} x) -> (q : y =_{A} z) -> (x =_{A} z)
+  := \A -> \x -> \y -> \z -> \p -> \q 
+    -> concat A x y z (rev A y x p) q
+
 #def concat-right-cancel 
   : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (p : x =_{A} y) -> (q : x =_{A} y) -> (r : y =_{A} z)
     -> (H : (concat A x y z p r) =_{x =_{A} z} (concat A x y z q r)) -> (p =_{x =_{A} y} q)

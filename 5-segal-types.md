@@ -48,6 +48,18 @@ This is a literate `rzk` file:
 #def Segal-comp-witness : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
   -> (f : hom A x y) -> (g : hom A y z) -> hom2 A x y z f g (Segal-comp A AisSegal x y z f g)
   := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> second (first (AisSegal x y z f g))
+
+#def Segal-comp-uniqueness : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
+  -> (f : hom A x y) -> (g : hom A y z) -> (h : hom A x z) -> (_ : hom2 A x y z f g h) ->
+  (Segal-comp A AisSegal x y z f g) =_{hom A x z} h
+  := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> \h -> \alpha -> 
+    total-path-to-base-path 
+      (hom A x z)
+      (\(k : hom A x z) -> hom2 A x y z f g k)
+      (Segal-comp A AisSegal x y z f g, Segal-comp-witness A AisSegal x y z f g)
+      (h, alpha)
+      (contracting-htpy (∑ (k : hom A x z), hom2 A x y z f g k) (AisSegal x y z f g) (h, alpha))
+
 ```
 
 ### Characterizing Segal types
@@ -430,7 +442,7 @@ This is a literate `rzk` file:
         Δ¹
         (\{t : 2 | Δ¹ t} -> A)
         (\{t : 2 | Δ¹ t} -> AisSegal)  
-```
+
 -- this adds about 45 seconds to the typechecking, while the function above is instantaneous
 #def Segal-arrow-types : (extext : ExtExt) ->
   (A : U) -> (AisSegal : isSegal A) -> isSegal (arr A)
@@ -442,7 +454,7 @@ This is a literate `rzk` file:
         Δ¹
         (\{t : 2 | Δ¹ t} -> A)
         (\{t : 2 | Δ¹ t} -> (isSegal-isSegal' A AisSegal)))
-
+```
 
 ## Identity
 
@@ -499,10 +511,10 @@ This is a literate `rzk` file:
   <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 1_2 |-> g(second ts) ] >
   := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
 
--- #def unfolding-square-horn-combined-test : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) ->
---  (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) -> 
---  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [ (first ts) === 0_2 \/ (first ts) === 1_2 |-> recOR ((first ts) === 0_2, (first ts) === 1_2, f(second ts), g(second ts)) ] >
---  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
+#def unfolding-square-horn-combined-test : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) ->
+  (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) -> 
+  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [ (first ts) === 0_2 \/ (first ts) === 1_2 |-> recOR ((first ts) === 0_2, (first ts) === 1_2, f(second ts), g(second ts)) ] >
+  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
 
 -- #def boundary-unfolding-square : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) 
 --   -> (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) 
@@ -535,12 +547,116 @@ This is a literate `rzk` file:
               recOR(v === 1_2, u === v, g u, (Segal-comp A AisSegal x y z f g) u))) 
           (Segal-comp-witness A AisSegal x y z f g))
 
-```
 #def Segal-arr-in-arr : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (z : A) 
   -> (f : hom A x y) -> (g : hom A y z) -> hom (arr A) (unbounded-arrow A x y f) (unbounded-arrow A y z g)
   := \A -> \AisSegal -> \x -> \y -> \z -> \f -> \g -> 
     square-to-arr-in-arr A (Segal-comp-witness-square A AisSegal x y z f g)
+
+#def Segal-horn-in-arrow : (A : U) -> (AisSegal : isSegal A) -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) ->     <{t : 2 * 2 | Λ t } -> arr A >
+  := \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h ->
+    horn (arr A) (unbounded-arrow A w x f) (unbounded-arrow A x y g) (unbounded-arrow A y z h)
+        (Segal-arr-in-arr A AisSegal w x y f g)
+        (Segal-arr-in-arr A AisSegal x y z g h)
+
+#def Segal-associativity-witness : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) ->
+     hom2 (arr A) (unbounded-arrow A w x f) (unbounded-arrow A x y g) h (Segal-arr-in-arr A AisSegal w x y f g) (Segal-arr-in-arr A AisSegal x y z g h)
+        (Segal-comp (arr A) (Segal-arrow-types extext A AisSegal) 
+          (unbounded-arrow A w x f) (unbounded-arrow A x y g) (unbounded-arrow A y z h) 
+          (Segal-arr-in-arr A AisSegal w x y f g) (Segal-arr-in-arr A AisSegal x y z g h))
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> 
+    (Segal-comp-witness (arr A) (Segal-arrow-types extext A AisSegal) 
+      (unbounded-arrow A w x f) (unbounded-arrow A x y g) (unbounded-arrow A y z h)
+      (Segal-arr-in-arr A AisSegal w x y f g) (Segal-arr-in-arr A AisSegal x y z g h))
+
+#def Segal-associativity-prism : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> <{t : (2 * 2) * 2 | Δ²×Δ¹ t} -> A >
+  :=  \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \(t, s) -> 
+    (Segal-associativity-witness extext A AisSegal w x y z f g h) t s
+
+-- extracted via the middle-simplex map \((t, s), r) -> ((t, r), s) from Δ³ to Δ²×Δ¹
+#def Segal-associativity-tetrahedron : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> <{t : (2 * 2) * 2 | Δ³ t} -> A >
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \((t, s), r) -> 
+    (Segal-associativity-prism extext A AisSegal w x y z f g h) ((t, r), s)
+
+-- the diagonal composite; fails to recognize that the codomain is z (long error message)
+#def Segal-triple-composite-fails : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> <{t : 2 | Δ¹ t} -> A [t === 0_2 |-> w] >
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \t ->
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), t)
+
+-- the diagonal composite; fails to recognize that the codomain is z (more comprehensible error message)
+#def Segal-triple-composite-also-fails : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> <{t : 2 | Δ¹ t} -> A [t === 0_2 |-> w] >
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \t ->
+    (Segal-associativity-prism extext A AisSegal w x y z f g h) ((t, t), t)
+
+-- the diagonal composite can be found here
+#def Segal-triple-composite : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) -> hom A w z 
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \t ->
+    (Segal-comp (arr A) (Segal-arrow-types extext A AisSegal) 
+          (unbounded-arrow A w x f) (unbounded-arrow A x y g) (unbounded-arrow A y z h) 
+          (Segal-arr-in-arr A AisSegal w x y f g) (Segal-arr-in-arr A AisSegal x y z g h)) t t
+
+#def Segal-left-associativity-witness : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) 
+  -> hom2 A w y z (Segal-comp A AisSegal w x y f g) h (Segal-triple-composite extext A AisSegal w x y z f g h)
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \(t, s) -> 
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), s)
+ 
+#def Segal-right-associativity-witness : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) 
+  -> hom2 A w x z f (Segal-comp A AisSegal x y z g h) (Segal-triple-composite extext A AisSegal w x y z f g h)
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h -> \(t, s) -> 
+  (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, s), s)
+
+#def Segal-left-associativity : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) ->
+  (Segal-comp A AisSegal w y z (Segal-comp A AisSegal w x y f g) h) =_{hom A w z}
+  (Segal-triple-composite extext A AisSegal w x y z f g h)
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h ->
+      Segal-comp-uniqueness 
+        A AisSegal w y z (Segal-comp A AisSegal w x y f g) h
+        (Segal-triple-composite extext A AisSegal w x y z f g h)
+        (Segal-left-associativity-witness extext A AisSegal w x y z f g h)
+
+#def Segal-right-associativity : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) ->
+  (Segal-comp A AisSegal w x z f (Segal-comp A AisSegal x y z g h)) =_{hom A w z}
+  (Segal-triple-composite extext A AisSegal w x y z f g h)
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h ->
+      Segal-comp-uniqueness 
+        A AisSegal w x z f (Segal-comp A AisSegal x y z g h)
+        (Segal-triple-composite extext A AisSegal w x y z f g h)
+        (Segal-right-associativity-witness extext A AisSegal w x y z f g h)
+
+#def Segal-associativity : (extext : ExtExt) -> (A : U) -> (AisSegal : isSegal A) 
+  -> (w : A) -> (x : A) -> (y : A) -> (z : A)
+  -> (f : hom A w x) -> (g : hom A x y) -> (h : hom A y z) ->
+  (Segal-comp A AisSegal w y z (Segal-comp A AisSegal w x y f g) h) =_{hom A w z}
+  (Segal-comp A AisSegal w x z f (Segal-comp A AisSegal x y z g h)) 
+  := \extext -> \A -> \AisSegal -> \w -> \x -> \y -> \z -> \f -> \g -> \h ->
+    zig-zag-concat (hom A w z) 
+      (Segal-comp A AisSegal w y z (Segal-comp A AisSegal w x y f g) h)
+      (Segal-triple-composite extext A AisSegal w x y z f g h)
+      (Segal-comp A AisSegal w x z f (Segal-comp A AisSegal x y z g h))
+      (Segal-left-associativity extext A AisSegal w x y z f g h) 
+      (Segal-right-associativity extext A AisSegal w x y z f g h)
 ```
+
 
 ## Homotopies
 

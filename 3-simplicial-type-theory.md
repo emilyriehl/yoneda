@@ -50,7 +50,7 @@ Horns:
   := \(t, s) -> (s === 0_2 \/ t === 1_2)
 ```
 
-The Square:
+Products:
 
 ```rzk
 -- the product of topes defines the product of shapes
@@ -67,6 +67,10 @@ The Square:
 -- the vertical boundary of the square 
 #def ∂Δ¹×Δ¹ : (t : 2 * 2) -> TOPE
   := shapeProd 2 2 ∂Δ¹ Δ¹
+
+-- the prism from a 2-simplex in an arrow type
+#def Δ²×Δ¹ : (t : (2 * 2) * 2) -> TOPE
+  := shapeProd (2 * 2) 2 Δ² Δ¹  
 ```  
 
 More to be done.
