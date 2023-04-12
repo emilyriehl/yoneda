@@ -460,20 +460,20 @@ This is a literate `rzk` file:
 
 ```rzk
 -- [RS17, Definition 5.7]
--- Segal types have identity arrows
-#def Segal-id : (A : U) -> (_ : isSegal A) -> (x : A) -> hom A x x
-  := \A -> \AisSegal -> \x -> \{t : 2 | Δ¹ t} -> x 
+-- all types have identity arrows
+#def id-arr : (A : U) -> (x : A) -> hom A x x
+  := \A -> \x -> \{t : 2 | Δ¹ t} -> x 
 
 -- [RS17, Proposition 5.8a]
 -- the right unit law for identity
 #def Segal-comp-id : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (f : hom A x y) 
-  -> hom2 A x y y f (Segal-id A AisSegal y) f
+  -> hom2 A x y y f (id-arr A y) f
   := \A -> \AisSegal -> \x -> \y -> \f -> \{(t, s) : 2 * 2 | Δ² (t, s)} -> f t
 
 -- [RS17, Proposition 5.8b]
 -- the left unit law for identity
 #def Segal-id-comp : (A : U) -> (AisSegal : isSegal A) -> (x : A) -> (y : A) -> (f : hom A x y) 
-   -> hom2 A x x y (Segal-id A AisSegal x) f f
+   -> hom2 A x x y (id-arr A x) f f
   := \A -> \AisSegal -> \x -> \y -> \f -> \{(t, s) : 2 * 2 | Δ² (t, s)} -> f s
 ```
 
