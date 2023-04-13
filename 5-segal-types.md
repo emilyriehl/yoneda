@@ -21,11 +21,37 @@ This is a literate `rzk` file:
 #def hom : (A : U) -> (x : A) -> (y : A) -> U
   := \A -> \x -> \y -> <{t : 2 | Δ¹ t } -> A [ ∂Δ¹ t |-> recOR(t === 0_2, t === 1_2, x, y) ]>
 
+-- [RS17, Definition 5.1]
+-- Same as hom, but using simpler syntax.
+#def hom-alt
+  (A : U)   -- A type.
+  (x y : A) -- Two points in A.
+  : U
+  := (t : Δ¹) -> A [    -- (hom A x y) is a 1-simplex (an arrow) in A where
+    t === 0_2 |-> x,    -- * the left endpoint is exactly x
+    t === 1_2 |-> y     -- * the right endpoint is exactly y
+  ]
+
 -- [RS17, Definition 5.2]
 #def hom2 : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) -> (h : hom A x z) -> U
   := \A -> \x -> \y -> \z -> \f -> \g -> \h ->
     <{(t1, t2) : 2 * 2 | Δ² (t1, t2)} -> A	[ ∂Δ² (t1, t2) |->
         	recOR(t2 === 0_2, t1 === 1_2 \/ t2 === t1, f t1, recOR(t1 === 1_2, t2 === t1, g t2, h t2)) ]>
+
+-- [RS17, Definition 5.2]
+-- Same as hom2, but using simpler syntax.
+#def hom2-alt
+  (A : U)           -- A type.
+  (x y z : A)       -- Three points in A.
+  (f : hom A x y)   -- An arrow in A from x to y.
+  (g : hom A y z)   -- An arrow in A from y to z.
+  (h : hom A x z)   -- An arrow in A from x to z.
+  : U
+  := { (t1, t2) : Δ² } -> A [   -- (hom2 A x y z f g h) is a 2-simplex (triangle) in A where
+    t2 === 0_2 |-> f t1,        -- * the top edge is exactly f,
+    t1 === 1_2 |-> g t2,        -- * the right edge is exactly g, and
+    t2 === t1  |-> h t2         -- * the diagonal is exactly h
+  ]
 
 -- for later use
 #def hom2-triangle : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) -> (h : hom A x z) 
