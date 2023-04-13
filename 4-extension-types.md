@@ -36,7 +36,7 @@ This is a literate `rzk` file:
       (X : U) ->
       (Y : <{t : I | psi t } -> (x : X) -> U >) ->
       (f : <{t : I | phi t } -> (x : X) -> Y t x >) ->
-      Eq (<{t : I | psi t} -> (x : X) -> Y t x [ phi t |-> f t ]>)
+      Eq (<{t : I | psi t} -> ((x : X) -> Y t x) [ phi t |-> f t ]>)
        ((x : X) -> <{t : I | psi t} -> Y t x [ phi t |-> f t x]>)
    := \I -> \psi -> \phi -> \X -> \Y -> \f -> 
          (\g -> \x -> \{t : I | psi t} -> g t x, -- the one-way map; needs the context for t to typecheck
@@ -53,7 +53,7 @@ This is a literate `rzk` file:
       (Y : <{t : I | psi t } -> (x : X) -> U >) ->
       (f : <{t : I | phi t } -> (x : X) -> Y t x >) ->
       Eq ((x : X) -> <{t : I | psi t} -> Y t x [ phi t |-> f t x]>)
-      (<{t : I | psi t} -> (x : X) -> Y t x [ phi t |-> f t ]>)
+      (<{t : I | psi t} -> ((x : X) -> Y t x) [ phi t |-> f t ]>)
    := \I -> \psi -> \phi -> \X -> \Y -> \f -> 
          (\h -> \{t : I | psi t} -> \x -> (h x) t, -- the one-way map
             ((\g -> \x -> \{t : I | psi t} -> g t x, -- the retraction
