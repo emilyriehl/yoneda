@@ -9,3 +9,11 @@
 
 #def contracting-htpy : (A : U) -> (Aiscontr : isContr A) -> (z : A) -> (contraction-center A Aiscontr) =_{A} z
   := \A -> \Aiscontr -> second Aiscontr
+
+-- An application to contractible types.
+#def contractible-connecting-htpy 
+  (A : U)
+  (Aiscontr : isContr A)
+  (x y : A) 
+  : x =_{A} y
+  := zag-zig-concat A x (contraction-center A Aiscontr) y (contracting-htpy A Aiscontr x) (contracting-htpy A Aiscontr y)  
