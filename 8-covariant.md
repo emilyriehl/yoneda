@@ -39,27 +39,27 @@ TODO
 	:= \A -> (∑ (C :  ((a : A) -> U)), isCovFam A C)
 
 -- [RS17, covariant transport and lift from beginning of Section 8.2]
--- TODO
--- #def covTrans : (A : U) -> (C : A -> U) -> (_ : isCovFam A C)
--- 				-> (x : A) -> (y : A) -> (f : hom A x y) -> (u : C x)
--- 				-> C y
--- 	:= \A -> \C -> \CisCov -> \x -> \y -> \f -> \u -> first (contraction-center CisCov)
+#def covTrans : (A : U) -> (C : A -> U) -> (_ : isCovFam A C)
+ 				-> (x : A) -> (y : A) -> (f : hom A x y) -> (u : C x)
+ 				-> C y
+ 	:= \A -> \C -> \CisCov -> \x -> \y -> \f -> \u -> first (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
         	
 -- [RS17, Remark 8.3]
-#def reindexOfCovFamIsCov : (A : U) -> (B : U) -> (F : (b : B) -> A) -> (C : (a : A) -> U) -> (AisCovFam : isCovFam A C) -> (isCovFam B (reindex A B F C))
-	:= \A -> \B -> \F -> \C -> \AisCovFam -> \x -> \y -> \f -> \u ->
-	(
+-- TODO: Seems broken ATM
+-- #def reindexOfCovFamIsCov : (A : U) -> (B : U) -> (F : (b : B) -> A) -> (C : (a : A) -> U) -> (AisCovFam : isCovFam A C) -> (isCovFam B (reindex A B F C))
+-- 	:= \A -> \B -> \F -> \C -> \AisCovFam -> \x -> \y -> \f -> \u ->
+-- 	(
 	
-	(contraction-center (∑ (v : C (F y)), 
-								(dhom A (F x) (F y) (ap B A F x y f) C u v))
-							(AisCovFam (F x) (F y) (ap B A F x y f) u),
+-- 	(contraction-center (∑ (v : C (F y)), 
+-- 								(dhom A (F x) (F y) (ap B A F x y f) C u v))
+-- 							(AisCovFam (F x) (F y) (ap B A F x y f) u),
 								
-		(contracting-htpy (∑ (v : C (F y)), 
-								dhom A (F x) (F y) (ap B A F x y f) C u v))
-							(AisCovFam (F x) (F y) (ap B A F x y f) u)
-			)
+-- 		(contracting-htpy (∑ (v : C (F y)), 
+-- 								dhom A (F x) (F y) (ap B A F x y f) C u v))
+-- 							(AisCovFam (F x) (F y) (ap B A F x y f) u)
+-- 			)
 			
-	)
+-- 	)
 
 -- [RS17, alternative def. from Proposition 8.4]
 #def isCovFam' : (A : U) -> (C : (a : A) -> U) -> U
@@ -72,3 +72,26 @@ TODO
 --#def isCovFam-iff-CovFam' : (A : U) -> (C : (a : A) -> (_ : isCovFam A C) -> --isCovFam' A C
 --	:= TODO
 
+```rzk
+-- [RS17, Proposition 8.16, Part 1]
+-- Covariant families preserve composition
+-- #def covPresComp
+-- 	(A : U)
+-- 	(C : A -> U)
+-- 	(x y z  : A)
+-- 	(f : hom A x y)
+-- 	(g : hom A y z)
+-- 	(h : hom A x z)
+-- 	(u : C x)
+-- 	-> TODO
+
+-- [RS17, Proposition 8.16, Part 2]
+-- Covariant families preserve identities
+-- #def covPresId
+-- 	(A : U)
+-- 	(C : A -> U)
+-- 	(CisCov : isCovFam A C)
+-- 	-> (x : A) -> (homotopy (C x) (C x) ( (\u : (C x)) -> (covTrans A C CisCov x x (id-arr A x) u) (identity C x)))
+-- 	:= \x -> (contractible-connecting-homotopy TODO)
+
+```
