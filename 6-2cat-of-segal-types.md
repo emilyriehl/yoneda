@@ -23,8 +23,8 @@ TODO
 -- Preservation of identities
 #def functors-pres-id : (_ : ExtExt) -> (A : U) -> (AisSegal : isSegal A) -> (B : U) -> (BisSegal : isSegal B) -> (F : (x : A) -> B) -> (
 	(x : A) -> 
-	(ap A B F x x (Segal-id A AisSegal x)) =_{hom B (F x) (F x)} 
-	(Segal-id B BisSegal (F x))
+	(ap A B F x x (id-arr A x)) =_{hom B (F x) (F x)} 
+	(id-arr B (F x))
 	)
 	:= \extext -> \A -> \AisSegal -> \B -> \BisSegal -> \F -> (\x ->
 	extext 
@@ -33,8 +33,8 @@ TODO
 		∂Δ¹-in-Δ¹
 		(\{t : 2 | Δ¹ t} -> B)
 		(\t -> recOR(t === 0_2, t === 1_2, F x, F x))
-		(ap A B F x x (Segal-id A AisSegal x))
-		(Segal-id B BisSegal (F x))
+		(ap A B F x x (id-arr A x))
+		(id-arr B (F x))
 		(\{t : 2 | Δ¹ t} -> refl_{F x})
 	)
 ```
