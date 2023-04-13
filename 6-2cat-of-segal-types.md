@@ -30,7 +30,7 @@ TODO
 	extext 
 		2
 		Δ¹
-		∂Δ¹-in-Δ¹
+		∂Δ¹
 		(\{t : 2 | Δ¹ t} -> B)
 		(\t -> recOR(t === 0_2, t === 1_2, F x, F x))
 		(ap A B F x x (id-arr A x))

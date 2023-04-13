@@ -33,10 +33,6 @@ Boundaries of simplices:
 #def ∂Δ¹ : (t : 2) -> TOPE
   := \(t : 2) -> (t === 0_2 \/ t === 1_2)
 
--- boundary of a 1-simplex explicitly as a subshape
-#def ∂Δ¹-in-Δ¹ : {(t : 2) | Δ¹ t} -> TOPE
-  := \{t : 2 | Δ¹ t} -> (t === 0_2 \/ t === 1_2)
-
 -- boundary of a 2-simplex
 #def ∂Δ² : {(ts : 2 * 2) | Δ² ts} -> TOPE
   := \{ts : 2 * 2 | Δ² ts} -> ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))

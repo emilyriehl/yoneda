@@ -98,8 +98,8 @@ This is a literate `rzk` file:
   (x y z : A)                   -- Three points in A.
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
-  : <{t : 2 * 2 | Λ t } -> A >
-  :=  \{(t, s) : 2 * 2 | Λ (t, s) } -> 
+  : Λ -> A
+  := \(t, s) ->                 -- \{(t, s) : 2 * 2 | Λ (t, s) }   ->        --  try \{(t, s) : Λ } or with ()
       recOR(
         s === 0_2 |-> f t, 
         t === 1_2 |-> g s
@@ -108,9 +108,9 @@ This is a literate `rzk` file:
 -- The underlying horn of a simplex
 #def horn-restriction   
   (A : U)                            -- A type.
-  (alpha : <{t : 2 * 2 | Δ² t} -> A >)   -- A commutative triangle.
-  : <{t : 2 * 2 | Λ t} -> A >
-  :=  \{t : 2 * 2 | Λ t } -> alpha t
+  (alpha : Δ² -> A)   -- A commutative triangle.
+  : Λ -> A
+  :=  \t -> alpha t
 
 -- Here, we prove the equivalence used in [RS17, Theorem 5.5].
 -- However, we do this by constructing the equivalence directly,
@@ -172,8 +172,8 @@ This is a literate `rzk` file:
 #def Segal-restriction-equiv-test
   (A : U)                       -- A type.
   (AisSegal : isSegal A)        -- A proof that A is Segal.
-  : (first (Segal-restriction-equiv A AisSegal)) =_{(_ : <{t : 2 * 2 | Δ² t} -> A >) -> <{t : 2 * 2 | Λ t} -> A >} (horn-restriction A)
-  := refl_{horn-restriction A}
+  : (first (Segal-restriction-equiv A AisSegal)) = (horn-restriction A)
+  := refl
 
 -- Theorem 5.5 justifies an alternate definition of isSegal
 #def isSegal'
@@ -395,42 +395,6 @@ This is a literate `rzk` file:
 ```rzk
 #def unfolding-square : (A : U) -> (_ : <{vu : 2 * 2 | Δ² vu} -> A >) -> <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A >
   := \A -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
-
-#def unfolding-square-test : (A : U) -> (x : A) -> 
-  (_ : <{vu : 2 * 2 | Δ² vu} -> A [(first vu) === 0_2 /\ (second vu) === 0_2 |-> x ] >) -> 
-  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 0_2 /\ (second ts) === 0_2 |-> x ] >
-  := \A -> \x -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
-
-#def unfolding-square-another-test : (A : U) -> (f : <{t : 2 | Δ¹ t} -> A >) -> 
-  (_ : <{vu : 2 * 2 | Δ² vu} -> A [(second vu) === 0_2 |-> f (first vu) ] >) -> 
-  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 0_2 |-> f (second ts) ] >
-  := \A -> \f -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
-
-#def unfolding-square-yet-another-test : (A : U) -> (x : A) -> (y : A) -> (f : hom A x y) -> 
-  (_ : <{vu : 2 * 2 | Δ² vu} -> A [(second vu) === 0_2 |-> f (first vu) ] >) -> 
-  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 0_2 |-> f (second ts) ] >
-  := \A -> \x -> \y -> \f -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
-
-#def unfolding-square-horn-left-test : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) ->
-  (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) -> 
-  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 0_2 |-> f (second ts)] >
-  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
-
-#def unfolding-square-horn-right-test : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) ->
-  (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) -> 
-  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [(first ts) === 1_2 |-> g(second ts) ] >
-  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
-
-#def unfolding-square-horn-combined-test : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) ->
-  (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) -> 
-  <{ts : 2 * 2 | Δ¹×Δ¹ ts} -> A [ (first ts) === 0_2 \/ (first ts) === 1_2 |-> recOR ((first ts) === 0_2, (first ts) === 1_2, f(second ts), g(second ts)) ] >
-  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
-
--- #def boundary-unfolding-square : (A : U) -> (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) 
---   -> (_ : <{vu : 2 * 2 | Δ² vu} -> A [ Λ vu |-> horn A x y z f g vu ] >) 
---  -> <{ts : 2 * 2 | □ ts} -> 
---      A [ || ts |-> recOR((first ts) === 0_2, (first ts) === 1_2, f (second ts), g (second ts))] >
---  := \A -> \x -> \y -> \z -> \f -> \g -> \simp -> \{(t, s) : 2 * 2 | □ (t, s)}  -> recOR(t <= s, s <= t, simp (s , t), simp (t , s))
 
 #def square-to-arr-in-arr : (A : U) -> (_ : <{vu : 2 * 2 | TOP} -> A >) -> (<{t : 2 | Δ¹ t} -> <{s : 2 | Δ¹ s} -> A > >)
   := \A -> \square -> \{t : 2 | Δ¹ t} -> \{s : 2 | Δ¹ s} -> square ((t , s))

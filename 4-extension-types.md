@@ -194,7 +194,7 @@ A more complete treatment still needs to be done.
       (a : <{t : I | phi t } -> A t >) ->
       (f : <{t : I | psi t} -> A t [ phi t |-> a t ]>) ->
       (g : <{t : I | psi t} -> A t [ phi t |-> a t ]>) ->
-      (_ : <{t : I | psi t} -> (f t =_{A t} g t) [ phi t |-> refl_{a t} ]>) ->
+      (_ : <{t : I | psi t} -> (f t = g t) [ phi t |-> refl ]>) ->
       (f =_{<{t : I | psi t} -> A t [ phi t |-> a t ]>} g)
 
 -- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
