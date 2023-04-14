@@ -1,29 +1,44 @@
 #lang rzk-1
 
-#def hasSection : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> U
---   := \A -> \B -> \f -> ∑ (s : (_ : B) -> A), (b : B) -> (f (s b)) =_{B} b 
-  := \A -> \B -> \f -> ∑ (s : (_ : B) -> A), homotopy B B (composition B A B f s)(identity B)
+#def hasSection 
+    (A B : U)
+    (f : A -> B) 
+    : U
+    := ∑ (s : B -> A), homotopy B B (composition B A B f s)(identity B)
   
-#def hasRetraction : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> U
---  := \A -> \B -> \f -> ∑ (r : (_ : B) -> A), (a : A) -> (r (f a)) =_{A} a 
-  := \A -> \B -> \f -> ∑ (r : (_ : B) -> A), homotopy A A (composition A B A r f)(identity A)
+#def hasRetraction    (A B : U)
+    (f : A -> B) 
+    : U
+    := ∑ (r : B -> A), homotopy A A (composition A B A r f)(identity A)
   
 -- equivalences are bi-invertible maps
-#def isEquiv : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> U
-  := \(A : U) -> \(B : U) -> \(f : (_ : A) -> B) -> prod (hasRetraction A B f) (hasSection A B f)
+#def isEquiv     
+    (A B : U)
+    (f : A -> B) 
+    : U  
+    := prod (hasRetraction A B f) (hasSection A B f)
 
-#def isEquiv-section : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : isEquiv A B f) -> (_ : B) -> A
-    := \A -> \B -> \f -> \fisequiv -> (first (second fisequiv))
+#def isEquiv-section
+    (A B : U)
+    (f : A -> B) 
+    (fisequiv : isEquiv A B f)
+    : B -> A
+    := (first (second fisequiv))
 
-#def isEquiv-retraction : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : isEquiv A B f) -> (_ : B) -> A
-    := \A -> \B -> \f -> \fisequiv -> (first (first fisequiv))
+#def isEquiv-retraction     
+    (A B : U)
+    (f : A -> B) 
+    (fisequiv : isEquiv A B f)
+    : B -> A
+    := (first (first fisequiv))
 
 -- the homotopy between the section and retraction of an equivalence
 #def isEquiv-htpic-inverses 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fisequiv : isEquiv A B f) 
-        -> homotopy B A (isEquiv-section A B f fisequiv) (isEquiv-retraction A B f fisequiv)
-    := \A -> \B -> \f -> \fisequiv 
-        -> homotopy-composition B A 
+    (A B : U)
+    (f : A -> B) 
+    (fisequiv : isEquiv A B f)
+    : homotopy B A (isEquiv-section A B f fisequiv) (isEquiv-retraction A B f fisequiv)
+    := homotopy-composition B A 
             (isEquiv-section A B f fisequiv) 
             (triple-composition B A B A (isEquiv-retraction A B f fisequiv) f ((isEquiv-section A B f fisequiv))) 
             (isEquiv-retraction A B f fisequiv) 
@@ -41,133 +56,177 @@
                 (isEquiv-retraction A B f fisequiv))
 
 -- the following type of more coherent equivalences is not a proposition
-#def hasInverse : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> U
-  := \(A : U) -> \(B : U) -> \(f : (_ : A) -> B) 
-    -> ∑ (g : (_ : B) -> A), 
+#def hasInverse 
+    (A B : U)
+    (f : A -> B) 
+    : U
+    := ∑ (g : B -> A),    -- A two-sided inverse
         (prod 
-            (homotopy A A (composition A B A g f)(identity A)) 
-            (homotopy B B (composition B A B f g)(identity B)))
- --    -> ∑ (g : (_ : B) -> A), (prod ((x : A) -> (g (f x)) =_{A} x)) ((y : B) -> (f (g y)) =_{B} y)
+            (homotopy A A (composition A B A g f)(identity A))    -- The retracting homotopy
+            (homotopy B B (composition B A B f g)(identity B)))   -- The section homotopy
  
-#def hasInverse-inverse : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : hasInverse A B f) -> (_ : B) -> A
-    := \A -> \B -> \f -> \fhasinverse -> first (fhasinverse)
+#def hasInverse-inverse 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : B -> A
+    := first (fhasinverse)
 
 -- invertible maps are equivalences
-#def hasInverse-isEquiv : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : hasInverse A B f) -> isEquiv A B f
-  := \A -> \B -> \f -> \fhasinverse 
-    -> ((first fhasinverse, first (second fhasinverse)), (first fhasinverse, second (second fhasinverse)))
+#def hasInverse-isEquiv
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : isEquiv A B f
+  := ((first fhasinverse, first (second fhasinverse)), (first fhasinverse, second (second fhasinverse)))
 
 -- equivalences are invertible
-#def isEquiv-hasInverse : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : isEquiv A B f) -> hasInverse A B f 
-    := \A -> \B -> \f -> \fisequiv 
-        -> (first (second fisequiv), 
-             (homotopy-composition A A 
+#def isEquiv-hasInverse 
+    (A B : U)
+    (f : A -> B) 
+    (fisequiv : isEquiv A B f)
+    : hasInverse A B f 
+    := (isEquiv-section A B f fisequiv, 
+            (homotopy-composition A A 
                 (composition A B A (isEquiv-section A B f fisequiv) f) 
                 (composition A B A (isEquiv-retraction A B f fisequiv) f) 
                 (identity A)  
-                    (homotopy-prewhisker A B A (isEquiv-section A B f fisequiv) (isEquiv-retraction A B f fisequiv) (isEquiv-htpic-inverses A B f fisequiv) f) (second (first fisequiv)) , second (second  fisequiv)))
+                    (homotopy-prewhisker A B A 
+                        (isEquiv-section A B f fisequiv) 
+                        (isEquiv-retraction A B f fisequiv) 
+                        (isEquiv-htpic-inverses A B f fisequiv) 
+                        f) 
+                    (second (first fisequiv)) ,
+            second (second  fisequiv)))
 
-#def hasInverse-retraction-composite : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : hasInverse A B f) -> (_ : A) -> A
-    := \A -> \B -> \f -> \fhasinverse -> composition A B A (hasInverse-inverse A B f fhasinverse) f 
+-- Some iterated composites associated to a pair of invertible maps.
+#def hasInverse-retraction-composite 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : A -> A
+    := composition A B A (hasInverse-inverse A B f fhasinverse) f 
 
-#def hasInverse-section-composite : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : hasInverse A B f) -> (_ : B) -> B
-    := \A -> \B -> \f -> \fhasinverse -> composition B A B f (hasInverse-inverse A B f fhasinverse)
+#def hasInverse-section-composite 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : B -> B
+    := composition B A B f (hasInverse-inverse A B f fhasinverse)
 
--- this composite is parallel to f
-#def hasInverse-triple-composite : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : hasInverse A B f) -> (_ : A) -> B
-    := \A -> \B -> \f -> \fhasinverse -> triple-composition A B A B f (hasInverse-inverse A B f fhasinverse) f
+-- This composite is parallel to f; we won't need the dual notion.
+#def hasInverse-triple-composite 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : A -> B
+    := triple-composition A B A B f (hasInverse-inverse A B f fhasinverse) f
 
--- this composite is also parallel to f
-#def hasInverse-quintuple-composite : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (_ : hasInverse A B f) -> (_ : A) -> B
-    := \A -> \B -> \f -> \fhasinverse 
-        -> \a -> f ((hasInverse-inverse A B f fhasinverse) (f ((hasInverse-inverse A B f fhasinverse) (f a))))
+-- This composite is also parallel to f; again we won't need the dual notion.
+#def hasInverse-quintuple-composite
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : A -> B
+    := \a -> f ((hasInverse-inverse A B f fhasinverse) (f ((hasInverse-inverse A B f fhasinverse) (f a))))
 
--- we'll require a more coherent notion of equivalence
-#def isHalfAdjointEquiv : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> U
-     := \A -> \B -> \f 
-         -> ∑ (fhasinverse : (hasInverse A B f)), (a : A) -> 
-         (((second (second fhasinverse))) (f a))
-     =_{(hasInverse-triple-composite A B f fhasinverse a) =_{B} (f a)} 
-     (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (((first (second fhasinverse))) a))
+-- We'll require a more coherent notion of equivalence
+#def isHalfAdjointEquiv 
+    (A B : U)
+    (f : A -> B)
+    : U
+    := ∑ (fhasinverse : (hasInverse A B f)), 
+            (a : A) -> (((second (second fhasinverse))) (f a)) =
+                        (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (((first (second fhasinverse))) a))
 
--- I prefer this definition, but homotopies are still not always recognized as functions
-#def ALTisHalfAdjointEquiv : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> U
-     := \A -> \B -> \f 
-         -> ∑ (fhasinverse : (hasInverse A B f)), 
+-- By function extensionality, the previous definition coincides with the following one:
+#def ALTisHalfAdjointEquiv
+    (A B : U)
+    (f : A -> B)
+    : U
+    := ∑ (fhasinverse : (hasInverse A B f)), 
             ((homotopy-prewhisker A B B 
                 (hasInverse-section-composite A B f fhasinverse) (identity B) (second (second fhasinverse)) f)
-            =_{homotopy A B (hasInverse-triple-composite A B f fhasinverse) f} 
-            ((homotopy-postwhisker A A B 
+            = ((homotopy-postwhisker A A B 
                 (hasInverse-retraction-composite A B f fhasinverse) (identity A) (first (second fhasinverse)) f)))
 
--- to promote an invertible map to a half adjoint equivalence we keep one homotopy and discard the other
+-- To promote an invertible map to a half adjoint equivalence we keep one homotopy and discard the other
 #def hasInverse-kept-htpy 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) 
-        -> homotopy A A (hasInverse-retraction-composite A B f fhasinverse) (identity A)
-    := \A -> \B -> \f -> \fhasinverse -> (first (second fhasinverse))
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : homotopy A A (hasInverse-retraction-composite A B f fhasinverse) (identity A)
+    := (first (second fhasinverse))
 
 #def hasInverse-discarded-htpy 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) 
-        -> homotopy B B (hasInverse-section-composite A B f fhasinverse) (identity B)
-    := \A -> \B -> \f -> \fhasinverse -> (second (second fhasinverse))    
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : homotopy B B (hasInverse-section-composite A B f fhasinverse) (identity B)
+    := (second (second fhasinverse))    
 
 -- the required coherence will be built by transforming an instance of this naturality square
 #def hasInverse-discarded-naturality-square 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) -> (a : A) 
-        -> concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    (a : A) 
+    : concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse)(hasInverse-kept-htpy A B f fhasinverse a)) 
             (hasInverse-discarded-htpy A B f fhasinverse (f a)) 
-                =_{(hasInverse-quintuple-composite A B f fhasinverse a) =_{B} (f a)} 
+                =
             concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
             (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a))
-    := \A -> \B -> \f -> \fhasinverse -> \a
-        -> nat-htpy A B (hasInverse-triple-composite A B f fhasinverse) f 
+    := nat-htpy A B (hasInverse-triple-composite A B f fhasinverse) f 
             (\x -> hasInverse-discarded-htpy A B f fhasinverse (f x)) 
             (hasInverse-retraction-composite A B f fhasinverse a) (a) (hasInverse-kept-htpy A B f fhasinverse a)
 
 -- building a path that will be whiskered into the naturality square above
-#def hasInverse-rev-cylinder-homotopy-coherence 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) -> (a : A) 
-        -> (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
-            =_{(hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) =_{A} (hasInverse-retraction-composite A B f fhasinverse a)}
-            ap A A (hasInverse-retraction-composite A B f fhasinverse a) a 
+#def hasInverse-cylinder-homotopy-coherence 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    (a : A) 
+    : (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+            = ap A A (hasInverse-retraction-composite A B f fhasinverse a) a 
                 (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a)
-    := \A -> \B -> \f -> \fhasinverse -> \a 
-        -> rev-cylinder-homotopy-coherence A 
-            (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse) a
+    := cylinder-homotopy-coherence A (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse) a
 
-#def hasInverse-ap-rev-cylinder-homotopy-coherence 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) -> (a : A) 
-        -> ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+#def hasInverse-ap-cylinder-homotopy-coherence 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    (a : A) 
+    : ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
             (hasInverse-retraction-composite A B f fhasinverse a) 
             f (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
-        =_{(hasInverse-quintuple-composite A B f fhasinverse a) =_{B} (hasInverse-triple-composite A B f fhasinverse a)}
-            ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+        = ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
                  (hasInverse-retraction-composite A B f fhasinverse a) f 
                  (ap A A (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a))
-    := \A -> \B -> \f -> \fhasinverse -> \a 
-        -> ap-htpy A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+    := ap-htpy A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
             (hasInverse-retraction-composite A B f fhasinverse a) f 
             (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
                 (ap A A (hasInverse-retraction-composite A B f fhasinverse a) a 
                     (hasInverse-retraction-composite A B f fhasinverse) 
                     (hasInverse-kept-htpy A B f fhasinverse a))
-            (hasInverse-rev-cylinder-homotopy-coherence A B f fhasinverse a)
+            (hasInverse-cylinder-homotopy-coherence A B f fhasinverse a)
 
 #def hasInverse-cylinder-coherence 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) -> (a : A) 
-        -> ap A B 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    (a : A) 
+    : ap A B 
             (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
             (hasInverse-retraction-composite A B f fhasinverse a) 
                 f 
                 (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
-            =_{(hasInverse-quintuple-composite A B f fhasinverse a) =_{B} (hasInverse-triple-composite A B f fhasinverse a)}
+            =
         (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a 
             (hasInverse-triple-composite A B f fhasinverse) 
             (hasInverse-kept-htpy A B f fhasinverse a)) 
-    := \A -> \B -> \f -> \fhasinverse -> \a -> 
-        concat ((hasInverse-quintuple-composite A B f fhasinverse a) =_{B} (hasInverse-triple-composite A B f fhasinverse a)) 
+    := concat ((hasInverse-quintuple-composite A B f fhasinverse a) = (hasInverse-triple-composite A B f fhasinverse a)) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
                 (hasInverse-retraction-composite A B f fhasinverse a) f (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)))
             (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
@@ -175,7 +234,7 @@
                 (ap A A (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a)))
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse) 
                 (hasInverse-kept-htpy A B f fhasinverse a)) 
-            (hasInverse-ap-rev-cylinder-homotopy-coherence A B f fhasinverse a)
+            (hasInverse-ap-cylinder-homotopy-coherence A B f fhasinverse a)
             (rev-ap-comp A A B (hasInverse-retraction-composite A B f fhasinverse a) a 
                 (hasInverse-retraction-composite A B f fhasinverse) 
                 f 
@@ -183,18 +242,20 @@
 
 -- this morally gives the half adjoint inverse coherence; it just requires rotation    
 #def hasInverse-replaced-naturality-square 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) -> (a : A) 
-        -> concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    (a : A) 
+    : concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a))
                 (hasInverse-retraction-composite A B f fhasinverse a) f 
                 (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a))) 
             (hasInverse-discarded-htpy A B f fhasinverse (f a)) 
-                =_{(hasInverse-quintuple-composite A B f fhasinverse a) =_{B} (f a)} 
+                =
         concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
             (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a))
-    := \A -> \B -> \f -> \fhasinverse -> \a -> 
-        concat ((hasInverse-quintuple-composite A B f fhasinverse a) =_{B} (f a)) 
+    := concat ((hasInverse-quintuple-composite A B f fhasinverse a) =_{B} (f a)) 
             (concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
                 (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) (hasInverse-retraction-composite A B f fhasinverse a) f 
                 (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a))) 
@@ -215,35 +276,37 @@
                 (hasInverse-discarded-htpy A B f fhasinverse (f a)))
             (hasInverse-discarded-naturality-square A B f fhasinverse a)
 
--- this will replace the discarded homotopy
+-- This will replace the discarded homotopy
 #def hasInverse-corrected-htpy 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) 
-        -> homotopy B B (hasInverse-section-composite A B f fhasinverse) (\b -> b)
-    := \A -> \B -> \f -> \fhasinverse -> \b 
-        -> concat B 
-            ((hasInverse-section-composite A B f fhasinverse) b) 
-            ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b)) 
-            b
-            (rev B ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b))
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : homotopy B B (hasInverse-section-composite A B f fhasinverse) (\b -> b)
+    := \b -> concat B 
+                ((hasInverse-section-composite A B f fhasinverse) b) 
+                ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b)) 
+                b
+                (rev B ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b))
                 ((hasInverse-section-composite A B f fhasinverse) b)  
                 (hasInverse-discarded-htpy A B f fhasinverse ((hasInverse-section-composite A B f fhasinverse) b)))  
-            (concat B  
-                ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b))
-                ((hasInverse-section-composite A B f fhasinverse) b) 
-                b
-                (ap A B ((hasInverse-retraction-composite A B f fhasinverse) (hasInverse-inverse A B f fhasinverse b))
-                    (hasInverse-inverse A B f fhasinverse b) f 
-                    ((first (second fhasinverse)) (hasInverse-inverse A B f fhasinverse b)))
-                ((hasInverse-discarded-htpy A B f fhasinverse b)))
+                (concat B  
+                    ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b))
+                    ((hasInverse-section-composite A B f fhasinverse) b) 
+                    b
+                    (ap A B ((hasInverse-retraction-composite A B f fhasinverse) (hasInverse-inverse A B f fhasinverse b))
+                        (hasInverse-inverse A B f fhasinverse b) f 
+                        ((first (second fhasinverse)) (hasInverse-inverse A B f fhasinverse b)))
+                    ((hasInverse-discarded-htpy A B f fhasinverse b)))
 
 -- this is the half adjoint coherence
 #def hasInverse-coherence 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) -> (a : A)
-        -> (hasInverse-corrected-htpy A B f fhasinverse (f a)) 
-                =_{(hasInverse-triple-composite A B f fhasinverse a) =_{B} (f a)}
-            (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a))
-    := \A -> \B -> \f -> \fhasinverse -> \a 
-        -> triangle-rotation B 
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    (a : A) 
+    : (hasInverse-corrected-htpy A B f fhasinverse (f a)) 
+                = (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a))
+    := triangle-rotation B 
             (hasInverse-quintuple-composite A B f fhasinverse a)(hasInverse-triple-composite A B f fhasinverse a) (f a) 
             (concat B  
                 ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) (f a)))
@@ -257,162 +320,143 @@
             (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a)) (hasInverse-replaced-naturality-square A B f fhasinverse a)
 
--- to promote an invertible map to a half adjoint equivalence we change the data of the invertible map
+-- to promote an invertible map to a half adjoint equivalence we change the data of the invertible map by replacing the discarded homotopy with the corrected one.
 #def hasInverse-correctedhasInverse 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) -> hasInverse A B f
-    := \A -> \B -> \f -> \fhasinverse 
-    -> (hasInverse-inverse A B f fhasinverse, (hasInverse-kept-htpy A B f fhasinverse, hasInverse-corrected-htpy A B f fhasinverse))
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : hasInverse A B f
+    := (hasInverse-inverse A B f fhasinverse, (hasInverse-kept-htpy A B f fhasinverse, hasInverse-corrected-htpy A B f fhasinverse))
 
--- I had to change from the ALT version to the new version of isHalfAdjointEquiv to get this to compile
+-- Invertible maps are half adjoint equivalences!
 #def hasInverse-isHalfAdjointEquiv 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fhasinverse : hasInverse A B f) -> isHalfAdjointEquiv A B f
-    := \A -> \B -> \f -> \fhasinverse -> (hasInverse-correctedhasInverse A B f fhasinverse, hasInverse-coherence A B f fhasinverse)
+    (A B : U)
+    (f : A -> B) 
+    (fhasinverse : hasInverse A B f)
+    : isHalfAdjointEquiv A B f
+    := (hasInverse-correctedhasInverse A B f fhasinverse, hasInverse-coherence A B f fhasinverse)
 
--- equivalences are coherent equivalences
+-- Equivalences are half adjoint equivalences!
 #def isEquiv-isHalfAdjointEquiv 
-    : (A : U) -> (B : U) -> (f : (_ : A) -> B) -> (fisequiv : isEquiv A B f) -> isHalfAdjointEquiv A B f
-    := \A -> \B -> \f -> \fisequiv -> hasInverse-isHalfAdjointEquiv A B f (isEquiv-hasInverse A B f fisequiv)
+    (A B : U)
+    (f : A -> B) 
+    (fisequiv : isEquiv A B f)
+    : isHalfAdjointEquiv A B f
+    := hasInverse-isHalfAdjointEquiv A B f (isEquiv-hasInverse A B f fisequiv)
 
--- the type of logical equivalences between types
-#def iff : (A : U) -> (B : U) -> U
-  := \A -> \B -> prod ((_ : A) -> B) ((_ : B) -> A)
+-- The type of equivalences between types uses the propositional notion isEquiv rather than the incoherent hasInverse.
+#def Eq (A B : U) : U
+  :=  ∑ (f : A -> B), ((isEquiv A) B) f
 
--- the type of equivalences between types
-#def Eq : (A : U) -> (B : U) -> U
-  := \(A : U) -> \(B : U) -> ∑ (f : (_ : A) -> B), ((isEquiv A) B) f
-
--- the data of an equivalence is not symmetric so we promote an equivalence to an invertible map to prove symmetry
-#def sym_Eq : (A : U) -> (B : U) -> (e : Eq A B) -> Eq B A
-    := \A -> \B -> \e -> 
-        (first (isEquiv-hasInverse A B (first e) (second e)) , 
+-- The data of an equivalence is not symmetric so we promote an equivalence to an invertible map to prove symmetry
+#def sym_Eq 
+    (A B : U)
+    (e : Eq A B)
+    : Eq B A
+    := (first (isEquiv-hasInverse A B (first e) (second e)) , 
             (( first e , 
                 second (second (isEquiv-hasInverse A B (first e) (second e))) ) , 
             ( first e , 
                 first (second (isEquiv-hasInverse A B (first e) (second e))) ) ))
 
--- a composition of two equivalences (perhaps, using projections everywhere is not a good style?)
+-- Composition of equivalences in diagrammatic order.
 #def compose_Eq
-  : (A : U) ->
-    (B : U) ->
-    (C : U) ->
-    (A=B : Eq A B) ->
-    (B=C : Eq B C) ->
-    Eq A C
-  := \A -> \B -> \C -> \A=B -> \B=C ->
-    (\a -> (first B=C) ((first A=B) a), -- the composite equivalence 
-     ((\c -> (first (first (second A=B))) ((first (first (second (B=C)))) c),
-     (\a -> 
-        concat A
-          ((first (first (second A=B))) ((first (first (second B=C))) ((first B=C) ((first A=B) a))))
-          ((first (first (second A=B))) ((first A=B) a))
-          a
-          (ap B A
-                ((first (first (second B=C))) ((first B=C) ((first A=B) a))) -- should be inferred
-                ((first A=B) a) -- should be inferred
-                (first (first (second A=B)))
-                ((second (first (second B=C))) ((first A=B) a)))
-          ((second (first (second A=B))) a))),
-      (\c -> (first (second (second A=B))) ((first (second (second (B=C)))) c),
-      (\c ->
-        concat C
-          ((first B=C) ((first A=B) ((first (second (second A=B))) ((first (second (second B=C))) c))))
-          ((first B=C) ((first (second (second B=C))) c))
-          c
-          (ap B C
-                ((first A=B) ((first (second (second A=B))) ((first (second (second B=C))) c))) -- should be inferred
-                ((first (second (second B=C))) c) -- should be inferred
-                (first B=C)
-                ((second (second (second A=B))) ((first (second (second B=C))) c)))
-          ((second (second (second B=C))) c)))))
+    (A B C : U)
+    (A=B : Eq A B)
+    (B=C : Eq B C)
+    : Eq A C
+    := (\a -> (first B=C) ((first A=B) a), -- the composite equivalence 
+             ((\c -> (first (first (second A=B))) ((first (first (second (B=C)))) c),
+            (\a -> 
+                concat A
+                ((first (first (second A=B))) ((first (first (second B=C))) ((first B=C) ((first A=B) a))))
+                ((first (first (second A=B))) ((first A=B) a))
+                a
+                (ap B A
+                    ((first (first (second B=C))) ((first B=C) ((first A=B) a))) -- should be inferred
+                    ((first A=B) a) -- should be inferred
+                    (first (first (second A=B)))
+                    ((second (first (second B=C))) ((first A=B) a)))
+                ((second (first (second A=B))) a))),
+                    (\c -> (first (second (second A=B))) ((first (second (second (B=C)))) c),
+            (\c ->
+                concat C
+                ((first B=C) ((first A=B) ((first (second (second A=B))) ((first (second (second B=C))) c))))
+                ((first B=C) ((first (second (second B=C))) c))
+                c
+                (ap B C
+                    ((first A=B) ((first (second (second A=B))) ((first (second (second B=C))) c))) -- should be inferred
+                    ((first (second (second B=C))) c) -- should be inferred
+                    (first B=C)
+                    ((second (second (second A=B))) ((first (second (second B=C))) c)))
+                ((second (second (second B=C))) c)))))
 
 -- now we compose the functions that are equivalences
 #def compose_isEquiv
-  : (A : U) ->
-    (B : U) ->
-    (C : U) ->
-    (f : (_ : A) -> B) ->
-    (_ : isEquiv A B f) ->
-    (g : (_ : B) -> C) ->
-    (_ : isEquiv B C g) -> 
-    isEquiv A C (composition A B C g f)
-  := \A -> \B -> \C -> \f -> \fisequiv -> \g -> \gisequiv ->
-    ((composition C B A (isEquiv-retraction A B f fisequiv) (isEquiv-retraction B C g gisequiv), 
-    \a -> 
-        concat A
-          ((isEquiv-retraction A B f fisequiv) ((isEquiv-retraction B C g gisequiv) (g (f a))))
-          ((isEquiv-retraction A B f fisequiv) (f a))
-          a
-          (ap B A
+    (A B C : U) 
+    (f : A -> B)
+    (fisequiv : isEquiv A B f)
+    (g : B -> C)
+    (gisequiv : isEquiv B C g) 
+    : isEquiv A C (composition A B C g f)
+    := ((composition C B A (isEquiv-retraction A B f fisequiv) (isEquiv-retraction B C g gisequiv), 
+        \a -> 
+            concat A
+            ((isEquiv-retraction A B f fisequiv) ((isEquiv-retraction B C g gisequiv) (g (f a))))
+            ((isEquiv-retraction A B f fisequiv) (f a))
+            a
+            (ap B A
                 ((isEquiv-retraction B C g gisequiv) (g (f a))) -- should be inferred
                 (f a) -- should be inferred
                 (isEquiv-retraction A B f fisequiv)
                 ((second (first gisequiv)) (f a)))
-          ((second (first fisequiv)) a)),
-    (composition C B A (isEquiv-section A B f fisequiv) (isEquiv-section B C g gisequiv),
-    \c ->
-        concat C
-          (g (f ((first (second fisequiv)) ((first (second gisequiv)) c))))
-          (g ((first (second gisequiv)) c))
-          c
-          (ap B C
+            ((second (first fisequiv)) a)),
+        (composition C B A (isEquiv-section A B f fisequiv) (isEquiv-section B C g gisequiv),
+        \c ->
+            concat C
+            (g (f ((first (second fisequiv)) ((first (second gisequiv)) c))))
+            (g ((first (second gisequiv)) c))
+            c
+            (ap B C
                 (f ((first (second fisequiv)) ((first (second gisequiv)) c))) -- should be inferred
                 ((first (second gisequiv)) c) -- should be inferred
                 g
                ((second (second fisequiv)) ((first (second gisequiv)) c)))
-          ((second (second gisequiv)) c)))  
+            ((second (second gisequiv)) c)))  
 
 -- a composition of three equivalences
 #def triple_compose_Eq
-  : (A : U) ->
-    (B : U) ->
-    (C : U) ->
-    (D : U) -> 
-    (A=B : Eq A B) ->
-    (B=C : Eq B C) ->
-    (C=D : Eq C D) ->
-    Eq A D
-  := \A -> \B -> \C -> \D -> \A=B -> \B=C -> \C=D ->
-    compose_Eq A B D (A=B) (compose_Eq B C D B=C C=D)  
+    (A B C D : U) 
+    (A=B : Eq A B) 
+    (B=C : Eq B C) 
+    (C=D : Eq C D) 
+    : Eq A D
+    := compose_Eq A B D (A=B) (compose_Eq B C D B=C C=D)  
 
 #def triple_compose_isEquiv
-  : (A : U) ->
-    (B : U) ->
-    (C : U) ->
-    (D : U) -> 
-    (f : (_ : A) -> B) ->
-    (_ : isEquiv A B f) ->
-    (g : (_ : B) -> C) ->
-    (_ : isEquiv B C g) -> 
-    (h : (_ : C) -> D) ->
-    (_ : isEquiv C D h) ->
-    isEquiv A D (triple-composition A B C D h g f)    
-  := \A -> \B -> \C -> \D -> \f -> \fisequiv -> \g -> \gisequiv -> \h -> \hisequiv
-    -> compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
-
+    (A B C D : U) 
+    (f : A -> B)
+    (fisequiv : isEquiv A B f)
+    (g : B -> C)
+    (gisequiv : isEquiv B C g) 
+    (h : C -> D)
+    (hisequiv : isEquiv C D h)
+    : isEquiv A D (triple-composition A B C D h g f)    
+    := compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
 
 -- the next result requires function extensionality
 #def FunExt : U
-    := (X : U) -> (A : (_ : X) -> U) -> (f : (x : X) -> A x) -> (g : (x : X) -> A x) ->
-        (px : (x : X) -> f x =_{A x} g x) -> f =_{(x : X) -> A x} g
-
-#def funext_test : (_ : FunExt) -> (X : U) -> (A : (_ : X) -> U) -> (f : (x : X) -> A x) -> (g : (x : X) -> A x) ->
-        (px : (x : X) -> f x =_{A x} g x) -> f =_{(x : X) -> A x} g
-    := \funext -> \X -> \A -> \f -> \g -> \px -> funext X A f g px
-
--- A fibered equivalence defines functions between dependent function types
-#def fibered-equiv-function-iff :
-    (X : U) -> (A : (_ : X) -> U) -> (B : (_ : X) -> U) -> (_ : (x : X) -> Eq (A x) (B x)) ->
-    iff ((x : X) -> A x) ((x : X) -> B x)
-    := \X -> \A -> \B -> \fibequiv -> 
-        ((\a -> \x -> (first (fibequiv x)) (a x)) ,
-        (\b -> \x -> (first (first (second (fibequiv x)))) (b x)))
+    := (X : U) -> (A : X -> U) -> (f : (x : X) -> A x) -> (g : (x : X) -> A x) ->
+        (px : (x : X) -> f x = g x) -> f = g
 
 -- A fiberwise equivalence defines an equivalence of dependent function types
-#def fibered-equiv-function-equiv :
-    (_ : FunExt) -> (X : U) -> (A : (_ : X) -> U) -> (B : (_ : X) -> U) -> (_ : (x : X) -> Eq (A x) (B x)) ->
-    Eq ((x : X) -> A x) ((x : X) -> B x)
-    := \funext -> \X -> \A -> \B -> \fibequiv -> 
-        ((\a -> \x -> (first (fibequiv x)) (a x)),
+#def fibered-equiv-function-equiv
+    (funext : FunExt)
+    (X : U)
+    (A B : X -> U)
+    (fibequiv : (x : X) -> Eq (A x) (B x))
+    : Eq ((x : X) -> A x) ((x : X) -> B x)
+    := ((\a -> \x -> (first (fibequiv x)) (a x)),
             (((\b -> \x -> (first (first (second (fibequiv x)))) (b x)),
                 \a -> funext X A (\x -> (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
            ((\b -> \x -> (first (second (second (fibequiv x)))) (b x)),

@@ -1,19 +1,23 @@
 #lang rzk-1
 
 -- contractible types
-#def isContr : (A : U) -> U
-  := \(A : U) -> ∑ (x : A), (y : A) -> x =_{A} y
+#def isContr (A : U) : U
+  := ∑ (x : A), (y : A) -> x = y
 
-#def contraction-center : (A : U) -> (_ : isContr A) -> A
-  := \(A : U) -> \Aiscontr -> (first Aiscontr)
+#def contraction-center (A : U) (Aiscontr : isContr A) : A
+  := (first Aiscontr)
 
-#def contracting-htpy : (A : U) -> (Aiscontr : isContr A) -> (z : A) -> (contraction-center A Aiscontr) =_{A} z
-  := \A -> \Aiscontr -> second Aiscontr
+-- The path from the contraction center to any point.
+#def contracting-htpy 
+  (A : U) 
+  (Aiscontr : isContr A) 
+  : (z : A) -> (contraction-center A Aiscontr) = z
+  := second Aiscontr
 
--- An application to contractible types.
+-- A path between an arbitrary pair of types in a contractible type.
 #def contractible-connecting-htpy 
   (A : U)
   (Aiscontr : isContr A)
   (x y : A) 
-  : x =_{A} y
+  : x = y
   := zag-zig-concat A x (contraction-center A Aiscontr) y (contracting-htpy A Aiscontr x) (contracting-htpy A Aiscontr y)  

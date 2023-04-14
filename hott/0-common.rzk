@@ -3,6 +3,10 @@
 #def prod (A B : U) : U
   := ∑ (x : A), B
 
+-- the type of logical equivalences between types
+#def iff (A B : U) : U
+  := prod (A -> B) (B -> A)
+
 -- defined to illustrate the syntax for terms in sigma types
 #def diagonal (A : U) (a : A) : prod A A
   := (a , a)
