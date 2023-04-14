@@ -74,3 +74,19 @@
             (H (f a)) 
             (H a) 
                 (another-cylinder-homotopy-coherence A f H a))
+
+-- Path transport for (ordinary) type families
+#def transp
+    (A : U)
+    (a x : A)
+    (p : (a = x))
+    : (C : A -> U) -> (C a) -> (C x)
+    := idJ(A, a, \x' -> \p' -> (C : (A -> U)) -> (C a) -> (C x'), \C -> (identity (C a)), x, p)
+
+ -- Action on paths
+#def apd
+     (A : U)
+     (a x : A)
+     (p : a = x)
+     : (C : A -> U) -> (f : (a : A) -> C a) -> (transp A a x p C (f a)) = (f x)
+    := idJ(A, a, \x' -> \p' -> (C : A -> U) -> (f : (a : A) -> C a) -> (transp A a x' p' C (f a)) = (f x'), \C -> \f -> refl_{f a}, x, p)

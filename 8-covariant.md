@@ -35,14 +35,25 @@ TODO
 
 
 -- Type of covariant families over a fixed type
-#def covFam : (A : U) -> U
-	:= \A -> (∑ (C :  ((a : A) -> U)), isCovFam A C)
+#def covFam (A : U) : U
+	:= (∑ (C :  ((a : A) -> U)), isCovFam A C)
 
--- [RS17, covariant transport and lift from beginning of Section 8.2]
-#def covTrans : (A : U) -> (C : A -> U) -> (_ : isCovFam A C)
+-- [RS17, covariant transport from beginning of Section 8.2]
+#def covTrans
+		(A : U)
+		(C : A -> U)
+		(CisCov : isCovFam A C)
+ 		(x y : A)
+		(f : hom A x y)
+		(u : C x)
+ 			: C y
+ 	:= first (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
+
+-- [RS17, covariant lift from beginning of Section 8.2]
+#def covLift : (A : U) -> (C : A -> U) -> (CisCov : isCovFam A C)
  				-> (x : A) -> (y : A) -> (f : hom A x y) -> (u : C x)
- 				-> C y
- 	:= \A -> \C -> \CisCov -> \x -> \y -> \f -> \u -> first (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
+ 				-> (dhom A x y f C u (covTrans A C CisCov x y f u))
+ 	:= \A -> \C -> \CisCov -> \x -> \y -> \f -> \u -> second (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
         	
 -- [RS17, Remark 8.3]
 -- TODO: Seems broken ATM
@@ -91,7 +102,23 @@ TODO
 -- 	(A : U)
 -- 	(C : A -> U)
 -- 	(CisCov : isCovFam A C)
--- 	-> (x : A) -> (homotopy (C x) (C x) ( (\u : (C x)) -> (covTrans A C CisCov x x (id-arr A x) u) (identity C x)))
--- 	:= \x -> (contractible-connecting-homotopy TODO)
+-- 	(x : A) : (homotopy 
+-- 				(C x)
+-- 				(C x)
+-- 				(\u -> (covTrans A C CisCov x x (id-arr A x) u)) 
+-- 				(identity (C x))
+-- 				)
+-- 	:= \u ->  (first (contractible-connecting-htpy 
+-- 								(dhomFrom A x x (id-arr A x) C u)
+-- 								(CisCov)
+-- 								((covTrans A C CisCov x x (id-arr A x) u))
+-- 								(identity (C x))
+-- 	)
+-- 	)
 
 ```
+
+-- covTrans : (A : U) -> (C : A -> U) -> (_ : isCovFam A C)
+-- 				-> (x : A) -> (y : A) -> (f : hom A x y) -> (u : C x)
+-- 				-> C y
+--				:= 

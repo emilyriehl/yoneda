@@ -417,3 +417,24 @@
                 \a -> funext X A (\x -> (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
            ((\b -> \x -> (first (second (second (fibequiv x)))) (b x)),
             (\b -> funext X B (\x -> (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -> (second (second (second (fibequiv x)))) (b x))))))
+
+-- Setting up identity types of sigma types
+
+-- Sigma-induction
+#def ind-sigma
+        (A : U)
+        (B : A -> U)
+        (C : (∑(a : A), B a) -> U)
+        (p : ∑(a : A), B a)
+        (f : (a : A) -> (b : B a) -> C (a, b))
+        : C p
+        := (f (first p)) (second p)
+
+-- -- Split off homotopy in a sigma type
+-- #def sigma-htopy-split
+--     (A : U)
+--     (B : A -> U)
+--     (k m : (∑(a : A), B a))
+--     (p : (k = m))
+--     : (∑(q : (first k) = (first m)), 
+--             )
