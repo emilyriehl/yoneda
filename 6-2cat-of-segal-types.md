@@ -13,28 +13,34 @@ TODO
 
 ```rzk
 -- [RS17, Section 6.1]
--- Action of maps on homs
-#def ap : (A : U) -> (B : U) -> (F : (x : A) -> B) -> (x : A) -> (y : A) -> (f : hom A x y) -> hom B (F x) (F y)
-  := \A -> \B -> \F -> \x -> \y -> \f -> (\t -> (F (f t)))
+-- Action of maps on homs. Called "ap-arr" to avoid conflicting with "ap".
+#def ap-arr 
+	(A B : U)
+	(F : A -> B)
+	(x y : A)
+	(f : hom A x y)
+	: hom B (F x) (F y)
+  := \t -> F (f t)
 ```
 
 ```rzk
 -- [RS17, Proposition 6.1]
--- Preservation of identities
-#def functors-pres-id : (_ : ExtExt) -> (A : U) -> (AisSegal : isSegal A) -> (B : U) -> (BisSegal : isSegal B) -> (F : (x : A) -> B) -> (
-	(x : A) -> 
-	(ap A B F x x (id-arr A x)) =_{hom B (F x) (F x)} 
-	(id-arr B (F x))
-	)
-	:= \extext -> \A -> \AisSegal -> \B -> \BisSegal -> \F -> (\x ->
-	extext 
+-- Preservation of identities follows from extension extensionality because these arrows are pointwise equal.
+#def functors-pres-id
+	(extext : ExtExt)
+	(A B : U)
+	(F : A -> B)
+	(x : A) 
+	: (ap-arr A B F x x (id-arr A x)) = (id-arr B (F x))
+	:= extext 
 		2
 		Δ¹
 		∂Δ¹
 		(\{t : 2 | Δ¹ t} -> B)
-		(\t -> recOR(t === 0_2, t === 1_2, F x, F x))
-		(ap A B F x x (id-arr A x))
+		(\t -> recOR(
+			t === 0_2 |-> F x,
+			t === 1_2 |-> F x))
+		(ap-arr A B F x x (id-arr A x))
 		(id-arr B (F x))
-		(\{t : 2 | Δ¹ t} -> refl_{F x})
-	)
+		(\t -> refl)
 ```
