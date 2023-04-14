@@ -430,6 +430,14 @@
         : C p
         := (f (first p)) (second p)
 
+#def Eq-Sigma
+    (A : U)
+    (B : A -> U)
+    (s : ∑(a : A), B a)
+    (t : ∑(a : A), B a)
+    : U
+    := ∑(p : (first s) = (first t)), (transp A  (first s) (first t) p B (second s)) = (second t)
+
 -- -- Split off homotopy in a sigma type
 -- #def sigma-htopy-split
 --     (A : U)
@@ -437,4 +445,5 @@
 --     (k m : (∑(a : A), B a))
 --     (p : (k = m))
 --     : (∑(q : (first k) = (first m)), 
---             )
+--          )
+

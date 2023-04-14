@@ -83,7 +83,16 @@
     : (C : A -> U) -> (C a) -> (C x)
     := idJ(A, a, \x' -> \p' -> (C : (A -> U)) -> (C a) -> (C x'), \C -> (identity (C a)), x, p)
 
- -- Action on paths
+-- Action on paths
+#def ap
+    (A : U)
+    (a x : A)
+    (p : (a = x))
+    : (B : U) -> (f : A -> B) -> ((f a) = (f x))
+    := idJ(A, a, \x' -> \p' -> (B : U) -> (f : A -> B) -> ((f a) = (f x')), \B -> \f -> refl_{f a}, x, p)
+
+
+ -- Action on paths of a dependent function
 #def apd
      (A : U)
      (a x : A)
