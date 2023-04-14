@@ -1,25 +1,40 @@
 #lang rzk-1
 
-#def prod : (A : U) -> (B : U) -> U
-  := \(A : U) -> \(B : U) -> ∑ (x : A), B
+#def prod (A B : U) : U
+  := ∑ (x : A), B
 
 -- defined to illustrate the syntax for terms in sigma types
-#def diagonal : (A : U) -> (_ : A) -> prod A A
-  := \A -> \a -> (a , a)
+#def diagonal (A : U) (a : A) : prod A A
+  := (a , a)
 
-#def composition : (A : U) -> (B : U) -> (C : U) -> (g : (b : B) -> C) -> (f : (a : A) -> B) -> (z : A) -> C
-  := \A -> \B -> \C -> \g -> \f -> \z -> g (f z)
+#def composition 
+  (A B C : U)     -- Three types.
+  (g : B -> C)    -- The second function.
+  (f : A -> B)    -- The first function.
+  : A -> C        -- The composite function.
+  := \z -> g (f z)
 
 #def triple-composition 
-  : (A : U) -> (B : U) -> (C : U) -> (D : U) -> (h : (c : C) -> D) -> (g : (b : B) -> C) -> (f : (a : A) -> B)
-    -> (z : A) -> D  
-  := \A -> \B -> \C -> \D -> \h -> \g -> \f -> \z -> h (g (f z))
+  (A B C D : U)
+  (h : C -> D) 
+  (g : B -> C) 
+  (f : A -> B)
+  : A -> D  
+  := \z -> h (g (f z))
 
-#def identity : (A : U) -> (a : A) -> A
-  := \A -> \a -> a  
+#def identity (A : U) (a : A) : A
+  := a  
 
-#def constant : (X : U) -> (A : U) -> (a : A) -> (_ : X) -> A
-  := \X -> \A -> \a -> \x -> a
+#def constant 
+  (X A : U)       -- The source and target types.
+  (a : A)         -- The constant output value.
+  : X -> A
+  := \x -> a
   
-#def reindex : (A : U) -> (B : U) -> (f : (b : B) -> A) -> (C : (a : A) -> U) -> ((b : B) -> U)
-  := \A -> \B -> \f -> \C -> (\b -> C (f b))
+-- Reindexing a type family along a function into the base type.  
+#def reindex 
+  (A B : U) 
+  (f : B -> A) 
+  (C : A -> U) 
+  : (B -> U)
+  := \b -> C (f b)
