@@ -465,22 +465,55 @@
 -- Setting up identity types of sigma types
 
 -- Sigma-induction
-#def ind-sigma
+#def ind-Sigma
         (A : U)
         (B : A -> U)
         (C : (∑(a : A), B a) -> U)
-        (p : ∑(a : A), B a)
+        (s : ∑(a : A), B a)
         (f : (a : A) -> (b : B a) -> C (a, b))
-        : C p
-        := (f (first p)) (second p)
+        : C s
+        := (f (first s)) (second s)
 
+-- [Rijke 22, Definition 9.3.1]
 #def Eq-Sigma
     (A : U)
     (B : A -> U)
-    (s : ∑(a : A), B a)
-    (t : ∑(a : A), B a)
+    (s t : ∑(a : A), B a)
     : U
-    := ∑(p : (first s) = (first t)), (transport A  B (first s) (first t) p (second s)) = (second t)
+    := ∑(p : (first s) = (first t)), (transport A B (first s) (first t) p (second s)) = (second t)
+
+-- [Rijke 22, used in Lemma 9.3.2]
+#def refl-in-Sigma
+    (A : U)
+    (B : A -> U)
+    (x : A)
+    (y : B x)
+    : ∑(p : (x = x)), ((transport A B x x refl_{x} y) = y)
+    := (refl_{x}, refl_{y})
+
+-- [Rijke 22, Lemma 9.3.2]
+-- Eq-sigma is reflexive
+-- #def reflexive-Eq-Sigma
+--       (A : U)
+--       (B : A -> U)
+--       (s : ∑(a : A), B a)
+--       : (Eq-Sigma A B s s)
+--       := (ind-Sigma 
+--       A
+--       B
+--       (\s' -> (Eq-Sigma A B s' s'))
+--       s
+--       (\x' -> \y' -> (refl-in-Sigma A B x' y'))
+--       )
+--      TODO: fix
+
+-- #def eq-sigma
+--     (A : U)
+--     (B : A -> U)
+--     (s t : ∑(a : A), B a)
+--     (p : (s = t))
+--     : (Eq-Sigma A B s t)
+--     := TODO
 
 -- -- Split off homotopy in a sigma type
 -- #def sigma-htopy-split
