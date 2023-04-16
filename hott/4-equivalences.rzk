@@ -493,19 +493,18 @@
 
 -- [Rijke 22, Lemma 9.3.2]
 -- Eq-sigma is reflexive
--- #def reflexive-Eq-Sigma
---       (A : U)
---       (B : A -> U)
---       (s : ∑(a : A), B a)
---       : (Eq-Sigma A B s s)
---       := (ind-Sigma 
---       A
---       B
---       (\s' -> (Eq-Sigma A B s' s'))
---       s
---       (\x' -> \y' -> (refl-in-Sigma A B x' y'))
---       )
---      TODO: fix
+#def reflexive-Eq-Sigma
+       (A : U)
+       (B : A -> U)
+       (s : ∑(a : A), B a)
+       : (Eq-Sigma A B s s)
+       := (ind-Sigma 
+      A
+      B
+     (\k -> (Eq-Sigma A B k k))
+      s
+     (\u -> \v -> (refl_{u}, refl_{v}))
+      )
 
 -- #def eq-sigma
 --     (A : U)
