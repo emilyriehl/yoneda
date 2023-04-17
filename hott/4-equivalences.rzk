@@ -493,20 +493,34 @@
 
 -- [Rijke 22, Lemma 9.3.2]
 -- Eq-sigma is reflexive
--- #def reflexive-Eq-Sigma
---       (A : U)
---       (B : A -> U)
---       (s : ∑(a : A), B a)
---       : (Eq-Sigma A B s s)
---       := (ind-Sigma 
---       A
---       B
---       (\s' -> (Eq-Sigma A B s' s'))
---       s
---       (\x' -> \y' -> (refl-in-Sigma A B x' y'))
---       )
---      TODO: fix
+#def reflexive-Eq-Sigma
+       (A : U)
+       (B : A -> U)
+       (s : ∑(a : A), B a)
+       : (Eq-Sigma A B s s)
+       := (ind-Sigma 
+      A
+      B
+     (\k -> (Eq-Sigma A B k k))
+      s
+     (\u v -> (refl_{u}, refl_{v}))
+      )
 
+-- [Rijke 22, Definition 9.3.3]
+#def pair-eq
+    (A : U)
+    (B : A -> U)
+    (s t : ∑(a : A), B a)
+    (p : s = t)
+    : (Eq-Sigma A B s t)
+    := idJ(∑(a : A), B a, s, \t' p' -> (Eq-Sigma A B s t'), (reflexive-Eq-Sigma A B s), t, p)
+
+-- [Rijke 22, Theorem 9.3.3, Characterization of identity types of sigma types]
+-- #def eq-pair
+--     (A : U)
+--     (B : A -> U)
+--     (s t : ∑(a : A), B a)
+--     TODO 
 -- #def eq-sigma
 --     (A : U)
 --     (B : A -> U)
