@@ -10,129 +10,8 @@ This is a literate `rzk` file:
 
 ## Natural transformations between representable functors
 ```rzk
--- some tests which fail to reproduce the issue below
-#def test-square
-    (A : U)
-    (x y1 y2 z : A)
-    (f : hom A x y1)
-    (g : hom A y1 z)
-    (d : hom A x z)
-    (h : hom A x y2)
-    (k : hom A y2 z)
-    (alpha : hom2 A x y1 z f g d)
-    (beta : hom2 A x y2 z h k d)
-    : (s : Δ¹) -> (t : Δ¹) -> A
-    := \s t ->  recOR(t <= s |-> alpha (s , t), 
-                    s <= t |-> beta (t , s))
-
-#def test-with-id
-    (A : U)
-    (x y z : A)
-    (d : hom A x z)
-    (h : hom A x y)
-    (k : hom A y z)
-    (beta : hom2 A x y z h k d)
-    : (s : Δ¹) -> (t : Δ¹) -> A
-    := \s t ->  recOR(t <= s |-> (id-comp-witness A x z d) (s , t), 
-                    s <= t |-> beta (t , s))
-
-#def test-with-id-diagonal
-    (A : U)
-    (x y z : A)
-    (d : hom A x z)
-    (h : hom A x y)
-    (k : hom A y z)
-    (beta : hom2 A x y z h k d)
-    : hom A x z
-    := \t -> test-with-id A x y z d h k beta t t
-
-#def id-extraction
-    (A : U)
-    (x y z : A)
-    (d : hom A x z)
-    (h : hom A x y)
-    (k : hom A y z)
-    (beta : hom2 A x y z h k d)
-    : hom2 A x x z (id-arr A x) d d
-    := \(t, s) -> test-with-id A x y z d h k beta t s
-
-#def new-id-extraction
-    (A : U)
-    (x y z : A)
-    (d : hom A x z)
-    (h : hom A x y)
-    (k : hom A y z)
-    (beta : hom2 A x y z h k d)
-    : hom2 A x x z (id-arr A x) d (test-with-id-diagonal A x y z d h k beta)
-    := \(t, s) -> test-with-id A x y z d h k beta t s
-
-#def beta-extraction            
-    (A : U)
-    (x y1 y2 z : A)
-    (f : hom A x y1)
-    (g : hom A y1 z)
-    (d : hom A x z)
-    (h : hom A x y2)
-    (k : hom A y2 z)
-    (alpha : hom2 A x y1 z f g d)
-    (beta : hom2 A x y2 z h k d)
-    : hom2 A x y2 z h k d
-    := \(t, s) -> test-square A x y1 y2 z f g d h k alpha beta s t        
-
-#def alpha-extraction            
-    (A : U)
-    (x y1 y2 z : A)
-    (f : hom A x y1)
-    (g : hom A y1 z)
-    (d : hom A x z)
-    (h : hom A x y2)
-    (k : hom A y2 z)
-    (alpha : hom2 A x y1 z f g d)
-    (beta : hom2 A x y2 z h k d)
-    : hom2 A x y1 z f g d
-    := \(t, s) -> test-square A x y1 y2 z f g d h k alpha beta t s     
-
-#def new-diagonal       
-    (A : U)
-    (x y1 y2 z : A)
-    (f : hom A x y1)
-    (g : hom A y1 z)
-    (d : hom A x z)
-    (h : hom A x y2)
-    (k : hom A y2 z)
-    (alpha : hom2 A x y1 z f g d)
-    (beta : hom2 A x y2 z h k d)
-    : hom A x z
-    := \t -> test-square A x y1 y2 z f g d h k alpha beta t t
-
-#def new-alpha-extraction   
-    (A : U)
-    (x y1 y2 z : A)
-    (f : hom A x y1)
-    (g : hom A y1 z)
-    (d : hom A x z)
-    (h : hom A x y2)
-    (k : hom A y2 z)
-    (alpha : hom2 A x y1 z f g d)
-    (beta : hom2 A x y2 z h k d)
-    : hom2 A x y1 z f g (new-diagonal A x y1 y2 z f g d h k alpha beta) 
-    := \(t, s) -> test-square A x y1 y2 z f g d h k alpha beta t s    
-
-#def new-beta-extraction   
-    (A : U)
-    (x y1 y2 z : A)
-    (f : hom A x y1)
-    (g : hom A y1 z)
-    (d : hom A x z)
-    (h : hom A x y2)
-    (k : hom A y2 z)
-    (alpha : hom2 A x y1 z f g d)
-    (beta : hom2 A x y2 z h k d)
-    : hom2 A x y2 z h k (new-diagonal A x y1 y2 z f g d h k alpha beta) 
-    := \(t, s) -> test-square A x y1 y2 z f g d h k alpha beta s t  
-
 -- This unfolds a composition triangle to a square with an identity component
-#def fixed-domain-square
+#def id-domain-square
     (A : U)                     -- The ambient type.
     (AisSegal : isSegal A)      -- A proof that A is Segal.
     (a x y : A)                 -- Three objects
@@ -143,7 +22,7 @@ This is a literate `rzk` file:
         recOR(t <= s |-> (id-comp-witness A a y (Segal-comp A AisSegal a x y g k)) (s , t), 
         s <= t |-> (Segal-comp-witness A AisSegal a x y g k) (t , s))
 
-#def fixed-domain-square-transformation
+#def id-domain-square-transformation
     (A : U)                                         -- The ambient type.
     (AisSegal : isSegal A)                          -- A proof that A is Segal.
     (a b x y : A)                                   -- Four objects
@@ -151,9 +30,9 @@ This is a literate `rzk` file:
     (k : hom A x y)                                 -- An arrow from b to y.
     (phi : (z : A) -> hom A a z -> hom A b z)       -- A fiberwise map.
     : (s : Δ¹) -> hom A b (k s)
-    := \s -> phi (k s) (\t -> (fixed-domain-square A AisSegal a x y g k s t))
+    := \s -> phi (k s) (\t -> (id-domain-square A AisSegal a x y g k s t))
 
-#def fixed-domain-square-transformation-diagonal
+#def id-domain-square-transformation-diagonal
     (A : U)                                         -- The ambient type.
     (AisSegal : isSegal A)                          -- A proof that A is Segal.
     (a b x y : A)                                   -- Four objects
@@ -161,8 +40,9 @@ This is a literate `rzk` file:
     (k : hom A x y)                                 -- An arrow from b to y.
     (phi : (z : A) -> hom A a z -> hom A b z)       -- A fiberwise map.
     : hom A b y
-    := \t -> fixed-domain-square-transformation A AisSegal a b x y g k phi t t
+    := \t -> id-domain-square-transformation A AisSegal a b x y g k phi t t
 
+-- One half of the id-domain-square-transformation.
 #def composite-of-transformation    
     (A : U)                                         -- The ambient type.
     (AisSegal : isSegal A)                          -- A proof that A is Segal.
@@ -173,27 +53,25 @@ This is a literate `rzk` file:
     : hom2 A b x y
         (phi x g)
         k
-        (fixed-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
-    := \(t, s) -> (fixed-domain-square-transformation A AisSegal a b x y g k phi s t)
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := \(t, s) -> (id-domain-square-transformation A AisSegal a b x y g k phi s t)
 
--- if t2 is swapped in for t1 at the end of the third constraint this fails; see below
-#def transformation-of-composite-weird    
+#def composite-of-transformation-coherence    
     (A : U)                                         -- The ambient type.
     (AisSegal : isSegal A)                          -- A proof that A is Segal.
     (a b x y : A)                                   -- Four objects
     (g : hom A a x)                                 -- An arrow from a to x.
     (k : hom A x y)                                 -- An arrow from b to y.
     (phi : (z : A) -> hom A a z -> hom A b z)       -- A fiberwise map.
-    : { (t1, t2) : Δ² } -> A [
-        t2 === 0_2 |-> b, -- (id-arr A b) 
-        t1 === 1_2 |-> (phi y (Segal-comp A AisSegal a x y g k)) t2, 
-                -- (phi y (Segal-comp A AisSegal a x y g k))
-        t2 === t1 |-> (fixed-domain-square-transformation-diagonal A AisSegal a b x y g k phi) t1]
-                -- the above fails when t2 is swapped for t1 at the end of the line
-                 --  (fixed-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
-    := \(s, t) -> (fixed-domain-square-transformation A AisSegal a b x y g k phi s t)
+    : (Segal-comp A AisSegal b x y (phi x g) k) = 
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := Segal-comp-uniqueness A AisSegal b x y 
+            (phi x g)
+            k
+            (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+            (composite-of-transformation A AisSegal a b x y g k phi)
 
---- This fails to recognize the diagonal composite; compare with above. 
+-- The other half of the id-domain-square-transformation.
 #def transformation-of-composite
     (A : U)                                         -- The ambient type.
     (AisSegal : isSegal A)                          -- A proof that A is Segal.
@@ -204,25 +82,8 @@ This is a literate `rzk` file:
     : hom2 A b b y 
         (id-arr A b) 
         (phi y (Segal-comp A AisSegal a x y g k))
-        (fixed-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
-    := \(s, t) -> (fixed-domain-square-transformation A AisSegal a b x y g k phi s t)    
-
-
-#def transformation-of-composite-coherence-alt 
-    (A : U)                                         -- The ambient type.
-    (AisSegal : isSegal A)                          -- A proof that A is Segal.
-    (a b x y : A)                                   -- Four objects
-    (g : hom A a x)                                 -- An arrow from a to x.
-    (k : hom A x y)                                 -- An arrow from b to y.
-    (phi : (z : A) -> hom A a z -> hom A b z)       -- A fiberwise map.
-    : (Segal-comp A AisSegal b b y (id-arr A b) (phi y (Segal-comp A AisSegal a x y g k))) = 
-        (\t -> (transformation-of-composite-weird A AisSegal a b x y g k phi) (t, t))
-        -- fixed-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
-    := Segal-comp-uniqueness A AisSegal b b y 
-            (id-arr A b) 
-            (phi y (Segal-comp A AisSegal a x y g k))
-            (fixed-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
-            (transformation-of-composite-weird A AisSegal a b x y g k phi)    
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := \(s, t) -> (id-domain-square-transformation A AisSegal a b x y g k phi s t)    
 
 #def transformation-of-composite-coherence    
     (A : U)                                         -- The ambient type.
@@ -232,13 +93,28 @@ This is a literate `rzk` file:
     (k : hom A x y)                                 -- An arrow from b to y.
     (phi : (z : A) -> hom A a z -> hom A b z)       -- A fiberwise map.
     : (Segal-comp A AisSegal b b y (id-arr A b) (phi y (Segal-comp A AisSegal a x y g k))) = 
-        (fixed-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
     := Segal-comp-uniqueness A AisSegal b b y 
             (id-arr A b) 
             (phi y (Segal-comp A AisSegal a x y g k))
-            (fixed-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+            (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
             (transformation-of-composite A AisSegal a b x y g k phi)
-```
+
+#def transformation-of-composite-coherence-simplified    
+    (A : U)                                         -- The ambient type.
+    (AisSegal : isSegal A)                          -- A proof that A is Segal.
+    (a b x y : A)                                   -- Four objects
+    (g : hom A a x)                                 -- An arrow from a to x.
+    (k : hom A x y)                                 -- An arrow from b to y.
+    (phi : (z : A) -> hom A a z -> hom A b z)       -- A fiberwise map.
+    : (phi y (Segal-comp A AisSegal a x y g k)) = 
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := zag-zig-concat (hom A b y)
+        (phi y (Segal-comp A AisSegal a x y g k)) 
+        (Segal-comp A AisSegal b b y (id-arr A b) (phi y (Segal-comp A AisSegal a x y g k))) 
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+        (Segal-id-comp A AisSegal b y (phi y (Segal-comp A AisSegal a x y g k)))
+        (transformation-of-composite-coherence A AisSegal a b x y g k phi)
 
 #def fiberwise-is-natural
     (A : U)                                     -- The ambient type.
@@ -247,9 +123,14 @@ This is a literate `rzk` file:
     (phi : (z : A) -> hom A a z -> hom A b z)   -- A natural transformation
     (g : hom A a x)                             -- An arrow from a to x.
     (k : hom A x y)                             -- An arrow from b to y.
-    : Segal-comp A AisSegal b x y (phi x g) k =_{hom A b y} 
-    phi y (Segal-comp A AisSegal a x y g k)
-
+    :  phi y (Segal-comp A AisSegal a x y g k) = Segal-comp A AisSegal b x y (phi x g) k
+    := zig-zag-concat (hom A b y) 
+        (phi y (Segal-comp A AisSegal a x y g k))
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+        (Segal-comp A AisSegal b x y (phi x g) k)
+        (transformation-of-composite-coherence-simplified A AisSegal a b x y g k phi)
+        (composite-of-transformation-coherence A AisSegal a b x y g k phi)
+```
 
 ## The Yoneda maps
 
