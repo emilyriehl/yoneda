@@ -8,6 +8,13 @@ This is a literate `rzk` file:
 #lang rzk-1
 ```
 
+## Prerequisites
+
+- `hott/*` - we require various prerequisites from homotopy type theory, for instance the axiom of function extensionality
+- `3-simplicial-type-theory.md` — we rely on definitions of simplicies and their subshapes
+- `4-extension-types.md` — we use the fubini theorem and extension extensionality
+- `5-segal-types.md` - we make heavy use of the notion of Segal types
+
 ## Natural transformations between representable functors
 
 In what follows, we'll consider a Segal type A with two fixed terms a and b. 
@@ -28,6 +35,7 @@ automatically defines a natural transformation, despite appearing only to define
         recOR(t <= s |-> (id-comp-witness A a y (Segal-comp A AisSegal a x y g k)) (s , t), 
         s <= t |-> (Segal-comp-witness A AisSegal a x y g k) (t , s))
 
+-- We apply the transformation phi to the square just constructed.
 #def id-domain-square-transformation
     (A : U)                                         -- The ambient type.
     (AisSegal : isSegal A)                          -- A proof that A is Segal.
@@ -38,6 +46,7 @@ automatically defines a natural transformation, despite appearing only to define
     : (s : Δ¹) -> hom A b (k s)
     := \s -> phi (k s) (\t -> (id-domain-square A AisSegal a x y g k s t))
 
+-- This extracts the diagonal composite of the square.
 #def id-domain-square-transformation-diagonal
     (A : U)                                         -- The ambient type.
     (AisSegal : isSegal A)                          -- A proof that A is Segal.
@@ -156,7 +165,12 @@ The Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -
     (a b : A)               -- The representing objects
     : hom A b a -> ((z : A) -> hom A a z -> hom A b z)
     := \f z g -> Segal-comp A AisSegal b a z f g
+```
+## The Yoneda composites
 
+It remains to show that the Yoneda maps are inverses.
+
+```rzk
 -- One retraction is straightforward:
 #def evid-yon
     (A : U)                 -- The ambient type.
@@ -166,7 +180,9 @@ The Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -
     : (evid A a b) ((yon A AisSegal a b) f) = f
     := Segal-comp-id A AisSegal b a f
 
--- The other composite carries phi to an a prior distinct natural transformation. We first show that these are pointwise equal at all x : A and g : hom A a x
+-- The other composite carries phi to an a priori distinct natural transformation.
+-- We first show that these are pointwise equal at all x : A and g : hom A a x in two steps.
+-- The first step:
 #def yon-evid-partial
     (A : U)                 -- The ambient type.
     (AisSegal : isSegal A)  -- A proof that A is Segal.
@@ -177,6 +193,7 @@ The Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -
     : ((yon A AisSegal a b)((evid A a b) phi)) x g = phi x (Segal-comp A AisSegal a a x (id-arr A a) g)  -- phi x g 
     := fiberwise-is-natural A AisSegal a b a x phi (id-arr A a) g
 
+-- The second step:
 #def yon-evid-ap
     (A : U)                 -- The ambient type.
     (AisSegal : isSegal A)  -- A proof that A is Segal.
@@ -191,6 +208,7 @@ The Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -
         (phi x)
         (Segal-id-comp A AisSegal a x g)
 
+-- The composite yon-evid of phi equals phi at all x : A and g : hom A a x.
 #def yon-evid-twice-pointwise
     (A : U)                 -- The ambient type.
     (AisSegal : isSegal A)  -- A proof that A is Segal.
@@ -206,6 +224,7 @@ The Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -
         (yon-evid-partial A AisSegal a b phi x g)
         (yon-evid-ap A AisSegal a b phi x g)
 
+-- By funext, these are equals as functions of g pointwise in x.
 #def yon-evid-once-pointwise        
     (funext : FunExt)
     (A : U)                 -- The ambient type.
@@ -221,6 +240,7 @@ The Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -
         (\g -> (phi x g))
         (\g -> yon-evid-twice-pointwise A AisSegal a b phi x g)
 
+-- By funext again, these are equal as functions of x and g.
 #def yon-evid        
     (funext : FunExt)
     (A : U)                 -- The ambient type.

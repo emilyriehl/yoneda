@@ -10,10 +10,15 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/total-space.rzk` — we rely on `contractible-fibers-projection-equiv` and `total-space-projection` from that file in the proof of Theorem 5.5
-- `3-simplicial-type-theory.rzk` — we rely on definitions of simplicies and their subshapes
+- `hott/1-paths.rzk` - we require basic path algebra
+- `hott/2-contractible.rzk` - we require the notion of contractible types and the data associated to a proof of contractibility
+- `hott/total-space.rzk` — we rely on `contractible-fibers-projection-equiv` and `total-space-projection` in the proof of Theorem 5.5
+- `3-simplicial-type-theory.md` — we rely on definitions of simplicies and their subshapes
+- `4-extension-types.md` — we use the fubini theorem and extension extensionality
 
-## The Segal condition
+## Hom types
+
+Extension types are used to define the type of arrows between fixed terms:
 
 ```rzk
 -- [RS17, Definition 5.1]
@@ -26,7 +31,11 @@ This is a literate `rzk` file:
     t === 0_2 |-> x,    -- * the left endpoint is exactly x
     t === 1_2 |-> y     -- * the right endpoint is exactly y
   ]
+```
 
+Extension types are also used to define the type of commutative triangles:
+
+```rzk
 -- [RS17, Definition 5.2]
 -- the type of commutative triangles in A
 #def hom2
@@ -41,17 +50,23 @@ This is a literate `rzk` file:
     t1 === 1_2 |-> g t2,        -- * the right edge is exactly g, and
     t2 === t1  |-> h t2         -- * the diagonal is exactly h
   ]
+```
 
+## The Segal condition
+
+A type is Segal if every composable pair of arrows has a unique composite.
+
+```rzk
 -- [RS17, Definition 5.3]
--- A type is Segal if every composable pair of arrows has a unique composite
 #def isSegal 
   (A : U)         -- A type.
   : U
   := (x : A) -> (y : A) -> (z : A) -> (f : hom A x y) -> (g : hom A y z) -> isContr( ∑ (h : hom A x z), hom2 A x y z f g h)
 ```
+Segal types have a composition functor and witnesses to the composition relation:
 
 ```rzk
--- Segal types have a composition functor; written in diagrammatic order to match the order of arguments in isSegal
+-- Composition is written in diagrammatic order to match the order of arguments in isSegal.
 #def Segal-comp 
   (A : U)                       -- A type.
   (AisSegal : isSegal A)        -- A proof that A is Segal.
@@ -70,8 +85,11 @@ This is a literate `rzk` file:
   (g : hom A y z)               -- An arrow in A from y to z.
   : hom2 A x y z f g (Segal-comp A AisSegal x y z f g)
   := second (first (AisSegal x y z f g))
+```
 
--- If there is a witness that an arrow h is a composite of f and g, then the specified composite equals h.
+Composition in a Segal type is unique in the following sense. If there is a witness that an arrow h is a composite of f and g, then the specified composite equals h.
+
+```rzk
 #def Segal-comp-uniqueness 
   (A : U)                       -- A type.
   (AisSegal : isSegal A)        -- A proof that A is Segal.
@@ -80,16 +98,18 @@ This is a literate `rzk` file:
   (g : hom A y z)               -- An arrow in A from y to z.
   (h : hom A x z)               -- An arrow in A from x to z.
   (alpha : hom2 A x y z f g h)  -- A witness that h is a composite of f and g.
-  : (Segal-comp A AisSegal x y z f g) =_{hom A x z} h
+  : (Segal-comp A AisSegal x y z f g) = h
   := total-path-to-base-path 
       (hom A x z)
-      (\(k : hom A x z) -> hom2 A x y z f g k)
+      (\k -> hom2 A x y z f g k)
       (Segal-comp A AisSegal x y z f g, Segal-comp-witness A AisSegal x y z f g)
       (h, alpha)
       (contracting-htpy (∑ (k : hom A x z), hom2 A x y z f g k) (AisSegal x y z f g) (h, alpha))
 ```
 
 ### Characterizing Segal types
+
+Our aim is to prove that a type is Segal if and only if the horn-restriction map, defined below, is an equivalence.
 
 ```rzk
 -- A pair of composable arrows form a horn.
@@ -112,6 +132,16 @@ This is a literate `rzk` file:
   : Λ -> A
   :=  \t -> alpha t
 
+-- An alternate definition of Segal types.
+#def isSegal'
+  (A : U)       -- A type.
+  : U
+  := isEquiv (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) (horn-restriction A) 
+```  
+
+Now we prove this definition is equivalent to the original one.
+
+```rzk
 -- Here, we prove the equivalence used in [RS17, Theorem 5.5].
 -- However, we do this by constructing the equivalence directly,
 -- instead of using a composition of equivalences, as it is easier to write down
@@ -175,11 +205,6 @@ This is a literate `rzk` file:
   : (first (Segal-restriction-equiv A AisSegal)) = (horn-restriction A)
   := refl
 
--- Theorem 5.5 justifies an alternate definition of isSegal
-#def isSegal'
-  (A : U)       -- A type.
-  : U
-  := isEquiv (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) (horn-restriction A) 
 
 #def isSegal-isSegal' 
   (A : U)                       -- A type.
@@ -220,7 +245,13 @@ This is a literate `rzk` file:
   (A : U)                       -- A type.
   : iff (isSegal A) (isSegal' A)      
   := (isSegal-isSegal' A , isSegal'-isSegal A)
+```
 
+## Segal function and extension types
+
+Using the new characterization of Segal types, we can show that the type of functions or extensions into a family of Segal types is again a Segal type.
+
+```rzk
 -- [RS17, Corollary 5.6(i)] : if X is a type and A : X -> U is such that A(x) is a Segal type then (x : X) -> A x is a Segal type
 #def Segal-function-types 
   (funext : FunExt)                                 -- This proof uses function extensionality defined in 4-equivalences.rzk
@@ -330,6 +361,8 @@ This is a literate `rzk` file:
 
 ## Identity
 
+All types have identity arrows and witnesses to the identity composition law. 
+
 ```rzk
 -- [RS17, Definition 5.7]
 -- all types have identity arrows
@@ -348,6 +381,20 @@ This is a literate `rzk` file:
   : hom2 A x y y f (id-arr A y) f
   := \{(t, s) : 2 * 2 | Δ² (t, s)} -> f t
 
+-- [RS17, Proposition 5.8b]
+-- the left unit law for identity
+#def id-comp-witness 
+  (A : U)                   -- A type.
+  (x y : A)                 -- Two points in A.
+  (f : hom A x y)           -- An arrow from x to y in A.
+  : hom2 A x x y (id-arr A x) f f
+  := \{(t, s) : 2 * 2 | Δ² (t, s)} -> f s
+```
+
+In a Segal type, where composition is unique, it follows that composition with an identity arrow recovers the original arrow. 
+Thus, an identity axiom was not needed in the definition of Segal types.
+
+```rzk
 -- If A is Segal then the right unit law holds
 #def Segal-comp-id
   (A : U)                   -- A type.
@@ -363,15 +410,6 @@ This is a literate `rzk` file:
       (id-arr A y)
       f
       (comp-id-witness A x y f)
-
--- [RS17, Proposition 5.8b]
--- the left unit law for identity
-#def id-comp-witness 
-  (A : U)                   -- A type.
-  (x y : A)                 -- Two points in A.
-  (f : hom A x y)           -- An arrow from x to y in A.
-  : hom2 A x x y (id-arr A x) f f
-  := \{(t, s) : 2 * 2 | Δ² (t, s)} -> f s
 
 -- If A is Segal then the left unit law holds
 #def Segal-id-comp
@@ -391,6 +429,8 @@ This is a literate `rzk` file:
 ```
 
 ## Associativity
+
+We now prove that composition in a Segal type is associative, by using the fact that the type of arrows in a Segal type is itself a Segal type.
 
 ```rzk
 #def unfolding-square 
