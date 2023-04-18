@@ -1,16 +1,29 @@
-#lang rzk-1
+# 0. Common
 
+This is a literate `rzk` file:
+
+```rzk
+#lang rzk-1
+```
+
+## Products of types
+```rzk
 #def prod (A B : U) : U
   := ∑ (x : A), B
-
--- the type of logical equivalences between types
-#def iff (A B : U) : U
-  := prod (A -> B) (B -> A)
 
 -- defined to illustrate the syntax for terms in sigma types
 #def diagonal (A : U) (a : A) : prod A A
   := (a , a)
+```
 
+## The type of logical equivalences between types
+```rzk
+#def iff (A B : U) : U
+  := prod (A -> B) (B -> A)
+```
+
+## Basic function definitions
+```rzk
 #def composition 
   (A B C : U)     -- Three types.
   (g : B -> C)    -- The second function.
@@ -34,7 +47,9 @@
   (a : A)         -- The constant output value.
   : X -> A
   := \x -> a
-  
+```
+## Substitution
+```rzk
 -- Reindexing a type family along a function into the base type.  
 #def reindex 
   (A B : U) 
@@ -42,3 +57,4 @@
   (C : A -> U) 
   : (B -> U)
   := \b -> C (f b)
+```

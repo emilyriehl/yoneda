@@ -1,7 +1,14 @@
+# 1. Paths
+
+This is a literate `rzk` file:
+
+```rzk
 #lang rzk-1
+```
 
--- some path algebra that we need here
+## Some basic path algebra
 
+```rzk
 -- path reversal
 #def rev 
   (A : U)           -- A type.
@@ -209,4 +216,4 @@
   (p : x = y) 
   : ((transport A B x y p (f x)) = f y)
   := idJ(A, x, \y' -> \p' -> ((transport A B x y' p' (f x)) = f y'), refl, y, p)
-
+```

@@ -1,5 +1,13 @@
-#lang rzk-1
+# 6. Trivial Fibrations
 
+This is a literate `rzk` file:
+
+```rzk
+#lang rzk-1
+```
+
+## Contractible fibers
+```rzk
 -- In what follows we apply show that the projection from the total space of a sigma type is an equivalence if and only if its fibers are contractible
 #def total-space-projection
     (A : U)
@@ -46,16 +54,6 @@
     : hasSection (∑ (x : A), B x) A (total-space-projection A B)
     := (contractible-fibers-actual-section A B ABcontrfib , contractible-fibers-section-htpy A B ABcontrfib)
 
--- A path in a fiber defines a path in the total space
-#def fibered-path-to-sigma-path 
-    (A : U)
-    (B : A -> U)
-    (x : A)
-    (u v : B x)
-    (p : u = v) 
-    : (x , u) =_{∑ (a : A), B a} (x , v)
-    := idJ(B x, u, \v' p' -> (x , u) = (x , v'), refl, v, p)
-
 -- This can be used to define the retraction homotopy for the total space projection, called "first" here
 #def contractible-fibers-retraction-htpy 
     (A : U)
@@ -80,27 +78,11 @@
     (ABcontrfib : contractible-fibers A B)
     : isEquiv (∑ (x : A), B x) A (total-space-projection A B)
     := (contractible-fibers-retraction A B ABcontrfib , contractible-fibers-section-is-section A B ABcontrfib)
+```
 
--- A path through the total space projects to a path in the base
-#def total-path-to-base-path 
-    (A : U)
-    (B : A -> U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : ((first z) = first w)
-    := ap (∑ (a : A), B a) A z w (total-space-projection A B) p 
+## Projection equivalences
 
--- A path through the total space gives a path in a fiber using transport along the path in the base
-#def total-path-to-fibered-path 
-    (A : U)
-    (B : A -> U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : (transport A B (first z) (first w) (total-path-to-base-path A B z w p) (second z)) = (second w)
-    := idJ((∑ (a : A), B a), z, 
-            \w' p' -> (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'), 
-            refl, w, p)
-
+```rzk
 -- From a projection equivalence, it's not hard to inhabit fibers
 #def projection-equiv-implies-inhabited-fibers 
     (A : U)
@@ -236,3 +218,4 @@
     : iff (isEquiv (∑ (x : A), B x) A (total-space-projection A B)) (contractible-fibers A B)
     := (\ABprojequiv -> projection-equiv-contractible-fibers A B ABprojequiv, 
             \ABcontrfib -> contractible-fibers-projection-equiv A B ABcontrfib)
+```            

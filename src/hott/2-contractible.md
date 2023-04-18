@@ -1,9 +1,20 @@
-#lang rzk-1
+# 2. Contractible
 
+This is a literate `rzk` file:
+
+```rzk
+#lang rzk-1
+```
+
+## Contractible types
+```rzk
 -- contractible types
 #def isContr (A : U) : U
   := ∑ (x : A), (y : A) -> x = y
+```
 
+## Contractible type data
+```rzk 
 #def contraction-center (A : U) (Aiscontr : isContr A) : A
   := (first Aiscontr)
 
@@ -21,3 +32,4 @@
   (x y : A) 
   : x = y
   := zag-zig-concat A x (contraction-center A Aiscontr) y (contracting-htpy A Aiscontr x) (contracting-htpy A Aiscontr y)  
+```

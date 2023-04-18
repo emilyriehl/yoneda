@@ -1,7 +1,13 @@
+# 2. Homotopies
+
+This is a literate `rzk` file:
+
+```rzk
 #lang rzk-1
+```
+## Homotopies and their algebra
 
--- homotopies
-
+```rzk
 -- The type of homotopies between parallel functions.
 #def homotopy 
     (A B : U)               -- Two types.
@@ -40,7 +46,11 @@
     (h : A -> B)
     : homotopy A C (composition A B C f h) (composition A B C g h)
     := \a -> H (h a)
+```
 
+## Naturality
+
+```rzk
 -- The naturality square associated to a homotopy and a path.
 #def nat-htpy 
     (A B : U)               -- Two types.
@@ -94,4 +104,4 @@
             (H (f a)) 
             (H a) 
                 (another-cylinder-homotopy-coherence A f H a))
-
+```
