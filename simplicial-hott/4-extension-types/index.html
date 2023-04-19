@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Extension Types - Yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/rzk/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/rzk/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/rzk/favicon-16x16.png">
+    <link rel="manifest" href="/rzk/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+    <link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+    <script src="../../js/highlight-11.7.0.min.js"></script>
+    <script src="../../js/rzk.js"></script>
+    <link rel="stylesheet" href="../../css/gruvbox-light.css" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+    <script src="../../js/highlightjs-copy.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      hljs.addPlugin(new CopyButtonPlugin());
+      hljs.highlightAll();
+    </script>
+    
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Extension Types";
+        var mkdocs_page_input_path = "simplicial-hott/4-extension-types.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/0-common/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/1-paths/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/2-contractible/">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/3-homotopies/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/4-equivalences/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/5-sigma/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/6-trivial-fibrations/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../3-simplicial-type-theory/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Extension Types</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#commutation-of-arguments-and-currying">Commutation of arguments and currying</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#extending-into-types-the-non-axiom-of-choice">Extending into ∑-types (the non-axiom of choice)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#composites-and-unions-of-cofibrations">Composites and unions of cofibrations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#relative-function-extensionality">Relative function extensionality</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5-segal-types/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../6-2cat-of-segal-types/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../7-discrete/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../8-covariant/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../9-yoneda/">The Yoneda Lemma</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Simplicial HoTT &raquo;</li>
+      <li>Extension Types</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="4-equivalences-involving-extension-types">4. Equivalences involving extension types</h1>
+<p>These formalisations correspond to Section 3 of RS17 paper.</p>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><code>hott/4-equivalences.rzk</code> — contains the definitions of <code>Eq</code> and <code>compose_Eq</code></li>
+<li>the file <code>hott/4-equivalences.rzk</code> relies in turn on the previous files in <code>hott/</code></li>
+</ul>
+<h2 id="commutation-of-arguments-and-currying">Commutation of arguments and currying</h2>
+<pre><code class="language-rzk">-- [RS17, Theorem 4.1]
+#def flip-ext-fun 
+   (I : CUBE)
+   (psi : I -&gt; TOPE)
+   (phi : psi -&gt; TOPE)
+   (X : U)
+   (Y : psi -&gt; X -&gt; U)
+   (f : &lt;{t : I | phi t } -&gt; (x : X) -&gt; Y t x &gt;)
+   : Eq (&lt;{t : I | psi t} -&gt; ((x : X) -&gt; Y t x) [ phi t |-&gt; f t ]&gt;)
+       ((x : X) -&gt; &lt;{t : I | psi t} -&gt; Y t x [ phi t |-&gt; f t x]&gt;)
+   := (\g x t -&gt; g t x, -- the one-way map
+            ((\h t x -&gt; (h x) t, -- the retraction
+            \g -&gt; refl), -- the retracting homotopy
+            (\h t x -&gt; (h x) t, -- the section
+            \h -&gt; refl))) -- the section homotopy
+
+#def flip-ext-fun-inv 
+   (I : CUBE)
+   (psi : I -&gt; TOPE)
+   (phi : psi -&gt; TOPE)
+   (X : U)
+   (Y : psi -&gt; X -&gt; U)
+   (f : &lt;{t : I | phi t } -&gt; (x : X) -&gt; Y t x &gt;)
+   : Eq ((x : X) -&gt; &lt;{t : I | psi t} -&gt; Y t x [ phi t |-&gt; f t x]&gt;)
+      (&lt;{t : I | psi t} -&gt; ((x : X) -&gt; Y t x) [ phi t |-&gt; f t ]&gt;)
+   := (\h t x -&gt; (h x) t, -- the one-way map
+            ((\g x t -&gt; g t x, -- the retraction
+            \h -&gt; refl), -- the retracting homotopy
+            (\g x t -&gt; g t x, -- the section
+            \g -&gt; refl)))
+
+-- [RS17, Theorem 4.2]
+#def curry-uncurry
+   (I J : CUBE)
+   (psi : I -&gt; TOPE)
+   (phi : psi -&gt; TOPE)
+   (zeta : J -&gt; TOPE)
+   (chi : zeta -&gt; TOPE)
+   (X : psi -&gt; zeta -&gt; U)
+   (f : &lt;{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -&gt; X t s &gt;)
+   : Eq (&lt;{t : I | psi t} -&gt; &lt;{ s : J | zeta s} -&gt; X t s [ chi s |-&gt; f (t, s) ]&gt; [ phi t |-&gt; \{s : J | zeta s} -&gt; f (t, s) ]&gt;)
+      (&lt;{(t, s) : I * J | psi t /\ zeta s} -&gt; X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-&gt; f (t , s)]&gt;)
+   := (\g (t, s) -&gt; (g t) s, -- the one way map
+         ((\h t s -&gt; h (t , s) -- its retraction
+            ,\g -&gt; refl), -- the retracting homotopy 
+         (\h t s -&gt; h (t , s) -- its section
+            ,\h -&gt; refl)))  -- the section homotopy
+
+#def uncurry-opcurry 
+   (I J : CUBE)
+   (psi : I -&gt; TOPE)
+   (phi : psi -&gt; TOPE)
+   (zeta : J -&gt; TOPE)
+   (chi : zeta -&gt; TOPE)
+   (X : psi -&gt; zeta -&gt; U)
+   (f : &lt;{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -&gt; X t s &gt;)
+   : Eq (&lt;{(t, s) : I * J | psi t /\ zeta s} -&gt; X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-&gt; f (t , s)]&gt;) 
+      (&lt;{s : J | zeta s} -&gt; &lt;{ t : I | psi t} -&gt; X t s [ phi t |-&gt; f (t, s) ]&gt; [ chi s |-&gt; \{t : I | psi t} -&gt; f (t, s) ]&gt;)
+   := (\h s t -&gt; h (t , s) , -- the one way map
+      ((\g (t, s) -&gt; (g s) t -- its retraction
+            ,\h -&gt; refl), -- the retracting homotopy 
+      (\g (t, s) -&gt; (g s) t -- its section
+            ,\g -&gt; refl))) -- the section homotopy
+
+#def fubini 
+   (I J : CUBE)
+   (psi : I -&gt; TOPE)
+   (phi : psi -&gt; TOPE)
+   (zeta : J -&gt; TOPE)
+   (chi : zeta -&gt; TOPE)
+   (X : psi -&gt; zeta -&gt; U)
+   (f : &lt;{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -&gt; X t s &gt;)
+   : Eq (&lt;{t : I | psi t} -&gt; &lt;{ s : J | zeta s} -&gt; X t s [ chi s |-&gt; f (t, s) ]&gt; [ phi t |-&gt; \{s : J | zeta s} -&gt; f (t, s) ]&gt;)
+      (&lt;{s : J | zeta s} -&gt; &lt;{ t : I | psi t} -&gt; X t s [ phi t |-&gt; f (t, s) ]&gt; [ chi s |-&gt; \{t : I | psi t} -&gt; f (t, s) ]&gt;)
+   := compose_Eq
+         (&lt;{t : I | psi t} -&gt; &lt;{ s : J | zeta s} -&gt; X t s [ chi s |-&gt; f (t, s) ]&gt; [ phi t |-&gt; \{s : J | zeta s} -&gt; f (t, s) ]&gt;)
+         (&lt;{(t, s) : I * J | psi t /\ zeta s} -&gt; X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-&gt; f (t , s)]&gt;)
+         (&lt;{s : J | zeta s} -&gt; &lt;{ t : I | psi t} -&gt; X t s [ phi t |-&gt; f (t, s) ]&gt; [ chi s |-&gt; \{t : I | psi t} -&gt; f (t, s) ]&gt;)
+         (curry-uncurry I J psi phi zeta chi X f)
+         (uncurry-opcurry I J psi phi zeta chi X f)
+</code></pre>
+<h2 id="extending-into-types-the-non-axiom-of-choice">Extending into ∑-types (the non-axiom of choice)</h2>
+<pre><code class="language-rzk">-- [RS17, Theorem 4.3]
+#def axiom-choice 
+   (I : CUBE)
+   (psi : I -&gt; TOPE) 
+   (phi : psi -&gt; TOPE)
+   (X : psi -&gt; U) 
+   (Y : &lt;{t : I | psi t} -&gt; (x : X t) -&gt; U &gt;)
+   (a : &lt;{t : I | phi t} -&gt; X t &gt;)
+   (b : &lt;{t : I | phi t} -&gt; Y t (a t) &gt;)
+   : Eq (&lt;{t : I | psi t} -&gt; (∑ (x : X t), Y t x) [ phi t |-&gt; (a t , b t) ]&gt;) 
+     (∑ (f : (&lt;{t : I | psi t} -&gt; X t [phi t |-&gt; a t ]&gt;)), (&lt;{t : I | psi t} -&gt; Y t (f t) [ phi t |-&gt; b t ]&gt;)) 
+     := (\g -&gt; (\t -&gt; (first (g t)), \t -&gt; second (g t))  , -- the one way map
+            ((\h t -&gt; ((first h) t, (second h) t) -- its retraction
+            , \g -&gt; refl), -- the retracting homotopy
+            (\h t -&gt; ((first h) t, (second h) t) -- its section
+            , \h -&gt; refl))) -- the section homotopy
+</code></pre>
+<h2 id="composites-and-unions-of-cofibrations">Composites and unions of cofibrations</h2>
+<pre><code class="language-rzk">-- [RS17, Theorem 4.4]
+-- Reformulated via tope disjunction instead of inclusion.
+-- See https://github.com/fizruk/rzk/issues/8
+#def cofibration_composition'
+   (I : CUBE)
+   (chi psi phi : I -&gt; TOPE)
+   (X : chi -&gt; U)
+   (a : &lt;{t : I | chi t /\ psi t /\ phi t} -&gt; X t &gt;)
+   : Eq &lt;{t : I | chi t} -&gt; X t [ chi t /\ psi t /\ phi t |-&gt; a t ]&gt;
+       (∑ (f : &lt;{t : I | chi t /\ psi t} -&gt; X t [ chi t /\ psi t /\ phi t |-&gt; a t ]&gt;),
+          &lt;{t : I | chi t} -&gt; X t [ chi t /\ psi t |-&gt; f t ]&gt;)
+  := (\h -&gt; (\t -&gt; h t,
+             \t -&gt; h t),
+      ((\fg t -&gt; (second fg) t, \h -&gt; refl),
+      ((\fg t -&gt; (second fg) t, \h -&gt; refl))))
+
+-- [RS17, Theorem 4.5]
+#def cofibration_union
+   (I : CUBE)
+   (phi psi : I -&gt; TOPE)
+   (X : &lt;{t : I | phi t \/ psi t} -&gt; U &gt;)
+   (a : &lt;{t : I | psi t} -&gt; X t &gt;)
+   : Eq &lt;{t : I | phi t \/ psi t} -&gt; X t [ psi t |-&gt; a t ]&gt;
+       &lt;{t : I | phi t} -&gt; X t [ phi t /\ psi t |-&gt; a t ]&gt;
+  := (\h -&gt; \t -&gt; h t,
+      ((\g -&gt; \t -&gt; recOR(phi t |-&gt; g t, psi t |-&gt; a t), \h -&gt; refl),
+       (\g -&gt; \t -&gt; recOR(phi t |-&gt; g t, psi t |-&gt; a t), \h -&gt; refl)))
+</code></pre>
+<h2 id="relative-function-extensionality">Relative function extensionality</h2>
+<p>A more complete treatment still needs to be done.</p>
+<pre><code class="language-rzk">-- [RS17, Proposition 4.8(ii)]
+-- as suggested by footnote 8, we assert this as an &quot;extension extensionality&quot; axiom
+#def ExtExt : U
+   := (I : CUBE) -&gt;
+      (psi : I -&gt; TOPE) -&gt;
+      (phi : psi -&gt; TOPE) -&gt;
+      (A : psi -&gt; U) -&gt;
+      (a : &lt;{t : I | phi t } -&gt; A t &gt;) -&gt;
+      (f : &lt;{t : I | psi t} -&gt; A t [ phi t |-&gt; a t ]&gt;) -&gt;
+      (g : &lt;{t : I | psi t} -&gt; A t [ phi t |-&gt; a t ]&gt;) -&gt;
+      (_ : &lt;{t : I | psi t} -&gt; (f t = g t) [ phi t |-&gt; refl ]&gt;) -&gt;
+      (f = g)
+
+-- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
+#def fibered-equiv-extension-equiv 
+   (extext : ExtExt)
+   (I : CUBE)
+   (psi : I -&gt; TOPE)
+   (A B : psi -&gt; U)
+   (fibequiv : &lt;{t : I | psi t } -&gt; (Eq (A t) (B t)) &gt;)
+   : Eq (&lt;{t : I | psi t } -&gt; A t &gt;) (&lt;{t : I | psi t } -&gt; B t &gt;)
+    := ((\a t -&gt; (first (fibequiv t)) (a t)),
+            (((\b t -&gt; (first (first (second (fibequiv t)))) (b t)),
+                \a -&gt; extext
+                        I
+                        psi
+                        (\t -&gt; BOT)
+                        A
+                        (\u -&gt; recBOT)
+                        (\t -&gt; (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
+                        a 
+                        (\t -&gt; (second (first (second (fibequiv t)))) (a t))), 
+           ((\b t -&gt; (first (second (second (fibequiv t)))) (b t)),
+               (\b -&gt; extext 
+                        I
+                        psi
+                        (\t -&gt; BOT)
+                        B 
+                        (\u -&gt; recBOT)
+                        (\t -&gt; (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
+                        b 
+                        (\t -&gt; (second (second (second (fibequiv t)))) (b t))))))              
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../3-simplicial-type-theory/" class="btn btn-neutral float-left" title="Simplicial Type Theory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5-segal-types/" class="btn btn-neutral float-right" title="Segal Types">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../3-simplicial-type-theory/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../5-segal-types/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Covariantly Functorial Type Families - Yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/rzk/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/rzk/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/rzk/favicon-16x16.png">
+    <link rel="manifest" href="/rzk/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+    <link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+    <script src="../../js/highlight-11.7.0.min.js"></script>
+    <script src="../../js/rzk.js"></script>
+    <link rel="stylesheet" href="../../css/gruvbox-light.css" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+    <script src="../../js/highlightjs-copy.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      hljs.addPlugin(new CopyButtonPlugin());
+      hljs.highlightAll();
+    </script>
+    
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Covariantly Functorial Type Families";
+        var mkdocs_page_input_path = "simplicial-hott/8-covariant.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/0-common/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/1-paths/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/2-contractible/">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/3-homotopies/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/4-equivalences/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/5-sigma/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/6-trivial-fibrations/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../3-simplicial-type-theory/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4-extension-types/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5-segal-types/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../6-2cat-of-segal-types/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../7-discrete/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Covariantly Functorial Type Families</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../9-yoneda/">The Yoneda Lemma</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Simplicial HoTT &raquo;</li>
+      <li>Covariantly Functorial Type Families</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="covariantly-functorial-type-families">Covariantly functorial type families</h1>
+<p>These formalisations correspond to Section 8 of RS17 paper.</p>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>TODO</p>
+<pre><code class="language-rzk">-- [RS17, Section 8 Prelim]
+-- The type of dependent arrows in C over f from u to v
+
+#def dhom : (A : U) -&gt; (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (C : (x : A) -&gt; U) -&gt; (u : C x) -&gt; (v : C y) -&gt; U
+  := \A -&gt; \x -&gt; \y -&gt; \f -&gt; \C -&gt; \u -&gt; \v -&gt; &lt;{t : 2 | Δ¹ t } -&gt; C (f t) [ ∂Δ¹ t |-&gt; recOR(t === 0_2, t === 1_2, u, v) ]&gt;
+
+  -- dependent hom with specified domain
+#def dhomFrom : (A : U) -&gt; (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (C : (x : A) -&gt; U) -&gt; (u : C x) -&gt; U
+   := \A -&gt; \x -&gt; \y -&gt; \f -&gt; \C -&gt; \u -&gt; (∑ (v : C y), dhom A x y f C u v)
+
+-- [RS17, Section 8 Prelim]
+#def dhom2 : (A : U) -&gt; (x : A) -&gt; (y : A) -&gt; (z : A) -&gt; (f : hom A x y) -&gt; (g : hom A y z) -&gt; (h : hom A x z) -&gt; (alpha : hom2 A x y z f g h) -&gt; (C : (x : A) -&gt; U) -&gt; (u : C x) -&gt; (v : C y) -&gt; (w : C z) -&gt; (ff : dhom A x y f C u v) -&gt; (gg : dhom A y z g C v w) -&gt; (hh : dhom A x z h C u w) -&gt; U
+  := \A -&gt; \x -&gt; \y -&gt; \z -&gt; \f -&gt; \g -&gt; \h -&gt; \alpha -&gt; \C -&gt; \u -&gt; \v -&gt; \w -&gt; \ff -&gt; \gg -&gt; \hh -&gt; &lt;{(t1, t2) : 2 * 2 | Δ² (t1, t2)} -&gt; C (alpha (t1, t2)) [ ∂Δ² (t1, t2) |-&gt;
+            recOR(t2 === 0_2, t1 === 1_2 \/ t2 === t1, ff t1, recOR(t1 === 1_2, t2 === t1, gg t2, hh t2)) ]&gt;
+
+-- [RS17, Definition 8.2]
+#def isCovFam : (A : U) -&gt; (C : (a : A) -&gt; U) -&gt; U
+    := \A -&gt; \C -&gt; (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (u : C x) 
+--  -&gt; isContr (∑ (v : C y), dhom A x y f C u v)
+    -&gt; isContr (dhomFrom A x y f C u)
+
+
+-- Type of covariant families over a fixed type
+#def covFam (A : U) : U
+    := (∑ (C :  ((a : A) -&gt; U)), isCovFam A C)
+
+-- [RS17, covariant transport from beginning of Section 8.2]
+#def covTrans
+        (A : U)
+        (C : A -&gt; U)
+        (CisCov : isCovFam A C)
+        (x y : A)
+        (f : hom A x y)
+        (u : C x)
+            : C y
+    := first (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
+
+-- [RS17, covariant lift from beginning of Section 8.2]
+#def covLift : (A : U) -&gt; (C : A -&gt; U) -&gt; (CisCov : isCovFam A C)
+                -&gt; (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (u : C x)
+                -&gt; (dhom A x y f C u (covTrans A C CisCov x y f u))
+    := \A -&gt; \C -&gt; \CisCov -&gt; \x -&gt; \y -&gt; \f -&gt; \u -&gt; second (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
+
+-- [RS17, Remark 8.3]
+-- TODO: Seems broken ATM
+-- #def reindexOfCovFamIsCov : (A : U) -&gt; (B : U) -&gt; (F : (b : B) -&gt; A) -&gt; (C : (a : A) -&gt; U) -&gt; (AisCovFam : isCovFam A C) -&gt; (isCovFam B (reindex A B F C))
+--  := \A -&gt; \B -&gt; \F -&gt; \C -&gt; \AisCovFam -&gt; \x -&gt; \y -&gt; \f -&gt; \u -&gt;
+--  (
+
+--  (contraction-center (∑ (v : C (F y)), 
+--                              (dhom A (F x) (F y) (ap B A F x y f) C u v))
+--                          (AisCovFam (F x) (F y) (ap B A F x y f) u),
+
+--      (contracting-htpy (∑ (v : C (F y)), 
+--                              dhom A (F x) (F y) (ap B A F x y f) C u v))
+--                          (AisCovFam (F x) (F y) (ap B A F x y f) u)
+--          )
+
+--  )
+
+-- [RS17, alternative def. from Proposition 8.4]
+#def isCovFam' : (A : U) -&gt; (C : (a : A) -&gt; U) -&gt; U
+    := \A -&gt; \C -&gt; (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (u : C x) 
+    -&gt; isContr &lt;{t : 2 | Δ¹ t} -&gt; C(f t) &gt;
+</code></pre>
+<p>-- [RS17, Proposition 8.4]
+-- We should prove this in one step since this amounts to transporting along equivalent types of lifting
+--#def isCovFam-iff-CovFam' : (A : U) -&gt; (C : (a : A) -&gt; (_ : isCovFam A C) -&gt; --isCovFam' A C
+--  := TODO</p>
+<pre><code class="language-rzk">-- [RS17, Proposition 8.16, Part 1]
+-- Covariant families preserve composition
+-- #def covPresComp
+--  (A : U)
+--  (C : A -&gt; U)
+--  (x y z  : A)
+--  (f : hom A x y)
+--  (g : hom A y z)
+--  (h : hom A x z)
+--  (u : C x)
+--  -&gt; TODO
+
+-- [RS17, Proposition 8.16, Part 2]
+-- Covariant families preserve identities
+-- #def covPresId
+--  (A : U)
+--  (C : A -&gt; U)
+--  (CisCov : isCovFam A C)
+--  (x : A) : (homotopy 
+--              (C x)
+--              (C x)
+--              (\u -&gt; (covTrans A C CisCov x x (id-arr A x) u)) 
+--              (identity (C x))
+--              )
+--  := \u -&gt;  (first (contractible-connecting-htpy 
+--                              (dhomFrom A x x (id-arr A x) C u)
+--                              (CisCov)
+--                              ((covTrans A C CisCov x x (id-arr A x) u))
+--                              (identity (C x))
+--  )
+--  )
+
+</code></pre>
+<p>-- covTrans : (A : U) -&gt; (C : A -&gt; U) -&gt; (_ : isCovFam A C)
+--              -&gt; (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (u : C x)
+--              -&gt; C y
+--              := </p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../7-discrete/" class="btn btn-neutral float-left" title="Discrete Types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../9-yoneda/" class="btn btn-neutral float-right" title="The Yoneda Lemma">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../7-discrete/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../9-yoneda/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

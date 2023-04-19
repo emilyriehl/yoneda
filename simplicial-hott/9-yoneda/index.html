@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>The Yoneda Lemma - Yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/rzk/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/rzk/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/rzk/favicon-16x16.png">
+    <link rel="manifest" href="/rzk/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+    <link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+    <script src="../../js/highlight-11.7.0.min.js"></script>
+    <script src="../../js/rzk.js"></script>
+    <link rel="stylesheet" href="../../css/gruvbox-light.css" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+    <script src="../../js/highlightjs-copy.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      hljs.addPlugin(new CopyButtonPlugin());
+      hljs.highlightAll();
+    </script>
+    
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "The Yoneda Lemma";
+        var mkdocs_page_input_path = "simplicial-hott/9-yoneda.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/0-common/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/1-paths/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/2-contractible/">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/3-homotopies/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/4-equivalences/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/5-sigma/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/6-trivial-fibrations/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../3-simplicial-type-theory/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4-extension-types/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5-segal-types/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../6-2cat-of-segal-types/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../7-discrete/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../8-covariant/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">The Yoneda Lemma</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#natural-transformations-between-representable-functors">Natural transformations between representable functors</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-yoneda-maps">The Yoneda maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-yoneda-composites">The Yoneda composites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-yoneda-lemma_1">The Yoneda lemma</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Simplicial HoTT &raquo;</li>
+      <li>The Yoneda Lemma</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="the-yoneda-lemma">The Yoneda lemma</h1>
+<p>These formalisations correspond to Section 9 of RS17 paper.</p>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><code>hott/*</code> - we require various prerequisites from homotopy type theory, for instance the axiom of function extensionality</li>
+<li><code>3-simplicial-type-theory.md</code> — we rely on definitions of simplicies and their subshapes</li>
+<li><code>4-extension-types.md</code> — we use the fubini theorem and extension extensionality</li>
+<li><code>5-segal-types.md</code> - we make heavy use of the notion of Segal types</li>
+</ul>
+<h2 id="natural-transformations-between-representable-functors">Natural transformations between representable functors</h2>
+<p>In what follows, we'll consider a Segal type A with two fixed terms a and b. </p>
+<p>We show that a fiberwise map phi : (z : A) -&gt; hom A a z -&gt; hom A b z
+automatically defines a natural transformation, despite appearing only to define the components of such.</p>
+<pre><code class="language-rzk">-- This unfolds a composition triangle to a square with an identity component
+#def id-domain-square
+    (A : U)                     -- The ambient type.
+    (AisSegal : isSegal A)      -- A proof that A is Segal.
+    (a x y : A)                 -- Three objects
+    (g : hom A a x)
+    (k : hom A x y)
+    : (s : Δ¹) -&gt; hom A a (k s)
+    := \s t -&gt; 
+        recOR(t &lt;= s |-&gt; (id-comp-witness A a y (Segal-comp A AisSegal a x y g k)) (s , t), 
+        s &lt;= t |-&gt; (Segal-comp-witness A AisSegal a x y g k) (t , s))
+
+-- We apply the transformation phi to the square just constructed.
+#def id-domain-square-transformation
+    (A : U)                                         -- The ambient type.
+    (AisSegal : isSegal A)                          -- A proof that A is Segal.
+    (a b x y : A)                                   -- Four objects
+    (g : hom A a x)                                 -- An arrow from a to x.
+    (k : hom A x y)                                 -- An arrow from b to y.
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)       -- A fiberwise map.
+    : (s : Δ¹) -&gt; hom A b (k s)
+    := \s -&gt; phi (k s) (\t -&gt; (id-domain-square A AisSegal a x y g k s t))
+
+-- This extracts the diagonal composite of the square.
+#def id-domain-square-transformation-diagonal
+    (A : U)                                         -- The ambient type.
+    (AisSegal : isSegal A)                          -- A proof that A is Segal.
+    (a b x y : A)                                   -- Four objects
+    (g : hom A a x)                                 -- An arrow from a to x.
+    (k : hom A x y)                                 -- An arrow from b to y.
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)       -- A fiberwise map.
+    : hom A b y
+    := \t -&gt; id-domain-square-transformation A AisSegal a b x y g k phi t t
+
+-- One half of the id-domain-square-transformation.
+#def composite-of-transformation    
+    (A : U)                                         -- The ambient type.
+    (AisSegal : isSegal A)                          -- A proof that A is Segal.
+    (a b x y : A)                                   -- Four objects
+    (g : hom A a x)                                 -- An arrow from a to x.
+    (k : hom A x y)                                 -- An arrow from b to y.
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)       -- A fiberwise map.
+    : hom2 A b x y
+        (phi x g)
+        k
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := \(t, s) -&gt; (id-domain-square-transformation A AisSegal a b x y g k phi s t)
+
+#def composite-of-transformation-coherence    
+    (A : U)                                         -- The ambient type.
+    (AisSegal : isSegal A)                          -- A proof that A is Segal.
+    (a b x y : A)                                   -- Four objects
+    (g : hom A a x)                                 -- An arrow from a to x.
+    (k : hom A x y)                                 -- An arrow from b to y.
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)       -- A fiberwise map.
+    : (Segal-comp A AisSegal b x y (phi x g) k) = 
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := Segal-comp-uniqueness A AisSegal b x y 
+            (phi x g)
+            k
+            (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+            (composite-of-transformation A AisSegal a b x y g k phi)
+
+-- The other half of the id-domain-square-transformation.
+#def transformation-of-composite
+    (A : U)                                         -- The ambient type.
+    (AisSegal : isSegal A)                          -- A proof that A is Segal.
+    (a b x y : A)                                   -- Four objects
+    (g : hom A a x)                                 -- An arrow from a to x.
+    (k : hom A x y)                                 -- An arrow from b to y.
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)       -- A fiberwise map.
+    : hom2 A b b y 
+        (id-arr A b) 
+        (phi y (Segal-comp A AisSegal a x y g k))
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := \(s, t) -&gt; (id-domain-square-transformation A AisSegal a b x y g k phi s t)    
+
+#def transformation-of-composite-coherence    
+    (A : U)                                         -- The ambient type.
+    (AisSegal : isSegal A)                          -- A proof that A is Segal.
+    (a b x y : A)                                   -- Four objects
+    (g : hom A a x)                                 -- An arrow from a to x.
+    (k : hom A x y)                                 -- An arrow from b to y.
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)       -- A fiberwise map.
+    : (Segal-comp A AisSegal b b y (id-arr A b) (phi y (Segal-comp A AisSegal a x y g k))) = 
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := Segal-comp-uniqueness A AisSegal b b y 
+            (id-arr A b) 
+            (phi y (Segal-comp A AisSegal a x y g k))
+            (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+            (transformation-of-composite A AisSegal a b x y g k phi)
+
+#def transformation-of-composite-coherence-simplified    
+    (A : U)                                         -- The ambient type.
+    (AisSegal : isSegal A)                          -- A proof that A is Segal.
+    (a b x y : A)                                   -- Four objects
+    (g : hom A a x)                                 -- An arrow from a to x.
+    (k : hom A x y)                                 -- An arrow from b to y.
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)       -- A fiberwise map.
+    : (phi y (Segal-comp A AisSegal a x y g k)) = 
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+    := zag-zig-concat (hom A b y)
+        (phi y (Segal-comp A AisSegal a x y g k)) 
+        (Segal-comp A AisSegal b b y (id-arr A b) (phi y (Segal-comp A AisSegal a x y g k))) 
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+        (Segal-id-comp A AisSegal b y (phi y (Segal-comp A AisSegal a x y g k)))
+        (transformation-of-composite-coherence A AisSegal a b x y g k phi)
+
+#def fiberwise-is-natural
+    (A : U)                                     -- The ambient type.
+    (AisSegal : isSegal A)                      -- A proof that A is Segal.
+    (a b x y : A)                               -- Four objects.
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)   -- A natural transformation
+    (g : hom A a x)                             -- An arrow from a to x.
+    (k : hom A x y)                             -- An arrow from b to y.
+    :  Segal-comp A AisSegal b x y (phi x g) k = phi y (Segal-comp A AisSegal a x y g k) 
+    := zig-zag-concat (hom A b y) 
+        (Segal-comp A AisSegal b x y (phi x g) k)
+        (id-domain-square-transformation-diagonal A AisSegal a b x y g k phi)
+        (phi y (Segal-comp A AisSegal a x y g k))
+        (composite-of-transformation-coherence A AisSegal a b x y g k phi)
+        (transformation-of-composite-coherence-simplified A AisSegal a b x y g k phi)
+</code></pre>
+<h2 id="the-yoneda-maps">The Yoneda maps</h2>
+<p>The Yoneda lemma provides an equivalence between the type (z : A) -&gt; hom A a z -&gt; hom A b z of natural transformations between representable functors and the type hom A b a of arrows between the representing objects.</p>
+<pre><code class="language-rzk">-- The map evid evaluates a natural transformation between representable functors at the identity arrow.
+#def evid 
+    (A : U)         -- The ambient type.
+    (a b : A)       -- The representing objects
+    : ((z : A) -&gt; hom A a z -&gt; hom A b z) -&gt; hom A b a
+    := \phi -&gt; phi a (id-arr A a)
+
+-- The inverse map only exists for Segal types.
+#def yon
+    (A : U)                 -- The ambient type.
+    (AisSegal : isSegal A)  -- A proof that A is Segal.
+    (a b : A)               -- The representing objects
+    : hom A b a -&gt; ((z : A) -&gt; hom A a z -&gt; hom A b z)
+    := \f z g -&gt; Segal-comp A AisSegal b a z f g
+</code></pre>
+<h2 id="the-yoneda-composites">The Yoneda composites</h2>
+<p>It remains to show that the Yoneda maps are inverses.</p>
+<pre><code class="language-rzk">-- One retraction is straightforward:
+#def evid-yon
+    (A : U)                 -- The ambient type.
+    (AisSegal : isSegal A)  -- A proof that A is Segal.
+    (a b : A)               -- The representing objects
+    (f : hom A b a)
+    : (evid A a b) ((yon A AisSegal a b) f) = f
+    := Segal-comp-id A AisSegal b a f
+
+-- The other composite carries phi to an a priori distinct natural transformation.
+-- We first show that these are pointwise equal at all x : A and g : hom A a x in two steps.
+-- The first step:
+#def yon-evid-partial
+    (A : U)                 -- The ambient type.
+    (AisSegal : isSegal A)  -- A proof that A is Segal.
+    (a b : A)               -- The representing objects
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)
+    (x : A)
+    (g : hom A a x)
+    : ((yon A AisSegal a b)((evid A a b) phi)) x g = phi x (Segal-comp A AisSegal a a x (id-arr A a) g)  -- phi x g 
+    := fiberwise-is-natural A AisSegal a b a x phi (id-arr A a) g
+
+-- The second step:
+#def yon-evid-ap
+    (A : U)                 -- The ambient type.
+    (AisSegal : isSegal A)  -- A proof that A is Segal.
+    (a b : A)               -- The representing objects
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)
+    (x : A)
+    (g : hom A a x)
+    : phi x (Segal-comp A AisSegal a a x (id-arr A a) g) = phi x g
+    := ap (hom A a x) (hom A b x)
+        (Segal-comp A AisSegal a a x (id-arr A a) g)
+        g
+        (phi x)
+        (Segal-id-comp A AisSegal a x g)
+
+-- The composite yon-evid of phi equals phi at all x : A and g : hom A a x.
+#def yon-evid-twice-pointwise
+    (A : U)                 -- The ambient type.
+    (AisSegal : isSegal A)  -- A proof that A is Segal.
+    (a b : A)               -- The representing objects
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)
+    (x : A)
+    (g : hom A a x)     
+    : ((yon A AisSegal a b)((evid A a b) phi)) x g = phi x g
+    := concat (hom A b x)
+        (((yon A AisSegal a b)((evid A a b) phi)) x g)
+        (phi x (Segal-comp A AisSegal a a x (id-arr A a) g))
+        (phi x g)
+        (yon-evid-partial A AisSegal a b phi x g)
+        (yon-evid-ap A AisSegal a b phi x g)
+
+-- By funext, these are equals as functions of g pointwise in x.
+#def yon-evid-once-pointwise        
+    (funext : FunExt)
+    (A : U)                 -- The ambient type.
+    (AisSegal : isSegal A)  -- A proof that A is Segal.
+    (a b : A)               -- The representing objects
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)
+    (x : A)
+    : ((yon A AisSegal a b)((evid A a b) phi)) x = phi x
+    := funext
+        (hom A a x)
+        (\g -&gt; hom A b x)
+        (\g -&gt; (((yon A AisSegal a b)((evid A a b) phi)) x g))
+        (\g -&gt; (phi x g))
+        (\g -&gt; yon-evid-twice-pointwise A AisSegal a b phi x g)
+
+-- By funext again, these are equal as functions of x and g.
+#def yon-evid        
+    (funext : FunExt)
+    (A : U)                 -- The ambient type.
+    (AisSegal : isSegal A)  -- A proof that A is Segal.
+    (a b : A)               -- The representing objects
+    (phi : (z : A) -&gt; hom A a z -&gt; hom A b z)
+    : ((yon A AisSegal a b)((evid A a b) phi)) = phi
+    := funext
+        A
+        (\x -&gt; (hom A a x -&gt; hom A b x))
+        (\x -&gt; (((yon A AisSegal a b)((evid A a b) phi)) x))
+        (\x -&gt; (phi x))
+        (\x -&gt; yon-evid-once-pointwise funext A AisSegal a b phi x)
+</code></pre>
+<h2 id="the-yoneda-lemma_1">The Yoneda lemma</h2>
+<p>The Yoneda lemma says that evaluation at the identity defines an equivalence.</p>
+<pre><code class="language-rzk">#def Yoneda-lemma
+    (funext : FunExt)
+    (A : U)                 -- The ambient type.
+    (AisSegal : isSegal A)  -- A proof that A is Segal.
+    (a b : A)               -- The representing objects
+    : isEquiv ((z : A) -&gt; hom A a z -&gt; hom A b z) (hom A b a) (evid A a b)
+    := ((yon A AisSegal a b,
+            yon-evid funext A AisSegal a b),
+        (yon A AisSegal a b,
+            evid-yon A AisSegal a b))
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../8-covariant/" class="btn btn-neutral float-left" title="Covariantly Functorial Type Families"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../8-covariant/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
