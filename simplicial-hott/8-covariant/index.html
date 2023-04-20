@@ -133,186 +133,118 @@
 </code></pre>
 <h2 id="prerequisites">Prerequisites</h2>
 <p>TODO</p>
-<pre><code class="language-rzk">-- [RS17, Section 8 Prelim]
--- The type of dependent arrows in C over f from u to v
-#def dhom 
-    (A : U)                     -- The base type.
-    (x y : A)                   -- Two points in the base.
-    (f : hom A x y)             -- An arrow in the base.
-    (C : A -&gt; U)                -- A type family.
-    (u : C x)                   -- A lift of the domain.
-    (v : C y)                   -- A lift of the codomain.
-    : U
-    := &lt;{t : 2 | Δ¹ t } -&gt; C (f t) [t === 0_2 |-&gt; u , t === 1_2 |-&gt; v ]&gt;
-
-  -- dependent hom with specified domain
-#def dhomFrom
-    (A : U)                     -- The base type.
-    (x y : A)                   -- Two points in the base.
-    (f : hom A x y)             -- An arrow in the base.
-    (C : A -&gt; U)                -- A type family.
-    (u : C x)                   -- A lift of the domain.
-    : U
-    := (∑ (v : C y), dhom A x y f C u v)
-
+<p>```rzk
 -- [RS17, Section 8 Prelim]
-#def dhom2 
-    (A : U)                         -- The base type.
-    (x y z : A)                     -- Three points in the base.
-    (f : hom A x y)                 -- An arrow in the base.
-    (g : hom A y z)                 -- An arrow in the base.
-    (h : hom A x z)                 -- An arrow in the base.
-    (alpha : hom2 A x y z f g h)    -- A composition witness in the base.
-    (C : A -&gt; U)                    -- A type family.
-    (u : C x)                       -- A lift of the initial point.
-    (v : C y)                       -- A lift of the second point.
-    (w : C z)                       -- A lift of the third point.
-    (ff : dhom A x y f C u v)       -- A lift of the first arrow.
-    (gg : dhom A y z g C v w)       -- A lift of the second arrow.
-    (hh : dhom A x z h C u w)       -- A lift of the diagonal arrow.
-    : U
-    := &lt;{(t1, t2) : 2 * 2 | Δ² (t1, t2)} -&gt; C (alpha (t1, t2)) 
-            [t2 === 0_2 |-&gt; ff t1, 
-            t1 === 1_2 |-&gt; gg t2, 
-            t2 === t1 |-&gt; hh t2 ]&gt;
-
--- [RS17, Definition 8.2]
-#def isCovFam 
-    (A : U)
-    (C : A -&gt; U)
-    : U
-    := (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (u : C x) 
-        -&gt; isContr (dhomFrom A x y f C u)
-
--- Type of covariant families over a fixed type
-#def covFam (A : U) : U
-    := (∑ (C :  ((a : A) -&gt; U)), isCovFam A C)
-
--- [RS17, covariant transport from beginning of Section 8.2]
-#def covTrans
-    (A : U)
-    (x y : A)
-    (f : hom A x y)
-    (C : A -&gt; U)
-    (CisCov : isCovFam A C)
-    (u : C x)
-    : C y
-    := first (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
-
--- [RS17, covariant lift from beginning of Section 8.2]
-#def covLift 
-    (A : U)
-    (x y : A)
-    (f : hom A x y)
-    (C : A -&gt; U)
-    (CisCov : isCovFam A C)
-    (u : C x)
-    : (dhom A x y f C u (covTrans A x y f C CisCov u))
-    := second (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
-
-#def covUniqueness
-    (A : U)
-    (x y : A)
-    (f : hom A x y)
-    (C : A -&gt; U)
-    (CisCov : isCovFam A C)
-    (u : C x)
-    (lift : dhomFrom A x y f C u)
-    : (covTrans A x y f C CisCov u) = (first lift)
-    := total-path-to-base-path
-        (C y)
-        (\v -&gt; dhom A x y f C u v)
-        (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
-        lift
-        (contracting-htpy (dhomFrom A x y f C u) (CisCov x y f u) lift)
-
-#def d-id-arr
-    (A : U)
-    (x : A)
-    (C : A -&gt; U)
-    (u : C x)
-    : dhom A x x (id-arr A x) C u u
-    := \t -&gt; u
-
--- [RS17, Proposition 8.16, Part 2]
--- Covariant families preserve identities
-#def covPresId
-    (A : U)
-    (x : A)
-    (C : A -&gt; U)
-    (CisCov : isCovFam A C)
-    (u : C x)
-    : (covTrans A x x (id-arr A x) C CisCov u) = u
-    := covUniqueness A x x (id-arr A x) C CisCov u (u, d-id-arr A x C u)
-
--- [RS17, Proposition 8.17]
--- Covariant naturality
-#def covariant-transformation-application
-    (A : U)
-    (x y : A)
-    (f : hom A x y)
-    (C D : A -&gt; U)
-    (CisCov : isCovFam A C)
-    (DisCov : isCovFam A D)
-    (phi : (z : A) -&gt; C z -&gt; D z)
-    (u : C x)
-    : dhomFrom A x y f D (phi x u)
-    := (phi y (covTrans A x y f C CisCov u), 
-    \t -&gt; phi (f t) (covLift A x y f C CisCov u t))
-
-#def covariant-transformation-naturality
-    (A : U)
-    (x y : A)
-    (f : hom A x y)
-    (C D : A -&gt; U)
-    (CisCov : isCovFam A C)
-    (DisCov : isCovFam A D)
-    (phi : (z : A) -&gt; C z -&gt; D z)
-    (u : C x)
-    : (covTrans A x y f D DisCov (phi x u)) = (phi y (covTrans A x y f C CisCov u))
-    := covUniqueness A x y f D DisCov (phi x u)
-        (covariant-transformation-application A x y f C D CisCov DisCov phi u)
-
-
--- [RS17, Remark 8.3]
--- TODO: Seems broken ATM
--- #def reindexOfCovFamIsCov : (A : U) -&gt; (B : U) -&gt; (F : (b : B) -&gt; A) -&gt; (C : (a : A) -&gt; U) -&gt; (AisCovFam : isCovFam A C) -&gt; (isCovFam B (reindex A B F C))
---  := \A -&gt; \B -&gt; \F -&gt; \C -&gt; \AisCovFam -&gt; \x -&gt; \y -&gt; \f -&gt; \u -&gt;
---  (
-
---  (contraction-center (∑ (v : C (F y)), 
---                              (dhom A (F x) (F y) (ap B A F x y f) C u v))
---                          (AisCovFam (F x) (F y) (ap B A F x y f) u),
-
---      (contracting-htpy (∑ (v : C (F y)), 
---                              dhom A (F x) (F y) (ap B A F x y f) C u v))
---                          (AisCovFam (F x) (F y) (ap B A F x y f) u)
---          )
-
---  )
-
--- [RS17, alternative def. from Proposition 8.4]
-#def isCovFam' : (A : U) -&gt; (C : (a : A) -&gt; U) -&gt; U
-    := \A -&gt; \C -&gt; (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (u : C x) 
-    -&gt; isContr &lt;{t : 2 | Δ¹ t} -&gt; C(f t) &gt;
+-- The type of dependent arrows in C over f from u to v</p>
+<h1 id="def-dhom">def dhom</h1>
+<pre><code>(A : U)                     -- The base type.
+(x y : A)                   -- Two points in the base.
+(f : hom A x y)             -- An arrow in the base.
+(C : A -&gt; U)                -- A type family.
+(u : C x)                   -- A lift of the domain.
+(v : C y)                   -- A lift of the codomain.
+: U
+:= &lt;{t : 2 | Δ¹ t } -&gt; C (f t) [t === 0_2 |-&gt; u , t === 1_2 |-&gt; v ]&gt;
 </code></pre>
-<p>-- [RS17, Proposition 8.4]
--- We should prove this in one step since this amounts to transporting along equivalent types of lifting
---#def isCovFam-iff-CovFam' : (A : U) -&gt; (C : (a : A) -&gt; (_ : isCovFam A C) -&gt; --isCovFam' A C)
---  := TODO</p>
-<pre><code class="language-rzk">-- [RS17, Proposition 8.16, Part 1]
--- Covariant families preserve composition
--- #def covPresComp
---  (A : U)
---  (C : A -&gt; U)
---  (x y z  : A)
---  (f : hom A x y)
---  (g : hom A y z)
---  (h : hom A x z)
---  (u : C x)
---  -&gt; TODO
-
-
+<p>-- dependent hom with specified domain</p>
+<h1 id="def-dhomfrom">def dhomFrom</h1>
+<pre><code>(A : U)                     -- The base type.
+(x y : A)                   -- Two points in the base.
+(f : hom A x y)             -- An arrow in the base.
+(C : A -&gt; U)                -- A type family.
+(u : C x)                   -- A lift of the domain.
+: U
+:= (∑ (v : C y), dhom A x y f C u v)
+</code></pre>
+<p>-- [RS17, Section 8 Prelim]</p>
+<h1 id="def-dhom2">def dhom2</h1>
+<pre><code>(A : U)                         -- The base type.
+(x y z : A)                     -- Three points in the base.
+(f : hom A x y)                 -- An arrow in the base.
+(g : hom A y z)                 -- An arrow in the base.
+(h : hom A x z)                 -- An arrow in the base.
+(alpha : hom2 A x y z f g h)    -- A composition witness in the base.
+(C : A -&gt; U)                    -- A type family.
+(u : C x)                       -- A lift of the initial point.
+(v : C y)                       -- A lift of the second point.
+(w : C z)                       -- A lift of the third point.
+(ff : dhom A x y f C u v)       -- A lift of the first arrow.
+(gg : dhom A y z g C v w)       -- A lift of the second arrow.
+(hh : dhom A x z h C u w)       -- A lift of the diagonal arrow.
+: U
+:= &lt;{(t1, t2) : 2 * 2 | Δ² (t1, t2)} -&gt; C (alpha (t1, t2)) 
+        [t2 === 0_2 |-&gt; ff t1, 
+        t1 === 1_2 |-&gt; gg t2, 
+        t2 === t1 |-&gt; hh t2 ]&gt;
+</code></pre>
+<p>-- [RS17, Definition 8.2]</p>
+<h1 id="def-iscovfam">def isCovFam</h1>
+<pre><code>(A : U)
+(C : A -&gt; U)
+: U
+:= (x : A) -&gt; (y : A) -&gt; (f : hom A x y) -&gt; (u : C x) 
+    -&gt; isContr (dhomFrom A x y f C u)
+</code></pre>
+<p>-- Type of covariant families over a fixed type</p>
+<h1 id="def-covfam-a-u-u">def covFam (A : U) : U</h1>
+<pre><code>:= (∑ (C :  ((a : A) -&gt; U)), isCovFam A C)
+</code></pre>
+<p>-- [RS17, covariant transport from beginning of Section 8.2]</p>
+<h1 id="def-covtrans">def covTrans</h1>
+<pre><code>(A : U)
+(x y : A)
+(f : hom A x y)
+(C : A -&gt; U)
+(CisCov : isCovFam A C)
+(u : C x)
+: C y
+:= first (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
+</code></pre>
+<p>-- [RS17, covariant lift from beginning of Section 8.2]</p>
+<h1 id="def-covlift">def covLift</h1>
+<pre><code>(A : U)
+(x y : A)
+(f : hom A x y)
+(C : A -&gt; U)
+(CisCov : isCovFam A C)
+(u : C x)
+: (dhom A x y f C u (covTrans A x y f C CisCov u))
+:= second (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
+</code></pre>
+<h1 id="def-covuniqueness">def covUniqueness</h1>
+<pre><code>(A : U)
+(x y : A)
+(f : hom A x y)
+(C : A -&gt; U)
+(CisCov : isCovFam A C)
+(u : C x)
+(lift : dhomFrom A x y f C u)
+: (covTrans A x y f C CisCov u) = (first lift)
+:= total-path-to-base-path
+    (C y)
+    (\v -&gt; dhom A x y f C u v)
+    (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
+    lift
+    (contracting-htpy (dhomFrom A x y f C u) (CisCov x y f u) lift)
+</code></pre>
+<h1 id="def-d-id-arr">def d-id-arr</h1>
+<pre><code>(A : U)
+(x : A)
+(C : A -&gt; U)
+(u : C x)
+: dhom A x x (id-arr A x) C u u
+:= \t -&gt; u
+</code></pre>
+<p>-- [RS17, Proposition 8.16, Part 2]
+-- Covariant families preserve identities</p>
+<h1 id="def-covpresid">def covPresId</h1>
+<pre><code>(A : U)
+(x : A)
+(C : A -&gt; U)
+(CisCov : isCovFam A C)
+(u : C x)
+: (covTrans A x x (id-arr A x) C CisCov u) = u
+:= covUniqueness A x x (id-arr A x) C CisCov u (u, d-id-arr A x C u)
 </code></pre>
               
             </div>
