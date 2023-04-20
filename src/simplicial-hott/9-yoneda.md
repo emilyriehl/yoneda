@@ -272,3 +272,166 @@ The Yoneda lemma says that evaluation at the identity defines an equivalence.
         (yon A AisSegal a b,
             evid-yon A AisSegal a b))
 ```
+
+## Here we go again
+```rzk
+
+#def covariant-representable-transformation-application
+	(A : U)
+	(AisSegal : isSegal A)
+	(a x y : A)
+	(f : hom A a x)
+	(g : hom A x y)
+	(C : A -> U)
+	(CisCov : isCovFam A C)
+	(phi : (z : A) -> hom A a z -> C z)
+	: dhomFrom A x y g C (phi x f)
+	:= (phi y (Segal-comp A AisSegal a x y f g), 
+	\s -> phi (g s) (\t -> (id-domain-square A AisSegal a x y f g s t)))
+
+#def covariant-representable-transformation-naturality
+	(A : U)
+    (AisSegal : isSegal A)
+	(a x y : A)
+	(f : hom A a x)
+	(g : hom A x y)
+	(C : A -> U)
+	(CisCov : isCovFam A C)
+	(phi : (z : A) -> hom A a z -> C z)
+	: (covTrans A x y g C CisCov (phi x f)) = (phi y (Segal-comp A AisSegal a x y f g))
+	:= covUniqueness A x y g C CisCov (phi x f)
+		(covariant-representable-transformation-application A AisSegal a x y f g C CisCov phi)
+
+-- The map evid evaluates a natural transformation between representable functors at the identity arrow.
+#def cov-evid 
+    (A : U)         					-- The ambient type.
+    (a : A)       						-- The representing object.
+	(C : A -> U)						-- A type family.
+    : ((z : A) -> hom A a z -> C z) -> C a
+    := \phi -> phi a (id-arr A a)
+
+-- The inverse map only exists for Segal types.
+#def cov-yon
+    (A : U)                 			-- The ambient type.
+    (AisSegal : isSegal A)  			-- A proof that A is Segal.
+    (a  : A)               				-- The representing object.
+	(C : A -> U)						-- A type family.
+	(CisCov : isCovFam A C)				-- A covariant family.
+    : C a -> ((z : A) -> hom A a z -> C z)
+    := \u z f -> covTrans A a z f C CisCov u
+
+-- One retraction is straightforward:
+#def cov-evid-yon
+    (A : U)                 			-- The ambient type.
+    (AisSegal : isSegal A)  			-- A proof that A is Segal.
+    (a  : A)               				-- The representing object.
+	(C : A -> U)						-- A type family.
+	(CisCov : isCovFam A C)				-- A covariant family.
+	(u : C a)
+    : (cov-evid A a C) ((cov-yon A AisSegal a C CisCov) u) = u
+    := covPresId A a C CisCov u
+
+-- The other composite carries phi to an a priori distinct natural transformation.
+-- We first show that these are pointwise equal at all x : A and g : hom A a x in two steps.
+-- The first step:
+#def cov-yon-evid-partial
+    (A : U)                 				-- The ambient type.
+    (AisSegal : isSegal A)  				-- A proof that A is Segal.
+    (a  : A)               					-- The representing object.
+	(C : A -> U)							-- A type family.
+	(CisCov : isCovFam A C)					-- A covariant family.
+    (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
+    (x : A)
+    (f : hom A a x)	
+	: ((cov-yon A AisSegal a C CisCov)((cov-evid A a C) phi)) x f = (phi x (Segal-comp A AisSegal a a x (id-arr A a) f)) -- phi x f
+    := covariant-representable-transformation-naturality A AisSegal a a x (id-arr A a) f C CisCov phi
+
+-- The second step:
+#def cov-yon-evid-ap
+    (A : U)                 				-- The ambient type.
+    (AisSegal : isSegal A)  				-- A proof that A is Segal.
+    (a  : A)               					-- The representing object.
+	(C : A -> U)							-- A type family.
+	(CisCov : isCovFam A C)					-- A covariant family.
+    (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
+    (x : A)
+    (f : hom A a x)	
+    : (phi x (Segal-comp A AisSegal a a x (id-arr A a) f)) = phi x f
+    := ap (hom A a x) (C x)
+        (Segal-comp A AisSegal a a x (id-arr A a) f)
+        f
+        (phi x)
+        (Segal-id-comp A AisSegal a x f)    
+
+-- The composite yon-evid of phi equals phi at all x : A and g : hom A a x.
+#def cov-yon-evid-twice-pointwise
+    (A : U)                 				-- The ambient type.
+    (AisSegal : isSegal A)  				-- A proof that A is Segal.
+    (a  : A)               					-- The representing object.
+	(C : A -> U)							-- A type family.
+	(CisCov : isCovFam A C)					-- A covariant family.
+    (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
+    (x : A)
+    (f : hom A a x)	  
+	: ((cov-yon A AisSegal a C CisCov)((cov-evid A a C) phi)) x f = phi x f
+    := concat (C x)
+        (((cov-yon A AisSegal a C CisCov)((cov-evid A a C) phi)) x f)
+        (phi x (Segal-comp A AisSegal a a x (id-arr A a) f))
+        (phi x f)
+        (cov-yon-evid-partial A AisSegal a C CisCov phi x f)
+        (cov-yon-evid-ap A AisSegal a C CisCov phi x f)
+
+-- By funext, these are equals as functions of g pointwise in x.
+#def cov-yon-evid-once-pointwise    
+    (funext : FunExt)    
+    (A : U)                 				-- The ambient type.
+    (AisSegal : isSegal A)  				-- A proof that A is Segal.
+    (a  : A)               					-- The representing object.
+	(C : A -> U)							-- A type family.
+	(CisCov : isCovFam A C)					-- A covariant family.
+    (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
+    (x : A)
+	: ((cov-yon A AisSegal a C CisCov)((cov-evid A a C) phi)) x = phi x
+    := funext
+        (hom A a x)
+        (\f -> C x)
+        (\f -> ((cov-yon A AisSegal a C CisCov)((cov-evid A a C) phi)) x f)
+        (\f -> (phi x f))
+        (\f -> cov-yon-evid-twice-pointwise A AisSegal a C CisCov phi x f)
+
+-- By funext again, these are equal as functions of x and g.
+#def cov-yon-evid    
+    (funext : FunExt)        
+    (A : U)                 				-- The ambient type.
+    (AisSegal : isSegal A)  				-- A proof that A is Segal.
+    (a  : A)               					-- The representing object.
+	(C : A -> U)							-- A type family.
+	(CisCov : isCovFam A C)					-- A covariant family.
+    (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
+    : ((cov-yon A AisSegal a C CisCov)((cov-evid A a C) phi)) = phi
+    := funext
+        A
+        (\x -> (hom A a x -> C x))
+        (\x -> ((cov-yon A AisSegal a C CisCov)((cov-evid A a C) phi)) x)
+        (\x -> (phi x))
+        (\x -> cov-yon-evid-once-pointwise funext A AisSegal a C CisCov phi x)
+```
+
+## The Covariant Yoneda lemma
+
+The Yoneda lemma says that evaluation at the identity defines an equivalence.
+
+```rzk
+#def cov-Yoneda-lemma
+    (funext : FunExt)        
+    (A : U)                 				-- The ambient type.
+    (AisSegal : isSegal A)  				-- A proof that A is Segal.
+    (a  : A)               					-- The representing object.
+	(C : A -> U)							-- A type family.
+	(CisCov : isCovFam A C)					-- A covariant family.
+    : isEquiv ((z : A) -> hom A a z -> C z) (C a) (cov-evid A a C)
+    := ((cov-yon A AisSegal a C CisCov,
+            cov-yon-evid funext A AisSegal a C CisCov),
+        (cov-yon A AisSegal a C CisCov,
+            cov-evid-yon A AisSegal a C CisCov))
+```
