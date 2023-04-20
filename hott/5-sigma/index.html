@@ -131,110 +131,87 @@
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
 <h2 id="identity-types-of-sigma-types">Identity types of sigma types</h2>
-<pre><code class="language-rzk">-- Sigma-induction
-#def ind-Sigma
-        (A : U)
-        (B : A -&gt; U)
-        (C : (∑(a : A), B a) -&gt; U)
-        (s : ∑(a : A), B a)
-        (f : (a : A) -&gt; (b : B a) -&gt; C (a, b))
-        : C s
-        := (f (first s)) (second s)
-
--- [Rijke 22, Definition 9.3.1]
-#def Eq-Sigma
-    (A : U)
+<p>```rzk
+-- Sigma-induction</p>
+<h1 id="def-ind-sigma">def ind-Sigma</h1>
+<pre><code>    (A : U)
     (B : A -&gt; U)
-    (s t : ∑(a : A), B a)
-    : U
-    := ∑(p : (first s) = (first t)), (transport A B (first s) (first t) p (second s)) = (second t)
-
--- [Rijke 22, used in Lemma 9.3.2]
-#def refl-in-Sigma
-    (A : U)
-    (B : A -&gt; U)
-    (x : A)
-    (y : B x)
-    : ∑(p : (x = x)), ((transport A B x x refl_{x} y) = y)
-    := (refl_{x}, refl_{y})
-
--- [Rijke 22, Lemma 9.3.2]
--- Eq-sigma is reflexive
-#def reflexive-Eq-Sigma
-       (A : U)
-       (B : A -&gt; U)
-       (s : ∑(a : A), B a)
-       : (Eq-Sigma A B s s)
-       := (ind-Sigma 
-      A
-      B
-     (\k -&gt; (Eq-Sigma A B k k))
-      s
-     (\u v -&gt; (refl_{u}, refl_{v}))
-      )
-
--- [Rijke 22, Definition 9.3.3]
-#def pair-eq
-    (A : U)
-    (B : A -&gt; U)
-    (s t : ∑(a : A), B a)
-    (p : s = t)
-    : (Eq-Sigma A B s t)
-    := idJ(∑(a : A), B a, s, \t' p' -&gt; (Eq-Sigma A B s t'), (reflexive-Eq-Sigma A B s), t, p)
-
--- A path in a fiber defines a path in the total space
-#def fibered-path-to-sigma-path 
-    (A : U)
-    (B : A -&gt; U)
-    (x : A)
-    (u v : B x)
-    (p : u = v) 
-    : (x , u) =_{∑ (a : A), B a} (x , v)
-    := idJ(B x, u, \v' p' -&gt; (x , u) = (x , v'), refl, v, p)
-
--- A path through the total space projects to a path in the base
-#def total-path-to-base-path 
-    (A : U)
-    (B : A -&gt; U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : ((first z) = first w)
-    := ap (∑ (a : A), B a) A z w (\u -&gt; first u) p 
-
--- A path through the total space gives a path in a fiber using transport along the path in the base
-#def total-path-to-fibered-path 
-    (A : U)
-    (B : A -&gt; U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : (transport A B (first z) (first w) (total-path-to-base-path A B z w p) (second z)) = (second w)
-    := idJ((∑ (a : A), B a), z, 
-            \w' p' -&gt; (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'), 
-            refl, w, p)
-
-
--- [Rijke 22, Theorem 9.3.3, Characterization of identity types of sigma types]
--- #def eq-pair
---     (A : U)
---     (B : A -&gt; U)
---     (s t : ∑(a : A), B a)
---     TODO 
--- #def eq-sigma
---     (A : U)
---     (B : A -&gt; U)
---     (s t : ∑(a : A), B a)
---     (p : (s = t))
---     : (Eq-Sigma A B s t)
---     := TODO
-
--- -- Split off homotopy in a sigma type
--- #def sigma-htopy-split
---     (A : U)
---     (B : A -&gt; U)
---     (k m : (∑(a : A), B a))
---     (p : (k = m))
---     : (∑(q : (first k) = (first m)), 
---          )
+    (C : (∑(a : A), B a) -&gt; U)
+    (s : ∑(a : A), B a)
+    (f : (a : A) -&gt; (b : B a) -&gt; C (a, b))
+    : C s
+    := (f (first s)) (second s)
+</code></pre>
+<p>-- [Rijke 22, Definition 9.3.1]</p>
+<h1 id="def-eq-sigma">def Eq-Sigma</h1>
+<pre><code>(A : U)
+(B : A -&gt; U)
+(s t : ∑(a : A), B a)
+: U
+:= ∑(p : (first s) = (first t)), (transport A B (first s) (first t) p (second s)) = (second t)
+</code></pre>
+<p>-- [Rijke 22, used in Lemma 9.3.2]</p>
+<h1 id="def-refl-in-sigma">def refl-in-Sigma</h1>
+<pre><code>(A : U)
+(B : A -&gt; U)
+(x : A)
+(y : B x)
+: ∑(p : (x = x)), ((transport A B x x refl_{x} y) = y)
+:= (refl_{x}, refl_{y})
+</code></pre>
+<p>-- [Rijke 22, Lemma 9.3.2]
+-- Eq-sigma is reflexive</p>
+<h1 id="def-reflexive-eq-sigma">def reflexive-Eq-Sigma</h1>
+<pre><code>   (A : U)
+   (B : A -&gt; U)
+   (s : ∑(a : A), B a)
+   : (Eq-Sigma A B s s)
+   := (ind-Sigma 
+  A
+  B
+ (\k -&gt; (Eq-Sigma A B k k))
+  s
+ (\u v -&gt; (refl_{u}, refl_{v}))
+  )
+</code></pre>
+<p>-- [Rijke 22, Definition 9.3.3]</p>
+<h1 id="def-pair-eq">def pair-eq</h1>
+<pre><code>(A : U)
+(B : A -&gt; U)
+(s t : ∑(a : A), B a)
+(p : s = t)
+: (Eq-Sigma A B s t)
+:= idJ(∑(a : A), B a, s, \t' p' -&gt; (Eq-Sigma A B s t'), (reflexive-Eq-Sigma A B s), t, p)
+</code></pre>
+<p>-- A path in a fiber defines a path in the total space</p>
+<h1 id="def-fibered-path-to-sigma-path">def fibered-path-to-sigma-path</h1>
+<pre><code>(A : U)
+(B : A -&gt; U)
+(x : A)
+(u v : B x)
+(p : u = v) 
+: (x , u) =_{∑ (a : A), B a} (x , v)
+:= idJ(B x, u, \v' p' -&gt; (x , u) = (x , v'), refl, v, p)
+</code></pre>
+<p>-- A path through the total space projects to a path in the base</p>
+<h1 id="def-total-path-to-base-path">def total-path-to-base-path</h1>
+<pre><code>(A : U)
+(B : A -&gt; U)
+(z w : ∑ (a : A), B a)
+(p : z = w) 
+: ((first z) = first w)
+:= ap (∑ (a : A), B a) A z w (\u -&gt; first u) p
+</code></pre>
+<p>-- A path through the total space gives a path in a fiber using transport along the path in the base</p>
+<h1 id="def-total-path-to-fibered-path">def total-path-to-fibered-path</h1>
+<pre><code>(A : U)
+(B : A -&gt; U)
+(z w : ∑ (a : A), B a)
+(p : z = w) 
+: (transport A B (first z) (first w) (total-path-to-base-path A B z w p) (second z)) = (second w)
+:= idJ((∑ (a : A), B a), z, 
+        \w' p' -&gt; (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'), 
+        refl, w, p)
 </code></pre>
               
             </div>
