@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Extension Types - Yoneda</title>
+    <title>Extension Types - yoneda</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
     <link rel="apple-touch-icon" sizes="180x180" href="/rzk/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/rzk/favicon-32x32.png">
@@ -38,6 +39,8 @@
     <!--[if lt IE 9]>
       <script src="../../js/html5shiv.min.js"></script>
     <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
  
 </head>
 
@@ -47,7 +50,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Yoneda
+          <a href="../.." class="icon icon-home"> yoneda
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -114,7 +117,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Yoneda</a>
+          <a href="../..">yoneda</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -149,7 +152,7 @@
    (phi : psi -&gt; TOPE)
    (X : U)
    (Y : psi -&gt; X -&gt; U)
-   (f : &lt;{t : I | phi t } -&gt; (x : X) -&gt; Y t x &gt;)
+   (f : (t : phi) -&gt; (x : X) -&gt; Y t x)
    : Eq (&lt;{t : I | psi t} -&gt; ((x : X) -&gt; Y t x) [ phi t |-&gt; f t ]&gt;)
        ((x : X) -&gt; &lt;{t : I | psi t} -&gt; Y t x [ phi t |-&gt; f t x]&gt;)
    := (\g x t -&gt; g t x, -- the one-way map
@@ -164,7 +167,7 @@
    (phi : psi -&gt; TOPE)
    (X : U)
    (Y : psi -&gt; X -&gt; U)
-   (f : &lt;{t : I | phi t } -&gt; (x : X) -&gt; Y t x &gt;)
+   (f : (t : phi) -&gt; (x : X) -&gt; Y t x)
    : Eq ((x : X) -&gt; &lt;{t : I | psi t} -&gt; Y t x [ phi t |-&gt; f t x]&gt;)
       (&lt;{t : I | psi t} -&gt; ((x : X) -&gt; Y t x) [ phi t |-&gt; f t ]&gt;)
    := (\h t x -&gt; (h x) t, -- the one-way map
@@ -230,9 +233,9 @@
    (psi : I -&gt; TOPE) 
    (phi : psi -&gt; TOPE)
    (X : psi -&gt; U) 
-   (Y : &lt;{t : I | psi t} -&gt; (x : X t) -&gt; U &gt;)
-   (a : &lt;{t : I | phi t} -&gt; X t &gt;)
-   (b : &lt;{t : I | phi t} -&gt; Y t (a t) &gt;)
+   (Y : (t : psi) -&gt; (x : X t) -&gt; U)
+   (a : (t : phi) -&gt; X t)
+   (b : (t : phi) -&gt; Y t (a t))
    : Eq (&lt;{t : I | psi t} -&gt; (∑ (x : X t), Y t x) [ phi t |-&gt; (a t , b t) ]&gt;) 
      (∑ (f : (&lt;{t : I | psi t} -&gt; X t [phi t |-&gt; a t ]&gt;)), (&lt;{t : I | psi t} -&gt; Y t (f t) [ phi t |-&gt; b t ]&gt;)) 
      := (\g -&gt; (\t -&gt; (first (g t)), \t -&gt; second (g t))  , -- the one way map
@@ -263,7 +266,7 @@
    (I : CUBE)
    (phi psi : I -&gt; TOPE)
    (X : &lt;{t : I | phi t \/ psi t} -&gt; U &gt;)
-   (a : &lt;{t : I | psi t} -&gt; X t &gt;)
+   (a : (t : psi) -&gt; X t)
    : Eq &lt;{t : I | phi t \/ psi t} -&gt; X t [ psi t |-&gt; a t ]&gt;
        &lt;{t : I | phi t} -&gt; X t [ phi t /\ psi t |-&gt; a t ]&gt;
   := (\h -&gt; \t -&gt; h t,
@@ -279,7 +282,7 @@
       (psi : I -&gt; TOPE) -&gt;
       (phi : psi -&gt; TOPE) -&gt;
       (A : psi -&gt; U) -&gt;
-      (a : &lt;{t : I | phi t } -&gt; A t &gt;) -&gt;
+      (a : (t : phi) -&gt; A t) -&gt;
       (f : &lt;{t : I | psi t} -&gt; A t [ phi t |-&gt; a t ]&gt;) -&gt;
       (g : &lt;{t : I | psi t} -&gt; A t [ phi t |-&gt; a t ]&gt;) -&gt;
       (_ : &lt;{t : I | psi t} -&gt; (f t = g t) [ phi t |-&gt; refl ]&gt;) -&gt;
@@ -291,7 +294,7 @@
    (I : CUBE)
    (psi : I -&gt; TOPE)
    (A B : psi -&gt; U)
-   (fibequiv : &lt;{t : I | psi t } -&gt; (Eq (A t) (B t)) &gt;)
+   (fibequiv : (t : psi) -&gt; (Eq (A t) (B t)) )
    : Eq (&lt;{t : I | psi t } -&gt; A t &gt;) (&lt;{t : I | psi t } -&gt; B t &gt;)
     := ((\a t -&gt; (first (fibequiv t)) (a t)),
             (((\b t -&gt; (first (first (second (fibequiv t)))) (b t)),

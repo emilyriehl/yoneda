@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Equivalences - Yoneda</title>
+    <title>Equivalences - yoneda</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
     <link rel="apple-touch-icon" sizes="180x180" href="/rzk/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/rzk/favicon-32x32.png">
@@ -38,6 +39,8 @@
     <!--[if lt IE 9]>
       <script src="../../js/html5shiv.min.js"></script>
     <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
  
 </head>
 
@@ -47,7 +50,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> Yoneda
+          <a href="../.." class="icon icon-home"> yoneda
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -73,6 +76,20 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Equivalences</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sections-and-retractions">Sections and retractions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equivalences">Equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#invertible-maps">Invertible maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equivalences-are-invertible-maps">Equivalences are invertible maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#half-adjoint-equivalences">Half adjoint equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#composing-equivalences">Composing equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#function-extensionality">Function extensionality</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../5-sigma/">Sigma types</a>
@@ -104,7 +121,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">Yoneda</a>
+          <a href="../..">yoneda</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -125,6 +142,7 @@
 <p>This is a literate <code>rzk</code> file:</p>
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
+<h2 id="sections-and-retractions">Sections and retractions</h2>
 <pre><code class="language-rzk">#def hasSection 
     (A B : U)
     (f : A -&gt; B) 
@@ -135,8 +153,9 @@
     (f : A -&gt; B) 
     : U
     := ∑ (r : B -&gt; A), homotopy A A (composition A B A r f)(identity A)
-
--- equivalences are bi-invertible maps
+</code></pre>
+<h2 id="equivalences">Equivalences</h2>
+<pre><code class="language-rzk">-- equivalences are bi-invertible maps
 #def isEquiv     
     (A B : U)
     (f : A -&gt; B) 
@@ -179,8 +198,9 @@
                 (identity B) 
                 (second (second fisequiv)) 
                 (isEquiv-retraction A B f fisequiv))
-
--- the following type of more coherent equivalences is not a proposition
+</code></pre>
+<h2 id="invertible-maps">Invertible maps</h2>
+<pre><code class="language-rzk">-- the following type of more coherent equivalences is not a proposition
 #def hasInverse 
     (A B : U)
     (f : A -&gt; B) 
@@ -196,8 +216,9 @@
     (fhasinverse : hasInverse A B f)
     : B -&gt; A
     := first (fhasinverse)
-
--- invertible maps are equivalences
+</code></pre>
+<h2 id="equivalences-are-invertible-maps">Equivalences are invertible maps</h2>
+<pre><code class="language-rzk">-- invertible maps are equivalences
 #def hasInverse-isEquiv
     (A B : U)
     (f : A -&gt; B) 
@@ -223,8 +244,9 @@
                         f) 
                     (second (first fisequiv)) ,
             second (second  fisequiv)))
-
--- Some iterated composites associated to a pair of invertible maps.
+</code></pre>
+<h2 id="half-adjoint-equivalences">Half adjoint equivalences</h2>
+<pre><code class="language-rzk">-- Some iterated composites associated to a pair of invertible maps.
 #def hasInverse-retraction-composite 
     (A B : U)
     (f : A -&gt; B) 
@@ -468,8 +490,9 @@
     (fisequiv : isEquiv A B f)
     : isHalfAdjointEquiv A B f
     := hasInverse-isHalfAdjointEquiv A B f (isEquiv-hasInverse A B f fisequiv)
-
--- The type of equivalences between types uses the propositional notion isEquiv rather than the incoherent hasInverse.
+</code></pre>
+<h2 id="composing-equivalences">Composing equivalences</h2>
+<pre><code class="language-rzk">-- The type of equivalences between types uses the propositional notion isEquiv rather than the incoherent hasInverse.
 #def Eq (A B : U) : U
   :=  ∑ (f : A -&gt; B), ((isEquiv A) B) f
 
@@ -568,13 +591,14 @@
     (hisequiv : isEquiv C D h)
     : isEquiv A D (triple-composition A B C D h g f)    
     := compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
-
--- the next result requires function extensionality
+</code></pre>
+<h2 id="function-extensionality">Function extensionality</h2>
+<pre><code class="language-rzk">-- The type that encodes the function extensionality axiom.
 #def FunExt : U
     := (X : U) -&gt; (A : X -&gt; U) -&gt; (f : (x : X) -&gt; A x) -&gt; (g : (x : X) -&gt; A x) -&gt;
         (px : (x : X) -&gt; f x = g x) -&gt; f = g
 
--- A fiberwise equivalence defines an equivalence of dependent function types
+-- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
 #def fibered-equiv-function-equiv
     (funext : FunExt)
     (X : U)
