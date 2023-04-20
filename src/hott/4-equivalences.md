@@ -1,5 +1,12 @@
-#lang rzk-1
+# 4. Equivalences
 
+This is a literate `rzk` file:
+
+```rzk
+#lang rzk-1
+```
+
+```rzk
 #def hasSection 
     (A B : U)
     (f : A -> B) 
@@ -461,3 +468,4 @@
                 \a -> funext X A (\x -> (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
            ((\b -> \x -> (first (second (second (fibequiv x)))) (b x)),
             (\b -> funext X B (\x -> (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -> (second (second (second (fibequiv x)))) (b x))))))
+```
