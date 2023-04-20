@@ -1,5 +1,13 @@
-#lang rzk-1
+# 4. Equivalences 
 
+This is a literate `rzk` file:
+
+```rzk
+#lang rzk-1
+```
+
+## Sections and retractions
+```rzk
 #def hasSection 
     (A B : U)
     (f : A -> B) 
@@ -10,7 +18,10 @@
     (f : A -> B) 
     : U
     := ∑ (r : B -> A), homotopy A A (composition A B A r f)(identity A)
-  
+```
+
+## Equivalences
+```rzk
 -- equivalences are bi-invertible maps
 #def isEquiv     
     (A B : U)
@@ -54,7 +65,11 @@
                 (identity B) 
                 (second (second fisequiv)) 
                 (isEquiv-retraction A B f fisequiv))
+```
 
+## Invertible maps
+
+```rzk
 -- the following type of more coherent equivalences is not a proposition
 #def hasInverse 
     (A B : U)
@@ -71,7 +86,11 @@
     (fhasinverse : hasInverse A B f)
     : B -> A
     := first (fhasinverse)
+```    
 
+## Equivalences are invertible maps
+
+```rzk
 -- invertible maps are equivalences
 #def hasInverse-isEquiv
     (A B : U)
@@ -98,7 +117,11 @@
                         f) 
                     (second (first fisequiv)) ,
             second (second  fisequiv)))
+```
 
+## Half adjoint equivalences
+
+```rzk
 -- Some iterated composites associated to a pair of invertible maps.
 #def hasInverse-retraction-composite 
     (A B : U)
@@ -343,7 +366,11 @@
     (fisequiv : isEquiv A B f)
     : isHalfAdjointEquiv A B f
     := hasInverse-isHalfAdjointEquiv A B f (isEquiv-hasInverse A B f fisequiv)
+```
 
+## Composing equivalences
+
+```rzk
 -- The type of equivalences between types uses the propositional notion isEquiv rather than the incoherent hasInverse.
 #def Eq (A B : U) : U
   :=  ∑ (f : A -> B), ((isEquiv A) B) f
@@ -443,13 +470,17 @@
     (hisequiv : isEquiv C D h)
     : isEquiv A D (triple-composition A B C D h g f)    
     := compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
+```
 
--- the next result requires function extensionality
+## Function extensionality
+
+```rzk
+-- The type that encodes the function extensionality axiom.
 #def FunExt : U
     := (X : U) -> (A : X -> U) -> (f : (x : X) -> A x) -> (g : (x : X) -> A x) ->
         (px : (x : X) -> f x = g x) -> f = g
 
--- A fiberwise equivalence defines an equivalence of dependent function types
+-- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
 #def fibered-equiv-function-equiv
     (funext : FunExt)
     (X : U)
@@ -461,3 +492,5 @@
                 \a -> funext X A (\x -> (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
            ((\b -> \x -> (first (second (second (fibequiv x)))) (b x)),
             (\b -> funext X B (\x -> (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -> (second (second (second (fibequiv x)))) (b x))))))
+```
+

@@ -22,7 +22,7 @@ This is a literate `rzk` file:
    (phi : psi -> TOPE)
    (X : U)
    (Y : psi -> X -> U)
-   (f : <{t : I | phi t } -> (x : X) -> Y t x >)
+   (f : (t : phi) -> (x : X) -> Y t x)
    : Eq (<{t : I | psi t} -> ((x : X) -> Y t x) [ phi t |-> f t ]>)
        ((x : X) -> <{t : I | psi t} -> Y t x [ phi t |-> f t x]>)
    := (\g x t -> g t x, -- the one-way map
@@ -37,7 +37,7 @@ This is a literate `rzk` file:
    (phi : psi -> TOPE)
    (X : U)
    (Y : psi -> X -> U)
-   (f : <{t : I | phi t } -> (x : X) -> Y t x >)
+   (f : (t : phi) -> (x : X) -> Y t x)
    : Eq ((x : X) -> <{t : I | psi t} -> Y t x [ phi t |-> f t x]>)
       (<{t : I | psi t} -> ((x : X) -> Y t x) [ phi t |-> f t ]>)
    := (\h t x -> (h x) t, -- the one-way map
@@ -106,9 +106,9 @@ This is a literate `rzk` file:
    (psi : I -> TOPE) 
    (phi : psi -> TOPE)
    (X : psi -> U) 
-   (Y : <{t : I | psi t} -> (x : X t) -> U >)
-   (a : <{t : I | phi t} -> X t >)
-   (b : <{t : I | phi t} -> Y t (a t) >)
+   (Y : (t : psi) -> (x : X t) -> U)
+   (a : (t : phi) -> X t)
+   (b : (t : phi) -> Y t (a t))
    : Eq (<{t : I | psi t} -> (∑ (x : X t), Y t x) [ phi t |-> (a t , b t) ]>) 
      (∑ (f : (<{t : I | psi t} -> X t [phi t |-> a t ]>)), (<{t : I | psi t} -> Y t (f t) [ phi t |-> b t ]>)) 
      := (\g -> (\t -> (first (g t)), \t -> second (g t))  , -- the one way map
@@ -142,7 +142,7 @@ This is a literate `rzk` file:
    (I : CUBE)
    (phi psi : I -> TOPE)
    (X : <{t : I | phi t \/ psi t} -> U >)
-   (a : <{t : I | psi t} -> X t >)
+   (a : (t : psi) -> X t)
    : Eq <{t : I | phi t \/ psi t} -> X t [ psi t |-> a t ]>
        <{t : I | phi t} -> X t [ phi t /\ psi t |-> a t ]>
   := (\h -> \t -> h t,
@@ -162,7 +162,7 @@ A more complete treatment still needs to be done.
       (psi : I -> TOPE) ->
       (phi : psi -> TOPE) ->
       (A : psi -> U) ->
-      (a : <{t : I | phi t } -> A t >) ->
+      (a : (t : phi) -> A t) ->
       (f : <{t : I | psi t} -> A t [ phi t |-> a t ]>) ->
       (g : <{t : I | psi t} -> A t [ phi t |-> a t ]>) ->
       (_ : <{t : I | psi t} -> (f t = g t) [ phi t |-> refl ]>) ->
@@ -174,7 +174,7 @@ A more complete treatment still needs to be done.
    (I : CUBE)
    (psi : I -> TOPE)
    (A B : psi -> U)
-   (fibequiv : <{t : I | psi t } -> (Eq (A t) (B t)) >)
+   (fibequiv : (t : psi) -> (Eq (A t) (B t)) )
    : Eq (<{t : I | psi t } -> A t >) (<{t : I | psi t } -> B t >)
     := ((\a t -> (first (fibequiv t)) (a t)),
             (((\b t -> (first (first (second (fibequiv t)))) (b t)),

@@ -1,4 +1,4 @@
-site_name: "Yoneda"
+site_name: "yoneda"
 docs_dir: src
 nav:
   - General:
@@ -27,7 +27,7 @@ markdown_extensions:
 
 theme:
   name: readthedocs
-  highlightjs: false  # we override default highlights in custom_theme/
+  highlights: false  # we override default highlights in custom_theme/
   custom_dir: custom_theme/
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css
