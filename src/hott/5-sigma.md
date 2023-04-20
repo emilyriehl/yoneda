@@ -88,28 +88,3 @@ This is a literate `rzk` file:
     := idJ((∑ (a : A), B a), z, 
             \w' p' -> (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'), 
             refl, w, p)
-
-
--- [Rijke 22, Theorem 9.3.3, Characterization of identity types of sigma types]
--- #def eq-pair
---     (A : U)
---     (B : A -> U)
---     (s t : ∑(a : A), B a)
---     TODO 
--- #def eq-sigma
---     (A : U)
---     (B : A -> U)
---     (s t : ∑(a : A), B a)
---     (p : (s = t))
---     : (Eq-Sigma A B s t)
---     := TODO
-
--- -- Split off homotopy in a sigma type
--- #def sigma-htopy-split
---     (A : U)
---     (B : A -> U)
---     (k m : (∑(a : A), B a))
---     (p : (k = m))
---     : (∑(q : (first k) = (first m)), 
---          )
-```
