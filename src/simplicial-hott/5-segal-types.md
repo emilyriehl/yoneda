@@ -419,7 +419,7 @@ All types have identity arrows and witnesses to the identity composition law.
   <polyline points="40,30 160,30" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
   <text x="30" y="30">x</text>
   <text x="170" y="30">x</text>
-  <text x="100" y="15" fill="red">f</text>
+  <text x="100" y="15" fill="red">x</text>
 </svg>
 
 ```rzk
