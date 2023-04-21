@@ -156,7 +156,13 @@ The covariant transport operation defines a covariantly functorial action of arr
 	(u : C x)
 	: (covTrans A x x (id-arr A x) C CisCov u) = u
 	:= covUniqueness A x x (id-arr A x) C CisCov u (u, d-id-arr A x C u)
+```
 
+## Natural transformations
+
+A fiberwise map between covariant families is automatically "natural" commuting with the covariant lifts.
+
+```rzk
 -- [RS17, Proposition 8.17]
 -- Covariant naturality
 #def covariant-transformation-application
@@ -171,7 +177,7 @@ The covariant transport operation defines a covariantly functorial action of arr
 	: dhomFrom A x y f D (phi x u)
 	:= (phi y (covTrans A x y f C CisCov u), 
 	\t -> phi (f t) (covLift A x y f C CisCov u t))
-	
+
 #def covariant-transformation-naturality
 	(A : U)
 	(x y : A)
