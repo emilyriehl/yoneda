@@ -156,4 +156,32 @@ The covariant transport operation defines a covariantly functorial action of arr
 	(u : C x)
 	: (covTrans A x x (id-arr A x) C CisCov u) = u
 	:= covUniqueness A x x (id-arr A x) C CisCov u (u, d-id-arr A x C u)
+
+-- [RS17, Proposition 8.17]
+-- Covariant naturality
+#def covariant-transformation-application
+	(A : U)
+	(x y : A)
+	(f : hom A x y)
+	(C D : A -> U)
+	(CisCov : isCovFam A C)
+	(DisCov : isCovFam A D)
+	(phi : (z : A) -> C z -> D z)
+	(u : C x)
+	: dhomFrom A x y f D (phi x u)
+	:= (phi y (covTrans A x y f C CisCov u), 
+	\t -> phi (f t) (covLift A x y f C CisCov u t))
+	
+#def covariant-transformation-naturality
+	(A : U)
+	(x y : A)
+	(f : hom A x y)
+	(C D : A -> U)
+	(CisCov : isCovFam A C)
+	(DisCov : isCovFam A D)
+	(phi : (z : A) -> C z -> D z)
+	(u : C x)
+	: (covTrans A x y f D DisCov (phi x u)) = (phi y (covTrans A x y f C CisCov u))
+	:= covUniqueness A x y f D DisCov (phi x u)
+		(covariant-transformation-application A x y f C D CisCov DisCov phi u)
 ```
