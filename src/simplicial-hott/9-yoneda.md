@@ -18,7 +18,7 @@ This is a literate `rzk` file:
 
 ## Natural transformations involving a representable functor
 
-The Yoneda lemma characterizes natural transformations from a representable functor to a covariant family. Ordinary, such a natural transformation would involve a family of maps (phi : (z : A) -> hom A a z -> C z) together with a proof of naturality of these components, by as with covariant-transformation-naturality the naturality condition is automatic here.
+Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural transformations from the representable functor (hom A a) to a covariant type fmaily C. Ordinary, such a natural transformation would involve a family of maps (phi : (z : A) -> hom A a z -> C z) together with a proof of naturality of these components, but as is the case for covariant-transformation-naturality the naturality condition is automatic.
 
 ```rzk
 -- This unfolds a composition triangle to a square with an identity component
@@ -62,10 +62,13 @@ The Yoneda lemma characterizes natural transformations from a representable func
 
 ## The Yoneda maps
 
-For any Segal type A and point a : A, the Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -> C z of natural transformations out of the functor represented by A and valued in an arbitrary covariant family C and the type C a.
+For any Segal type A and term a : A, the Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -> C z of natural transformations out of the functor (hom A a) and valued in an arbitrary covariant family C and the type (C a). 
+
+One of the maps in this equivalence is evaluation at the identity. The inverse map makes use of the covariant transport operation.
 
 ```rzk
--- The map evid evaluates a natural transformation out of a representable functor at the identity arrow.
+-- The map evid evaluates a natural transformation 
+-- out of a representable functor at the identity arrow.
 #def evid 
     (A : U)         					-- The ambient type.
     (a : A)       						-- The representing object.
@@ -99,9 +102,11 @@ It remains to show that the Yoneda maps are inverses.
 	(u : C a)
     : (evid A a C) ((yon A AisSegal a C CisCov) u) = u
     := covPresId A a C CisCov u
+```
 
--- The other composite carries phi to an a priori distinct natural transformation.
--- We first show that these are pointwise equal at all x : A and f : hom A a x in two steps.
+The other composite carries phi to an a priori distinct natural transformation. We first show that these are pointwise equal at all x : A and f : hom A a x in two steps.
+
+```rzk
 -- The first step:
 #def yon-evid-partial
     (A : U)                 				-- The ambient type.
@@ -112,8 +117,10 @@ It remains to show that the Yoneda maps are inverses.
     (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     (x : A)
     (f : hom A a x)	
-	: ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f = (phi x (Segal-comp A AisSegal a a x (id-arr A a) f)) -- phi x f
-    := covariant-representable-transformation-naturality A AisSegal a a x (id-arr A a) f C CisCov phi
+	: ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f =
+        (phi x (Segal-comp A AisSegal a a x (id-arr A a) f)) -- phi x f
+    := covariant-representable-transformation-naturality 
+            A AisSegal a a x (id-arr A a) f C CisCov phi
 
 -- The second step:
 #def yon-evid-ap
