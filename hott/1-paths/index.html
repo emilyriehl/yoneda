@@ -155,7 +155,7 @@
   (x y z : A)       -- Three points.
   (p : x = y)       -- A path from x to y in A.
   : (y = z) -&gt; (x = z)
-  := idJ(A, x, \y' p' -&gt; (q' : y' = z) -&gt; (x = z), \(q' : x = z) -&gt; q', y, p)
+  := idJ(A, x, \y' p' -&gt; (y' = z) -&gt; (x = z), \q' -&gt; q', y, p)
 
 -- the coherence we don't have definitionally
 #def refl-concat 
@@ -317,6 +317,16 @@
   (u : B x)
   : B y
   := idJ(A, x, \y' p' -&gt; B y', u, y, p)
+
+-- I'd prefer to have the argument u after p but for now I've swapped them.
+#def transport-total-path
+    (A : U)
+    (B : A -&gt; U)
+    (x y : A)
+    (u : B x)
+    (p : x = y)
+    : (x, u) = (y, transport A B x y p u)
+    := idJ(A, x, \y' p' -&gt; (x, u) = (y', transport A B x y' p' u), refl, y, p)
 
 -- for later use, some higher transport
 #def transport2 
