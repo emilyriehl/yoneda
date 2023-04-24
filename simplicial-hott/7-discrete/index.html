@@ -134,11 +134,16 @@
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>TODO</p>
+<ul>
+<li><code>hott/1-paths.md</code> - We require basic path algebra.</li>
+<li><code>hott/4-equivalences.md</code> - We require the notion of equivalence between types.</li>
+<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
+<li><code>4-extension-types.md</code> — We use extension extensionality.</li>
+<li><code>5-segal-types.md</code> - We use the notion of hom types.</li>
+</ul>
 <h2 id="the-definition">The definition</h2>
+<p>Discrete types are types in which the hom-types are canonically equivalent to identity types.</p>
 <pre><code class="language-rzk">-- [RS17, Definition 7.1]
--- Discrete types are types in which the hom-types are canonically equivalent to identity types.
-
 #def id-to-arr 
     (A : U)             -- A type. 
     (x y : A)           -- Two points of type A.

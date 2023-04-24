@@ -87,8 +87,6 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#simplicies-and-their-subshapes">Simplicies and their subshapes</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#joins-of-simplices">Joins of simplices</a>
-    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../4-extension-types/">Extension Types</a>
@@ -136,54 +134,53 @@
 <h2 id="simplicies-and-their-subshapes">Simplicies and their subshapes</h2>
 <p>Simplicies:</p>
 <pre><code class="language-rzk">-- 1-simplex
-#def Δ¹ : (t : 2) -&gt; TOPE
-  := \(t : 2) -&gt; TOP
+#def Δ¹ : 2 -&gt; TOPE
+  := \t -&gt; TOP
 
 -- 2-simplex
-#def Δ² : (t : 2 * 2) -&gt; TOPE
+#def Δ² : (2 * 2) -&gt; TOPE
   := \(t, s) -&gt; s &lt;= t
 
 -- 3-simplex
-#def Δ³ : (t : 2 * 2 * 2) -&gt; TOPE
+#def Δ³ : (2 * 2 * 2) -&gt; TOPE
   := \((t1, t2), t3) -&gt; t3 &lt;= t2 /\ t2 &lt;= t1
 </code></pre>
 <p>Boundaries of simplices:</p>
 <pre><code class="language-rzk">-- boundary of a 1-simplex
-#def ∂Δ¹ : (t : 2) -&gt; TOPE
-  := \(t : 2) -&gt; (t === 0_2 \/ t === 1_2)
+#def ∂Δ¹ : Δ¹ -&gt; TOPE
+  := \t -&gt; (t === 0_2 \/ t === 1_2)
 
 -- boundary of a 2-simplex
-#def ∂Δ² : {(ts : 2 * 2) | Δ² ts} -&gt; TOPE
-  := \{ts : 2 * 2 | Δ² ts} -&gt; ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
+#def ∂Δ² : Δ² -&gt; TOPE
+  := \ts -&gt; 
+        ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
 </code></pre>
 <p>Horns:</p>
 <pre><code class="language-rzk">-- the (2,1)-horn
-#def Λ : (t : 2 * 2) -&gt; TOPE
+#def Λ : (2 * 2) -&gt; TOPE
   := \(t, s) -&gt; (s === 0_2 \/ t === 1_2)
 </code></pre>
 <p>Products:</p>
 <pre><code class="language-rzk">-- the product of topes defines the product of shapes
-#def shapeProd : (I : CUBE) -&gt; (J : CUBE) -&gt;
-                 (psi : (t : I) -&gt; TOPE) -&gt;
-                 (chi : (s : J) -&gt; TOPE) -&gt;
-                 (ts : I * J) -&gt; TOPE
-  := \I -&gt; \J -&gt; \psi -&gt; \chi -&gt; \(t, s) -&gt; psi t /\ chi s
+#def shapeProd
+  (I J : CUBE)
+  (psi : I -&gt; TOPE)
+  (chi : J -&gt; TOPE)
+  : (I * J) -&gt; TOPE
+  := \(t, s) -&gt; psi t /\ chi s
 
 -- the square as a product
-#def Δ¹×Δ¹ : (t : 2 * 2) -&gt; TOPE
+#def Δ¹×Δ¹ : (2 * 2) -&gt; TOPE
   := shapeProd 2 2 Δ¹ Δ¹
 
 -- the vertical boundary of the square 
-#def ∂Δ¹×Δ¹ : (t : 2 * 2) -&gt; TOPE
+#def ∂Δ¹×Δ¹ : (2 * 2) -&gt; TOPE
   := shapeProd 2 2 ∂Δ¹ Δ¹
 
 -- the prism from a 2-simplex in an arrow type
-#def Δ²×Δ¹ : (t : (2 * 2) * 2) -&gt; TOPE
+#def Δ²×Δ¹ : (2 * 2 * 2) -&gt; TOPE
   := shapeProd (2 * 2) 2 Δ² Δ¹  
 </code></pre>
-<p>More to be done.</p>
-<h2 id="joins-of-simplices">Joins of simplices</h2>
-<p>To be done.</p>
               
             </div>
           </div><footer>

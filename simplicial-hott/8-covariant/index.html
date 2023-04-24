@@ -143,12 +143,12 @@
 </code></pre>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
-<li><code>hott/*</code> - we require various prerequisites from homotopy type theory, for instance contractible types</li>
-<li><code>3-simplicial-type-theory.md</code> — we rely on definitions of simplicies and their subshapes</li>
-<li><code>5-segal-types.md</code> - we make use of the notion of Segal types and their structures</li>
+<li><code>hott/*</code> - We require various prerequisites from homotopy type theory.</li>
+<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
+<li><code>5-segal-types.md</code> - We make use of the notion of Segal types and their structures.</li>
 </ul>
 <h2 id="dependent-hom-types">Dependent hom types</h2>
-<p>In a type family over a base type, we introduce a dependent hom type of arrows that live over a specified arrow in the base type.</p>
+<p>In a type family over a base type, there is a dependent hom type of arrows that live over a specified arrow in the base type.</p>
 <pre><code class="language-rzk">-- [RS17, Section 8 Prelim]
 -- The type of dependent arrows in C over f from u to v
 #def dhom 
@@ -160,7 +160,8 @@
     (v : C y)                   -- A lift of the codomain.
     : U
     := &lt;{t : 2 | Δ¹ t } -&gt; C (f t) 
-            [t === 0_2 |-&gt; u , t === 1_2 |-&gt; v ]&gt;
+            [t === 0_2 |-&gt; u, 
+            t === 1_2 |-&gt; v ]&gt;
 </code></pre>
 <p>It will be convenient to collect together dependent hom types with fixed domain but varying codomain.</p>
 <pre><code class="language-rzk">#def dhomFrom

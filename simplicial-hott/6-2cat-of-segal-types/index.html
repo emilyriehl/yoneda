@@ -93,6 +93,8 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#functors">Functors</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../7-discrete/">Discrete Types</a>
@@ -132,7 +134,13 @@
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>TODO</p>
+<ul>
+<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
+<li><code>4-extension-types.md</code> — We use extension extensionality.</li>
+<li><code>5-segal-types.md</code> - We use the notion of hom types.</li>
+</ul>
+<h2 id="functors">Functors</h2>
+<p>Functions between types induce an action on hom types, preserving sources and targets.</p>
 <pre><code class="language-rzk">-- [RS17, Section 6.1]
 -- Action of maps on homs. Called &quot;ap-arr&quot; to avoid conflicting with &quot;ap&quot;.
 #def ap-arr 
@@ -143,6 +151,7 @@
     : hom B (F x) (F y)
   := \t -&gt; F (f t)
 </code></pre>
+<p>Functions between types automatically preserve identity arrows.</p>
 <pre><code class="language-rzk">-- [RS17, Proposition 6.1]
 -- Preservation of identities follows from extension extensionality because these arrows are pointwise equal.
 #def functors-pres-id
@@ -155,7 +164,7 @@
         2
         Δ¹
         ∂Δ¹
-        (\{t : 2 | Δ¹ t} -&gt; B)
+        (\t -&gt; B)
         (\t -&gt; recOR(
             t === 0_2 |-&gt; F x,
             t === 1_2 |-&gt; F x))

@@ -274,7 +274,8 @@
        (\g -&gt; \t -&gt; recOR(phi t |-&gt; g t, psi t |-&gt; a t), \h -&gt; refl)))
 </code></pre>
 <h2 id="relative-function-extensionality">Relative function extensionality</h2>
-<p>A more complete treatment still needs to be done.</p>
+<p>There are various equivalent forms of the relative function extensionality axiom. 
+Here we state the one that will be most useful and derive an application.</p>
 <pre><code class="language-rzk">-- [RS17, Proposition 4.8(ii)]
 -- as suggested by footnote 8, we assert this as an &quot;extension extensionality&quot; axiom
 #def ExtExt : U
@@ -296,27 +297,27 @@
    (A B : psi -&gt; U)
    (fibequiv : (t : psi) -&gt; (Eq (A t) (B t)) )
    : Eq (&lt;{t : I | psi t } -&gt; A t &gt;) (&lt;{t : I | psi t } -&gt; B t &gt;)
-    := ((\a t -&gt; (first (fibequiv t)) (a t)),
-            (((\b t -&gt; (first (first (second (fibequiv t)))) (b t)),
-                \a -&gt; extext
-                        I
-                        psi
-                        (\t -&gt; BOT)
-                        A
-                        (\u -&gt; recBOT)
-                        (\t -&gt; (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
-                        a 
-                        (\t -&gt; (second (first (second (fibequiv t)))) (a t))), 
-           ((\b t -&gt; (first (second (second (fibequiv t)))) (b t)),
-               (\b -&gt; extext 
-                        I
-                        psi
-                        (\t -&gt; BOT)
-                        B 
-                        (\u -&gt; recBOT)
-                        (\t -&gt; (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
-                        b 
-                        (\t -&gt; (second (second (second (fibequiv t)))) (b t))))))              
+   := ((\a t -&gt; (first (fibequiv t)) (a t)),
+         (((\b t -&gt; (first (first (second (fibequiv t)))) (b t)),
+            \a -&gt; extext
+                     I
+                     psi
+                     (\t -&gt; BOT)
+                     A
+                     (\u -&gt; recBOT)
+                     (\t -&gt; (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
+                     a 
+                     (\t -&gt; (second (first (second (fibequiv t)))) (a t))), 
+         ((\b t -&gt; (first (second (second (fibequiv t)))) (b t)),
+            (\b -&gt; extext 
+                     I
+                     psi
+                     (\t -&gt; BOT)
+                     B 
+                     (\u -&gt; recBOT)
+                     (\t -&gt; (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
+                     b 
+                     (\t -&gt; (second (second (second (fibequiv t)))) (b t))))))              
 </code></pre>
               
             </div>
