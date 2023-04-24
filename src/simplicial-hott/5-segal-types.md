@@ -10,11 +10,11 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/1-paths.md` - we require basic path algebra
-- `hott/2-contractible.md` - we require the notion of contractible types and the data associated to a proof of contractibility
-- `hott/total-space.md` — we rely on `contractible-fibers-projection-equiv` and `total-space-projection` in the proof of Theorem 5.5
-- `3-simplicial-type-theory.md` — we rely on definitions of simplicies and their subshapes
-- `4-extension-types.md` — we use the fubini theorem and extension extensionality
+- `hott/1-paths.md` - We require basic path algebra.
+- `hott/2-contractible.md` - We require the notion of contractible types and their data.
+- `hott/total-space.md` — We rely on `contractible-fibers-projection-equiv` and `total-space-projection` in the proof of Theorem 5.5.
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
+- `4-extension-types.md` — We use the fubini theorem and extension extensionality.
 
 ## Hom types
 
@@ -647,13 +647,13 @@ The Segal-comp-witness-square as an arrow in the arrow type:
 
 ```rzk
 #def Segal-associativity-witness 
-  (extext : ExtExt)             -- This proof uses extension extensionality, defined in 4-extension-types.md
-  (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.  
-  (w x y z : A)                 -- Four points in A.
-  (f : hom A w x)               -- An arrow in A from w to x.
-  (g : hom A x y)               -- An arrow in A from x to y.
-  (h : hom A y z)               -- An arrow in A from y to z.
+  (extext : ExtExt)         -- This proof uses extension extensionality.
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y z : A)             -- Four points in A.
+  (f : hom A w x)           -- An arrow in A from w to x.
+  (g : hom A x y)           -- An arrow in A from x to y.
+  (h : hom A y z)           -- An arrow in A from y to z.
   : hom2 (arr A) f g h
       (Segal-arr-in-arr A AisSegal w x y f g)
       (Segal-arr-in-arr A AisSegal x y z g h)
@@ -689,15 +689,16 @@ The Segal-comp-witness-square as an arrow in the arrow type:
 -- The Segal-associativity-witness curries to define a diagram Δ²×Δ¹ -> A.
 -- The Segal-associativity-tetrahedron is extracted via the middle-simplex map \((t, s), r) -> ((t, r), s) from Δ³ to Δ²×Δ¹
 #def Segal-associativity-tetrahedron 
-  (extext : ExtExt)             -- This proof uses extension extensionality, defined in 4-extension-types.md
-  (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.  
-  (w x y z : A)                 -- Four points in A.
-  (f : hom A w x)               -- An arrow in A from w to x.
-  (g : hom A x y)               -- An arrow in A from x to y.
-  (h : hom A y z)               -- An arrow in A from y to z.
+  (extext : ExtExt)         -- This proof uses extension extensionality.
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y z : A)             -- Four points in A.
+  (f : hom A w x)           -- An arrow in A from w to x.
+  (g : hom A x y)           -- An arrow in A from x to y.
+  (h : hom A y z)           -- An arrow in A from y to z.
   : Δ³ -> A
-  := \((t, s), r) -> (Segal-associativity-witness extext A AisSegal w x y z f g h) (t, r) s
+  := \((t, s), r) -> 
+    (Segal-associativity-witness extext A AisSegal w x y z f g h) (t, r) s
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -721,15 +722,16 @@ The Segal-comp-witness-square as an arrow in the arrow type:
 ```rzk
 -- the diagonal composite of three arrows extracted from the Segal-associativity-tetrahedron
 #def Segal-triple-composite 
-  (extext : ExtExt)             -- This proof uses extension extensionality, defined in 4-extension-types.md
-  (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.  
-  (w x y z : A)                 -- Four points in A.
-  (f : hom A w x)               -- An arrow in A from w to x.
-  (g : hom A x y)               -- An arrow in A from x to y.
-  (h : hom A y z)               -- An arrow in A from y to z.
+  (extext : ExtExt)         -- This proof uses extension extensionality.
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y z : A)             -- Four points in A.
+  (f : hom A w x)           -- An arrow in A from w to x.
+  (g : hom A x y)           -- An arrow in A from x to y.
+  (h : hom A y z)           -- An arrow in A from y to z.
   : hom A w z 
-  := \t -> (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), t)
+  := \t -> 
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), t)
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -754,15 +756,19 @@ The Segal-comp-witness-square as an arrow in the arrow type:
 
 ```rzk
 #def Segal-left-associativity-witness 
-  (extext : ExtExt)             -- This proof uses extension extensionality, defined in 4-extension-types.md
-  (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.  
-  (w x y z : A)                 -- Four points in A.
-  (f : hom A w x)               -- An arrow in A from w to x.
-  (g : hom A x y)               -- An arrow in A from x to y.
-  (h : hom A y z)               -- An arrow in A from y to z.
-  : hom2 A w y z (Segal-comp A AisSegal w x y f g) h (Segal-triple-composite extext A AisSegal w x y z f g h)
-  := \(t, s) -> (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), s)
+  (extext : ExtExt)         -- This proof uses extension extensionality.
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y z : A)             -- Four points in A.
+  (f : hom A w x)           -- An arrow in A from w to x.
+  (g : hom A x y)           -- An arrow in A from x to y.
+  (h : hom A y z)           -- An arrow in A from y to z.
+  : hom2 A w y z 
+    (Segal-comp A AisSegal w x y f g) 
+    h 
+    (Segal-triple-composite extext A AisSegal w x y z f g h)
+  := \(t, s) -> 
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), s)
 ```
 
 The front face:
@@ -789,58 +795,62 @@ The front face:
 
 ```rzk 
 #def Segal-right-associativity-witness 
-  (extext : ExtExt)             -- This proof uses extension extensionality, defined in 4-extension-types.md
-  (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.  
-  (w x y z : A)                 -- Four points in A.
-  (f : hom A w x)               -- An arrow in A from w to x.
-  (g : hom A x y)               -- An arrow in A from x to y.
-  (h : hom A y z)               -- An arrow in A from y to z.
-  : hom2 A w x z f (Segal-comp A AisSegal x y z g h) (Segal-triple-composite extext A AisSegal w x y z f g h)
-  := \(t, s) -> (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, s), s)
+  (extext : ExtExt)         -- This proof uses extension extensionality.
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y z : A)             -- Four points in A.
+  (f : hom A w x)           -- An arrow in A from w to x.
+  (g : hom A x y)           -- An arrow in A from x to y.
+  (h : hom A y z)           -- An arrow in A from y to z.
+  : hom2 A w x z 
+    f 
+    (Segal-comp A AisSegal x y z g h) 
+    (Segal-triple-composite extext A AisSegal w x y z f g h)
+  := \(t, s) -> 
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, s), s)
 ```
 
 ```rzk
 #def Segal-left-associativity 
-  (extext : ExtExt)             -- This proof uses extension extensionality, defined in 4-extension-types.md
-  (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.  
-  (w x y z : A)                 -- Four points in A.
-  (f : hom A w x)               -- An arrow in A from w to x.
-  (g : hom A x y)               -- An arrow in A from x to y.
-  (h : hom A y z)               -- An arrow in A from y to z.
+  (extext : ExtExt)         -- This proof uses extension extensionality.
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y z : A)             -- Four points in A.
+  (f : hom A w x)           -- An arrow in A from w to x.
+  (g : hom A x y)           -- An arrow in A from x to y.
+  (h : hom A y z)           -- An arrow in A from y to z.
   : (Segal-comp A AisSegal w y z (Segal-comp A AisSegal w x y f g) h) =
-  (Segal-triple-composite extext A AisSegal w x y z f g h)
+      (Segal-triple-composite extext A AisSegal w x y z f g h)
   := Segal-comp-uniqueness 
         A AisSegal w y z (Segal-comp A AisSegal w x y f g) h
         (Segal-triple-composite extext A AisSegal w x y z f g h)
         (Segal-left-associativity-witness extext A AisSegal w x y z f g h)
 
 #def Segal-right-associativity 
-  (extext : ExtExt)             -- This proof uses extension extensionality, defined in 4-extension-types.md
-  (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.  
-  (w x y z : A)                 -- Four points in A.
-  (f : hom A w x)               -- An arrow in A from w to x.
-  (g : hom A x y)               -- An arrow in A from x to y.
-  (h : hom A y z)               -- An arrow in A from y to z.
+  (extext : ExtExt)         -- This proof uses extension extensionality.
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y z : A)             -- Four points in A.
+  (f : hom A w x)           -- An arrow in A from w to x.
+  (g : hom A x y)           -- An arrow in A from x to y.
+  (h : hom A y z)           -- An arrow in A from y to z.
   : (Segal-comp A AisSegal w x z f (Segal-comp A AisSegal x y z g h)) =
-  (Segal-triple-composite extext A AisSegal w x y z f g h)
+      (Segal-triple-composite extext A AisSegal w x y z f g h)
   := Segal-comp-uniqueness 
         A AisSegal w x z f (Segal-comp A AisSegal x y z g h)
         (Segal-triple-composite extext A AisSegal w x y z f g h)
         (Segal-right-associativity-witness extext A AisSegal w x y z f g h)
 
 #def Segal-associativity 
-  (extext : ExtExt)             -- This proof uses extension extensionality, defined in 4-extension-types.md
-  (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.  
-  (w x y z : A)                 -- Four points in A.
-  (f : hom A w x)               -- An arrow in A from w to x.
-  (g : hom A x y)               -- An arrow in A from x to y.
-  (h : hom A y z)               -- An arrow in A from y to z.
+  (extext : ExtExt)         -- This proof uses extension extensionality.
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y z : A)             -- Four points in A.
+  (f : hom A w x)           -- An arrow in A from w to x.
+  (g : hom A x y)           -- An arrow in A from x to y.
+  (h : hom A y z)           -- An arrow in A from y to z.
   : (Segal-comp A AisSegal w y z (Segal-comp A AisSegal w x y f g) h) =
-  (Segal-comp A AisSegal w x z f (Segal-comp A AisSegal x y z g h)) 
+      (Segal-comp A AisSegal w x z f (Segal-comp A AisSegal x y z g h)) 
   := zig-zag-concat (hom A w z) 
       (Segal-comp A AisSegal w y z (Segal-comp A AisSegal w x y f g) h)
       (Segal-triple-composite extext A AisSegal w x y z f g h)
@@ -848,15 +858,6 @@ The front face:
       (Segal-left-associativity extext A AisSegal w x y z f g h) 
       (Segal-right-associativity extext A AisSegal w x y z f g h)
 ```
-
-
-## Homotopies
-
-To be done.
-
-## Anodyne maps
-
-To be done.
 
 <!-- Definitions for the SVG images above -->
 <svg width="0" height="0">
