@@ -9,13 +9,19 @@ This is a literate `rzk` file:
 ```
 
 ## Prerequisites
-TODO
+
+- `hott/1-paths.md` - We require basic path algebra.
+- `hott/4-equivalences.md` - We require the notion of equivalence between types.
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
+- `4-extension-types.md` — We use extension extensionality.
+- `5-segal-types.md` - We use the notion of hom types.
 
 ## The definition
+
+Discrete types are types in which the hom-types are canonically equivalent to identity types.
+
 ```rzk
 -- [RS17, Definition 7.1]
--- Discrete types are types in which the hom-types are canonically equivalent to identity types.
-
 #def id-to-arr 
     (A : U)             -- A type. 
     (x y : A)           -- Two points of type A.

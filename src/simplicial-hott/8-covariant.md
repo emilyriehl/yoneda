@@ -10,14 +10,14 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/*` - we require various prerequisites from homotopy type theory, for instance contractible types
-- `3-simplicial-type-theory.md` — we rely on definitions of simplicies and their subshapes
-- `5-segal-types.md` - we make use of the notion of Segal types and their structures
+- `hott/*` - We require various prerequisites from homotopy type theory.
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
+- `5-segal-types.md` - We make use of the notion of Segal types and their structures.
 
 
 ## Dependent hom types
 
-In a type family over a base type, we introduce a dependent hom type of arrows that live over a specified arrow in the base type.
+In a type family over a base type, there is a dependent hom type of arrows that live over a specified arrow in the base type.
 
 ```rzk
 -- [RS17, Section 8 Prelim]
@@ -31,7 +31,8 @@ In a type family over a base type, we introduce a dependent hom type of arrows t
 	(v : C y)					-- A lift of the codomain.
 	: U
   	:= <{t : 2 | Δ¹ t } -> C (f t) 
-			[t === 0_2 |-> u , t === 1_2 |-> v ]>
+			[t === 0_2 |-> u, 
+			t === 1_2 |-> v ]>
 ```
 
 It will be convenient to collect together dependent hom types with fixed domain but varying codomain.

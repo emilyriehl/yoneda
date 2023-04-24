@@ -152,7 +152,8 @@ This is a literate `rzk` file:
 
 ## Relative function extensionality
 
-A more complete treatment still needs to be done.
+There are various equivalent forms of the relative function extensionality axiom. 
+Here we state the one that will be most useful and derive an application.
 
 ```rzk
 -- [RS17, Proposition 4.8(ii)]
@@ -176,25 +177,25 @@ A more complete treatment still needs to be done.
    (A B : psi -> U)
    (fibequiv : (t : psi) -> (Eq (A t) (B t)) )
    : Eq (<{t : I | psi t } -> A t >) (<{t : I | psi t } -> B t >)
-    := ((\a t -> (first (fibequiv t)) (a t)),
-            (((\b t -> (first (first (second (fibequiv t)))) (b t)),
-                \a -> extext
-                        I
-                        psi
-                        (\t -> BOT)
-                        A
-                        (\u -> recBOT)
-                        (\t -> (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
-                        a 
-                        (\t -> (second (first (second (fibequiv t)))) (a t))), 
-           ((\b t -> (first (second (second (fibequiv t)))) (b t)),
-               (\b -> extext 
-                        I
-                        psi
-                        (\t -> BOT)
-                        B 
-                        (\u -> recBOT)
-                        (\t -> (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
-                        b 
-                        (\t -> (second (second (second (fibequiv t)))) (b t))))))              
+   := ((\a t -> (first (fibequiv t)) (a t)),
+         (((\b t -> (first (first (second (fibequiv t)))) (b t)),
+            \a -> extext
+                     I
+                     psi
+                     (\t -> BOT)
+                     A
+                     (\u -> recBOT)
+                     (\t -> (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
+                     a 
+                     (\t -> (second (first (second (fibequiv t)))) (a t))), 
+         ((\b t -> (first (second (second (fibequiv t)))) (b t)),
+            (\b -> extext 
+                     I
+                     psi
+                     (\t -> BOT)
+                     B 
+                     (\u -> recBOT)
+                     (\t -> (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
+                     b 
+                     (\t -> (second (second (second (fibequiv t)))) (b t))))))              
 ```        

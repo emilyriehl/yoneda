@@ -9,7 +9,14 @@ This is a literate `rzk` file:
 ```
 
 ## Prerequisites
-TODO
+
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
+- `4-extension-types.md` — We use extension extensionality.
+- `5-segal-types.md` - We use the notion of hom types.
+
+## Functors
+
+Functions between types induce an action on hom types, preserving sources and targets.
 
 ```rzk
 -- [RS17, Section 6.1]
@@ -22,6 +29,7 @@ TODO
 	: hom B (F x) (F y)
   := \t -> F (f t)
 ```
+Functions between types automatically preserve identity arrows.
 
 ```rzk
 -- [RS17, Proposition 6.1]
@@ -36,7 +44,7 @@ TODO
 		2
 		Δ¹
 		∂Δ¹
-		(\{t : 2 | Δ¹ t} -> B)
+		(\t -> B)
 		(\t -> recOR(
 			t === 0_2 |-> F x,
 			t === 1_2 |-> F x))
