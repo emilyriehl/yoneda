@@ -33,7 +33,7 @@ This is a literate `rzk` file:
   (x y z : A)       -- Three points.
   (p : x = y)       -- A path from x to y in A.
   : (y = z) -> (x = z)
-  := idJ(A, x, \y' p' -> (q' : y' = z) -> (x = z), \(q' : x = z) -> q', y, p)
+  := idJ(A, x, \y' p' -> (y' = z) -> (x = z), \q' -> q', y, p)
 
 -- the coherence we don't have definitionally
 #def refl-concat 
@@ -195,6 +195,16 @@ This is a literate `rzk` file:
   (u : B x)
   : B y
   := idJ(A, x, \y' p' -> B y', u, y, p)
+
+-- I'd prefer to have the argument u after p but for now I've swapped them.
+#def transport-total-path
+    (A : U)
+    (B : A -> U)
+    (x y : A)
+    (u : B x)
+    (p : x = y)
+    : (x, u) = (y, transport A B x y p u)
+    := idJ(A, x, \y' p' -> (x, u) = (y', transport A B x y' p' u), refl, y, p)
 
 -- for later use, some higher transport
 #def transport2 
