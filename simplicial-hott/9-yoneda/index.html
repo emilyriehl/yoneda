@@ -148,7 +148,7 @@
 <li><code>8-covariant.md</code> - We use covariant type families.</li>
 </ul>
 <h2 id="natural-transformations-involving-a-representable-functor">Natural transformations involving a representable functor</h2>
-<p>The Yoneda lemma characterizes natural transformations from a representable functor to a covariant family. Ordinary, such a natural transformation would involve a family of maps (phi : (z : A) -&gt; hom A a z -&gt; C z) together with a proof of naturality of these components, by as with covariant-transformation-naturality the naturality condition is automatic here.</p>
+<p>Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural transformations from the representable functor (hom A a) to a covariant type fmaily C. Ordinary, such a natural transformation would involve a family of maps (phi : (z : A) -&gt; hom A a z -&gt; C z) together with a proof of naturality of these components, but as is the case for covariant-transformation-naturality the naturality condition is automatic.</p>
 <pre><code class="language-rzk">-- This unfolds a composition triangle to a square with an identity component
 #def id-domain-square
     (A : U)                     -- The ambient type.
@@ -188,8 +188,10 @@
         (covariant-representable-transformation-application A AisSegal a x y f g C CisCov phi)
 </code></pre>
 <h2 id="the-yoneda-maps">The Yoneda maps</h2>
-<p>For any Segal type A and point a : A, the Yoneda lemma provides an equivalence between the type (z : A) -&gt; hom A a z -&gt; C z of natural transformations out of the functor represented by A and valued in an arbitrary covariant family C and the type C a.</p>
-<pre><code class="language-rzk">-- The map evid evaluates a natural transformation out of a representable functor at the identity arrow.
+<p>For any Segal type A and term a : A, the Yoneda lemma provides an equivalence between the type (z : A) -&gt; hom A a z -&gt; C z of natural transformations out of the functor (hom A a) and valued in an arbitrary covariant family C and the type (C a). </p>
+<p>One of the maps in this equivalence is evaluation at the identity. The inverse map makes use of the covariant transport operation.</p>
+<pre><code class="language-rzk">-- The map evid evaluates a natural transformation 
+-- out of a representable functor at the identity arrow.
 #def evid 
     (A : U)                             -- The ambient type.
     (a : A)                             -- The representing object.
@@ -220,10 +222,9 @@
     (u : C a)
     : (evid A a C) ((yon A AisSegal a C CisCov) u) = u
     := covPresId A a C CisCov u
-
--- The other composite carries phi to an a priori distinct natural transformation.
--- We first show that these are pointwise equal at all x : A and f : hom A a x in two steps.
--- The first step:
+</code></pre>
+<p>The other composite carries phi to an a priori distinct natural transformation. We first show that these are pointwise equal at all x : A and f : hom A a x in two steps.</p>
+<pre><code class="language-rzk">-- The first step:
 #def yon-evid-partial
     (A : U)                                 -- The ambient type.
     (AisSegal : isSegal A)                  -- A proof that A is Segal.
@@ -233,8 +234,10 @@
     (phi : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
     (x : A)
     (f : hom A a x) 
-    : ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f = (phi x (Segal-comp A AisSegal a a x (id-arr A a) f)) -- phi x f
-    := covariant-representable-transformation-naturality A AisSegal a a x (id-arr A a) f C CisCov phi
+    : ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f =
+        (phi x (Segal-comp A AisSegal a a x (id-arr A a) f)) -- phi x f
+    := covariant-representable-transformation-naturality 
+            A AisSegal a a x (id-arr A a) f C CisCov phi
 
 -- The second step:
 #def yon-evid-ap
