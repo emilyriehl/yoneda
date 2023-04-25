@@ -59,6 +59,28 @@ This is a literate `rzk` file:
     : (Eq-Sigma A B s t)
     := idJ(∑(a : A), B a, s, \t' p' -> (Eq-Sigma A B s t'), (reflexive-Eq-Sigma A B s), t, p)
 
+-- A path through the total space projects to a path in the base
+-- Morally but not definitionally the first component of pair-eq.
+#def total-path-to-base-path 
+    (A : U)
+    (B : A -> U)
+    (z w : ∑ (a : A), B a)
+    (p : z = w) 
+    : ((first z) = first w)
+    := ap (∑ (a : A), B a) A z w (\u -> first u) p 
+
+-- A path through the total space gives a path in a fiber using transport along the path in the base.
+-- Morally, but not definitionally, the second component of pair-eq.
+#def total-path-to-fibered-path 
+    (A : U)
+    (B : A -> U)
+    (z w : ∑ (a : A), B a)
+    (p : z = w) 
+    : (transport A B (first z) (first w) (total-path-to-base-path A B z w p) (second z)) = (second w)
+    := idJ((∑ (a : A), B a), z, 
+            \w' p' -> (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'), 
+            refl, w, p)
+
 -- A path in a fiber defines a path in the total space
 #def fibered-path-to-sigma-path 
     (A : U)
@@ -69,49 +91,26 @@ This is a literate `rzk` file:
     : (x , u) =_{∑ (a : A), B a} (x , v)
     := idJ(B x, u, \v' p' -> (x , u) = (x , v'), refl, v, p)
 
--- I'd prefer to have the argument u after p but for now I've swapped them.
--- This fails to typecheck.
-#def transport-total-path
-    (A : U)
-    (B : A -> U)
-    (x y : A)
-    (u : B x)
-    (p : x = y)
-    : (x, u) = (y, transport A B x y p u)
-    := idJ(A, x, \y' p' -> (x, u) = (y', transport A B x y' p' u), refl, y, p)
-
--- This fails to typecheck, perhaps for the same reason as above?
+-- Essentially the inverse to pair-eq but with explicit arguments.
 #def pair-of-paths-to-path-of-pairs
     (A : U)
     (B : A -> U)
     (x y : A)
     (p : x = y)
-    : (u : B x) -> (v : B y) -> ((transport A B x y p u) = v) -> (x, u) = (y, v)    
+    : (u : B x) -> (v : B y) -> ((transport A B x y p u) = v) -> (x, u) =_{∑ (z : A), B z} (y, v)    
     := idJ(A, x, 
-        \y' p' -> (u' : B x) -> (v' : B y') -> ((transport A B x y' p' u') = v') -> (x, u') = (y', v'),
+        \y' p' -> (u' : B x) -> (v' : B y') -> ((transport A B x y' p' u') = v') -> (x, u') =_{∑ (z : A), B z} (y', v'),
         \(u' : B x) -> \(v' : B x) -> \(q' : (transport A B x x refl u') = v') -> (fibered-path-to-sigma-path A B x u' v' q'), 
         y, p) 
 
--- A path through the total space projects to a path in the base
-#def total-path-to-base-path 
+-- The inverse to pair-eq.
+#def eq-pair
     (A : U)
     (B : A -> U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : ((first z) = first w)
-    := ap (∑ (a : A), B a) A z w (\u -> first u) p 
-
--- A path through the total space gives a path in a fiber using transport along the path in the base.
--- Compare with pair-eq.
-#def total-path-to-fibered-path 
-    (A : U)
-    (B : A -> U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : (transport A B (first z) (first w) (total-path-to-base-path A B z w p) (second z)) = (second w)
-    := idJ((∑ (a : A), B a), z, 
-            \w' p' -> (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'), 
-            refl, w, p)
+    (s t : ∑(a : A), B a)
+    (e : Eq-Sigma A B s t)
+    : (s = t)
+    := pair-of-paths-to-path-of-pairs A B (first s) (first t) (first e) (second s) (second t) (second e)
 ```            
 
 ## Based path spaces
@@ -119,8 +118,8 @@ This is a literate `rzk` file:
 As an application, we prove the based path spaces are contractible.
 
 ```rzk
--- Transport in the space of paths starting at a is composition.
-#def based-transport-is-composition
+-- Transport in the space of paths starting at a is concatenation.
+#def based-transport-is-concat
     (A : U)             -- The ambient type.
     (a x y : A)         -- The basepoint and two other points.
     (p : a = x)         -- An element of the based path space.
@@ -129,17 +128,30 @@ As an application, we prove the based path spaces are contractible.
     := idJ(A, x, \y' q' -> (transport A (\z -> (a = z)) x y' q' p) = (concat A a x y' p q'), refl, y, q)
 
 -- The center of contraction in the based path space is (a, refl)
-#def based-path-center 
+#def based-paths-center 
     (A : U)         -- The ambient type.
     (a : A)         -- The basepoint.
     : ∑ (x : A), a = x
     := (a, refl)
-```
 
-#def based-path-contracting-homotopy
+-- The contracting homotopy.
+#def based-paths-contracting-homotopy
+    (A : U)                     -- The ambient type.
+    (a : A)                     -- The basepoint.
+    (p : ∑ (x : A), a = x)      -- Another based path.
+    : (based-paths-center A a) =_{∑ (x : A), a = x} p
+    := pair-of-paths-to-path-of-pairs A (\z -> a = z) a (first p) (second p) (refl) (second p)
+        (concat (a = (first p))
+        (transport A (\z -> (a = z)) a (first p) (second p) (refl))
+        (concat A a a (first p) (refl) (second p))
+        (second p)
+        (based-transport-is-concat A a a (first p) (refl) (second p))
+        (refl-concat A a (first p) (second p)))
+
+-- Based path spaces are contractible
+#def based-paths-contractible
     (A : U)         -- The ambient type.
     (a : A)         -- The basepoint.
-    (pp : ∑ (x : A), a = x)
-    : (based-path-center A a) = pp
-    := 
-```            
+    : isContr (∑ (x : A), a = x)
+    := (based-paths-center A a, based-paths-contracting-homotopy A a)
+```

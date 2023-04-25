@@ -196,15 +196,15 @@ This is a literate `rzk` file:
   : B y
   := idJ(A, x, \y' p' -> B y', u, y, p)
 
--- I'd prefer to have the argument u after p but for now I've swapped them.
-#def transport-total-path
+-- The lift of a base path to a path from a term in the total space to its transport.
+#def transport-lift
     (A : U)
     (B : A -> U)
     (x y : A)
-    (u : B x)
     (p : x = y)
-    : (x, u) = (y, transport A B x y p u)
-    := idJ(A, x, \y' p' -> (x, u) = (y', transport A B x y' p' u), refl, y, p)
+    (u : B x)
+    : (x, u) =_{∑ (z : A), B z} (y, transport A B x y p u)
+    := idJ(A, x, \y' p' -> (x, u) =_{∑ (z : A), B z} (y', transport A B x y' p' u), refl, y, p)
 
 -- for later use, some higher transport
 #def transport2 
