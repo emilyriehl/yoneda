@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Contractible - yoneda</title>
+    <title>Homotopies - yoneda</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -30,8 +30,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Contractible";
-        var mkdocs_page_input_path = "hott/2-contractible.md";
+        var mkdocs_page_name = "Homotopies";
+        var mkdocs_page_input_path = "hott/2-homotopies.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -70,15 +70,15 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../1-paths/">Paths</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Contractible</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Homotopies</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#contractible-types">Contractible types</a>
+    <li class="toctree-l2"><a class="reference internal" href="#homotopies-and-their-algebra">Homotopies and their algebra</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#contractible-type-data">Contractible type data</a>
+    <li class="toctree-l2"><a class="reference internal" href="#naturality">Naturality</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../3-homotopies/">Homotopies</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../3-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../4-equivalences/">Equivalences</a>
                   </li>
@@ -119,7 +119,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>HoTT &raquo;</li>
-      <li>Contractible</li>
+      <li>Homotopies</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -128,40 +128,111 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="2-contractible">2. Contractible</h1>
+                <h1 id="3-homotopies">3. Homotopies</h1>
 <p>This is a literate <code>rzk</code> file:</p>
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
-<h2 id="contractible-types">Contractible types</h2>
-<pre><code class="language-rzk">-- contractible types
-#def isContr (A : U) : U
-  := ∑ (x : A), (y : A) -&gt; x = y
+<h2 id="homotopies-and-their-algebra">Homotopies and their algebra</h2>
+<pre><code class="language-rzk">-- The type of homotopies between parallel functions.
+#def homotopy 
+    (A B : U)               -- Two types.
+    (f g : A -&gt; B)          -- Two parallel functions.
+    : U
+    := (a : A) -&gt; (f a = g a)
+
+#def homotopy-rev 
+    (A B : U)               -- Two types.
+    (f g : A -&gt; B)          -- Two parallel functions.
+    (H : homotopy A B f g)  -- A homotopy from f to g.
+    : homotopy A B g f
+    := \a -&gt; rev B (f a) (g a) (H a)
+
+-- Homotopy composition is defined in diagrammatic order like concat but unlike composition.
+#def homotopy-composition 
+    (A B : U)                 -- Two types.
+    (f g h : A -&gt; B)          -- Three parallel functions.
+    (H : homotopy A B f g)
+    (K : homotopy A B g h)
+    : homotopy A B f h
+    := \a -&gt; concat B (f a) (g a) (h a) (H a) (K a)
+
+#def homotopy-postwhisker 
+    (A B C : U)                 -- Three types.
+    (f g : A -&gt; B)              -- Two parallel functions.
+    (H : homotopy A B f g)      -- A homotopy from f to g.
+    (h : B -&gt; C)
+    : homotopy A C (composition A B C h f) (composition A B C h g)
+    := \a -&gt; ap B C (f a) (g a) h (H a)
+
+#def homotopy-prewhisker 
+    (A B C : U)                 -- Three types.
+    (f g : B -&gt; C)              -- Two parallel functions
+    (H : homotopy B C f g)
+    (h : A -&gt; B)
+    : homotopy A C (composition A B C f h) (composition A B C g h)
+    := \a -&gt; H (h a)
 </code></pre>
-<h2 id="contractible-type-data">Contractible type data</h2>
-<pre><code class="language-rzk">#def contraction-center (A : U) (Aiscontr : isContr A) : A
-  := (first Aiscontr)
+<h2 id="naturality">Naturality</h2>
+<pre><code class="language-rzk">-- The naturality square associated to a homotopy and a path.
+#def nat-htpy 
+    (A B : U)               -- Two types.
+    (f g : A -&gt; B)          -- Two parallel functions.
+    (H : homotopy A B f g)  -- A homotopy from f to g.
+    (x y : A)
+    (p : x = y)
+    : (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) = (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
+    := idJ(A, x, 
+            \y' p' 
+                -&gt; (concat B (f x) (f y') (g y') 
+                        (ap A B x y' f p') (H y')) =
+                   (concat B (f x) (g x) (g y') 
+                        (H x) (ap A B x y' g p')), 
+            refl-concat B (f x) (g x) (H x), y, p)
 
--- The path from the contraction center to any point.
-#def contracting-htpy 
-  (A : U) 
-  (Aiscontr : isContr A) 
-  : (z : A) -&gt; (contraction-center A Aiscontr) = z
-  := second Aiscontr
+-- In the case of a homotopy H from f to the identity the previous square applies to the path H a to produce the following naturality square.
+#def a-cylinder-homotopy-coherence 
+    (A : U)
+    (f : A -&gt; A) 
+    (H : homotopy A A f (identity A))
+    (a : A) 
+    : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
+            (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
+    := nat-htpy A A f (identity A) H (f a) a (H a)
 
--- A path between an arbitrary pair of types in a contractible type.
-#def contractible-connecting-htpy 
-  (A : U)
-  (Aiscontr : isContr A)
-  (x y : A) 
-  : x = y
-  := zag-zig-concat A x (contraction-center A Aiscontr) y (contracting-htpy A Aiscontr x) (contracting-htpy A Aiscontr y)  
+-- After composing with ap-id, this naturality square transforms to the following:
+#def another-cylinder-homotopy-coherence 
+    (A : U)
+    (f : A -&gt; A) 
+    (H : homotopy A A f (identity A))
+    (a : A) 
+    : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
+            (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+    := concat ((f (f a)) = a) (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) 
+            (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
+            (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+                (a-cylinder-homotopy-coherence A f H a)
+                (concat-homotopy A (f (f a)) (f a) (H (f a)) a (ap A A (f a) a (identity A) (H a)) (H a) (ap-id A (f a) a (H a)))
+
+-- Cancelling the path (H a) on the right and reversing yields a path we need:
+#def cylinder-homotopy-coherence 
+    (A : U)
+    (f : A -&gt; A) 
+    (H : homotopy A A f (identity A))
+    (a : A) 
+    : (H (f a)) =(ap A A (f a) a  f (H a))  
+    := rev (f (f a) = f a) (ap A A (f a) a  f (H a)) (H (f a)) 
+        (concat-right-cancel A (f (f a)) (f a) a 
+            (ap A A (f a) a  f (H a)) 
+            (H (f a)) 
+            (H a) 
+                (another-cylinder-homotopy-coherence A f H a))
 </code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../1-paths/" class="btn btn-neutral float-left" title="Paths"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../3-homotopies/" class="btn btn-neutral float-right" title="Homotopies">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../3-contractible/" class="btn btn-neutral float-right" title="Contractible">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -187,7 +258,7 @@
       <span><a href="../1-paths/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../3-homotopies/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../3-contractible/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
