@@ -472,6 +472,22 @@ This is a literate `rzk` file:
     := compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
 ```
 
+## Functions between contractible types
+
+```rzk
+-- A function between contractible types is an equivalence
+#def areContr-isEquiv
+    (A B : U)
+    (Aiscontr : isContr A)
+    (Biscontr : isContr B)
+    (f : A -> B)
+    : isEquiv A B f
+    := ((\b -> contraction-center A Aiscontr, 
+        \a -> contracting-htpy A Aiscontr a),
+       (\b -> contraction-center A Aiscontr, 
+        \b -> contractible-connecting-htpy B Biscontr (f (contraction-center A Aiscontr)) b))
+```   
+
 ## Function extensionality
 
 ```rzk

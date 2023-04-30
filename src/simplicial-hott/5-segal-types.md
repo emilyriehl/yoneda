@@ -859,6 +859,74 @@ The front face:
       (Segal-right-associativity extext A AisSegal w x y z f g h)
 ```
 
+## Homotopies
+
+We may define a "homotopy" to be a path between parallel arrows. We first show that these form a congruence, meaning that homotopies are respected by composition
+
+```rzk
+-- [RS17, Proposition 5.13]
+#def Segal-homotopy-congruence  
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (x y z : A)
+  (f g : hom A x y)
+  (h k : hom A y z)
+  (p : f = g)
+  (q : h = k)
+  : (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g k)
+  := idJ(hom A y z, h, \k' q' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g k'),
+    idJ(hom A x y, f, \g' p' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g' h), refl, g, p)
+    , k, q)
+
+-- As a special case of the above:
+#def Segal-homotopy-postwhisker 
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (x y z : A)
+  (f g : hom A x y)
+  (h : hom A y z)
+  (p : f = g)
+  : (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g h)
+  := Segal-homotopy-congruence A AisSegal x y z f g h h p refl
+
+-- As a special case of the above:
+#def Segal-homotopy-prewhisker 
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y : A)
+  (k : hom A w x)
+  (f g : hom A x y)
+  (p : f = g)
+  : (Segal-comp A AisSegal w x y k f) = (Segal-comp A AisSegal w x y k g)
+  := Segal-homotopy-congruence A AisSegal w x y k k f g refl p
+
+-- [RS17, Proposition 5.14(a)]
+#def Segal-homotopy-postwhisker-is-ap 
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (x y z : A)
+  (f g : hom A x y)
+  (h : hom A y z)
+  (p : f = g)
+  : (Segal-homotopy-postwhisker A AisSegal x y z f g h p) = 
+    ap (hom A x y) (hom A x z) f g (\k -> Segal-comp A AisSegal x y z k h) p
+  := idJ(hom A x y, f, \g' p' -> (Segal-homotopy-postwhisker A AisSegal x y z f g' h p') = 
+    ap (hom A x y) (hom A x z) f g' (\k -> Segal-comp A AisSegal x y z k h) p', refl, g, p)
+
+-- [RS17, Proposition 5.14(b)]
+#def Segal-homotopy-prewhisker-is-ap 
+  (A : U)                   -- A type.
+  (AisSegal : isSegal A)    -- A proof that A is Segal.  
+  (w x y : A)
+  (k : hom A w x)
+  (f g : hom A x y)
+  (p : f = g)
+  : (Segal-homotopy-prewhisker A AisSegal w x y k f g p) = 
+    ap (hom A x y) (hom A w y) f g (Segal-comp A AisSegal w x y k) p
+  := idJ(hom A x y, f, \g' p' -> (Segal-homotopy-prewhisker A AisSegal w x y k f g' p') = 
+    ap (hom A x y) (hom A w y) f g' (Segal-comp A AisSegal w x y k) p', refl, g, p)
+```
+
 <!-- Definitions for the SVG images above -->
 <svg width="0" height="0">
   <defs>
