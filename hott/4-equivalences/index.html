@@ -88,6 +88,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#composing-equivalences">Composing equivalences</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#functions-between-contractible-types">Functions between contractible types</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#function-extensionality">Function extensionality</a>
     </li>
     </ul>
@@ -591,6 +593,19 @@
     (hisequiv : isEquiv C D h)
     : isEquiv A D (triple-composition A B C D h g f)    
     := compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
+</code></pre>
+<h2 id="functions-between-contractible-types">Functions between contractible types</h2>
+<pre><code class="language-rzk">-- A function between contractible types is an equivalence
+#def areContr-isEquiv
+    (A B : U)
+    (Aiscontr : isContr A)
+    (Biscontr : isContr B)
+    (f : A -&gt; B)
+    : isEquiv A B f
+    := ((\b -&gt; contraction-center A Aiscontr, 
+        \a -&gt; contracting-htpy A Aiscontr a),
+       (\b -&gt; contraction-center A Aiscontr, 
+        \b -&gt; contractible-connecting-htpy B Biscontr (f (contraction-center A Aiscontr)) b))
 </code></pre>
 <h2 id="function-extensionality">Function extensionality</h2>
 <pre><code class="language-rzk">-- The type that encodes the function extensionality axiom.

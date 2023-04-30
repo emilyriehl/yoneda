@@ -82,6 +82,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#based-path-spaces">Based path spaces</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#families-of-equivalences">Families of equivalences</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../6-trivial-fibrations/">Trivial fibrations</a>
@@ -238,7 +240,7 @@
     := pair-of-paths-to-path-of-pairs A B (first s) (first t) (first e) (second s) (second t) (second e)
 </code></pre>
 <h2 id="based-path-spaces">Based path spaces</h2>
-<p>As an application, we prove the based path spaces are contractible.</p>
+<p>As an application, we prove that based path spaces are contractible.</p>
 <pre><code class="language-rzk">-- Transport in the space of paths starting at a is concatenation.
 #def based-transport-is-concat
     (A : U)             -- The ambient type.
@@ -275,6 +277,62 @@
     (a : A)         -- The basepoint.
     : isContr (∑ (x : A), a = x)
     := (based-paths-center A a, based-paths-contracting-homotopy A a)
+</code></pre>
+<h2 id="families-of-equivalences">Families of equivalences</h2>
+<p>A family of equivalences induces an equivalence on total spaces and conversely. It will be easiest to work with the incoherent notion of two-sided-inverses.</p>
+<pre><code class="language-rzk">#def family-of-maps-total-map
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    : (∑ (x : A), B x) -&gt; (∑ (x : A), C x)      -- the induced map on total spaces
+    := \z -&gt; (first z, f (first z) (second z))
+
+#def invertible-family-total-inverse
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : (∑ (x : A), C x) -&gt; (∑ (x : A), B x)      -- the inverse map on total spaces
+    := \(a, c) -&gt; (a, (hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)
+
+#def invertible-family-total-retraction
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasRetraction (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        \(a, b) -&gt; (fibered-path-to-sigma-path A B a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b 
+        ((first (second (invfamily a))) b)))
+
+#def invertible-family-total-section
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasSection (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        \(a, c) -&gt; (fibered-path-to-sigma-path A C a (f a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c 
+        ((second (second (invfamily a))) c)))
+
+#def invertible-family-total-invertible
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasInverse (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        (second (invertible-family-total-retraction A B C f invfamily), 
+        second (invertible-family-total-section A B C f invfamily) ))
+</code></pre>
+<p>The one-way result: that a family of equivalence gives an invertible map (and thus an equivalence) on total spaces.</p>
+<pre><code class="language-rzk">#def family-of-equiv-total-invertible
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))                         -- a family of maps
+    (familyequiv : (a : A) -&gt; isEquiv (B a) (C a) (f a))    -- a family of equivalences
+    : hasInverse (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := invertible-family-total-invertible A B C f (\a -&gt; isEquiv-hasInverse (B a) (C a) (f a) (familyequiv a))
 </code></pre>
               
             </div>
