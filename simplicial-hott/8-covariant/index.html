@@ -143,7 +143,7 @@
 </code></pre>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
-<li><code>hott/*</code> - We require various prerequisites from homotopy type theory.</li>
+<li><code>hott/*</code> - We require various prerequisites from homotopy type theory, for instance the notion of contractible types.</li>
 <li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
 <li><code>5-segal-types.md</code> - We make use of the notion of Segal types and their structures.</li>
 </ul>
@@ -173,7 +173,7 @@
     : U
     := (∑ (v : C y), dhom A x y f C u v)
 </code></pre>
-<p>We also have types of dependent composition witnesses over a base composition witness.</p>
+<p>There is also a type of dependent commutative triangles over a base commutative triangle.</p>
 <pre><code class="language-rzk">#def dhom2 
     (A : U)                         -- The base type.
     (x y z : A)                     -- Three points in the base.
@@ -249,7 +249,7 @@
         (contracting-htpy (dhomFrom A x y f C u) (CisCov x y f u) lift)
 </code></pre>
 <h2 id="covariant-functoriality">Covariant functoriality</h2>
-<p>The covariant transport operation defines a covariantly functorial action of arrows in the base on terms in the fibers. To start to demonstrate this, we prove an identity transport law.</p>
+<p>The covariant transport operation defines a covariantly functorial action of arrows in the base on terms in the fibers. In particular, there is an identity transport law.</p>
 <pre><code class="language-rzk">#def d-id-arr
     (A : U)
     (x : A)
