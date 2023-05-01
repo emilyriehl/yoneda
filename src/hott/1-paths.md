@@ -43,6 +43,25 @@ This is a literate `rzk` file:
   : (concat A x x y refl p) = p
   := idJ(A, x, \y' p' -> (concat A x x y' refl p') = p', refl, y, p)
 
+-- associativity
+#def concat-assoc  
+  (A : U)             -- A type.
+  (w x y z : A)       -- Four points.
+  (p : w = x)         -- A path from w to x in A.
+  (q : x = y)         -- A path from x to y in A.
+  (r : y = z)         -- A path from y to z in A.
+  : concat A w y z (concat A w x y p q) r = concat A w x z p (concat A x y z q r)
+  := idJ(A, y, \z' r' -> concat A w y z' (concat A w x y p q) r' = concat A w x z' p (concat A x y z' q r'), refl, z, r)
+
+#def assoc-concat  
+  (A : U)             -- A type.
+  (w x y z : A)       -- Four points.
+  (p : w = x)         -- A path from w to x in A.
+  (q : x = y)         -- A path from x to y in A.
+  (r : y = z)         -- A path from y to z in A.
+  : concat A w x z p (concat A x y z q r) = concat A w y z (concat A w x y p q) r
+  := idJ(A, y, \z' r' -> concat A w x z' p (concat A x y z' q r') = concat A w y z' (concat A w x y p q) r', refl, z, r)
+
 -- a higher path comparing the two compositions
 #def concat-altconcat 
   (A : U)           -- A type.
@@ -79,6 +98,15 @@ This is a literate `rzk` file:
   (q : y = z)       -- A path from y to z in A. 
   : (x = z)
   := concat A x y z (rev A y x p) q
+
+#def rev-concat
+  (A : U)           -- A type.
+  (x y z : A)       -- Three points.
+  (p : x = y)       -- A path from x to y in A.
+  (q : y = z)       -- A path from y to z in A.
+  : (rev A x z (concat A x y z p q)) = (concat A z y x (rev A y z q) (rev A x y p))
+  := idJ(A, y, \z' q' -> (rev A x z' (concat A x y z' p q')) = (concat A z' y x (rev A y z' q') (rev A x y p)), 
+    rev (y = x) (concat A y y x refl (rev A x y p)) (rev A x y p) (refl-concat A y x (rev A x y p)), z, q)
 
 #def concat-right-cancel 
   (A : U)           -- A type.
@@ -140,8 +168,12 @@ This is a literate `rzk` file:
           (concat (x = z) p (concat A x y z q r) (altconcat A x y z q r) 
             H 
             (concat-altconcat A x y z q r)))
+```
 
--- Application of functions to paths
+
+## Application of functions to paths
+
+```rzk
 #def ap 
   (A B : U)
   (x y : A)
@@ -149,6 +181,34 @@ This is a literate `rzk` file:
   (p : x = y)
   : (f x = f y)
   := idJ(A, x, \y' -> \p' -> (f x = f y'), refl, y, p)
+
+#def ap-concat
+  (A B : U)
+  (x y z : A)
+  (f : A -> B)
+  (p : x = y)
+  (q : y = z)
+  : (ap A B x z f (concat A x y z p q)) = (concat B (f x) (f y) (f z) (ap A B x y f p) (ap A B y z f q))
+  := idJ(A, y, 
+    \z' q' -> (ap A B x z' f (concat A x y z' p q')) = (concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')),
+    refl, z, q)
+
+#def rev-ap-rev 
+  (A B : U)
+  (x y : A)
+  (f : A -> B)
+  (p : x = y)
+  : (rev B (f y) (f x) (ap A B y x f (rev A x y p))) = (ap A B x y f p)
+  := idJ(A, x, \y' p' -> (rev B (f y') (f x) (ap A B y' x f (rev A x y' p'))) = (ap A B x y' f p'), refl, y, p)
+
+-- For specific use
+#def concat-ap-rev-ap-id  
+  (A B : U)
+  (x y : A)
+  (f : A -> B)
+  (p : x = y)
+  : (concat B (f y) (f x) (f y) (ap A B y x f (rev A x y p)) (ap A B x y f p)) = refl
+  := idJ(A, x, \y' p' -> (concat B (f y') (f x) (f y') (ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) = refl, refl, y, p)
 
 #def ap-id 
   (A : U)
@@ -185,7 +245,10 @@ This is a literate `rzk` file:
   (p : x = y) 
   : (ap B C (f x) (f y) g (ap A B x y f p)) = (ap A C x y (composition A B C g f) p) 
   := rev (g (f x) = g (f y)) (ap A C x y (\z -> g (f z)) p) (ap B C (f x) (f y) g (ap A B x y f p)) (ap-comp A B C x y f g p)
-    
+```    
+## Transport 
+
+```rzk
 -- transport in a type family along a path in the base
 #def transport 
   (A : U)
@@ -216,7 +279,11 @@ This is a literate `rzk` file:
   (u : B x) 
   : (transport A B x y p u) = (transport A B x y q u)
   := idJ(x = y, p, \q' H' -> (transport A B x y p u) = (transport A B x y q' u), refl, q, H)  
+```
 
+## Dependent application
+
+```rzk
 -- Application of dependent functions on paths
 #def apd 
   (A : U)
@@ -227,3 +294,143 @@ This is a literate `rzk` file:
   : ((transport A B x y p (f x)) = f y)
   := idJ(A, x, \y' -> \p' -> ((transport A B x y' p' (f x)) = f y'), refl, y, p)
 ```
+
+## Higher-order concatenation
+
+```rzk
+-- triple concatenation
+#def triple-concat
+  (A : U)
+  (a0 a1 a2 a3 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  : a0 = a3
+  := concat A a0 a1 a3 p1 (concat A a1 a2 a3 p2 p3) 
+
+#def quadruple-concat
+  (A : U)
+  (a0 a1 a2 a3 a4 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  : a0 = a4
+  := triple-concat A a0 a1 a2 a4 p1 p2 (concat A a2 a3 a4 p3 p4)
+
+#def quintuple-concat
+  (A : U)
+  (a0 a1 a2 a3 a4 a5 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  (p5 : a4 = a5)
+  : a0 = a5
+  := quadruple-concat A a0 a1 a2 a3 a5 p1 p2 p3 (concat A a3 a4 a5 p4 p5)
+
+#def 12ary-concat
+  (A : U)
+  (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  (p5 : a4 = a5)
+  (p6 : a5 = a6)
+  (p7 : a6 = a7)
+  (p8 : a7 = a8)
+  (p9 : a8 = a9)
+  (p10 : a9 = a10)
+  (p11 : a10 = a11)
+  (p12 : a11 = a12)
+  : a0 = a12
+  := quintuple-concat A a0 a1 a2 a3 a4 a12 p1 p2 p3 p4 
+      (quintuple-concat A a4 a5 a6 a7 a8 a12 p5 p6 p7 p8
+        (quadruple-concat A a8 a9 a10 a11 a12 p9 p10 p11 p12))
+
+-- Same as above but with alternating arguments
+#def 12ary-concat-alternating
+  (A : U)
+  (a0 a1 : A)
+  (p1 : a0 = a1)
+  (a2 : A)
+  (p2 : a1 = a2)
+  (a3 : A)
+  (p3 : a2 = a3)
+  (a4 : A)
+  (p4 : a3 = a4)
+  (a5 : A)
+  (p5 : a4 = a5)
+  (a6 : A)
+  (p6 : a5 = a6)
+  (a7 : A)
+  (p7 : a6 = a7)
+  (a8 : A)
+  (p8 : a7 = a8)
+  (a9 : A)
+  (p9 : a8 = a9)
+  (a10 : A)
+  (p10 : a9 = a10)
+  (a11 : A)
+  (p11 : a10 = a11)
+  (a12 : A)
+  (p12 : a11 = a12)
+  : a0 = a12    
+  := 12ary-concat A a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12
+      p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
+
+-- For convenience, here is a higher-order concatenation operation
+#def 13ary-concat
+  (A : U)
+  (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  (p5 : a4 = a5)
+  (p6 : a5 = a6)
+  (p7 : a6 = a7)
+  (p8 : a7 = a8)
+  (p9 : a8 = a9)
+  (p10 : a9 = a10)
+  (p11 : a10 = a11)
+  (p12 : a11 = a12)
+  (p13 : a12 = a13)
+  : a0 = a13
+  := quintuple-concat A a0 a1 a2 a3 a4 a13 p1 p2 p3 p4 
+      (quintuple-concat A a4 a5 a6 a7 a8 a13 p5 p6 p7 p8
+        (quintuple-concat A a8 a9 a10 a11 a12 a13 p9 p10 p11 p12 p13))
+
+-- Same as above but with alternating arguments
+#def 13ary-concat-alternating
+  (A : U)
+  (a0 a1 : A)
+  (p1 : a0 = a1)
+  (a2 : A)
+  (p2 : a1 = a2)
+  (a3 : A)
+  (p3 : a2 = a3)
+  (a4 : A)
+  (p4 : a3 = a4)
+  (a5 : A)
+  (p5 : a4 = a5)
+  (a6 : A)
+  (p6 : a5 = a6)
+  (a7 : A)
+  (p7 : a6 = a7)
+  (a8 : A)
+  (p8 : a7 = a8)
+  (a9 : A)
+  (p9 : a8 = a9)
+  (a10 : A)
+  (p10 : a9 = a10)
+  (a11 : A)
+  (p11 : a10 = a11)
+  (a12 : A)
+  (p12 : a11 = a12)
+  (a13 : A)
+  (p13 : a12 = a13)
+  : a0 = a13    
+  := 13ary-concat A a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13  
+      p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 

@@ -91,7 +91,7 @@ This is a literate `rzk` file:
     : (x , u) =_{∑ (a : A), B a} (x , v)
     := idJ(B x, u, \v' p' -> (x , u) = (x , v'), refl, v, p)
 
--- Essentially the inverse to pair-eq but with explicit arguments.
+-- Essentially eq-pair but with explicit arguments.
 #def pair-of-paths-to-path-of-pairs
     (A : U)
     (B : A -> U)
@@ -155,6 +155,9 @@ As an application, we prove that based path spaces are contractible.
     : isContr (∑ (x : A), a = x)
     := (based-paths-center A a, based-paths-contracting-homotopy A a)
 ```
+
+
+
 
 ## Families of equivalences
 

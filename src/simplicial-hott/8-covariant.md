@@ -10,7 +10,7 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/*` - We require various prerequisites from homotopy type theory.
+- `hott/*` - We require various prerequisites from homotopy type theory, for instance the notion of contractible types.
 - `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
 - `5-segal-types.md` - We make use of the notion of Segal types and their structures.
 
@@ -48,7 +48,7 @@ It will be convenient to collect together dependent hom types with fixed domain 
    	:= (∑ (v : C y), dhom A x y f C u v)
 ```
 
-We also have types of dependent composition witnesses over a base composition witness.
+There is also a type of dependent commutative triangles over a base commutative triangle.
 
 ```rzk
 #def dhom2 
@@ -136,7 +136,7 @@ In a covariant family C over a base type A, a term u : C x may be transported al
 
 ## Covariant functoriality
 
-The covariant transport operation defines a covariantly functorial action of arrows in the base on terms in the fibers. To start to demonstrate this, we prove an identity transport law.
+The covariant transport operation defines a covariantly functorial action of arrows in the base on terms in the fibers. In particular, there is an identity transport law.
 
 ```rzk
 #def d-id-arr
