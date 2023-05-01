@@ -488,6 +488,74 @@ This is a literate `rzk` file:
         \b -> contractible-connecting-htpy B Biscontr (f (contraction-center A Aiscontr)) b))
 ```   
 
+## Contractible maps
+
+Contractible maps are maps with contractible fibers. First, we show a map is contractible iff it is an equivalence.
+
+```rzk
+-- The fiber of a map
+#def fib
+    (A B : U)
+    (f : A -> B)
+    (b : B)
+    : U
+    := ∑ (a : A), (f a) = b 
+
+-- Contractible maps
+#def isContr-map
+    (A B : U)
+    (f : A -> B)
+    : U
+    := (b : B) -> isContr (fib A B f b)
+
+-- The inverse to a contractible map
+#def isContr-map-inverse
+    (A B : U)
+    (f : A -> B)
+    (fiscontr : isContr-map A B f)
+    : B -> A
+    := \b -> first(contraction-center (fib A B f b) (fiscontr b))
+
+#def isContr-map-hasSection
+    (A B : U)
+    (f : A -> B)
+    (fiscontr : isContr-map A B f)
+    : hasSection A B f
+    := (isContr-map-inverse A B f fiscontr, \b -> second(contraction-center (fib A B f b) (fiscontr b)))
+
+#def isContr-map-data-in-fiber
+    (A B : U)
+    (f : A -> B)
+    (fiscontr : isContr-map A B f)
+    (a : A)
+    : fib A B f (f a)
+    := ((isContr-map-inverse A B f fiscontr) (f a), (second (isContr-map-hasSection A B f fiscontr)) (f a))
+
+#def isContr-map-path-in-fiber
+    (A B : U)
+    (f : A -> B)
+    (fiscontr : isContr-map A B f)
+    (a : A)
+    : (isContr-map-data-in-fiber A B f fiscontr a) =_{fib A B f (f a)} (a, refl)
+    := contractible-connecting-htpy (fib A B f (f a)) (fiscontr (f a)) (isContr-map-data-in-fiber A B f fiscontr a) (a, refl)
+
+#def isContr-map-hasRetraction
+    (A B : U)
+    (f : A -> B)
+    (fiscontr : isContr-map A B f)
+    : hasRetraction A B f    
+    := (isContr-map-inverse A B f fiscontr, 
+        \a -> (ap (fib A B f (f a)) A (isContr-map-data-in-fiber A B f fiscontr a) ((a, refl)) 
+                (\u -> first u) (isContr-map-path-in-fiber A B f fiscontr a)))
+
+#def isContr-map-isEquiv
+    (A B : U)
+    (f : A -> B)
+    (fiscontr : isContr-map A B f)
+    : isEquiv A B f
+    := (isContr-map-hasRetraction A B f fiscontr, isContr-map-hasSection A B f fiscontr)
+```
+
 ## Function extensionality
 
 ```rzk
