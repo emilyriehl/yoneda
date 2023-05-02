@@ -912,3 +912,186 @@ Half adjoint equivalences define contractible maps:
     := (isContr-map-isEquiv A B f, isEquiv-isContr-map A B f)
 ```
 
+## Fiber of total map
+
+We now calculate the fiber of the map on total spaces associated to a family of maps.
+
+```rzk
+#def family-of-maps-total-map
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps
+    : (∑ (x : A), B x) -> (∑ (x : A), C x)      -- the induced map on total spaces
+    := \z -> (first z, f (first z) (second z))
+
+#def total-map-to-fiber
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : fib (B (first w)) (C (first w)) (f (first w)) (second w) -> 
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+    := \(b, p) -> ((first w, b),  fibered-path-to-sigma-path A C (first w) (f (first w) b) (second w) p)
+
+#def total-map-from-fiber
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps
+    (w : (∑ (x : A), C x))
+    : (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w) -> 
+        fib (B (first w)) (C (first w)) (f (first w)) (second w)
+    := \(z, p) -> idJ((∑ (x : A), C x), ((family-of-maps-total-map A B C f) z), \w' p' -> fib (B (first w')) (C (first w')) (f (first w')) (second w'), (((second z), refl)), w, p)
+
+#def total-map-to-fiber-retraction
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : hasRetraction 
+        (fib (B (first w)) (C (first w)) (f (first w)) (second w))
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+        (total-map-to-fiber A B C f w)
+    := (total-map-from-fiber A B C f w, 
+        \(b, p) -> idJ((C (first w)), (f (first w) b), \w1 p' -> ((total-map-from-fiber A B C f ((first w, w1))) ((total-map-to-fiber A B C f (first w, w1)) (b, p'))) 
+            =_{(fib (B (first w)) (C (first w)) (f (first w)) (w1))} (b, p'), refl, (second w), p))
+
+#def total-map-to-fiber-section
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : hasSection 
+        (fib (B (first w)) (C (first w)) (f (first w)) (second w))
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+        (total-map-to-fiber A B C f w)
+    := (total-map-from-fiber A B C f w, 
+            \(z, p) -> idJ((∑ (x : A), C x), ((first z, f (first z) (second z))), \w' p' -> 
+            ((total-map-to-fiber A B C f w') ((total-map-from-fiber A B C f w') (z, p'))) 
+                =_{(fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w')} (z, p'), refl, w, p))
+
+#def total-map-to-fiber-isEquiv
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : isEquiv 
+        (fib (B (first w)) (C (first w)) (f (first w)) (second w))
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+        (total-map-to-fiber A B C f w)
+    := (total-map-to-fiber-retraction A B C f w, total-map-to-fiber-section A B C f w)
+
+#def total-map-fiber-equiv
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : Eq (fib (B (first w)) (C (first w)) (f (first w)) (second w)) 
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+    := (total-map-to-fiber A B C f w, total-map-to-fiber-isEquiv A B C f w)
+```
+
+## Families of equivalences
+
+A family of equivalences induces an equivalence on total spaces and conversely. It will be easiest to work with the incoherent notion of two-sided-inverses.
+
+```rzk
+#def invertible-family-total-inverse
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps
+    (invfamily : (a : A) -> hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : (∑ (x : A), C x) -> (∑ (x : A), B x)      -- the inverse map on total spaces
+    := \(a, c) -> (a, (hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)
+
+#def invertible-family-total-retraction
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps
+    (invfamily : (a : A) -> hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasRetraction (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        \(a, b) -> (fibered-path-to-sigma-path A B a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b 
+        ((first (second (invfamily a))) b)))
+
+#def invertible-family-total-section
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps
+    (invfamily : (a : A) -> hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasSection (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        \(a, c) -> (fibered-path-to-sigma-path A C a (f a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c 
+        ((second (second (invfamily a))) c)))
+
+#def invertible-family-total-invertible
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))             -- a family of maps
+    (invfamily : (a : A) -> hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasInverse (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        (second (invertible-family-total-retraction A B C f invfamily), 
+        second (invertible-family-total-section A B C f invfamily) ))
+
+#def family-of-equiv-total-equiv
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))                        -- a family of maps
+    (familyequiv : (a : A) -> isEquiv (B a) (C a) (f a))   -- a family of equivalences
+    : isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := hasInverse-isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+        (invertible-family-total-invertible A B C f 
+            (\a -> isEquiv-hasInverse (B a) (C a) (f a) (familyequiv a)))
+```
+
+The one-way result: that a family of equivalence gives an invertible map (and thus an equivalence) on total spaces.
+
+```rzk
+#def family-of-equiv-total-invertible
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))                         -- a family of maps
+    (familyequiv : (a : A) -> isEquiv (B a) (C a) (f a))    -- a family of equivalences
+    : hasInverse (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := invertible-family-total-invertible A B C f (\a -> isEquiv-hasInverse (B a) (C a) (f a) (familyequiv a))
+```
+
+For the converse, we make use of our calculation on fibers. The first implication could be proven similarly.
+
+```rzk
+#def total-contr-map-family-of-contr-maps
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))                         -- a family of maps
+    (totalcontrmap : isContr-map (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
+    (a : A)
+    : isContr-map (B a) (C a) (f a) 
+    := \c -> isEquiv-toContr-isContr 
+                (fib (B a) (C a) (f a) c)
+                (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) ((a, c)))
+                (total-map-fiber-equiv A B C f ((a, c)))
+                (totalcontrmap ((a, c)))
+
+#def total-equiv-family-of-equiv
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))                         -- a family of maps
+    (totalequiv : isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
+    (a : A)
+    : isEquiv (B a) (C a) (f a) 
+    := isContr-map-isEquiv (B a) (C a) (f a) 
+        (total-contr-map-family-of-contr-maps A B C f 
+            (isEquiv-isContr-map (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+                totalequiv)
+            a)
+```
+
+In summary, a family of maps is an equivalence iff the map on total spaces is an equivalence.
+```rzk
+#def total-equiv-iff-family-of-equiv
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))                         -- a family of maps
+    : iff ((a : A) -> isEquiv (B a) (C a) (f a)) (isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
+    := (family-of-equiv-total-equiv A B C f, total-equiv-family-of-equiv A B C f)
+```

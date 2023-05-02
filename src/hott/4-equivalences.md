@@ -14,7 +14,8 @@ This is a literate `rzk` file:
     : U
     := ∑ (s : B -> A), homotopy B B (composition B A B f s)(identity B)
   
-#def hasRetraction    (A B : U)
+#def hasRetraction
+    (A B : U)
     (f : A -> B) 
     : U
     := ∑ (r : B -> A), homotopy A A (composition A B A r f)(identity A)
@@ -474,8 +475,9 @@ This is a literate `rzk` file:
 
 ## Functions between contractible types
 
+A function between contractible types is an equivalence
+
 ```rzk
--- A function between contractible types is an equivalence
 #def areContr-isEquiv
     (A B : U)
     (Aiscontr : isContr A)
@@ -486,6 +488,19 @@ This is a literate `rzk` file:
         \a -> contracting-htpy A Aiscontr a),
        (\b -> contraction-center A Aiscontr, 
         \b -> contractible-connecting-htpy B Biscontr (f (contraction-center A Aiscontr)) b))
+```
+
+A type equivalent to a contractible type is contractible.
+
+```rzk
+#def isEquiv-toContr-isContr
+    (A B : U)
+    (e : Eq A B)
+    (Biscontr : isContr B)
+    : isContr A
+    := isRetract-ofContr-isContr A B 
+        (first e, first (second e))
+        Biscontr
 ```   
 
 
