@@ -7,11 +7,12 @@ nav:
   - HoTT:
       - Common: hott/0-common.md
       - Paths: hott/1-paths.md
-      - Homotopies: hott/2-homotopies.md
+      - Homotopies: hott/2-homotopies.md      
       - Contractible: hott/3-contractible.md
       - Equivalences: hott/4-equivalences.md
       - Sigma types: hott/5-sigma.md
       - Trivial fibrations: hott/6-trivial-fibrations.md
+      - Fibers: hott/7-fibers.md
 
   - Simplicial HoTT:
       - Simplicial Type Theory: simplicial-hott/3-simplicial-type-theory.md
