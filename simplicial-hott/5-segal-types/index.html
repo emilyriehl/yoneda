@@ -917,7 +917,115 @@ Thus, an identity axiom was not needed in the definition of Segal types.</p>
       (Segal-right-associativity extext A AisSegal w x y z f g h)
 </code></pre>
 <h2 id="homotopies">Homotopies</h2>
-<p>We may define a "homotopy" to be a path between parallel arrows. We first show that these form a congruence, meaning that homotopies are respected by composition</p>
+<p>We may define a "homotopy" to be a path between parallel arrows. In a Segal type, homotopies are equivalent to terms in hom2 types involving an identity arrow.</p>
+<pre><code class="language-rzk">#def homotopy-to-hom2
+  (A : U)
+  (x y : A)
+  (f g : hom A x y)
+  (p : f = g)
+  : (hom2 A x x y (id-arr A x) f g)
+  := idJ(hom A x y, f, 
+          \g' p' -&gt; (hom2 A x x y (id-arr A x) f g'), 
+          (id-comp-witness A x y f), g, p)
+
+#def homotopy-to-hom2-total-map
+  (A : U)
+  (x y : A)
+  (f : hom A x y)
+  : (∑ (g : hom A x y), f = g) -&gt; 
+      (∑ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
+  := \(g, p) -&gt; (g, homotopy-to-hom2 A x y f g p)
+
+#def Segal-homotopy-to-hom2-total-map-isEquiv
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  : isEquiv 
+      (∑ (g : hom A x y), f = g)
+      (∑ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
+      (homotopy-to-hom2-total-map A x y f)
+  := areContr-isEquiv 
+        (∑ (g : hom A x y), f = g)
+        (∑ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
+        (based-paths-contractible (hom A x y) f)
+        (AisSegal x x y (id-arr A x) f)
+        (homotopy-to-hom2-total-map A x y f)
+
+-- [RS17, Proposition 5.10]
+#def Eq-Segal-homotopy-hom2
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f g : hom A x y)
+  : Eq (f = g) (hom2 A x x y (id-arr A x) f g)
+  := (homotopy-to-hom2 A x y f g, 
+    total-equiv-family-of-equiv (hom A x y) 
+      (\g -&gt; (f = g))
+      (\g -&gt; (hom2 A x x y (id-arr A x) f g))
+      (homotopy-to-hom2 A x y f)
+      (Segal-homotopy-to-hom2-total-map-isEquiv A AisSegal x y f)
+      g)
+</code></pre>
+<p>More generally, a homotopy between a composite and another map is equivalent to the data provided by a commutative triangle with that boundary.</p>
+<pre><code class="language-rzk">#def Segal-eq-to-hom2
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y z : A)
+  (f : hom A x y)
+  (g : hom A y z)
+  (h : hom A x z)
+  (p : (Segal-comp A AisSegal x y z f g) = h)
+  : (hom2 A x y z f g h)
+  := idJ(hom A x z, (Segal-comp A AisSegal x y z f g), 
+          \h' p' -&gt; (hom2 A x y z f g h'), 
+          Segal-comp-witness A AisSegal x y z f g, h, p)
+
+#def Segal-eq-to-hom2-total-map
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y z : A)
+  (f : hom A x y)
+  (g : hom A y z)
+  : (∑ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h) -&gt; 
+      (∑ (h : hom A x z), (hom2 A x y z f g h))
+  := \(h, p) -&gt; (h, Segal-eq-to-hom2 A AisSegal x y z f g h p)
+
+#def Segal-eq-to-hom2-total-map-isEquiv
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y z : A)
+  (f : hom A x y)
+  (g : hom A y z)
+  : isEquiv 
+      (∑ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h)
+      (∑ (h : hom A x z), (hom2 A x y z f g h))
+      (Segal-eq-to-hom2-total-map A AisSegal x y z f g)
+  := areContr-isEquiv 
+        (∑ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h)
+        (∑ (h : hom A x z), (hom2 A x y z f g h))
+        (based-paths-contractible (hom A x z) (Segal-comp A AisSegal x y z f g) )
+        (AisSegal x y z f g)
+        (Segal-eq-to-hom2-total-map A AisSegal x y z f g)
+
+-- [RS17, Proposition 5.12]
+#def Eq-Segal-eq-hom2
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y z : A)
+  (f : hom A x y)
+  (g : hom A y z)
+  (h : hom A x z)
+  : Eq ((Segal-comp A AisSegal x y z f g) = h) (hom2 A x y z f g h)
+  := (Segal-eq-to-hom2 A AisSegal x y z f g h, 
+    total-equiv-family-of-equiv (hom A x z) 
+      (\h -&gt; (Segal-comp A AisSegal x y z f g) = h)
+      (\h -&gt; hom2 A x y z f g h)
+      (Segal-eq-to-hom2 A AisSegal x y z f g)
+      (Segal-eq-to-hom2-total-map-isEquiv A AisSegal x y z f g)
+      h)
+</code></pre>
+<p>Homotopies form a congruence, meaning that homotopies are respected by composition:</p>
 <pre><code class="language-rzk">-- [RS17, Proposition 5.13]
 #def Segal-homotopy-congruence  
   (A : U)                   -- A type.
