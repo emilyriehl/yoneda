@@ -90,6 +90,116 @@ A family of types over a base type is covariant if every arrow in the base has a
 	:= (∑ (C :  ((a : A) -> U)), isCovFam A C)
 ```
 
+## Representable covariant families
+
+If A is a Segal type and a : A is any term, then hom A a defines a covariant family over A, and conversely if this family is covariant for every a : A, then A must be a Segal type. The proof involves a rather lengthy composition of equivalences.
+
+```rzk
+#def representable-dhom
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	(v : hom A a y)				-- A lift of the codomain.
+	: U
+	:= dhom A x y f (\z -> hom A a z) u v
+
+-- By uncurrying (RS 4.2) we have an equivalence:
+#def representable-dhom-uncurry
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	(v : hom A a y)				-- A lift of the codomain.
+	: Eq (representable-dhom A a x y f u v) 
+	(<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> v s, 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>)
+	:= curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\t s -> A) 
+		(\(t, s) -> recOR(((t === 0_2) /\ Δ¹ s) |-> u s, 
+						((t === 1_2) /\ Δ¹ s) |-> v s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ))
+
+#def representable-dhomFrom
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	: U
+	:= dhomFrom A x y f (\z -> hom A a z) u						
+
+-- By uncurrying (RS 4.2) we have an equivalence:
+#def representable-dhomFrom-uncurry
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	: Eq (representable-dhomFrom A a x y f u)
+		(∑ (v : hom A a y), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> v s, 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+	:= family-Eq-total-Eq (hom A a y) (\v -> representable-dhom A a x y f u v)
+		(\v -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> v s, 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+		(\v -> representable-dhom-uncurry A a x y f u v)
+
+#def cofibration-union-test
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	: Eq <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+			[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]>
+       <{(t, s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} -> A [ ((t === 1_2) /\ (s === 0_2)) |-> a,  ((t === 1_2) /\ (s === 1_2)) |-> y ]>
+	:= cofibration_union (2 * 2) 
+	(\(t, s) -> (t === 1_2) /\ Δ¹ s)
+	(\(t, s) -> ((t === 0_2) /\ Δ¹ s) \/ (Δ¹ t /\ (s === 0_2)) \/ (Δ¹ t /\ (s === 1_2)))
+	(\(t, s) -> A)
+	(\(t, s) -> recOR(((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ))  
+
+#def base-hom-trivial-expansion
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	: Eq (<{(t, s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} -> A [ ((t === 1_2) /\ (s === 0_2)) |-> a,  ((t === 1_2) /\ (s === 1_2)) |-> y ]>) 		
+		(hom A a y)
+	:= (\v -> (\r -> v ((1_2, r))), 
+			((\v -> \(t, s) -> v s, 
+				\v -> refl),
+			(\v -> \(t, s) -> v s, 
+				\v -> refl)))		
+
+#def base-hom-expansion
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	: Eq <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+			[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]> 		
+		(hom A a y)	
+	:= compose_Eq 
+		(<{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+			[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]> )
+		(<{(t, s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} -> A [ ((t === 1_2) /\ (s === 0_2)) |-> a,  ((t === 1_2) /\ (s === 1_2)) |-> y ]>) 		
+		(hom A a y)
+		(cofibration-union-test A a x y f u)
+		(base-hom-trivial-expansion A a x y f u)
+```
+
 ## Covariant lifts, transport, and uniqueness
 
 In a covariant family C over a base type A, a term u : C x may be transported along an arrow f : hom A x y to give a term in C y.

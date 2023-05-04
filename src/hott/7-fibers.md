@@ -1042,6 +1042,14 @@ A family of equivalences induces an equivalence on total spaces and conversely. 
     := hasInverse-isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
         (invertible-family-total-invertible A B C f 
             (\a -> isEquiv-hasInverse (B a) (C a) (f a) (familyequiv a)))
+
+#def family-Eq-total-Eq
+    (A : U)
+    (B C : A -> U)
+    (familyeq : (a : A) -> Eq (B a) (C a))       -- a family of equivalences
+    : Eq (∑ (x : A), B x) (∑ (x : A), C x) 
+    := (family-of-maps-total-map A B C (\a -> first (familyeq a)), 
+    family-of-equiv-total-equiv A B C (\a -> first (familyeq a)) (\a -> second (familyeq a)))
 ```
 
 The one-way result: that a family of equivalence gives an invertible map (and thus an equivalence) on total spaces.

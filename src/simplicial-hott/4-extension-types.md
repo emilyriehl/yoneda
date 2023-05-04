@@ -137,6 +137,23 @@ This is a literate `rzk` file:
       ((\fg t -> (second fg) t, \h -> refl),
       ((\fg t -> (second fg) t, \h -> refl))))
 
+-- [RS17, Theorem 4.4]      
+-- original form
+#def cofibration-composition
+   (I : CUBE)
+   (chi : I -> TOPE) 
+   (psi : chi -> TOPE)
+   (phi : psi -> TOPE)
+   (X : chi -> U)
+   (a : (t : phi) -> X t)
+   : Eq <{t : I | chi t} -> X t [ phi t |-> a t ]>
+      (∑ (f : <{t : I | psi t} -> X t [ phi t |-> a t ]>),
+          <{t : I | chi t} -> X t [ psi t |-> f t ]>)
+   := (\h -> (\t -> h t,
+             \t -> h t),
+      ((\fg t -> (second fg) t, \h -> refl),
+      ((\fg t -> (second fg) t, \h -> refl))))
+
 -- [RS17, Theorem 4.5]
 #def cofibration_union
    (I : CUBE)
