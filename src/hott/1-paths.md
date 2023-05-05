@@ -62,6 +62,20 @@ This is a literate `rzk` file:
   : concat A w x z p (concat A x y z q r) = concat A w y z (concat A w x y p q) r
   := idJ(A, y, \z' r' -> concat A w x z' p (concat A x y z' q r') = concat A w y z' (concat A w x y p q) r', refl, z, r)
 
+#def rev-right-inverse
+  (A : U)             -- A type.
+  (x y : A)
+  (p : x = y)
+  : concat A x y x p (rev A x y p) = refl
+  := idJ(A, x, \y' p' -> concat A x y' x p' (rev A x y' p') = refl, refl, y, p)
+
+#def rev-left-inverse
+  (A : U)             -- A type.
+  (x y : A)
+  (p : x = y)
+  : concat A y x y (rev A x y p) p = refl
+  := idJ(A, x, \y' p' -> concat A y' x y' (rev A x y' p') p' = refl, refl, y, p)
+
 -- a higher path comparing the two compositions
 #def concat-altconcat 
   (A : U)           -- A type.
@@ -268,6 +282,29 @@ This is a literate `rzk` file:
     (u : B x)
     : (x, u) =_{∑ (z : A), B z} (y, transport A B x y p u)
     := idJ(A, x, \y' p' -> (x, u) =_{∑ (z : A), B z} (y', transport A B x y' p' u), refl, y, p)
+
+-- transport along concatenated paths
+#def transport-concat
+  (A : U)
+  (B : A -> U)
+  (x y z : A)
+  (p : x = y)
+  (q : y = z)
+  (u : B x)
+  : (transport A B x z (concat A x y z p q) u) = (transport A B y z q (transport A B x y p u))
+  := idJ(A, y, \z' q' -> (transport A B x z' (concat A x y z' p q') u) = (transport A B y z' q' (transport A B x y p u)),
+    refl, z, q)
+
+#def transport-concat-rev
+  (A : U)
+  (B : A -> U)
+  (x y z : A)
+  (p : x = y)
+  (q : y = z)
+  (u : B x)
+  : (transport A B y z q (transport A B x y p u)) = (transport A B x z (concat A x y z p q) u) 
+  := idJ(A, y, \z' q' -> (transport A B y z' q' (transport A B x y p u)) = (transport A B x z' (concat A x y z' p q') u),
+    refl, z, q)
 
 -- for later use, some higher transport
 #def transport2 

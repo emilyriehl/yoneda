@@ -156,3 +156,107 @@ As an application, we prove that based path spaces are contractible.
     := (based-paths-center A a, based-paths-contracting-homotopy A a)
 ```
 
+## Pullback of a type family
+
+A family of types over B pulls back along any function f : A -> B to define a family of types over A.
+
+```rzk
+#def pullback
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    : A -> U
+    := \a -> C (f a)
+```   
+
+The pullback of a family along homotopic maps is equivalent.
+
+```rzk
+#def pullback-homotopy
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : (pullback A B f C a) -> (pullback A B g C a)
+    := \c -> transport B C (f a) (g a) (alpha a) c
+
+#def pullback-homotopy-inverse
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : (pullback A B g C a) -> (pullback A B f C a)
+    := \c -> transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) c    
+
+#def pullback-homotopy-has-retraction
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : hasRetraction (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-inverse A B f g alpha C a, \c -> concat (pullback A B f C a) 
+        (transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) (transport B C (f a) (g a) (alpha a) c)) 
+        (transport B C (f a) (f a) (concat B (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a))) c) 
+        c
+        (transport-concat-rev B C (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a)) c)
+        (transport2 B C (f a) (f a) (concat B (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a))) refl (rev-right-inverse B (f a) (g a) (alpha a)) c))
+
+#def pullback-homotopy-has-section
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : hasSection (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-inverse A B f g alpha C a, \c -> concat (pullback A B g C a) 
+        (transport B C (f a) (g a) (alpha a) (transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) c)) 
+        (transport B C (g a) (g a) (concat B (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a)) c) 
+        c
+        (transport-concat-rev B C (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a) c)
+        (transport2 B C (g a) (g a) (concat B (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a)) refl (rev-left-inverse B (f a) (g a) (alpha a)) c))
+
+#def pullback-homotopy-isEquiv
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : isEquiv (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-has-retraction A B f g alpha C a, pullback-homotopy-has-section A B f g alpha C a)
+```
+
+The total space of a pulled back family of types maps to the original total space.
+
+```rzk
+#def pullback-comparison-map
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    : (∑(a : A), (pullback A B f C) a) -> (∑(b : B), C b)
+    := \(a, c) -> (f a, c)
+```
+
+Now we show that if a family is pulled back along an equivalence, the total spaces are equivalent.
+
+```rzk
+#def equiv-pullback-comparison-inverse
+    (A B : U)
+    (f : A -> B)
+    (fisHAE : isHalfAdjointEquiv A B f)
+    (C : B -> U)
+    :  (∑(b : B), C b) -> (∑(a : A), (pullback A B f C) a)
+    := \(b, c) -> ( (first (first fisHAE)) b, transport B C b (f ((first (first fisHAE)) b)) (rev B (f ((first (first fisHAE)) b)) b ((second (second (first fisHAE))) b)) c)
+```
+
+
+
+
+(a, c) |-> (f a, c) |-> (g f a, transport )
+
+
+transport 
+f a = f g f a
+
