@@ -166,7 +166,7 @@ If A is a Segal type and a : A is any term, then hom A a defines a covariant fam
 						(Δ¹ t /\ (s === 0_2)) |-> a, 
 						(Δ¹ t /\ (s === 1_2)) |-> f t ))  
 
-#def base-hom-trivial-expansion
+#def base-hom-rewriting
 	(A : U)						-- The ambient type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
@@ -197,7 +197,112 @@ If A is a Segal type and a : A is any term, then hom A a defines a covariant fam
 		(<{(t, s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} -> A [ ((t === 1_2) /\ (s === 0_2)) |-> a,  ((t === 1_2) /\ (s === 1_2)) |-> y ]>) 		
 		(hom A a y)
 		(cofibration-union-test A a x y f u)
-		(base-hom-trivial-expansion A a x y f u)
+		(base-hom-rewriting A a x y f u)
+
+#def representable-dhomFrom-expansion
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	: Eq (∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+						[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]>), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> (sq (1_2, s)), 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+		(∑ (v : hom A a y), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> v s, 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+	:= pullback-is-equiv-total-eq (	<{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+			[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]> )
+						(hom A a y)
+						(first (base-hom-expansion A a x y f u))
+						(second (base-hom-expansion A a x y f u))
+			(\v -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> v s, 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+
+#def representable-dhomFrom-composite-expansion
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.	
+	: Eq (representable-dhomFrom A a x y f u) 
+			(∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+						[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]>), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> (sq (1_2, s)), 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+	:= RightCancel_Eq (representable-dhomFrom A a x y f u) 
+				(∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+						[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]>), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> (sq (1_2, s)), 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+
+		(∑ (v : hom A a y), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> v s, 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+			 (representable-dhomFrom-uncurry A a x y f u)
+			 (representable-dhomFrom-expansion A a x y f u)
+
+#def representable-dhomFrom-cofibration-composition
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.	
+	: Eq (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t]> )
+		(∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+						[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]>), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> (sq (1_2, s)), 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+	:= cofibration-composition (2 * 2) Δ¹×Δ¹ ∂□ 
+			(\(t, s) -> ((t === 0_2) /\ Δ¹ s) \/ (Δ¹ t /\ (s === 0_2)) \/ (Δ¹ t /\ (s === 1_2)))
+			(\ts -> A) 
+			(\(t, s) -> recOR( ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t))
+
+#def representable-dhomFrom-as-extension-type
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.	
+	: Eq (representable-dhomFrom A a x y f u) 
+		(<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+												(Δ¹ t /\ (s === 0_2)) |-> a, 
+												(Δ¹ t /\ (s === 1_2)) |-> f t]> )
+	:= RightCancel_Eq (representable-dhomFrom A a x y f u) 
+				(<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+												(Δ¹ t /\ (s === 0_2)) |-> a, 
+												(Δ¹ t /\ (s === 1_2)) |-> f t]> )
+				(∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A 
+						[ ((t === 0_2) /\ Δ¹ s) |-> u s, 
+						(Δ¹ t /\ (s === 0_2)) |-> a, 
+						(Δ¹ t /\ (s === 1_2)) |-> f t ]>), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s, 
+											((t === 1_2) /\ Δ¹ s) |-> (sq (1_2, s)), 
+											(Δ¹ t /\ (s === 0_2)) |-> a, 
+											(Δ¹ t /\ (s === 1_2)) |-> f t ]>))
+				(representable-dhomFrom-composite-expansion A a x y f u)
+				(representable-dhomFrom-cofibration-composition A a x y f u)
+
+
+
 ```
 
 ## Covariant lifts, transport, and uniqueness

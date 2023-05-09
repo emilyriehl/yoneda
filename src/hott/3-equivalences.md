@@ -452,6 +452,22 @@ This is a literate `rzk` file:
                ((second (second fisequiv)) ((first (second gisequiv)) c)))
             ((second (second gisequiv)) c)))  
 
+-- Right cancellation of equivalences in diagrammatic order.
+#def RightCancel_Eq
+    (A B C : U)
+    (A=C : Eq A C)
+    (B=C : Eq B C)
+    : Eq A B
+    := compose_Eq A C B (A=C) (sym_Eq B C B=C)
+
+-- Left cancellation of equivalences in diagrammatic order.
+#def LeftCancel_Eq
+    (A B C : U)
+    (A=B : Eq A B)
+    (A=C : Eq A C)
+    : Eq B C
+    := compose_Eq B A C (sym_Eq A B A=B) (A=C)
+
 -- a composition of three equivalences
 #def triple_compose_Eq
     (A B C D : U) 
