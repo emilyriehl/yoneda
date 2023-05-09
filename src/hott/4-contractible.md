@@ -44,7 +44,7 @@ A retract of contractible types is contractible.
 #def isRetract
   (A B : U)
   : U
-  := ∑ (s : A -> B), (∑ (r : B -> A), homotopy A A (composition A B A r s)(identity A))
+  := ∑ (s : A -> B), hasRetraction A B s
 
 #def isRetract-section
   (A B : U)
@@ -96,3 +96,35 @@ A retract of contractible types is contractible.
   : isContr A
   := (isRetract-ofContr-isInhabited A B AretractB Biscontr, isRetract-ofContr-hasHtpy A B AretractB Biscontr) 
 ```
+
+## Functions between contractible types
+
+A function between contractible types is an equivalence
+
+```rzk
+#def areContr-isEquiv
+    (A B : U)
+    (Aiscontr : isContr A)
+    (Biscontr : isContr B)
+    (f : A -> B)
+    : isEquiv A B f
+    := ((\b -> contraction-center A Aiscontr, 
+        \a -> contracting-htpy A Aiscontr a),
+       (\b -> contraction-center A Aiscontr, 
+        \b -> contractible-connecting-htpy B Biscontr (f (contraction-center A Aiscontr)) b))
+```
+
+A type equivalent to a contractible type is contractible.
+
+```rzk
+#def isEquiv-toContr-isContr
+    (A B : U)
+    (e : Eq A B)
+    (Biscontr : isContr B)
+    : isContr A
+    := isRetract-ofContr-isContr A B 
+        (first e, first (second e))
+        Biscontr
+```   
+
+

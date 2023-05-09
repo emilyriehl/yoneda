@@ -1103,3 +1103,183 @@ In summary, a family of maps is an equivalence iff the map on total spaces is an
     : iff ((a : A) -> isEquiv (B a) (C a) (f a)) (isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
     := (family-of-equiv-total-equiv A B C f, total-equiv-family-of-equiv A B C f)
 ```
+
+## Pullback of a type family
+
+A family of types over B pulls back along any function f : A -> B to define a family of types over A.
+
+```rzk
+#def pullback
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    : A -> U
+    := \a -> C (f a)
+```   
+
+The pullback of a family along homotopic maps is equivalent.
+
+```rzk
+#def pullback-homotopy
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : (pullback A B f C a) -> (pullback A B g C a)
+    := \c -> transport B C (f a) (g a) (alpha a) c
+
+#def pullback-homotopy-inverse
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : (pullback A B g C a) -> (pullback A B f C a)
+    := \c -> transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) c    
+
+#def pullback-homotopy-has-retraction
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : hasRetraction (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-inverse A B f g alpha C a, \c -> concat (pullback A B f C a) 
+        (transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) (transport B C (f a) (g a) (alpha a) c)) 
+        (transport B C (f a) (f a) (concat B (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a))) c) 
+        c
+        (transport-concat-rev B C (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a)) c)
+        (transport2 B C (f a) (f a) (concat B (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a))) refl (rev-right-inverse B (f a) (g a) (alpha a)) c))
+
+#def pullback-homotopy-has-section
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : hasSection (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-inverse A B f g alpha C a, \c -> concat (pullback A B g C a) 
+        (transport B C (f a) (g a) (alpha a) (transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) c)) 
+        (transport B C (g a) (g a) (concat B (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a)) c) 
+        c
+        (transport-concat-rev B C (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a) c)
+        (transport2 B C (g a) (g a) (concat B (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a)) refl (rev-left-inverse B (f a) (g a) (alpha a)) c))
+
+#def pullback-homotopy-isEquiv
+    (A B : U)
+    (f g : A -> B)
+    (alpha : homotopy A B f g)
+    (C : B -> U)
+    (a : A)
+    : isEquiv (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-has-retraction A B f g alpha C a, pullback-homotopy-has-section A B f g alpha C a)
+```
+
+The total space of a pulled back family of types maps to the original total space.
+
+```rzk
+#def pullback-comparison-map
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    : (∑(a : A), (pullback A B f C) a) -> (∑(b : B), C b)
+    := \(a, c) -> (f a, c)
+```
+
+Now we show that if a family is pulled back along an equivalence, the total spaces are equivalent by proving that the comparison is a contractible map. For this, we first prove that each fiber is equivalent to a fiber of the original map.
+
+
+```rzk
+#def pullback-comparison-fiber
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    (z : ∑(b : B), C b)
+    : U
+    := fib (∑(a : A), (pullback A B f C) a) (∑(b : B), C b) (pullback-comparison-map A B f C) z
+
+#def pullback-comparison-fiber-to-fiber
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    (z : ∑(b : B), C b)
+    : (pullback-comparison-fiber A B f C z) -> (fib A B f (first z))
+    := \(w, p) -> idJ((∑(b : B), C b), (pullback-comparison-map A B f C w), \z' p' -> (fib A B f (first z')), (first w, refl), z, p)
+
+#def from-base-fiber-to-pullback-comparison-fiber
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    (b : B)
+    : (fib A B f b) -> (c : C b) -> (pullback-comparison-fiber A B f C (b, c)) 
+    := \(a, p) -> idJ(B, f a, \b' p' -> (c : C b') -> (pullback-comparison-fiber A B f C ((b', c))), \c -> ((a, c), refl), b, p)
+
+#def pullback-comparison-fiber-to-fiber-inv
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    (z : ∑(b : B), C b)
+    : (fib A B f (first z)) -> (pullback-comparison-fiber A B f C z)
+    := \(a, p) -> from-base-fiber-to-pullback-comparison-fiber A B f C (first z) (a, p) (second z)
+
+#def pullback-comparison-fiber-to-fiber-retracting-homotopy
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    (z : ∑(b : B), C b)
+    ((w, p) : pullback-comparison-fiber A B f C z)
+    : ((pullback-comparison-fiber-to-fiber-inv A B f C z) ((pullback-comparison-fiber-to-fiber A B f C z) (w, p))) =_{(pullback-comparison-fiber A B f C z)} (w, p)
+    := idJ((∑(b : B), C b), (pullback-comparison-map A B f C w), \z' p' ->  ((pullback-comparison-fiber-to-fiber-inv A B f C z') ((pullback-comparison-fiber-to-fiber A B f C z') (w, p'))) =_{(pullback-comparison-fiber A B f C z')} (w, p'), refl, z, p)
+
+#def pullback-comparison-fiber-to-fiber-section-homotopy-map
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    (b : B)
+    ((a, p) : fib A B f b)
+    : (c : C b) -> ((pullback-comparison-fiber-to-fiber A B f C (b, c)) ((pullback-comparison-fiber-to-fiber-inv A B f C (b, c))  (a, p))) =_{(fib A B f b)} (a, p)
+    := idJ(B, f a, \b' p' -> (c : C b') -> ((pullback-comparison-fiber-to-fiber A B f C (b', c)) ((pullback-comparison-fiber-to-fiber-inv A B f C (b', c))  (a, p'))) =_{(fib A B f b')} (a, p'), \c -> refl, b, p)
+ 
+#def pullback-comparison-fiber-to-fiber-section-homotopy
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    (z : ∑(b : B), C b)
+    ((a, p) : fib A B f (first z))
+    : ((pullback-comparison-fiber-to-fiber A B f C z) ((pullback-comparison-fiber-to-fiber-inv A B f C z)  (a, p))) =_{(fib A B f (first z))} (a, p)
+    := pullback-comparison-fiber-to-fiber-section-homotopy-map A B f C (first z) (a, p) (second z)
+
+#def pullback-comparison-fiber-Eq
+    (A B : U)
+    (f : A -> B)
+    (C : B -> U)
+    (z : ∑(b : B), C b)
+    : Eq (pullback-comparison-fiber A B f C z) (fib A B f (first z))
+    := (pullback-comparison-fiber-to-fiber A B f C z, 
+        ((pullback-comparison-fiber-to-fiber-inv A B f C z, 
+        pullback-comparison-fiber-to-fiber-retracting-homotopy A B f C z),
+        (pullback-comparison-fiber-to-fiber-inv A B f C z,
+         pullback-comparison-fiber-to-fiber-section-homotopy A B f C z)))
+```
+
+As a corollary, we show that pullback along an equivalence induces an equivalence of total spaces.
+
+```rzk
+#def pullback-is-equiv-total-eq
+    (A B : U)
+    (f : A -> B)
+    (fisequiv : isEquiv A B f)
+    (C : B -> U)
+    : Eq (∑(a : A), (pullback A B f C) a) (∑(b : B), C b) 
+    := (pullback-comparison-map A B f C, 
+        isContr-map-isEquiv
+            (∑(a : A), (pullback A B f C) a)
+            (∑(b : B), C b)
+            (pullback-comparison-map A B f C)
+            (\z -> (isEquiv-toContr-isContr
+                        (pullback-comparison-fiber A B f C z)
+                        (fib A B f (first z))
+                        (pullback-comparison-fiber-Eq A B f C z)
+                        (isEquiv-isContr-map A B f fisequiv (first z)))))
+```
