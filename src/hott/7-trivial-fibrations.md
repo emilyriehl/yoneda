@@ -78,6 +78,13 @@ This is a literate `rzk` file:
     (ABcontrfib : contractible-fibers A B)
     : isEquiv (∑ (x : A), B x) A (total-space-projection A B)
     := (contractible-fibers-retraction A B ABcontrfib , contractible-fibers-section-is-section A B ABcontrfib)
+
+#def contractible-fibers-projection-Eq
+    (A : U)
+    (B : A -> U)
+    (ABcontrfib : contractible-fibers A B)
+    : Eq (∑ (x : A), B x) A 
+    := (total-space-projection A B, contractible-fibers-projection-equiv A B ABcontrfib)
 ```
 
 ## Projection equivalences

@@ -404,7 +404,7 @@ If A is a Segal type and a : A is any term, then hom A a defines a covariant fam
 Now we introduce the hypothesis that A is Segal type.
 
 ```rzk
-#def representable-dhomFrom-path-space
+#def Segal-representable-dhomFrom-path-space
 	(A : U)						-- The ambient type.
 	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
@@ -427,9 +427,78 @@ Now we introduce the hypothesis that A is Segal type.
 					(\v -> (v = d))
 					(\v -> hom2 A a a y (id-arr A a) v d)
 					(\v -> (Eq-Segal-homotopy-hom2 A AisSegal a y v d)))))))
+
+
+#def codomain-based-paths-contraction
+	(A : U)						-- The ambient type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	(d : hom A a y)
+	: Eq (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))) (hom2 A a x y u f d) 
+	:= contractible-fibers-projection-Eq (hom2 A a x y u f d) (\alpha -> (∑ (v : hom A a y), (v = d)))
+		(\alpha -> codomain-based-paths-contractible (hom A a y) d)
+
+#def isSegal-representable-dhomFrom-hom2
+	(A : U)						-- The ambient type.
+	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	: Eq (representable-dhomFrom A a x y f u)
+		(∑ (d : hom A a y), (hom2 A a x y u f d))
+	:= compose_Eq 
+		(representable-dhomFrom A a x y f u)
+		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))))
+		(∑ (d : hom A a y), (hom2 A a x y u f d))
+		(Segal-representable-dhomFrom-path-space A AisSegal a x y f u)
+		(family-Eq-total-Eq (hom A a y)
+			(\d -> prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d)))
+			(\d -> hom2 A a x y u f d)
+			(\d -> codomain-based-paths-contraction A a x y f u d))
+
+#def isSegal-representable-dhomFrom-contractible
+	(A : U)						-- The ambient type.
+	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
+	(a x y : A)					-- The representing object and two points in the base.
+	(f : hom A x y)				-- An arrow in the base.
+	(u : hom A a x)				-- A lift of the domain.
+	: isContr (representable-dhomFrom A a x y f u)
+	:= isEquiv-toContr-isContr (representable-dhomFrom A a x y f u)
+				(∑ (d : hom A a y), (hom2 A a x y u f d))
+				(isSegal-representable-dhomFrom-hom2 A AisSegal a x y f u)
+				(AisSegal a x y u f)
 ```
 
+Finally, we see that covariantly hom families in a Segal type are covariant. 
 
+```rzk
+-- [RS, Proposition 8.13(<-)]
+#def isSegal-representable-isCovFam 
+	(A : U)
+	(AisSegal : isSegal A)
+	(a : A)
+	: isCovFam A (\x -> hom A a x)
+	:= \x y f u -> isSegal-representable-dhomFrom-contractible A AisSegal a x y f u	
+```
+
+The proof of the claimed converse result given in the original source is circular:
+
+```rzk
+-- [RS, Proposition 8.13(->)]
+#def representable-isCovFam-isSegal
+	(A : U)
+	(repiscovfam : (a : A) -> isCovFam A (\x -> hom A a x))
+	(AisSegal : isSegal A)
+	: isSegal A
+	:= \x y z f g -> isEquiv-toContr-isContr
+			(∑ (h : hom A x z), (hom2 A x y z f g h))
+			(representable-dhomFrom A x y z g f)
+			(sym_Eq (representable-dhomFrom A x y z g f)
+				(∑ (h : hom A x z), (hom2 A x y z f g h))
+				(isSegal-representable-dhomFrom-hom2 A AisSegal x y z g f))
+			(repiscovfam x y z g f)
+```
 
 ## Covariant lifts, transport, and uniqueness
 

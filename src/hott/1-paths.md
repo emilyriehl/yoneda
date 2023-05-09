@@ -17,6 +17,13 @@ This is a literate `rzk` file:
   : y = x           -- The reversal will be defined by path induction on p.
   := idJ(A, x, \y' p' -> y' = x, refl, y, p)
 
+#def rev-involution
+  (A : U)           -- A type.
+  (x y : A)         -- Two points.
+  (p : x = y)       -- A path from x to y in A.
+  : (rev A y x (rev A x y p)) = p
+  := idJ(A, x, \y' p' -> (rev A y' x (rev A x y' p')) = p', refl, y, p)
+
 -- path composition by induction on the second path
 #def concat 
   (A : U)           -- A type.

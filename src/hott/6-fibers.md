@@ -1104,6 +1104,32 @@ In summary, a family of maps is an equivalence iff the map on total spaces is an
     := (family-of-equiv-total-equiv A B C f, total-equiv-family-of-equiv A B C f)
 ```
 
+## Codomain based path spaces
+
+```rzk
+#def rev-is-eq
+    (A : U)
+    (x y : A)
+    : Eq (x = y) (y = x)
+    := (rev A x y, ((rev A y x, rev-involution A x y),(rev A y x, rev-involution A y x)))
+
+-- An equivalence between the based path spaces.
+#def based-paths-Eq
+    (A : U)
+    (a : A)
+    : Eq (∑ (x : A), x = a) (∑ (x : A), a = x) 
+    := family-Eq-total-Eq A (\x -> x = a) (\x -> a = x)(\x -> rev-is-eq A x a)
+
+-- Codomain based path spaces are contractible
+#def codomain-based-paths-contractible
+    (A : U)         -- The ambient type.
+    (a : A)         -- The basepoint.
+    : isContr (∑ (x : A), x = a)
+    := isEquiv-toContr-isContr (∑ (x : A), x = a) (∑ (x : A), a = x)
+        (based-paths-Eq A a)
+        (based-paths-contractible A a)
+```    
+
 ## Pullback of a type family
 
 A family of types over B pulls back along any function f : A -> B to define a family of types over A.
