@@ -156,3 +156,30 @@ As an application, we prove that based path spaces are contractible.
     := (based-paths-center A a, based-paths-contracting-homotopy A a)
 ```
 
+## Fubini
+
+Given a family over a pair of independent types, the order of summation is unimportant.
+
+```rzk
+#def sigma-fubini
+    (A B : U)
+    (C : A -> B -> U)
+    : Eq (∑ (x : A), ∑ (y : B), C x y) (∑ (y : B), ∑ (x : A), C x y)
+    := (\t -> (first (second t), (first t, second (second t))),
+        ((\t -> (first (second t), (first t, second (second t))),
+        \t -> refl), 
+        (\t -> (first (second t), (first t, second (second t))),
+        \t -> refl)))
+```
+
+Products distribute inside a Sigma type:
+
+```rzk
+#def prod-distribute-sigma
+    (A B : U)
+    (C : B -> U)
+    : Eq (prod A (∑ (b : B), C b)) (∑ (b : B), prod A (C b))
+    := (\(a, (b, c)) -> (b, (a, c)), 
+            ((\(b, (a, c)) -> (a, (b, c)), \z -> refl), 
+            (\(b, (a, c)) -> (a, (b, c)), \z -> refl)))        
+```
