@@ -31,7 +31,7 @@
       <script>
         // Current page data
         var mkdocs_page_name = "Contractible";
-        var mkdocs_page_input_path = "hott/3-contractible.md";
+        var mkdocs_page_input_path = "hott/4-contractible.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -72,6 +72,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../2-homotopies/">Homotopies</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../3-equivalences/">Equivalences</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Contractible</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#contractible-types">Contractible types</a>
@@ -80,15 +82,15 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#retracts-of-contractible-types">Retracts of contractible types</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#functions-between-contractible-types">Functions between contractible types</a>
+    </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../4-equivalences/">Equivalences</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../5-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../6-trivial-fibrations/">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../6-fibers/">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../7-fibers/">Fibers</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../7-trivial-fibrations/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
@@ -167,7 +169,7 @@
 #def isRetract
   (A B : U)
   : U
-  := ∑ (s : A -&gt; B), (∑ (r : B -&gt; A), homotopy A A (composition A B A r s)(identity A))
+  := ∑ (s : A -&gt; B), hasRetraction A B s
 
 #def isRetract-section
   (A B : U)
@@ -219,12 +221,35 @@
   : isContr A
   := (isRetract-ofContr-isInhabited A B AretractB Biscontr, isRetract-ofContr-hasHtpy A B AretractB Biscontr) 
 </code></pre>
+<h2 id="functions-between-contractible-types">Functions between contractible types</h2>
+<p>A function between contractible types is an equivalence</p>
+<pre><code class="language-rzk">#def areContr-isEquiv
+    (A B : U)
+    (Aiscontr : isContr A)
+    (Biscontr : isContr B)
+    (f : A -&gt; B)
+    : isEquiv A B f
+    := ((\b -&gt; contraction-center A Aiscontr, 
+        \a -&gt; contracting-htpy A Aiscontr a),
+       (\b -&gt; contraction-center A Aiscontr, 
+        \b -&gt; contractible-connecting-htpy B Biscontr (f (contraction-center A Aiscontr)) b))
+</code></pre>
+<p>A type equivalent to a contractible type is contractible.</p>
+<pre><code class="language-rzk">#def isEquiv-toContr-isContr
+    (A B : U)
+    (e : Eq A B)
+    (Biscontr : isContr B)
+    : isContr A
+    := isRetract-ofContr-isContr A B 
+        (first e, first (second e))
+        Biscontr
+</code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../2-homotopies/" class="btn btn-neutral float-left" title="Homotopies"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../4-equivalences/" class="btn btn-neutral float-right" title="Equivalences">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../3-equivalences/" class="btn btn-neutral float-left" title="Equivalences"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5-sigma/" class="btn btn-neutral float-right" title="Sigma types">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -247,10 +272,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../2-homotopies/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../3-equivalences/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../4-equivalences/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../5-sigma/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

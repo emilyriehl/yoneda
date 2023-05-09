@@ -31,7 +31,7 @@
       <script>
         // Current page data
         var mkdocs_page_name = "Fibers";
-        var mkdocs_page_input_path = "hott/7-fibers.md";
+        var mkdocs_page_input_path = "hott/6-fibers.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -72,13 +72,11 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../2-homotopies/">Homotopies</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../3-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../3-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../4-equivalences/">Equivalences</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../4-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../5-sigma/">Sigma types</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../6-trivial-fibrations/">Trivial fibrations</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Fibers</a>
     <ul class="current">
@@ -94,7 +92,13 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#families-of-equivalences">Families of equivalences</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#codomain-based-path-spaces">Codomain based path spaces</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pullback-of-a-type-family">Pullback of a type family</a>
+    </li>
     </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../7-trivial-fibrations/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
@@ -1143,6 +1147,14 @@
     := hasInverse-isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
         (invertible-family-total-invertible A B C f 
             (\a -&gt; isEquiv-hasInverse (B a) (C a) (f a) (familyequiv a)))
+
+#def family-Eq-total-Eq
+    (A : U)
+    (B C : A -&gt; U)
+    (familyeq : (a : A) -&gt; Eq (B a) (C a))       -- a family of equivalences
+    : Eq (∑ (x : A), B x) (∑ (x : A), C x) 
+    := (family-of-maps-total-map A B C (\a -&gt; first (familyeq a)), 
+    family-of-equiv-total-equiv A B C (\a -&gt; first (familyeq a)) (\a -&gt; second (familyeq a)))
 </code></pre>
 <p>The one-way result: that a family of equivalence gives an invertible map (and thus an equivalence) on total spaces.</p>
 <pre><code class="language-rzk">#def family-of-equiv-total-invertible
@@ -1188,12 +1200,198 @@
     : iff ((a : A) -&gt; isEquiv (B a) (C a) (f a)) (isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
     := (family-of-equiv-total-equiv A B C f, total-equiv-family-of-equiv A B C f)
 </code></pre>
+<h2 id="codomain-based-path-spaces">Codomain based path spaces</h2>
+<pre><code class="language-rzk">#def rev-is-eq
+    (A : U)
+    (x y : A)
+    : Eq (x = y) (y = x)
+    := (rev A x y, ((rev A y x, rev-involution A x y),(rev A y x, rev-involution A y x)))
+
+-- An equivalence between the based path spaces.
+#def based-paths-Eq
+    (A : U)
+    (a : A)
+    : Eq (∑ (x : A), x = a) (∑ (x : A), a = x) 
+    := family-Eq-total-Eq A (\x -&gt; x = a) (\x -&gt; a = x)(\x -&gt; rev-is-eq A x a)
+
+-- Codomain based path spaces are contractible
+#def codomain-based-paths-contractible
+    (A : U)         -- The ambient type.
+    (a : A)         -- The basepoint.
+    : isContr (∑ (x : A), x = a)
+    := isEquiv-toContr-isContr (∑ (x : A), x = a) (∑ (x : A), a = x)
+        (based-paths-Eq A a)
+        (based-paths-contractible A a)
+</code></pre>
+<h2 id="pullback-of-a-type-family">Pullback of a type family</h2>
+<p>A family of types over B pulls back along any function f : A -&gt; B to define a family of types over A.</p>
+<pre><code class="language-rzk">#def pullback
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    : A -&gt; U
+    := \a -&gt; C (f a)
+</code></pre>
+<p>The pullback of a family along homotopic maps is equivalent.</p>
+<pre><code class="language-rzk">#def pullback-homotopy
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : (pullback A B f C a) -&gt; (pullback A B g C a)
+    := \c -&gt; transport B C (f a) (g a) (alpha a) c
+
+#def pullback-homotopy-inverse
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : (pullback A B g C a) -&gt; (pullback A B f C a)
+    := \c -&gt; transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) c    
+
+#def pullback-homotopy-has-retraction
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : hasRetraction (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-inverse A B f g alpha C a, \c -&gt; concat (pullback A B f C a) 
+        (transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) (transport B C (f a) (g a) (alpha a) c)) 
+        (transport B C (f a) (f a) (concat B (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a))) c) 
+        c
+        (transport-concat-rev B C (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a)) c)
+        (transport2 B C (f a) (f a) (concat B (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a))) refl (rev-right-inverse B (f a) (g a) (alpha a)) c))
+
+#def pullback-homotopy-has-section
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : hasSection (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-inverse A B f g alpha C a, \c -&gt; concat (pullback A B g C a) 
+        (transport B C (f a) (g a) (alpha a) (transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) c)) 
+        (transport B C (g a) (g a) (concat B (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a)) c) 
+        c
+        (transport-concat-rev B C (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a) c)
+        (transport2 B C (g a) (g a) (concat B (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a)) refl (rev-left-inverse B (f a) (g a) (alpha a)) c))
+
+#def pullback-homotopy-isEquiv
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : isEquiv (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-has-retraction A B f g alpha C a, pullback-homotopy-has-section A B f g alpha C a)
+</code></pre>
+<p>The total space of a pulled back family of types maps to the original total space.</p>
+<pre><code class="language-rzk">#def pullback-comparison-map
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    : (∑(a : A), (pullback A B f C) a) -&gt; (∑(b : B), C b)
+    := \(a, c) -&gt; (f a, c)
+</code></pre>
+<p>Now we show that if a family is pulled back along an equivalence, the total spaces are equivalent by proving that the comparison is a contractible map. For this, we first prove that each fiber is equivalent to a fiber of the original map.</p>
+<pre><code class="language-rzk">#def pullback-comparison-fiber
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    : U
+    := fib (∑(a : A), (pullback A B f C) a) (∑(b : B), C b) (pullback-comparison-map A B f C) z
+
+#def pullback-comparison-fiber-to-fiber
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    : (pullback-comparison-fiber A B f C z) -&gt; (fib A B f (first z))
+    := \(w, p) -&gt; idJ((∑(b : B), C b), (pullback-comparison-map A B f C w), \z' p' -&gt; (fib A B f (first z')), (first w, refl), z, p)
+
+#def from-base-fiber-to-pullback-comparison-fiber
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (b : B)
+    : (fib A B f b) -&gt; (c : C b) -&gt; (pullback-comparison-fiber A B f C (b, c)) 
+    := \(a, p) -&gt; idJ(B, f a, \b' p' -&gt; (c : C b') -&gt; (pullback-comparison-fiber A B f C ((b', c))), \c -&gt; ((a, c), refl), b, p)
+
+#def pullback-comparison-fiber-to-fiber-inv
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    : (fib A B f (first z)) -&gt; (pullback-comparison-fiber A B f C z)
+    := \(a, p) -&gt; from-base-fiber-to-pullback-comparison-fiber A B f C (first z) (a, p) (second z)
+
+#def pullback-comparison-fiber-to-fiber-retracting-homotopy
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    ((w, p) : pullback-comparison-fiber A B f C z)
+    : ((pullback-comparison-fiber-to-fiber-inv A B f C z) ((pullback-comparison-fiber-to-fiber A B f C z) (w, p))) =_{(pullback-comparison-fiber A B f C z)} (w, p)
+    := idJ((∑(b : B), C b), (pullback-comparison-map A B f C w), \z' p' -&gt;  ((pullback-comparison-fiber-to-fiber-inv A B f C z') ((pullback-comparison-fiber-to-fiber A B f C z') (w, p'))) =_{(pullback-comparison-fiber A B f C z')} (w, p'), refl, z, p)
+
+#def pullback-comparison-fiber-to-fiber-section-homotopy-map
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (b : B)
+    ((a, p) : fib A B f b)
+    : (c : C b) -&gt; ((pullback-comparison-fiber-to-fiber A B f C (b, c)) ((pullback-comparison-fiber-to-fiber-inv A B f C (b, c))  (a, p))) =_{(fib A B f b)} (a, p)
+    := idJ(B, f a, \b' p' -&gt; (c : C b') -&gt; ((pullback-comparison-fiber-to-fiber A B f C (b', c)) ((pullback-comparison-fiber-to-fiber-inv A B f C (b', c))  (a, p'))) =_{(fib A B f b')} (a, p'), \c -&gt; refl, b, p)
+
+#def pullback-comparison-fiber-to-fiber-section-homotopy
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    ((a, p) : fib A B f (first z))
+    : ((pullback-comparison-fiber-to-fiber A B f C z) ((pullback-comparison-fiber-to-fiber-inv A B f C z)  (a, p))) =_{(fib A B f (first z))} (a, p)
+    := pullback-comparison-fiber-to-fiber-section-homotopy-map A B f C (first z) (a, p) (second z)
+
+#def pullback-comparison-fiber-Eq
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    : Eq (pullback-comparison-fiber A B f C z) (fib A B f (first z))
+    := (pullback-comparison-fiber-to-fiber A B f C z, 
+        ((pullback-comparison-fiber-to-fiber-inv A B f C z, 
+        pullback-comparison-fiber-to-fiber-retracting-homotopy A B f C z),
+        (pullback-comparison-fiber-to-fiber-inv A B f C z,
+         pullback-comparison-fiber-to-fiber-section-homotopy A B f C z)))
+</code></pre>
+<p>As a corollary, we show that pullback along an equivalence induces an equivalence of total spaces.</p>
+<pre><code class="language-rzk">#def pullback-is-equiv-total-eq
+    (A B : U)
+    (f : A -&gt; B)
+    (fisequiv : isEquiv A B f)
+    (C : B -&gt; U)
+    : Eq (∑(a : A), (pullback A B f C) a) (∑(b : B), C b) 
+    := (pullback-comparison-map A B f C, 
+        isContr-map-isEquiv
+            (∑(a : A), (pullback A B f C) a)
+            (∑(b : B), C b)
+            (pullback-comparison-map A B f C)
+            (\z -&gt; (isEquiv-toContr-isContr
+                        (pullback-comparison-fiber A B f C z)
+                        (fib A B f (first z))
+                        (pullback-comparison-fiber-Eq A B f C z)
+                        (isEquiv-isContr-map A B f fisequiv (first z)))))
+</code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../6-trivial-fibrations/" class="btn btn-neutral float-left" title="Trivial fibrations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../simplicial-hott/3-simplicial-type-theory/" class="btn btn-neutral float-right" title="Simplicial Type Theory">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../5-sigma/" class="btn btn-neutral float-left" title="Sigma types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../7-trivial-fibrations/" class="btn btn-neutral float-right" title="Trivial fibrations">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -1216,10 +1414,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../6-trivial-fibrations/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../5-sigma/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../../simplicial-hott/3-simplicial-type-theory/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../7-trivial-fibrations/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

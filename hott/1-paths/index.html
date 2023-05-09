@@ -84,15 +84,15 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../2-homotopies/">Homotopies</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../3-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../3-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../4-equivalences/">Equivalences</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../4-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../5-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../6-trivial-fibrations/">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../6-fibers/">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../7-fibers/">Fibers</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../7-trivial-fibrations/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
@@ -149,6 +149,13 @@
   : y = x           -- The reversal will be defined by path induction on p.
   := idJ(A, x, \y' p' -&gt; y' = x, refl, y, p)
 
+#def rev-involution
+  (A : U)           -- A type.
+  (x y : A)         -- Two points.
+  (p : x = y)       -- A path from x to y in A.
+  : (rev A y x (rev A x y p)) = p
+  := idJ(A, x, \y' p' -&gt; (rev A y' x (rev A x y' p')) = p', refl, y, p)
+
 -- path composition by induction on the second path
 #def concat 
   (A : U)           -- A type.
@@ -193,6 +200,20 @@
   (r : y = z)         -- A path from y to z in A.
   : concat A w x z p (concat A x y z q r) = concat A w y z (concat A w x y p q) r
   := idJ(A, y, \z' r' -&gt; concat A w x z' p (concat A x y z' q r') = concat A w y z' (concat A w x y p q) r', refl, z, r)
+
+#def rev-right-inverse
+  (A : U)             -- A type.
+  (x y : A)
+  (p : x = y)
+  : concat A x y x p (rev A x y p) = refl
+  := idJ(A, x, \y' p' -&gt; concat A x y' x p' (rev A x y' p') = refl, refl, y, p)
+
+#def rev-left-inverse
+  (A : U)             -- A type.
+  (x y : A)
+  (p : x = y)
+  : concat A y x y (rev A x y p) p = refl
+  := idJ(A, x, \y' p' -&gt; concat A y' x y' (rev A x y' p') p' = refl, refl, y, p)
 
 -- a higher path comparing the two compositions
 #def concat-altconcat 
@@ -394,6 +415,29 @@
     (u : B x)
     : (x, u) =_{∑ (z : A), B z} (y, transport A B x y p u)
     := idJ(A, x, \y' p' -&gt; (x, u) =_{∑ (z : A), B z} (y', transport A B x y' p' u), refl, y, p)
+
+-- transport along concatenated paths
+#def transport-concat
+  (A : U)
+  (B : A -&gt; U)
+  (x y z : A)
+  (p : x = y)
+  (q : y = z)
+  (u : B x)
+  : (transport A B x z (concat A x y z p q) u) = (transport A B y z q (transport A B x y p u))
+  := idJ(A, y, \z' q' -&gt; (transport A B x z' (concat A x y z' p q') u) = (transport A B y z' q' (transport A B x y p u)),
+    refl, z, q)
+
+#def transport-concat-rev
+  (A : U)
+  (B : A -&gt; U)
+  (x y z : A)
+  (p : x = y)
+  (q : y = z)
+  (u : B x)
+  : (transport A B y z q (transport A B x y p u)) = (transport A B x z (concat A x y z p q) u) 
+  := idJ(A, y, \z' q' -&gt; (transport A B y z' q' (transport A B x y p u)) = (transport A B x z' (concat A x y z' p q') u),
+    refl, z, q)
 
 -- for later use, some higher transport
 #def transport2 

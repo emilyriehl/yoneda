@@ -72,15 +72,15 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/2-homotopies/">Homotopies</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/3-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/3-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/4-equivalences/">Equivalences</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/4-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/5-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/6-trivial-fibrations/">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/6-fibers/">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/7-fibers/">Fibers</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/7-trivial-fibrations/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
@@ -175,9 +175,14 @@
 #def Δ¹×Δ¹ : (2 * 2) -&gt; TOPE
   := shapeProd 2 2 Δ¹ Δ¹
 
+-- the total boundary of the square
+#def ∂□ : (2 * 2) -&gt; TOPE
+  := \(t ,s) -&gt; ((∂Δ¹ t) /\ (Δ¹ s)) \/ ((Δ¹ t) /\ (∂Δ¹ s))
+
 -- the vertical boundary of the square 
 #def ∂Δ¹×Δ¹ : (2 * 2) -&gt; TOPE
   := shapeProd 2 2 ∂Δ¹ Δ¹
+
 
 -- the prism from a 2-simplex in an arrow type
 #def Δ²×Δ¹ : (2 * 2 * 2) -&gt; TOPE
@@ -187,7 +192,7 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../hott/7-fibers/" class="btn btn-neutral float-left" title="Fibers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../hott/7-trivial-fibrations/" class="btn btn-neutral float-left" title="Trivial fibrations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../4-extension-types/" class="btn btn-neutral float-right" title="Extension Types">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -211,7 +216,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../hott/7-fibers/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../../hott/7-trivial-fibrations/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../4-extension-types/" style="color: #fcfcfc">Next &raquo;</a></span>

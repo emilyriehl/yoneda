@@ -72,15 +72,15 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/2-homotopies/">Homotopies</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/3-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/3-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/4-equivalences/">Equivalences</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/4-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/5-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/6-trivial-fibrations/">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/6-fibers/">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/7-fibers/">Fibers</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/7-trivial-fibrations/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
@@ -259,6 +259,23 @@
        (∑ (f : &lt;{t : I | chi t /\ psi t} -&gt; X t [ chi t /\ psi t /\ phi t |-&gt; a t ]&gt;),
           &lt;{t : I | chi t} -&gt; X t [ chi t /\ psi t |-&gt; f t ]&gt;)
   := (\h -&gt; (\t -&gt; h t,
+             \t -&gt; h t),
+      ((\fg t -&gt; (second fg) t, \h -&gt; refl),
+      ((\fg t -&gt; (second fg) t, \h -&gt; refl))))
+
+-- [RS17, Theorem 4.4]      
+-- original form
+#def cofibration-composition
+   (I : CUBE)
+   (chi : I -&gt; TOPE) 
+   (psi : chi -&gt; TOPE)
+   (phi : psi -&gt; TOPE)
+   (X : chi -&gt; U)
+   (a : (t : phi) -&gt; X t)
+   : Eq &lt;{t : I | chi t} -&gt; X t [ phi t |-&gt; a t ]&gt;
+      (∑ (f : &lt;{t : I | psi t} -&gt; X t [ phi t |-&gt; a t ]&gt;),
+          &lt;{t : I | chi t} -&gt; X t [ psi t |-&gt; f t ]&gt;)
+   := (\h -&gt; (\t -&gt; h t,
              \t -&gt; h t),
       ((\fg t -&gt; (second fg) t, \h -&gt; refl),
       ((\fg t -&gt; (second fg) t, \h -&gt; refl))))
