@@ -127,4 +127,41 @@ A type equivalent to a contractible type is contractible.
         Biscontr
 ```   
 
+## Contractible products
 
+```rzk
+#def isContr-product
+  (A B : U)
+  (AisContr : isContr A)
+  (BisContr : isContr B)
+  : isContr (prod A B)
+  := ((first AisContr, first BisContr), \p ->
+    path-product A B
+      (first AisContr) (first p)
+      (first BisContr) (second p)
+      (second AisContr (first p))
+      (second BisContr (second p))
+      )
+
+#def first-isContr-product
+  (A B : U)
+  (AxBisContr : isContr (prod A B))
+  : isContr A
+  := (first (first AxBisContr), \a ->
+    first-path-product A B
+      (first AxBisContr)
+      (a, second (first AxBisContr))
+      (second AxBisContr (a, second (first AxBisContr))))
+
+#def first-isContr-sigma
+  (A : U)
+  (B : A -> U)
+  (b : (a : A) -> B a)
+  (ABisContr : isContr (∑ (a : A), B a))
+  : isContr A
+  := (first (first ABisContr), \a -> 
+        first-path-sigma A B
+          (first ABisContr)
+          (a, b a)
+          (second ABisContr (a, b a)))
+```

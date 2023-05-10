@@ -181,5 +181,19 @@ Products distribute inside a Sigma type:
     : Eq (prod A (∑ (b : B), C b)) (∑ (b : B), prod A (C b))
     := (\(a, (b, c)) -> (b, (a, c)), 
             ((\(b, (a, c)) -> (a, (b, c)), \z -> refl), 
-            (\(b, (a, c)) -> (a, (b, c)), \z -> refl)))        
+            (\(b, (a, c)) -> (a, (b, c)), \z -> refl))) 
+```
+
+## Associativity
+
+```rzk
+#def assoc
+    (A : U)
+    (B : A -> U)
+    (C : (a : A) -> B a -> U)
+    : Eq (∑ (a : A), ∑ (b : B a), C a b)
+         (∑ (ab : ∑ (a : A), B a), C (first ab) (second ab))
+    := (\(a, (b, c)) -> ((a, b), c),
+        ((\((a, b), c) -> (a, (b, c)), \_ -> refl),
+         (\((a, b), c) -> (a, (b, c)), \_ -> refl)))
 ```

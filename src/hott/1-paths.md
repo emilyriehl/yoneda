@@ -478,3 +478,40 @@ This is a literate `rzk` file:
   : a0 = a13    
   := 13ary-concat A a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13  
       p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 
+```
+
+## Products
+
+```rzk
+#def path-product
+  (A B : U)
+  (a a' : A)
+  (b b' : B)
+  (e_A : a = a')
+  (e_B : b = b')
+  : (a, b) =_{prod A B} (a', b')
+  := transport A (\x -> (a, b) =_{prod A B} (x, b')) a a' e_A
+      (transport B (\y -> (a, b) =_{prod A B} (a, y)) b b' e_B refl)
+
+#def first-path-product
+  (A B : U)
+  (x y : prod A B)
+  (e : x =_{prod A B} y)
+  : first x = first y
+  := ap (prod A B) A x y (\z -> first z) e
+
+#def second-path-product
+  (A B : U)
+  (x y : prod A B)
+  (e : x =_{prod A B} y)
+  : second x = second y
+  := ap (prod A B) B x y (\z -> second z) e
+
+#def first-path-sigma
+  (A : U)
+  (B : A -> U)
+  (x y : ∑ (a : A), B a)
+  (e : x =_{∑ (a : A), B a} y)
+  : first x = first y
+  := ap (∑ (a : A), B a) A x y (\z -> first z) e
+```

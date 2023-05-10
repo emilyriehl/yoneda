@@ -489,15 +489,26 @@ The proof of the claimed converse result given in the original source is circula
 #def representable-isCovFam-isSegal
 	(A : U)
 	(repiscovfam : (a : A) -> isCovFam A (\x -> hom A a x))
-	(AisSegal : isSegal A)
 	: isSegal A
-	:= \x y z f g -> isEquiv-toContr-isContr
-			(∑ (h : hom A x z), (hom2 A x y z f g h))
+	:= \x y z f g -> first-isContr-sigma
+		(∑ (h : hom A x z), hom2 A x y z f g h)
+		(\hk -> ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
+		(\hk -> (first hk, \(t, s) -> first hk s))
+		(isEquiv-toContr-isContr
+			(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
 			(representable-dhomFrom A x y z g f)
 			(sym_Eq (representable-dhomFrom A x y z g f)
-				(∑ (h : hom A x z), (hom2 A x y z f g h))
-				(isSegal-representable-dhomFrom-hom2 A AisSegal x y z g f))
-			(repiscovfam x y z g f)
+				(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
+				(compose_Eq
+					(representable-dhomFrom A x y z g f)
+					(∑ (h : hom A x z), (prod (hom2 A x y z f g h) (∑ (v : hom A x z), hom2 A x x z (id-arr A x) v h)))
+					(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
+					(representable-dhomFrom-hom2-dist A x y z g f)
+					(assoc
+						(hom A x z)
+						(\h -> hom2 A x y z f g h)
+						(\h _ -> ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v h))))
+			(repiscovfam x y z g f))
 ```
 
 ## Covariant lifts, transport, and uniqueness
