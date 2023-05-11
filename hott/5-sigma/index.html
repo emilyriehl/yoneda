@@ -190,8 +190,9 @@
     : (Eq-Sigma A B s t)
     := idJ(∑(a : A), B a, s, \t' p' -&gt; (Eq-Sigma A B s t'), (reflexive-Eq-Sigma A B s), t, p)
 
--- A path through the total space projects to a path in the base
+-- A path through the total space projects to a path in the base.
 -- Morally but not definitionally the first component of pair-eq.
+-- Literally the same as first-path-sigma.
 #def total-path-to-base-path 
     (A : U)
     (B : A -&gt; U)
@@ -201,7 +202,8 @@
     := ap (∑ (a : A), B a) A z w (\u -&gt; first u) p 
 
 -- A path through the total space gives a path in a fiber using transport along the path in the base.
--- Morally, but not definitionally, the second component of pair-eq.
+-- Morally, but not definitionally, the second component of pair-eq. 
+-- Literally the same as second-path-sigma.
 #def total-path-to-fibered-path 
     (A : U)
     (B : A -&gt; U)
