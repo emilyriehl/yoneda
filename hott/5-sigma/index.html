@@ -84,6 +84,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#fubini">Fubini</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#associativity">Associativity</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../6-fibers/">Fibers</a>
@@ -299,7 +301,18 @@
     : Eq (prod A (∑ (b : B), C b)) (∑ (b : B), prod A (C b))
     := (\(a, (b, c)) -&gt; (b, (a, c)), 
             ((\(b, (a, c)) -&gt; (a, (b, c)), \z -&gt; refl), 
-            (\(b, (a, c)) -&gt; (a, (b, c)), \z -&gt; refl)))        
+            (\(b, (a, c)) -&gt; (a, (b, c)), \z -&gt; refl))) 
+</code></pre>
+<h2 id="associativity">Associativity</h2>
+<pre><code class="language-rzk">#def assoc
+    (A : U)
+    (B : A -&gt; U)
+    (C : (a : A) -&gt; B a -&gt; U)
+    : Eq (∑ (a : A), ∑ (b : B a), C a b)
+         (∑ (ab : ∑ (a : A), B a), C (first ab) (second ab))
+    := (\(a, (b, c)) -&gt; ((a, b), c),
+        ((\((a, b), c) -&gt; (a, (b, c)), \_ -&gt; refl),
+         (\((a, b), c) -&gt; (a, (b, c)), \_ -&gt; refl)))
 </code></pre>
               
             </div>

@@ -84,6 +84,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#functions-between-contractible-types">Functions between contractible types</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contractible-products">Contractible products</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../5-sigma/">Sigma types</a>
@@ -243,6 +245,42 @@
     := isRetract-ofContr-isContr A B 
         (first e, first (second e))
         Biscontr
+</code></pre>
+<h2 id="contractible-products">Contractible products</h2>
+<pre><code class="language-rzk">#def isContr-product
+  (A B : U)
+  (AisContr : isContr A)
+  (BisContr : isContr B)
+  : isContr (prod A B)
+  := ((first AisContr, first BisContr), \p -&gt;
+    path-product A B
+      (first AisContr) (first p)
+      (first BisContr) (second p)
+      (second AisContr (first p))
+      (second BisContr (second p))
+      )
+
+#def first-isContr-product
+  (A B : U)
+  (AxBisContr : isContr (prod A B))
+  : isContr A
+  := (first (first AxBisContr), \a -&gt;
+    first-path-product A B
+      (first AxBisContr)
+      (a, second (first AxBisContr))
+      (second AxBisContr (a, second (first AxBisContr))))
+
+#def first-isContr-sigma
+  (A : U)
+  (B : A -&gt; U)
+  (b : (a : A) -&gt; B a)
+  (ABisContr : isContr (∑ (a : A), B a))
+  : isContr A
+  := (first (first ABisContr), \a -&gt; 
+        first-path-sigma A B
+          (first ABisContr)
+          (a, b a)
+          (second ABisContr (a, b a)))
 </code></pre>
               
             </div>

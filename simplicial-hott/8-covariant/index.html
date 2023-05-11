@@ -599,15 +599,26 @@
 #def representable-isCovFam-isSegal
     (A : U)
     (repiscovfam : (a : A) -&gt; isCovFam A (\x -&gt; hom A a x))
-    (AisSegal : isSegal A)
     : isSegal A
-    := \x y z f g -&gt; isEquiv-toContr-isContr
-            (∑ (h : hom A x z), (hom2 A x y z f g h))
+    := \x y z f g -&gt; first-isContr-sigma
+        (∑ (h : hom A x z), hom2 A x y z f g h)
+        (\hk -&gt; ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
+        (\hk -&gt; (first hk, \(t, s) -&gt; first hk s))
+        (isEquiv-toContr-isContr
+            (∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
             (representable-dhomFrom A x y z g f)
             (sym_Eq (representable-dhomFrom A x y z g f)
-                (∑ (h : hom A x z), (hom2 A x y z f g h))
-                (isSegal-representable-dhomFrom-hom2 A AisSegal x y z g f))
-            (repiscovfam x y z g f)
+                (∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
+                (compose_Eq
+                    (representable-dhomFrom A x y z g f)
+                    (∑ (h : hom A x z), (prod (hom2 A x y z f g h) (∑ (v : hom A x z), hom2 A x x z (id-arr A x) v h)))
+                    (∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
+                    (representable-dhomFrom-hom2-dist A x y z g f)
+                    (assoc
+                        (hom A x z)
+                        (\h -&gt; hom2 A x y z f g h)
+                        (\h _ -&gt; ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v h))))
+            (repiscovfam x y z g f))
 </code></pre>
 <h2 id="covariant-lifts-transport-and-uniqueness">Covariant lifts, transport, and uniqueness</h2>
 <p>In a covariant family C over a base type A, a term u : C x may be transported along an arrow f : hom A x y to give a term in C y.</p>

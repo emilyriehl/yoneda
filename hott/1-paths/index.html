@@ -80,6 +80,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#higher-order-concatenation">Higher-order concatenation</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#products">Products</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../2-homotopies/">Homotopies</a>
@@ -462,27 +464,28 @@
   := idJ(A, x, \y' -&gt; \p' -&gt; ((transport A B x y' p' (f x)) = f y'), refl, y, p)
 </code></pre>
 <h2 id="higher-order-concatenation">Higher-order concatenation</h2>
-<p>```rzk
--- triple concatenation</p>
-<h1 id="def-triple-concat">def triple-concat</h1>
-<p>(A : U)
+<pre><code class="language-rzk">-- triple concatenation
+#def triple-concat
+  (A : U)
   (a0 a1 a2 a3 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
   (p3 : a2 = a3)
   : a0 = a3
-  := concat A a0 a1 a3 p1 (concat A a1 a2 a3 p2 p3) </p>
-<h1 id="def-quadruple-concat">def quadruple-concat</h1>
-<p>(A : U)
+  := concat A a0 a1 a3 p1 (concat A a1 a2 a3 p2 p3) 
+
+#def quadruple-concat
+  (A : U)
   (a0 a1 a2 a3 a4 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
   (p3 : a2 = a3)
   (p4 : a3 = a4)
   : a0 = a4
-  := triple-concat A a0 a1 a2 a4 p1 p2 (concat A a2 a3 a4 p3 p4)</p>
-<h1 id="def-quintuple-concat">def quintuple-concat</h1>
-<p>(A : U)
+  := triple-concat A a0 a1 a2 a4 p1 p2 (concat A a2 a3 a4 p3 p4)
+
+#def quintuple-concat
+  (A : U)
   (a0 a1 a2 a3 a4 a5 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
@@ -490,9 +493,10 @@
   (p4 : a3 = a4)
   (p5 : a4 = a5)
   : a0 = a5
-  := quadruple-concat A a0 a1 a2 a3 a5 p1 p2 p3 (concat A a3 a4 a5 p4 p5)</p>
-<h1 id="def-12ary-concat">def 12ary-concat</h1>
-<p>(A : U)
+  := quadruple-concat A a0 a1 a2 a3 a5 p1 p2 p3 (concat A a3 a4 a5 p4 p5)
+
+#def 12ary-concat
+  (A : U)
   (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
@@ -509,10 +513,11 @@
   : a0 = a12
   := quintuple-concat A a0 a1 a2 a3 a4 a12 p1 p2 p3 p4 
       (quintuple-concat A a4 a5 a6 a7 a8 a12 p5 p6 p7 p8
-        (quadruple-concat A a8 a9 a10 a11 a12 p9 p10 p11 p12))</p>
-<p>-- Same as above but with alternating arguments</p>
-<h1 id="def-12ary-concat-alternating">def 12ary-concat-alternating</h1>
-<p>(A : U)
+        (quadruple-concat A a8 a9 a10 a11 a12 p9 p10 p11 p12))
+
+-- Same as above but with alternating arguments
+#def 12ary-concat-alternating
+  (A : U)
   (a0 a1 : A)
   (p1 : a0 = a1)
   (a2 : A)
@@ -537,12 +542,13 @@
   (p11 : a10 = a11)
   (a12 : A)
   (p12 : a11 = a12)
-  : a0 = a12  <br />
+  : a0 = a12    
   := 12ary-concat A a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12
-      p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12</p>
-<p>-- For convenience, here is a higher-order concatenation operation</p>
-<h1 id="def-13ary-concat">def 13ary-concat</h1>
-<p>(A : U)
+      p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
+
+-- For convenience, here is a higher-order concatenation operation
+#def 13ary-concat
+  (A : U)
   (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
@@ -560,10 +566,11 @@
   : a0 = a13
   := quintuple-concat A a0 a1 a2 a3 a4 a13 p1 p2 p3 p4 
       (quintuple-concat A a4 a5 a6 a7 a8 a13 p5 p6 p7 p8
-        (quintuple-concat A a8 a9 a10 a11 a12 a13 p9 p10 p11 p12 p13))</p>
-<p>-- Same as above but with alternating arguments</p>
-<h1 id="def-13ary-concat-alternating">def 13ary-concat-alternating</h1>
-<p>(A : U)
+        (quintuple-concat A a8 a9 a10 a11 a12 a13 p9 p10 p11 p12 p13))
+
+-- Same as above but with alternating arguments
+#def 13ary-concat-alternating
+  (A : U)
   (a0 a1 : A)
   (p1 : a0 = a1)
   (a2 : A)
@@ -590,9 +597,43 @@
   (p12 : a11 = a12)
   (a13 : A)
   (p13 : a12 = a13)
-  : a0 = a13  <br />
-  := 13ary-concat A a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13<br />
-      p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 </p>
+  : a0 = a13    
+  := 13ary-concat A a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13  
+      p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 
+</code></pre>
+<h2 id="products">Products</h2>
+<pre><code class="language-rzk">#def path-product
+  (A B : U)
+  (a a' : A)
+  (b b' : B)
+  (e_A : a = a')
+  (e_B : b = b')
+  : (a, b) =_{prod A B} (a', b')
+  := transport A (\x -&gt; (a, b) =_{prod A B} (x, b')) a a' e_A
+      (transport B (\y -&gt; (a, b) =_{prod A B} (a, y)) b b' e_B refl)
+
+#def first-path-product
+  (A B : U)
+  (x y : prod A B)
+  (e : x =_{prod A B} y)
+  : first x = first y
+  := ap (prod A B) A x y (\z -&gt; first z) e
+
+#def second-path-product
+  (A B : U)
+  (x y : prod A B)
+  (e : x =_{prod A B} y)
+  : second x = second y
+  := ap (prod A B) B x y (\z -&gt; second z) e
+
+#def first-path-sigma
+  (A : U)
+  (B : A -&gt; U)
+  (x y : ∑ (a : A), B a)
+  (e : x =_{∑ (a : A), B a} y)
+  : first x = first y
+  := ap (∑ (a : A), B a) A x y (\z -&gt; first z) e
+</code></pre>
               
             </div>
           </div><footer>
