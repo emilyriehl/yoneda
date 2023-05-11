@@ -514,4 +514,14 @@ This is a literate `rzk` file:
   (e : x =_{∑ (a : A), B a} y)
   : first x = first y
   := ap (∑ (a : A), B a) A x y (\z -> first z) e
+
+#def second-path-sigma
+    (A : U)
+    (B : A -> U)
+    (z w : ∑ (a : A), B a)
+    (p : z = w) 
+    : (transport A B (first z) (first w) (first-path-sigma A B z w p) (second z)) = (second w)
+    := idJ((∑ (a : A), B a), z, 
+            \w' p' -> (transport A B (first z) (first w') (first-path-sigma A B z w' p') (second z)) = (second w'), 
+            refl, w, p)  
 ```
