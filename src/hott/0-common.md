@@ -24,29 +24,33 @@ This is a literate `rzk` file:
 
 ## Basic function definitions
 ```rzk
+#section basic-functions
+
+#variables A B C D : U
+
 #def composition 
-  (A B C : U)     -- Three types.
   (g : B -> C)    -- The second function.
   (f : A -> B)    -- The first function.
   : A -> C        -- The composite function.
   := \z -> g (f z)
 
 #def triple-composition 
-  (A B C D : U)
   (h : C -> D) 
   (g : B -> C) 
   (f : A -> B)
   : A -> D  
   := \z -> h (g (f z))
 
-#def identity (A : U) (a : A) : A
-  := a  
+#def identity 
+  : A -> A
+  := \a -> a  
 
 #def constant 
-  (X A : U)       -- The source and target types.
-  (a : A)         -- The constant output value.
-  : X -> A
-  := \x -> a
+  (b : B)         -- The constant output value.
+  : A -> B
+  := \a -> b
+
+#end basic-functions
 ```
 ## Substitution
 ```rzk

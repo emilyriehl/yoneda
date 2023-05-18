@@ -9,25 +9,20 @@ This is a literate `rzk` file:
 ## Some basic path algebra
 
 ```rzk
+
+#section path-algebra
+
+#variable A : U
+#variables x y z : A
+
 -- path reversal
 #def rev 
-  (A : U)           -- A type.
-  (x y : A)         -- Two points.
   (p : x = y)       -- A path from x to y in A.
   : y = x           -- The reversal will be defined by path induction on p.
   := idJ(A, x, \y' p' -> y' = x, refl, y, p)
 
-#def rev-involution
-  (A : U)           -- A type.
-  (x y : A)         -- Two points.
-  (p : x = y)       -- A path from x to y in A.
-  : (rev A y x (rev A x y p)) = p
-  := idJ(A, x, \y' p' -> (rev A y' x (rev A x y' p')) = p', refl, y, p)
-
 -- path composition by induction on the second path
 #def concat 
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
   (p : x = y)       -- A path from x to y in A.
   (q : y = z)       -- A path from y to z in A.
   : (x = z)
@@ -36,24 +31,34 @@ This is a literate `rzk` file:
 -- an alternative construction of path composition by induction on the first path
 -- this is useful in situations where it's easier to induction on the first path
 #def altconcat 
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
   (p : x = y)       -- A path from x to y in A.
   : (y = z) -> (x = z)
   := idJ(A, x, \y' p' -> (y' = z) -> (x = z), \q' -> q', y, p)
 
+#end path-algebra
+```
+
+## Some basic coherences in path algebra
+
+```rzk
+#section basic-path-coherence
+
+#variable A : U
+#variables w x y z : A
+
+#def rev-involution
+  (p : x = y)       -- A path from x to y in A.
+  : (rev A y x (rev A x y p)) = p
+  := idJ(A, x, \y' p' -> (rev A y' x (rev A x y' p')) = p', refl, y, p)
+
 -- the coherence we don't have definitionally
 #def refl-concat 
-  (A : U)
-  (x y : A)
   (p : x = y)
   : (concat A x x y refl p) = p
   := idJ(A, x, \y' p' -> (concat A x x y' refl p') = p', refl, y, p)
 
 -- associativity
 #def concat-assoc  
-  (A : U)             -- A type.
-  (w x y z : A)       -- Four points.
   (p : w = x)         -- A path from w to x in A.
   (q : x = y)         -- A path from x to y in A.
   (r : y = z)         -- A path from y to z in A.
@@ -61,8 +66,6 @@ This is a literate `rzk` file:
   := idJ(A, y, \z' r' -> concat A w y z' (concat A w x y p q) r' = concat A w x z' p (concat A x y z' q r'), refl, z, r)
 
 #def assoc-concat  
-  (A : U)             -- A type.
-  (w x y z : A)       -- Four points.
   (p : w = x)         -- A path from w to x in A.
   (q : x = y)         -- A path from x to y in A.
   (r : y = z)         -- A path from y to z in A.
@@ -70,42 +73,17 @@ This is a literate `rzk` file:
   := idJ(A, y, \z' r' -> concat A w x z' p (concat A x y z' q r') = concat A w y z' (concat A w x y p q) r', refl, z, r)
 
 #def rev-right-inverse
-  (A : U)             -- A type.
-  (x y : A)
   (p : x = y)
   : concat A x y x p (rev A x y p) = refl
   := idJ(A, x, \y' p' -> concat A x y' x p' (rev A x y' p') = refl, refl, y, p)
 
 #def rev-left-inverse
-  (A : U)             -- A type.
-  (x y : A)
   (p : x = y)
   : concat A y x y (rev A x y p) p = refl
   := idJ(A, x, \y' p' -> concat A y' x y' (rev A x y' p') p' = refl, refl, y, p)
 
--- a higher path comparing the two compositions
-#def concat-altconcat 
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
-  (p : x = y)       -- A path from x to y in A.
-  : (q : y = z) -> (concat A x y z p q) = (altconcat A x y z p q)
-  := idJ(A, x, 
-      \y' -> \p' -> (q' : y' =_{A} z) -> (concat A x y' z p' q') =_{x =_{A} z} altconcat A x y' z p' q', 
-      \q' -> refl-concat A x z q', y, p)
-
--- a higher path comparing the two compositions in the other order
-#def altconcat-concat 
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
-  (p : x = y)       -- A path from x to y in A.
-  (q : y = z)       -- A path from y to z in A.
-  : (altconcat A x y z p q) = concat A x y z p q
-  := rev (x = z) (concat A x y z p q) (altconcat A x y z p q) (concat-altconcat A x y z p q)
-
 -- concatenation of two paths with common codomain; defined using concat and rev
 #def zig-zag-concat
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
   (p : x = y)       -- A path from x to y in A.
   (q : z = y)       -- A path from z to y in A.
   : (x = z)
@@ -113,34 +91,38 @@ This is a literate `rzk` file:
 
 -- concatenation of two paths with common domain; defined using concat and rev
 #def zag-zig-concat  
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
   (p : y = x)       -- A path from y to x in A.
   (q : y = z)       -- A path from y to z in A. 
   : (x = z)
   := concat A x y z (rev A y x p) q
 
+#def concat-right-cancel 
+  (p q : x = y)     -- Two paths from x to y in A.
+  (r : y = z)       -- A path from y to z in A.
+  : ((concat A x y z p r) = (concat A x y z q r)) -> (p = q)
+  := idJ(A, y, \z' r' -> (H : (concat A x y z' p r') = (concat A x y z' q r')) -> (p = q), \H -> H, z, r)    
+
+#end basic-path-coherence
+```
+
+## Some derived coherences in path algebra
+
+The statements or proofs of the following path algebra coherences reference one of the path algebra coherences defined above.
+
+```rzk
+#section derived-path-coherence
+#variable A : U
+#variables x y z : A
+
 #def rev-concat
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
   (p : x = y)       -- A path from x to y in A.
   (q : y = z)       -- A path from y to z in A.
   : (rev A x z (concat A x y z p q)) = (concat A z y x (rev A y z q) (rev A x y p))
   := idJ(A, y, \z' q' -> (rev A x z' (concat A x y z' p q')) = (concat A z' y x (rev A y z' q') (rev A x y p)), 
     rev (y = x) (concat A y y x refl (rev A x y p)) (rev A x y p) (refl-concat A y x (rev A x y p)), z, q)
 
-#def concat-right-cancel 
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
-  (p q : x = y)     -- Two paths from x to y in A.
-  (r : y = z)       -- A path from y to z in A.
-  : ((concat A x y z p r) = (concat A x y z q r)) -> (p = q)
-  := idJ(A, y, \z' r' -> (H : (concat A x y z' p r') = (concat A x y z' q r')) -> (p = q), \H -> H, z, r)    
-
 -- postwhiskering paths of paths
 #def homotopy-concat 
-  (A : U)           -- A type.
-  (x y z : A)       -- Three points.
   (p q : x = y)     -- Two paths from x to y in A.
   (H : p = q) 
   (r : y = z)
@@ -149,8 +131,6 @@ This is a literate `rzk` file:
 
 -- prewhiskering paths of paths is much harder
 #def concat-homotopy 
-  (A : U) 
-  (x y : A)
   (p : x = y)
   : (z : A) -> (q : y = z) -> (r : y = z) -> (H : q = r) -> (concat A x y z p q) = (concat A x y z p r)
   := idJ(A, x, 
@@ -163,10 +143,23 @@ This is a literate `rzk` file:
             (rev (x = z) (concat A x x z refl r) r (refl-concat A x z r)), 
         y, p)
 
+-- a higher path comparing the two compositions
+#def concat-altconcat 
+  (p : x = y)       -- A path from x to y in A.
+  : (q : y = z) -> (concat A x y z p q) = (altconcat A x y z p q)
+  := idJ(A, x, 
+      \y' -> \p' -> (q' : y' =_{A} z) -> (concat A x y' z p' q') =_{x =_{A} z} altconcat A x y' z p' q', 
+      \q' -> refl-concat A x z q', y, p)
+
+-- a higher path comparing the two compositions in the other order
+#def altconcat-concat 
+  (p : x = y)       -- A path from x to y in A.
+  (q : y = z)       -- A path from y to z in A.
+  : (altconcat A x y z p q) = concat A x y z p q
+  := rev (x = z) (concat A x y z p q) (altconcat A x y z p q) (concat-altconcat p q)
+
 -- this is easier to prove for altconcat then for concat
 #def alt-triangle-rotation 
-  (A : U) 
-  (x y z : A) 
   (p : x = z)
   (q : x = y)
   : (r : y = z) -> (H : p = altconcat A x y z q r) -> (altconcat A y x z (rev A x y q) p) = r
@@ -175,6 +168,9 @@ This is a literate `rzk` file:
         -> (altconcat A y' x z (rev A x y' q') p) = r', 
       \r' H' -> H', y, q)
 
+#end derived-path-coherence
+
+-- This needs to be outside the previous section because of the usage of concat-altconcat A y x
 #def triangle-rotation 
   (A : U) 
   (x y z : A) 
@@ -190,7 +186,6 @@ This is a literate `rzk` file:
             H 
             (concat-altconcat A x y z q r)))
 ```
-
 
 ## Application of functions to paths
 
