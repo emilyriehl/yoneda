@@ -151,29 +151,33 @@
   := prod (A -&gt; B) (B -&gt; A)
 </code></pre>
 <h2 id="basic-function-definitions">Basic function definitions</h2>
-<pre><code class="language-rzk">#def composition 
-  (A B C : U)     -- Three types.
+<pre><code class="language-rzk">#section basic-functions
+
+#variables A B C D : U
+
+#def composition 
   (g : B -&gt; C)    -- The second function.
   (f : A -&gt; B)    -- The first function.
   : A -&gt; C        -- The composite function.
   := \z -&gt; g (f z)
 
 #def triple-composition 
-  (A B C D : U)
   (h : C -&gt; D) 
   (g : B -&gt; C) 
   (f : A -&gt; B)
   : A -&gt; D  
   := \z -&gt; h (g (f z))
 
-#def identity (A : U) (a : A) : A
-  := a  
+#def identity 
+  : A -&gt; A
+  := \a -&gt; a  
 
 #def constant 
-  (X A : U)       -- The source and target types.
-  (a : A)         -- The constant output value.
-  : X -&gt; A
-  := \x -&gt; a
+  (b : B)         -- The constant output value.
+  : A -&gt; B
+  := \a -&gt; b
+
+#end basic-functions
 </code></pre>
 <h2 id="substitution">Substitution</h2>
 <pre><code class="language-rzk">-- Reindexing a type family along a function into the base type.  
