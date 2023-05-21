@@ -5,23 +5,24 @@ nav:
     - About: index.md
 
   - HoTT:
-      - Common: hott/0-common.md
-      - Paths: hott/1-paths.md
-      - Homotopies: hott/2-homotopies.md     
-      - Equivalences: hott/3-equivalences.md
-      - Contractible: hott/4-contractible.md
-      - Sigma types: hott/5-sigma.md
-      - Fibers: hott/6-fibers.md
-      - Trivial fibrations: hott/7-trivial-fibrations.md
+      - Common: hott/00-common.md
+      - Paths: hott/01-paths.md
+      - Homotopies: hott/02-homotopies.md     
+      - Equivalences: hott/03-equivalences.md
+      - Contractible: hott/04-contractible.md
+      - Sigma types: hott/05-sigma.md
+      - Fibers: hott/06-fibers.md
+      - Trivial fibrations: hott/07-trivial-fibrations.md
 
   - Simplicial HoTT:
-      - Simplicial Type Theory: simplicial-hott/3-simplicial-type-theory.md
-      - Extension Types: simplicial-hott/4-extension-types.md
-      - Segal Types: simplicial-hott/5-segal-types.md
-      - 2-Category of Segal Types: simplicial-hott/6-2cat-of-segal-types.md
-      - Discrete Types: simplicial-hott/7-discrete.md
-      - Covariantly Functorial Type Families: simplicial-hott/8-covariant.md
-      - The Yoneda Lemma: simplicial-hott/9-yoneda.md
+      - Simplicial Type Theory: simplicial-hott/03-simplicial-type-theory.md
+      - Extension Types: simplicial-hott/04-extension-types.md
+      - Segal Types: simplicial-hott/05-segal-types.md
+      - 2-Category of Segal Types: simplicial-hott/06-2cat-of-segal-types.md
+      - Discrete Types: simplicial-hott/07-discrete.md
+      - Covariantly Functorial Type Families: simplicial-hott/08-covariant.md
+      - The Yoneda Lemma: simplicial-hott/09-yoneda.md
+      - Cocartesian Families: simplicial-hott/12-cocartesian.md
       
 markdown_extensions:
   - mdx_math
