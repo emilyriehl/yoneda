@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>2-Category of Segal Types - yoneda</title>
+    <title>0. Common - yoneda</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -30,8 +30,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "2-Category of Segal Types";
-        var mkdocs_page_input_path = "simplicial-hott/6-2cat-of-segal-types.md";
+        var mkdocs_page_name = "0. Common";
+        var mkdocs_page_input_path = "hott/00-common.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -66,44 +66,38 @@
               </ul>
               <p class="caption"><span class="caption-text">HoTT</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/0-common/">Common</a>
+                  <li class="toctree-l1"><a class="" href="../0-common.md">Common</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/1-paths/">Paths</a>
+                  <li class="toctree-l1"><a class="" href="../1-paths.md">Paths</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/2-homotopies/">Homotopies</a>
+                  <li class="toctree-l1"><a class="" href="../2-homotopies.md">Homotopies</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/3-equivalences/">Equivalences</a>
+                  <li class="toctree-l1"><a class="" href="../3-equivalences.md">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/4-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="" href="../4-contractible.md">Contractible</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/5-sigma/">Sigma types</a>
+                  <li class="toctree-l1"><a class="" href="../5-sigma.md">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/6-fibers/">Fibers</a>
+                  <li class="toctree-l1"><a class="" href="../6-fibers.md">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/7-trivial-fibrations/">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="" href="../7-trivial-fibrations.md">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../3-simplicial-type-theory/">Simplicial Type Theory</a>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/3-simplicial-type-theory.md">Simplicial Type Theory</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../4-extension-types/">Extension Types</a>
+                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/4-extension-types.md">Extension Types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../5-segal-types/">Segal Types</a>
+                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/5-segal-types.md">Segal Types</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">2-Category of Segal Types</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#functors">Functors</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/6-2cat-of-segal-types.md">2-Category of Segal Types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../7-discrete/">Discrete Types</a>
+                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/7-discrete.md">Discrete Types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../8-covariant/">Covariantly Functorial Type Families</a>
+                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/8-covariant.md">Covariantly Functorial Type Families</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../9-yoneda/">The Yoneda Lemma</a>
+                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/9-yoneda.md">The Yoneda Lemma</a>
                   </li>
               </ul>
       </div>
@@ -120,8 +114,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Simplicial HoTT &raquo;</li>
-      <li>2-Category of Segal Types</li>
+      <li>0. Common</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -130,83 +123,63 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="the-2-category-of-segal-types">The 2-category of Segal types</h1>
-<p>These formalisations correspond to Section 6 of RS17 paper.</p>
+                <h1 id="0-common">0. Common</h1>
 <p>This is a literate <code>rzk</code> file:</p>
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
-<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
-<li><code>4-extension-types.md</code> — We use extension extensionality.</li>
-<li><code>5-segal-types.md</code> - We use the notion of hom types.</li>
-</ul>
-<h2 id="functors">Functors</h2>
-<p>Functions between types induce an action on hom types, preserving sources and targets.</p>
-<pre><code class="language-rzk">-- [RS17, Section 6.1]
--- Action of maps on homs. Called &quot;ap-hom&quot; to avoid conflicting with &quot;ap&quot;.
-#def ap-hom 
-    (A B : U)
-    (F : A -&gt; B)
-    (x y : A)
-    (f : hom A x y)
-    : hom B (F x) (F y)
-  := \t -&gt; F (f t)
+<h2 id="products-of-types">Products of types</h2>
+<pre><code class="language-rzk">#def prod (A B : U) : U
+  := ∑ (x : A), B
 
-#def ap-hom2
-    (A B : U)
-    (F : A -&gt; B)
-    (x y z : A)
-    (f : hom A x y)
-    (g : hom A y z)
-    (h : hom A x z)
-    (alpha : hom2 A x y z f g h)
-    : hom2 B (F x) (F y) (F z) (ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z h)
-  := \t -&gt; F (alpha t)
-
+-- defined to illustrate the syntax for terms in sigma types
+#def diagonal (A : U) (a : A) : prod A A
+  := (a , a)
 </code></pre>
-<p>Functions between types automatically preserve identity arrows.</p>
-<pre><code class="language-rzk">-- [RS17, Proposition 6.1.a]
--- Preservation of identities follows from extension extensionality because these arrows are pointwise equal.
-#def functors-pres-id
-    (extext : ExtExt)
-    (A B : U)
-    (F : A -&gt; B)
-    (x : A) 
-    : (ap-hom A B F x x (id-arr A x)) = (id-arr B (F x))
-    := extext 
-        2
-        Δ¹
-        ∂Δ¹
-        (\t -&gt; B)
-        (\t -&gt; recOR(
-            t === 0_2 |-&gt; F x,
-            t === 1_2 |-&gt; F x))
-        (ap-hom A B F x x (id-arr A x))
-        (id-arr B (F x))
-        (\t -&gt; refl)
+<h2 id="the-type-of-logical-equivalences-between-types">The type of logical equivalences between types</h2>
+<pre><code class="language-rzk">#def iff (A B : U) : U
+  := prod (A -&gt; B) (B -&gt; A)
+</code></pre>
+<h2 id="basic-function-definitions">Basic function definitions</h2>
+<pre><code class="language-rzk">#section basic-functions
 
--- [RS17, Proposition 6.1.b]
--- Preservation of composition requires the Segal hypothesis.
-#def functors-pres-comp
-    (A B : U)
-    (AisSegal : isSegal A)
-    (BisSegal : isSegal B)
-    (F : A -&gt; B)
-    (x y z : A)         
-    (f : hom A x y)
-    (g : hom A y z)
-    : (Segal-comp B BisSegal (F x) (F y) (F z) (ap-hom A B F x y f) (ap-hom A B F y z g)) = (ap-hom A B F x z (Segal-comp A AisSegal x y z f g))
-    := Segal-comp-uniqueness B BisSegal (F x) (F y) (F z) (ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z (Segal-comp A AisSegal x y z f g))
-    (ap-hom2 A B F x y z f g (Segal-comp A AisSegal x y z f g) (Segal-comp-witness A AisSegal x y z f g))
+#variables A B C D : U
+
+#def composition 
+  (g : B -&gt; C)    -- The second function.
+  (f : A -&gt; B)    -- The first function.
+  : A -&gt; C        -- The composite function.
+  := \z -&gt; g (f z)
+
+#def triple-composition 
+  (h : C -&gt; D) 
+  (g : B -&gt; C) 
+  (f : A -&gt; B)
+  : A -&gt; D  
+  := \z -&gt; h (g (f z))
+
+#def identity 
+  : A -&gt; A
+  := \a -&gt; a  
+
+#def constant 
+  (b : B)         -- The constant output value.
+  : A -&gt; B
+  := \a -&gt; b
+
+#end basic-functions
+</code></pre>
+<h2 id="substitution">Substitution</h2>
+<pre><code class="language-rzk">-- Reindexing a type family along a function into the base type.  
+#def reindex 
+  (A B : U) 
+  (f : B -&gt; A) 
+  (C : A -&gt; U) 
+  : (B -&gt; U)
+  := \b -&gt; C (f b)
 </code></pre>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../5-segal-types/" class="btn btn-neutral float-left" title="Segal Types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../7-discrete/" class="btn btn-neutral float-right" title="Discrete Types">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -228,10 +201,6 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../5-segal-types/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../7-discrete/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
