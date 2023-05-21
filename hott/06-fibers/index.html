@@ -5,32 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>7. Fibers - yoneda</title>
+    <title>Fibers - yoneda</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/rzk/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/rzk/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/rzk/favicon-16x16.png">
-    <link rel="manifest" href="/rzk/site.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
 <!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
-    <link rel="stylesheet" href="../../css/highlightjs-copy.css" />
-    <script src="../../js/highlight-11.7.0.min.js"></script>
-    <script src="../../js/rzk.js"></script>
-    <link rel="stylesheet" href="../../css/gruvbox-light.css" />
-    <!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
-    <script src="../../js/highlightjs-copy.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script>
-      hljs.addPlugin(new CopyButtonPlugin());
-      hljs.highlightAll();
-    </script>
-    
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
     
       <script>
         // Current page data
-        var mkdocs_page_name = "7. Fibers";
+        var mkdocs_page_name = "Fibers";
         var mkdocs_page_input_path = "hott/06-fibers.md";
         var mkdocs_page_url = null;
       </script>
@@ -65,39 +65,59 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">HoTT</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="" href="../0-common.md">Common</a>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00-common/">Common</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../1-paths.md">Paths</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-paths/">Paths</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../2-homotopies.md">Homotopies</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-homotopies/">Homotopies</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../3-equivalences.md">Equivalences</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../4-contractible.md">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-contractible/">Contractible</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../5-sigma.md">Sigma types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../6-fibers.md">Fibers</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Fibers</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#fibers">Fibers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contractible-maps">Contractible maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#half-adjoint-equivalences-are-contractible">Half adjoint equivalences are contractible.</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equivalences-are-contractible-maps">Equivalences are contractible maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fiber-of-total-map">Fiber of total map</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#families-of-equivalences">Families of equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#codomain-based-path-spaces">Codomain based path spaces</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pullback-of-a-type-family">Pullback of a type family</a>
+    </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../7-trivial-fibrations.md">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/3-simplicial-type-theory.md">Simplicial Type Theory</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/03-simplicial-type-theory/">Simplicial Type Theory</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/4-extension-types.md">Extension Types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/04-extension-types/">Extension Types</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/5-segal-types.md">Segal Types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/05-segal-types/">Segal Types</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/6-2cat-of-segal-types.md">2-Category of Segal Types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/06-2cat-of-segal-types/">2-Category of Segal Types</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/7-discrete.md">Discrete Types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/07-discrete/">Discrete Types</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/8-covariant.md">Covariantly Functorial Type Families</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/08-covariant/">Covariantly Functorial Type Families</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../simplicial-hott/9-yoneda.md">The Yoneda Lemma</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/09-yoneda/">The Yoneda Lemma</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/12-cocartesian/">Cocartesian Families</a>
                   </li>
               </ul>
       </div>
@@ -114,7 +134,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>7. Fibers</li>
+          <li>HoTT &raquo;</li>
+      <li>Fibers</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -1370,6 +1391,10 @@
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../05-sigma/" class="btn btn-neutral float-left" title="Sigma types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../07-trivial-fibrations/" class="btn btn-neutral float-right" title="Trivial fibrations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -1391,6 +1416,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../05-sigma/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../07-trivial-fibrations/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
