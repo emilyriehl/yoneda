@@ -1,4 +1,4 @@
-# 3. Homotopies
+# 2. Homotopies
 
 This is a literate `rzk` file:
 
@@ -8,31 +8,42 @@ This is a literate `rzk` file:
 ## Homotopies and their algebra
 
 ```rzk
+#section homotopies
+
+#variables A B : U
+
 -- The type of homotopies between parallel functions.
 #def homotopy 
-    (A B : U)               -- Two types.
     (f g : A -> B)          -- Two parallel functions.
     : U
     := (a : A) -> (f a = g a)
-    
+
+-- The reversal of a homotopy    
 #def homotopy-rev 
-    (A B : U)               -- Two types.
     (f g : A -> B)          -- Two parallel functions.
-    (H : homotopy A B f g)  -- A homotopy from f to g.
-    : homotopy A B g f
+    (H : homotopy f g)  -- A homotopy from f to g.
+    : homotopy g f
     := \a -> rev B (f a) (g a) (H a)
 
 -- Homotopy composition is defined in diagrammatic order like concat but unlike composition.
 #def homotopy-composition 
-    (A B : U)                 -- Two types.
     (f g h : A -> B)          -- Three parallel functions.
-    (H : homotopy A B f g)
-    (K : homotopy A B g h)
-    : homotopy A B f h
+    (H : homotopy f g)
+    (K : homotopy g h)
+    : homotopy f h
     := \a -> concat B (f a) (g a) (h a) (H a) (K a)
 
+#end homotopies
+```
+
+## Whiskering homotopies
+
+```rzk
+#section homotopy-whiskering
+
+#variables A B C : U
+
 #def homotopy-postwhisker 
-    (A B C : U)                 -- Three types.
     (f g : A -> B)              -- Two parallel functions.
     (H : homotopy A B f g)      -- A homotopy from f to g.
     (h : B -> C)
@@ -40,12 +51,13 @@ This is a literate `rzk` file:
     := \a -> ap B C (f a) (g a) h (H a)
 
 #def homotopy-prewhisker 
-    (A B C : U)                 -- Three types.
     (f g : B -> C)              -- Two parallel functions
     (H : homotopy B C f g)
     (h : A -> B)
     : homotopy A C (composition A B C f h) (composition A B C g h)
     := \a -> H (h a)
+
+#end homotopy-whiskering
 ```
 
 ## Naturality
@@ -66,42 +78,43 @@ This is a literate `rzk` file:
                    (concat B (f x) (g x) (g y') 
                         (H x) (ap A B x y' g p')), 
             refl-concat B (f x) (g x) (H x), y, p)
+```
+
+## An application
+
+```rzk
+#section cocone-naturality
+
+#variable A : U
+#variable f : A -> A
+#variable H : homotopy A A f (identity A)
+#variable a : A
 
 -- In the case of a homotopy H from f to the identity the previous square applies to the path H a to produce the following naturality square.
-#def a-cylinder-homotopy-coherence 
-    (A : U)
-    (f : A -> A) 
-    (H : homotopy A A f (identity A))
-    (a : A) 
+#def cocone-naturality 
     : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
             (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
     := nat-htpy A A f (identity A) H (f a) a (H a)
 
 -- After composing with ap-id, this naturality square transforms to the following:
-#def another-cylinder-homotopy-coherence 
-    (A : U)
-    (f : A -> A) 
-    (H : homotopy A A f (identity A))
-    (a : A) 
+#def reduced-cocone-naturality 
     : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
             (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
     := concat ((f (f a)) = a) (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) 
             (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
             (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
-                (a-cylinder-homotopy-coherence A f H a)
+                (cocone-naturality)
                 (concat-homotopy A (f (f a)) (f a) (H (f a)) a (ap A A (f a) a (identity A) (H a)) (H a) (ap-id A (f a) a (H a)))
 
 -- Cancelling the path (H a) on the right and reversing yields a path we need:
-#def cylinder-homotopy-coherence 
-    (A : U)
-    (f : A -> A) 
-    (H : homotopy A A f (identity A))
-    (a : A) 
+#def cocone-naturality-coherence 
     : (H (f a)) =(ap A A (f a) a  f (H a))  
     := rev (f (f a) = f a) (ap A A (f a) a  f (H a)) (H (f a)) 
         (concat-right-cancel A (f (f a)) (f a) a 
             (ap A A (f a) a  f (H a)) 
             (H (f a)) 
             (H a) 
-                (another-cylinder-homotopy-coherence A f H a))
+                (reduced-cocone-naturality))
+
+#end cocone-naturality                
 ```
