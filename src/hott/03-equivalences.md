@@ -1,4 +1,4 @@
-# 4. Equivalences 
+# 3. Equivalences 
 
 This is a literate `rzk` file:
 
@@ -176,7 +176,7 @@ This is a literate `rzk` file:
                 (hasInverse-retraction-composite A B f fhasinverse) (identity A) (first (second fhasinverse)) f)))
 ```
 
-## Invertible maps are half adjoint equivalences
+## Coherence data from an invertible map
 
 ```rzk
 -- To promote an invertible map to a half adjoint equivalence we keep one homotopy and discard the other
@@ -328,10 +328,12 @@ This is a literate `rzk` file:
             ((hasInverse-discarded-htpy A B f fhasinverse (f a))))
             (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a)) hasInverse-replaced-naturality-square
-
 #end has-inverse-coherence
+```
 
+## Invertible maps are half adjoint equivalences
 
+```rzk
 -- to promote an invertible map to a half adjoint equivalence we change the data of the invertible map by replacing the discarded homotopy with the corrected one.
 #def hasInverse-correctedhasInverse 
     (A B : U)
@@ -361,8 +363,10 @@ This is a literate `rzk` file:
 
 ```rzk
 -- The type of equivalences between types uses the propositional notion isEquiv rather than the incoherent hasInverse.
-#def Eq (A B : U) : U
-  :=  ∑ (f : A -> B), ((isEquiv A) B) f
+#def Eq 
+    (A B : U) 
+    : U
+    :=  ∑ (f : A -> B), ((isEquiv A) B) f
 
 -- The data of an equivalence is not symmetric so we promote an equivalence to an invertible map to prove symmetry
 #def sym_Eq 
