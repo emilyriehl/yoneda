@@ -86,6 +86,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#half-adjoint-equivalences">Half adjoint equivalences</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#coherence-data-from-an-invertible-map">Coherence data from an invertible map</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#invertible-maps-are-half-adjoint-equivalences">Invertible maps are half adjoint equivalences</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#composing-equivalences">Composing equivalences</a>
@@ -146,7 +148,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="4-equivalences">4. Equivalences</h1>
+                <h1 id="3-equivalences">3. Equivalences</h1>
 <p>This is a literate <code>rzk</code> file:</p>
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
@@ -303,7 +305,7 @@
             = ((homotopy-postwhisker A A B 
                 (hasInverse-retraction-composite A B f fhasinverse) (identity A) (first (second fhasinverse)) f)))
 </code></pre>
-<h2 id="invertible-maps-are-half-adjoint-equivalences">Invertible maps are half adjoint equivalences</h2>
+<h2 id="coherence-data-from-an-invertible-map">Coherence data from an invertible map</h2>
 <pre><code class="language-rzk">-- To promote an invertible map to a half adjoint equivalence we keep one homotopy and discard the other
 #def hasInverse-kept-htpy 
     (A B : U)
@@ -453,11 +455,10 @@
             ((hasInverse-discarded-htpy A B f fhasinverse (f a))))
             (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a)) hasInverse-replaced-naturality-square
-
 #end has-inverse-coherence
-
-
--- to promote an invertible map to a half adjoint equivalence we change the data of the invertible map by replacing the discarded homotopy with the corrected one.
+</code></pre>
+<h2 id="invertible-maps-are-half-adjoint-equivalences">Invertible maps are half adjoint equivalences</h2>
+<pre><code class="language-rzk">-- to promote an invertible map to a half adjoint equivalence we change the data of the invertible map by replacing the discarded homotopy with the corrected one.
 #def hasInverse-correctedhasInverse 
     (A B : U)
     (f : A -&gt; B) 
@@ -483,8 +484,10 @@
 </code></pre>
 <h2 id="composing-equivalences">Composing equivalences</h2>
 <pre><code class="language-rzk">-- The type of equivalences between types uses the propositional notion isEquiv rather than the incoherent hasInverse.
-#def Eq (A B : U) : U
-  :=  ∑ (f : A -&gt; B), ((isEquiv A) B) f
+#def Eq 
+    (A B : U) 
+    : U
+    :=  ∑ (f : A -&gt; B), ((isEquiv A) B) f
 
 -- The data of an equivalence is not symmetric so we promote an equivalence to an invertible map to prove symmetry
 #def sym_Eq 

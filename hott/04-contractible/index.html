@@ -283,6 +283,11 @@
           (a, b a)
           (second ABisContr (a, b a)))
 </code></pre>
+<pre><code class="language-rzk">#def isProp
+  (A : U)
+  : U
+  := (a : A) -&gt; (b : A) -&gt; isContr(a = b)
+</code></pre>
               
             </div>
           </div><footer>
