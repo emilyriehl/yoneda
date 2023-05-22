@@ -6,66 +6,70 @@ This is a literate `rzk` file:
 #lang rzk-1
 ```
 
-## Sections and retractions
+## Sections, retractions, and equivalences
 ```rzk
+#section is-equiv
+
+#variables A B : U
+
 #def hasSection 
-    (A B : U)
     (f : A -> B) 
     : U
     := ∑ (s : B -> A), homotopy B B (composition B A B f s)(identity B)
   
 #def hasRetraction
-    (A B : U)
     (f : A -> B) 
     : U
     := ∑ (r : B -> A), homotopy A A (composition A B A r f)(identity A)
-```
 
-## Equivalences
-```rzk
 -- equivalences are bi-invertible maps
 #def isEquiv     
-    (A B : U)
     (f : A -> B) 
     : U  
-    := prod (hasRetraction A B f) (hasSection A B f)
+    := prod (hasRetraction f) (hasSection f)
 
-#def isEquiv-section
-    (A B : U)
-    (f : A -> B) 
-    (fisequiv : isEquiv A B f)
+#end is-equiv
+```
+
+## Equivalence data
+
+```rzk
+#section equivalence-data
+
+#variables A B : U
+#variable f : A -> B
+#variable fisequiv : isEquiv A B f
+
+#def isEquiv-section uses (f)
     : B -> A
     := (first (second fisequiv))
 
-#def isEquiv-retraction     
-    (A B : U)
-    (f : A -> B) 
-    (fisequiv : isEquiv A B f)
+#def isEquiv-retraction uses (f)
     : B -> A
     := (first (first fisequiv))
 
 -- the homotopy between the section and retraction of an equivalence
-#def isEquiv-htpic-inverses 
-    (A B : U)
-    (f : A -> B) 
-    (fisequiv : isEquiv A B f)
-    : homotopy B A (isEquiv-section A B f fisequiv) (isEquiv-retraction A B f fisequiv)
+#def isEquiv-htpic-inverses uses (f)
+    : homotopy B A isEquiv-section isEquiv-retraction
     := homotopy-composition B A 
-            (isEquiv-section A B f fisequiv) 
-            (triple-composition B A B A (isEquiv-retraction A B f fisequiv) f ((isEquiv-section A B f fisequiv))) 
-            (isEquiv-retraction A B f fisequiv) 
+            (isEquiv-section) 
+            (triple-composition B A B A isEquiv-retraction f isEquiv-section) 
+            (isEquiv-retraction) 
             (homotopy-rev B A 
-                (triple-composition B A B A (isEquiv-retraction A B f fisequiv) f ((isEquiv-section A B f fisequiv)))     (isEquiv-section A B f fisequiv)
+                (triple-composition B A B A isEquiv-retraction f isEquiv-section)
+                isEquiv-section
                 (homotopy-prewhisker B A A
-                    (composition A B A (isEquiv-retraction A B f fisequiv) f) 
+                    (composition A B A isEquiv-retraction f) 
                     (identity A) 
                     (second (first fisequiv)) 
-                    (isEquiv-section A B f fisequiv)))
+                    isEquiv-section))
             (homotopy-postwhisker B B A 
-                (composition B A B f (isEquiv-section A B f fisequiv)) 
+                (composition B A B f isEquiv-section) 
                 (identity B) 
                 (second (second fisequiv)) 
-                (isEquiv-retraction A B f fisequiv))
+                isEquiv-retraction)
+
+#end equivalence-data                
 ```
 
 ## Invertible maps
@@ -80,13 +84,6 @@ This is a literate `rzk` file:
         (prod 
             (homotopy A A (composition A B A g f)(identity A))    -- The retracting homotopy
             (homotopy B B (composition B A B f g)(identity B)))   -- The section homotopy
- 
-#def hasInverse-inverse 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    : B -> A
-    := first (fhasinverse)
 ```    
 
 ## Equivalences are invertible maps
@@ -120,40 +117,44 @@ This is a literate `rzk` file:
             second (second  fisequiv)))
 ```
 
+## Invertible map data
+
+```rzk
+#section has-inverse-data
+
+#variables A B : U
+#variable f : A -> B
+#variable fhasinverse : hasInverse A B f
+
+-- The inverse of a map with an inverse
+#def hasInverse-inverse uses (f)
+    : B -> A
+    := first (fhasinverse)
+
+-- Some iterated composites associated to a pair of invertible maps.
+#def hasInverse-retraction-composite uses (B fhasinverse)
+    : A -> A
+    := composition A B A hasInverse-inverse f 
+
+#def hasInverse-section-composite uses (A fhasinverse)
+    : B -> B
+    := composition B A B f hasInverse-inverse
+
+-- This composite is parallel to f; we won't need the dual notion.
+#def hasInverse-triple-composite uses (fhasinverse)
+    : A -> B
+    := triple-composition A B A B f hasInverse-inverse f
+
+-- This composite is also parallel to f; again we won't need the dual notion.
+#def hasInverse-quintuple-composite uses (fhasinverse)
+    : A -> B
+    := \a -> f (hasInverse-inverse (f (hasInverse-inverse (f a))))
+#end has-inverse-data
+```
+
 ## Half adjoint equivalences
 
 ```rzk
--- Some iterated composites associated to a pair of invertible maps.
-#def hasInverse-retraction-composite 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    : A -> A
-    := composition A B A (hasInverse-inverse A B f fhasinverse) f 
-
-#def hasInverse-section-composite 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    : B -> B
-    := composition B A B f (hasInverse-inverse A B f fhasinverse)
-
--- This composite is parallel to f; we won't need the dual notion.
-#def hasInverse-triple-composite 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    : A -> B
-    := triple-composition A B A B f (hasInverse-inverse A B f fhasinverse) f
-
--- This composite is also parallel to f; again we won't need the dual notion.
-#def hasInverse-quintuple-composite
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    : A -> B
-    := \a -> f ((hasInverse-inverse A B f fhasinverse) (f ((hasInverse-inverse A B f fhasinverse) (f a))))
-
 -- We'll require a more coherent notion of equivalence
 #def isHalfAdjointEquiv 
     (A B : U)
@@ -173,7 +174,11 @@ This is a literate `rzk` file:
                 (hasInverse-section-composite A B f fhasinverse) (identity B) (second (second fhasinverse)) f)
             = ((homotopy-postwhisker A A B 
                 (hasInverse-retraction-composite A B f fhasinverse) (identity A) (first (second fhasinverse)) f)))
+```
 
+## Invertible maps are half adjoint equivalences
+
+```rzk
 -- To promote an invertible map to a half adjoint equivalence we keep one homotopy and discard the other
 #def hasInverse-kept-htpy 
     (A B : U)
@@ -189,12 +194,15 @@ This is a literate `rzk` file:
     : homotopy B B (hasInverse-section-composite A B f fhasinverse) (identity B)
     := (second (second fhasinverse))    
 
+#section has-inverse-coherence
+
+#variables A B : U
+#variable f : A -> B
+#variable fhasinverse : hasInverse A B f
+#variable a : A
+
 -- the required coherence will be built by transforming an instance of this naturality square
 #def hasInverse-discarded-naturality-square 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    (a : A) 
     : concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse)(hasInverse-kept-htpy A B f fhasinverse a)) 
             (hasInverse-discarded-htpy A B f fhasinverse (f a)) 
@@ -207,21 +215,13 @@ This is a literate `rzk` file:
             (hasInverse-retraction-composite A B f fhasinverse a) (a) (hasInverse-kept-htpy A B f fhasinverse a)
 
 -- building a path that will be whiskered into the naturality square above
-#def hasInverse-cylinder-homotopy-coherence 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    (a : A) 
+#def hasInverse-cocone-homotopy-coherence 
     : (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
             = ap A A (hasInverse-retraction-composite A B f fhasinverse a) a 
                 (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a)
-    := cylinder-homotopy-coherence A (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse) a
+    := cocone-naturality-coherence A (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse) a
 
-#def hasInverse-ap-cylinder-homotopy-coherence 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    (a : A) 
+#def hasInverse-ap-cocone-homotopy-coherence 
     : ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
             (hasInverse-retraction-composite A B f fhasinverse a) 
             f (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
@@ -234,13 +234,9 @@ This is a literate `rzk` file:
                 (ap A A (hasInverse-retraction-composite A B f fhasinverse a) a 
                     (hasInverse-retraction-composite A B f fhasinverse) 
                     (hasInverse-kept-htpy A B f fhasinverse a))
-            (hasInverse-cylinder-homotopy-coherence A B f fhasinverse a)
+            hasInverse-cocone-homotopy-coherence
 
-#def hasInverse-cylinder-coherence 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    (a : A) 
+#def hasInverse-cocone-coherence 
     : ap A B 
             (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
             (hasInverse-retraction-composite A B f fhasinverse a) 
@@ -258,7 +254,7 @@ This is a literate `rzk` file:
                 (ap A A (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a)))
             (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse) 
                 (hasInverse-kept-htpy A B f fhasinverse a)) 
-            (hasInverse-ap-cylinder-homotopy-coherence A B f fhasinverse a)
+            hasInverse-ap-cocone-homotopy-coherence
             (rev-ap-comp A A B (hasInverse-retraction-composite A B f fhasinverse a) a 
                 (hasInverse-retraction-composite A B f fhasinverse) 
                 f 
@@ -266,10 +262,6 @@ This is a literate `rzk` file:
 
 -- this morally gives the half adjoint inverse coherence; it just requires rotation    
 #def hasInverse-replaced-naturality-square 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    (a : A) 
     : concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
             (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a))
                 (hasInverse-retraction-composite A B f fhasinverse a) f 
@@ -296,15 +288,12 @@ This is a literate `rzk` file:
                     (hasInverse-retraction-composite A B f fhasinverse a) f (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)))
                 (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse) 
                     (hasInverse-kept-htpy A B f fhasinverse a))
-                (hasInverse-cylinder-coherence A B f fhasinverse a)
+                hasInverse-cocone-coherence
                 (hasInverse-discarded-htpy A B f fhasinverse (f a)))
-            (hasInverse-discarded-naturality-square A B f fhasinverse a)
+            hasInverse-discarded-naturality-square
 
 -- This will replace the discarded homotopy
 #def hasInverse-corrected-htpy 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
     : homotopy B B (hasInverse-section-composite A B f fhasinverse) (\b -> b)
     := \b -> concat B 
                 ((hasInverse-section-composite A B f fhasinverse) b) 
@@ -324,11 +313,7 @@ This is a literate `rzk` file:
 
 -- this is the half adjoint coherence
 #def hasInverse-coherence 
-    (A B : U)
-    (f : A -> B) 
-    (fhasinverse : hasInverse A B f)
-    (a : A) 
-    : (hasInverse-corrected-htpy A B f fhasinverse (f a)) 
+    : (hasInverse-corrected-htpy (f a)) 
                 = (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a))
     := triangle-rotation B 
             (hasInverse-quintuple-composite A B f fhasinverse a)(hasInverse-triple-composite A B f fhasinverse a) (f a) 
@@ -342,7 +327,10 @@ This is a literate `rzk` file:
                 f ((first (second fhasinverse)) (hasInverse-inverse A B f fhasinverse (f a))))
             ((hasInverse-discarded-htpy A B f fhasinverse (f a))))
             (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
-            (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a)) (hasInverse-replaced-naturality-square A B f fhasinverse a)
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a)) hasInverse-replaced-naturality-square
+
+#end has-inverse-coherence
+
 
 -- to promote an invertible map to a half adjoint equivalence we change the data of the invertible map by replacing the discarded homotopy with the corrected one.
 #def hasInverse-correctedhasInverse 

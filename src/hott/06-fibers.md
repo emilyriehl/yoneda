@@ -19,11 +19,26 @@ The homotopy fiber of a map is the following type:
     (b : B)
     : U
     := ∑ (a : A), (f a) = b 
+
+-- We calculate the transport of (a, q) : fib b along p : a = a'
+#def transport-in-fiber
+    (A B : U)
+    (f : A -> B)
+    (b : B)
+    (a a' : A)
+    (u : (f a) = b)
+    (p : a = a')
+    : (transport A (\x -> (f x) = b) a a' p u) = 
+        (concat B (f a') (f a) b (ap A B a' a f (rev A a a' p)) u)
+    := idJ(A, a, \a'' p' -> (transport A (\x -> (f x) = b) a a'' p' u) = 
+        (concat B (f a'') (f a) b (ap A B a'' a f (rev A a a'' p')) u), 
+        (rev ((f a) = b) (concat B (f a) (f a) b refl u) u (refl-concat B (f a) b u)), a', p)
+
 ```
 
 ## Contractible maps
 
-A map is contractible iff its fibers are contractible.
+A map is contractible just when its fibers are contractible.
 
 ```rzk
 -- Contractible maps
@@ -37,52 +52,42 @@ A map is contractible iff its fibers are contractible.
 Contractible maps are equivalences:
 
 ```rzk
+#section isEquiv-isContr-map
+
+#variables A B : U
+#variable f : A -> B
+#variable fiscontr : isContr-map A B f
+
 -- The inverse to a contractible map
 #def isContr-map-inverse
-    (A B : U)
-    (f : A -> B)
-    (fiscontr : isContr-map A B f)
     : B -> A
     := \b -> first(contraction-center (fib A B f b) (fiscontr b))
 
 #def isContr-map-hasSection
-    (A B : U)
-    (f : A -> B)
-    (fiscontr : isContr-map A B f)
     : hasSection A B f
-    := (isContr-map-inverse A B f fiscontr, \b -> second(contraction-center (fib A B f b) (fiscontr b)))
+    := (isContr-map-inverse, \b -> second(contraction-center (fib A B f b) (fiscontr b)))
 
-#def isContr-map-data-in-fiber
-    (A B : U)
-    (f : A -> B)
-    (fiscontr : isContr-map A B f)
+#def isContr-map-data-in-fiber uses (fiscontr)
     (a : A)
     : fib A B f (f a)
-    := ((isContr-map-inverse A B f fiscontr) (f a), (second (isContr-map-hasSection A B f fiscontr)) (f a))
+    := (isContr-map-inverse (f a), (second isContr-map-hasSection) (f a))
 
 #def isContr-map-path-in-fiber
-    (A B : U)
-    (f : A -> B)
-    (fiscontr : isContr-map A B f)
     (a : A)
-    : (isContr-map-data-in-fiber A B f fiscontr a) =_{fib A B f (f a)} (a, refl)
-    := contractible-connecting-htpy (fib A B f (f a)) (fiscontr (f a)) (isContr-map-data-in-fiber A B f fiscontr a) (a, refl)
+    : (isContr-map-data-in-fiber a) =_{fib A B f (f a)} (a, refl)
+    := contractible-connecting-htpy (fib A B f (f a)) (fiscontr (f a)) (isContr-map-data-in-fiber a) (a, refl)
 
-#def isContr-map-hasRetraction
-    (A B : U)
-    (f : A -> B)
-    (fiscontr : isContr-map A B f)
+#def isContr-map-hasRetraction uses (fiscontr)
     : hasRetraction A B f    
-    := (isContr-map-inverse A B f fiscontr, 
-        \a -> (ap (fib A B f (f a)) A (isContr-map-data-in-fiber A B f fiscontr a) ((a, refl)) 
-                (\u -> first u) (isContr-map-path-in-fiber A B f fiscontr a)))
+    := (isContr-map-inverse, 
+        \a -> (ap (fib A B f (f a)) A (isContr-map-data-in-fiber a) ((a, refl)) 
+                (\u -> first u) (isContr-map-path-in-fiber a)))
 
-#def isContr-map-isEquiv
-    (A B : U)
-    (f : A -> B)
-    (fiscontr : isContr-map A B f)
+#def isContr-map-isEquiv uses (fiscontr)
     : isEquiv A B f
-    := (isContr-map-hasRetraction A B f fiscontr, isContr-map-hasSection A B f fiscontr)
+    := (isContr-map-hasRetraction, isContr-map-hasSection)
+
+#end isEquiv-isContr-map    
 ```
 
 ## Half adjoint equivalences are contractible.
@@ -103,12 +108,15 @@ We now show that half adjoint equivalences are contractible maps.
 It takes much more work to construct the contracting homotopy. The bath path of this homotopy is straightforward.
 
 ```rzk
+#section half-adjoint-equivalence-fiber-data
+
+#variables A B : U
+#variable f : A -> B
+#variable fisHAE : isHalfAdjointEquiv A B f
+#variable b : B
+#variable z : fib A B f b
+
 #def isHAE-fib-base-path
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : ((hasInverse-inverse A B f (first fisHAE)) b) = (first z)
     := concat A 
         ((hasInverse-inverse A B f (first fisHAE)) b) 
@@ -118,46 +126,22 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             (rev B (f (first z)) b (second z)))
         ((first (second (first fisHAE))) (first z))
 
--- We calculate the transport of (a, q) : fib b along p : a = a'
-#def transport-in-fiber
-    (A B : U)
-    (f : A -> B)
-    (b : B)
-    (a a' : A)
-    (u : (f a) = b)
-    (p : a = a')
-    : (transport A (\x -> (f x) = b) a a' p u) = 
-        (concat B (f a') (f a) b (ap A B a' a f (rev A a a' p)) u)
-    := idJ(A, a, \a'' p' -> (transport A (\x -> (f x) = b) a a'' p' u) = 
-        (concat B (f a'') (f a) b (ap A B a'' a f (rev A a a'' p')) u), 
-        (rev ((f a) = b) (concat B (f a) (f a) b refl u) u (refl-concat B (f a) b u)), a', p)
-
 -- Specializing the above to isHAE-fib-base-path
 #def isHAE-fib-base-path-transport
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (transport A (\x -> (f x) = b) 
         ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
-        (isHAE-fib-base-path A B f fisHAE b z)
+        (isHAE-fib-base-path )
         ((second (second (first fisHAE))) b)) = 
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
             (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
-                (isHAE-fib-base-path A B f fisHAE b z))) ((second (second (first fisHAE))) b))
+                (isHAE-fib-base-path ))) ((second (second (first fisHAE))) b))
     := transport-in-fiber A B f b ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
         ((second (second (first fisHAE))) b)
-        (isHAE-fib-base-path A B f fisHAE b z)
+        (isHAE-fib-base-path )
 
 #def isHAE-fib-base-path-rev-coherence
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
-    : rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) (isHAE-fib-base-path A B f fisHAE b z) = 
+    : rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) (isHAE-fib-base-path ) = 
         concat A 
             (first z) 
             ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
@@ -178,15 +162,10 @@ It takes much more work to construct the contracting homotopy. The bath path of 
         ((first (second (first fisHAE))) (first z))
 
 #def isHAE-fib-base-path-transport-rev-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
             (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
-                (isHAE-fib-base-path A B f fisHAE b z))) ((second (second (first fisHAE))) b)) =
+                (isHAE-fib-base-path ))) ((second (second (first fisHAE))) b)) =
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
             (concat A 
@@ -203,7 +182,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
     := homotopy-concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
             (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
-                (isHAE-fib-base-path A B f fisHAE b z)))
+                (isHAE-fib-base-path )))
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
             (concat A 
             (first z) 
@@ -217,7 +196,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
                 (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
                     (rev B (f (first z)) b (second z))))))
         (ap-htpy A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f
-            (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) (isHAE-fib-base-path A B f fisHAE b z))
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) (isHAE-fib-base-path ))
             (concat A 
             (first z) 
             ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
@@ -229,15 +208,10 @@ It takes much more work to construct the contracting homotopy. The bath path of 
                 ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
                 (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
                     (rev B (f (first z)) b (second z)))))
-            (isHAE-fib-base-path-rev-coherence A B f fisHAE b z))
+            (isHAE-fib-base-path-rev-coherence ))
         ((second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-ap-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
             (concat A 
@@ -314,11 +288,6 @@ It takes much more work to construct the contracting homotopy. The bath path of 
         ((second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-rev-ap-rev-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (concat B 
             (f (first z)) 
@@ -404,11 +373,6 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             ((second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-ap-ap-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (concat B 
             (f (first z)) 
@@ -474,11 +438,6 @@ It takes much more work to construct the contracting homotopy. The bath path of 
         ((second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-assoc-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (concat B 
             (f (first z)) 
@@ -511,11 +470,6 @@ It takes much more work to construct the contracting homotopy. The bath path of 
         ((second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-nat-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
@@ -564,11 +518,6 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             (second z))    
 
 #def isHAE-fib-base-path-transport-ap-id-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
@@ -618,11 +567,6 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             (ap-id B (f (first z)) b (second z)))
             
 #def isHAE-fib-base-path-transport-reassoc-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
@@ -648,11 +592,6 @@ It takes much more work to construct the contracting homotopy. The bath path of 
         (second z)        
 
 #def isHAE-fib-base-path-transport-HAE-calculation
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (concat B (f (first z)) (f (first z)) b 
             (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
             (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
@@ -690,12 +629,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
         ((second fisHAE) (first z)))                     
         (second z)
 
-#def isHAE-fib-base-path-transport-HAE-reduction
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
+#def isHAE-fib-base-path-transport-HAE-reduction 
     : (concat B (f (first z)) (f (first z)) b 
         (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
             (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
@@ -720,35 +654,25 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             (((first (second (first fisHAE)))) (first z)))
         (second z)
 
-#def isHAE-fib-base-path-transport-HAE-final-reduction
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
+#def isHAE-fib-base-path-transport-HAE-final-reduction uses (A)
     : (concat B (f (first z)) (f (first z)) b (refl) (second z)) = (second z)
     := refl-concat B (f (first z)) b (second z)
 
 #def isHAE-fib-base-path-transport-path 
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (transport A (\x -> (f x) = b) 
         ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
-        (isHAE-fib-base-path A B f fisHAE b z)
+        (isHAE-fib-base-path )
         ((second (second (first fisHAE))) b)) = (second z)
     := 12ary-concat-alternating ((f (first z)) = b)
     (transport A (\x -> (f x) = b) 
         ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
-        (isHAE-fib-base-path A B f fisHAE b z)
+        (isHAE-fib-base-path )
         ((second (second (first fisHAE))) b))
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
             (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
-                (isHAE-fib-base-path A B f fisHAE b z))) ((second (second (first fisHAE))) b))
-    (isHAE-fib-base-path-transport A B f fisHAE b z)
+                (isHAE-fib-base-path ))) ((second (second (first fisHAE))) b))
+    (isHAE-fib-base-path-transport )
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
             (concat A 
@@ -762,7 +686,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
                 ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
                 (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
                     (rev B (f (first z)) b (second z)))))) ((second (second (first fisHAE))) b))    
-    (isHAE-fib-base-path-transport-rev-calculation A B f fisHAE b z)
+    (isHAE-fib-base-path-transport-rev-calculation )
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (concat B 
             (f (first z)) 
@@ -781,7 +705,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
                 (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
                     (rev B (f (first z)) b (second z))))))
         ((second (second (first fisHAE))) b))
-    (isHAE-fib-base-path-transport-ap-calculation A B f fisHAE b z)
+    (isHAE-fib-base-path-transport-ap-calculation )
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (concat B 
             (f (first z)) 
@@ -797,7 +721,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
                 (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z))
                 ))
         ((second (second (first fisHAE))) b))
-    (isHAE-fib-base-path-transport-rev-ap-rev-calculation A B f fisHAE b z) 
+    (isHAE-fib-base-path-transport-rev-ap-rev-calculation ) 
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
         (concat B 
             (f (first z)) 
@@ -808,7 +732,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
                 ((first (second (first fisHAE))) (first z))))
             (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z)))
         ((second (second (first fisHAE))) b))
-    (isHAE-fib-base-path-transport-ap-ap-calculation A B f fisHAE b z) 
+    (isHAE-fib-base-path-transport-ap-ap-calculation ) 
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
@@ -819,7 +743,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             b
             (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z))
             ((second (second (first fisHAE))) b)))
-    (isHAE-fib-base-path-transport-assoc-calculation A B f fisHAE b z)
+    (isHAE-fib-base-path-transport-assoc-calculation )
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
@@ -830,7 +754,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             b
             ((second (second (first fisHAE))) (f (first z)))
             (ap B B (f (first z)) b (identity B) (second z))))
-    (isHAE-fib-base-path-transport-nat-calculation A B f fisHAE b z)   
+    (isHAE-fib-base-path-transport-nat-calculation )   
     (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
@@ -841,7 +765,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             b
             ((second (second (first fisHAE))) (f (first z)))
             (second z)))
-    (isHAE-fib-base-path-transport-ap-id-calculation A B f fisHAE b z)
+    (isHAE-fib-base-path-transport-ap-id-calculation )
     (concat B (f (first z)) (f (first z)) b 
             (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
             (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
@@ -849,7 +773,7 @@ It takes much more work to construct the contracting homotopy. The bath path of 
                 ((first (second (first fisHAE))) (first z))))
              ((second (second (first fisHAE))) (f (first z))))
             (second z))
-    (isHAE-fib-base-path-transport-reassoc-calculation A B f fisHAE b z)   
+    (isHAE-fib-base-path-transport-reassoc-calculation )   
     (concat B (f (first z)) (f (first z)) b 
             (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
             (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
@@ -858,29 +782,26 @@ It takes much more work to construct the contracting homotopy. The bath path of 
             (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f 
                 (((first (second (first fisHAE)))) (first z))))
             (second z))
-    (isHAE-fib-base-path-transport-HAE-calculation A B f fisHAE b z)
+    (isHAE-fib-base-path-transport-HAE-calculation )
     (concat B (f (first z)) (f (first z)) b (refl) (second z))   
-    (isHAE-fib-base-path-transport-HAE-reduction A B f fisHAE b z)
+    (isHAE-fib-base-path-transport-HAE-reduction )
     (second z)
-    (isHAE-fib-base-path-transport-HAE-final-reduction A B f fisHAE b z)
+    (isHAE-fib-base-path-transport-HAE-final-reduction )
 ```
 
 Finally, we may define the contracting homotopy:
 
 ```rzk
 #def isHAE-fib-contracting-homotopy
-    (A B : U)
-    (f : A -> B)
-    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
-    (b : B)
-    (z : fib A B f b)
     : (isHAE-isSurj A B f fisHAE b) = z
     := pair-of-paths-to-path-of-pairs A (\x -> (f x) = b) 
         ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
-        (isHAE-fib-base-path A B f fisHAE b z)
+        (isHAE-fib-base-path )
         ((second (second (first fisHAE))) b)
         (second z)
-        (isHAE-fib-base-path-transport-path A B f fisHAE b z)
+        (isHAE-fib-base-path-transport-path )
+
+#end half-adjoint-equivalence-fiber-data
 ```
 
 Half adjoint equivalences define contractible maps:

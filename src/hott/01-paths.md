@@ -265,10 +265,13 @@ The statements or proofs of the following path algebra coherences reference one 
 ## Transport 
 
 ```rzk
+#section transport
+
+#variable A : U
+#variable B : A -> U
+
 -- transport in a type family along a path in the base
 #def transport 
-  (A : U)
-  (B : A -> U)
   (x y : A)
   (p : x = y)
   (u : B x)
@@ -277,47 +280,41 @@ The statements or proofs of the following path algebra coherences reference one 
 
 -- The lift of a base path to a path from a term in the total space to its transport.
 #def transport-lift
-    (A : U)
-    (B : A -> U)
     (x y : A)
     (p : x = y)
     (u : B x)
-    : (x, u) =_{∑ (z : A), B z} (y, transport A B x y p u)
-    := idJ(A, x, \y' p' -> (x, u) =_{∑ (z : A), B z} (y', transport A B x y' p' u), refl, y, p)
+    : (x, u) =_{∑ (z : A), B z} (y, transport x y p u)
+    := idJ(A, x, \y' p' -> (x, u) =_{∑ (z : A), B z} (y', transport x y' p' u), refl, y, p)
 
 -- transport along concatenated paths
 #def transport-concat
-  (A : U)
-  (B : A -> U)
   (x y z : A)
   (p : x = y)
   (q : y = z)
   (u : B x)
-  : (transport A B x z (concat A x y z p q) u) = (transport A B y z q (transport A B x y p u))
-  := idJ(A, y, \z' q' -> (transport A B x z' (concat A x y z' p q') u) = (transport A B y z' q' (transport A B x y p u)),
+  : (transport x z (concat A x y z p q) u) = (transport y z q (transport x y p u))
+  := idJ(A, y, \z' q' -> (transport x z' (concat A x y z' p q') u) = (transport y z' q' (transport x y p u)),
     refl, z, q)
 
 #def transport-concat-rev
-  (A : U)
-  (B : A -> U)
   (x y z : A)
   (p : x = y)
   (q : y = z)
   (u : B x)
-  : (transport A B y z q (transport A B x y p u)) = (transport A B x z (concat A x y z p q) u) 
-  := idJ(A, y, \z' q' -> (transport A B y z' q' (transport A B x y p u)) = (transport A B x z' (concat A x y z' p q') u),
+  : (transport y z q (transport x y p u)) = (transport x z (concat A x y z p q) u) 
+  := idJ(A, y, \z' q' -> (transport y z' q' (transport x y p u)) = (transport x z' (concat A x y z' p q') u),
     refl, z, q)
 
--- for later use, some higher transport
+-- A path between transportation along homotopic paths
 #def transport2 
-  (A : U)
-  (B : A -> U)
   (x y : A)
   (p q : x = y)
   (H : p = q)
   (u : B x) 
-  : (transport A B x y p u) = (transport A B x y q u)
-  := idJ(x = y, p, \q' H' -> (transport A B x y p u) = (transport A B x y q' u), refl, q, H)  
+  : (transport x y p u) = (transport x y q u)
+  := idJ(x = y, p, \q' H' -> (transport x y p u) = (transport x y q' u), refl, q, H)  
+
+#end transport
 ```
 
 ## Dependent application
@@ -326,7 +323,7 @@ The statements or proofs of the following path algebra coherences reference one 
 -- Application of dependent functions on paths
 #def apd 
   (A : U)
-  (B : (a : A) -> U)
+  (B : A -> U)
   (x y : A)
   (f : (z : A) -> B z)
   (p : x = y) 
@@ -337,9 +334,11 @@ The statements or proofs of the following path algebra coherences reference one 
 ## Higher-order concatenation
 
 ```rzk
+#section higher-concatenation
+#variable A : U
+
 -- triple concatenation
 #def triple-concat
-  (A : U)
   (a0 a1 a2 a3 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
@@ -348,17 +347,15 @@ The statements or proofs of the following path algebra coherences reference one 
   := concat A a0 a1 a3 p1 (concat A a1 a2 a3 p2 p3) 
 
 #def quadruple-concat
-  (A : U)
   (a0 a1 a2 a3 a4 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
   (p3 : a2 = a3)
   (p4 : a3 = a4)
   : a0 = a4
-  := triple-concat A a0 a1 a2 a4 p1 p2 (concat A a2 a3 a4 p3 p4)
+  := triple-concat a0 a1 a2 a4 p1 p2 (concat A a2 a3 a4 p3 p4)
 
 #def quintuple-concat
-  (A : U)
   (a0 a1 a2 a3 a4 a5 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
@@ -366,10 +363,9 @@ The statements or proofs of the following path algebra coherences reference one 
   (p4 : a3 = a4)
   (p5 : a4 = a5)
   : a0 = a5
-  := quadruple-concat A a0 a1 a2 a3 a5 p1 p2 p3 (concat A a3 a4 a5 p4 p5)
+  := quadruple-concat a0 a1 a2 a3 a5 p1 p2 p3 (concat A a3 a4 a5 p4 p5)
 
 #def 12ary-concat
-  (A : U)
   (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 : A)
   (p1 : a0 = a1)
   (p2 : a1 = a2)
@@ -384,13 +380,12 @@ The statements or proofs of the following path algebra coherences reference one 
   (p11 : a10 = a11)
   (p12 : a11 = a12)
   : a0 = a12
-  := quintuple-concat A a0 a1 a2 a3 a4 a12 p1 p2 p3 p4 
-      (quintuple-concat A a4 a5 a6 a7 a8 a12 p5 p6 p7 p8
-        (quadruple-concat A a8 a9 a10 a11 a12 p9 p10 p11 p12))
+  := quintuple-concat a0 a1 a2 a3 a4 a12 p1 p2 p3 p4 
+      (quintuple-concat a4 a5 a6 a7 a8 a12 p5 p6 p7 p8
+        (quadruple-concat a8 a9 a10 a11 a12 p9 p10 p11 p12))
 
 -- Same as above but with alternating arguments
 #def 12ary-concat-alternating
-  (A : U)
   (a0 a1 : A)
   (p1 : a0 = a1)
   (a2 : A)
@@ -416,70 +411,21 @@ The statements or proofs of the following path algebra coherences reference one 
   (a12 : A)
   (p12 : a11 = a12)
   : a0 = a12    
-  := 12ary-concat A a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12
+  := 12ary-concat a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12
       p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
 
--- For convenience, here is a higher-order concatenation operation
-#def 13ary-concat
-  (A : U)
-  (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 : A)
-  (p1 : a0 = a1)
-  (p2 : a1 = a2)
-  (p3 : a2 = a3)
-  (p4 : a3 = a4)
-  (p5 : a4 = a5)
-  (p6 : a5 = a6)
-  (p7 : a6 = a7)
-  (p8 : a7 = a8)
-  (p9 : a8 = a9)
-  (p10 : a9 = a10)
-  (p11 : a10 = a11)
-  (p12 : a11 = a12)
-  (p13 : a12 = a13)
-  : a0 = a13
-  := quintuple-concat A a0 a1 a2 a3 a4 a13 p1 p2 p3 p4 
-      (quintuple-concat A a4 a5 a6 a7 a8 a13 p5 p6 p7 p8
-        (quintuple-concat A a8 a9 a10 a11 a12 a13 p9 p10 p11 p12 p13))
+#end higher-concatenation
 
--- Same as above but with alternating arguments
-#def 13ary-concat-alternating
-  (A : U)
-  (a0 a1 : A)
-  (p1 : a0 = a1)
-  (a2 : A)
-  (p2 : a1 = a2)
-  (a3 : A)
-  (p3 : a2 = a3)
-  (a4 : A)
-  (p4 : a3 = a4)
-  (a5 : A)
-  (p5 : a4 = a5)
-  (a6 : A)
-  (p6 : a5 = a6)
-  (a7 : A)
-  (p7 : a6 = a7)
-  (a8 : A)
-  (p8 : a7 = a8)
-  (a9 : A)
-  (p9 : a8 = a9)
-  (a10 : A)
-  (p10 : a9 = a10)
-  (a11 : A)
-  (p11 : a10 = a11)
-  (a12 : A)
-  (p12 : a11 = a12)
-  (a13 : A)
-  (p13 : a12 = a13)
-  : a0 = a13    
-  := 13ary-concat A a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13  
-      p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 
 ```
 
-## Products
+## Paths involving products
 
 ```rzk
+#section paths-in-products 
+
+#variables A B : U
+
 #def path-product
-  (A B : U)
   (a a' : A)
   (b b' : B)
   (e_A : a = a')
@@ -489,34 +435,41 @@ The statements or proofs of the following path algebra coherences reference one 
       (transport B (\y -> (a, b) =_{prod A B} (a, y)) b b' e_B refl)
 
 #def first-path-product
-  (A B : U)
   (x y : prod A B)
   (e : x =_{prod A B} y)
   : first x = first y
   := ap (prod A B) A x y (\z -> first z) e
 
 #def second-path-product
-  (A B : U)
   (x y : prod A B)
   (e : x =_{prod A B} y)
   : second x = second y
   := ap (prod A B) B x y (\z -> second z) e
 
+#end paths-in-products
+```
+
+## Paths involving dependent sums
+
+```rzk
+#section paths-in-sigma
+
+#variable A : U
+#variable B : A -> U
+
 #def first-path-sigma
-  (A : U)
-  (B : A -> U)
   (x y : ∑ (a : A), B a)
-  (e : x =_{∑ (a : A), B a} y)
+  (e : x = y)
   : first x = first y
   := ap (∑ (a : A), B a) A x y (\z -> first z) e
 
 #def second-path-sigma
-    (A : U)
-    (B : A -> U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : (transport A B (first z) (first w) (first-path-sigma A B z w p) (second z)) = (second w)
-    := idJ((∑ (a : A), B a), z, 
-            \w' p' -> (transport A B (first z) (first w') (first-path-sigma A B z w' p') (second z)) = (second w'), 
-            refl, w, p)  
+  (x y : ∑ (a : A), B a)
+  (e : x = y) 
+    : (transport A B (first x) (first y) (first-path-sigma x y e) (second x)) = (second y)
+    := idJ((∑ (a : A), B a), x, 
+            \y' e' -> (transport A B (first x) (first y') (first-path-sigma x y' e') (second x)) = (second y'), 
+            refl, y, e)
+
+#end paths-in-sigma
 ```

@@ -1,4 +1,4 @@
-# 3. Contractible
+# 4. Contractible
 
 This is a literate `rzk` file:
 
@@ -15,23 +15,27 @@ This is a literate `rzk` file:
 
 ## Contractible type data
 ```rzk 
-#def contraction-center (A : U) (Aiscontr : isContr A) : A
+#section contractible-data
+
+#variable A : U
+#variable Aiscontr : isContr A
+
+#def contraction-center 
+  : A
   := (first Aiscontr)
 
 -- The path from the contraction center to any point.
 #def contracting-htpy 
-  (A : U) 
-  (Aiscontr : isContr A) 
-  : (z : A) -> (contraction-center A Aiscontr) = z
+  : (z : A) -> contraction-center = z
   := second Aiscontr
 
 -- A path between an arbitrary pair of types in a contractible type.
-#def contractible-connecting-htpy 
-  (A : U)
-  (Aiscontr : isContr A)
+#def contractible-connecting-htpy uses (Aiscontr)
   (x y : A) 
   : x = y
-  := zag-zig-concat A x (contraction-center A Aiscontr) y (contracting-htpy A Aiscontr x) (contracting-htpy A Aiscontr y)  
+  := zag-zig-concat A x contraction-center y (contracting-htpy x) (contracting-htpy y)  
+
+#end contractible-data
 ```
 
 ## Retracts of contractible types
@@ -46,55 +50,50 @@ A retract of contractible types is contractible.
   : U
   := ∑ (s : A -> B), hasRetraction A B s
 
+#section retraction-data
+
+#variables A B : U
+#variable AretractB : isRetract A B
+
 #def isRetract-section
-  (A B : U)
-  (AretractB : isRetract A B)
   : A -> B
   := first AretractB
 
 #def isRetract-retraction
-  (A B : U)
-  (AretractB : isRetract A B)
   : B -> A
   := first (second AretractB)
 
 #def isRetract-homotopy
-  (A B : U)
-  (AretractB : isRetract A B)
-  : homotopy A A (composition A B A (isRetract-retraction A B AretractB) (isRetract-section A B AretractB))(identity A)
+  : homotopy A A (composition A B A isRetract-retraction isRetract-section)(identity A)
   := second (second AretractB)
 
 -- If A is a retract of a contractible type it has a term.
-#def isRetract-ofContr-isInhabited
-  (A B : U)
-  (AretractB : isRetract A B)
+#def isRetract-ofContr-isInhabited uses (AretractB)
   (Biscontr : isContr B)
   : A
-  := (isRetract-retraction A B AretractB)(contraction-center B Biscontr)
+  := isRetract-retraction (contraction-center B Biscontr)
 
 -- If A is a retract of a contractible type it has a contracting homotopy.
-#def isRetract-ofContr-hasHtpy
-  (A B : U)
-  (AretractB : isRetract A B)
+#def isRetract-ofContr-hasHtpy uses (AretractB)
   (Biscontr : isContr B)
   (a : A)
-  : (isRetract-ofContr-isInhabited A B AretractB Biscontr) = a
+  : (isRetract-ofContr-isInhabited Biscontr) = a
   := concat
       A
-      (isRetract-ofContr-isInhabited A B AretractB Biscontr)
-      ((composition A B A (isRetract-retraction A B AretractB) (isRetract-section A B AretractB)) a)
+      (isRetract-ofContr-isInhabited Biscontr)
+      ((composition A B A isRetract-retraction isRetract-section) a)
       a
-      (ap B A (contraction-center B Biscontr) ((isRetract-section A B AretractB) a) (isRetract-retraction A B AretractB)
-        (contracting-htpy B Biscontr ((isRetract-section A B AretractB) a)))
-      ((isRetract-homotopy A B AretractB) a)
+      (ap B A (contraction-center B Biscontr) (isRetract-section a) isRetract-retraction
+        (contracting-htpy B Biscontr (isRetract-section a)))
+      (isRetract-homotopy a)
 
 -- If A is a retract of a contractible type it is contractible.
-#def isRetract-ofContr-isContr
-  (A B : U)
-  (AretractB : isRetract A B)
+#def isRetract-ofContr-isContr uses (AretractB)
   (Biscontr : isContr B)
   : isContr A
-  := (isRetract-ofContr-isInhabited A B AretractB Biscontr, isRetract-ofContr-hasHtpy A B AretractB Biscontr) 
+  := (isRetract-ofContr-isInhabited Biscontr, isRetract-ofContr-hasHtpy Biscontr) 
+
+#end retraction-data
 ```
 
 ## Functions between contractible types
