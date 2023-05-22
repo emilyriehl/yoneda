@@ -18,7 +18,7 @@ This is a literate `rzk` file:
 
 ## Hom types
 
-Extension types are used to define the type of arrows between fixed terms:
+Extension types are used ∂to define the type of arrows between fixed terms:
 
 <svg style="float: right" viewBox="0 0 200 60" width="150" height="60">
   <polyline points="40,30 160,30" stroke="blue" stroke-width="3" marker-end="url(#arrow-blue)"></polyline>

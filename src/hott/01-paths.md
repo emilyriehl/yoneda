@@ -368,6 +368,36 @@ The statements or proofs of the following path algebra coherences reference one 
   : a0 = a5
   := quadruple-concat A a0 a1 a2 a3 a5 p1 p2 p3 (concat A a3 a4 a5 p4 p5)
 
+#def sextuple-concat
+  (A : U)
+  (a0 a1 a2 a3 a4 a5 a6 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  (p5 : a4 = a5)
+  (p6 : a5 = a6)
+  : a0 = a6
+  := quintuple-concat A a0 a1 a2 a3 a4 a6 p1 p2 p3 p4 (concat A a4 a5 a6 p5 p6)
+
+#def sextuple-concat-alternating
+  (A : U)
+  (a0 a1 : A)
+  (p1 : a0 = a1)
+  (a2 : A)
+  (p2 : a1 = a2)
+  (a3 : A)
+  (p3 : a2 = a3)
+  (a4 : A)
+  (p4 : a3 = a4)
+  (a5 : A)
+  (p5 : a4 = a5)
+  (a6 : A)
+  (p6 : a5 = a6)
+  : a0 = a6
+  := quintuple-concat A a0 a1 a2 a3 a4 a6 p1 p2 p3 p4 (concat A a4 a5 a6 p5 p6)
+
+
 #def 12ary-concat
   (A : U)
   (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 : A)

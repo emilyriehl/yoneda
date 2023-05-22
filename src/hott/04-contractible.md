@@ -165,3 +165,10 @@ A type equivalent to a contractible type is contractible.
           (a, b a)
           (second ABisContr (a, b a)))
 ```
+
+```rzk
+#def isProp
+  (A : U)
+  : U
+  := (a : A) -> (b : A) -> isContr(a = b)
+```

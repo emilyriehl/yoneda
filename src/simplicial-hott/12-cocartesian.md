@@ -64,3 +64,16 @@ This is a literate `rzk` file:
     := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
 ```
 
+
+#def isInitial
+    (A : U)
+    (a : U)
+    : U
+    := (x : A) -> isContr(hom A a x)
+
+
+
+#def initial-unique
+    (A : U)
+    : isProp(∑(a : A), isInitial A a)
+    := \a -> \b -> 
