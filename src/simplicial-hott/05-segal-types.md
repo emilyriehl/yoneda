@@ -332,7 +332,7 @@ Using the new characterization of Segal types, we can show that the type of func
               (\{t : 2 * 2 | Δ² t} -> A)
               (\{t : 2 * 2 | BOT} -> recBOT)))
         (\h -> \x -> \{t : 2 * 2 | Λ t} -> h x t) -- second equivalence
-          (second (fibered-equiv-function-equiv 
+          (second (fibered-Eq-function-Eq 
               funext 
               X 
               (\x -> <{t : 2 * 2 | Δ² t} -> A x >) 

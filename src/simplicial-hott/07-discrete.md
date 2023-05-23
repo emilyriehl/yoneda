@@ -34,3 +34,52 @@ Discrete types are types in which the hom-types are canonically equivalent to id
     : U
     := (x : A) -> (y : A) -> isEquiv (x =_{A} y) (hom A x y) (id-to-arr A x y)
 ```
+
+## Families of discrete types
+
+By function extensionality, the dependent function type associated to a family of discrete types is discrete.
+
+```rzk
+#def Eq-discrete-family
+    (funext : FunExt)
+    (X : U)
+    (A : X -> U)
+    (Aisdiscrete : (x : X) -> isDiscrete (A x))
+    (f g : (x : X) -> A x)
+    : Eq (f = g)(hom ((x : X) -> A x) f g)
+    := triple_compose_Eq
+        (f = g)
+        ((x : X) -> f x = g x)
+        ((x : X) -> hom (A x) (f x) (g x))
+        (hom ((x : X) -> A x) f g)
+            (FunExtEq funext X A f g)
+            (fibered-Eq-function-Eq funext X
+                (\x -> (f x = g x))(\x -> hom (A x) (f x) (g x))
+                (\x -> (id-to-arr (A x) (f x) (g x),(Aisdiscrete x (f x) (g x)))))
+            (flip-ext-fun-inv 2 Δ¹ ∂Δ¹ X (\t x -> A x) (\t x -> recOR (t === 0_2 |-> f x, t === 1_2 |-> g x)))
+
+#def Eq-discrete-family-map
+    (funext : FunExt)
+    (X : U)
+    (A : X -> U)
+    (Aisdiscrete : (x : X) -> isDiscrete (A x))
+    (f g : (x : X) -> A x)
+    (h : f = g)
+    : id-to-arr ((x : X) -> A x) f g h = (first (Eq-discrete-family funext X A Aisdiscrete f g)) h 
+    := idJ((x : X) -> A x, f, \g' h' ->  id-to-arr ((x : X) -> A x) f g' h' = (first (Eq-discrete-family funext X A Aisdiscrete f g')) h', refl, g, h)
+
+-- [RS17, Proposition 7.2]
+#def isDiscrete-dependent-function-discrete-family
+    (funext : FunExt)
+    (X : U)
+    (A : X -> U)
+    (Aisdiscrete : (x : X) -> isDiscrete (A x))
+    : isDiscrete ((x : X) -> A x)
+    := \f g -> isEquiv-homotopic-isEquiv
+            (f = g)
+            (hom ((x : X) -> A x) f g)
+            (id-to-arr ((x : X) -> A x) f g)
+            (first (Eq-discrete-family funext X A Aisdiscrete f g))
+            (Eq-discrete-family-map funext X A Aisdiscrete f g)
+            (second (Eq-discrete-family funext X A Aisdiscrete f g))
+```    

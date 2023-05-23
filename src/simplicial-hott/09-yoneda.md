@@ -122,7 +122,7 @@ The other composite carries phi to an a priori distinct natural transformation. 
     (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     (x : A)
 	: ((yon A AisSegal a C CisCov)((evid A a C) phi)) x = phi x
-    := funext
+    := eq-htpy funext
         (hom A a x)
         (\f -> C x)
         (\f -> ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f)
@@ -134,7 +134,7 @@ The other composite carries phi to an a priori distinct natural transformation. 
     (funext : FunExt)        
     (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     : ((yon A AisSegal a C CisCov)((evid A a C) phi)) = phi
-    := funext
+    := eq-htpy funext
         A
         (\x -> (hom A a x -> C x))
         (\x -> ((yon A AisSegal a C CisCov)((evid A a C) phi)) x)
