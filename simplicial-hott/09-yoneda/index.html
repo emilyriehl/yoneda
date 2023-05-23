@@ -240,7 +240,7 @@
     (phi : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
     (x : A)
     : ((yon A AisSegal a C CisCov)((evid A a C) phi)) x = phi x
-    := funext
+    := eq-htpy funext
         (hom A a x)
         (\f -&gt; C x)
         (\f -&gt; ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f)
@@ -252,7 +252,7 @@
     (funext : FunExt)        
     (phi : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
     : ((yon A AisSegal a C CisCov)((evid A a C) phi)) = phi
-    := funext
+    := eq-htpy funext
         A
         (\x -&gt; (hom A a x -&gt; C x))
         (\x -&gt; ((yon A AisSegal a C CisCov)((evid A a C) phi)) x)
