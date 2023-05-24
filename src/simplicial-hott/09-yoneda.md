@@ -18,9 +18,9 @@ This is a literate `rzk` file:
 
 ## Natural transformations involving a representable functor
 
-Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural transformations from the representable type family hom A a : A -> U to a covariant type family C : A -> U.
+Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural transformations from the representable type family hom A a : A -> U to a covariant type family C : A -> U. 
 
-Ordinary, such a natural transformation would involve a family of maps
+Ordinary, such a natural transformation would involve a family of maps 
 
 phi : (z : A) -> hom A a z -> C z
 
@@ -37,7 +37,7 @@ together with a proof of naturality of these components, but by naturality-covar
 	(CisCov : isCovFam A C)
 	(phi : (z : A) -> hom A a z -> C z)
 	: (covTrans A x y g C CisCov (phi x f)) = (phi y (Segal-comp A AisSegal a x y f g))
-	:= naturality-covariant-fiberwise-transformation A x y g (\z -> hom A a z) C
+	:= naturality-covariant-fiberwise-transformation A x y g (\z -> hom A a z) C 
         (isSegal-representable-isCovFam A AisSegal a)
         CisCov
         phi f
@@ -45,14 +45,14 @@ together with a proof of naturality of these components, but by naturality-covar
 
 ## The Yoneda maps
 
-For any Segal type A and term a : A, the Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -> C z of natural transformations out of the functor (hom A a) and valued in an arbitrary covariant family C and the type (C a).
+For any Segal type A and term a : A, the Yoneda lemma provides an equivalence between the type (z : A) -> hom A a z -> C z of natural transformations out of the functor (hom A a) and valued in an arbitrary covariant family C and the type (C a). 
 
 One of the maps in this equivalence is evaluation at the identity. The inverse map makes use of the covariant transport operation.
 
 ```rzk
--- The map evid evaluates a natural transformation
+-- The map evid evaluates a natural transformation 
 -- out of a representable functor at the identity arrow.
-#def evid
+#def evid 
     (A : U)         					-- The ambient type.
     (a : A)       						-- The representing object.
 	(C : A -> U)						-- A type family.
@@ -70,7 +70,6 @@ One of the maps in this equivalence is evaluation at the identity. The inverse m
     := \u z f -> covTrans A a z f C CisCov u
 
 ```
-
 ## The Yoneda composites
 
 It remains to show that the Yoneda maps are inverses.
@@ -103,7 +102,7 @@ The other composite carries phi to an a priori distinct natural transformation. 
 #def yon-evid-twice-pointwise
     (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     (x : A)
-    (f : hom A a x)
+    (f : hom A a x)	  
 	: ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f = phi x f
     := concat (C x)
         (((yon A AisSegal a C CisCov)((evid A a C) phi)) x f)
@@ -118,8 +117,8 @@ The other composite carries phi to an a priori distinct natural transformation. 
             (Segal-id-comp A AisSegal a x f))
 
 -- By funext, these are equals as functions of f pointwise in x.
-#def yon-evid-once-pointwise
-    (funext : FunExt)
+#def yon-evid-once-pointwise    
+    (funext : FunExt)    
     (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     (x : A)
 	: ((yon A AisSegal a C CisCov)((evid A a C) phi)) x = phi x
@@ -131,8 +130,8 @@ The other composite carries phi to an a priori distinct natural transformation. 
         (\f -> yon-evid-twice-pointwise phi x f)
 
 -- By funext again, these are equal as functions of x and f.
-#def yon-evid
-    (funext : FunExt)
+#def yon-evid    
+    (funext : FunExt)        
     (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     : ((yon A AisSegal a C CisCov)((evid A a C) phi)) = phi
     := eq-htpy funext
@@ -143,15 +142,14 @@ The other composite carries phi to an a priori distinct natural transformation. 
         (\x -> yon-evid-once-pointwise funext phi x)
 
 #end yon-evid
-```
+```    
 
 ## The Yoneda lemma
-
 The Yoneda lemma says that evaluation at the identity defines an equivalence.
 
 ```rzk
 #def Yoneda-lemma
-    (funext : FunExt)
+    (funext : FunExt)        
     (A : U)                 				-- The ambient type.
     (AisSegal : isSegal A)  				-- A proof that A is Segal.
     (a  : A)               					-- The representing object.

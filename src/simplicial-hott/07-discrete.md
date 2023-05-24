@@ -22,15 +22,15 @@ Discrete types are types in which the hom-types are canonically equivalent to id
 
 ```rzk
 -- [RS17, Definition 7.1]
-#def id-to-arr
-    (A : U)             -- A type.
+#def id-to-arr 
+    (A : U)             -- A type. 
     (x y : A)           -- Two points of type A.
     (p : x = y)         -- A path p from x to y in A.
     : hom A x y         -- An arrow p from x to y in A.
-    := idJ(A, x, \y' -> \p' -> hom A x y', (id-arr A x), y, p)
+    := idJ(A, x, \y' -> \p' -> hom A x y', (id-arr A x), y, p) 
 
-#def isDiscrete
-    (A : U)             -- A type.
+#def isDiscrete 
+    (A : U)             -- A type. 
     : U
     := (x : A) -> (y : A) -> isEquiv (x =_{A} y) (hom A x y) (id-to-arr A x y)
 ```
@@ -65,7 +65,7 @@ By function extensionality, the dependent function type associated to a family o
     (Aisdiscrete : (x : X) -> isDiscrete (A x))
     (f g : (x : X) -> A x)
     (h : f = g)
-    : id-to-arr ((x : X) -> A x) f g h = (first (Eq-discrete-family funext X A Aisdiscrete f g)) h
+    : id-to-arr ((x : X) -> A x) f g h = (first (Eq-discrete-family funext X A Aisdiscrete f g)) h 
     := idJ((x : X) -> A x, f, \g' h' ->  id-to-arr ((x : X) -> A x) f g' h' = (first (Eq-discrete-family funext X A Aisdiscrete f g')) h', refl, g, h)
 
 -- [RS17, Proposition 7.2]
@@ -82,4 +82,4 @@ By function extensionality, the dependent function type associated to a family o
             (first (Eq-discrete-family funext X A Aisdiscrete f g))
             (Eq-discrete-family-map funext X A Aisdiscrete f g)
             (second (Eq-discrete-family funext X A Aisdiscrete f g))
-```
+```    

@@ -21,7 +21,7 @@ Functions between types induce an action on hom types, preserving sources and ta
 ```rzk
 -- [RS17, Section 6.1]
 -- Action of maps on homs. Called "ap-hom" to avoid conflicting with "ap".
-#def ap-hom
+#def ap-hom 
 	(A B : U)
 	(F : A -> B)
 	(x y : A)
@@ -41,7 +41,6 @@ Functions between types induce an action on hom types, preserving sources and ta
   := \t -> F (alpha t)
 
 ```
-
 Functions between types automatically preserve identity arrows.
 
 ```rzk
@@ -51,9 +50,9 @@ Functions between types automatically preserve identity arrows.
 	(extext : ExtExt)
 	(A B : U)
 	(F : A -> B)
-	(x : A)
+	(x : A) 
 	: (ap-hom A B F x x (id-arr A x)) = (id-arr B (F x))
-	:= extext
+	:= extext 
 		2
 		Δ¹
 		∂Δ¹
@@ -72,7 +71,7 @@ Functions between types automatically preserve identity arrows.
 	(AisSegal : isSegal A)
 	(BisSegal : isSegal B)
 	(F : A -> B)
-	(x y z : A)
+	(x y z : A) 		
 	(f : hom A x y)
 	(g : hom A y z)
 	: (Segal-comp B BisSegal (F x) (F y) (F z) (ap-hom A B F x y f) (ap-hom A B F y z g)) = (ap-hom A B F x z (Segal-comp A AisSegal x y z f g))

@@ -7,7 +7,6 @@ This is a literate `rzk` file:
 ```
 
 ## Contractible types
-
 ```rzk
 -- contractible types
 #def isContr (A : U) : U
@@ -15,27 +14,26 @@ This is a literate `rzk` file:
 ```
 
 ## Contractible type data
-
-```rzk
+```rzk 
 #section contractible-data
 
 #variable A : U
 #variable Aiscontr : isContr A
 
-#def contraction-center
+#def contraction-center 
   : A
   := (first Aiscontr)
 
 -- The path from the contraction center to any point.
-#def contracting-htpy
+#def contracting-htpy 
   : (z : A) -> contraction-center = z
   := second Aiscontr
 
 -- A path between an arbitrary pair of types in a contractible type.
 #def contractible-connecting-htpy uses (Aiscontr)
-  (x y : A)
+  (x y : A) 
   : x = y
-  := zag-zig-concat A x contraction-center y (contracting-htpy x) (contracting-htpy y)
+  := zag-zig-concat A x contraction-center y (contracting-htpy x) (contracting-htpy y)  
 
 #end contractible-data
 ```
@@ -93,7 +91,7 @@ A retract of contractible types is contractible.
 #def isRetract-ofContr-isContr uses (AretractB)
   (Biscontr : isContr B)
   : isContr A
-  := (isRetract-ofContr-isInhabited Biscontr, isRetract-ofContr-hasHtpy Biscontr)
+  := (isRetract-ofContr-isInhabited Biscontr, isRetract-ofContr-hasHtpy Biscontr) 
 
 #end retraction-data
 ```
@@ -109,9 +107,9 @@ A function between contractible types is an equivalence
     (Biscontr : isContr B)
     (f : A -> B)
     : isEquiv A B f
-    := ((\b -> contraction-center A Aiscontr,
+    := ((\b -> contraction-center A Aiscontr, 
         \a -> contracting-htpy A Aiscontr a),
-       (\b -> contraction-center A Aiscontr,
+       (\b -> contraction-center A Aiscontr, 
         \b -> contractible-connecting-htpy B Biscontr (f (contraction-center A Aiscontr)) b))
 ```
 
@@ -123,10 +121,10 @@ A type equivalent to a contractible type is contractible.
     (e : Eq A B)
     (Biscontr : isContr B)
     : isContr A
-    := isRetract-ofContr-isContr A B
+    := isRetract-ofContr-isContr A B 
         (first e, first (second e))
         Biscontr
-```
+```   
 
 ## Contractible products
 
@@ -160,7 +158,7 @@ A type equivalent to a contractible type is contractible.
   (b : (a : A) -> B a)
   (ABisContr : isContr (∑ (a : A), B a))
   : isContr A
-  := (first (first ABisContr), \a ->
+  := (first (first ABisContr), \a -> 
         first-path-sigma A B
           (first ABisContr)
           (a, b a)
