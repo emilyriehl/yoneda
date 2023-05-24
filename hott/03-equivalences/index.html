@@ -92,6 +92,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#composing-equivalences">Composing equivalences</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equivalences-and-homotopy">Equivalences and homotopy</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#function-extensionality">Function extensionality</a>
     </li>
     </ul>
@@ -601,14 +603,68 @@
     : isEquiv A D (triple-composition A B C D h g f)    
     := compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
 </code></pre>
+<h2 id="equivalences-and-homotopy">Equivalences and homotopy</h2>
+<p>If a map is homotopic to an equivalence it is an equivalence.</p>
+<pre><code class="language-rzk">#def isEquiv-homotopic-isEquiv
+    (A B : U)
+    (f g : A -&gt; B)
+    (H : homotopy A B f g)
+    (gisequiv : isEquiv A B g)
+    : isEquiv A B f
+    := ((first (first gisequiv), 
+        \a -&gt; concat A 
+            ((first (first gisequiv)) (f a))
+            ((first (first gisequiv)) (g a)) 
+            a
+            (ap B A (f a) (g a) (first (first gisequiv)) (H a))
+            ((second (first gisequiv)) a))
+        ,(first (second gisequiv),
+        \b -&gt; concat B
+            (f ((first (second gisequiv)) b))
+            (g ((first (second gisequiv)) b))
+            b
+            (H ((first (second gisequiv)) b))
+            ((second (second gisequiv)) b)
+            ))
+</code></pre>
 <h2 id="function-extensionality">Function extensionality</h2>
+<p>By path induction, an identification between functions defines a homotopy</p>
+<pre><code class="language-rzk">#def htpy-eq
+    (X : U)
+    (A : X -&gt; U)
+    (f g : (x : X) -&gt; A x)
+    (p : f = g)
+    : (x : X) -&gt; (f x = g x)
+    := idJ((x : X) -&gt; A x, f, \g' p' -&gt; (x : X) -&gt; (f x = g' x), \x -&gt; refl, g, p)
+</code></pre>
+<p>The function extensionality axiom asserts that this map defines a family of equivalences.</p>
 <pre><code class="language-rzk">-- The type that encodes the function extensionality axiom.
 #def FunExt : U
-    := (X : U) -&gt; (A : X -&gt; U) -&gt; (f : (x : X) -&gt; A x) -&gt; (g : (x : X) -&gt; A x) -&gt;
-        (px : (x : X) -&gt; f x = g x) -&gt; f = g
+    := (X : U) -&gt; (A : X -&gt; U) -&gt; 
+    (f : (x : X) -&gt; A x) -&gt; (g : (x : X) -&gt; A x) -&gt;
+        isEquiv (f = g)((x : X) -&gt; f x = g x)(htpy-eq X A f g)
+
+-- The equivalence provided by function extensionality.
+#def FunExtEq 
+    (funext : FunExt)
+    (X : U)
+    (A : X -&gt; U) 
+    (f g : (x : X) -&gt; A x)
+    : Eq (f = g) ((x : X) -&gt; f x = g x) 
+    := (htpy-eq X A f g, funext X A f g)
+
+-- In particular, function extensionality implies that homotopies give rise to identifications. This definition defines eq-htpy to be the retraction to htpy-eq.
+#def eq-htpy
+    (funext : FunExt)
+    (X : U)
+    (A : X -&gt; U) 
+    (f g : (x : X) -&gt; A x)
+    : ((x : X) -&gt; f x = g x) -&gt; (f = g)
+    := first (first (funext X A f g))
+
 
 -- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
-#def fibered-equiv-function-equiv
+#def fibered-Eq-function-Eq
     (funext : FunExt)
     (X : U)
     (A B : X -&gt; U)
@@ -616,9 +672,9 @@
     : Eq ((x : X) -&gt; A x) ((x : X) -&gt; B x)
     := ((\a -&gt; \x -&gt; (first (fibequiv x)) (a x)),
             (((\b -&gt; \x -&gt; (first (first (second (fibequiv x)))) (b x)),
-                \a -&gt; funext X A (\x -&gt; (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -&gt; (second (first (second (fibequiv x)))) (a x))), 
+                \a -&gt; eq-htpy funext X A (\x -&gt; (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -&gt; (second (first (second (fibequiv x)))) (a x))), 
            ((\b -&gt; \x -&gt; (first (second (second (fibequiv x)))) (b x)),
-            (\b -&gt; funext X B (\x -&gt; (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -&gt; (second (second (second (fibequiv x)))) (b x))))))
+            (\b -&gt; eq-htpy funext X B (\x -&gt; (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -&gt; (second (second (second (fibequiv x)))) (b x))))))
 </code></pre>
               
             </div>
