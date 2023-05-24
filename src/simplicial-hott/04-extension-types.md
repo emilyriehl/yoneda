@@ -7,6 +7,7 @@ This is a literate `rzk` file:
 ```rzk
 #lang rzk-1
 ```
+
 ## Prerequisites
 
 - `hott/4-equivalences.rzk` — contains the definitions of `Eq` and `compose_Eq`
@@ -16,7 +17,7 @@ This is a literate `rzk` file:
 
 ```rzk
 -- [RS17, Theorem 4.1]
-#def flip-ext-fun 
+#def flip-ext-fun
    (I : CUBE)
    (psi : I -> TOPE)
    (phi : psi -> TOPE)
@@ -31,7 +32,7 @@ This is a literate `rzk` file:
             (\h t x -> (h x) t, -- the section
             \h -> refl))) -- the section homotopy
 
-#def flip-ext-fun-inv 
+#def flip-ext-fun-inv
    (I : CUBE)
    (psi : I -> TOPE)
    (phi : psi -> TOPE)
@@ -59,11 +60,11 @@ This is a literate `rzk` file:
       (<{(t, s) : I * J | psi t /\ zeta s} -> X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-> f (t , s)]>)
    := (\g (t, s) -> (g t) s, -- the one way map
          ((\h t s -> h (t , s) -- its retraction
-            ,\g -> refl), -- the retracting homotopy 
+            ,\g -> refl), -- the retracting homotopy
          (\h t s -> h (t , s) -- its section
             ,\h -> refl)))  -- the section homotopy
 
-#def uncurry-opcurry 
+#def uncurry-opcurry
    (I J : CUBE)
    (psi : I -> TOPE)
    (phi : psi -> TOPE)
@@ -71,15 +72,15 @@ This is a literate `rzk` file:
    (chi : zeta -> TOPE)
    (X : psi -> zeta -> U)
    (f : <{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -> X t s >)
-   : Eq (<{(t, s) : I * J | psi t /\ zeta s} -> X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-> f (t , s)]>) 
+   : Eq (<{(t, s) : I * J | psi t /\ zeta s} -> X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-> f (t , s)]>)
       (<{s : J | zeta s} -> <{ t : I | psi t} -> X t s [ phi t |-> f (t, s) ]> [ chi s |-> \{t : I | psi t} -> f (t, s) ]>)
    := (\h s t -> h (t , s) , -- the one way map
       ((\g (t, s) -> (g s) t -- its retraction
-            ,\h -> refl), -- the retracting homotopy 
+            ,\h -> refl), -- the retracting homotopy
       (\g (t, s) -> (g s) t -- its section
             ,\g -> refl))) -- the section homotopy
 
-#def fubini 
+#def fubini
    (I J : CUBE)
    (psi : I -> TOPE)
    (phi : psi -> TOPE)
@@ -101,16 +102,16 @@ This is a literate `rzk` file:
 
 ```rzk
 -- [RS17, Theorem 4.3]
-#def axiom-choice 
+#def axiom-choice
    (I : CUBE)
-   (psi : I -> TOPE) 
+   (psi : I -> TOPE)
    (phi : psi -> TOPE)
-   (X : psi -> U) 
+   (X : psi -> U)
    (Y : (t : psi) -> (x : X t) -> U)
    (a : (t : phi) -> X t)
    (b : (t : phi) -> Y t (a t))
-   : Eq (<{t : I | psi t} -> (∑ (x : X t), Y t x) [ phi t |-> (a t , b t) ]>) 
-     (∑ (f : (<{t : I | psi t} -> X t [phi t |-> a t ]>)), (<{t : I | psi t} -> Y t (f t) [ phi t |-> b t ]>)) 
+   : Eq (<{t : I | psi t} -> (∑ (x : X t), Y t x) [ phi t |-> (a t , b t) ]>)
+     (∑ (f : (<{t : I | psi t} -> X t [phi t |-> a t ]>)), (<{t : I | psi t} -> Y t (f t) [ phi t |-> b t ]>))
      := (\g -> (\t -> (first (g t)), \t -> second (g t))  , -- the one way map
             ((\h t -> ((first h) t, (second h) t) -- its retraction
             , \g -> refl), -- the retracting homotopy
@@ -137,11 +138,11 @@ This is a literate `rzk` file:
       ((\fg t -> (second fg) t, \h -> refl),
       ((\fg t -> (second fg) t, \h -> refl))))
 
--- [RS17, Theorem 4.4]      
+-- [RS17, Theorem 4.4]
 -- original form
 #def cofibration-composition
    (I : CUBE)
-   (chi : I -> TOPE) 
+   (chi : I -> TOPE)
    (psi : chi -> TOPE)
    (phi : psi -> TOPE)
    (X : chi -> U)
@@ -169,7 +170,7 @@ This is a literate `rzk` file:
 
 ## Relative function extensionality
 
-There are various equivalent forms of the relative function extensionality axiom. 
+There are various equivalent forms of the relative function extensionality axiom.
 Here we state the one that will be most useful and derive an application.
 
 ```rzk
@@ -187,7 +188,7 @@ Here we state the one that will be most useful and derive an application.
       (f = g)
 
 -- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
-#def fibered-equiv-extension-equiv 
+#def fibered-equiv-extension-equiv
    (extext : ExtExt)
    (I : CUBE)
    (psi : I -> TOPE)
@@ -202,17 +203,17 @@ Here we state the one that will be most useful and derive an application.
                      (\t -> BOT)
                      A
                      (\u -> recBOT)
-                     (\t -> (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
-                     a 
-                     (\t -> (second (first (second (fibequiv t)))) (a t))), 
+                     (\t -> (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t)))
+                     a
+                     (\t -> (second (first (second (fibequiv t)))) (a t))),
          ((\b t -> (first (second (second (fibequiv t)))) (b t)),
-            (\b -> extext 
+            (\b -> extext
                      I
                      psi
                      (\t -> BOT)
-                     B 
+                     B
                      (\u -> recBOT)
-                     (\t -> (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
-                     b 
-                     (\t -> (second (second (second (fibequiv t)))) (b t))))))              
-```        
+                     (\t -> (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t)))
+                     b
+                     (\t -> (second (second (second (fibequiv t)))) (b t))))))
+```

@@ -7,6 +7,7 @@ This is a literate `rzk` file:
 ```
 
 ## Identity types of sigma types
+
 ```rzk
 -- Sigma-induction
 #def ind-Sigma
@@ -42,7 +43,7 @@ This is a literate `rzk` file:
        (B : A -> U)
        (s : ∑(a : A), B a)
        : (Eq-Sigma A B s s)
-       := (ind-Sigma 
+       := (ind-Sigma
       A
       B
      (\k -> (Eq-Sigma A B k k))
@@ -62,34 +63,34 @@ This is a literate `rzk` file:
 -- A path through the total space projects to a path in the base.
 -- Morally but not definitionally the first component of pair-eq.
 -- Literally the same as first-path-sigma.
-#def total-path-to-base-path 
+#def total-path-to-base-path
     (A : U)
     (B : A -> U)
     (z w : ∑ (a : A), B a)
-    (p : z = w) 
+    (p : z = w)
     : ((first z) = first w)
-    := ap (∑ (a : A), B a) A z w (\u -> first u) p 
+    := ap (∑ (a : A), B a) A z w (\u -> first u) p
 
 -- A path through the total space gives a path in a fiber using transport along the path in the base.
--- Morally, but not definitionally, the second component of pair-eq. 
+-- Morally, but not definitionally, the second component of pair-eq.
 -- Literally the same as second-path-sigma.
-#def total-path-to-fibered-path 
+#def total-path-to-fibered-path
     (A : U)
     (B : A -> U)
     (z w : ∑ (a : A), B a)
-    (p : z = w) 
+    (p : z = w)
     : (transport A B (first z) (first w) (total-path-to-base-path A B z w p) (second z)) = (second w)
-    := idJ((∑ (a : A), B a), z, 
-            \w' p' -> (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'), 
+    := idJ((∑ (a : A), B a), z,
+            \w' p' -> (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'),
             refl, w, p)
 
 -- A path in a fiber defines a path in the total space
-#def fibered-path-to-sigma-path 
+#def fibered-path-to-sigma-path
     (A : U)
     (B : A -> U)
     (x : A)
     (u v : B x)
-    (p : u = v) 
+    (p : u = v)
     : (x , u) =_{∑ (a : A), B a} (x , v)
     := idJ(B x, u, \v' p' -> (x , u) = (x , v'), refl, v, p)
 
@@ -99,11 +100,11 @@ This is a literate `rzk` file:
     (B : A -> U)
     (x y : A)
     (p : x = y)
-    : (u : B x) -> (v : B y) -> ((transport A B x y p u) = v) -> (x, u) =_{∑ (z : A), B z} (y, v)    
-    := idJ(A, x, 
+    : (u : B x) -> (v : B y) -> ((transport A B x y p u) = v) -> (x, u) =_{∑ (z : A), B z} (y, v)
+    := idJ(A, x,
         \y' p' -> (u' : B x) -> (v' : B y') -> ((transport A B x y' p' u') = v') -> (x, u') =_{∑ (z : A), B z} (y', v'),
-        \(u' : B x) -> \(v' : B x) -> \(q' : (transport A B x x refl u') = v') -> (fibered-path-to-sigma-path A B x u' v' q'), 
-        y, p) 
+        \(u' : B x) -> \(v' : B x) -> \(q' : (transport A B x x refl u') = v') -> (fibered-path-to-sigma-path A B x u' v' q'),
+        y, p)
 
 -- The inverse to pair-eq.
 #def eq-pair
@@ -113,7 +114,7 @@ This is a literate `rzk` file:
     (e : Eq-Sigma A B s t)
     : (s = t)
     := pair-of-paths-to-path-of-pairs A B (first s) (first t) (first e) (second s) (second t) (second e)
-```            
+```
 
 ## Based path spaces
 
@@ -130,7 +131,7 @@ As an application, we prove that based path spaces are contractible.
     := idJ(A, x, \y' q' -> (transport A (\z -> (a = z)) x y' q' p) = (concat A a x y' p q'), refl, y, q)
 
 -- The center of contraction in the based path space is (a, refl)
-#def based-paths-center 
+#def based-paths-center
     (A : U)         -- The ambient type.
     (a : A)         -- The basepoint.
     : ∑ (x : A), a = x
@@ -169,7 +170,7 @@ Given a family over a pair of independent types, the order of summation is unimp
     : Eq (∑ (x : A), ∑ (y : B), C x y) (∑ (y : B), ∑ (x : A), C x y)
     := (\t -> (first (second t), (first t, second (second t))),
         ((\t -> (first (second t), (first t, second (second t))),
-        \t -> refl), 
+        \t -> refl),
         (\t -> (first (second t), (first t, second (second t))),
         \t -> refl)))
 ```
@@ -181,9 +182,9 @@ Products distribute inside a Sigma type:
     (A B : U)
     (C : B -> U)
     : Eq (prod A (∑ (b : B), C b)) (∑ (b : B), prod A (C b))
-    := (\(a, (b, c)) -> (b, (a, c)), 
-            ((\(b, (a, c)) -> (a, (b, c)), \z -> refl), 
-            (\(b, (a, c)) -> (a, (b, c)), \z -> refl))) 
+    := (\(a, (b, c)) -> (b, (a, c)),
+            ((\(b, (a, c)) -> (a, (b, c)), \z -> refl),
+            (\(b, (a, c)) -> (a, (b, c)), \z -> refl)))
 ```
 
 ## Associativity

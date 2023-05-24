@@ -9,6 +9,7 @@ This is a literate `rzk` file:
 ```rzk
 #lang rzk-1
 ```
+
 ## Prerequisites
 
 - `hott/*` - We require various prerequisites from homotopy type theory, for instance the axiom of function extensionality.
@@ -18,6 +19,7 @@ This is a literate `rzk` file:
 - `8-covariant.md` - We use covariant type families.
 
 # Type of fiberwise Segal families over a base type
+
 ```rzk
 #def innerFam
     (B : U)
@@ -25,7 +27,9 @@ This is a literate `rzk` file:
     :=
     (∑(P : B -> U), (b : B) -> (isSegal (P b)))
 ```
-# Definition of cocartesian lifts 
+
+# Definition of cocartesian lifts
+
 -- [BW23, Definition 5.1.1]
 -- the proposition that a dependent arrow in a family is cocartesian
 -- (alternative version using unpacked extension types because this is preferred for usage)
@@ -49,7 +53,8 @@ This is a literate `rzk` file:
     -> isContr (∑(g : dhom B b' b'' v P e' e''), (dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 ```
 
-# Definition of cocartesian lifts 
+# Definition of cocartesian lifts
+
 -- [BW23, Definition 5.1.2]
 -- the type of cocartesian lifts of a fixed arrow in the base with a given starting point in the fiber
 
@@ -64,16 +69,13 @@ This is a literate `rzk` file:
     := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
 ```
 
-
 #def isInitial
-    (A : U)
-    (a : U)
-    : U
-    := (x : A) -> isContr(hom A a x)
-
-
+(A : U)
+(a : U)
+: U
+:= (x : A) -> isContr(hom A a x)
 
 #def initial-unique
-    (A : U)
-    : isProp(∑(a : A), isInitial A a)
-    := \a -> \b -> 
+(A : U)
+: isProp(∑(a : A), isInitial A a)
+:= \a -> \b ->

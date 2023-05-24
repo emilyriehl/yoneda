@@ -9,7 +9,7 @@ permissions:
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [master]
     paths:
       - src/**
       - custom_theme/**
@@ -36,10 +36,10 @@ jobs:
       - name: 🔨 Build MkDocs
         uses: Tiryoh/actions-mkdocs@v0
         with:
-          mkdocs_version: 'latest' # option
+          mkdocs_version: "latest" # option
           #mkdocs_version: '1.1' # option
-          requirements: 'requirements.txt' # option
-          configfile: 'mkdocs.yml' # option
+          requirements: "requirements.txt" # option
+          configfile: "mkdocs.yml" # option
 
       - name: 📘 Publish Generated MkDocs
         uses: JamesIves/github-pages-deploy-action@v4

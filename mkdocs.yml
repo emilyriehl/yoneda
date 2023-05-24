@@ -2,12 +2,12 @@ site_name: "yoneda"
 docs_dir: src
 nav:
   - General:
-    - About: index.md
+      - About: index.md
 
   - HoTT:
       - Common: hott/00-common.md
       - Paths: hott/01-paths.md
-      - Homotopies: hott/02-homotopies.md     
+      - Homotopies: hott/02-homotopies.md
       - Equivalences: hott/03-equivalences.md
       - Contractible: hott/04-contractible.md
       - Sigma types: hott/05-sigma.md
@@ -23,14 +23,13 @@ nav:
       - Covariantly Functorial Type Families: simplicial-hott/08-covariant.md
       - The Yoneda Lemma: simplicial-hott/09-yoneda.md
       - Cocartesian Families: simplicial-hott/12-cocartesian.md
-      
+
 markdown_extensions:
   - mdx_math
 
 theme:
   name: readthedocs
-  highlights: false  # we override default highlights in custom_theme/
+  highlights: false # we override default highlights in custom_theme/
   custom_dir: custom_theme/
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css
-
