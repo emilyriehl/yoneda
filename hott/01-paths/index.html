@@ -84,19 +84,15 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#higher-order-concatenation">Higher-order concatenation</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#paths-involving-products">Paths involving products</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#paths-involving-dependent-sums">Paths involving dependent sums</a>
-    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../02-homotopies/">Homotopies</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../03-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../04-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../05-sigma/">Sigma types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../06-fibers/">Fibers</a>
                   </li>
@@ -567,57 +563,6 @@
       p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
 
 #end higher-concatenation
-
-</code></pre>
-<h2 id="paths-involving-products">Paths involving products</h2>
-<pre><code class="language-rzk">#section paths-in-products 
-
-#variables A B : U
-
-#def path-product
-  (a a' : A)
-  (b b' : B)
-  (e_A : a = a')
-  (e_B : b = b')
-  : (a, b) =_{prod A B} (a', b')
-  := transport A (\x -&gt; (a, b) =_{prod A B} (x, b')) a a' e_A
-      (transport B (\y -&gt; (a, b) =_{prod A B} (a, y)) b b' e_B refl)
-
-#def first-path-product
-  (x y : prod A B)
-  (e : x =_{prod A B} y)
-  : first x = first y
-  := ap (prod A B) A x y (\z -&gt; first z) e
-
-#def second-path-product
-  (x y : prod A B)
-  (e : x =_{prod A B} y)
-  : second x = second y
-  := ap (prod A B) B x y (\z -&gt; second z) e
-
-#end paths-in-products
-</code></pre>
-<h2 id="paths-involving-dependent-sums">Paths involving dependent sums</h2>
-<pre><code class="language-rzk">#section paths-in-sigma
-
-#variable A : U
-#variable B : A -&gt; U
-
-#def first-path-sigma
-  (x y : ∑ (a : A), B a)
-  (e : x = y)
-  : first x = first y
-  := ap (∑ (a : A), B a) A x y (\z -&gt; first z) e
-
-#def second-path-sigma
-  (x y : ∑ (a : A), B a)
-  (e : x = y) 
-    : (transport A B (first x) (first y) (first-path-sigma x y e) (second x)) = (second y)
-    := idJ((∑ (a : A), B a), x, 
-            \y' e' -&gt; (transport A B (first x) (first y') (first-path-sigma x y' e') (second x)) = (second y'), 
-            refl, y, e)
-
-#end paths-in-sigma
 </code></pre>
               
             </div>

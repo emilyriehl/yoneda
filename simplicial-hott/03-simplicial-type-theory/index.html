@@ -74,9 +74,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/03-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/04-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/04-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/05-sigma/">Sigma types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/05-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/06-fibers/">Fibers</a>
                   </li>
@@ -87,7 +87,7 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Simplicial Type Theory</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#simplicies-and-their-subshapes">Simplicies and their subshapes</a>
+    <li class="toctree-l2"><a class="reference internal" href="#simplices-and-their-subshapes">Simplices and their subshapes</a>
     </li>
     </ul>
                   </li>
@@ -135,43 +135,43 @@
 <p>This is a literate <code>rzk</code> file:</p>
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
-<h2 id="simplicies-and-their-subshapes">Simplicies and their subshapes</h2>
-<p>Simplicies:</p>
+<h2 id="simplices-and-their-subshapes">Simplices and their subshapes</h2>
+<p>Simplices:</p>
 <pre><code class="language-rzk">-- 1-simplex
 #def Δ¹ : 2 -&gt; TOPE
-  := \t -&gt; TOP
+  := \ t -&gt; TOP
 
 -- 2-simplex
 #def Δ² : (2 * 2) -&gt; TOPE
-  := \(t, s) -&gt; s &lt;= t
+  := \ (t, s) -&gt; s &lt;= t
 
 -- 3-simplex
 #def Δ³ : (2 * 2 * 2) -&gt; TOPE
-  := \((t1, t2), t3) -&gt; t3 &lt;= t2 /\ t2 &lt;= t1
+  := \ ((t1, t2), t3) -&gt; t3 &lt;= t2 /\ t2 &lt;= t1
 </code></pre>
 <p>Boundaries of simplices:</p>
 <pre><code class="language-rzk">-- boundary of a 1-simplex
 #def ∂Δ¹ : Δ¹ -&gt; TOPE
-  := \t -&gt; (t === 0_2 \/ t === 1_2)
+  := \ t -&gt; (t === 0_2 \/ t === 1_2)
 
 -- boundary of a 2-simplex
 #def ∂Δ² : Δ² -&gt; TOPE
-  := \ts -&gt; 
+  := \ ts -&gt; 
         ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
 </code></pre>
 <p>Horns:</p>
 <pre><code class="language-rzk">-- the (2,1)-horn
 #def Λ : (2 * 2) -&gt; TOPE
-  := \(t, s) -&gt; (s === 0_2 \/ t === 1_2)
+  := \ (t, s) -&gt; (s === 0_2 \/ t === 1_2)
 </code></pre>
 <p>Products:</p>
 <pre><code class="language-rzk">-- the product of topes defines the product of shapes
 #def shapeProd
   (I J : CUBE)
-  (psi : I -&gt; TOPE)
-  (chi : J -&gt; TOPE)
+  (ψ : I -&gt; TOPE)
+  (χ : J -&gt; TOPE)
   : (I * J) -&gt; TOPE
-  := \(t, s) -&gt; psi t /\ chi s
+  := \ (t, s) -&gt; ψ t /\ χ s
 
 -- the square as a product
 #def Δ¹×Δ¹ : (2 * 2) -&gt; TOPE
@@ -179,7 +179,7 @@
 
 -- the total boundary of the square
 #def ∂□ : (2 * 2) -&gt; TOPE
-  := \(t ,s) -&gt; ((∂Δ¹ t) /\ (Δ¹ s)) \/ ((Δ¹ t) /\ (∂Δ¹ s))
+  := \ (t ,s) -&gt; ((∂Δ¹ t) /\ (Δ¹ s)) \/ ((Δ¹ t) /\ (∂Δ¹ s))
 
 -- the vertical boundary of the square 
 #def ∂Δ¹×Δ¹ : (2 * 2) -&gt; TOPE

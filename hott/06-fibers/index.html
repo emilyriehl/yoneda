@@ -74,9 +74,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../03-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../04-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../05-sigma/">Sigma types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Fibers</a>
     <ul class="current">
@@ -963,7 +963,7 @@
     (w : (∑ (x : A), C x))
     : fib (B (first w)) (C (first w)) (f (first w)) (second w) -&gt; 
         (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
-    := \(b, p) -&gt; ((first w, b),  fibered-path-to-sigma-path A C (first w) (f (first w) b) (second w) p)
+    := \(b, p) -&gt; ((first w, b),  sigma-path-fibered-path A C (first w) (f (first w) b) (second w) p)
 
 #def total-map-from-fiber
     (A : U)
@@ -1038,7 +1038,7 @@
     (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
     : hasRetraction (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
     := (invertible-family-total-inverse A B C f invfamily, 
-        \(a, b) -&gt; (fibered-path-to-sigma-path A B a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b 
+        \(a, b) -&gt; (sigma-path-fibered-path A B a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b 
         ((first (second (invfamily a))) b)))
 
 #def invertible-family-total-section
@@ -1048,7 +1048,7 @@
     (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
     : hasSection (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
     := (invertible-family-total-inverse A B C f invfamily, 
-        \(a, c) -&gt; (fibered-path-to-sigma-path A C a (f a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c 
+        \(a, c) -&gt; (sigma-path-fibered-path A C a (f a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c 
         ((second (second (invfamily a))) c)))
 
 #def invertible-family-total-invertible
@@ -1313,7 +1313,7 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../05-sigma/" class="btn btn-neutral float-left" title="Sigma types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../05-contractible/" class="btn btn-neutral float-left" title="Contractible"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../07-trivial-fibrations/" class="btn btn-neutral float-right" title="Trivial fibrations">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -1337,7 +1337,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../05-sigma/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../05-contractible/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../07-trivial-fibrations/" style="color: #fcfcfc">Next &raquo;</a></span>

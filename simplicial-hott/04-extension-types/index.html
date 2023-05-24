@@ -74,9 +74,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/03-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/04-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/04-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/05-sigma/">Sigma types</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/05-contractible/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/06-fibers/">Fibers</a>
                   </li>
@@ -152,101 +152,101 @@
 <pre><code class="language-rzk">-- [RS17, Theorem 4.1]
 #def flip-ext-fun 
    (I : CUBE)
-   (psi : I -&gt; TOPE)
-   (phi : psi -&gt; TOPE)
+   (ψ : I -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
    (X : U)
-   (Y : psi -&gt; X -&gt; U)
-   (f : (t : phi) -&gt; (x : X) -&gt; Y t x)
-   : Eq (&lt;{t : I | psi t} -&gt; ((x : X) -&gt; Y t x) [ phi t |-&gt; f t ]&gt;)
-       ((x : X) -&gt; &lt;{t : I | psi t} -&gt; Y t x [ phi t |-&gt; f t x]&gt;)
-   := (\g x t -&gt; g t x, -- the one-way map
-            ((\h t x -&gt; (h x) t, -- the retraction
-            \g -&gt; refl), -- the retracting homotopy
-            (\h t x -&gt; (h x) t, -- the section
-            \h -&gt; refl))) -- the section homotopy
+   (Y : ψ -&gt; X -&gt; U)
+   (f : (t : ϕ) -&gt; (x : X) -&gt; Y t x)
+   : Eq (&lt;{t : I | ψ t} -&gt; ((x : X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)
+       ((x : X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)
+   := (\ g x t -&gt; g t x, -- the one-way map
+            ((\ h t x -&gt; (h x) t, -- the retraction
+            \ g -&gt; refl), -- the retracting homotopy
+            (\ h t x -&gt; (h x) t, -- the section
+            \ h -&gt; refl))) -- the section homotopy
 
 #def flip-ext-fun-inv 
    (I : CUBE)
-   (psi : I -&gt; TOPE)
-   (phi : psi -&gt; TOPE)
+   (ψ : I -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
    (X : U)
-   (Y : psi -&gt; X -&gt; U)
-   (f : (t : phi) -&gt; (x : X) -&gt; Y t x)
-   : Eq ((x : X) -&gt; &lt;{t : I | psi t} -&gt; Y t x [ phi t |-&gt; f t x]&gt;)
-      (&lt;{t : I | psi t} -&gt; ((x : X) -&gt; Y t x) [ phi t |-&gt; f t ]&gt;)
-   := (\h t x -&gt; (h x) t, -- the one-way map
-            ((\g x t -&gt; g t x, -- the retraction
-            \h -&gt; refl), -- the retracting homotopy
-            (\g x t -&gt; g t x, -- the section
-            \g -&gt; refl)))
+   (Y : ψ -&gt; X -&gt; U)
+   (f : (t : ϕ) -&gt; (x : X) -&gt; Y t x)
+   : Eq ((x : X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)
+      (&lt;{t : I | ψ t} -&gt; ((x : X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)
+   := (\ h t x -&gt; (h x) t, -- the one-way map
+            ((\ g x t -&gt; g t x, -- the retraction
+            \ h -&gt; refl), -- the retracting homotopy
+            (\ g x t -&gt; g t x, -- the section
+            \ g -&gt; refl)))
 
 -- [RS17, Theorem 4.2]
 #def curry-uncurry
    (I J : CUBE)
-   (psi : I -&gt; TOPE)
-   (phi : psi -&gt; TOPE)
-   (zeta : J -&gt; TOPE)
-   (chi : zeta -&gt; TOPE)
-   (X : psi -&gt; zeta -&gt; U)
-   (f : &lt;{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -&gt; X t s &gt;)
-   : Eq (&lt;{t : I | psi t} -&gt; &lt;{ s : J | zeta s} -&gt; X t s [ chi s |-&gt; f (t, s) ]&gt; [ phi t |-&gt; \{s : J | zeta s} -&gt; f (t, s) ]&gt;)
-      (&lt;{(t, s) : I * J | psi t /\ zeta s} -&gt; X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-&gt; f (t , s)]&gt;)
-   := (\g (t, s) -&gt; (g t) s, -- the one way map
-         ((\h t s -&gt; h (t , s) -- its retraction
-            ,\g -&gt; refl), -- the retracting homotopy 
-         (\h t s -&gt; h (t , s) -- its section
-            ,\h -&gt; refl)))  -- the section homotopy
+   (ψ : I -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
+   (ζ : J -&gt; TOPE)
+   (χ : ζ -&gt; TOPE)
+   (X : ψ -&gt; ζ -&gt; U)
+   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
+   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
+      (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
+   := (\ g (t, s) -&gt; (g t) s, -- the one way map
+         ((\ h t s -&gt; h (t , s) -- its retraction
+            ,\ g -&gt; refl), -- the retracting homotopy 
+         (\ h t s -&gt; h (t , s) -- its section
+            ,\ h -&gt; refl)))  -- the section homotopy
 
 #def uncurry-opcurry 
    (I J : CUBE)
-   (psi : I -&gt; TOPE)
-   (phi : psi -&gt; TOPE)
-   (zeta : J -&gt; TOPE)
-   (chi : zeta -&gt; TOPE)
-   (X : psi -&gt; zeta -&gt; U)
-   (f : &lt;{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -&gt; X t s &gt;)
-   : Eq (&lt;{(t, s) : I * J | psi t /\ zeta s} -&gt; X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-&gt; f (t , s)]&gt;) 
-      (&lt;{s : J | zeta s} -&gt; &lt;{ t : I | psi t} -&gt; X t s [ phi t |-&gt; f (t, s) ]&gt; [ chi s |-&gt; \{t : I | psi t} -&gt; f (t, s) ]&gt;)
-   := (\h s t -&gt; h (t , s) , -- the one way map
-      ((\g (t, s) -&gt; (g s) t -- its retraction
-            ,\h -&gt; refl), -- the retracting homotopy 
-      (\g (t, s) -&gt; (g s) t -- its section
-            ,\g -&gt; refl))) -- the section homotopy
+   (ψ : I -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
+   (ζ : J -&gt; TOPE)
+   (χ : ζ -&gt; TOPE)
+   (X : ψ -&gt; ζ -&gt; U)
+   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
+   : Eq (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;) 
+      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
+   := (\ h s t -&gt; h (t , s) , -- the one way map
+      ((\ g (t, s) -&gt; (g s) t -- its retraction
+            ,\ h -&gt; refl), -- the retracting homotopy 
+      (\ g (t, s) -&gt; (g s) t -- its section
+            ,\ g -&gt; refl))) -- the section homotopy
 
 #def fubini 
    (I J : CUBE)
-   (psi : I -&gt; TOPE)
-   (phi : psi -&gt; TOPE)
-   (zeta : J -&gt; TOPE)
-   (chi : zeta -&gt; TOPE)
-   (X : psi -&gt; zeta -&gt; U)
-   (f : &lt;{(t, s) : I * J | (phi t /\ zeta s) \/ (psi t /\ chi s)} -&gt; X t s &gt;)
-   : Eq (&lt;{t : I | psi t} -&gt; &lt;{ s : J | zeta s} -&gt; X t s [ chi s |-&gt; f (t, s) ]&gt; [ phi t |-&gt; \{s : J | zeta s} -&gt; f (t, s) ]&gt;)
-      (&lt;{s : J | zeta s} -&gt; &lt;{ t : I | psi t} -&gt; X t s [ phi t |-&gt; f (t, s) ]&gt; [ chi s |-&gt; \{t : I | psi t} -&gt; f (t, s) ]&gt;)
+   (ψ : I -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
+   (ζ : J -&gt; TOPE)
+   (χ : ζ -&gt; TOPE)
+   (X : ψ -&gt; ζ -&gt; U)
+   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
+   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
+      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
    := compose_Eq
-         (&lt;{t : I | psi t} -&gt; &lt;{ s : J | zeta s} -&gt; X t s [ chi s |-&gt; f (t, s) ]&gt; [ phi t |-&gt; \{s : J | zeta s} -&gt; f (t, s) ]&gt;)
-         (&lt;{(t, s) : I * J | psi t /\ zeta s} -&gt; X t s [(phi t /\ zeta s) \/ (psi t /\ chi s) |-&gt; f (t , s)]&gt;)
-         (&lt;{s : J | zeta s} -&gt; &lt;{ t : I | psi t} -&gt; X t s [ phi t |-&gt; f (t, s) ]&gt; [ chi s |-&gt; \{t : I | psi t} -&gt; f (t, s) ]&gt;)
-         (curry-uncurry I J psi phi zeta chi X f)
-         (uncurry-opcurry I J psi phi zeta chi X f)
+         (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
+         (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
+         (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
+         (curry-uncurry I J ψ ϕ ζ χ X f)
+         (uncurry-opcurry I J ψ ϕ ζ χ X f)
 </code></pre>
 <h2 id="extending-into-types-the-non-axiom-of-choice">Extending into ∑-types (the non-axiom of choice)</h2>
 <pre><code class="language-rzk">-- [RS17, Theorem 4.3]
 #def axiom-choice 
    (I : CUBE)
-   (psi : I -&gt; TOPE) 
-   (phi : psi -&gt; TOPE)
-   (X : psi -&gt; U) 
-   (Y : (t : psi) -&gt; (x : X t) -&gt; U)
-   (a : (t : phi) -&gt; X t)
-   (b : (t : phi) -&gt; Y t (a t))
-   : Eq (&lt;{t : I | psi t} -&gt; (∑ (x : X t), Y t x) [ phi t |-&gt; (a t , b t) ]&gt;) 
-     (∑ (f : (&lt;{t : I | psi t} -&gt; X t [phi t |-&gt; a t ]&gt;)), (&lt;{t : I | psi t} -&gt; Y t (f t) [ phi t |-&gt; b t ]&gt;)) 
-     := (\g -&gt; (\t -&gt; (first (g t)), \t -&gt; second (g t))  , -- the one way map
-            ((\h t -&gt; ((first h) t, (second h) t) -- its retraction
-            , \g -&gt; refl), -- the retracting homotopy
-            (\h t -&gt; ((first h) t, (second h) t) -- its section
-            , \h -&gt; refl))) -- the section homotopy
+   (ψ : I -&gt; TOPE) 
+   (ϕ : ψ -&gt; TOPE)
+   (X : ψ -&gt; U) 
+   (Y : (t : ψ) -&gt; (x : X t) -&gt; U)
+   (a : (t : ϕ) -&gt; X t)
+   (b : (t : ϕ) -&gt; Y t (a t))
+   : Eq (&lt;{t : I | ψ t} -&gt; (∑ (x : X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;) 
+     (∑ (f : (&lt;{t : I | ψ t} -&gt; X t [ϕ t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;)) 
+     := (\ g -&gt; (\ t -&gt; (first (g t)), \ t -&gt; second (g t))  , -- the one way map
+            ((\ h t -&gt; ((first h) t, (second h) t) -- its retraction
+            , \ g -&gt; refl), -- the retracting homotopy
+            (\ h t -&gt; ((first h) t, (second h) t) -- its section
+            , \ h -&gt; refl))) -- the section homotopy
 </code></pre>
 <h2 id="composites-and-unions-of-cofibrations">Composites and unions of cofibrations</h2>
 <pre><code class="language-rzk">-- [RS17, Theorem 4.4]
@@ -254,45 +254,45 @@
 -- See https://github.com/fizruk/rzk/issues/8
 #def cofibration_composition'
    (I : CUBE)
-   (chi psi phi : I -&gt; TOPE)
-   (X : chi -&gt; U)
-   (a : &lt;{t : I | chi t /\ psi t /\ phi t} -&gt; X t &gt;)
-   : Eq &lt;{t : I | chi t} -&gt; X t [ chi t /\ psi t /\ phi t |-&gt; a t ]&gt;
-       (∑ (f : &lt;{t : I | chi t /\ psi t} -&gt; X t [ chi t /\ psi t /\ phi t |-&gt; a t ]&gt;),
-          &lt;{t : I | chi t} -&gt; X t [ chi t /\ psi t |-&gt; f t ]&gt;)
-  := (\h -&gt; (\t -&gt; h t,
-             \t -&gt; h t),
-      ((\fg t -&gt; (second fg) t, \h -&gt; refl),
-      ((\fg t -&gt; (second fg) t, \h -&gt; refl))))
+   (χ ψ ϕ : I -&gt; TOPE)
+   (X : χ -&gt; U)
+   (a : &lt;{t : I | χ t /\ ψ t /\ ϕ t} -&gt; X t &gt;)
+   : Eq &lt;{t : I | χ t} -&gt; X t [ χ t /\ ψ t /\ ϕ t |-&gt; a t ]&gt;
+       (∑ (f : &lt;{t : I | χ t /\ ψ t} -&gt; X t [ χ t /\ ψ t /\ ϕ t |-&gt; a t ]&gt;),
+          &lt;{t : I | χ t} -&gt; X t [ χ t /\ ψ t |-&gt; f t ]&gt;)
+  := (\ h -&gt; (\ t -&gt; h t,
+             \ t -&gt; h t),
+      ((\ fg t -&gt; (second fg) t, \ h -&gt; refl),
+      ((\ fg t -&gt; (second fg) t, \ h -&gt; refl))))
 
 -- [RS17, Theorem 4.4]      
 -- original form
 #def cofibration-composition
    (I : CUBE)
-   (chi : I -&gt; TOPE) 
-   (psi : chi -&gt; TOPE)
-   (phi : psi -&gt; TOPE)
-   (X : chi -&gt; U)
-   (a : (t : phi) -&gt; X t)
-   : Eq &lt;{t : I | chi t} -&gt; X t [ phi t |-&gt; a t ]&gt;
-      (∑ (f : &lt;{t : I | psi t} -&gt; X t [ phi t |-&gt; a t ]&gt;),
-          &lt;{t : I | chi t} -&gt; X t [ psi t |-&gt; f t ]&gt;)
-   := (\h -&gt; (\t -&gt; h t,
-             \t -&gt; h t),
-      ((\fg t -&gt; (second fg) t, \h -&gt; refl),
-      ((\fg t -&gt; (second fg) t, \h -&gt; refl))))
+   (χ : I -&gt; TOPE) 
+   (ψ : χ -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
+   (X : χ -&gt; U)
+   (a : (t : ϕ) -&gt; X t)
+   : Eq &lt;{t : I | χ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;
+      (∑ (f : &lt;{t : I | ψ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;),
+          &lt;{t : I | χ t} -&gt; X t [ ψ t |-&gt; f t ]&gt;)
+   := (\ h -&gt; (\ t -&gt; h t,
+             \ t -&gt; h t),
+      ((\ fg t -&gt; (second fg) t, \ h -&gt; refl),
+      ((\ fg t -&gt; (second fg) t, \ h -&gt; refl))))
 
 -- [RS17, Theorem 4.5]
 #def cofibration_union
    (I : CUBE)
-   (phi psi : I -&gt; TOPE)
-   (X : &lt;{t : I | phi t \/ psi t} -&gt; U &gt;)
-   (a : (t : psi) -&gt; X t)
-   : Eq &lt;{t : I | phi t \/ psi t} -&gt; X t [ psi t |-&gt; a t ]&gt;
-       &lt;{t : I | phi t} -&gt; X t [ phi t /\ psi t |-&gt; a t ]&gt;
-  := (\h -&gt; \t -&gt; h t,
-      ((\g -&gt; \t -&gt; recOR(phi t |-&gt; g t, psi t |-&gt; a t), \h -&gt; refl),
-       (\g -&gt; \t -&gt; recOR(phi t |-&gt; g t, psi t |-&gt; a t), \h -&gt; refl)))
+   (ϕ ψ : I -&gt; TOPE)
+   (X : &lt;{t : I | ϕ t \/ ψ t} -&gt; U &gt;)
+   (a : (t : ψ) -&gt; X t)
+   : Eq &lt;{t : I | ϕ t \/ ψ t} -&gt; X t [ ψ t |-&gt; a t ]&gt;
+       &lt;{t : I | ϕ t} -&gt; X t [ ϕ t /\ ψ t |-&gt; a t ]&gt;
+  := (\ h -&gt; \ t -&gt; h t,
+      ((\ g -&gt; \ t -&gt; recOR(ϕ t |-&gt; g t, ψ t |-&gt; a t), \ h -&gt; refl),
+       (\ g -&gt; \ t -&gt; recOR(ϕ t |-&gt; g t, ψ t |-&gt; a t), \ h -&gt; refl)))
 </code></pre>
 <h2 id="relative-function-extensionality">Relative function extensionality</h2>
 <p>There are various equivalent forms of the relative function extensionality axiom. 
@@ -301,44 +301,44 @@ Here we state the one that will be most useful and derive an application.</p>
 -- as suggested by footnote 8, we assert this as an &quot;extension extensionality&quot; axiom
 #def ExtExt : U
    := (I : CUBE) -&gt;
-      (psi : I -&gt; TOPE) -&gt;
-      (phi : psi -&gt; TOPE) -&gt;
-      (A : psi -&gt; U) -&gt;
-      (a : (t : phi) -&gt; A t) -&gt;
-      (f : &lt;{t : I | psi t} -&gt; A t [ phi t |-&gt; a t ]&gt;) -&gt;
-      (g : &lt;{t : I | psi t} -&gt; A t [ phi t |-&gt; a t ]&gt;) -&gt;
-      (_ : &lt;{t : I | psi t} -&gt; (f t = g t) [ phi t |-&gt; refl ]&gt;) -&gt;
+      (ψ : I -&gt; TOPE) -&gt;
+      (ϕ : ψ -&gt; TOPE) -&gt;
+      (A : ψ -&gt; U) -&gt;
+      (a : (t : ϕ) -&gt; A t) -&gt;
+      (f : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;
+      (g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;
+      (_ : &lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;) -&gt;
       (f = g)
 
 -- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
 #def fibered-equiv-extension-equiv 
    (extext : ExtExt)
    (I : CUBE)
-   (psi : I -&gt; TOPE)
-   (A B : psi -&gt; U)
-   (fibequiv : (t : psi) -&gt; (Eq (A t) (B t)) )
-   : Eq (&lt;{t : I | psi t } -&gt; A t &gt;) (&lt;{t : I | psi t } -&gt; B t &gt;)
-   := ((\a t -&gt; (first (fibequiv t)) (a t)),
-         (((\b t -&gt; (first (first (second (fibequiv t)))) (b t)),
-            \a -&gt; extext
+   (ψ : I -&gt; TOPE)
+   (A B : ψ -&gt; U)
+   (fibequiv : (t : ψ) -&gt; (Eq (A t) (B t)) )
+   : Eq (&lt;{t : I | ψ t } -&gt; A t &gt;) (&lt;{t : I | ψ t } -&gt; B t &gt;)
+   := ((\ a t -&gt; (first (fibequiv t)) (a t)),
+         (((\ b t -&gt; (first (first (second (fibequiv t)))) (b t)),
+            \ a -&gt; extext
                      I
-                     psi
-                     (\t -&gt; BOT)
+                     ψ
+                     (\ t -&gt; BOT)
                      A
-                     (\u -&gt; recBOT)
-                     (\t -&gt; (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
+                     (\ u -&gt; recBOT)
+                     (\ t -&gt; (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
                      a 
-                     (\t -&gt; (second (first (second (fibequiv t)))) (a t))), 
-         ((\b t -&gt; (first (second (second (fibequiv t)))) (b t)),
-            (\b -&gt; extext 
+                     (\ t -&gt; (second (first (second (fibequiv t)))) (a t))), 
+         ((\ b t -&gt; (first (second (second (fibequiv t)))) (b t)),
+            (\ b -&gt; extext 
                      I
-                     psi
-                     (\t -&gt; BOT)
+                     ψ
+                     (\ t -&gt; BOT)
                      B 
-                     (\u -&gt; recBOT)
-                     (\t -&gt; (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
+                     (\ u -&gt; recBOT)
+                     (\ t -&gt; (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
                      b 
-                     (\t -&gt; (second (second (second (fibequiv t)))) (b t))))))              
+                     (\ t -&gt; (second (second (second (fibequiv t)))) (b t))))))              
 </code></pre>
               
             </div>

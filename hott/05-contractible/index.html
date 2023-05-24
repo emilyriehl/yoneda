@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Sigma types - yoneda</title>
+    <title>Contractible - yoneda</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -30,8 +30,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Sigma types";
-        var mkdocs_page_input_path = "hott/05-sigma.md";
+        var mkdocs_page_name = "Contractible";
+        var mkdocs_page_input_path = "hott/05-contractible.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -74,17 +74,23 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../03-equivalences/">Equivalences</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../04-contractible/">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-sigma/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Sigma types</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Contractible</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#identity-types-of-sigma-types">Identity types of sigma types</a>
+    <li class="toctree-l2"><a class="reference internal" href="#contractible-types">Contractible types</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contractible-type-data">Contractible type data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#retracts-of-contractible-types">Retracts of contractible types</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#functions-between-contractible-types">Functions between contractible types</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#based-path-spaces">Based path spaces</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#fubini">Fubini</a>
+    <li class="toctree-l2"><a class="reference internal" href="#contractible-products">Contractible products</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#associativity">Associativity</a>
+    <li class="toctree-l2"><a class="reference internal" href="#propositions">Propositions</a>
     </li>
     </ul>
                   </li>
@@ -127,7 +133,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>HoTT &raquo;</li>
-      <li>Sigma types</li>
+      <li>Contractible</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -136,121 +142,119 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="5-sigma-types">5. Sigma types</h1>
+                <h1 id="5-contractible">5. Contractible</h1>
 <p>This is a literate <code>rzk</code> file:</p>
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
-<h2 id="identity-types-of-sigma-types">Identity types of sigma types</h2>
-<pre><code class="language-rzk">-- Sigma-induction
-#def ind-Sigma
-        (A : U)
-        (B : A -&gt; U)
-        (C : (∑(a : A), B a) -&gt; U)
-        (s : ∑(a : A), B a)
-        (f : (a : A) -&gt; (b : B a) -&gt; C (a, b))
-        : C s
-        := (f (first s)) (second s)
+<h2 id="contractible-types">Contractible types</h2>
+<pre><code class="language-rzk">-- contractible types
+#def isContr (A : U) : U
+  := ∑ (x : A), (y : A) -&gt; x = y
+</code></pre>
+<h2 id="contractible-type-data">Contractible type data</h2>
+<pre><code class="language-rzk">#section contractible-data
 
--- [Rijke 22, Definition 9.3.1]
-#def Eq-Sigma
-    (A : U)
-    (B : A -&gt; U)
-    (s t : ∑(a : A), B a)
-    : U
-    := ∑(p : (first s) = (first t)), (transport A B (first s) (first t) p (second s)) = (second t)
+#variable A : U
+#variable Aiscontr : isContr A
 
--- [Rijke 22, used in Lemma 9.3.2]
-#def refl-in-Sigma
-    (A : U)
-    (B : A -&gt; U)
-    (x : A)
-    (y : B x)
-    : ∑(p : (x = x)), ((transport A B x x refl_{x} y) = y)
-    := (refl_{x}, refl_{y})
+#def contraction-center 
+  : A
+  := (first Aiscontr)
 
--- [Rijke 22, Lemma 9.3.2]
--- Eq-sigma is reflexive
-#def reflexive-Eq-Sigma
-       (A : U)
-       (B : A -&gt; U)
-       (s : ∑(a : A), B a)
-       : (Eq-Sigma A B s s)
-       := (ind-Sigma 
+-- The path from the contraction center to any point.
+#def contracting-htpy 
+  : (z : A) -&gt; contraction-center = z
+  := second Aiscontr
+
+-- A path between an arbitrary pair of types in a contractible type.
+#def contractible-connecting-htpy uses (Aiscontr)
+  (x y : A) 
+  : x = y
+  := zag-zig-concat A x contraction-center y (contracting-htpy x) (contracting-htpy y)  
+
+#end contractible-data
+</code></pre>
+<h2 id="retracts-of-contractible-types">Retracts of contractible types</h2>
+<p>A retract of contractible types is contractible.</p>
+<pre><code class="language-rzk">-- A type that records a proof that A is a retract of B.
+-- Very similar to hasRetraction.
+#def isRetract
+  (A B : U)
+  : U
+  := ∑ (s : A -&gt; B), hasRetraction A B s
+
+#section retraction-data
+
+#variables A B : U
+#variable AretractB : isRetract A B
+
+#def isRetract-section
+  : A -&gt; B
+  := first AretractB
+
+#def isRetract-retraction
+  : B -&gt; A
+  := first (second AretractB)
+
+#def isRetract-homotopy
+  : homotopy A A (composition A B A isRetract-retraction isRetract-section)(identity A)
+  := second (second AretractB)
+
+-- If A is a retract of a contractible type it has a term.
+#def isRetract-ofContr-isInhabited uses (AretractB)
+  (Biscontr : isContr B)
+  : A
+  := isRetract-retraction (contraction-center B Biscontr)
+
+-- If A is a retract of a contractible type it has a contracting homotopy.
+#def isRetract-ofContr-hasHtpy uses (AretractB)
+  (Biscontr : isContr B)
+  (a : A)
+  : (isRetract-ofContr-isInhabited Biscontr) = a
+  := concat
       A
-      B
-     (\k -&gt; (Eq-Sigma A B k k))
-      s
-     (\u v -&gt; (refl_{u}, refl_{v}))
-      )
+      (isRetract-ofContr-isInhabited Biscontr)
+      ((composition A B A isRetract-retraction isRetract-section) a)
+      a
+      (ap B A (contraction-center B Biscontr) (isRetract-section a) isRetract-retraction
+        (contracting-htpy B Biscontr (isRetract-section a)))
+      (isRetract-homotopy a)
 
--- [Rijke 22, Definition 9.3.3]
-#def pair-eq
-    (A : U)
-    (B : A -&gt; U)
-    (s t : ∑(a : A), B a)
-    (p : s = t)
-    : (Eq-Sigma A B s t)
-    := idJ(∑(a : A), B a, s, \t' p' -&gt; (Eq-Sigma A B s t'), (reflexive-Eq-Sigma A B s), t, p)
+-- If A is a retract of a contractible type it is contractible.
+#def isRetract-ofContr-isContr uses (AretractB)
+  (Biscontr : isContr B)
+  : isContr A
+  := (isRetract-ofContr-isInhabited Biscontr, isRetract-ofContr-hasHtpy Biscontr) 
 
--- A path through the total space projects to a path in the base.
--- Morally but not definitionally the first component of pair-eq.
--- Literally the same as first-path-sigma.
-#def total-path-to-base-path 
-    (A : U)
-    (B : A -&gt; U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : ((first z) = first w)
-    := ap (∑ (a : A), B a) A z w (\u -&gt; first u) p 
-
--- A path through the total space gives a path in a fiber using transport along the path in the base.
--- Morally, but not definitionally, the second component of pair-eq. 
--- Literally the same as second-path-sigma.
-#def total-path-to-fibered-path 
-    (A : U)
-    (B : A -&gt; U)
-    (z w : ∑ (a : A), B a)
-    (p : z = w) 
-    : (transport A B (first z) (first w) (total-path-to-base-path A B z w p) (second z)) = (second w)
-    := idJ((∑ (a : A), B a), z, 
-            \w' p' -&gt; (transport A B (first z) (first w') (total-path-to-base-path A B z w' p') (second z)) = (second w'), 
-            refl, w, p)
-
--- A path in a fiber defines a path in the total space
-#def fibered-path-to-sigma-path 
-    (A : U)
-    (B : A -&gt; U)
-    (x : A)
-    (u v : B x)
-    (p : u = v) 
-    : (x , u) =_{∑ (a : A), B a} (x , v)
-    := idJ(B x, u, \v' p' -&gt; (x , u) = (x , v'), refl, v, p)
-
--- Essentially eq-pair but with explicit arguments.
-#def pair-of-paths-to-path-of-pairs
-    (A : U)
-    (B : A -&gt; U)
-    (x y : A)
-    (p : x = y)
-    : (u : B x) -&gt; (v : B y) -&gt; ((transport A B x y p u) = v) -&gt; (x, u) =_{∑ (z : A), B z} (y, v)    
-    := idJ(A, x, 
-        \y' p' -&gt; (u' : B x) -&gt; (v' : B y') -&gt; ((transport A B x y' p' u') = v') -&gt; (x, u') =_{∑ (z : A), B z} (y', v'),
-        \(u' : B x) -&gt; \(v' : B x) -&gt; \(q' : (transport A B x x refl u') = v') -&gt; (fibered-path-to-sigma-path A B x u' v' q'), 
-        y, p) 
-
--- The inverse to pair-eq.
-#def eq-pair
-    (A : U)
-    (B : A -&gt; U)
-    (s t : ∑(a : A), B a)
-    (e : Eq-Sigma A B s t)
-    : (s = t)
-    := pair-of-paths-to-path-of-pairs A B (first s) (first t) (first e) (second s) (second t) (second e)
+#end retraction-data
+</code></pre>
+<h2 id="functions-between-contractible-types">Functions between contractible types</h2>
+<p>A function between contractible types is an equivalence</p>
+<pre><code class="language-rzk">#def areContr-isEquiv
+    (A B : U)
+    (Aiscontr : isContr A)
+    (Biscontr : isContr B)
+    (f : A -&gt; B)
+    : isEquiv A B f
+    := ((\b -&gt; contraction-center A Aiscontr, 
+        \a -&gt; contracting-htpy A Aiscontr a),
+       (\b -&gt; contraction-center A Aiscontr, 
+        \b -&gt; contractible-connecting-htpy B Biscontr (f (contraction-center A Aiscontr)) b))
+</code></pre>
+<p>A type equivalent to a contractible type is contractible.</p>
+<pre><code class="language-rzk">#def isEquiv-toContr-isContr
+    (A B : U)
+    (e : Eq A B)
+    (Biscontr : isContr B)
+    : isContr A
+    := isRetract-ofContr-isContr A B 
+        (first e, first (second e))
+        Biscontr
 </code></pre>
 <h2 id="based-path-spaces">Based path spaces</h2>
-<p>As an application, we prove that based path spaces are contractible.</p>
+<p>For example, we prove that based path spaces are contractible.</p>
 <pre><code class="language-rzk">-- Transport in the space of paths starting at a is concatenation.
-#def based-transport-is-concat
+#def concat-as-based-transport
     (A : U)             -- The ambient type.
     (a x y : A)         -- The basepoint and two other points.
     (p : a = x)         -- An element of the based path space.
@@ -276,7 +280,7 @@
         (transport A (\z -&gt; (a = z)) a (first p) (second p) (refl))
         (concat A a a (first p) (refl) (second p))
         (second p)
-        (based-transport-is-concat A a a (first p) (refl) (second p))
+        (concat-as-based-transport A a a (first p) (refl) (second p))
         (refl-concat A a (first p) (second p)))
 
 -- Based path spaces are contractible
@@ -286,43 +290,54 @@
     : isContr (∑ (x : A), a = x)
     := (based-paths-center A a, based-paths-contracting-homotopy A a)
 </code></pre>
-<h2 id="fubini">Fubini</h2>
-<p>Given a family over a pair of independent types, the order of summation is unimportant.</p>
-<pre><code class="language-rzk">#def sigma-fubini
-    (A B : U)
-    (C : A -&gt; B -&gt; U)
-    : Eq (∑ (x : A), ∑ (y : B), C x y) (∑ (y : B), ∑ (x : A), C x y)
-    := (\t -&gt; (first (second t), (first t, second (second t))),
-        ((\t -&gt; (first (second t), (first t, second (second t))),
-        \t -&gt; refl), 
-        (\t -&gt; (first (second t), (first t, second (second t))),
-        \t -&gt; refl)))
+<h2 id="contractible-products">Contractible products</h2>
+<pre><code class="language-rzk">#def isContr-product
+  (A B : U)
+  (AisContr : isContr A)
+  (BisContr : isContr B)
+  : isContr (prod A B)
+  := ((first AisContr, first BisContr), \p -&gt;
+    path-product A B
+      (first AisContr) (first p)
+      (first BisContr) (second p)
+      (second AisContr (first p))
+      (second BisContr (second p))
+      )
+
+#def first-isContr-product
+  (A B : U)
+  (AxBisContr : isContr (prod A B))
+  : isContr A
+  := (first (first AxBisContr), \a -&gt;
+    first-path-product A B
+      (first AxBisContr)
+      (a, second (first AxBisContr))
+      (second AxBisContr (a, second (first AxBisContr))))
+
+#def first-isContr-sigma
+  (A : U)
+  (B : A -&gt; U)
+  (b : (a : A) -&gt; B a)
+  (ABisContr : isContr (∑ (a : A), B a))
+  : isContr A
+  := (first (first ABisContr), \a -&gt; 
+        first-path-sigma A B
+          (first ABisContr)
+          (a, b a)
+          (second ABisContr (a, b a)))
 </code></pre>
-<p>Products distribute inside a Sigma type:</p>
-<pre><code class="language-rzk">#def prod-distribute-sigma
-    (A B : U)
-    (C : B -&gt; U)
-    : Eq (prod A (∑ (b : B), C b)) (∑ (b : B), prod A (C b))
-    := (\(a, (b, c)) -&gt; (b, (a, c)), 
-            ((\(b, (a, c)) -&gt; (a, (b, c)), \z -&gt; refl), 
-            (\(b, (a, c)) -&gt; (a, (b, c)), \z -&gt; refl))) 
-</code></pre>
-<h2 id="associativity">Associativity</h2>
-<pre><code class="language-rzk">#def assoc
-    (A : U)
-    (B : A -&gt; U)
-    (C : (a : A) -&gt; B a -&gt; U)
-    : Eq (∑ (a : A), ∑ (b : B a), C a b)
-         (∑ (ab : ∑ (a : A), B a), C (first ab) (second ab))
-    := (\(a, (b, c)) -&gt; ((a, b), c),
-        ((\((a, b), c) -&gt; (a, (b, c)), \_ -&gt; refl),
-         (\((a, b), c) -&gt; (a, (b, c)), \_ -&gt; refl)))
+<h2 id="propositions">Propositions</h2>
+<p>A type is a proposition when its identity types are contractible.</p>
+<pre><code class="language-rzk">#def isProp
+  (A : U)
+  : U
+  := (a : A) -&gt; (b : A) -&gt; isContr(a = b)
 </code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../04-contractible/" class="btn btn-neutral float-left" title="Contractible"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04-sigma/" class="btn btn-neutral float-left" title="Sigma types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../06-fibers/" class="btn btn-neutral float-right" title="Fibers">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -346,7 +361,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../04-contractible/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../04-sigma/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../06-fibers/" style="color: #fcfcfc">Next &raquo;</a></span>
