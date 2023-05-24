@@ -515,8 +515,6 @@ While not needed to prove Proposition 8.13, it is interesting to observe that th
 				(representable-dhomFrom-cofibration-composition A a x y f u)
 ```
 
-
-
 ## Covariant lifts, transport, and uniqueness
 
 In a covariant family C over a base type A, a term u : C x may be transported along an arrow f : hom A x y to give a term in C y.

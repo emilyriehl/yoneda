@@ -22,7 +22,7 @@ Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural tran
 
 Ordinary, such a natural transformation would involve a family of maps 
 
-phi : (z : A) -> hom A a z -> C z
+ϕ : (z : A) -> hom A a z -> C z
 
 together with a proof of naturality of these components, but by naturality-covariant-fiberwise-transformation naturality is automatic.
 
@@ -35,12 +35,12 @@ together with a proof of naturality of these components, but by naturality-covar
 	(g : hom A x y)
 	(C : A -> U)
 	(CisCov : isCovFam A C)
-	(phi : (z : A) -> hom A a z -> C z)
-	: (covTrans A x y g C CisCov (phi x f)) = (phi y (Segal-comp A AisSegal a x y f g))
-	:= naturality-covariant-fiberwise-transformation A x y g (\z -> hom A a z) C 
+	(ϕ : (z : A) -> hom A a z -> C z)
+	: (covTrans A x y g C CisCov (ϕ x f)) = (ϕ y (Segal-comp A AisSegal a x y f g))
+	:= naturality-covariant-fiberwise-transformation A x y g (\ z -> hom A a z) C 
         (isSegal-representable-isCovFam A AisSegal a)
         CisCov
-        phi f
+        ϕ f
 ```
 
 ## The Yoneda maps
@@ -57,7 +57,7 @@ One of the maps in this equivalence is evaluation at the identity. The inverse m
     (a : A)       						-- The representing object.
 	(C : A -> U)						-- A type family.
     : ((z : A) -> hom A a z -> C z) -> C a
-    := \phi -> phi a (id-arr A a)
+    := \ ϕ -> ϕ a (id-arr A a)
 
 -- The inverse map only exists for Segal types.
 #def yon
@@ -67,7 +67,7 @@ One of the maps in this equivalence is evaluation at the identity. The inverse m
 	(C : A -> U)						-- A type family.
 	(CisCov : isCovFam A C)				-- A covariant family.
     : C a -> ((z : A) -> hom A a z -> C z)
-    := \u z f -> covTrans A a z f C CisCov u
+    := \ u z f -> covTrans A a z f C CisCov u
 
 ```
 ## The Yoneda composites
@@ -87,7 +87,7 @@ It remains to show that the Yoneda maps are inverses.
     := covPresId A a C CisCov u
 ```
 
-The other composite carries phi to an a priori distinct natural transformation. We first show that these are pointwise equal at all x : A and f : hom A a x in two steps.
+The other composite carries ϕ to an a priori distinct natural transformation. We first show that these are pointwise equal at all x : A and f : hom A a x in two steps.
 
 ```rzk
 #section yon-evid
@@ -98,48 +98,48 @@ The other composite carries phi to an a priori distinct natural transformation. 
 #variable C : A -> U				-- A type family.
 #variable CisCov : isCovFam A C		-- A covariant family.
 
--- The composite yon-evid of phi equals phi at all x : A and f : hom A a x.
+-- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A a x.
 #def yon-evid-twice-pointwise
-    (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
+    (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     (x : A)
     (f : hom A a x)	  
-	: ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f = phi x f
+	: ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f = ϕ x f
     := concat (C x)
-        (((yon A AisSegal a C CisCov)((evid A a C) phi)) x f)
-        (phi x (Segal-comp A AisSegal a a x (id-arr A a) f))
-        (phi x f)
+        (((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f)
+        (ϕ x (Segal-comp A AisSegal a a x (id-arr A a) f))
+        (ϕ x f)
         (naturality-covariant-fiberwise-representable-transformation
-            A AisSegal a a x (id-arr A a) f C CisCov phi)
+            A AisSegal a a x (id-arr A a) f C CisCov ϕ )
         (ap (hom A a x) (C x)
             (Segal-comp A AisSegal a a x (id-arr A a) f)
             f
-            (phi x)
+            (ϕ x)
             (Segal-id-comp A AisSegal a x f))
 
 -- By funext, these are equals as functions of f pointwise in x.
 #def yon-evid-once-pointwise    
     (funext : FunExt)    
-    (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
+    (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     (x : A)
-	: ((yon A AisSegal a C CisCov)((evid A a C) phi)) x = phi x
+	: ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x = ϕ x
     := eq-htpy funext
         (hom A a x)
-        (\f -> C x)
-        (\f -> ((yon A AisSegal a C CisCov)((evid A a C) phi)) x f)
-        (\f -> (phi x f))
-        (\f -> yon-evid-twice-pointwise phi x f)
+        (\ f -> C x)
+        (\ f -> ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f)
+        (\ f -> (ϕ x f))
+        (\ f -> yon-evid-twice-pointwise ϕ x f)
 
 -- By funext again, these are equal as functions of x and f.
 #def yon-evid    
     (funext : FunExt)        
-    (phi : (z : A) -> hom A a z -> C z)     -- A natural transformation.
-    : ((yon A AisSegal a C CisCov)((evid A a C) phi)) = phi
+    (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
+    : ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) = ϕ
     := eq-htpy funext
         A
-        (\x -> (hom A a x -> C x))
-        (\x -> ((yon A AisSegal a C CisCov)((evid A a C) phi)) x)
-        (\x -> (phi x))
-        (\x -> yon-evid-once-pointwise funext phi x)
+        (\ x -> (hom A a x -> C x))
+        (\ x -> ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x)
+        (\ x -> (ϕ x))
+        (\ x -> yon-evid-once-pointwise funext ϕ x)
 
 #end yon-evid
 ```    

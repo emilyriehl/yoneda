@@ -1,4 +1,4 @@
-# 7. Fibers
+# 6. Fibers
 
 This is a literate `rzk` file:
 
