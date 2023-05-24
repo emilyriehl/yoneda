@@ -481,16 +481,78 @@ This is a literate `rzk` file:
     := compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
 ```
 
+## Equivalences and homotopy
+
+If a map is homotopic to an equivalence it is an equivalence.
+
+```rzk
+#def isEquiv-homotopic-isEquiv
+    (A B : U)
+    (f g : A -> B)
+    (H : homotopy A B f g)
+    (gisequiv : isEquiv A B g)
+    : isEquiv A B f
+    := ((first (first gisequiv), 
+        \a -> concat A 
+            ((first (first gisequiv)) (f a))
+            ((first (first gisequiv)) (g a)) 
+            a
+            (ap B A (f a) (g a) (first (first gisequiv)) (H a))
+            ((second (first gisequiv)) a))
+        ,(first (second gisequiv),
+        \b -> concat B
+            (f ((first (second gisequiv)) b))
+            (g ((first (second gisequiv)) b))
+            b
+            (H ((first (second gisequiv)) b))
+            ((second (second gisequiv)) b)
+            ))
+```
+
 ## Function extensionality
+
+By path induction, an identification between functions defines a homotopy
+
+```rzk
+#def htpy-eq
+    (X : U)
+    (A : X -> U)
+    (f g : (x : X) -> A x)
+    (p : f = g)
+    : (x : X) -> (f x = g x)
+    := idJ((x : X) -> A x, f, \g' p' -> (x : X) -> (f x = g' x), \x -> refl, g, p)
+```    
+
+The function extensionality axiom asserts that this map defines a family of equivalences.
 
 ```rzk
 -- The type that encodes the function extensionality axiom.
 #def FunExt : U
-    := (X : U) -> (A : X -> U) -> (f : (x : X) -> A x) -> (g : (x : X) -> A x) ->
-        (px : (x : X) -> f x = g x) -> f = g
+    := (X : U) -> (A : X -> U) -> 
+    (f : (x : X) -> A x) -> (g : (x : X) -> A x) ->
+        isEquiv (f = g)((x : X) -> f x = g x)(htpy-eq X A f g)
+
+-- The equivalence provided by function extensionality.
+#def FunExtEq 
+    (funext : FunExt)
+    (X : U)
+    (A : X -> U) 
+    (f g : (x : X) -> A x)
+    : Eq (f = g) ((x : X) -> f x = g x) 
+    := (htpy-eq X A f g, funext X A f g)
+
+-- In particular, function extensionality implies that homotopies give rise to identifications. This definition defines eq-htpy to be the retraction to htpy-eq.
+#def eq-htpy
+    (funext : FunExt)
+    (X : U)
+    (A : X -> U) 
+    (f g : (x : X) -> A x)
+    : ((x : X) -> f x = g x) -> (f = g)
+    := first (first (funext X A f g))
+
 
 -- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
-#def fibered-equiv-function-equiv
+#def fibered-Eq-function-Eq
     (funext : FunExt)
     (X : U)
     (A B : X -> U)
@@ -498,8 +560,8 @@ This is a literate `rzk` file:
     : Eq ((x : X) -> A x) ((x : X) -> B x)
     := ((\a -> \x -> (first (fibequiv x)) (a x)),
             (((\b -> \x -> (first (first (second (fibequiv x)))) (b x)),
-                \a -> funext X A (\x -> (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
+                \a -> eq-htpy funext X A (\x -> (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -> (second (first (second (fibequiv x)))) (a x))), 
            ((\b -> \x -> (first (second (second (fibequiv x)))) (b x)),
-            (\b -> funext X B (\x -> (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -> (second (second (second (fibequiv x)))) (b x))))))
+            (\b -> eq-htpy funext X B (\x -> (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -> (second (second (second (fibequiv x)))) (b x))))))
 ```
 
