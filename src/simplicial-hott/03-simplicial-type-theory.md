@@ -8,22 +8,22 @@ This is a literate `rzk` file:
 #lang rzk-1
 ```
 
-## Simplicies and their subshapes
+## Simplices and their subshapes
 
-Simplicies:
+Simplices:
 
 ```rzk
 -- 1-simplex
 #def Δ¹ : 2 -> TOPE
-  := \t -> TOP
+  := \ t -> TOP
 
 -- 2-simplex
 #def Δ² : (2 * 2) -> TOPE
-  := \(t, s) -> s <= t
+  := \ (t, s) -> s <= t
 
 -- 3-simplex
 #def Δ³ : (2 * 2 * 2) -> TOPE
-  := \((t1, t2), t3) -> t3 <= t2 /\ t2 <= t1
+  := \ ((t1, t2), t3) -> t3 <= t2 /\ t2 <= t1
 ```
 
 Boundaries of simplices:
@@ -31,11 +31,11 @@ Boundaries of simplices:
 ```rzk
 -- boundary of a 1-simplex
 #def ∂Δ¹ : Δ¹ -> TOPE
-  := \t -> (t === 0_2 \/ t === 1_2)
+  := \ t -> (t === 0_2 \/ t === 1_2)
 
 -- boundary of a 2-simplex
 #def ∂Δ² : Δ² -> TOPE
-  := \ts -> 
+  := \ ts -> 
         ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
 ```
 
@@ -44,7 +44,7 @@ Horns:
 ```rzk
 -- the (2,1)-horn
 #def Λ : (2 * 2) -> TOPE
-  := \(t, s) -> (s === 0_2 \/ t === 1_2)
+  := \ (t, s) -> (s === 0_2 \/ t === 1_2)
 ```
 
 Products:
@@ -53,10 +53,10 @@ Products:
 -- the product of topes defines the product of shapes
 #def shapeProd
   (I J : CUBE)
-  (psi : I -> TOPE)
-  (chi : J -> TOPE)
+  (ψ : I -> TOPE)
+  (χ : J -> TOPE)
   : (I * J) -> TOPE
-  := \(t, s) -> psi t /\ chi s
+  := \ (t, s) -> ψ t /\ χ s
 
 -- the square as a product
 #def Δ¹×Δ¹ : (2 * 2) -> TOPE
@@ -64,7 +64,7 @@ Products:
 
 -- the total boundary of the square
 #def ∂□ : (2 * 2) -> TOPE
-  := \(t ,s) -> ((∂Δ¹ t) /\ (Δ¹ s)) \/ ((Δ¹ t) /\ (∂Δ¹ s))
+  := \ (t ,s) -> ((∂Δ¹ t) /\ (Δ¹ s)) \/ ((Δ¹ t) /\ (∂Δ¹ s))
 
 -- the vertical boundary of the square 
 #def ∂Δ¹×Δ¹ : (2 * 2) -> TOPE

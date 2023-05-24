@@ -1,4 +1,4 @@
-# 4. Contractible
+# 5. Contractible
 
 This is a literate `rzk` file:
 
@@ -126,6 +126,50 @@ A type equivalent to a contractible type is contractible.
         Biscontr
 ```   
 
+## Based path spaces
+
+For example, we prove that based path spaces are contractible.
+
+```rzk
+-- Transport in the space of paths starting at a is concatenation.
+#def concat-as-based-transport
+    (A : U)             -- The ambient type.
+    (a x y : A)         -- The basepoint and two other points.
+    (p : a = x)         -- An element of the based path space.
+    (q : x = y)         -- A path in the base.
+    : (transport A (\z -> (a = z)) x y q p) = (concat A a x y p q)
+    := idJ(A, x, \y' q' -> (transport A (\z -> (a = z)) x y' q' p) = (concat A a x y' p q'), refl, y, q)
+
+-- The center of contraction in the based path space is (a, refl)
+#def based-paths-center 
+    (A : U)         -- The ambient type.
+    (a : A)         -- The basepoint.
+    : ∑ (x : A), a = x
+    := (a, refl)
+
+-- The contracting homotopy.
+#def based-paths-contracting-homotopy
+    (A : U)                     -- The ambient type.
+    (a : A)                     -- The basepoint.
+    (p : ∑ (x : A), a = x)      -- Another based path.
+    : (based-paths-center A a) =_{∑ (x : A), a = x} p
+    := pair-of-paths-to-path-of-pairs A (\z -> a = z) a (first p) (second p) (refl) (second p)
+        (concat (a = (first p))
+        (transport A (\z -> (a = z)) a (first p) (second p) (refl))
+        (concat A a a (first p) (refl) (second p))
+        (second p)
+        (concat-as-based-transport A a a (first p) (refl) (second p))
+        (refl-concat A a (first p) (second p)))
+
+-- Based path spaces are contractible
+#def based-paths-contractible
+    (A : U)         -- The ambient type.
+    (a : A)         -- The basepoint.
+    : isContr (∑ (x : A), a = x)
+    := (based-paths-center A a, based-paths-contracting-homotopy A a)
+```
+
+
 ## Contractible products
 
 ```rzk
@@ -164,6 +208,10 @@ A type equivalent to a contractible type is contractible.
           (a, b a)
           (second ABisContr (a, b a)))
 ```
+
+## Propositions
+
+A type is a proposition when its identity types are contractible.
 
 ```rzk
 #def isProp

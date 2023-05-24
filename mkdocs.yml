@@ -9,8 +9,8 @@ nav:
       - Paths: hott/01-paths.md
       - Homotopies: hott/02-homotopies.md     
       - Equivalences: hott/03-equivalences.md
-      - Contractible: hott/04-contractible.md
-      - Sigma types: hott/05-sigma.md
+      - Sigma types: hott/04-sigma.md
+      - Contractible: hott/05-contractible.md
       - Fibers: hott/06-fibers.md
       - Trivial fibrations: hott/07-trivial-fibrations.md
 

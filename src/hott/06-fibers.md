@@ -852,7 +852,7 @@ We now calculate the fiber of the map on total spaces associated to a family of 
     (w : (∑ (x : A), C x))
     : fib (B (first w)) (C (first w)) (f (first w)) (second w) -> 
         (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
-    := \(b, p) -> ((first w, b),  fibered-path-to-sigma-path A C (first w) (f (first w) b) (second w) p)
+    := \(b, p) -> ((first w, b),  sigma-path-fibered-path A C (first w) (f (first w) b) (second w) p)
 
 #def total-map-from-fiber
     (A : U)
@@ -931,7 +931,7 @@ A family of equivalences induces an equivalence on total spaces and conversely. 
     (invfamily : (a : A) -> hasInverse (B a) (C a) (f a))   -- an invertible family of maps
     : hasRetraction (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
     := (invertible-family-total-inverse A B C f invfamily, 
-        \(a, b) -> (fibered-path-to-sigma-path A B a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b 
+        \(a, b) -> (sigma-path-fibered-path A B a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b 
         ((first (second (invfamily a))) b)))
 
 #def invertible-family-total-section
@@ -941,7 +941,7 @@ A family of equivalences induces an equivalence on total spaces and conversely. 
     (invfamily : (a : A) -> hasInverse (B a) (C a) (f a))   -- an invertible family of maps
     : hasSection (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
     := (invertible-family-total-inverse A B C f invfamily, 
-        \(a, c) -> (fibered-path-to-sigma-path A C a (f a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c 
+        \(a, c) -> (sigma-path-fibered-path A C a (f a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c 
         ((second (second (invfamily a))) c)))
 
 #def invertible-family-total-invertible

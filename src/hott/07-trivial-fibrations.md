@@ -52,7 +52,7 @@ This is a literate `rzk` file:
 #def contractible-fibers-retraction-htpy 
     : (z : ∑ (x : A), B x) 
         -> ((contractible-fibers-actual-section) (first z)) = z
-     := \z -> fibered-path-to-sigma-path A B (first z) ((contractible-fibers-section) (first z)) (second z)
+     := \z -> sigma-path-fibered-path A B (first z) ((contractible-fibers-section) (first z)) (second z)
             (contracting-htpy (B (first z)) (ABcontrfib (first z)) (second z))
 
 #def contractible-fibers-retraction uses (ABcontrfib)
@@ -91,7 +91,7 @@ This is a literate `rzk` file:
 --    (ABprojequiv : isEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
 --    : contractible-fibers A B
 --    := \x -> (second ((first (first ABprojequiv)) x) , 
---        \u -> total-path-to-fibered-path A B ((first (first ABprojequiv)) x) (x, u) ((second (first ABprojequiv)) (x, u)) )
+--        \u -> second-path-sigma A B ((first (first ABprojequiv)) x) (x, u) ((second (first ABprojequiv)) (x, u)) )
 
 #section projection-hae-data
 #variable A : U
@@ -124,28 +124,28 @@ This is a literate `rzk` file:
 
 #def projection-hae-fibered-htpy 
     : (transport A B (first ((projection-hae-inverse (first w)))) (first w) 
-            (total-path-to-base-path A B (projection-hae-inverse (first w)) w
+            (first-path-sigma A B (projection-hae-inverse (first w)) w
                 (projection-hae-total-htpy)) 
             (second (projection-hae-inverse (first w)))) 
                 = (second w)
-    := total-path-to-fibered-path A B (projection-hae-inverse (first w)) w
+    := second-path-sigma A B (projection-hae-inverse (first w)) w
             (projection-hae-total-htpy)
 
 #def projection-hae-base-coherence 
     : (projection-hae-base-htpy (first w)) 
-                = (total-path-to-base-path A B (projection-hae-inverse (first w)) w
+                = (first-path-sigma A B (projection-hae-inverse (first w)) w
                     (projection-hae-total-htpy)) 
     := (second ABprojHAE) w
 
 #def projection-hae-transport-coherence 
     : (projection-hae-section (first w))
              =  (transport A B (first ((projection-hae-inverse (first w)))) (first w) 
-                    (total-path-to-base-path A B (projection-hae-inverse (first w)) w
+                    (first-path-sigma A B (projection-hae-inverse (first w)) w
                         (projection-hae-total-htpy)) 
                     (second (projection-hae-inverse (first w))))
     := transport2 A B (first (projection-hae-inverse (first w))) (first w) 
             (projection-hae-base-htpy (first w)) 
-            (total-path-to-base-path A B (projection-hae-inverse (first w)) w
+            (first-path-sigma A B (projection-hae-inverse (first w)) w
                 (projection-hae-total-htpy))
             (projection-hae-base-coherence)
             (second (projection-hae-inverse (first w)))
@@ -155,7 +155,7 @@ This is a literate `rzk` file:
     := concat (B (first w)) 
             (projection-hae-section (first w))
             (transport A B (first ((projection-hae-inverse (first w)))) (first w)
-                (total-path-to-base-path A B (projection-hae-inverse (first w)) w
+                (first-path-sigma A B (projection-hae-inverse (first w)) w
                     (projection-hae-total-htpy)) 
                 (second (projection-hae-inverse (first w))))
             (second w)

@@ -146,7 +146,7 @@ Composition in a Segal type is unique in the following sense. If there is a witn
   (h : hom A x z)               -- An arrow in A from x to z.
   (alpha : hom2 A x y z f g h)  -- A witness that h is a composite of f and g.
   : (Segal-comp A AisSegal x y z f g) = h
-  := total-path-to-base-path 
+  := first-path-sigma 
       (hom A x z)
       (\k -> hom2 A x y z f g k)
       (Segal-comp A AisSegal x y z f g, 
