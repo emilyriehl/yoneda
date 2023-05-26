@@ -157,24 +157,24 @@
 
 #variables A B C D : U
 
-#def composition 
+#def composition
   (g : B -&gt; C)    -- The second function.
   (f : A -&gt; B)    -- The first function.
   : A -&gt; C        -- The composite function.
   := \z -&gt; g (f z)
 
-#def triple-composition 
-  (h : C -&gt; D) 
-  (g : B -&gt; C) 
+#def triple-composition
+  (h : C -&gt; D)
+  (g : B -&gt; C)
   (f : A -&gt; B)
-  : A -&gt; D  
+  : A -&gt; D
   := \z -&gt; h (g (f z))
 
-#def identity 
+#def identity
   : A -&gt; A
-  := \a -&gt; a  
+  := \a -&gt; a
 
-#def constant 
+#def constant
   (b : B)         -- The constant output value.
   : A -&gt; B
   := \a -&gt; b
@@ -182,11 +182,11 @@
 #end basic-functions
 </code></pre>
 <h2 id="substitution">Substitution</h2>
-<pre><code class="language-rzk">-- Reindexing a type family along a function into the base type.  
-#def reindex 
-  (A B : U) 
-  (f : B -&gt; A) 
-  (C : A -&gt; U) 
+<pre><code class="language-rzk">-- Reindexing a type family along a function into the base type.
+#def reindex
+  (A B : U)
+  (f : B -&gt; A)
+  (C : A -&gt; U)
   : (B -&gt; U)
   := \b -&gt; C (f b)
 </code></pre>

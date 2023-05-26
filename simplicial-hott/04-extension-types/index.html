@@ -188,9 +188,9 @@
    (ζ : J -&gt; TOPE)
    (χ : ζ -&gt; TOPE)
    (X : ψ -&gt; ζ -&gt; U)
-   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
+   (f : &lt;{(t, s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} -&gt; X t s &gt;)
    : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
-      (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
+      (&lt;{(t, s) : I * J | ψ t ∧ ζ s} -&gt; X t s [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) |-&gt; f (t , s)]&gt;)
    := (\ g (t, s) -&gt; (g t) s, -- the one way map
          ((\ h t s -&gt; h (t , s) -- its retraction
             ,\ g -&gt; refl), -- the retracting homotopy 
@@ -204,8 +204,8 @@
    (ζ : J -&gt; TOPE)
    (χ : ζ -&gt; TOPE)
    (X : ψ -&gt; ζ -&gt; U)
-   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
-   : Eq (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;) 
+   (f : &lt;{(t, s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} -&gt; X t s &gt;)
+   : Eq (&lt;{(t, s) : I * J | ψ t ∧ ζ s} -&gt; X t s [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) |-&gt; f (t , s)]&gt;) 
       (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
    := (\ h s t -&gt; h (t , s) , -- the one way map
       ((\ g (t, s) -&gt; (g s) t -- its retraction
@@ -220,12 +220,12 @@
    (ζ : J -&gt; TOPE)
    (χ : ζ -&gt; TOPE)
    (X : ψ -&gt; ζ -&gt; U)
-   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
+   (f : &lt;{(t, s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} -&gt; X t s &gt;)
    : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
       (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
    := compose_Eq
          (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
-         (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
+         (&lt;{(t, s) : I * J | ψ t ∧ ζ s} -&gt; X t s [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) |-&gt; f (t , s)]&gt;)
          (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
          (curry-uncurry I J ψ ϕ ζ χ X f)
          (uncurry-opcurry I J ψ ϕ ζ χ X f)
@@ -256,10 +256,10 @@
    (I : CUBE)
    (χ ψ ϕ : I -&gt; TOPE)
    (X : χ -&gt; U)
-   (a : &lt;{t : I | χ t /\ ψ t /\ ϕ t} -&gt; X t &gt;)
-   : Eq &lt;{t : I | χ t} -&gt; X t [ χ t /\ ψ t /\ ϕ t |-&gt; a t ]&gt;
-       (∑ (f : &lt;{t : I | χ t /\ ψ t} -&gt; X t [ χ t /\ ψ t /\ ϕ t |-&gt; a t ]&gt;),
-          &lt;{t : I | χ t} -&gt; X t [ χ t /\ ψ t |-&gt; f t ]&gt;)
+   (a : &lt;{t : I | χ t ∧ ψ t ∧ ϕ t} -&gt; X t &gt;)
+   : Eq &lt;{t : I | χ t} -&gt; X t [ χ t ∧ ψ t ∧ ϕ t |-&gt; a t ]&gt;
+       (∑ (f : &lt;{t : I | χ t ∧ ψ t} -&gt; X t [ χ t ∧ ψ t ∧ ϕ t |-&gt; a t ]&gt;),
+          &lt;{t : I | χ t} -&gt; X t [ χ t ∧ ψ t |-&gt; f t ]&gt;)
   := (\ h -&gt; (\ t -&gt; h t,
              \ t -&gt; h t),
       ((\ fg t -&gt; (second fg) t, \ h -&gt; refl),
@@ -286,10 +286,10 @@
 #def cofibration_union
    (I : CUBE)
    (ϕ ψ : I -&gt; TOPE)
-   (X : &lt;{t : I | ϕ t \/ ψ t} -&gt; U &gt;)
+   (X : &lt;{t : I | ϕ t ∨ ψ t} -&gt; U &gt;)
    (a : (t : ψ) -&gt; X t)
-   : Eq &lt;{t : I | ϕ t \/ ψ t} -&gt; X t [ ψ t |-&gt; a t ]&gt;
-       &lt;{t : I | ϕ t} -&gt; X t [ ϕ t /\ ψ t |-&gt; a t ]&gt;
+   : Eq &lt;{t : I | ϕ t ∨ ψ t} -&gt; X t [ ψ t |-&gt; a t ]&gt;
+       &lt;{t : I | ϕ t} -&gt; X t [ ϕ t ∧ ψ t |-&gt; a t ]&gt;
   := (\ h -&gt; \ t -&gt; h t,
       ((\ g -&gt; \ t -&gt; recOR(ϕ t |-&gt; g t, ψ t |-&gt; a t), \ h -&gt; refl),
        (\ g -&gt; \ t -&gt; recOR(ϕ t |-&gt; g t, ψ t |-&gt; a t), \ h -&gt; refl)))
