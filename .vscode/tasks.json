@@ -11,8 +11,15 @@
     {
       "label": "typecheck",
       "type": "shell",
-      "command": "rzk",
-      "args": ["typecheck", "src/hott/*", "src/simplicial-hott/*"]
+      "command": "stack",
+      "args": [
+        "exec",
+        "rzk",
+        "typecheck",
+        "src/hott/*",
+        "src/simplicial-hott/*"
+      ],
+      "problemMatcher": []
     }
   ]
 }

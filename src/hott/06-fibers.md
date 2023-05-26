@@ -794,7 +794,7 @@ Finally, we may define the contracting homotopy:
 ```rzk
 #def isHAE-fib-contracting-homotopy
     : (isHAE-isSurj A B f fisHAE b) = z
-    := pair-of-paths-to-path-of-pairs A (\x -> (f x) = b) 
+    := path-of-pairs-pair-of-paths A (\x -> (f x) = b) 
         ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
         (isHAE-fib-base-path )
         ((second (second (first fisHAE))) b)

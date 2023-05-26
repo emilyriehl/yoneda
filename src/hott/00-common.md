@@ -7,6 +7,7 @@ This is a literate `rzk` file:
 ```
 
 ## Products of types
+
 ```rzk
 #def prod (A B : U) : U
   := ∑ (x : A), B
@@ -17,48 +18,52 @@ This is a literate `rzk` file:
 ```
 
 ## The type of logical equivalences between types
+
 ```rzk
 #def iff (A B : U) : U
   := prod (A -> B) (B -> A)
 ```
 
 ## Basic function definitions
+
 ```rzk
 #section basic-functions
 
 #variables A B C D : U
 
-#def composition 
+#def composition
   (g : B -> C)    -- The second function.
   (f : A -> B)    -- The first function.
   : A -> C        -- The composite function.
   := \z -> g (f z)
 
-#def triple-composition 
-  (h : C -> D) 
-  (g : B -> C) 
+#def triple-composition
+  (h : C -> D)
+  (g : B -> C)
   (f : A -> B)
-  : A -> D  
+  : A -> D
   := \z -> h (g (f z))
 
-#def identity 
+#def identity
   : A -> A
-  := \a -> a  
+  := \a -> a
 
-#def constant 
+#def constant
   (b : B)         -- The constant output value.
   : A -> B
   := \a -> b
 
 #end basic-functions
 ```
+
 ## Substitution
+
 ```rzk
--- Reindexing a type family along a function into the base type.  
-#def reindex 
-  (A B : U) 
-  (f : B -> A) 
-  (C : A -> U) 
+-- Reindexing a type family along a function into the base type.
+#def reindex
+  (A B : U)
+  (f : B -> A)
+  (C : A -> U)
   : (B -> U)
   := \b -> C (f b)
 ```

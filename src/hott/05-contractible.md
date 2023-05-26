@@ -153,7 +153,7 @@ For example, we prove that based path spaces are contractible.
     (a : A)                     -- The basepoint.
     (p : ∑ (x : A), a = x)      -- Another based path.
     : (based-paths-center A a) =_{∑ (x : A), a = x} p
-    := pair-of-paths-to-path-of-pairs A (\z -> a = z) a (first p) (second p) (refl) (second p)
+    := path-of-pairs-pair-of-paths A (\z -> a = z) a (first p) (second p) (refl) (second p)
         (concat (a = (first p))
         (transport A (\z -> (a = z)) a (first p) (second p) (refl))
         (concat A a a (first p) (refl) (second p))
