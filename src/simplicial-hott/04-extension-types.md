@@ -54,9 +54,9 @@ This is a literate `rzk` file:
    (ζ : J -> TOPE)
    (χ : ζ -> TOPE)
    (X : ψ -> ζ -> U)
-   (f : <{(t, s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} -> X t s >)
+   (f : <{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s >)
    : Eq (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
-      (<{(t, s) : I * J | ψ t ∧ ζ s} -> X t s [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) |-> f (t , s)]>)
+      (<{(t, s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)]>)
    := (\ g (t, s) -> (g t) s, -- the one way map
          ((\ h t s -> h (t , s) -- its retraction
             ,\ g -> refl), -- the retracting homotopy 
@@ -70,8 +70,8 @@ This is a literate `rzk` file:
    (ζ : J -> TOPE)
    (χ : ζ -> TOPE)
    (X : ψ -> ζ -> U)
-   (f : <{(t, s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} -> X t s >)
-   : Eq (<{(t, s) : I * J | ψ t ∧ ζ s} -> X t s [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) |-> f (t , s)]>) 
+   (f : <{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s >)
+   : Eq (<{(t, s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)]>) 
       (<{s : J | ζ s} -> <{ t : I | ψ t} -> X t s [ ϕ t |-> f (t, s) ]> [ χ s |-> \{t : I | ψ t} -> f (t, s) ]>)
    := (\ h s t -> h (t , s) , -- the one way map
       ((\ g (t, s) -> (g s) t -- its retraction
@@ -86,12 +86,12 @@ This is a literate `rzk` file:
    (ζ : J -> TOPE)
    (χ : ζ -> TOPE)
    (X : ψ -> ζ -> U)
-   (f : <{(t, s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} -> X t s >)
+   (f : <{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s >)
    : Eq (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
       (<{s : J | ζ s} -> <{ t : I | ψ t} -> X t s [ ϕ t |-> f (t, s) ]> [ χ s |-> \{t : I | ψ t} -> f (t, s) ]>)
    := compose_Eq
          (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
-         (<{(t, s) : I * J | ψ t ∧ ζ s} -> X t s [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) |-> f (t , s)]>)
+         (<{(t, s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)]>)
          (<{s : J | ζ s} -> <{ t : I | ψ t} -> X t s [ ϕ t |-> f (t, s) ]> [ χ s |-> \{t : I | ψ t} -> f (t, s) ]>)
          (curry-uncurry I J ψ ϕ ζ χ X f)
          (uncurry-opcurry I J ψ ϕ ζ χ X f)
@@ -128,10 +128,10 @@ This is a literate `rzk` file:
    (I : CUBE)
    (χ ψ ϕ : I -> TOPE)
    (X : χ -> U)
-   (a : <{t : I | χ t ∧ ψ t ∧ ϕ t} -> X t >)
-   : Eq <{t : I | χ t} -> X t [ χ t ∧ ψ t ∧ ϕ t |-> a t ]>
-       (∑ (f : <{t : I | χ t ∧ ψ t} -> X t [ χ t ∧ ψ t ∧ ϕ t |-> a t ]>),
-          <{t : I | χ t} -> X t [ χ t ∧ ψ t |-> f t ]>)
+   (a : <{t : I | χ t /\ ψ t /\ ϕ t} -> X t >)
+   : Eq <{t : I | χ t} -> X t [ χ t /\ ψ t /\ ϕ t |-> a t ]>
+       (∑ (f : <{t : I | χ t /\ ψ t} -> X t [ χ t /\ ψ t /\ ϕ t |-> a t ]>),
+          <{t : I | χ t} -> X t [ χ t /\ ψ t |-> f t ]>)
   := (\ h -> (\ t -> h t,
              \ t -> h t),
       ((\ fg t -> (second fg) t, \ h -> refl),
@@ -158,10 +158,10 @@ This is a literate `rzk` file:
 #def cofibration_union
    (I : CUBE)
    (ϕ ψ : I -> TOPE)
-   (X : <{t : I | ϕ t ∨ ψ t} -> U >)
+   (X : <{t : I | ϕ t \/ ψ t} -> U >)
    (a : (t : ψ) -> X t)
-   : Eq <{t : I | ϕ t ∨ ψ t} -> X t [ ψ t |-> a t ]>
-       <{t : I | ϕ t} -> X t [ ϕ t ∧ ψ t |-> a t ]>
+   : Eq <{t : I | ϕ t \/ ψ t} -> X t [ ψ t |-> a t ]>
+       <{t : I | ϕ t} -> X t [ ϕ t /\ ψ t |-> a t ]>
   := (\ h -> \ t -> h t,
       ((\ g -> \ t -> recOR(ϕ t |-> g t, ψ t |-> a t), \ h -> refl),
        (\ g -> \ t -> recOR(ϕ t |-> g t, ψ t |-> a t), \ h -> refl)))
