@@ -139,7 +139,7 @@
 <p>Simplices:</p>
 <pre><code class="language-rzk">-- 1-simplex
 #def Δ¹ : 2 -&gt; TOPE
-  := \ t -&gt; ⊤
+  := \ t -&gt; TOP
 
 -- 2-simplex
 #def Δ² : (2 * 2) -&gt; TOPE
@@ -147,22 +147,22 @@
 
 -- 3-simplex
 #def Δ³ : (2 * 2 * 2) -&gt; TOPE
-  := \ ((t1, t2), t3) -&gt; t3 &lt;= t2 ∧ t2 &lt;= t1
+  := \ ((t1, t2), t3) -&gt; t3 &lt;= t2 /\ t2 &lt;= t1
 </code></pre>
 <p>Boundaries of simplices:</p>
 <pre><code class="language-rzk">-- boundary of a 1-simplex
 #def ∂Δ¹ : Δ¹ -&gt; TOPE
-  := \ t -&gt; (t === 0_2 ∨ t === 1_2)
+  := \ t -&gt; (t === 0_2 \/ t === 1_2)
 
 -- boundary of a 2-simplex
 #def ∂Δ² : Δ² -&gt; TOPE
   := \ ts -&gt; 
-        ((second ts) === 0_2 ∨ (first ts) === 1_2 ∨ (second ts) === (first ts))
+        ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
 </code></pre>
 <p>Horns:</p>
 <pre><code class="language-rzk">-- the (2,1)-horn
 #def Λ : (2 * 2) -&gt; TOPE
-  := \ (t, s) -&gt; (s === 0_2 ∨ t === 1_2)
+  := \ (t, s) -&gt; (s === 0_2 \/ t === 1_2)
 </code></pre>
 <p>Products:</p>
 <pre><code class="language-rzk">-- the product of topes defines the product of shapes
@@ -171,7 +171,7 @@
   (ψ : I -&gt; TOPE)
   (χ : J -&gt; TOPE)
   : (I * J) -&gt; TOPE
-  := \ (t, s) -&gt; ψ t ∧ χ s
+  := \ (t, s) -&gt; ψ t /\ χ s
 
 -- the square as a product
 #def Δ¹×Δ¹ : (2 * 2) -&gt; TOPE
@@ -179,7 +179,7 @@
 
 -- the total boundary of the square
 #def ∂□ : (2 * 2) -&gt; TOPE
-  := \ (t ,s) -&gt; ((∂Δ¹ t) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (∂Δ¹ s))
+  := \ (t ,s) -&gt; ((∂Δ¹ t) /\ (Δ¹ s)) \/ ((Δ¹ t) /\ (∂Δ¹ s))
 
 -- the vertical boundary of the square 
 #def ∂Δ¹×Δ¹ : (2 * 2) -&gt; TOPE
