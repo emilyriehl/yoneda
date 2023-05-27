@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Trivial fibrations - yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Trivial fibrations";
+        var mkdocs_page_input_path = "hott/07-trivial-fibrations.rzk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00-common.rzk/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-paths.rzk/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-homotopies.rzk/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-equivalences.rzk/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-sigma.rzk/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../05-contractible.rzk.md">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Trivial fibrations</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#contractible-fibers">Contractible fibers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#projection-equivalences">Projection equivalences</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/04-extension-types.rzk/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/05-segal-types.rzk/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/07-discrete.rzk/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/08-covariant.rzk/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/09-yoneda.rzk/">The Yoneda Lemma</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/12-cocartesian.rzk/">Cocartesian Families</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>HoTT &raquo;</li>
+      <li>Trivial fibrations</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="7-trivial-fibrations">7. Trivial Fibrations</h1>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="contractible-fibers">Contractible fibers</h2>
+<pre><code class="language-rzk">-- In what follows we apply show that the projection from the total space of a sigma type is an equivalence if and only if its fibers are contractible
+#def total-space-projection
+    (A : U)
+    (B : A -&gt; U)
+    : (∑ (x : A), B x) -&gt; A
+    := \z -&gt; first z
+
+-- The type that asserts that the fibers of a type family are contractible
+#def contractible-fibers
+    (A : U)
+    (B : A -&gt; U)
+    : U
+    := ((x : A) -&gt; isContr (B x))
+
+#section contractible-fibers-data
+
+#variable A : U
+#variable B : A -&gt; U
+#variable ABcontrfib : contractible-fibers A B
+
+-- The center of contraction in a contractible fibers
+#def contractible-fibers-section 
+    : (x : A) -&gt; B x
+    := \x -&gt; contraction-center (B x) (ABcontrfib x)
+
+-- The section of the total space projection built from the contraction centers
+#def contractible-fibers-actual-section uses (ABcontrfib)
+    : (x : A) -&gt; ∑ (x : A), B x
+    := \x -&gt; (x , contractible-fibers-section x)
+
+#def contractible-fibers-section-htpy uses (ABcontrfib)
+    : homotopy A A 
+            (composition A (∑ (x : A), B x) A (total-space-projection A B) (contractible-fibers-actual-section))
+            (identity A)
+    := \x -&gt; refl
+
+#def contractible-fibers-section-is-section uses (ABcontrfib)
+    : hasSection (∑ (x : A), B x) A (total-space-projection A B)
+    := (contractible-fibers-actual-section , contractible-fibers-section-htpy)
+
+-- This can be used to define the retraction homotopy for the total space projection, called &quot;first&quot; here
+#def contractible-fibers-retraction-htpy 
+    : (z : ∑ (x : A), B x) 
+        -&gt; ((contractible-fibers-actual-section) (first z)) = z
+     := \z -&gt; sigma-path-fibered-path A B (first z) ((contractible-fibers-section) (first z)) (second z)
+            (contracting-htpy (B (first z)) (ABcontrfib (first z)) (second z))
+
+#def contractible-fibers-retraction uses (ABcontrfib)
+    : hasRetraction (∑ (x : A), B x) A (total-space-projection A B)
+    := (contractible-fibers-actual-section , contractible-fibers-retraction-htpy)
+
+-- The first half of our main result:
+#def contractible-fibers-projection-equiv uses (ABcontrfib)
+    : isEquiv (∑ (x : A), B x) A (total-space-projection A B)
+    := (contractible-fibers-retraction , contractible-fibers-section-is-section)
+
+#def contractible-fibers-projection-Eq uses (ABcontrfib)
+    : Eq (∑ (x : A), B x) A 
+    := (total-space-projection A B, contractible-fibers-projection-equiv)
+
+#end contractible-fibers-data
+</code></pre>
+<h2 id="projection-equivalences">Projection equivalences</h2>
+<pre><code class="language-rzk">-- From a projection equivalence, it's not hard to inhabit fibers
+#def projection-equiv-implies-inhabited-fibers 
+    (A : U)
+    (B : A -&gt; U)
+    (ABprojequiv : isEquiv (∑ (x : A), B x) A (total-space-projection A B))
+    (a : A)
+    : B a
+    := transport A B (first ((first (second ABprojequiv)) a)) a 
+            ((second (second ABprojequiv)) a) (second ((first (second ABprojequiv)) a))
+
+-- This is great but I'll need more coherence to show that the inhabited fibers are contractible; the following proof fails
+-- #def projection-equiv-implies-contractible-fibers 
+--    (A : U)
+--    (B : A -&gt; U)
+--    (ABprojequiv : isEquiv (∑ (x : A), B x) A (total-space-projection A B)) 
+--    : contractible-fibers A B
+--    := \x -&gt; (second ((first (first ABprojequiv)) x) , 
+--        \u -&gt; second-path-sigma A B ((first (first ABprojequiv)) x) (x, u) ((second (first ABprojequiv)) (x, u)) )
+
+#section projection-hae-data
+#variable A : U
+#variable B : A -&gt; U
+#variable ABprojHAE : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B)
+#variable w : (∑ (x : A), B x) 
+
+
+-- We start over from a stronger hypothesis of a half adjoint equivalence
+#def projection-hae-inverse 
+    (a : A)
+    : ∑ (x : A), B x
+    := (first (first ABprojHAE)) a
+
+#def projection-hae-base-htpy uses (B)
+    (a : A) 
+    : (first (projection-hae-inverse a)) = a
+    := (second (second (first ABprojHAE))) a
+
+#def projection-hae-section uses (ABprojHAE)
+    (a : A) 
+    : B a
+    := transport A B (first (projection-hae-inverse a)) a 
+            (projection-hae-base-htpy a) 
+            (second (projection-hae-inverse a))
+
+#def projection-hae-total-htpy 
+    : (projection-hae-inverse (first w)) = w
+    := (first (second (first ABprojHAE))) w
+
+#def projection-hae-fibered-htpy 
+    : (transport A B (first ((projection-hae-inverse (first w)))) (first w) 
+            (first-path-sigma A B (projection-hae-inverse (first w)) w
+                (projection-hae-total-htpy)) 
+            (second (projection-hae-inverse (first w)))) 
+                = (second w)
+    := second-path-sigma A B (projection-hae-inverse (first w)) w
+            (projection-hae-total-htpy)
+
+#def projection-hae-base-coherence 
+    : (projection-hae-base-htpy (first w)) 
+                = (first-path-sigma A B (projection-hae-inverse (first w)) w
+                    (projection-hae-total-htpy)) 
+    := (second ABprojHAE) w
+
+#def projection-hae-transport-coherence 
+    : (projection-hae-section (first w))
+             =  (transport A B (first ((projection-hae-inverse (first w)))) (first w) 
+                    (first-path-sigma A B (projection-hae-inverse (first w)) w
+                        (projection-hae-total-htpy)) 
+                    (second (projection-hae-inverse (first w))))
+    := transport2 A B (first (projection-hae-inverse (first w))) (first w) 
+            (projection-hae-base-htpy (first w)) 
+            (first-path-sigma A B (projection-hae-inverse (first w)) w
+                (projection-hae-total-htpy))
+            (projection-hae-base-coherence)
+            (second (projection-hae-inverse (first w)))
+
+#def projection-hae-fibered-contracting-htpy 
+    : (projection-hae-section (first w)) =_{B (first w)} (second w)
+    := concat (B (first w)) 
+            (projection-hae-section (first w))
+            (transport A B (first ((projection-hae-inverse (first w)))) (first w)
+                (first-path-sigma A B (projection-hae-inverse (first w)) w
+                    (projection-hae-total-htpy)) 
+                (second (projection-hae-inverse (first w))))
+            (second w)
+            (projection-hae-transport-coherence)
+            (projection-hae-fibered-htpy)
+
+#end projection-hae-data            
+
+-- Finally we have
+#def projection-hae-contractible-fibers 
+    (A : U)
+    (B : A -&gt; U)
+    (ABprojHAE : isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B))
+    : contractible-fibers A B
+    := \x -&gt; ((projection-hae-section A B ABprojHAE x), 
+                \u -&gt; (projection-hae-fibered-contracting-htpy A B ABprojHAE (x, u)))
+
+-- The converse to our first result    
+#def projection-equiv-contractible-fibers 
+    (A : U)
+    (B : A -&gt; U) 
+    (ABprojequiv : isEquiv (∑ (x : A), B x) A (total-space-projection A B))
+    : contractible-fibers A B
+    := projection-hae-contractible-fibers A B 
+            (isEquiv-isHalfAdjointEquiv (∑ (x : A), B x) A (total-space-projection A B) ABprojequiv)
+
+-- The main theorem    
+#def projection-theorem 
+    (A : U)
+    (B : (a : A) -&gt; U) 
+    : iff (isEquiv (∑ (x : A), B x) A (total-space-projection A B)) (contractible-fibers A B)
+    := (\ABprojequiv -&gt; projection-equiv-contractible-fibers A B ABprojequiv, 
+            \ABcontrfib -&gt; contractible-fibers-projection-equiv A B ABcontrfib)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../06-fibers.rzk/" class="btn btn-neutral float-left" title="Fibers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../simplicial-hott/03-simplicial-type-theory.rzk/" class="btn btn-neutral float-right" title="Simplicial Type Theory">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../06-fibers.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../simplicial-hott/03-simplicial-type-theory.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

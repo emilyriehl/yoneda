@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Paths - yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Paths";
+        var mkdocs_page_input_path = "hott/01-paths.rzk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00-common.rzk/">Common</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Paths</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#some-basic-path-algebra">Some basic path algebra</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#some-basic-coherences-in-path-algebra">Some basic coherences in path algebra</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#some-derived-coherences-in-path-algebra">Some derived coherences in path algebra</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#application-of-functions-to-paths">Application of functions to paths</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#transport">Transport</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dependent-application">Dependent application</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#higher-order-concatenation">Higher-order concatenation</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-homotopies.rzk/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-equivalences.rzk/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-sigma.rzk/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../05-contractible.rzk.md">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/04-extension-types.rzk/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/05-segal-types.rzk/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/07-discrete.rzk/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/08-covariant.rzk/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/09-yoneda.rzk/">The Yoneda Lemma</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/12-cocartesian.rzk/">Cocartesian Families</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>HoTT &raquo;</li>
+      <li>Paths</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="1-paths">1. Paths</h1>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="some-basic-path-algebra">Some basic path algebra</h2>
+<pre><code class="language-rzk">
+#section path-algebra
+
+#variable A : U
+#variables x y z : A
+
+-- path reversal
+#def rev 
+  (p : x = y)       -- A path from x to y in A.
+  : y = x           -- The reversal will be defined by path induction on p.
+  := idJ(A, x, \y' p' -&gt; y' = x, refl, y, p)
+
+-- path composition by induction on the second path
+#def concat 
+  (p : x = y)       -- A path from x to y in A.
+  (q : y = z)       -- A path from y to z in A.
+  : (x = z)
+  := idJ(A, y, \z' q' -&gt; (x = z'), p, z, q)
+
+-- an alternative construction of path composition by induction on the first path
+-- this is useful in situations where it's easier to induction on the first path
+#def altconcat 
+  (p : x = y)       -- A path from x to y in A.
+  : (y = z) -&gt; (x = z)
+  := idJ(A, x, \y' p' -&gt; (y' = z) -&gt; (x = z), \q' -&gt; q', y, p)
+
+#end path-algebra
+</code></pre>
+<h2 id="some-basic-coherences-in-path-algebra">Some basic coherences in path algebra</h2>
+<pre><code class="language-rzk">#section basic-path-coherence
+
+#variable A : U
+#variables w x y z : A
+
+#def rev-involution
+  (p : x = y)       -- A path from x to y in A.
+  : (rev A y x (rev A x y p)) = p
+  := idJ(A, x, \y' p' -&gt; (rev A y' x (rev A x y' p')) = p', refl, y, p)
+
+-- the coherence we don't have definitionally
+#def refl-concat 
+  (p : x = y)
+  : (concat A x x y refl p) = p
+  := idJ(A, x, \y' p' -&gt; (concat A x x y' refl p') = p', refl, y, p)
+
+-- associativity
+#def concat-assoc  
+  (p : w = x)         -- A path from w to x in A.
+  (q : x = y)         -- A path from x to y in A.
+  (r : y = z)         -- A path from y to z in A.
+  : concat A w y z (concat A w x y p q) r = concat A w x z p (concat A x y z q r)
+  := idJ(A, y, \z' r' -&gt; concat A w y z' (concat A w x y p q) r' = concat A w x z' p (concat A x y z' q r'), refl, z, r)
+
+#def assoc-concat  
+  (p : w = x)         -- A path from w to x in A.
+  (q : x = y)         -- A path from x to y in A.
+  (r : y = z)         -- A path from y to z in A.
+  : concat A w x z p (concat A x y z q r) = concat A w y z (concat A w x y p q) r
+  := idJ(A, y, \z' r' -&gt; concat A w x z' p (concat A x y z' q r') = concat A w y z' (concat A w x y p q) r', refl, z, r)
+
+#def rev-right-inverse
+  (p : x = y)
+  : concat A x y x p (rev A x y p) = refl
+  := idJ(A, x, \y' p' -&gt; concat A x y' x p' (rev A x y' p') = refl, refl, y, p)
+
+#def rev-left-inverse
+  (p : x = y)
+  : concat A y x y (rev A x y p) p = refl
+  := idJ(A, x, \y' p' -&gt; concat A y' x y' (rev A x y' p') p' = refl, refl, y, p)
+
+-- concatenation of two paths with common codomain; defined using concat and rev
+#def zig-zag-concat
+  (p : x = y)       -- A path from x to y in A.
+  (q : z = y)       -- A path from z to y in A.
+  : (x = z)
+  := concat A x y z p (rev A z y q)
+
+-- concatenation of two paths with common domain; defined using concat and rev
+#def zag-zig-concat  
+  (p : y = x)       -- A path from y to x in A.
+  (q : y = z)       -- A path from y to z in A. 
+  : (x = z)
+  := concat A x y z (rev A y x p) q
+
+#def concat-right-cancel 
+  (p q : x = y)     -- Two paths from x to y in A.
+  (r : y = z)       -- A path from y to z in A.
+  : ((concat A x y z p r) = (concat A x y z q r)) -&gt; (p = q)
+  := idJ(A, y, \z' r' -&gt; (H : (concat A x y z' p r') = (concat A x y z' q r')) -&gt; (p = q), \H -&gt; H, z, r)    
+
+#end basic-path-coherence
+</code></pre>
+<h2 id="some-derived-coherences-in-path-algebra">Some derived coherences in path algebra</h2>
+<p>The statements or proofs of the following path algebra coherences reference one of the path algebra coherences defined above.</p>
+<pre><code class="language-rzk">#section derived-path-coherence
+#variable A : U
+#variables x y z : A
+
+#def rev-concat
+  (p : x = y)       -- A path from x to y in A.
+  (q : y = z)       -- A path from y to z in A.
+  : (rev A x z (concat A x y z p q)) = (concat A z y x (rev A y z q) (rev A x y p))
+  := idJ(A, y, \z' q' -&gt; (rev A x z' (concat A x y z' p q')) = (concat A z' y x (rev A y z' q') (rev A x y p)), 
+    rev (y = x) (concat A y y x refl (rev A x y p)) (rev A x y p) (refl-concat A y x (rev A x y p)), z, q)
+
+-- postwhiskering paths of paths
+#def homotopy-concat 
+  (p q : x = y)     -- Two paths from x to y in A.
+  (H : p = q) 
+  (r : y = z)
+  : (concat A x y z p r) = (concat A x y z q r)
+  := idJ(A, y, \z' r' -&gt; (concat A x y z' p r') = (concat A x y z' q r'), H, z, r)
+
+-- prewhiskering paths of paths is much harder
+#def concat-homotopy 
+  (p : x = y)
+  : (z : A) -&gt; (q : y = z) -&gt; (r : y = z) -&gt; (H : q = r) -&gt; (concat A x y z p q) = (concat A x y z p r)
+  := idJ(A, x, 
+      \y' p' 
+        -&gt; (z : A) -&gt; (q : y' = z) -&gt; (r : y' = z) -&gt; (H : q = r) 
+        -&gt; (concat A x y' z p' q) = (concat A x y' z p' r), 
+      \z q r H
+        -&gt; concat (x = z) (concat A x x z refl q) r (concat A x x z refl r) 
+            (concat (x = z) (concat A x x z refl q) q r (refl-concat A x z q) H) 
+            (rev (x = z) (concat A x x z refl r) r (refl-concat A x z r)), 
+        y, p)
+
+-- a higher path comparing the two compositions
+#def concat-altconcat 
+  (p : x = y)       -- A path from x to y in A.
+  : (q : y = z) -&gt; (concat A x y z p q) = (altconcat A x y z p q)
+  := idJ(A, x, 
+      \y' -&gt; \p' -&gt; (q' : y' =_{A} z) -&gt; (concat A x y' z p' q') =_{x =_{A} z} altconcat A x y' z p' q', 
+      \q' -&gt; refl-concat A x z q', y, p)
+
+-- a higher path comparing the two compositions in the other order
+#def altconcat-concat 
+  (p : x = y)       -- A path from x to y in A.
+  (q : y = z)       -- A path from y to z in A.
+  : (altconcat A x y z p q) = concat A x y z p q
+  := rev (x = z) (concat A x y z p q) (altconcat A x y z p q) (concat-altconcat p q)
+
+-- this is easier to prove for altconcat then for concat
+#def alt-triangle-rotation 
+  (p : x = z)
+  (q : x = y)
+  : (r : y = z) -&gt; (H : p = altconcat A x y z q r) -&gt; (altconcat A y x z (rev A x y q) p) = r
+  := idJ(A, x, 
+      \y' q' -&gt; (r' : y' =_{A} z) -&gt; (H' : p = altconcat A x y' z q' r') 
+        -&gt; (altconcat A y' x z (rev A x y' q') p) = r', 
+      \r' H' -&gt; H', y, q)
+
+#end derived-path-coherence
+
+-- This needs to be outside the previous section because of the usage of concat-altconcat A y x
+#def triangle-rotation 
+  (A : U) 
+  (x y z : A) 
+  (p : x = z)
+  (q : x = y) 
+  (r : y = z)
+  (H : p = concat A x y z q r)
+  : (concat A y x z (rev A x y q) p) = r
+  := concat (y = z)  (concat A y x z (rev A x y q) p)  (altconcat A y x z (rev A x y q) p) r
+        (concat-altconcat A y x z (rev A x y q) p)
+        (alt-triangle-rotation A x y z p q r 
+          (concat (x = z) p (concat A x y z q r) (altconcat A x y z q r) 
+            H 
+            (concat-altconcat A x y z q r)))
+</code></pre>
+<h2 id="application-of-functions-to-paths">Application of functions to paths</h2>
+<pre><code class="language-rzk">#def ap 
+  (A B : U)
+  (x y : A)
+  (f : A -&gt; B)
+  (p : x = y)
+  : (f x = f y)
+  := idJ(A, x, \y' -&gt; \p' -&gt; (f x = f y'), refl, y, p)
+
+#def ap-concat
+  (A B : U)
+  (x y z : A)
+  (f : A -&gt; B)
+  (p : x = y)
+  (q : y = z)
+  : (ap A B x z f (concat A x y z p q)) = (concat B (f x) (f y) (f z) (ap A B x y f p) (ap A B y z f q))
+  := idJ(A, y, 
+    \z' q' -&gt; (ap A B x z' f (concat A x y z' p q')) = (concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')),
+    refl, z, q)
+
+#def rev-ap-rev 
+  (A B : U)
+  (x y : A)
+  (f : A -&gt; B)
+  (p : x = y)
+  : (rev B (f y) (f x) (ap A B y x f (rev A x y p))) = (ap A B x y f p)
+  := idJ(A, x, \y' p' -&gt; (rev B (f y') (f x) (ap A B y' x f (rev A x y' p'))) = (ap A B x y' f p'), refl, y, p)
+
+-- For specific use
+#def concat-ap-rev-ap-id  
+  (A B : U)
+  (x y : A)
+  (f : A -&gt; B)
+  (p : x = y)
+  : (concat B (f y) (f x) (f y) (ap A B y x f (rev A x y p)) (ap A B x y f p)) = refl
+  := idJ(A, x, \y' p' -&gt; (concat B (f y') (f x) (f y') (ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) = refl, refl, y, p)
+
+#def ap-id 
+  (A : U)
+  (x y : A)
+  (p : x = y)
+  : (ap A A x y (identity A) p) = p
+    := idJ(A, x, \y' -&gt; \p' -&gt; (ap A A x y' (\z -&gt; z) p') = p', refl, y, p)
+
+-- application of a function to homotopic paths yields homotopic paths
+#def ap-htpy 
+  (A B : U)
+  (x y : A)
+  (f : A -&gt; B)
+  (p q : x = y)
+  (H : p = q)
+  : (ap A B x y f p) = (ap A B x y f q)
+  := idJ(x = y, p, \q' H' -&gt; (ap A B x y f p) = (ap A B x y f q'), refl, q, H)
+
+#def ap-comp 
+  (A B C : U)
+  (x y : A)
+  (f : A -&gt; B)
+  (g : B -&gt; C)
+  (p : x = y) 
+  : (ap A C x y (composition A B C g f) p) = (ap B C (f x) (f y) g (ap A B x y f p))
+    := idJ(A, x, 
+          \y' p' -&gt; (ap A C x y' (\z -&gt; g (f z)) p') = (ap B C (f x) (f y') g (ap A B x y' f p')), refl, y, p)
+
+#def rev-ap-comp 
+  (A B C : U)
+  (x y : A)
+  (f : A -&gt; B)
+  (g : B -&gt; C)
+  (p : x = y) 
+  : (ap B C (f x) (f y) g (ap A B x y f p)) = (ap A C x y (composition A B C g f) p) 
+  := rev (g (f x) = g (f y)) (ap A C x y (\z -&gt; g (f z)) p) (ap B C (f x) (f y) g (ap A B x y f p)) (ap-comp A B C x y f g p)
+</code></pre>
+<h2 id="transport">Transport</h2>
+<pre><code class="language-rzk">#section transport
+
+#variable A : U
+#variable B : A -&gt; U
+
+-- transport in a type family along a path in the base
+#def transport 
+  (x y : A)
+  (p : x = y)
+  (u : B x)
+  : B y
+  := idJ(A, x, \y' p' -&gt; B y', u, y, p)
+
+-- The lift of a base path to a path from a term in the total space to its transport.
+#def transport-lift
+    (x y : A)
+    (p : x = y)
+    (u : B x)
+    : (x, u) =_{∑ (z : A), B z} (y, transport x y p u)
+    := idJ(A, x, \y' p' -&gt; (x, u) =_{∑ (z : A), B z} (y', transport x y' p' u), refl, y, p)
+
+-- transport along concatenated paths
+#def transport-concat
+  (x y z : A)
+  (p : x = y)
+  (q : y = z)
+  (u : B x)
+  : (transport x z (concat A x y z p q) u) = (transport y z q (transport x y p u))
+  := idJ(A, y, \z' q' -&gt; (transport x z' (concat A x y z' p q') u) = (transport y z' q' (transport x y p u)),
+    refl, z, q)
+
+#def transport-concat-rev
+  (x y z : A)
+  (p : x = y)
+  (q : y = z)
+  (u : B x)
+  : (transport y z q (transport x y p u)) = (transport x z (concat A x y z p q) u) 
+  := idJ(A, y, \z' q' -&gt; (transport y z' q' (transport x y p u)) = (transport x z' (concat A x y z' p q') u),
+    refl, z, q)
+
+-- A path between transportation along homotopic paths
+#def transport2 
+  (x y : A)
+  (p q : x = y)
+  (H : p = q)
+  (u : B x) 
+  : (transport x y p u) = (transport x y q u)
+  := idJ(x = y, p, \q' H' -&gt; (transport x y p u) = (transport x y q' u), refl, q, H)  
+
+#end transport
+</code></pre>
+<h2 id="dependent-application">Dependent application</h2>
+<pre><code class="language-rzk">-- Application of dependent functions on paths
+#def apd 
+  (A : U)
+  (B : A -&gt; U)
+  (x y : A)
+  (f : (z : A) -&gt; B z)
+  (p : x = y) 
+  : ((transport A B x y p (f x)) = f y)
+  := idJ(A, x, \y' -&gt; \p' -&gt; ((transport A B x y' p' (f x)) = f y'), refl, y, p)
+</code></pre>
+<h2 id="higher-order-concatenation">Higher-order concatenation</h2>
+<pre><code class="language-rzk">#section higher-concatenation
+#variable A : U
+
+-- triple concatenation
+#def triple-concat
+  (a0 a1 a2 a3 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  : a0 = a3
+  := concat A a0 a1 a3 p1 (concat A a1 a2 a3 p2 p3) 
+
+#def quadruple-concat
+  (a0 a1 a2 a3 a4 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  : a0 = a4
+  := triple-concat a0 a1 a2 a4 p1 p2 (concat A a2 a3 a4 p3 p4)
+
+#def quintuple-concat
+  (a0 a1 a2 a3 a4 a5 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  (p5 : a4 = a5)
+  : a0 = a5
+  := quadruple-concat a0 a1 a2 a3 a5 p1 p2 p3 (concat A a3 a4 a5 p4 p5)
+
+#def sextuple-concat
+  (a0 a1 a2 a3 a4 a5 a6 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  (p5 : a4 = a5)
+  (p6 : a5 = a6)
+  : a0 = a6
+  := quintuple-concat a0 a1 a2 a3 a4 a6 p1 p2 p3 p4 (concat A a4 a5 a6 p5 p6)
+
+#def sextuple-concat-alternating
+  (a0 a1 : A)
+  (p1 : a0 = a1)
+  (a2 : A)
+  (p2 : a1 = a2)
+  (a3 : A)
+  (p3 : a2 = a3)
+  (a4 : A)
+  (p4 : a3 = a4)
+  (a5 : A)
+  (p5 : a4 = a5)
+  (a6 : A)
+  (p6 : a5 = a6)
+  : a0 = a6
+  := quintuple-concat a0 a1 a2 a3 a4 a6 p1 p2 p3 p4 (concat A a4 a5 a6 p5 p6)
+
+
+#def 12ary-concat
+  (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 : A)
+  (p1 : a0 = a1)
+  (p2 : a1 = a2)
+  (p3 : a2 = a3)
+  (p4 : a3 = a4)
+  (p5 : a4 = a5)
+  (p6 : a5 = a6)
+  (p7 : a6 = a7)
+  (p8 : a7 = a8)
+  (p9 : a8 = a9)
+  (p10 : a9 = a10)
+  (p11 : a10 = a11)
+  (p12 : a11 = a12)
+  : a0 = a12
+  := quintuple-concat a0 a1 a2 a3 a4 a12 p1 p2 p3 p4 
+      (quintuple-concat a4 a5 a6 a7 a8 a12 p5 p6 p7 p8
+        (quadruple-concat a8 a9 a10 a11 a12 p9 p10 p11 p12))
+
+-- Same as above but with alternating arguments
+#def 12ary-concat-alternating
+  (a0 a1 : A)
+  (p1 : a0 = a1)
+  (a2 : A)
+  (p2 : a1 = a2)
+  (a3 : A)
+  (p3 : a2 = a3)
+  (a4 : A)
+  (p4 : a3 = a4)
+  (a5 : A)
+  (p5 : a4 = a5)
+  (a6 : A)
+  (p6 : a5 = a6)
+  (a7 : A)
+  (p7 : a6 = a7)
+  (a8 : A)
+  (p8 : a7 = a8)
+  (a9 : A)
+  (p9 : a8 = a9)
+  (a10 : A)
+  (p10 : a9 = a10)
+  (a11 : A)
+  (p11 : a10 = a11)
+  (a12 : A)
+  (p12 : a11 = a12)
+  : a0 = a12    
+  := 12ary-concat a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12
+      p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
+
+#end higher-concatenation
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../00-common.rzk/" class="btn btn-neutral float-left" title="Common"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02-homotopies.rzk/" class="btn btn-neutral float-right" title="Homotopies">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../00-common.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../02-homotopies.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

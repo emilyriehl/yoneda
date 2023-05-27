@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Equivalences - yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Equivalences";
+        var mkdocs_page_input_path = "hott/03-equivalences.rzk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00-common.rzk/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-paths.rzk/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-homotopies.rzk/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Equivalences</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sections-retractions-and-equivalences">Sections, retractions, and equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equivalence-data">Equivalence data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#invertible-maps">Invertible maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equivalences-are-invertible-maps">Equivalences are invertible maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#invertible-map-data">Invertible map data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#half-adjoint-equivalences">Half adjoint equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#coherence-data-from-an-invertible-map">Coherence data from an invertible map</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#invertible-maps-are-half-adjoint-equivalences">Invertible maps are half adjoint equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#composing-equivalences">Composing equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equivalences-and-homotopy">Equivalences and homotopy</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#function-extensionality">Function extensionality</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-sigma.rzk/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../05-contractible.rzk.md">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/04-extension-types.rzk/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/05-segal-types.rzk/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/07-discrete.rzk/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/08-covariant.rzk/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/09-yoneda.rzk/">The Yoneda Lemma</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/12-cocartesian.rzk/">Cocartesian Families</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>HoTT &raquo;</li>
+      <li>Equivalences</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="3-equivalences">3. Equivalences</h1>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="sections-retractions-and-equivalences">Sections, retractions, and equivalences</h2>
+<pre><code class="language-rzk">#section is-equiv
+
+#variables A B : U
+
+#def hasSection 
+    (f : A -&gt; B) 
+    : U
+    := ∑ (s : B -&gt; A), homotopy B B (composition B A B f s)(identity B)
+
+#def hasRetraction
+    (f : A -&gt; B) 
+    : U
+    := ∑ (r : B -&gt; A), homotopy A A (composition A B A r f)(identity A)
+
+-- equivalences are bi-invertible maps
+#def isEquiv     
+    (f : A -&gt; B) 
+    : U  
+    := prod (hasRetraction f) (hasSection f)
+
+#end is-equiv
+</code></pre>
+<h2 id="equivalence-data">Equivalence data</h2>
+<pre><code class="language-rzk">#section equivalence-data
+
+#variables A B : U
+#variable f : A -&gt; B
+#variable fisequiv : isEquiv A B f
+
+#def isEquiv-section uses (f)
+    : B -&gt; A
+    := (first (second fisequiv))
+
+#def isEquiv-retraction uses (f)
+    : B -&gt; A
+    := (first (first fisequiv))
+
+-- the homotopy between the section and retraction of an equivalence
+#def isEquiv-htpic-inverses uses (f)
+    : homotopy B A isEquiv-section isEquiv-retraction
+    := homotopy-composition B A 
+            (isEquiv-section) 
+            (triple-composition B A B A isEquiv-retraction f isEquiv-section) 
+            (isEquiv-retraction) 
+            (homotopy-rev B A 
+                (triple-composition B A B A isEquiv-retraction f isEquiv-section)
+                isEquiv-section
+                (homotopy-prewhisker B A A
+                    (composition A B A isEquiv-retraction f) 
+                    (identity A) 
+                    (second (first fisequiv)) 
+                    isEquiv-section))
+            (homotopy-postwhisker B B A 
+                (composition B A B f isEquiv-section) 
+                (identity B) 
+                (second (second fisequiv)) 
+                isEquiv-retraction)
+
+#end equivalence-data                
+</code></pre>
+<h2 id="invertible-maps">Invertible maps</h2>
+<pre><code class="language-rzk">-- the following type of more coherent equivalences is not a proposition
+#def hasInverse 
+    (A B : U)
+    (f : A -&gt; B) 
+    : U
+    := ∑ (g : B -&gt; A),    -- A two-sided inverse
+        (prod 
+            (homotopy A A (composition A B A g f)(identity A))    -- The retracting homotopy
+            (homotopy B B (composition B A B f g)(identity B)))   -- The section homotopy
+</code></pre>
+<h2 id="equivalences-are-invertible-maps">Equivalences are invertible maps</h2>
+<pre><code class="language-rzk">-- invertible maps are equivalences
+#def hasInverse-isEquiv
+    (A B : U)
+    (f : A -&gt; B) 
+    (fhasinverse : hasInverse A B f)
+    : isEquiv A B f
+  := ((first fhasinverse, first (second fhasinverse)), (first fhasinverse, second (second fhasinverse)))
+
+-- equivalences are invertible
+#def isEquiv-hasInverse 
+    (A B : U)
+    (f : A -&gt; B) 
+    (fisequiv : isEquiv A B f)
+    : hasInverse A B f 
+    := (isEquiv-section A B f fisequiv, 
+            (homotopy-composition A A 
+                (composition A B A (isEquiv-section A B f fisequiv) f) 
+                (composition A B A (isEquiv-retraction A B f fisequiv) f) 
+                (identity A)  
+                    (homotopy-prewhisker A B A 
+                        (isEquiv-section A B f fisequiv) 
+                        (isEquiv-retraction A B f fisequiv) 
+                        (isEquiv-htpic-inverses A B f fisequiv) 
+                        f) 
+                    (second (first fisequiv)) ,
+            second (second  fisequiv)))
+</code></pre>
+<h2 id="invertible-map-data">Invertible map data</h2>
+<pre><code class="language-rzk">#section has-inverse-data
+
+#variables A B : U
+#variable f : A -&gt; B
+#variable fhasinverse : hasInverse A B f
+
+-- The inverse of a map with an inverse
+#def hasInverse-inverse uses (f)
+    : B -&gt; A
+    := first (fhasinverse)
+
+-- Some iterated composites associated to a pair of invertible maps.
+#def hasInverse-retraction-composite uses (B fhasinverse)
+    : A -&gt; A
+    := composition A B A hasInverse-inverse f 
+
+#def hasInverse-section-composite uses (A fhasinverse)
+    : B -&gt; B
+    := composition B A B f hasInverse-inverse
+
+-- This composite is parallel to f; we won't need the dual notion.
+#def hasInverse-triple-composite uses (fhasinverse)
+    : A -&gt; B
+    := triple-composition A B A B f hasInverse-inverse f
+
+-- This composite is also parallel to f; again we won't need the dual notion.
+#def hasInverse-quintuple-composite uses (fhasinverse)
+    : A -&gt; B
+    := \a -&gt; f (hasInverse-inverse (f (hasInverse-inverse (f a))))
+#end has-inverse-data
+</code></pre>
+<h2 id="half-adjoint-equivalences">Half adjoint equivalences</h2>
+<pre><code class="language-rzk">-- We'll require a more coherent notion of equivalence
+#def isHalfAdjointEquiv 
+    (A B : U)
+    (f : A -&gt; B)
+    : U
+    := ∑ (fhasinverse : (hasInverse A B f)), 
+            (a : A) -&gt; (((second (second fhasinverse))) (f a)) =
+                        (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (((first (second fhasinverse))) a))
+
+-- By function extensionality, the previous definition coincides with the following one:
+#def ALTisHalfAdjointEquiv
+    (A B : U)
+    (f : A -&gt; B)
+    : U
+    := ∑ (fhasinverse : (hasInverse A B f)), 
+            ((homotopy-prewhisker A B B 
+                (hasInverse-section-composite A B f fhasinverse) (identity B) (second (second fhasinverse)) f)
+            = ((homotopy-postwhisker A A B 
+                (hasInverse-retraction-composite A B f fhasinverse) (identity A) (first (second fhasinverse)) f)))
+</code></pre>
+<h2 id="coherence-data-from-an-invertible-map">Coherence data from an invertible map</h2>
+<pre><code class="language-rzk">-- To promote an invertible map to a half adjoint equivalence we keep one homotopy and discard the other
+#def hasInverse-kept-htpy 
+    (A B : U)
+    (f : A -&gt; B) 
+    (fhasinverse : hasInverse A B f)
+    : homotopy A A (hasInverse-retraction-composite A B f fhasinverse) (identity A)
+    := (first (second fhasinverse))
+
+#def hasInverse-discarded-htpy 
+    (A B : U)
+    (f : A -&gt; B) 
+    (fhasinverse : hasInverse A B f)
+    : homotopy B B (hasInverse-section-composite A B f fhasinverse) (identity B)
+    := (second (second fhasinverse))    
+
+#section has-inverse-coherence
+
+#variables A B : U
+#variable f : A -&gt; B
+#variable fhasinverse : hasInverse A B f
+#variable a : A
+
+-- the required coherence will be built by transforming an instance of this naturality square
+#def hasInverse-discarded-naturality-square 
+    : concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse)(hasInverse-kept-htpy A B f fhasinverse a)) 
+            (hasInverse-discarded-htpy A B f fhasinverse (f a)) 
+                =
+            concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+            (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a))
+    := nat-htpy A B (hasInverse-triple-composite A B f fhasinverse) f 
+            (\x -&gt; hasInverse-discarded-htpy A B f fhasinverse (f x)) 
+            (hasInverse-retraction-composite A B f fhasinverse a) (a) (hasInverse-kept-htpy A B f fhasinverse a)
+
+-- building a path that will be whiskered into the naturality square above
+#def hasInverse-cocone-homotopy-coherence 
+    : (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+            = ap A A (hasInverse-retraction-composite A B f fhasinverse a) a 
+                (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a)
+    := cocone-naturality-coherence A (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse) a
+
+#def hasInverse-ap-cocone-homotopy-coherence 
+    : ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+            (hasInverse-retraction-composite A B f fhasinverse a) 
+            f (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+        = ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+                 (hasInverse-retraction-composite A B f fhasinverse a) f 
+                 (ap A A (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a))
+    := ap-htpy A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+            (hasInverse-retraction-composite A B f fhasinverse a) f 
+            (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+                (ap A A (hasInverse-retraction-composite A B f fhasinverse a) a 
+                    (hasInverse-retraction-composite A B f fhasinverse) 
+                    (hasInverse-kept-htpy A B f fhasinverse a))
+            hasInverse-cocone-homotopy-coherence
+
+#def hasInverse-cocone-coherence 
+    : ap A B 
+            (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+            (hasInverse-retraction-composite A B f fhasinverse a) 
+                f 
+                (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+            =
+        (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a 
+            (hasInverse-triple-composite A B f fhasinverse) 
+            (hasInverse-kept-htpy A B f fhasinverse a)) 
+    := concat ((hasInverse-quintuple-composite A B f fhasinverse a) = (hasInverse-triple-composite A B f fhasinverse a)) 
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+                (hasInverse-retraction-composite A B f fhasinverse a) f (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)))
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+                (hasInverse-retraction-composite A B f fhasinverse a) f 
+                (ap A A (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-retraction-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a)))
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse) 
+                (hasInverse-kept-htpy A B f fhasinverse a)) 
+            hasInverse-ap-cocone-homotopy-coherence
+            (rev-ap-comp A A B (hasInverse-retraction-composite A B f fhasinverse a) a 
+                (hasInverse-retraction-composite A B f fhasinverse) 
+                f 
+                (hasInverse-kept-htpy A B f fhasinverse a))
+
+-- this morally gives the half adjoint inverse coherence; it just requires rotation    
+#def hasInverse-replaced-naturality-square 
+    : concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a))
+                (hasInverse-retraction-composite A B f fhasinverse a) f 
+                (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a))) 
+            (hasInverse-discarded-htpy A B f fhasinverse (f a)) 
+                =
+        concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+            (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a))
+    := concat ((hasInverse-quintuple-composite A B f fhasinverse a) =_{B} (f a)) 
+            (concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+                (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) (hasInverse-retraction-composite A B f fhasinverse a) f 
+                (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a))) 
+                (hasInverse-discarded-htpy A B f fhasinverse (f a)))
+            (concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+                (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse) (hasInverse-kept-htpy A B f fhasinverse a)) 
+                (hasInverse-discarded-htpy A B f fhasinverse (f a)))
+            (concat B (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a) 
+                (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
+                (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a)))
+            (homotopy-concat B 
+                (hasInverse-quintuple-composite A B f fhasinverse a) (hasInverse-triple-composite A B f fhasinverse a) (f a)
+                (ap A B (hasInverse-retraction-composite A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)) 
+                    (hasInverse-retraction-composite A B f fhasinverse a) f (hasInverse-kept-htpy A B f fhasinverse (hasInverse-retraction-composite A B f fhasinverse a)))
+                (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a (hasInverse-triple-composite A B f fhasinverse) 
+                    (hasInverse-kept-htpy A B f fhasinverse a))
+                hasInverse-cocone-coherence
+                (hasInverse-discarded-htpy A B f fhasinverse (f a)))
+            hasInverse-discarded-naturality-square
+
+-- This will replace the discarded homotopy
+#def hasInverse-corrected-htpy 
+    : homotopy B B (hasInverse-section-composite A B f fhasinverse) (\b -&gt; b)
+    := \b -&gt; concat B 
+                ((hasInverse-section-composite A B f fhasinverse) b) 
+                ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b)) 
+                b
+                (rev B ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b))
+                ((hasInverse-section-composite A B f fhasinverse) b)  
+                (hasInverse-discarded-htpy A B f fhasinverse ((hasInverse-section-composite A B f fhasinverse) b)))  
+                (concat B  
+                    ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) b))
+                    ((hasInverse-section-composite A B f fhasinverse) b) 
+                    b
+                    (ap A B ((hasInverse-retraction-composite A B f fhasinverse) (hasInverse-inverse A B f fhasinverse b))
+                        (hasInverse-inverse A B f fhasinverse b) f 
+                        ((first (second fhasinverse)) (hasInverse-inverse A B f fhasinverse b)))
+                    ((hasInverse-discarded-htpy A B f fhasinverse b)))
+
+-- this is the half adjoint coherence
+#def hasInverse-coherence 
+    : (hasInverse-corrected-htpy (f a)) 
+                = (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a))
+    := triangle-rotation B 
+            (hasInverse-quintuple-composite A B f fhasinverse a)(hasInverse-triple-composite A B f fhasinverse a) (f a) 
+            (concat B  
+                ((hasInverse-section-composite A B f fhasinverse) ((hasInverse-section-composite A B f fhasinverse) (f a)))
+                ((hasInverse-section-composite A B f fhasinverse) (f a)) 
+                (f a)
+            (ap A B 
+                ((hasInverse-retraction-composite A B f fhasinverse) (hasInverse-inverse A B f fhasinverse (f a)))
+                (hasInverse-inverse A B f fhasinverse (f a)) 
+                f ((first (second fhasinverse)) (hasInverse-inverse A B f fhasinverse (f a))))
+            ((hasInverse-discarded-htpy A B f fhasinverse (f a))))
+            (hasInverse-discarded-htpy A B f fhasinverse (hasInverse-triple-composite A B f fhasinverse a)) 
+            (ap A B (hasInverse-retraction-composite A B f fhasinverse a) a f (hasInverse-kept-htpy A B f fhasinverse a)) hasInverse-replaced-naturality-square
+#end has-inverse-coherence
+</code></pre>
+<h2 id="invertible-maps-are-half-adjoint-equivalences">Invertible maps are half adjoint equivalences</h2>
+<pre><code class="language-rzk">-- to promote an invertible map to a half adjoint equivalence we change the data of the invertible map by replacing the discarded homotopy with the corrected one.
+#def hasInverse-correctedhasInverse 
+    (A B : U)
+    (f : A -&gt; B) 
+    (fhasinverse : hasInverse A B f)
+    : hasInverse A B f
+    := (hasInverse-inverse A B f fhasinverse, (hasInverse-kept-htpy A B f fhasinverse, hasInverse-corrected-htpy A B f fhasinverse))
+
+-- Invertible maps are half adjoint equivalences!
+#def hasInverse-isHalfAdjointEquiv 
+    (A B : U)
+    (f : A -&gt; B) 
+    (fhasinverse : hasInverse A B f)
+    : isHalfAdjointEquiv A B f
+    := (hasInverse-correctedhasInverse A B f fhasinverse, hasInverse-coherence A B f fhasinverse)
+
+-- Equivalences are half adjoint equivalences!
+#def isEquiv-isHalfAdjointEquiv 
+    (A B : U)
+    (f : A -&gt; B) 
+    (fisequiv : isEquiv A B f)
+    : isHalfAdjointEquiv A B f
+    := hasInverse-isHalfAdjointEquiv A B f (isEquiv-hasInverse A B f fisequiv)
+</code></pre>
+<h2 id="composing-equivalences">Composing equivalences</h2>
+<pre><code class="language-rzk">-- The type of equivalences between types uses the propositional notion isEquiv rather than the incoherent hasInverse.
+#def Eq 
+    (A B : U) 
+    : U
+    :=  ∑ (f : A -&gt; B), ((isEquiv A) B) f
+
+-- The data of an equivalence is not symmetric so we promote an equivalence to an invertible map to prove symmetry
+#def sym_Eq 
+    (A B : U)
+    (e : Eq A B)
+    : Eq B A
+    := (first (isEquiv-hasInverse A B (first e) (second e)) , 
+            (( first e , 
+                second (second (isEquiv-hasInverse A B (first e) (second e))) ) , 
+            ( first e , 
+                first (second (isEquiv-hasInverse A B (first e) (second e))) ) ))
+
+-- Composition of equivalences in diagrammatic order.
+#def compose_Eq
+    (A B C : U)
+    (A=B : Eq A B)
+    (B=C : Eq B C)
+    : Eq A C
+    := (\a -&gt; (first B=C) ((first A=B) a), -- the composite equivalence 
+             ((\c -&gt; (first (first (second A=B))) ((first (first (second (B=C)))) c),
+            (\a -&gt; 
+                concat A
+                ((first (first (second A=B))) ((first (first (second B=C))) ((first B=C) ((first A=B) a))))
+                ((first (first (second A=B))) ((first A=B) a))
+                a
+                (ap B A
+                    ((first (first (second B=C))) ((first B=C) ((first A=B) a))) -- should be inferred
+                    ((first A=B) a) -- should be inferred
+                    (first (first (second A=B)))
+                    ((second (first (second B=C))) ((first A=B) a)))
+                ((second (first (second A=B))) a))),
+                    (\c -&gt; (first (second (second A=B))) ((first (second (second (B=C)))) c),
+            (\c -&gt;
+                concat C
+                ((first B=C) ((first A=B) ((first (second (second A=B))) ((first (second (second B=C))) c))))
+                ((first B=C) ((first (second (second B=C))) c))
+                c
+                (ap B C
+                    ((first A=B) ((first (second (second A=B))) ((first (second (second B=C))) c))) -- should be inferred
+                    ((first (second (second B=C))) c) -- should be inferred
+                    (first B=C)
+                    ((second (second (second A=B))) ((first (second (second B=C))) c)))
+                ((second (second (second B=C))) c)))))
+
+-- now we compose the functions that are equivalences
+#def compose_isEquiv
+    (A B C : U) 
+    (f : A -&gt; B)
+    (fisequiv : isEquiv A B f)
+    (g : B -&gt; C)
+    (gisequiv : isEquiv B C g) 
+    : isEquiv A C (composition A B C g f)
+    := ((composition C B A (isEquiv-retraction A B f fisequiv) (isEquiv-retraction B C g gisequiv), 
+        \a -&gt; 
+            concat A
+            ((isEquiv-retraction A B f fisequiv) ((isEquiv-retraction B C g gisequiv) (g (f a))))
+            ((isEquiv-retraction A B f fisequiv) (f a))
+            a
+            (ap B A
+                ((isEquiv-retraction B C g gisequiv) (g (f a))) -- should be inferred
+                (f a) -- should be inferred
+                (isEquiv-retraction A B f fisequiv)
+                ((second (first gisequiv)) (f a)))
+            ((second (first fisequiv)) a)),
+        (composition C B A (isEquiv-section A B f fisequiv) (isEquiv-section B C g gisequiv),
+        \c -&gt;
+            concat C
+            (g (f ((first (second fisequiv)) ((first (second gisequiv)) c))))
+            (g ((first (second gisequiv)) c))
+            c
+            (ap B C
+                (f ((first (second fisequiv)) ((first (second gisequiv)) c))) -- should be inferred
+                ((first (second gisequiv)) c) -- should be inferred
+                g
+               ((second (second fisequiv)) ((first (second gisequiv)) c)))
+            ((second (second gisequiv)) c)))  
+
+-- Right cancellation of equivalences in diagrammatic order.
+#def RightCancel_Eq
+    (A B C : U)
+    (A=C : Eq A C)
+    (B=C : Eq B C)
+    : Eq A B
+    := compose_Eq A C B (A=C) (sym_Eq B C B=C)
+
+-- Left cancellation of equivalences in diagrammatic order.
+#def LeftCancel_Eq
+    (A B C : U)
+    (A=B : Eq A B)
+    (A=C : Eq A C)
+    : Eq B C
+    := compose_Eq B A C (sym_Eq A B A=B) (A=C)
+
+-- a composition of three equivalences
+#def triple_compose_Eq
+    (A B C D : U) 
+    (A=B : Eq A B) 
+    (B=C : Eq B C) 
+    (C=D : Eq C D) 
+    : Eq A D
+    := compose_Eq A B D (A=B) (compose_Eq B C D B=C C=D)  
+
+#def triple_compose_isEquiv
+    (A B C D : U) 
+    (f : A -&gt; B)
+    (fisequiv : isEquiv A B f)
+    (g : B -&gt; C)
+    (gisequiv : isEquiv B C g) 
+    (h : C -&gt; D)
+    (hisequiv : isEquiv C D h)
+    : isEquiv A D (triple-composition A B C D h g f)    
+    := compose_isEquiv A B D f fisequiv (composition B C D h g) (compose_isEquiv B C D g gisequiv h hisequiv)
+</code></pre>
+<h2 id="equivalences-and-homotopy">Equivalences and homotopy</h2>
+<p>If a map is homotopic to an equivalence it is an equivalence.</p>
+<pre><code class="language-rzk">#def isEquiv-homotopic-isEquiv
+    (A B : U)
+    (f g : A -&gt; B)
+    (H : homotopy A B f g)
+    (gisequiv : isEquiv A B g)
+    : isEquiv A B f
+    := ((first (first gisequiv), 
+        \a -&gt; concat A 
+            ((first (first gisequiv)) (f a))
+            ((first (first gisequiv)) (g a)) 
+            a
+            (ap B A (f a) (g a) (first (first gisequiv)) (H a))
+            ((second (first gisequiv)) a))
+        ,(first (second gisequiv),
+        \b -&gt; concat B
+            (f ((first (second gisequiv)) b))
+            (g ((first (second gisequiv)) b))
+            b
+            (H ((first (second gisequiv)) b))
+            ((second (second gisequiv)) b)
+            ))
+</code></pre>
+<h2 id="function-extensionality">Function extensionality</h2>
+<p>By path induction, an identification between functions defines a homotopy</p>
+<pre><code class="language-rzk">#def htpy-eq
+    (X : U)
+    (A : X -&gt; U)
+    (f g : (x : X) -&gt; A x)
+    (p : f = g)
+    : (x : X) -&gt; (f x = g x)
+    := idJ((x : X) -&gt; A x, f, \g' p' -&gt; (x : X) -&gt; (f x = g' x), \x -&gt; refl, g, p)
+</code></pre>
+<p>The function extensionality axiom asserts that this map defines a family of equivalences.</p>
+<pre><code class="language-rzk">-- The type that encodes the function extensionality axiom.
+#def FunExt : U
+    := (X : U) -&gt; (A : X -&gt; U) -&gt; 
+    (f : (x : X) -&gt; A x) -&gt; (g : (x : X) -&gt; A x) -&gt;
+        isEquiv (f = g)((x : X) -&gt; f x = g x)(htpy-eq X A f g)
+
+-- The equivalence provided by function extensionality.
+#def FunExtEq 
+    (funext : FunExt)
+    (X : U)
+    (A : X -&gt; U) 
+    (f g : (x : X) -&gt; A x)
+    : Eq (f = g) ((x : X) -&gt; f x = g x) 
+    := (htpy-eq X A f g, funext X A f g)
+
+-- In particular, function extensionality implies that homotopies give rise to identifications. This definition defines eq-htpy to be the retraction to htpy-eq.
+#def eq-htpy
+    (funext : FunExt)
+    (X : U)
+    (A : X -&gt; U) 
+    (f g : (x : X) -&gt; A x)
+    : ((x : X) -&gt; f x = g x) -&gt; (f = g)
+    := first (first (funext X A f g))
+
+
+-- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
+#def fibered-Eq-function-Eq
+    (funext : FunExt)
+    (X : U)
+    (A B : X -&gt; U)
+    (fibequiv : (x : X) -&gt; Eq (A x) (B x))
+    : Eq ((x : X) -&gt; A x) ((x : X) -&gt; B x)
+    := ((\a -&gt; \x -&gt; (first (fibequiv x)) (a x)),
+            (((\b -&gt; \x -&gt; (first (first (second (fibequiv x)))) (b x)),
+                \a -&gt; eq-htpy funext X A (\x -&gt; (first (first (second (fibequiv x)))) ((first (fibequiv x)) (a x))) a (\x -&gt; (second (first (second (fibequiv x)))) (a x))), 
+           ((\b -&gt; \x -&gt; (first (second (second (fibequiv x)))) (b x)),
+            (\b -&gt; eq-htpy funext X B (\x -&gt; (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -&gt; (second (second (second (fibequiv x)))) (b x))))))
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../02-homotopies.rzk/" class="btn btn-neutral float-left" title="Homotopies"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04-sigma.rzk/" class="btn btn-neutral float-right" title="Sigma types">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../02-homotopies.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04-sigma.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

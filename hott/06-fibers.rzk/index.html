@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Fibers - yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Fibers";
+        var mkdocs_page_input_path = "hott/06-fibers.rzk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00-common.rzk/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-paths.rzk/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-homotopies.rzk/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-equivalences.rzk/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-sigma.rzk/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../05-contractible.rzk.md">Contractible</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Fibers</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#fibers">Fibers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contractible-maps">Contractible maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#half-adjoint-equivalences-are-contractible">Half adjoint equivalences are contractible.</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equivalences-are-contractible-maps">Equivalences are contractible maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fiber-of-total-map">Fiber of total map</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#families-of-equivalences">Families of equivalences</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#codomain-based-path-spaces">Codomain based path spaces</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pullback-of-a-type-family">Pullback of a type family</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/04-extension-types.rzk/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/05-segal-types.rzk/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/07-discrete.rzk/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/08-covariant.rzk/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/09-yoneda.rzk/">The Yoneda Lemma</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/12-cocartesian.rzk/">Cocartesian Families</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>HoTT &raquo;</li>
+      <li>Fibers</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="6-fibers">6. Fibers</h1>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="fibers">Fibers</h2>
+<p>The homotopy fiber of a map is the following type:</p>
+<pre><code class="language-rzk">-- The fiber of a map
+#def fib
+    (A B : U)
+    (f : A -&gt; B)
+    (b : B)
+    : U
+    := ∑ (a : A), (f a) = b 
+
+-- We calculate the transport of (a, q) : fib b along p : a = a'
+#def transport-in-fiber
+    (A B : U)
+    (f : A -&gt; B)
+    (b : B)
+    (a a' : A)
+    (u : (f a) = b)
+    (p : a = a')
+    : (transport A (\x -&gt; (f x) = b) a a' p u) = 
+        (concat B (f a') (f a) b (ap A B a' a f (rev A a a' p)) u)
+    := idJ(A, a, \a'' p' -&gt; (transport A (\x -&gt; (f x) = b) a a'' p' u) = 
+        (concat B (f a'') (f a) b (ap A B a'' a f (rev A a a'' p')) u), 
+        (rev ((f a) = b) (concat B (f a) (f a) b refl u) u (refl-concat B (f a) b u)), a', p)
+
+</code></pre>
+<h2 id="contractible-maps">Contractible maps</h2>
+<p>A map is contractible just when its fibers are contractible.</p>
+<pre><code class="language-rzk">-- Contractible maps
+#def isContr-map
+    (A B : U)
+    (f : A -&gt; B)
+    : U
+    := (b : B) -&gt; isContr (fib A B f b)
+</code></pre>
+<p>Contractible maps are equivalences:</p>
+<pre><code class="language-rzk">#section isEquiv-isContr-map
+
+#variables A B : U
+#variable f : A -&gt; B
+#variable fiscontr : isContr-map A B f
+
+-- The inverse to a contractible map
+#def isContr-map-inverse
+    : B -&gt; A
+    := \b -&gt; first(contraction-center (fib A B f b) (fiscontr b))
+
+#def isContr-map-hasSection
+    : hasSection A B f
+    := (isContr-map-inverse, \b -&gt; second(contraction-center (fib A B f b) (fiscontr b)))
+
+#def isContr-map-data-in-fiber uses (fiscontr)
+    (a : A)
+    : fib A B f (f a)
+    := (isContr-map-inverse (f a), (second isContr-map-hasSection) (f a))
+
+#def isContr-map-path-in-fiber
+    (a : A)
+    : (isContr-map-data-in-fiber a) =_{fib A B f (f a)} (a, refl)
+    := contractible-connecting-htpy (fib A B f (f a)) (fiscontr (f a)) (isContr-map-data-in-fiber a) (a, refl)
+
+#def isContr-map-hasRetraction uses (fiscontr)
+    : hasRetraction A B f    
+    := (isContr-map-inverse, 
+        \a -&gt; (ap (fib A B f (f a)) A (isContr-map-data-in-fiber a) ((a, refl)) 
+                (\u -&gt; first u) (isContr-map-path-in-fiber a)))
+
+#def isContr-map-isEquiv uses (fiscontr)
+    : isEquiv A B f
+    := (isContr-map-hasRetraction, isContr-map-hasSection)
+
+#end isEquiv-isContr-map    
+</code></pre>
+<h2 id="half-adjoint-equivalences-are-contractible">Half adjoint equivalences are contractible.</h2>
+<p>We now show that half adjoint equivalences are contractible maps. </p>
+<pre><code class="language-rzk">-- If f is a half adjoint equivalence, its fibers are inhabited.
+#def isHAE-isSurj
+    (A B : U)
+    (f : A -&gt; B)
+    (fisHAE : isHalfAdjointEquiv A B f)             -- first fisHAE : hasInverse A B f
+    (b : B)
+    : fib A B f b
+    := ((hasInverse-inverse A B f (first fisHAE)) b, (second (second (first fisHAE))) b)
+</code></pre>
+<p>It takes much more work to construct the contracting homotopy. The bath path of this homotopy is straightforward.</p>
+<pre><code class="language-rzk">#section half-adjoint-equivalence-fiber-data
+
+#variables A B : U
+#variable f : A -&gt; B
+#variable fisHAE : isHalfAdjointEquiv A B f
+#variable b : B
+#variable z : fib A B f b
+
+#def isHAE-fib-base-path
+    : ((hasInverse-inverse A B f (first fisHAE)) b) = (first z)
+    := concat A 
+        ((hasInverse-inverse A B f (first fisHAE)) b) 
+        ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+        (first z)
+        (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+            (rev B (f (first z)) b (second z)))
+        ((first (second (first fisHAE))) (first z))
+
+-- Specializing the above to isHAE-fib-base-path
+#def isHAE-fib-base-path-transport
+    : (transport A (\x -&gt; (f x) = b) 
+        ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+        (isHAE-fib-base-path )
+        ((second (second (first fisHAE))) b)) = 
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+                (isHAE-fib-base-path ))) ((second (second (first fisHAE))) b))
+    := transport-in-fiber A B f b ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+        ((second (second (first fisHAE))) b)
+        (isHAE-fib-base-path )
+
+#def isHAE-fib-base-path-rev-coherence
+    : rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) (isHAE-fib-base-path ) = 
+        concat A 
+            (first z) 
+            ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+            ((hasInverse-inverse A B f (first fisHAE)) b) 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z)))
+            (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z))))
+    := rev-concat A 
+        ((hasInverse-inverse A B f (first fisHAE)) b) 
+        ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+        (first z)
+        (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+            (rev B (f (first z)) b (second z)))
+        ((first (second (first fisHAE))) (first z))
+
+#def isHAE-fib-base-path-transport-rev-calculation
+    : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+                (isHAE-fib-base-path ))) ((second (second (first fisHAE))) b)) =
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (concat A 
+            (first z) 
+            ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+            ((hasInverse-inverse A B f (first fisHAE)) b) 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z)))
+            (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z)))))) ((second (second (first fisHAE))) b))    
+    := homotopy-concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+                (isHAE-fib-base-path )))
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (concat A 
+            (first z) 
+            ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+            ((hasInverse-inverse A B f (first fisHAE)) b) 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z)))
+            (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z))))))
+        (ap-htpy A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) (isHAE-fib-base-path ))
+            (concat A 
+            (first z) 
+            ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+            ((hasInverse-inverse A B f (first fisHAE)) b) 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z)))
+            (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z)))))
+            (isHAE-fib-base-path-rev-coherence ))
+        ((second (second (first fisHAE))) b)
+
+#def isHAE-fib-base-path-transport-ap-calculation
+    : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (concat A 
+            (first z) 
+            ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+            ((hasInverse-inverse A B f (first fisHAE)) b) 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z)))
+            (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z)))))) ((second (second (first fisHAE))) b)) =
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z))))))
+        ((second (second (first fisHAE))) b))
+    := homotopy-concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (concat A 
+            (first z) 
+            ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+            ((hasInverse-inverse A B f (first fisHAE)) b) 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z)))
+            (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z))))))
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z))))))
+        (ap-concat
+            A B
+            (first z) 
+            ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+            ((hasInverse-inverse A B f (first fisHAE)) b) 
+            f
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z)))
+            (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z)))))
+        ((second (second (first fisHAE))) b)
+
+#def isHAE-fib-base-path-transport-rev-ap-rev-calculation
+    : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z))))))
+        ((second (second (first fisHAE))) b)) = 
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z))
+                ))
+        ((second (second (first fisHAE))) b))
+    := homotopy-concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z))))))
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z))
+                ))
+        (concat-homotopy B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) f (rev A ((hasInverse-inverse A B f (first fisHAE)) b) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE)) (rev B (f (first z)) b (second z)))))
+             (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) f (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z)))
+            (ap-htpy A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) b) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE)) (rev B (f (first z)) b (second z))))
+                (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z))
+                (rev-ap-rev B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE))  (second z)))
+            )
+            ((second (second (first fisHAE))) b)
+
+#def isHAE-fib-base-path-transport-ap-ap-calculation
+    : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z))
+                ))
+        ((second (second (first fisHAE))) b)) = 
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z)))
+        ((second (second (first fisHAE))) b))
+    := homotopy-concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z))
+                ))
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z)))
+        (concat-homotopy B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z))
+                )
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z))
+            (rev-ap-comp B A B (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) f (second z)))
+        ((second (second (first fisHAE))) b)
+
+#def isHAE-fib-base-path-transport-assoc-calculation
+    : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z)))
+        ((second (second (first fisHAE))) b)) =
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            b
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z))
+            ((second (second (first fisHAE))) b)))
+    := concat-assoc B 
+        (f (first z)) 
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+        (f ((hasInverse-inverse A B f (first fisHAE)) b)) 
+        b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z))
+        ((second (second (first fisHAE))) b)
+
+#def isHAE-fib-base-path-transport-nat-calculation
+    : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            b
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z))
+            ((second (second (first fisHAE))) b))) =
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (ap B B (f (first z)) b (identity B) (second z))))
+    := concat-homotopy B 
+        (f (first z)) 
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        b 
+        (concat B 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            b
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z))
+            ((second (second (first fisHAE))) b))
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (ap B B (f (first z)) b (identity B) (second z)))
+        (nat-htpy B B
+            (composition B A B f (hasInverse-inverse A B f (first fisHAE)))
+            (identity B)
+            (second (second (first fisHAE)))
+            (f (first z))
+            b
+            (second z))    
+
+#def isHAE-fib-base-path-transport-ap-id-calculation
+    : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (ap B B (f (first z)) b (identity B) (second z)))) = 
+        (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (second z)))
+    := concat-homotopy B 
+        (f (first z)) 
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        b 
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (ap B B (f (first z)) b (identity B) (second z)))
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (second z))
+        (concat-homotopy B 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            ((second (second (first fisHAE))) (f (first z)))
+            b
+            (ap B B (f (first z)) b (identity B) (second z))
+            (second z)
+            (ap-id B (f (first z)) b (second z)))
+
+#def isHAE-fib-base-path-transport-reassoc-calculation
+    : (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (second z))) = 
+        (concat B (f (first z)) (f (first z)) b 
+            (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+             ((second (second (first fisHAE))) (f (first z))))
+            (second z))
+    := assoc-concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z)) b
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        ((second (second (first fisHAE))) (f (first z)))
+        (second z)        
+
+#def isHAE-fib-base-path-transport-HAE-calculation
+    : (concat B (f (first z)) (f (first z)) b 
+            (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+             ((second (second (first fisHAE))) (f (first z))))
+            (second z)) = 
+            (concat B (f (first z)) (f (first z)) b 
+            (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f 
+                (((first (second (first fisHAE)))) (first z))))
+            (second z))
+    := homotopy-concat B (f (first z)) (f (first z)) b
+        (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+             ((second (second (first fisHAE))) (f (first z))))
+        (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f 
+                (((first (second (first fisHAE)))) (first z))))     
+        (concat-homotopy B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (f (first z))
+        (((second (second (first fisHAE)))) (f (first z)))
+        (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f (((first (second (first fisHAE)))) (first z)))
+        ((second fisHAE) (first z)))                     
+        (second z)
+
+#def isHAE-fib-base-path-transport-HAE-reduction 
+    : (concat B (f (first z)) (f (first z)) b 
+        (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f 
+                (((first (second (first fisHAE)))) (first z))))
+            (second z)) =    
+    (concat B (f (first z)) (f (first z)) b (refl) (second z))   
+    := homotopy-concat B (f (first z)) (f (first z)) b
+        (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f 
+                (((first (second (first fisHAE)))) (first z))))
+        (refl)
+        (concat-ap-rev-ap-id A B 
+            (hasInverse-retraction-composite A B f (first fisHAE) (first z)) 
+            (first z) 
+            f 
+            (((first (second (first fisHAE)))) (first z)))
+        (second z)
+
+#def isHAE-fib-base-path-transport-HAE-final-reduction uses (A)
+    : (concat B (f (first z)) (f (first z)) b (refl) (second z)) = (second z)
+    := refl-concat B (f (first z)) b (second z)
+
+#def isHAE-fib-base-path-transport-path 
+    : (transport A (\x -&gt; (f x) = b) 
+        ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+        (isHAE-fib-base-path )
+        ((second (second (first fisHAE))) b)) = (second z)
+    := 12ary-concat-alternating ((f (first z)) = b)
+    (transport A (\x -&gt; (f x) = b) 
+        ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+        (isHAE-fib-base-path )
+        ((second (second (first fisHAE))) b))
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+                (isHAE-fib-base-path ))) ((second (second (first fisHAE))) b))
+    (isHAE-fib-base-path-transport )
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) b) f 
+            (concat A 
+            (first z) 
+            ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+            ((hasInverse-inverse A B f (first fisHAE)) b) 
+            (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z)))
+            (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z)))))) ((second (second (first fisHAE))) b))    
+    (isHAE-fib-base-path-transport-rev-calculation )
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (rev A 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE))
+                    (rev B (f (first z)) b (second z))))))
+        ((second (second (first fisHAE))) b))
+    (isHAE-fib-base-path-transport-ap-calculation )
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B 
+                ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) 
+                ((hasInverse-inverse A B f (first fisHAE)) b) 
+                f
+                (ap B A (f (first z)) b (hasInverse-inverse A B f (first fisHAE)) (second z))
+                ))
+        ((second (second (first fisHAE))) b))
+    (isHAE-fib-base-path-transport-rev-ap-rev-calculation ) 
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) b)) b 
+        (concat B 
+            (f (first z)) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z)))
+        ((second (second (first fisHAE))) b))
+    (isHAE-fib-base-path-transport-ap-ap-calculation ) 
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B 
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
+            b
+            (ap B B (f (first z)) b (composition B A B f (hasInverse-inverse A B f (first fisHAE))) (second z))
+            ((second (second (first fisHAE))) b)))
+    (isHAE-fib-base-path-transport-assoc-calculation )
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (ap B B (f (first z)) b (identity B) (second z))))
+    (isHAE-fib-base-path-transport-nat-calculation )   
+    (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) b 
+        (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+        (concat B
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) 
+            (f (first z))
+            b
+            ((second (second (first fisHAE))) (f (first z)))
+            (second z)))
+    (isHAE-fib-base-path-transport-ap-id-calculation )
+    (concat B (f (first z)) (f (first z)) b 
+            (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+             ((second (second (first fisHAE))) (f (first z))))
+            (second z))
+    (isHAE-fib-base-path-transport-reassoc-calculation )   
+    (concat B (f (first z)) (f (first z)) b 
+            (concat B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))) (f (first z))
+            (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
+                (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z) 
+                ((first (second (first fisHAE))) (first z))))
+            (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f 
+                (((first (second (first fisHAE)))) (first z))))
+            (second z))
+    (isHAE-fib-base-path-transport-HAE-calculation )
+    (concat B (f (first z)) (f (first z)) b (refl) (second z))   
+    (isHAE-fib-base-path-transport-HAE-reduction )
+    (second z)
+    (isHAE-fib-base-path-transport-HAE-final-reduction )
+</code></pre>
+<p>Finally, we may define the contracting homotopy:</p>
+<pre><code class="language-rzk">#def isHAE-fib-contracting-homotopy
+    : (isHAE-isSurj A B f fisHAE b) = z
+    := path-of-pairs-pair-of-paths A (\x -&gt; (f x) = b) 
+        ((hasInverse-inverse A B f (first fisHAE)) b) (first z) 
+        (isHAE-fib-base-path )
+        ((second (second (first fisHAE))) b)
+        (second z)
+        (isHAE-fib-base-path-transport-path )
+
+#end half-adjoint-equivalence-fiber-data
+</code></pre>
+<p>Half adjoint equivalences define contractible maps:</p>
+<pre><code class="language-rzk">#def isHAE-isContr-map
+    (A B : U)
+    (f : A -&gt; B)
+    (fisHAE : isHalfAdjointEquiv A B f) 
+    : isContr-map A B f
+    := \b -&gt; (isHAE-isSurj A B f fisHAE b, \z -&gt; isHAE-fib-contracting-homotopy A B f fisHAE b z)
+</code></pre>
+<h2 id="equivalences-are-contractible-maps">Equivalences are contractible maps</h2>
+<pre><code class="language-rzk">#def isEquiv-isContr-map
+    (A B : U)
+    (f : A -&gt; B)
+    (fisequiv : isEquiv A B f) 
+    : isContr-map A B f
+    := \b -&gt; (isHAE-isSurj A B f (isEquiv-isHalfAdjointEquiv A B f fisequiv) b, 
+                \z -&gt; isHAE-fib-contracting-homotopy A B f (isEquiv-isHalfAdjointEquiv A B f fisequiv) b z)
+
+#def isContr-map-iff-isEquiv
+    (A B : U)
+    (f : A -&gt; B)
+    : iff (isContr-map A B f) (isEquiv A B f)
+    := (isContr-map-isEquiv A B f, isEquiv-isContr-map A B f)
+</code></pre>
+<h2 id="fiber-of-total-map">Fiber of total map</h2>
+<p>We now calculate the fiber of the map on total spaces associated to a family of maps.</p>
+<pre><code class="language-rzk">#def family-of-maps-total-map
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    : (∑ (x : A), B x) -&gt; (∑ (x : A), C x)      -- the induced map on total spaces
+    := \z -&gt; (first z, f (first z) (second z))
+
+#def total-map-to-fiber
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : fib (B (first w)) (C (first w)) (f (first w)) (second w) -&gt; 
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+    := \(b, p) -&gt; ((first w, b),  sigma-path-fibered-path A C (first w) (f (first w) b) (second w) p)
+
+#def total-map-from-fiber
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (w : (∑ (x : A), C x))
+    : (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w) -&gt; 
+        fib (B (first w)) (C (first w)) (f (first w)) (second w)
+    := \(z, p) -&gt; idJ((∑ (x : A), C x), ((family-of-maps-total-map A B C f) z), \w' p' -&gt; fib (B (first w')) (C (first w')) (f (first w')) (second w'), (((second z), refl)), w, p)
+
+#def total-map-to-fiber-retraction
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : hasRetraction 
+        (fib (B (first w)) (C (first w)) (f (first w)) (second w))
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+        (total-map-to-fiber A B C f w)
+    := (total-map-from-fiber A B C f w, 
+        \(b, p) -&gt; idJ((C (first w)), (f (first w) b), \w1 p' -&gt; ((total-map-from-fiber A B C f ((first w, w1))) ((total-map-to-fiber A B C f (first w, w1)) (b, p'))) 
+            =_{(fib (B (first w)) (C (first w)) (f (first w)) (w1))} (b, p'), refl, (second w), p))
+
+#def total-map-to-fiber-section
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : hasSection 
+        (fib (B (first w)) (C (first w)) (f (first w)) (second w))
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+        (total-map-to-fiber A B C f w)
+    := (total-map-from-fiber A B C f w, 
+            \(z, p) -&gt; idJ((∑ (x : A), C x), ((first z, f (first z) (second z))), \w' p' -&gt; 
+            ((total-map-to-fiber A B C f w') ((total-map-from-fiber A B C f w') (z, p'))) 
+                =_{(fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w')} (z, p'), refl, w, p))
+
+#def total-map-to-fiber-isEquiv
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : isEquiv 
+        (fib (B (first w)) (C (first w)) (f (first w)) (second w))
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+        (total-map-to-fiber A B C f w)
+    := (total-map-to-fiber-retraction A B C f w, total-map-to-fiber-section A B C f w)
+
+#def total-map-fiber-equiv
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps    
+    (w : (∑ (x : A), C x))
+    : Eq (fib (B (first w)) (C (first w)) (f (first w)) (second w)) 
+        (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) w)
+    := (total-map-to-fiber A B C f w, total-map-to-fiber-isEquiv A B C f w)
+</code></pre>
+<h2 id="families-of-equivalences">Families of equivalences</h2>
+<p>A family of equivalences induces an equivalence on total spaces and conversely. It will be easiest to work with the incoherent notion of two-sided-inverses.</p>
+<pre><code class="language-rzk">#def invertible-family-total-inverse
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : (∑ (x : A), C x) -&gt; (∑ (x : A), B x)      -- the inverse map on total spaces
+    := \(a, c) -&gt; (a, (hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)
+
+#def invertible-family-total-retraction
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasRetraction (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        \(a, b) -&gt; (sigma-path-fibered-path A B a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b 
+        ((first (second (invfamily a))) b)))
+
+#def invertible-family-total-section
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasSection (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        \(a, c) -&gt; (sigma-path-fibered-path A C a (f a ((hasInverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c 
+        ((second (second (invfamily a))) c)))
+
+#def invertible-family-total-invertible
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))             -- a family of maps
+    (invfamily : (a : A) -&gt; hasInverse (B a) (C a) (f a))   -- an invertible family of maps
+    : hasInverse (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := (invertible-family-total-inverse A B C f invfamily, 
+        (second (invertible-family-total-retraction A B C f invfamily), 
+        second (invertible-family-total-section A B C f invfamily) ))
+
+#def family-of-equiv-total-equiv
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))                        -- a family of maps
+    (familyequiv : (a : A) -&gt; isEquiv (B a) (C a) (f a))   -- a family of equivalences
+    : isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := hasInverse-isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+        (invertible-family-total-invertible A B C f 
+            (\a -&gt; isEquiv-hasInverse (B a) (C a) (f a) (familyequiv a)))
+
+#def family-Eq-total-Eq
+    (A : U)
+    (B C : A -&gt; U)
+    (familyeq : (a : A) -&gt; Eq (B a) (C a))       -- a family of equivalences
+    : Eq (∑ (x : A), B x) (∑ (x : A), C x) 
+    := (family-of-maps-total-map A B C (\a -&gt; first (familyeq a)), 
+    family-of-equiv-total-equiv A B C (\a -&gt; first (familyeq a)) (\a -&gt; second (familyeq a)))
+</code></pre>
+<p>The one-way result: that a family of equivalence gives an invertible map (and thus an equivalence) on total spaces.</p>
+<pre><code class="language-rzk">#def family-of-equiv-total-invertible
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))                         -- a family of maps
+    (familyequiv : (a : A) -&gt; isEquiv (B a) (C a) (f a))    -- a family of equivalences
+    : hasInverse (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+    := invertible-family-total-invertible A B C f (\a -&gt; isEquiv-hasInverse (B a) (C a) (f a) (familyequiv a))
+</code></pre>
+<p>For the converse, we make use of our calculation on fibers. The first implication could be proven similarly.</p>
+<pre><code class="language-rzk">#def total-contr-map-family-of-contr-maps
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))                         -- a family of maps
+    (totalcontrmap : isContr-map (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
+    (a : A)
+    : isContr-map (B a) (C a) (f a) 
+    := \c -&gt; isEquiv-toContr-isContr 
+                (fib (B a) (C a) (f a) c)
+                (fib (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f) ((a, c)))
+                (total-map-fiber-equiv A B C f ((a, c)))
+                (totalcontrmap ((a, c)))
+
+#def total-equiv-family-of-equiv
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))                         -- a family of maps
+    (totalequiv : isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
+    (a : A)
+    : isEquiv (B a) (C a) (f a) 
+    := isContr-map-isEquiv (B a) (C a) (f a) 
+        (total-contr-map-family-of-contr-maps A B C f 
+            (isEquiv-isContr-map (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f)
+                totalequiv)
+            a)
+</code></pre>
+<p>In summary, a family of maps is an equivalence iff the map on total spaces is an equivalence.</p>
+<pre><code class="language-rzk">#def total-equiv-iff-family-of-equiv
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))                         -- a family of maps
+    : iff ((a : A) -&gt; isEquiv (B a) (C a) (f a)) (isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
+    := (family-of-equiv-total-equiv A B C f, total-equiv-family-of-equiv A B C f)
+</code></pre>
+<h2 id="codomain-based-path-spaces">Codomain based path spaces</h2>
+<pre><code class="language-rzk">#def rev-is-eq
+    (A : U)
+    (x y : A)
+    : Eq (x = y) (y = x)
+    := (rev A x y, ((rev A y x, rev-involution A x y),(rev A y x, rev-involution A y x)))
+
+-- An equivalence between the based path spaces.
+#def based-paths-Eq
+    (A : U)
+    (a : A)
+    : Eq (∑ (x : A), x = a) (∑ (x : A), a = x) 
+    := family-Eq-total-Eq A (\x -&gt; x = a) (\x -&gt; a = x)(\x -&gt; rev-is-eq A x a)
+
+-- Codomain based path spaces are contractible
+#def codomain-based-paths-contractible
+    (A : U)         -- The ambient type.
+    (a : A)         -- The basepoint.
+    : isContr (∑ (x : A), x = a)
+    := isEquiv-toContr-isContr (∑ (x : A), x = a) (∑ (x : A), a = x)
+        (based-paths-Eq A a)
+        (based-paths-contractible A a)
+</code></pre>
+<h2 id="pullback-of-a-type-family">Pullback of a type family</h2>
+<p>A family of types over B pulls back along any function f : A -&gt; B to define a family of types over A.</p>
+<pre><code class="language-rzk">#def pullback
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    : A -&gt; U
+    := \a -&gt; C (f a)
+</code></pre>
+<p>The pullback of a family along homotopic maps is equivalent.</p>
+<pre><code class="language-rzk">#def pullback-homotopy
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : (pullback A B f C a) -&gt; (pullback A B g C a)
+    := \c -&gt; transport B C (f a) (g a) (alpha a) c
+
+#def pullback-homotopy-inverse
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : (pullback A B g C a) -&gt; (pullback A B f C a)
+    := \c -&gt; transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) c    
+
+#def pullback-homotopy-has-retraction
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : hasRetraction (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-inverse A B f g alpha C a, \c -&gt; concat (pullback A B f C a) 
+        (transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) (transport B C (f a) (g a) (alpha a) c)) 
+        (transport B C (f a) (f a) (concat B (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a))) c) 
+        c
+        (transport-concat-rev B C (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a)) c)
+        (transport2 B C (f a) (f a) (concat B (f a) (g a) (f a) (alpha a) (rev B (f a) (g a) (alpha a))) refl (rev-right-inverse B (f a) (g a) (alpha a)) c))
+
+#def pullback-homotopy-has-section
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : hasSection (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-inverse A B f g alpha C a, \c -&gt; concat (pullback A B g C a) 
+        (transport B C (f a) (g a) (alpha a) (transport B C (g a) (f a) (rev B (f a) (g a) (alpha a)) c)) 
+        (transport B C (g a) (g a) (concat B (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a)) c) 
+        c
+        (transport-concat-rev B C (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a) c)
+        (transport2 B C (g a) (g a) (concat B (g a) (f a) (g a) (rev B (f a) (g a) (alpha a)) (alpha a)) refl (rev-left-inverse B (f a) (g a) (alpha a)) c))
+
+#def pullback-homotopy-isEquiv
+    (A B : U)
+    (f g : A -&gt; B)
+    (alpha : homotopy A B f g)
+    (C : B -&gt; U)
+    (a : A)
+    : isEquiv (pullback A B f C a) (pullback A B g C a) (pullback-homotopy A B f g alpha C a)
+    := (pullback-homotopy-has-retraction A B f g alpha C a, pullback-homotopy-has-section A B f g alpha C a)
+</code></pre>
+<p>The total space of a pulled back family of types maps to the original total space.</p>
+<pre><code class="language-rzk">#def pullback-comparison-map
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    : (∑(a : A), (pullback A B f C) a) -&gt; (∑(b : B), C b)
+    := \(a, c) -&gt; (f a, c)
+</code></pre>
+<p>Now we show that if a family is pulled back along an equivalence, the total spaces are equivalent by proving that the comparison is a contractible map. For this, we first prove that each fiber is equivalent to a fiber of the original map.</p>
+<pre><code class="language-rzk">#def pullback-comparison-fiber
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    : U
+    := fib (∑(a : A), (pullback A B f C) a) (∑(b : B), C b) (pullback-comparison-map A B f C) z
+
+#def pullback-comparison-fiber-to-fiber
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    : (pullback-comparison-fiber A B f C z) -&gt; (fib A B f (first z))
+    := \(w, p) -&gt; idJ((∑(b : B), C b), (pullback-comparison-map A B f C w), \z' p' -&gt; (fib A B f (first z')), (first w, refl), z, p)
+
+#def from-base-fiber-to-pullback-comparison-fiber
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (b : B)
+    : (fib A B f b) -&gt; (c : C b) -&gt; (pullback-comparison-fiber A B f C (b, c)) 
+    := \(a, p) -&gt; idJ(B, f a, \b' p' -&gt; (c : C b') -&gt; (pullback-comparison-fiber A B f C ((b', c))), \c -&gt; ((a, c), refl), b, p)
+
+#def pullback-comparison-fiber-to-fiber-inv
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    : (fib A B f (first z)) -&gt; (pullback-comparison-fiber A B f C z)
+    := \(a, p) -&gt; from-base-fiber-to-pullback-comparison-fiber A B f C (first z) (a, p) (second z)
+
+#def pullback-comparison-fiber-to-fiber-retracting-homotopy
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    ((w, p) : pullback-comparison-fiber A B f C z)
+    : ((pullback-comparison-fiber-to-fiber-inv A B f C z) ((pullback-comparison-fiber-to-fiber A B f C z) (w, p))) =_{(pullback-comparison-fiber A B f C z)} (w, p)
+    := idJ((∑(b : B), C b), (pullback-comparison-map A B f C w), \z' p' -&gt;  ((pullback-comparison-fiber-to-fiber-inv A B f C z') ((pullback-comparison-fiber-to-fiber A B f C z') (w, p'))) =_{(pullback-comparison-fiber A B f C z')} (w, p'), refl, z, p)
+
+#def pullback-comparison-fiber-to-fiber-section-homotopy-map
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (b : B)
+    ((a, p) : fib A B f b)
+    : (c : C b) -&gt; ((pullback-comparison-fiber-to-fiber A B f C (b, c)) ((pullback-comparison-fiber-to-fiber-inv A B f C (b, c))  (a, p))) =_{(fib A B f b)} (a, p)
+    := idJ(B, f a, \b' p' -&gt; (c : C b') -&gt; ((pullback-comparison-fiber-to-fiber A B f C (b', c)) ((pullback-comparison-fiber-to-fiber-inv A B f C (b', c))  (a, p'))) =_{(fib A B f b')} (a, p'), \c -&gt; refl, b, p)
+
+#def pullback-comparison-fiber-to-fiber-section-homotopy
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    ((a, p) : fib A B f (first z))
+    : ((pullback-comparison-fiber-to-fiber A B f C z) ((pullback-comparison-fiber-to-fiber-inv A B f C z)  (a, p))) =_{(fib A B f (first z))} (a, p)
+    := pullback-comparison-fiber-to-fiber-section-homotopy-map A B f C (first z) (a, p) (second z)
+
+#def pullback-comparison-fiber-Eq
+    (A B : U)
+    (f : A -&gt; B)
+    (C : B -&gt; U)
+    (z : ∑(b : B), C b)
+    : Eq (pullback-comparison-fiber A B f C z) (fib A B f (first z))
+    := (pullback-comparison-fiber-to-fiber A B f C z, 
+        ((pullback-comparison-fiber-to-fiber-inv A B f C z, 
+        pullback-comparison-fiber-to-fiber-retracting-homotopy A B f C z),
+        (pullback-comparison-fiber-to-fiber-inv A B f C z,
+         pullback-comparison-fiber-to-fiber-section-homotopy A B f C z)))
+</code></pre>
+<p>As a corollary, we show that pullback along an equivalence induces an equivalence of total spaces.</p>
+<pre><code class="language-rzk">#def pullback-is-equiv-total-eq
+    (A B : U)
+    (f : A -&gt; B)
+    (fisequiv : isEquiv A B f)
+    (C : B -&gt; U)
+    : Eq (∑(a : A), (pullback A B f C) a) (∑(b : B), C b) 
+    := (pullback-comparison-map A B f C, 
+        isContr-map-isEquiv
+            (∑(a : A), (pullback A B f C) a)
+            (∑(b : B), C b)
+            (pullback-comparison-map A B f C)
+            (\z -&gt; (isEquiv-toContr-isContr
+                        (pullback-comparison-fiber A B f C z)
+                        (fib A B f (first z))
+                        (pullback-comparison-fiber-Eq A B f C z)
+                        (isEquiv-isContr-map A B f fisequiv (first z)))))
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../04-sigma.rzk/" class="btn btn-neutral float-left" title="Sigma types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../07-trivial-fibrations.rzk/" class="btn btn-neutral float-right" title="Trivial fibrations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../04-sigma.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../07-trivial-fibrations.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

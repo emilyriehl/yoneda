@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Cocartesian Families - yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Cocartesian Families";
+        var mkdocs_page_input_path = "simplicial-hott/12-cocartesian.rzk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/00-common.rzk/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/01-paths.rzk/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/02-homotopies.rzk/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/03-equivalences.rzk/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/04-sigma.rzk/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../../hott/05-contractible.rzk.md">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/06-fibers.rzk/">Fibers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-extension-types.rzk/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-segal-types.rzk/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-discrete.rzk/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08-covariant.rzk/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../09-yoneda.rzk/">The Yoneda Lemma</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Cocartesian Families</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Simplicial HoTT &raquo;</li>
+      <li>Cocartesian Families</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="cocartesian-families">Cocartesian families</h1>
+<p>These formalizations capture cocartesian families as treated in BW23.</p>
+<p>The goal, for now, is not to give a general structural account as in the paper but ratger to provide the definitions and results that are necessary to prove the cocartesian Yoneda Lemma.</p>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><code>hott/*</code> - We require various prerequisites from homotopy type theory, for instance the axiom of function extensionality.</li>
+<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
+<li><code>4-extension-types.md</code> — We use the fubini theorem and extension extensionality.</li>
+<li><code>5-segal-types.md</code> - We make heavy use of the notion of Segal types</li>
+<li><code>8-covariant.md</code> - We use covariant type families.</li>
+</ul>
+<h1 id="type-of-fiberwise-segal-families-over-a-base-type">Type of fiberwise Segal families over a base type</h1>
+<pre><code class="language-rzk">#def innerFam
+    (B : U)
+    : U
+    :=
+    (∑(P : B -&gt; U), (b : B) -&gt; (isSegal (P b)))
+</code></pre>
+<h1 id="definition-of-cocartesian-lifts">Definition of cocartesian lifts</h1>
+<p>-- [BW23, Definition 5.1.1]
+-- the proposition that a dependent arrow in a family is cocartesian
+-- (alternative version using unpacked extension types because this is preferred for usage)</p>
+<pre><code class="language-rzk">#def isCocartArr
+    (B : U)
+    (b b' : B)
+    (u : hom B b b')
+    (P : B -&gt; U)
+    (e : P b)
+    (e' : P b')
+    (f : dhom B b b' u P e e')
+    : U
+    := (b'' : B)
+    -&gt; (v : hom B b' b'')
+    -&gt; (w : hom B b b'')
+    -&gt; (sigma : hom2 B b b' b'' u v w)
+    -&gt; (e'' : P b'')
+    -&gt; (h : dhom B b b'' w P e e'')
+    -&gt; isContr (∑(g : dhom B b' b'' v P e' e''), (dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
+</code></pre>
+<h1 id="definition-of-cocartesian-lifts_1">Definition of cocartesian lifts</h1>
+<p>-- [BW23, Definition 5.1.2]
+-- the type of cocartesian lifts of a fixed arrow in the base with a given starting point in the fiber</p>
+<pre><code class="language-rzk">#def CocartLift
+    (B : U)
+    (b b' : B)
+    (u : hom B b b')
+    (P : B -&gt; U)
+    (e : P b)
+    : U
+    := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
+</code></pre>
+<h1 id="def-isinitial">def isInitial</h1>
+<pre><code>(A : U)
+(a : U)
+: U
+:= (x : A) -&gt; isContr(hom A a x)
+</code></pre>
+<h1 id="def-initial-unique">def initial-unique</h1>
+<pre><code>(A : U)
+: isProp(∑(a : A), isInitial A a)
+:= \a -&gt; \b -&gt;
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../09-yoneda.rzk/" class="btn btn-neutral float-left" title="The Yoneda Lemma"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../09-yoneda.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

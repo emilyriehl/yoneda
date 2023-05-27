@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Homotopies - yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Homotopies";
+        var mkdocs_page_input_path = "hott/02-homotopies.rzk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00-common.rzk/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-paths.rzk/">Paths</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Homotopies</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#homotopies-and-their-algebra">Homotopies and their algebra</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#whiskering-homotopies">Whiskering homotopies</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#naturality">Naturality</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#an-application">An application</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-equivalences.rzk/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-sigma.rzk/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../05-contractible.rzk.md">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/04-extension-types.rzk/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/05-segal-types.rzk/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/07-discrete.rzk/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/08-covariant.rzk/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/09-yoneda.rzk/">The Yoneda Lemma</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/12-cocartesian.rzk/">Cocartesian Families</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>HoTT &raquo;</li>
+      <li>Homotopies</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="2-homotopies">2. Homotopies</h1>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="homotopies-and-their-algebra">Homotopies and their algebra</h2>
+<pre><code class="language-rzk">#section homotopies
+
+#variables A B : U
+
+-- The type of homotopies between parallel functions.
+#def homotopy 
+    (f g : A -&gt; B)          -- Two parallel functions.
+    : U
+    := (a : A) -&gt; (f a = g a)
+
+-- The reversal of a homotopy    
+#def homotopy-rev 
+    (f g : A -&gt; B)          -- Two parallel functions.
+    (H : homotopy f g)  -- A homotopy from f to g.
+    : homotopy g f
+    := \a -&gt; rev B (f a) (g a) (H a)
+
+-- Homotopy composition is defined in diagrammatic order like concat but unlike composition.
+#def homotopy-composition 
+    (f g h : A -&gt; B)          -- Three parallel functions.
+    (H : homotopy f g)
+    (K : homotopy g h)
+    : homotopy f h
+    := \a -&gt; concat B (f a) (g a) (h a) (H a) (K a)
+
+#end homotopies
+</code></pre>
+<h2 id="whiskering-homotopies">Whiskering homotopies</h2>
+<pre><code class="language-rzk">#section homotopy-whiskering
+
+#variables A B C : U
+
+#def homotopy-postwhisker 
+    (f g : A -&gt; B)              -- Two parallel functions.
+    (H : homotopy A B f g)      -- A homotopy from f to g.
+    (h : B -&gt; C)
+    : homotopy A C (composition A B C h f) (composition A B C h g)
+    := \a -&gt; ap B C (f a) (g a) h (H a)
+
+#def homotopy-prewhisker 
+    (f g : B -&gt; C)              -- Two parallel functions
+    (H : homotopy B C f g)
+    (h : A -&gt; B)
+    : homotopy A C (composition A B C f h) (composition A B C g h)
+    := \a -&gt; H (h a)
+
+#end homotopy-whiskering
+</code></pre>
+<h2 id="naturality">Naturality</h2>
+<pre><code class="language-rzk">-- The naturality square associated to a homotopy and a path.
+#def nat-htpy 
+    (A B : U)               -- Two types.
+    (f g : A -&gt; B)          -- Two parallel functions.
+    (H : homotopy A B f g)  -- A homotopy from f to g.
+    (x y : A)
+    (p : x = y)
+    : (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) = (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
+    := idJ(A, x, 
+            \y' p' 
+                -&gt; (concat B (f x) (f y') (g y') 
+                        (ap A B x y' f p') (H y')) =
+                   (concat B (f x) (g x) (g y') 
+                        (H x) (ap A B x y' g p')), 
+            refl-concat B (f x) (g x) (H x), y, p)
+</code></pre>
+<h2 id="an-application">An application</h2>
+<pre><code class="language-rzk">#section cocone-naturality
+
+#variable A : U
+#variable f : A -&gt; A
+#variable H : homotopy A A f (identity A)
+#variable a : A
+
+-- In the case of a homotopy H from f to the identity the previous square applies to the path H a to produce the following naturality square.
+#def cocone-naturality 
+    : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
+            (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
+    := nat-htpy A A f (identity A) H (f a) a (H a)
+
+-- After composing with ap-id, this naturality square transforms to the following:
+#def reduced-cocone-naturality 
+    : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
+            (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+    := concat ((f (f a)) = a) (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) 
+            (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
+            (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+                (cocone-naturality)
+                (concat-homotopy A (f (f a)) (f a) (H (f a)) a (ap A A (f a) a (identity A) (H a)) (H a) (ap-id A (f a) a (H a)))
+
+-- Cancelling the path (H a) on the right and reversing yields a path we need:
+#def cocone-naturality-coherence 
+    : (H (f a)) =(ap A A (f a) a  f (H a))  
+    := rev (f (f a) = f a) (ap A A (f a) a  f (H a)) (H (f a)) 
+        (concat-right-cancel A (f (f a)) (f a) a 
+            (ap A A (f a) a  f (H a)) 
+            (H (f a)) 
+            (H a) 
+                (reduced-cocone-naturality))
+
+#end cocone-naturality                
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../01-paths.rzk/" class="btn btn-neutral float-left" title="Paths"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03-equivalences.rzk/" class="btn btn-neutral float-right" title="Equivalences">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../01-paths.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03-equivalences.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

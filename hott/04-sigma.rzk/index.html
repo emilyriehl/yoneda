@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Sigma types - yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Sigma types";
+        var mkdocs_page_input_path = "hott/04-sigma.rzk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../00-common.rzk/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-paths.rzk/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-homotopies.rzk/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-equivalences.rzk/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Sigma types</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#paths-involving-products">Paths involving products</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#identity-types-of-sigma-types">Identity types of sigma types</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fubini">Fubini</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#associativity">Associativity</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../05-contractible.rzk.md">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/04-extension-types.rzk/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/05-segal-types.rzk/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/07-discrete.rzk/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/08-covariant.rzk/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/09-yoneda.rzk/">The Yoneda Lemma</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../simplicial-hott/12-cocartesian.rzk/">Cocartesian Families</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>HoTT &raquo;</li>
+      <li>Sigma types</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="4-sigma-types">4. Sigma types</h1>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="paths-involving-products">Paths involving products</h2>
+<pre><code class="language-rzk">#section paths-in-products 
+
+#variables A B : U
+
+#def path-product
+  (a a' : A)
+  (b b' : B)
+  (e_A : a = a')
+  (e_B : b = b')
+  : (a, b) =_{prod A B} (a', b')
+  := transport A (\x -&gt; (a, b) =_{prod A B} (x, b')) a a' e_A
+      (transport B (\y -&gt; (a, b) =_{prod A B} (a, y)) b b' e_B refl)
+
+#def first-path-product
+  (x y : prod A B)
+  (e : x =_{prod A B} y)
+  : first x = first y
+  := ap (prod A B) A x y (\z -&gt; first z) e
+
+#def second-path-product
+  (x y : prod A B)
+  (e : x =_{prod A B} y)
+  : second x = second y
+  := ap (prod A B) B x y (\z -&gt; second z) e
+
+#end paths-in-products
+</code></pre>
+<h2 id="identity-types-of-sigma-types">Identity types of sigma types</h2>
+<pre><code class="language-rzk">#section paths-in-sigma
+
+#variable A : U
+#variable B : A -&gt; U
+
+#def first-path-sigma
+  (s t : ∑ (a : A), B a)
+  (e : s = t)
+  : first s = first t
+  := ap (∑ (a : A), B a) A s t (\z -&gt; first z) e
+
+#def second-path-sigma
+  (s t : ∑ (a : A), B a)
+  (e : s = t) 
+    : (transport A B (first s) (first t) (first-path-sigma s t e) (second s)) = (second t)
+    := idJ((∑ (a : A), B a), s, 
+            \t' e' -&gt; (transport A B (first s) (first t') (first-path-sigma s t' e') (second s)) = (second t'), 
+            refl, t, e)
+
+-- [Rijke 22, Definition 9.3.1]
+#def Eq-Sigma
+  (s t : ∑(a : A), B a)
+  : U
+  := ∑(p : (first s) = (first t)), (transport A B (first s) (first t) p (second s)) = (second t)
+
+-- [Rijke 22, Definition 9.3.3]
+#def pair-eq
+  (s t : ∑(a : A), B a)
+  (e : s = t)
+  : (Eq-Sigma s t)
+  := (first-path-sigma s t e, second-path-sigma s t e)
+
+-- A path in a fiber defines a path in the total space
+#def sigma-path-fibered-path 
+  (x : A)
+  (u v : B x)
+  (p : u = v) 
+  : (x , u) =_{∑ (a : A), B a} (x , v)
+  := idJ(B x, u, \v' p' -&gt; (x , u) = (x , v'), refl, v, p)
+
+-- Essentially eq-pair but with explicit arguments.
+#def path-of-pairs-pair-of-paths
+    (x y : A)
+    (p : x = y)
+    : (u : B x) -&gt; (v : B y) -&gt; ((transport A B x y p u) = v) -&gt; (x, u) =_{∑ (z : A), B z} (y, v)    
+    := idJ(A, x, 
+        \y' p' -&gt; (u' : B x) -&gt; (v' : B y') -&gt; ((transport A B x y' p' u') = v') -&gt; (x, u') =_{∑ (z : A), B z} (y', v'),
+        \u' v' q' -&gt; (sigma-path-fibered-path x u' v' q'), 
+        y, p) 
+
+-- The inverse to pair-eq.
+#def eq-pair
+    (s t : ∑(a : A), B a)
+    (e : Eq-Sigma s t)
+    : (s = t)
+    := path-of-pairs-pair-of-paths (first s) (first t) (first e) (second s) (second t) (second e)
+
+#def eq-pair-pair-eq
+  (s t : ∑(a : A), B a)
+  (e : s = t)
+  : (eq-pair s t (pair-eq s t e)) = e
+  := idJ(∑(a : A), B a, s, \t' e' -&gt; (eq-pair s t' (pair-eq s t' e')) = e', refl, t, e)
+
+
+-- Here we've decomposed e : Eq-Sigma s t as (e0, e1) and decomposed s and t similarly for induction purposes
+#def pair-eq-eq-pair-split
+  (s0 : A)
+  (s1 : B s0)
+  (t0 : A)
+  (e0 : s0 = t0)
+  : (t1 : B t0) -&gt; (e1 : (transport A B s0 t0 e0 s1) = t1) -&gt;
+    (pair-eq (s0, s1) (t0, t1) (eq-pair (s0, s1) (t0, t1) (e0, e1))) =_{Eq-Sigma (s0, s1) (t0, t1)} (e0, e1)
+  := idJ(A, s0,
+       \t0' e0' -&gt; (t1 : B t0') -&gt; (e1 : (transport A B s0 t0' e0' s1) = t1) -&gt;
+    (pair-eq (s0, s1) (t0', t1) (eq-pair (s0, s1) (t0', t1) (e0', e1))) =_{Eq-Sigma (s0, s1) (t0', t1)} (e0', e1), \t1 e1 -&gt; idJ(B s0, s1, 
+              \t1' e1' -&gt; (pair-eq (s0, s1) (s0, t1') (eq-pair (s0, s1) (s0, t1') (refl, e1'))) =_{Eq-Sigma (s0, s1) (s0, t1')} (refl, e1'), refl, t1, e1), t0, e0)
+
+#def pair-eq-eq-pair
+  (s t : ∑(a : A), B a)
+  (e : Eq-Sigma s t)
+  : (pair-eq s t (eq-pair s t e)) =_{Eq-Sigma s t} e
+  := pair-eq-eq-pair-split (first s) (second s) (first t) (first e) (second t) (second e)
+
+#def Eq-Sigma-Eq
+  (s t : ∑(a : A), B a)
+  : Eq (s = t) (Eq-Sigma s t)
+  := (pair-eq s t, ((eq-pair s t, eq-pair-pair-eq s t),(eq-pair s t, pair-eq-eq-pair s t)))
+
+#end paths-in-sigma
+</code></pre>
+<h2 id="fubini">Fubini</h2>
+<p>Given a family over a pair of independent types, the order of summation is unimportant.</p>
+<pre><code class="language-rzk">#def sigma-fubini
+    (A B : U)
+    (C : A -&gt; B -&gt; U)
+    : Eq (∑ (x : A), ∑ (y : B), C x y) (∑ (y : B), ∑ (x : A), C x y)
+    := (\t -&gt; (first (second t), (first t, second (second t))),
+        ((\t -&gt; (first (second t), (first t, second (second t))),
+        \t -&gt; refl), 
+        (\t -&gt; (first (second t), (first t, second (second t))),
+        \t -&gt; refl)))
+</code></pre>
+<p>Products distribute inside a Sigma type:</p>
+<pre><code class="language-rzk">#def prod-distribute-sigma
+    (A B : U)
+    (C : B -&gt; U)
+    : Eq (prod A (∑ (b : B), C b)) (∑ (b : B), prod A (C b))
+    := (\(a, (b, c)) -&gt; (b, (a, c)), 
+            ((\(b, (a, c)) -&gt; (a, (b, c)), \z -&gt; refl), 
+            (\(b, (a, c)) -&gt; (a, (b, c)), \z -&gt; refl))) 
+</code></pre>
+<h2 id="associativity">Associativity</h2>
+<pre><code class="language-rzk">#def assoc-sigma
+    (A : U)
+    (B : A -&gt; U)
+    (C : (a : A) -&gt; B a -&gt; U)
+    : Eq (∑ (a : A), ∑ (b : B a), C a b)
+         (∑ (ab : ∑ (a : A), B a), C (first ab) (second ab))
+    := (\(a, (b, c)) -&gt; ((a, b), c),
+        ((\((a, b), c) -&gt; (a, (b, c)), \_ -&gt; refl),
+         (\((a, b), c) -&gt; (a, (b, c)), \_ -&gt; refl)))
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03-equivalences.rzk/" class="btn btn-neutral float-left" title="Equivalences"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../06-fibers.rzk/" class="btn btn-neutral float-right" title="Fibers">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../03-equivalences.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../06-fibers.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

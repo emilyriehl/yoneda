@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>The Yoneda Lemma - yoneda</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
+<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
+<link rel="manifest" href="/yoneda/site.webmanifest">
+<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
+<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
+<script src="../../js/highlight-11.7.0.min.js"></script>
+<script src="../../js/rzk.js"></script>
+<link rel="stylesheet" href="../../css/gruvbox-light.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
+<script src="../../js/highlightjs-copy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  hljs.addPlugin(new CopyButtonPlugin());
+  hljs.highlightAll();
+</script>
+
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "The Yoneda Lemma";
+        var mkdocs_page_input_path = "simplicial-hott/09-yoneda.rzk.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+ 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> yoneda
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">General</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">HoTT</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/00-common.rzk/">Common</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/01-paths.rzk/">Paths</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/02-homotopies.rzk/">Homotopies</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/03-equivalences.rzk/">Equivalences</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/04-sigma.rzk/">Sigma types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../../hott/05-contractible.rzk.md">Contractible</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/06-fibers.rzk/">Fibers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-extension-types.rzk/">Extension Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-segal-types.rzk/">Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-discrete.rzk/">Discrete Types</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08-covariant.rzk/">Covariantly Functorial Type Families</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">The Yoneda Lemma</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#natural-transformations-involving-a-representable-functor">Natural transformations involving a representable functor</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-yoneda-maps">The Yoneda maps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-yoneda-composites">The Yoneda composites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-yoneda-lemma_1">The Yoneda lemma</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../12-cocartesian.rzk/">Cocartesian Families</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">yoneda</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Simplicial HoTT &raquo;</li>
+      <li>The Yoneda Lemma</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="the-yoneda-lemma">The Yoneda lemma</h1>
+<p>These formalisations correspond to Section 9 of RS17 paper.</p>
+<p>This is a literate <code>rzk</code> file:</p>
+<pre><code class="language-rzk">#lang rzk-1
+</code></pre>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><code>hott/*</code> - We require various prerequisites from homotopy type theory, for instance the axiom of function extensionality.</li>
+<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
+<li><code>4-extension-types.md</code> — We use the fubini theorem and extension extensionality.</li>
+<li><code>5-segal-types.md</code> - We make heavy use of the notion of Segal types</li>
+<li><code>8-covariant.md</code> - We use covariant type families.</li>
+</ul>
+<h2 id="natural-transformations-involving-a-representable-functor">Natural transformations involving a representable functor</h2>
+<p>Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural transformations from the representable type family hom A a : A -&gt; U to a covariant type family C : A -&gt; U. </p>
+<p>Ordinary, such a natural transformation would involve a family of maps </p>
+<p>ϕ : (z : A) -&gt; hom A a z -&gt; C z</p>
+<p>together with a proof of naturality of these components, but by naturality-covariant-fiberwise-transformation naturality is automatic.</p>
+<pre><code class="language-rzk">#def naturality-covariant-fiberwise-representable-transformation
+    (A : U)
+    (AisSegal : isSegal A)
+    (a x y : A)
+    (f : hom A a x)
+    (g : hom A x y)
+    (C : A -&gt; U)
+    (CisCov : isCovFam A C)
+    (ϕ : (z : A) -&gt; hom A a z -&gt; C z)
+    : (covTrans A x y g C CisCov (ϕ x f)) = (ϕ y (Segal-comp A AisSegal a x y f g))
+    := naturality-covariant-fiberwise-transformation A x y g (\ z -&gt; hom A a z) C 
+        (isSegal-representable-isCovFam A AisSegal a)
+        CisCov
+        ϕ f
+</code></pre>
+<h2 id="the-yoneda-maps">The Yoneda maps</h2>
+<p>For any Segal type A and term a : A, the Yoneda lemma provides an equivalence between the type (z : A) -&gt; hom A a z -&gt; C z of natural transformations out of the functor (hom A a) and valued in an arbitrary covariant family C and the type (C a). </p>
+<p>One of the maps in this equivalence is evaluation at the identity. The inverse map makes use of the covariant transport operation.</p>
+<pre><code class="language-rzk">-- The map evid evaluates a natural transformation 
+-- out of a representable functor at the identity arrow.
+#def evid 
+    (A : U)                             -- The ambient type.
+    (a : A)                             -- The representing object.
+    (C : A -&gt; U)                        -- A type family.
+    : ((z : A) -&gt; hom A a z -&gt; C z) -&gt; C a
+    := \ ϕ -&gt; ϕ a (id-arr A a)
+
+-- The inverse map only exists for Segal types.
+#def yon
+    (A : U)                             -- The ambient type.
+    (AisSegal : isSegal A)              -- A proof that A is Segal.
+    (a  : A)                            -- The representing object.
+    (C : A -&gt; U)                        -- A type family.
+    (CisCov : isCovFam A C)             -- A covariant family.
+    : C a -&gt; ((z : A) -&gt; hom A a z -&gt; C z)
+    := \ u z f -&gt; covTrans A a z f C CisCov u
+
+</code></pre>
+<h2 id="the-yoneda-composites">The Yoneda composites</h2>
+<p>It remains to show that the Yoneda maps are inverses.</p>
+<pre><code class="language-rzk">-- One retraction is straightforward:
+#def evid-yon
+    (A : U)                             -- The ambient type.
+    (AisSegal : isSegal A)              -- A proof that A is Segal.
+    (a  : A)                            -- The representing object.
+    (C : A -&gt; U)                        -- A type family.
+    (CisCov : isCovFam A C)             -- A covariant family.
+    (u : C a)
+    : (evid A a C) ((yon A AisSegal a C CisCov) u) = u
+    := covPresId A a C CisCov u
+</code></pre>
+<p>The other composite carries ϕ to an a priori distinct natural transformation. We first show that these are pointwise equal at all x : A and f : hom A a x in two steps.</p>
+<pre><code class="language-rzk">#section yon-evid
+
+#variable A : U                     -- The ambient type.
+#variable AisSegal : isSegal A      -- A proof that A is Segal.
+#variable a : A                     -- The representing object.
+#variable C : A -&gt; U                -- A type family.
+#variable CisCov : isCovFam A C     -- A covariant family.
+
+-- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A a x.
+#def yon-evid-twice-pointwise
+    (ϕ : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
+    (x : A)
+    (f : hom A a x)   
+    : ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f = ϕ x f
+    := concat (C x)
+        (((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f)
+        (ϕ x (Segal-comp A AisSegal a a x (id-arr A a) f))
+        (ϕ x f)
+        (naturality-covariant-fiberwise-representable-transformation
+            A AisSegal a a x (id-arr A a) f C CisCov ϕ )
+        (ap (hom A a x) (C x)
+            (Segal-comp A AisSegal a a x (id-arr A a) f)
+            f
+            (ϕ x)
+            (Segal-id-comp A AisSegal a x f))
+
+-- By funext, these are equals as functions of f pointwise in x.
+#def yon-evid-once-pointwise    
+    (funext : FunExt)    
+    (ϕ : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
+    (x : A)
+    : ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x = ϕ x
+    := eq-htpy funext
+        (hom A a x)
+        (\ f -&gt; C x)
+        (\ f -&gt; ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f)
+        (\ f -&gt; (ϕ x f))
+        (\ f -&gt; yon-evid-twice-pointwise ϕ x f)
+
+-- By funext again, these are equal as functions of x and f.
+#def yon-evid    
+    (funext : FunExt)        
+    (ϕ : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
+    : ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) = ϕ
+    := eq-htpy funext
+        A
+        (\ x -&gt; (hom A a x -&gt; C x))
+        (\ x -&gt; ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x)
+        (\ x -&gt; (ϕ x))
+        (\ x -&gt; yon-evid-once-pointwise funext ϕ x)
+
+#end yon-evid
+</code></pre>
+<h2 id="the-yoneda-lemma_1">The Yoneda lemma</h2>
+<p>The Yoneda lemma says that evaluation at the identity defines an equivalence.</p>
+<pre><code class="language-rzk">#def Yoneda-lemma
+    (funext : FunExt)        
+    (A : U)                                 -- The ambient type.
+    (AisSegal : isSegal A)                  -- A proof that A is Segal.
+    (a  : A)                                -- The representing object.
+    (C : A -&gt; U)                            -- A type family.
+    (CisCov : isCovFam A C)                 -- A covariant family.
+    : isEquiv ((z : A) -&gt; hom A a z -&gt; C z) (C a) (evid A a C)
+    := ((yon A AisSegal a C CisCov,
+            yon-evid A AisSegal a C CisCov funext),
+        (yon A AisSegal a C CisCov,
+            evid-yon A AisSegal a C CisCov))
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../08-covariant.rzk/" class="btn btn-neutral float-left" title="Covariantly Functorial Type Families"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../12-cocartesian.rzk/" class="btn btn-neutral float-right" title="Cocartesian Families">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../08-covariant.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../12-cocartesian.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
