@@ -31,7 +31,7 @@ This is a literate `rzk` file:
     (f : hom A x y)
     (h : hom A y x)
     : U
-    := (Segal-comp A AisSegal x y x f h) =_{hom A x x} (id-arr A x)
+    := (Segal-comp A AisSegal y x y h f) =_{hom A y y} (id-arr A y)
 
 #def Sec
     (A : U)
@@ -48,6 +48,13 @@ This is a literate `rzk` file:
     (f : hom A x y)
     : U
     := prod (Retr A AisSegal x y f) (Sec A AisSegal x y f)
+
+#def Iso
+    (A : U)
+    (AisSegal : isSegal A)
+    (x y : A)
+    : U
+    := ∑ (f : hom A x y), isIso A AisSegal x y f
 
 #def isBiinvertible
     (A : U)
