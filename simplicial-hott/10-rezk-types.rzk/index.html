@@ -76,7 +76,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/04-sigma.rzk/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../hott/05-contractible.rzk.md">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/05-contractible.rzk/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/06-fibers.rzk/">Fibers</a>
                   </li>
@@ -153,7 +153,7 @@
     (f : hom A x y)
     (h : hom A y x)
     : U
-    := (Segal-comp A AisSegal x y x f h) =_{hom A x x} (id-arr A x)
+    := (Segal-comp A AisSegal y x y h f) =_{hom A y y} (id-arr A y)
 
 #def Sec
     (A : U)
@@ -170,6 +170,13 @@
     (f : hom A x y)
     : U
     := prod (Retr A AisSegal x y f) (Sec A AisSegal x y f)
+
+#def Iso
+    (A : U)
+    (AisSegal : isSegal A)
+    (x y : A)
+    : U
+    := ∑ (f : hom A x y), isIso A AisSegal x y f
 
 #def isBiinvertible
     (A : U)

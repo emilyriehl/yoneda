@@ -76,7 +76,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/04-sigma.rzk/">Sigma types</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../hott/05-contractible.rzk.md">Contractible</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../hott/05-contractible.rzk/">Contractible</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../hott/06-fibers.rzk/">Fibers</a>
                   </li>
@@ -102,6 +102,10 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Cocartesian Families</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#type-of-fiberwise-segal-families-over-a-base-type">Type of fiberwise Segal families over a base type</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#definition-of-cocartesian-lifts">Definition of cocartesian lifts</a>
     </li>
     </ul>
                   </li>
@@ -144,14 +148,14 @@
 <li><code>5-segal-types.md</code> - We make heavy use of the notion of Segal types</li>
 <li><code>8-covariant.md</code> - We use covariant type families.</li>
 </ul>
-<h1 id="type-of-fiberwise-segal-families-over-a-base-type">Type of fiberwise Segal families over a base type</h1>
+<h2 id="type-of-fiberwise-segal-families-over-a-base-type">Type of fiberwise Segal families over a base type</h2>
 <pre><code class="language-rzk">#def innerFam
     (B : U)
     : U
     :=
     (∑(P : B -&gt; U), (b : B) -&gt; (isSegal (P b)))
 </code></pre>
-<h1 id="definition-of-cocartesian-lifts">Definition of cocartesian lifts</h1>
+<h2 id="definition-of-cocartesian-lifts">Definition of cocartesian lifts</h2>
 <p>-- [BW23, Definition 5.1.1]
 -- the proposition that a dependent arrow in a family is cocartesian
 -- (alternative version using unpacked extension types because this is preferred for usage)</p>
@@ -183,17 +187,28 @@
     (e : P b)
     : U
     := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
-</code></pre>
-<h1 id="def-isinitial">def isInitial</h1>
-<pre><code>(A : U)
-(a : U)
-: U
-:= (x : A) -&gt; isContr(hom A a x)
-</code></pre>
-<h1 id="def-initial-unique">def initial-unique</h1>
-<pre><code>(A : U)
-: isProp(∑(a : A), isInitial A a)
-:= \a -&gt; \b -&gt;
+
+#def isInitial
+    (A : U)
+    (a : A)
+    : U
+    := (x : A) -&gt; isContr(hom A a x)
+
+-- In a Segal type, initial objects are isomorphic.
+#def initial-iso
+    (A : U)
+    (AisSegal : isSegal A)
+    (a b : A)
+    (ainitial : isInitial A a)
+    (binitial : isInitial A b)
+    : Iso A AisSegal a b
+    := (first (ainitial b),
+        ((first (binitial a),
+            contractible-connecting-htpy (hom A a a) (ainitial a) (Segal-comp A AisSegal a b a (first (ainitial b)) (first (binitial a))) (id-arr A a))
+        ,
+        (first (binitial a),
+            contractible-connecting-htpy (hom A b b) (binitial b) (Segal-comp A AisSegal b a b (first (binitial a)) (first (ainitial b))) (id-arr A b))
+        ))
 </code></pre>
               
             </div>
