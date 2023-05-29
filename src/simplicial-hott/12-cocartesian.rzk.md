@@ -89,4 +89,6 @@ This is a literate `rzk` file:
         (first (binitial a),
             contractible-connecting-htpy (hom A b b) (binitial b) (Segal-comp A AisSegal b a b (first (binitial a)) (first (ainitial b))) (id-arr A b))
         ))
+
+
 ```

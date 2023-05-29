@@ -52,6 +52,13 @@ This is a literate `rzk` file:
     : U
     := prod (arrow-Retraction A AisSegal x y f) (arrow-Section A AisSegal x y f)
 
+#def Iso
+    (A : U)
+    (AisSegal : isSegal A)
+    (x y : A)
+    : U
+    := ∑ (f : hom A x y), arrow-isIso A AisSegal x y f
+
 #def arrow-hasInverse
     (A : U)
     (AisSegal : isSegal A)
