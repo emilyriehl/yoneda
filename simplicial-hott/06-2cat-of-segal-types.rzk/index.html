@@ -147,7 +147,7 @@
 <p>Functions between types induce an action on hom types, preserving sources and targets.</p>
 <pre><code class="language-rzk">-- [RS17, Section 6.1]
 -- Action of maps on homs. Called &quot;ap-hom&quot; to avoid conflicting with &quot;ap&quot;.
-#def ap-hom 
+#def ap-hom
     (A B : U)
     (F : A -&gt; B)
     (x y : A)
@@ -174,19 +174,20 @@
     (extext : ExtExt)
     (A B : U)
     (F : A -&gt; B)
-    (x : A) 
+    (x : A)
     : (ap-hom A B F x x (id-arr A x)) = (id-arr B (F x))
-    := extext 
-        2
-        Δ¹
-        ∂Δ¹
-        (\t -&gt; B)
-        (\t -&gt; recOR(
-            t === 0_2 |-&gt; F x,
-            t === 1_2 |-&gt; F x))
-        (ap-hom A B F x x (id-arr A x))
-        (id-arr B (F x))
-        (\t -&gt; refl)
+    := eq-ext-htpy
+            extext
+            2
+            Δ¹
+            ∂Δ¹
+            (\t -&gt; B)
+            (\t -&gt; recOR(
+                t === 0_2 |-&gt; F x,
+                t === 1_2 |-&gt; F x))
+            (ap-hom A B F x x (id-arr A x))
+            (id-arr B (F x))
+            (\t -&gt; refl)
 
 -- [RS17, Proposition 6.1.b]
 -- Preservation of composition requires the Segal hypothesis.
@@ -195,7 +196,7 @@
     (AisSegal : isSegal A)
     (BisSegal : isSegal B)
     (F : A -&gt; B)
-    (x y z : A)         
+    (x y z : A)
     (f : hom A x y)
     (g : hom A y z)
     : (Segal-comp B BisSegal (F x) (F y) (F z) (ap-hom A B F x y f) (ap-hom A B F y z g)) = (ap-hom A B F x z (Segal-comp A AisSegal x y z f g))

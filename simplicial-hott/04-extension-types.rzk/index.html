@@ -150,7 +150,7 @@
 </ul>
 <h2 id="commutation-of-arguments-and-currying">Commutation of arguments and currying</h2>
 <pre><code class="language-rzk">-- [RS17, Theorem 4.1]
-#def flip-ext-fun 
+#def flip-ext-fun
    (I : CUBE)
    (ψ : I -&gt; TOPE)
    (ϕ : ψ -&gt; TOPE)
@@ -165,7 +165,7 @@
             (\ h t x -&gt; (h x) t, -- the section
             \ h -&gt; refl))) -- the section homotopy
 
-#def flip-ext-fun-inv 
+#def flip-ext-fun-inv
    (I : CUBE)
    (ψ : I -&gt; TOPE)
    (ϕ : ψ -&gt; TOPE)
@@ -193,11 +193,11 @@
       (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
    := (\ g (t, s) -&gt; (g t) s, -- the one way map
          ((\ h t s -&gt; h (t , s) -- its retraction
-            ,\ g -&gt; refl), -- the retracting homotopy 
+            ,\ g -&gt; refl), -- the retracting homotopy
          (\ h t s -&gt; h (t , s) -- its section
             ,\ h -&gt; refl)))  -- the section homotopy
 
-#def uncurry-opcurry 
+#def uncurry-opcurry
    (I J : CUBE)
    (ψ : I -&gt; TOPE)
    (ϕ : ψ -&gt; TOPE)
@@ -205,15 +205,15 @@
    (χ : ζ -&gt; TOPE)
    (X : ψ -&gt; ζ -&gt; U)
    (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
-   : Eq (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;) 
+   : Eq (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
       (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
    := (\ h s t -&gt; h (t , s) , -- the one way map
       ((\ g (t, s) -&gt; (g s) t -- its retraction
-            ,\ h -&gt; refl), -- the retracting homotopy 
+            ,\ h -&gt; refl), -- the retracting homotopy
       (\ g (t, s) -&gt; (g s) t -- its section
             ,\ g -&gt; refl))) -- the section homotopy
 
-#def fubini 
+#def fubini
    (I J : CUBE)
    (ψ : I -&gt; TOPE)
    (ϕ : ψ -&gt; TOPE)
@@ -232,16 +232,16 @@
 </code></pre>
 <h2 id="extending-into-types-the-non-axiom-of-choice">Extending into ∑-types (the non-axiom of choice)</h2>
 <pre><code class="language-rzk">-- [RS17, Theorem 4.3]
-#def axiom-choice 
+#def axiom-choice
    (I : CUBE)
-   (ψ : I -&gt; TOPE) 
+   (ψ : I -&gt; TOPE)
    (ϕ : ψ -&gt; TOPE)
-   (X : ψ -&gt; U) 
+   (X : ψ -&gt; U)
    (Y : (t : ψ) -&gt; (x : X t) -&gt; U)
    (a : (t : ϕ) -&gt; X t)
    (b : (t : ϕ) -&gt; Y t (a t))
-   : Eq (&lt;{t : I | ψ t} -&gt; (∑ (x : X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;) 
-     (∑ (f : (&lt;{t : I | ψ t} -&gt; X t [ϕ t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;)) 
+   : Eq (&lt;{t : I | ψ t} -&gt; (∑ (x : X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;)
+     (∑ (f : (&lt;{t : I | ψ t} -&gt; X t [ϕ t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;))
      := (\ g -&gt; (\ t -&gt; (first (g t)), \ t -&gt; second (g t))  , -- the one way map
             ((\ h t -&gt; ((first h) t, (second h) t) -- its retraction
             , \ g -&gt; refl), -- the retracting homotopy
@@ -265,11 +265,11 @@
       ((\ fg t -&gt; (second fg) t, \ h -&gt; refl),
       ((\ fg t -&gt; (second fg) t, \ h -&gt; refl))))
 
--- [RS17, Theorem 4.4]      
+-- [RS17, Theorem 4.4]
 -- original form
 #def cofibration-composition
    (I : CUBE)
-   (χ : I -&gt; TOPE) 
+   (χ : I -&gt; TOPE)
    (ψ : χ -&gt; TOPE)
    (ϕ : ψ -&gt; TOPE)
    (X : χ -&gt; U)
@@ -295,10 +295,26 @@
        (\ g -&gt; \ t -&gt; recOR(ϕ t |-&gt; g t, ψ t |-&gt; a t), \ h -&gt; refl)))
 </code></pre>
 <h2 id="relative-function-extensionality">Relative function extensionality</h2>
-<p>There are various equivalent forms of the relative function extensionality axiom. 
+<p>There are various equivalent forms of the relative function extensionality axiom.
 Here we state the one that will be most useful and derive an application.</p>
-<pre><code class="language-rzk">-- [RS17, Proposition 4.8(ii)]
+<pre><code class="language-rzk">#def ext-htpy-eq
+      (I : CUBE)
+      (ψ : I -&gt; TOPE)
+      (ϕ : ψ -&gt; TOPE)
+      (A : ψ -&gt; U)
+      (a : (t : ϕ) -&gt; A t)
+      (f g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)
+      (p : f = g)
+      : &lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;
+      := idJ(&lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;, f,
+               \g' p' -&gt;  &lt;{t : I | ψ t} -&gt; (f t = g' t) [ ϕ t |-&gt; refl ]&gt;,
+               \t -&gt; refl,
+               g,
+               p)
+
+-- [RS17, Proposition 4.8(ii)]
 -- as suggested by footnote 8, we assert this as an &quot;extension extensionality&quot; axiom
+-- The type that encodes the extension extensionality axiom.
 #def ExtExt : U
    := (I : CUBE) -&gt;
       (ψ : I -&gt; TOPE) -&gt;
@@ -307,11 +323,36 @@ Here we state the one that will be most useful and derive an application.</p>
       (a : (t : ϕ) -&gt; A t) -&gt;
       (f : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;
       (g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;
-      (_ : &lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;) -&gt;
-      (f = g)
+      isEquiv (f = g)  (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;)
+         (ext-htpy-eq I ψ ϕ A a f g)
 
--- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
-#def fibered-equiv-extension-equiv 
+-- The equivalence provided by extension extensionality.
+#def ExtExtEq
+   (extext : ExtExt)
+   (I : CUBE)
+   (ψ : I -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
+   (A : ψ -&gt; U)
+   (a : (t : ϕ) -&gt; A t)
+   (f g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)
+   : Eq (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;)
+   := (ext-htpy-eq I ψ ϕ A a f g, extext I ψ ϕ A a f g)
+
+-- In particular, extension extensionality implies that homotopies give rise to identifications. This definition defines eq-ext-htpy to be the retraction to ext-htpy-eq.
+#def eq-ext-htpy
+   (extext : ExtExt)
+   (I : CUBE)
+   (ψ : I -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
+   (A : ψ -&gt; U)
+   (a : (t : ϕ) -&gt; A t)
+   (f g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)
+   : (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;) -&gt; (f = g)
+   := first (first (extext I ψ ϕ A a f g))
+</code></pre>
+<p>By extension extensionality, fiberwise equivalences of extension types define equivalences of extension types.</p>
+<pre><code class="language-rzk">-- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
+#def fibered-Eq-extension-Eq
    (extext : ExtExt)
    (I : CUBE)
    (ψ : I -&gt; TOPE)
@@ -320,25 +361,27 @@ Here we state the one that will be most useful and derive an application.</p>
    : Eq (&lt;{t : I | ψ t } -&gt; A t &gt;) (&lt;{t : I | ψ t } -&gt; B t &gt;)
    := ((\ a t -&gt; (first (fibequiv t)) (a t)),
          (((\ b t -&gt; (first (first (second (fibequiv t)))) (b t)),
-            \ a -&gt; extext
+            \ a -&gt; eq-ext-htpy
+                     extext
                      I
                      ψ
                      (\ t -&gt; BOT)
                      A
                      (\ u -&gt; recBOT)
-                     (\ t -&gt; (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t))) 
-                     a 
-                     (\ t -&gt; (second (first (second (fibequiv t)))) (a t))), 
+                     (\ t -&gt; (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t)))
+                     a
+                     (\ t -&gt; (second (first (second (fibequiv t)))) (a t))),
          ((\ b t -&gt; (first (second (second (fibequiv t)))) (b t)),
-            (\ b -&gt; extext 
+            (\ b -&gt; eq-ext-htpy
+                     extext
                      I
                      ψ
                      (\ t -&gt; BOT)
-                     B 
+                     B
                      (\ u -&gt; recBOT)
-                     (\ t -&gt; (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t))) 
-                     b 
-                     (\ t -&gt; (second (second (second (fibequiv t)))) (b t))))))              
+                     (\ t -&gt; (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t)))
+                     b
+                     (\ t -&gt; (second (second (second (fibequiv t)))) (b t))))))
 </code></pre>
               
             </div>

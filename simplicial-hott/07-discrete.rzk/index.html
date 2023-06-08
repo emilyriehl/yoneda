@@ -101,6 +101,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#families-of-discrete-types">Families of discrete types</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#discrete-types-are-segal-types">Discrete types are Segal types</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../08-covariant.rzk/">Covariantly Functorial Type Families</a>
@@ -150,15 +152,15 @@
 <h2 id="the-definition">The definition</h2>
 <p>Discrete types are types in which the hom-types are canonically equivalent to identity types.</p>
 <pre><code class="language-rzk">-- [RS17, Definition 7.1]
-#def id-to-arr 
-    (A : U)             -- A type. 
+#def id-to-arr
+    (A : U)             -- A type.
     (x y : A)           -- Two points of type A.
     (p : x = y)         -- A path p from x to y in A.
     : hom A x y         -- An arrow p from x to y in A.
-    := idJ(A, x, \y' -&gt; \p' -&gt; hom A x y', (id-arr A x), y, p) 
+    := idJ(A, x, \y' -&gt; \p' -&gt; hom A x y', (id-arr A x), y, p)
 
-#def isDiscrete 
-    (A : U)             -- A type. 
+#def isDiscrete
+    (A : U)             -- A type.
     : U
     := (x : A) -&gt; (y : A) -&gt; isEquiv (x =_{A} y) (hom A x y) (id-to-arr A x y)
 </code></pre>
@@ -189,7 +191,7 @@
     (Aisdiscrete : (x : X) -&gt; isDiscrete (A x))
     (f g : (x : X) -&gt; A x)
     (h : f = g)
-    : id-to-arr ((x : X) -&gt; A x) f g h = (first (Eq-discrete-family funext X A Aisdiscrete f g)) h 
+    : id-to-arr ((x : X) -&gt; A x) f g h = (first (Eq-discrete-family funext X A Aisdiscrete f g)) h
     := idJ((x : X) -&gt; A x, f, \g' h' -&gt;  id-to-arr ((x : X) -&gt; A x) f g' h' = (first (Eq-discrete-family funext X A Aisdiscrete f g')) h', refl, g, h)
 
 -- [RS17, Proposition 7.2]
@@ -207,6 +209,35 @@
             (Eq-discrete-family-map funext X A Aisdiscrete f g)
             (second (Eq-discrete-family funext X A Aisdiscrete f g))
 </code></pre>
+<p>By extension extensionality, an extension type into a family of discrete types is discrete.</p>
+<pre><code class="language-rzk">#def Eq-discrete-extension
+    (extext : ExtExt) -- This proof uses extension extensionality.
+    (I : CUBE) -- A cube.
+    (ψ : (t : I) -&gt; TOPE) -- A tope.
+    (A : ψ -&gt; U) -- A type family over the tope.
+    (Aisdiscrete : (t : ψ) -&gt; isDiscrete (A t)) -- An assumption that the fibers are Segal types.
+    (f g : (t : ψ) -&gt; A t) -- A pair of elements of the extension type
+    : Eq (f = g)(hom ((t : ψ) -&gt; A t) f g)
+    := triple_compose_Eq
+        (f = g)
+        ((t : ψ) -&gt; f t = g t)
+        ((t : ψ) -&gt; hom (A t) (f t) (g t))
+        (hom ((t : ψ) -&gt; A t) f g)
+            (ExtExtEq extext I ψ (\t -&gt; BOT) A (\ u -&gt; recBOT) f g)
+            (fibered-Eq-extension-Eq
+                extext
+                I
+                ψ
+                (\t -&gt; f t = g t)
+                (\t -&gt; hom (A t)(f t)(g t))
+                (\t -&gt; (id-to-arr (A t) (f t) (g t), (Aisdiscrete t (f t)(g t))))
+            )
+            (fubini I 2 ψ (\ t -&gt; BOT) Δ¹ ∂Δ¹ (\t s -&gt; A t)
+                (\(t, s) -&gt;
+                    recOR (s === 0_2 |-&gt; f t, s === 1_2 |-&gt; g t)))
+</code></pre>
+<h2 id="discrete-types-are-segal-types">Discrete types are Segal types</h2>
+<p>Discrete types are automatically Segal types.</p>
               
             </div>
           </div><footer>
