@@ -22,15 +22,15 @@ Discrete types are types in which the hom-types are canonically equivalent to id
 
 ```rzk
 -- [RS17, Definition 7.1]
-#def id-to-arr 
-    (A : U)             -- A type. 
+#def id-to-arr
+    (A : U)             -- A type.
     (x y : A)           -- Two points of type A.
     (p : x = y)         -- A path p from x to y in A.
     : hom A x y         -- An arrow p from x to y in A.
-    := idJ(A, x, \y' -> \p' -> hom A x y', (id-arr A x), y, p) 
+    := idJ(A, x, \y' -> \p' -> hom A x y', (id-arr A x), y, p)
 
-#def isDiscrete 
-    (A : U)             -- A type. 
+#def isDiscrete
+    (A : U)             -- A type.
     : U
     := (x : A) -> (y : A) -> isEquiv (x =_{A} y) (hom A x y) (id-to-arr A x y)
 ```
@@ -65,7 +65,7 @@ By function extensionality, the dependent function type associated to a family o
     (Aisdiscrete : (x : X) -> isDiscrete (A x))
     (f g : (x : X) -> A x)
     (h : f = g)
-    : id-to-arr ((x : X) -> A x) f g h = (first (Eq-discrete-family funext X A Aisdiscrete f g)) h 
+    : id-to-arr ((x : X) -> A x) f g h = (first (Eq-discrete-family funext X A Aisdiscrete f g)) h
     := idJ((x : X) -> A x, f, \g' h' ->  id-to-arr ((x : X) -> A x) f g' h' = (first (Eq-discrete-family funext X A Aisdiscrete f g')) h', refl, g, h)
 
 -- [RS17, Proposition 7.2]
@@ -82,4 +82,38 @@ By function extensionality, the dependent function type associated to a family o
             (first (Eq-discrete-family funext X A Aisdiscrete f g))
             (Eq-discrete-family-map funext X A Aisdiscrete f g)
             (second (Eq-discrete-family funext X A Aisdiscrete f g))
-```    
+```
+
+By extension extensionality, an extension type into a family of discrete types is discrete.
+
+```rzk
+#def Eq-discrete-extension
+    (extext : ExtExt) -- This proof uses extension extensionality.
+    (I : CUBE) -- A cube.
+    (ψ : (t : I) -> TOPE) -- A tope.
+    (A : ψ -> U) -- A type family over the tope.
+    (Aisdiscrete : (t : ψ) -> isDiscrete (A t)) -- An assumption that the fibers are Segal types.
+    (f g : (t : ψ) -> A t) -- A pair of elements of the extension type
+    : Eq (f = g)(hom ((t : ψ) -> A t) f g)
+    := triple_compose_Eq
+        (f = g)
+        ((t : ψ) -> f t = g t)
+        ((t : ψ) -> hom (A t) (f t) (g t))
+        (hom ((t : ψ) -> A t) f g)
+            (ExtExtEq extext I ψ (\t -> BOT) A (\ u -> recBOT) f g)
+            (fibered-Eq-extension-Eq
+                extext
+                I
+                ψ
+                (\t -> f t = g t)
+                (\t -> hom (A t)(f t)(g t))
+                (\t -> (id-to-arr (A t) (f t) (g t), (Aisdiscrete t (f t)(g t))))
+            )
+            (fubini I 2 ψ (\ t -> BOT) Δ¹ ∂Δ¹ (\t s -> A t)
+                (\(t, s) ->
+                    recOR (s === 0_2 |-> f t, s === 1_2 |-> g t)))
+```
+
+## Discrete types are Segal types
+
+Discrete types are automatically Segal types.
