@@ -1,6 +1,6 @@
 # 3. Simplicial Type Theory
 
-These formalisations correspond to Section 3 of RS17 paper.
+These formalisations correspond in part to Section 3 of RS17 paper.
 
 This is a literate `rzk` file:
 
@@ -35,7 +35,7 @@ Boundaries of simplices:
 
 -- boundary of a 2-simplex
 #def ∂Δ² : Δ² -> TOPE
-  := \ ts -> 
+  := \ ts ->
         ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
 ```
 
@@ -66,12 +66,33 @@ Products:
 #def ∂□ : (2 * 2) -> TOPE
   := \ (t ,s) -> ((∂Δ¹ t) /\ (Δ¹ s)) \/ ((Δ¹ t) /\ (∂Δ¹ s))
 
--- the vertical boundary of the square 
+-- the vertical boundary of the square
 #def ∂Δ¹×Δ¹ : (2 * 2) -> TOPE
   := shapeProd 2 2 ∂Δ¹ Δ¹
 
+-- the horizontal boundary of the square
+#def Δ¹×∂Δ¹ : (2 * 2) -> TOPE
+  := shapeProd 2 2 Δ¹ ∂Δ¹
 
 -- the prism from a 2-simplex in an arrow type
 #def Δ²×Δ¹ : (2 * 2 * 2) -> TOPE
-  := shapeProd (2 * 2) 2 Δ² Δ¹  
-```  
+  := shapeProd (2 * 2) 2 Δ² Δ¹
+```
+
+Intersections:
+
+```rzk
+-- the conjunction of topes defines the intersection of shapes
+#def shapeIntersection
+  (I : CUBE) (ψ χ : I -> TOPE) : I -> TOPE
+  := \ t -> ψ t /\ χ t
+```
+
+Unions:
+
+```rzk
+-- the disjunction of topes defines the union of shapes
+#def shapeUnion
+  (I : CUBE) (ψ χ : I -> TOPE) : I -> TOPE
+  := \ t -> ψ t \/ χ t
+```

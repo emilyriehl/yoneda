@@ -24,11 +24,10 @@ This is a literate `rzk` file:
 #def innerFam
     (B : U)
     : U
-    :=
-    (∑(P : B -> U), (b : B) -> (isSegal (P b)))
+    := ∑ (P : B -> U) , (b : B) -> (isSegal (P b))
 ```
 
-## Definition of cocartesian lifts
+## Definition of cocartesian arrows
 
 -- [BW23, Definition 5.1.1]
 -- the proposition that a dependent arrow in a family is cocartesian
@@ -50,10 +49,10 @@ This is a literate `rzk` file:
     -> (sigma : hom2 B b b' b'' u v w)
     -> (e'' : P b'')
     -> (h : dhom B b b'' w P e e'')
-    -> isContr (∑(g : dhom B b' b'' v P e' e''), (dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
+    -> isContr (∑ (g : dhom B b' b'' v P e' e''), (dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 ```
 
-# Definition of cocartesian lifts
+## Definition of cocartesian lifts
 
 -- [BW23, Definition 5.1.2]
 -- the type of cocartesian lifts of a fixed arrow in the base with a given starting point in the fiber
@@ -67,7 +66,11 @@ This is a literate `rzk` file:
     (e : P b)
     : U
     := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
+```
 
+## Initial objects
+
+```rzk
 #def isInitial
     (A : U)
     (a : A)
@@ -89,6 +92,31 @@ This is a literate `rzk` file:
         (first (binitial a),
             contractible-connecting-htpy (hom A b b) (binitial b) (Segal-comp A AisSegal b a b (first (binitial a)) (first (ainitial b))) (id-arr A b))
         ))
+```
 
+## Final objects
 
+```rzk
+#def isFinal
+    (A : U)
+    (a : A)
+    : U
+    := (x : A) -> isContr(hom A x a)
+
+-- In a Segal type, final objects are isomorphic.
+#def final-iso
+    (A : U)
+    (AisSegal : isSegal A)
+    (a b : A)
+    (afinal : isFinal A a)
+    (bfinal : isFinal A b)
+    (iso : Iso A AisSegal a b)
+    : Iso A AisSegal a b
+    := (first (bfinal a),
+        ((first (afinal b),
+            contractible-connecting-htpy (hom A a a) (afinal a) (Segal-comp A AisSegal a b a (first (bfinal a)) (first (afinal b))) (id-arr A a))
+        ,
+        (first (afinal b),
+            contractible-connecting-htpy (hom A b b) (bfinal b) (Segal-comp A AisSegal b a b (first (afinal b)) (first (bfinal a))) (id-arr A b))
+        ))
 ```
