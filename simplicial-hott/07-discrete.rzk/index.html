@@ -209,11 +209,13 @@
             (Eq-discrete-family-map funext X A Aisdiscrete f g)
             (second (Eq-discrete-family funext X A Aisdiscrete f g))
 </code></pre>
-<p>By extension extensionality, an extension type into a family of discrete types is discrete.</p>
+<p>By extension extensionality, an extension type into a family of discrete types is discrete.
+Sinced fibered-Eq-extension-Eq considers total extension types only, extending from BOT,
+that's all we prove here for now.</p>
 <pre><code class="language-rzk">#def Eq-discrete-extension
     (extext : ExtExt) -- This proof uses extension extensionality.
     (I : CUBE) -- A cube.
-    (ψ : (t : I) -&gt; TOPE) -- A tope.
+    (ψ : I -&gt; TOPE) -- A tope.
     (A : ψ -&gt; U) -- A type family over the tope.
     (Aisdiscrete : (t : ψ) -&gt; isDiscrete (A t)) -- An assumption that the fibers are Segal types.
     (f g : (t : ψ) -&gt; A t) -- A pair of elements of the extension type
@@ -235,9 +237,61 @@
             (fubini I 2 ψ (\ t -&gt; BOT) Δ¹ ∂Δ¹ (\t s -&gt; A t)
                 (\(t, s) -&gt;
                     recOR (s === 0_2 |-&gt; f t, s === 1_2 |-&gt; g t)))
+
+#def Eq-discrete-extension-map
+    (extext : ExtExt) -- This proof uses extension extensionality.
+    (I : CUBE) -- A cube.
+    (ψ : (t : I) -&gt; TOPE) -- A tope.
+    (A : ψ -&gt; U) -- A type family over the tope.
+    (Aisdiscrete : (t : ψ) -&gt; isDiscrete (A t)) -- An assumption that the fibers are Segal types.
+    (f g : (t : ψ) -&gt; A t) -- A pair of elements of the extension type
+    (h : f = g)
+    : id-to-arr ((t : ψ) -&gt; A t) f g h = (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g)) h
+    := idJ((t : ψ) -&gt; A t, f, \g' h' -&gt;  id-to-arr ((t : ψ) -&gt; A t) f g' h' = (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g')) h', refl, g, h)
+
+-- [RS17, Proposition 7.2, for extension types]
+#def isDiscrete-extension-family
+    (extext : ExtExt) -- This proof uses extension extensionality.
+    (I : CUBE) -- A cube.
+    (ψ : (t : I) -&gt; TOPE) -- A tope.
+    (A : ψ -&gt; U) -- A type family over the tope.
+    (Aisdiscrete : (t : ψ) -&gt; isDiscrete (A t)) -- An assumption that the fibers are Segal types.
+    : isDiscrete ((t : ψ) -&gt; A t)
+    := \f g -&gt; isEquiv-homotopic-isEquiv
+            (f = g)
+            (hom ((t : ψ) -&gt; A t) f g)
+            (id-to-arr ((t : ψ) -&gt; A t) f g)
+            (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g))
+            (Eq-discrete-extension-map extext I ψ A Aisdiscrete f g)
+            (second (Eq-discrete-extension extext I ψ A Aisdiscrete f g))
+</code></pre>
+<p>For instance, the arrow type of a discrete type is discrete.</p>
+<pre><code class="language-rzk">#def isDiscrete-arr-isDiscrete
+    (extext : ExtExt) -- This proof uses extension extensionality.
+    (A : U)
+    (Aisdiscrete : isDiscrete A)
+    : isDiscrete (arr A)
+    := isDiscrete-extension-family extext 2 Δ¹ (\t -&gt; A)(\t -&gt; Aisdiscrete)
 </code></pre>
 <h2 id="discrete-types-are-segal-types">Discrete types are Segal types</h2>
 <p>Discrete types are automatically Segal types.</p>
+<pre><code class="language-rzk">#section discrete-arr-equivalences
+
+#variable extext : ExtExt
+#variable A : U
+#variable Aisdiscrete : isDiscrete A
+#variables x y z w : A
+#variable f : hom A x y
+#variable g : hom A z w
+
+#def isEquiv-idtoarr-discrete uses (x y z w)
+    : isEquiv (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)(id-to-arr (arr A) f g)
+    := (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g
+
+#end discrete-arr-equivalences
+
+
+</code></pre>
               
             </div>
           </div><footer>

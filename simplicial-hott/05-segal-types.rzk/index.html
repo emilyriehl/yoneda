@@ -504,6 +504,14 @@
   : U
   := (t : Δ¹) -&gt; A
 
+-- For later use, an equivalent characterization of the arrow type.
+#def Eq-arr
+  (A : U)
+  : Eq (arr A) (∑ (x : A), (∑ (y : A), hom A x y))
+  := (\f -&gt; (f 0_2, (f 1_2, f)),
+      ((\(x, (y, f)) -&gt; f, \f -&gt; refl) ,
+       (\(x, (y, f)) -&gt; f, \xyf -&gt; refl)))
+
 -- A special case of [RS17, Corollary 5.6(ii)], using is-Segal'.
 #def Segal'-arrow-types
   (extext : ExtExt)                         -- This proof uses extension extensionality.
