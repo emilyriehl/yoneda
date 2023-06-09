@@ -16,13 +16,13 @@ This is a literate `rzk` file:
 #variables x y z : A
 
 -- path reversal
-#def rev 
+#def rev
   (p : x = y)       -- A path from x to y in A.
   : y = x           -- The reversal will be defined by path induction on p.
   := idJ(A, x, \y' p' -> y' = x, refl, y, p)
 
 -- path composition by induction on the second path
-#def concat 
+#def concat
   (p : x = y)       -- A path from x to y in A.
   (q : y = z)       -- A path from y to z in A.
   : (x = z)
@@ -30,7 +30,7 @@ This is a literate `rzk` file:
 
 -- an alternative construction of path composition by induction on the first path
 -- this is useful in situations where it's easier to induction on the first path
-#def altconcat 
+#def altconcat
   (p : x = y)       -- A path from x to y in A.
   : (y = z) -> (x = z)
   := idJ(A, x, \y' p' -> (y' = z) -> (x = z), \q' -> q', y, p)
@@ -52,20 +52,20 @@ This is a literate `rzk` file:
   := idJ(A, x, \y' p' -> (rev A y' x (rev A x y' p')) = p', refl, y, p)
 
 -- the coherence we don't have definitionally
-#def refl-concat 
+#def refl-concat
   (p : x = y)
   : (concat A x x y refl p) = p
   := idJ(A, x, \y' p' -> (concat A x x y' refl p') = p', refl, y, p)
 
 -- associativity
-#def concat-assoc  
+#def concat-assoc
   (p : w = x)         -- A path from w to x in A.
   (q : x = y)         -- A path from x to y in A.
   (r : y = z)         -- A path from y to z in A.
   : concat A w y z (concat A w x y p q) r = concat A w x z p (concat A x y z q r)
   := idJ(A, y, \z' r' -> concat A w y z' (concat A w x y p q) r' = concat A w x z' p (concat A x y z' q r'), refl, z, r)
 
-#def assoc-concat  
+#def assoc-concat
   (p : w = x)         -- A path from w to x in A.
   (q : x = y)         -- A path from x to y in A.
   (r : y = z)         -- A path from y to z in A.
@@ -90,17 +90,17 @@ This is a literate `rzk` file:
   := concat A x y z p (rev A z y q)
 
 -- concatenation of two paths with common domain; defined using concat and rev
-#def zag-zig-concat  
+#def zag-zig-concat
   (p : y = x)       -- A path from y to x in A.
-  (q : y = z)       -- A path from y to z in A. 
+  (q : y = z)       -- A path from y to z in A.
   : (x = z)
   := concat A x y z (rev A y x p) q
 
-#def concat-right-cancel 
+#def concat-right-cancel
   (p q : x = y)     -- Two paths from x to y in A.
   (r : y = z)       -- A path from y to z in A.
   : ((concat A x y z p r) = (concat A x y z q r)) -> (p = q)
-  := idJ(A, y, \z' r' -> (H : (concat A x y z' p r') = (concat A x y z' q r')) -> (p = q), \H -> H, z, r)    
+  := idJ(A, y, \z' r' -> (H : (concat A x y z' p r') = (concat A x y z' q r')) -> (p = q), \H -> H, z, r)
 
 #end basic-path-coherence
 ```
@@ -118,79 +118,79 @@ The statements or proofs of the following path algebra coherences reference one 
   (p : x = y)       -- A path from x to y in A.
   (q : y = z)       -- A path from y to z in A.
   : (rev A x z (concat A x y z p q)) = (concat A z y x (rev A y z q) (rev A x y p))
-  := idJ(A, y, \z' q' -> (rev A x z' (concat A x y z' p q')) = (concat A z' y x (rev A y z' q') (rev A x y p)), 
+  := idJ(A, y, \z' q' -> (rev A x z' (concat A x y z' p q')) = (concat A z' y x (rev A y z' q') (rev A x y p)),
     rev (y = x) (concat A y y x refl (rev A x y p)) (rev A x y p) (refl-concat A y x (rev A x y p)), z, q)
 
 -- postwhiskering paths of paths
-#def homotopy-concat 
+#def homotopy-concat
   (p q : x = y)     -- Two paths from x to y in A.
-  (H : p = q) 
+  (H : p = q)
   (r : y = z)
   : (concat A x y z p r) = (concat A x y z q r)
   := idJ(A, y, \z' r' -> (concat A x y z' p r') = (concat A x y z' q r'), H, z, r)
 
 -- prewhiskering paths of paths is much harder
-#def concat-homotopy 
+#def concat-homotopy
   (p : x = y)
   : (z : A) -> (q : y = z) -> (r : y = z) -> (H : q = r) -> (concat A x y z p q) = (concat A x y z p r)
-  := idJ(A, x, 
-      \y' p' 
-        -> (z : A) -> (q : y' = z) -> (r : y' = z) -> (H : q = r) 
-        -> (concat A x y' z p' q) = (concat A x y' z p' r), 
+  := idJ(A, x,
+      \y' p'
+        -> (z : A) -> (q : y' = z) -> (r : y' = z) -> (H : q = r)
+        -> (concat A x y' z p' q) = (concat A x y' z p' r),
       \z q r H
-        -> concat (x = z) (concat A x x z refl q) r (concat A x x z refl r) 
-            (concat (x = z) (concat A x x z refl q) q r (refl-concat A x z q) H) 
-            (rev (x = z) (concat A x x z refl r) r (refl-concat A x z r)), 
+        -> concat (x = z) (concat A x x z refl q) r (concat A x x z refl r)
+            (concat (x = z) (concat A x x z refl q) q r (refl-concat A x z q) H)
+            (rev (x = z) (concat A x x z refl r) r (refl-concat A x z r)),
         y, p)
 
 -- a higher path comparing the two compositions
-#def concat-altconcat 
+#def concat-altconcat
   (p : x = y)       -- A path from x to y in A.
   : (q : y = z) -> (concat A x y z p q) = (altconcat A x y z p q)
-  := idJ(A, x, 
-      \y' -> \p' -> (q' : y' =_{A} z) -> (concat A x y' z p' q') =_{x =_{A} z} altconcat A x y' z p' q', 
+  := idJ(A, x,
+      \y' -> \p' -> (q' : y' =_{A} z) -> (concat A x y' z p' q') =_{x =_{A} z} altconcat A x y' z p' q',
       \q' -> refl-concat A x z q', y, p)
 
 -- a higher path comparing the two compositions in the other order
-#def altconcat-concat 
+#def altconcat-concat
   (p : x = y)       -- A path from x to y in A.
   (q : y = z)       -- A path from y to z in A.
   : (altconcat A x y z p q) = concat A x y z p q
   := rev (x = z) (concat A x y z p q) (altconcat A x y z p q) (concat-altconcat p q)
 
 -- this is easier to prove for altconcat then for concat
-#def alt-triangle-rotation 
+#def alt-triangle-rotation
   (p : x = z)
   (q : x = y)
   : (r : y = z) -> (H : p = altconcat A x y z q r) -> (altconcat A y x z (rev A x y q) p) = r
-  := idJ(A, x, 
-      \y' q' -> (r' : y' =_{A} z) -> (H' : p = altconcat A x y' z q' r') 
-        -> (altconcat A y' x z (rev A x y' q') p) = r', 
+  := idJ(A, x,
+      \y' q' -> (r' : y' =_{A} z) -> (H' : p = altconcat A x y' z q' r')
+        -> (altconcat A y' x z (rev A x y' q') p) = r',
       \r' H' -> H', y, q)
 
 #end derived-path-coherence
 
 -- This needs to be outside the previous section because of the usage of concat-altconcat A y x
-#def triangle-rotation 
-  (A : U) 
-  (x y z : A) 
+#def triangle-rotation
+  (A : U)
+  (x y z : A)
   (p : x = z)
-  (q : x = y) 
+  (q : x = y)
   (r : y = z)
   (H : p = concat A x y z q r)
   : (concat A y x z (rev A x y q) p) = r
   := concat (y = z)  (concat A y x z (rev A x y q) p)  (altconcat A y x z (rev A x y q) p) r
         (concat-altconcat A y x z (rev A x y q) p)
-        (alt-triangle-rotation A x y z p q r 
-          (concat (x = z) p (concat A x y z q r) (altconcat A x y z q r) 
-            H 
+        (alt-triangle-rotation A x y z p q r
+          (concat (x = z) p (concat A x y z q r) (altconcat A x y z q r)
+            H
             (concat-altconcat A x y z q r)))
 ```
 
 ## Application of functions to paths
 
 ```rzk
-#def ap 
+#def ap
   (A B : U)
   (x y : A)
   (f : A -> B)
@@ -205,11 +205,11 @@ The statements or proofs of the following path algebra coherences reference one 
   (p : x = y)
   (q : y = z)
   : (ap A B x z f (concat A x y z p q)) = (concat B (f x) (f y) (f z) (ap A B x y f p) (ap A B y z f q))
-  := idJ(A, y, 
+  := idJ(A, y,
     \z' q' -> (ap A B x z' f (concat A x y z' p q')) = (concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')),
     refl, z, q)
 
-#def rev-ap-rev 
+#def rev-ap-rev
   (A B : U)
   (x y : A)
   (f : A -> B)
@@ -218,7 +218,7 @@ The statements or proofs of the following path algebra coherences reference one 
   := idJ(A, x, \y' p' -> (rev B (f y') (f x) (ap A B y' x f (rev A x y' p'))) = (ap A B x y' f p'), refl, y, p)
 
 -- For specific use
-#def concat-ap-rev-ap-id  
+#def concat-ap-rev-ap-id
   (A B : U)
   (x y : A)
   (f : A -> B)
@@ -226,7 +226,7 @@ The statements or proofs of the following path algebra coherences reference one 
   : (concat B (f y) (f x) (f y) (ap A B y x f (rev A x y p)) (ap A B x y f p)) = refl
   := idJ(A, x, \y' p' -> (concat B (f y') (f x) (f y') (ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) = refl, refl, y, p)
 
-#def ap-id 
+#def ap-id
   (A : U)
   (x y : A)
   (p : x = y)
@@ -234,7 +234,7 @@ The statements or proofs of the following path algebra coherences reference one 
     := idJ(A, x, \y' -> \p' -> (ap A A x y' (\z -> z) p') = p', refl, y, p)
 
 -- application of a function to homotopic paths yields homotopic paths
-#def ap-htpy 
+#def ap-htpy
   (A B : U)
   (x y : A)
   (f : A -> B)
@@ -243,26 +243,27 @@ The statements or proofs of the following path algebra coherences reference one 
   : (ap A B x y f p) = (ap A B x y f q)
   := idJ(x = y, p, \q' H' -> (ap A B x y f p) = (ap A B x y f q'), refl, q, H)
 
-#def ap-comp 
+#def ap-comp
   (A B C : U)
   (x y : A)
   (f : A -> B)
   (g : B -> C)
-  (p : x = y) 
+  (p : x = y)
   : (ap A C x y (composition A B C g f) p) = (ap B C (f x) (f y) g (ap A B x y f p))
-    := idJ(A, x, 
+    := idJ(A, x,
           \y' p' -> (ap A C x y' (\z -> g (f z)) p') = (ap B C (f x) (f y') g (ap A B x y' f p')), refl, y, p)
 
-#def rev-ap-comp 
+#def rev-ap-comp
   (A B C : U)
   (x y : A)
   (f : A -> B)
   (g : B -> C)
-  (p : x = y) 
-  : (ap B C (f x) (f y) g (ap A B x y f p)) = (ap A C x y (composition A B C g f) p) 
+  (p : x = y)
+  : (ap B C (f x) (f y) g (ap A B x y f p)) = (ap A C x y (composition A B C g f) p)
   := rev (g (f x) = g (f y)) (ap A C x y (\z -> g (f z)) p) (ap B C (f x) (f y) g (ap A B x y f p)) (ap-comp A B C x y f g p)
-```    
-## Transport 
+```
+
+## Transport
 
 ```rzk
 #section transport
@@ -271,7 +272,7 @@ The statements or proofs of the following path algebra coherences reference one 
 #variable B : A -> U
 
 -- transport in a type family along a path in the base
-#def transport 
+#def transport
   (x y : A)
   (p : x = y)
   (u : B x)
@@ -301,18 +302,18 @@ The statements or proofs of the following path algebra coherences reference one 
   (p : x = y)
   (q : y = z)
   (u : B x)
-  : (transport y z q (transport x y p u)) = (transport x z (concat A x y z p q) u) 
+  : (transport y z q (transport x y p u)) = (transport x z (concat A x y z p q) u)
   := idJ(A, y, \z' q' -> (transport y z' q' (transport x y p u)) = (transport x z' (concat A x y z' p q') u),
     refl, z, q)
 
 -- A path between transportation along homotopic paths
-#def transport2 
+#def transport2
   (x y : A)
   (p q : x = y)
   (H : p = q)
-  (u : B x) 
+  (u : B x)
   : (transport x y p u) = (transport x y q u)
-  := idJ(x = y, p, \q' H' -> (transport x y p u) = (transport x y q' u), refl, q, H)  
+  := idJ(x = y, p, \q' H' -> (transport x y p u) = (transport x y q' u), refl, q, H)
 
 #end transport
 ```
@@ -321,12 +322,12 @@ The statements or proofs of the following path algebra coherences reference one 
 
 ```rzk
 -- Application of dependent functions on paths
-#def apd 
+#def apd
   (A : U)
   (B : A -> U)
   (x y : A)
   (f : (z : A) -> B z)
-  (p : x = y) 
+  (p : x = y)
   : ((transport A B x y p (f x)) = f y)
   := idJ(A, x, \y' -> \p' -> ((transport A B x y' p' (f x)) = f y'), refl, y, p)
 ```
@@ -344,7 +345,7 @@ The statements or proofs of the following path algebra coherences reference one 
   (p2 : a1 = a2)
   (p3 : a2 = a3)
   : a0 = a3
-  := concat A a0 a1 a3 p1 (concat A a1 a2 a3 p2 p3) 
+  := concat A a0 a1 a3 p1 (concat A a1 a2 a3 p2 p3)
 
 #def quadruple-concat
   (a0 a1 a2 a3 a4 : A)
@@ -395,7 +396,7 @@ The statements or proofs of the following path algebra coherences reference one 
   (p11 : a10 = a11)
   (p12 : a11 = a12)
   : a0 = a12
-  := quintuple-concat a0 a1 a2 a3 a4 a12 p1 p2 p3 p4 
+  := quintuple-concat a0 a1 a2 a3 a4 a12 p1 p2 p3 p4
       (quintuple-concat a4 a5 a6 a7 a8 a12 p5 p6 p7 p8
         (quadruple-concat a8 a9 a10 a11 a12 p9 p10 p11 p12))
 
@@ -425,7 +426,7 @@ The statements or proofs of the following path algebra coherences reference one 
   (p11 : a10 = a11)
   (a12 : A)
   (p12 : a11 = a12)
-  : a0 = a12    
+  : a0 = a12
   := 12ary-concat a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12
       p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
 

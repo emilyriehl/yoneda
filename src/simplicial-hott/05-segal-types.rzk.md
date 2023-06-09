@@ -397,6 +397,14 @@ In particular, the arrow type of a Segal type is Segal.
   : U
   := (t : Δ¹) -> A
 
+-- For later use, an equivalent characterization of the arrow type.
+#def Eq-arr
+  (A : U)
+  : Eq (arr A) (∑ (x : A), (∑ (y : A), hom A x y))
+  := (\f -> (f 0_2, (f 1_2, f)),
+      ((\(x, (y, f)) -> f, \f -> refl) ,
+       (\(x, (y, f)) -> f, \xyf -> refl)))
+
 -- A special case of [RS17, Corollary 5.6(ii)], using is-Segal'.
 #def Segal'-arrow-types
   (extext : ExtExt)                         -- This proof uses extension extensionality.

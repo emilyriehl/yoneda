@@ -9,7 +9,7 @@ This is a literate `rzk` file:
 ## Paths involving products
 
 ```rzk
-#section paths-in-products 
+#section paths-in-products
 
 #variables A B : U
 
@@ -36,6 +36,7 @@ This is a literate `rzk` file:
 
 #end paths-in-products
 ```
+
 ## Identity types of sigma types
 
 ```rzk
@@ -52,10 +53,10 @@ This is a literate `rzk` file:
 
 #def second-path-sigma
   (s t : ∑ (a : A), B a)
-  (e : s = t) 
+  (e : s = t)
     : (transport A B (first s) (first t) (first-path-sigma s t e) (second s)) = (second t)
-    := idJ((∑ (a : A), B a), s, 
-            \t' e' -> (transport A B (first s) (first t') (first-path-sigma s t' e') (second s)) = (second t'), 
+    := idJ((∑ (a : A), B a), s,
+            \t' e' -> (transport A B (first s) (first t') (first-path-sigma s t' e') (second s)) = (second t'),
             refl, t, e)
 
 -- [Rijke 22, Definition 9.3.1]
@@ -72,10 +73,10 @@ This is a literate `rzk` file:
   := (first-path-sigma s t e, second-path-sigma s t e)
 
 -- A path in a fiber defines a path in the total space
-#def sigma-path-fibered-path 
+#def sigma-path-fibered-path
   (x : A)
   (u v : B x)
-  (p : u = v) 
+  (p : u = v)
   : (x , u) =_{∑ (a : A), B a} (x , v)
   := idJ(B x, u, \v' p' -> (x , u) = (x , v'), refl, v, p)
 
@@ -83,11 +84,11 @@ This is a literate `rzk` file:
 #def path-of-pairs-pair-of-paths
     (x y : A)
     (p : x = y)
-    : (u : B x) -> (v : B y) -> ((transport A B x y p u) = v) -> (x, u) =_{∑ (z : A), B z} (y, v)    
-    := idJ(A, x, 
+    : (u : B x) -> (v : B y) -> ((transport A B x y p u) = v) -> (x, u) =_{∑ (z : A), B z} (y, v)
+    := idJ(A, x,
         \y' p' -> (u' : B x) -> (v' : B y') -> ((transport A B x y' p' u') = v') -> (x, u') =_{∑ (z : A), B z} (y', v'),
-        \u' v' q' -> (sigma-path-fibered-path x u' v' q'), 
-        y, p) 
+        \u' v' q' -> (sigma-path-fibered-path x u' v' q'),
+        y, p)
 
 -- The inverse to pair-eq.
 #def eq-pair
@@ -113,7 +114,7 @@ This is a literate `rzk` file:
     (pair-eq (s0, s1) (t0, t1) (eq-pair (s0, s1) (t0, t1) (e0, e1))) =_{Eq-Sigma (s0, s1) (t0, t1)} (e0, e1)
   := idJ(A, s0,
        \t0' e0' -> (t1 : B t0') -> (e1 : (transport A B s0 t0' e0' s1) = t1) ->
-    (pair-eq (s0, s1) (t0', t1) (eq-pair (s0, s1) (t0', t1) (e0', e1))) =_{Eq-Sigma (s0, s1) (t0', t1)} (e0', e1), \t1 e1 -> idJ(B s0, s1, 
+    (pair-eq (s0, s1) (t0', t1) (eq-pair (s0, s1) (t0', t1) (e0', e1))) =_{Eq-Sigma (s0, s1) (t0', t1)} (e0', e1), \t1 e1 -> idJ(B s0, s1,
               \t1' e1' -> (pair-eq (s0, s1) (s0, t1') (eq-pair (s0, s1) (s0, t1') (refl, e1'))) =_{Eq-Sigma (s0, s1) (s0, t1')} (refl, e1'), refl, t1, e1), t0, e0)
 
 #def pair-eq-eq-pair
@@ -129,6 +130,7 @@ This is a literate `rzk` file:
 
 #end paths-in-sigma
 ```
+
 ## Fubini
 
 Given a family over a pair of independent types, the order of summation is unimportant.
@@ -140,7 +142,7 @@ Given a family over a pair of independent types, the order of summation is unimp
     : Eq (∑ (x : A), ∑ (y : B), C x y) (∑ (y : B), ∑ (x : A), C x y)
     := (\t -> (first (second t), (first t, second (second t))),
         ((\t -> (first (second t), (first t, second (second t))),
-        \t -> refl), 
+        \t -> refl),
         (\t -> (first (second t), (first t, second (second t))),
         \t -> refl)))
 ```
@@ -152,9 +154,9 @@ Products distribute inside a Sigma type:
     (A B : U)
     (C : B -> U)
     : Eq (prod A (∑ (b : B), C b)) (∑ (b : B), prod A (C b))
-    := (\(a, (b, c)) -> (b, (a, c)), 
-            ((\(b, (a, c)) -> (a, (b, c)), \z -> refl), 
-            (\(b, (a, c)) -> (a, (b, c)), \z -> refl))) 
+    := (\(a, (b, c)) -> (b, (a, c)),
+            ((\(b, (a, c)) -> (a, (b, c)), \z -> refl),
+            (\(b, (a, c)) -> (a, (b, c)), \z -> refl)))
 ```
 
 ## Associativity
@@ -170,4 +172,3 @@ Products distribute inside a Sigma type:
         ((\((a, b), c) -> (a, (b, c)), \_ -> refl),
          (\((a, b), c) -> (a, (b, c)), \_ -> refl)))
 ```
-
