@@ -4,11 +4,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "echo",
-      "type": "shell",
-      "command": "echo Hello"
-    },
-    {
       "label": "typecheck",
       "type": "shell",
       "command": "stack",
@@ -19,7 +14,12 @@
         "src/hott/*",
         "src/simplicial-hott/*"
       ],
-      "problemMatcher": []
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
-  ]
+  ],
+  "statusbar.default.hide": false
 }
