@@ -94,3 +94,30 @@ a family of arrows `η : (x : A) → (hom (B x) (f x) (g x))`.
 	: U
 	:= (x : A) -> hom (B x) (f x) (g x)
 ```
+
+### Horizontal composition of natural transformations
+
+```rzk
+#def horizontal-comp-nat-trans
+	(A B C : U)
+	(f g : A -> B)
+	(f' g' : B -> C)
+	(η : nat-trans A (\ _ -> B) f g)
+	(η' : nat-trans B (\ _ -> C) f' g')
+	: nat-trans A (\ _ -> C) (\ x -> f' (f x)) (\ x -> g' (g x))
+	:= \ x t -> η' (η x t) t
+```
+
+### Vertical composition of natural transformations in Segal types
+
+```rzk
+#def vertical-comp-nat-trans
+	(A : U)
+	(B : A -> U)
+	(BisSegal : (x : A) -> isSegal (B x))
+	(f g h : (x : A) -> (B x))
+	(η : nat-trans A B f g)
+	(η' : nat-trans A B g h)
+	: nat-trans A B f h
+	:= \ x -> Segal-comp (B x) (BisSegal x) (f x) (g x) (h x) (η x) (η' x)
+```
