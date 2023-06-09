@@ -2,7 +2,16 @@
   // UI settings
   "breadcrumbs.enabled": false,
 
+  "task.problemMatchers.neverPrompt": {
+    "shell": true
+  },
+
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.unicodeHighlight.invisibleCharacters": true,
+
   // Snippet setup
+  "editor.inlineSuggest.enabled": true,
+  "editor.acceptSuggestionOnEnter": "off",
   "editor.snippetSuggestions": "top",
   "editor.wordBasedSuggestions": false,
   "javascript.suggest.names": false,
@@ -15,10 +24,6 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
-
-  "files.associations": {
-    "*.rzk.md": "literate rzk markdown"
-  },
 
   "[css]": {
     "editor.quickSuggestions": {
@@ -41,9 +46,9 @@
   },
   "[markdown][literate rzk markdown]": {
     "editor.tabSize": 2,
-    // "editor.rulers": [80],
+    "editor.rulers": [80],
     "editor.quickSuggestions": {
-      "other": "inline"
+      "other": "on"
     },
     "editor.autoClosingBrackets": "never"
   }
