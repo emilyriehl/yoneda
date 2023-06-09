@@ -80,3 +80,17 @@ Functions between types automatically preserve identity arrows.
 	:= Segal-comp-uniqueness B BisSegal (F x) (F y) (F z) (ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z (Segal-comp A AisSegal x y z f g))
 	(ap-hom2 A B F x y z f g (Segal-comp A AisSegal x y z f g) (Segal-comp-witness A AisSegal x y z f g))
 ```
+
+## Natural transformations
+
+Given two simplicial maps `f g : (x : A) -> B x`, then a **natural transformation** from `f` to `g` is
+a family of arrows `η : (x : A) → (hom (B x) (f x) (g x))`.
+
+```rzk
+#def nat-trans
+	(A : U)
+	(B : A -> U)
+	(f g : (x : A) -> (B x))
+	: U
+	:= (x : A) -> hom (B x) (f x) (g x)
+```
