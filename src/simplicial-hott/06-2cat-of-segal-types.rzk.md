@@ -128,6 +128,8 @@ i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
 	:= \ t x -> η x t
 ```
 
+### Natural transformation extensionality
+
 ```rzk
 -- [RS17, Proposition 6.3]
 #def is-equiv-ev-components-nat-trans
@@ -210,4 +212,17 @@ Segal types.
       ( \ x t -> η' t x)
       ( x)
       ( t)
+```
+
+The identity natural transformation is identity arrows on components
+
+```rzk
+-- [RS17, Proposition 6.5(ii)]
+#def id-arr-components-id-nat-trans
+	(A : U)
+	(B : A -> U)
+	(f : (x : A) -> (B x))
+  (x : A)
+  : (\{t : 2 | Δ¹ t} -> (id-arr ((x : A) -> (B x)) f) t x) = (id-arr (B x) (f x))
+  := refl
 ```
