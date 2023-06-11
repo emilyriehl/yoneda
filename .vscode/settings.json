@@ -1,4 +1,6 @@
 {
+  "json.schemaDownload.enable": true,
+
   // UI settings
   "breadcrumbs.enabled": false,
 
@@ -20,6 +22,8 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnType": true,
   "editor.formatOnSave": true,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
 
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
@@ -31,21 +35,24 @@
     },
     "editor.suggest.insertMode": "replace",
     "gitlens.codeLens.scopes": ["document"],
-    "editor.tabSize": 2
+    "editor.indentSize": 2
   },
   "[javascript]": {
     "editor.maxTokenizationLineLength": 2500,
-    "editor.tabSize": 2
+    "editor.indentSize": 2
   },
   "[json][jsonc]": {
     "editor.quickSuggestions": {
       "strings": true
     },
     "editor.suggest.insertMode": "replace",
-    "gitlens.codeLens.scopes": ["document"]
+    "gitlens.codeLens.scopes": ["document"],
+    "editor.tabSize": 2,
+    "editor.indentSize": 2
   },
   "[markdown][literate rzk markdown]": {
     "editor.tabSize": 2,
+    "editor.indentSize": 2,
     "editor.rulers": [80],
     "editor.quickSuggestions": {
       "other": "on"

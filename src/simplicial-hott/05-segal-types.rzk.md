@@ -597,7 +597,7 @@ For use in the proof of associativity:
   := unfolding-square A (Segal-comp-witness A AisSegal x y z f g)
 ```
 
-The Segal-comp-witness-square as an arrow in the arrow type:
+The `Segal-comp-witness-square` as an arrow in the arrow type:
 
 <svg style="float: right" viewBox="0 0 200 200" width="150" height="150">
   <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>

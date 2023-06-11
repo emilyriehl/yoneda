@@ -83,8 +83,10 @@ Functions between types automatically preserve identity arrows.
 
 ## Natural transformations
 
-Given two simplicial maps `f g : (x : A) -> B x`, then a **natural transformation** from `f` to `g` is
-a family of arrows `η : (x : A) → (hom (B x) (f x) (g x))`.
+This is Section 6.2 in [RS17].
+
+Given two simplicial maps `f g : (x : A) -> B x`, a **natural transformation** from `f` to `g` is
+an arrow `η : hom ((x : A) -> B x) f g` between them.
 
 ```rzk
 #def nat-trans
@@ -92,32 +94,83 @@ a family of arrows `η : (x : A) → (hom (B x) (f x) (g x))`.
 	(B : A -> U)
 	(f g : (x : A) -> (B x))
 	: U
+	:= hom ((x : A) -> (B x)) f g
+```
+
+Equivalently, natural transformations can be determined by their **components**, i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
+
+```rzk
+#def nat-trans-components
+	(A : U)
+	(B : A -> U)
+	(f g : (x : A) -> (B x))
+	: U
 	:= (x : A) -> hom (B x) (f x) (g x)
 ```
 
-### Horizontal composition of natural transformations
+```rzk
+#def ev-components-nat-trans
+	(A : U)
+	(B : A -> U)
+	(f g : (x : A) -> (B x))
+	(η : nat-trans A B f g)
+	: nat-trans-components A B f g
+	:= \ x t -> η t x
+```
 
 ```rzk
-#def horizontal-comp-nat-trans
+-- [RS17, Proposition 6.3]
+#def is-equiv-ev-components-nat-trans
+	(A : U)
+	(B : A -> U)
+	(f g : (x : A) -> (B x))
+	: isEquiv
+      (nat-trans A B f g)
+      (nat-trans-components A B f g)
+      (ev-components-nat-trans A B f g)
+	:=
+		( ( \ η t x -> η x t , \ _ -> refl) ,
+		  ( \ η t x -> η x t , \ η -> refl_{η}))
+
+#def equiv-components-nat-trans
+	(A : U)
+	(B : A -> U)
+	(f g : (x : A) -> (B x))
+	: Eq
+      (nat-trans A B f g)
+      (nat-trans-components A B f g)
+	:=
+		( ev-components-nat-trans A B f g ,
+      is-equiv-ev-components-nat-trans A B f g)
+```
+
+### Horizontal composition
+
+Horizontal composition of natural transformations make sense over any type.
+
+```rzk
+#def horizontal-comp-nat-trans-components
 	(A B C : U)
 	(f g : A -> B)
 	(f' g' : B -> C)
-	(η : nat-trans A (\ _ -> B) f g)
-	(η' : nat-trans B (\ _ -> C) f' g')
-	: nat-trans A (\ _ -> C) (\ x -> f' (f x)) (\ x -> g' (g x))
+	(η : nat-trans-components A (\ _ -> B) f g)
+	(η' : nat-trans-components B (\ _ -> C) f' g')
+	: nat-trans-components A (\ _ -> C) (\ x -> f' (f x)) (\ x -> g' (g x))
 	:= \ x t -> η' (η x t) t
 ```
 
-### Vertical composition of natural transformations in Segal types
+### Vertical composition
+
+We can define vertical composition for natural transformations in families of Segal types.
 
 ```rzk
-#def vertical-comp-nat-trans
+#def vertical-comp-nat-trans-components
 	(A : U)
 	(B : A -> U)
 	(BisSegal : (x : A) -> isSegal (B x))
 	(f g h : (x : A) -> (B x))
-	(η : nat-trans A B f g)
-	(η' : nat-trans A B g h)
-	: nat-trans A B f h
+	(η : nat-trans-components A B f g)
+	(η' : nat-trans-components A B g h)
+	: nat-trans-components A B f h
 	:= \ x -> Segal-comp (B x) (BisSegal x) (f x) (g x) (h x) (η x) (η' x)
 ```
