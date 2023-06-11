@@ -146,7 +146,7 @@ Equivalently, natural transformations can be determined by their **components**,
 
 ### Horizontal composition
 
-Horizontal composition of natural transformations make sense over any type.
+Horizontal composition of natural transformations makes sense over any type.
 
 ```rzk
 #def horizontal-comp-nat-trans-components
