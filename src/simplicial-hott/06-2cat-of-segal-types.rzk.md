@@ -130,7 +130,7 @@ Equivalently, natural transformations can be determined by their **components**,
       (ev-components-nat-trans A B f g)
 	:=
 		( ( \ η t x -> η x t , \ _ -> refl) ,
-		  ( \ η t x -> η x t , \ η -> refl_{η}))
+		  ( \ η t x -> η x t , \ _ -> refl))
 
 #def equiv-components-nat-trans
 	(A : U)
