@@ -1,19 +1,19 @@
 {
+  "editorconfig": true,
+
   "arrowParens": "always",
   "bracketSameLine": false,
   "bracketSpacing": true,
   "embeddedLanguageFormatting": "off",
   "htmlWhitespaceSensitivity": "css",
   "insertPragma": false,
-  "jsxSingleQuote": false,
+  "jsxSingleQuote": true,
   "printWidth": 80,
   "proseWrap": "always",
   "quoteProps": "as-needed",
   "requirePragma": false,
-  "semi": true,
   "singleAttributePerLine": false,
-  "singleQuote": false,
-  "tabWidth": 2,
+  "singleQuote": true,
   "trailingComma": "es5",
   "useTabs": false
 }

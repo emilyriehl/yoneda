@@ -3,7 +3,7 @@
 These formalizations capture cocartesian families as treated in BW23.
 
 The goal, for now, is not to give a general structural account as in the paper
-but ratger to provide the definitions and results that are necessary to prove
+but rather to provide the definitions and results that are necessary to prove
 the cocartesian Yoneda Lemma.
 
 This is a literate `rzk` file:
@@ -32,11 +32,11 @@ This is a literate `rzk` file:
   := ∑ (P : B -> U) , (b : B) -> (isSegal (P b))
 ```
 
-## Definition of cocartesian arrows
+## Definition of cocartesian arrows [BW23, Definition 5.1.1]
 
--- [BW23, Definition 5.1.1] -- the proposition that a dependent arrow in a
-family is cocartesian -- (alternative version using unpacked extension types
-because this is preferred for usage)
+Here we define the proposition that a dependent arrow in a family is
+cocartesian. This is an alternative version using unpacked extension types, as
+this is preferred for usage.
 
 ```rzk
 #def isCocartArr
@@ -54,13 +54,15 @@ because this is preferred for usage)
   -> (sigma : hom2 B b b' b'' u v w)
   -> (e'' : P b'')
   -> (h : dhom B b b'' w P e e'')
-  -> isContr (∑ (g : dhom B b' b'' v P e' e''), (dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
+  -> isContr
+      ( ∑ ( g : dhom B b' b'' v P e' e'') ,
+          ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 ```
 
-## Definition of cocartesian lifts
+## Definition of cocartesian lifts [BW23, Definition 5.1.2]
 
--- [BW23, Definition 5.1.2] -- the type of cocartesian lifts of a fixed arrow in
-the base with a given starting point in the fiber
+The following is the type of cocartesian lifts of a fixed arrow in the base with
+a given starting point in the fiber.
 
 ```rzk
 #def CocartLift
