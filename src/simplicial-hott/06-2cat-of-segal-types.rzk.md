@@ -83,7 +83,7 @@ Functions between types automatically preserve identity arrows.
 
 ## Natural transformations
 
-This is Section 6.2 in [RS17].
+This corresponds to Section 6.2 in [RS17].
 
 Given two simplicial maps `f g : (x : A) -> B x`, a **natural transformation** from `f` to `g` is
 an arrow `η : hom ((x : A) -> B x) f g` between them.
