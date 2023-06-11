@@ -41,7 +41,6 @@ targets.
 	(alpha : hom2 A x y z f g h)
 	: hom2 B (F x) (F y) (F z) (ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z h)
   := \t -> F (alpha t)
-
 ```
 
 Functions between types automatically preserve identity arrows.
@@ -119,6 +118,14 @@ i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
 	(η : nat-trans A B f g)
 	: nat-trans-components A B f g
 	:= \ x t -> η t x
+
+#def nat-trans-nat-trans-components
+	(A : U)
+	(B : A -> U)
+	(f g : (x : A) -> (B x))
+	(η : nat-trans-components A B f g)
+	: nat-trans A B f g
+	:= \ t x -> η x t
 ```
 
 ```rzk
@@ -153,6 +160,15 @@ Horizontal composition of natural transformations makes sense over any type.
 Note that contrary to what is written in [RS17] we do not need `C` to be Segal.
 
 ```rzk
+#def horizontal-comp-nat-trans
+	(A B C : U)
+	(f g : A -> B)
+	(f' g' : B -> C)
+	(η : nat-trans A (\ _ -> B) f g)
+	(η' : nat-trans B (\ _ -> C) f' g')
+	: nat-trans A (\ _ -> C) (\ x -> f' (f x)) (\ x -> g' (g x))
+	:= \ t x -> η' t (η t x)
+
 #def horizontal-comp-nat-trans-components
 	(A B C : U)
 	(f g : A -> B)
@@ -178,4 +194,20 @@ Segal types.
 	(η' : nat-trans-components A B g h)
 	: nat-trans-components A B f h
 	:= \ x -> Segal-comp (B x) (BisSegal x) (f x) (g x) (h x) (η x) (η' x)
+
+#def vertical-comp-nat-trans
+	(A : U)
+	(B : A -> U)
+	(BisSegal : (x : A) -> isSegal (B x))
+	(f g h : (x : A) -> (B x))
+	(η : nat-trans A B f g)
+	(η' : nat-trans A B g h)
+	: nat-trans A B f h
+	:=
+    \ t x ->
+    vertical-comp-nat-trans-components A B BisSegal f g h
+      ( \ x t -> η t x)
+      ( \ x t -> η' t x)
+      ( x)
+      ( t)
 ```
