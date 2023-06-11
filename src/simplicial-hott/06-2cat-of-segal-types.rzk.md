@@ -222,7 +222,7 @@ The identity natural transformation is identity arrows on components
 	(A : U)
 	(B : A -> U)
 	(f : (x : A) -> (B x))
-  (x : A)
-  : (\{t : 2 | Δ¹ t} -> (id-arr ((x : A) -> (B x)) f) t x) = (id-arr (B x) (f x))
+  (a : A)
+  : (\ t -> id-arr ((x : A) -> B x) f t a) =_{Δ¹ -> B a} id-arr (B a) (f a)
   := refl
 ```
