@@ -2,7 +2,9 @@
 
 These formalizations capture cocartesian families as treated in BW23.
 
-The goal, for now, is not to give a general structural account as in the paper but ratger to provide the definitions and results that are necessary to prove the cocartesian Yoneda Lemma.
+The goal, for now, is not to give a general structural account as in the paper
+but ratger to provide the definitions and results that are necessary to prove
+the cocartesian Yoneda Lemma.
 
 This is a literate `rzk` file:
 
@@ -12,9 +14,12 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/*` - We require various prerequisites from homotopy type theory, for instance the axiom of function extensionality.
-- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
-- `4-extension-types.md` — We use the fubini theorem and extension extensionality.
+- `hott/*` - We require various prerequisites from homotopy type theory, for
+  instance the axiom of function extensionality.
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their
+  subshapes.
+- `4-extension-types.md` — We use the fubini theorem and extension
+  extensionality.
 - `5-segal-types.md` - We make heavy use of the notion of Segal types
 - `8-covariant.md` - We use covariant type families.
 
@@ -29,9 +34,9 @@ This is a literate `rzk` file:
 
 ## Definition of cocartesian arrows
 
--- [BW23, Definition 5.1.1]
--- the proposition that a dependent arrow in a family is cocartesian
--- (alternative version using unpacked extension types because this is preferred for usage)
+-- [BW23, Definition 5.1.1] -- the proposition that a dependent arrow in a
+family is cocartesian -- (alternative version using unpacked extension types
+because this is preferred for usage)
 
 ```rzk
 #def isCocartArr
@@ -54,8 +59,8 @@ This is a literate `rzk` file:
 
 ## Definition of cocartesian lifts
 
--- [BW23, Definition 5.1.2]
--- the type of cocartesian lifts of a fixed arrow in the base with a given starting point in the fiber
+-- [BW23, Definition 5.1.2] -- the type of cocartesian lifts of a fixed arrow in
+the base with a given starting point in the fiber
 
 ```rzk
 #def CocartLift

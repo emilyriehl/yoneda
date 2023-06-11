@@ -11,7 +11,8 @@ This is a literate `rzk` file:
 ## Prerequisites
 
 - `hott/4-equivalences.rzk` — contains the definitions of `Eq` and `compose_Eq`
-- the file `hott/4-equivalences.rzk` relies in turn on the previous files in `hott/`
+- the file `hott/4-equivalences.rzk` relies in turn on the previous files in
+  `hott/`
 
 ## Commutation of arguments and currying
 
@@ -170,8 +171,8 @@ This is a literate `rzk` file:
 
 ## Relative function extensionality
 
-There are various equivalent forms of the relative function extensionality axiom.
-Here we state the one that will be most useful and derive an application.
+There are various equivalent forms of the relative function extensionality
+axiom. Here we state the one that will be most useful and derive an application.
 
 ```rzk
 #def ext-htpy-eq
@@ -228,7 +229,8 @@ Here we state the one that will be most useful and derive an application.
    := first (first (extext I ψ ϕ A a f g))
 ```
 
-By extension extensionality, fiberwise equivalences of extension types define equivalences of extension types.
+By extension extensionality, fiberwise equivalences of extension types define
+equivalences of extension types.
 
 ```rzk
 -- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT

@@ -10,13 +10,15 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their
+  subshapes.
 - `4-extension-types.md` — We use extension extensionality.
 - `5-segal-types.md` - We use the notion of hom types.
 
 ## Functors
 
-Functions between types induce an action on hom types, preserving sources and targets.
+Functions between types induce an action on hom types, preserving sources and
+targets.
 
 ```rzk
 -- [RS17, Section 6.1]
@@ -85,8 +87,8 @@ Functions between types automatically preserve identity arrows.
 
 This corresponds to Section 6.2 in [RS17].
 
-Given two simplicial maps `f g : (x : A) -> B x`, a **natural transformation** from `f` to `g` is
-an arrow `η : hom ((x : A) -> B x) f g` between them.
+Given two simplicial maps `f g : (x : A) -> B x`, a **natural transformation**
+from `f` to `g` is an arrow `η : hom ((x : A) -> B x) f g` between them.
 
 ```rzk
 #def nat-trans
@@ -97,7 +99,8 @@ an arrow `η : hom ((x : A) -> B x) f g` between them.
 	:= hom ((x : A) -> (B x)) f g
 ```
 
-Equivalently, natural transformations can be determined by their **components**, i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
+Equivalently, natural transformations can be determined by their **components**,
+i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
 
 ```rzk
 #def nat-trans-components
@@ -147,6 +150,7 @@ Equivalently, natural transformations can be determined by their **components**,
 ### Horizontal composition
 
 Horizontal composition of natural transformations makes sense over any type.
+Note that contrary to what is written in [RS17] we do not need `C` to be Segal.
 
 ```rzk
 #def horizontal-comp-nat-trans-components
@@ -161,7 +165,8 @@ Horizontal composition of natural transformations makes sense over any type.
 
 ### Vertical composition
 
-We can define vertical composition for natural transformations in families of Segal types.
+We can define vertical composition for natural transformations in families of
+Segal types.
 
 ```rzk
 #def vertical-comp-nat-trans-components
