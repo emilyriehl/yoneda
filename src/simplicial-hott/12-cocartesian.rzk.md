@@ -27,9 +27,9 @@ This is a literate `rzk` file:
 
 ```rzk
 #def innerFam
-    (B : U)
-    : U
-    := ∑ (P : B -> U) , (b : B) -> (isSegal (P b))
+  (B : U)
+  : U
+  := ∑ (P : B -> U) , (b : B) -> (isSegal (P b))
 ```
 
 ## Definition of cocartesian arrows
@@ -40,21 +40,21 @@ because this is preferred for usage)
 
 ```rzk
 #def isCocartArr
-    (B : U)
-    (b b' : B)
-    (u : hom B b b')
-    (P : B -> U)
-    (e : P b)
-    (e' : P b')
-    (f : dhom B b b' u P e e')
-    : U
-    := (b'' : B)
-    -> (v : hom B b' b'')
-    -> (w : hom B b b'')
-    -> (sigma : hom2 B b b' b'' u v w)
-    -> (e'' : P b'')
-    -> (h : dhom B b b'' w P e e'')
-    -> isContr (∑ (g : dhom B b' b'' v P e' e''), (dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
+  (B : U)
+  (b b' : B)
+  (u : hom B b b')
+  (P : B -> U)
+  (e : P b)
+  (e' : P b')
+  (f : dhom B b b' u P e e')
+  : U
+  := (b'' : B)
+  -> (v : hom B b' b'')
+  -> (w : hom B b b'')
+  -> (sigma : hom2 B b b' b'' u v w)
+  -> (e'' : P b'')
+  -> (h : dhom B b b'' w P e e'')
+  -> isContr (∑ (g : dhom B b' b'' v P e' e''), (dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 ```
 
 ## Definition of cocartesian lifts
@@ -81,47 +81,75 @@ the base with a given starting point in the fiber
     (a : A)
     : U
     := (x : A) -> isContr(hom A a x)
+```
 
--- In a Segal type, initial objects are isomorphic.
+In a Segal type, initial objects are isomorphic.
+
+```rzk
 #def initial-iso
-    (A : U)
-    (AisSegal : isSegal A)
-    (a b : A)
-    (ainitial : isInitial A a)
-    (binitial : isInitial A b)
-    : Iso A AisSegal a b
-    := (first (ainitial b),
-        ((first (binitial a),
-            contractible-connecting-htpy (hom A a a) (ainitial a) (Segal-comp A AisSegal a b a (first (ainitial b)) (first (binitial a))) (id-arr A a))
-        ,
-        (first (binitial a),
-            contractible-connecting-htpy (hom A b b) (binitial b) (Segal-comp A AisSegal b a b (first (binitial a)) (first (ainitial b))) (id-arr A b))
-        ))
+  (A : U)
+  (AisSegal : isSegal A)
+  (a b : A)
+  (ainitial : isInitial A a)
+  (binitial : isInitial A b)
+  : Iso A AisSegal a b
+  :=
+    ( first (ainitial b) ,
+      ( ( first (binitial a) ,
+          contractible-connecting-htpy
+            ( hom A a a)
+            ( ainitial a)
+            ( Segal-comp A AisSegal a b a
+              ( first (ainitial b))
+              ( first (binitial a)))
+            ( id-arr A a)) ,
+        ( first (binitial a) ,
+          contractible-connecting-htpy
+            ( hom A b b)
+            ( binitial b)
+            ( Segal-comp A AisSegal b a b
+              ( first (binitial a))
+              ( first (ainitial b)))
+            ( id-arr A b))))
 ```
 
 ## Final objects
 
 ```rzk
 #def isFinal
-    (A : U)
-    (a : A)
-    : U
-    := (x : A) -> isContr(hom A x a)
+  (A : U)
+  (a : A)
+  : U
+  := (x : A) -> isContr(hom A x a)
+```
 
--- In a Segal type, final objects are isomorphic.
+In a Segal type, final objects are isomorphic.
+
+```rzk
 #def final-iso
-    (A : U)
-    (AisSegal : isSegal A)
-    (a b : A)
-    (afinal : isFinal A a)
-    (bfinal : isFinal A b)
-    (iso : Iso A AisSegal a b)
-    : Iso A AisSegal a b
-    := (first (bfinal a),
-        ((first (afinal b),
-            contractible-connecting-htpy (hom A a a) (afinal a) (Segal-comp A AisSegal a b a (first (bfinal a)) (first (afinal b))) (id-arr A a))
-        ,
-        (first (afinal b),
-            contractible-connecting-htpy (hom A b b) (bfinal b) (Segal-comp A AisSegal b a b (first (afinal b)) (first (bfinal a))) (id-arr A b))
-        ))
+  (A : U)
+  (AisSegal : isSegal A)
+  (a b : A)
+  (afinal : isFinal A a)
+  (bfinal : isFinal A b)
+  (iso : Iso A AisSegal a b)
+  : Iso A AisSegal a b
+  :=
+    ( first (bfinal a) ,
+      ( ( first (afinal b) ,
+          contractible-connecting-htpy
+            ( hom A a a)
+            ( afinal a)
+            ( Segal-comp A AisSegal a b a
+              ( first (bfinal a))
+              ( first (afinal b)))
+            ( id-arr A a)) ,
+        ( first (afinal b) ,
+          contractible-connecting-htpy
+            ( hom A b b)
+            ( bfinal b)
+            ( Segal-comp A AisSegal b a b
+              ( first (afinal b))
+              ( first (bfinal a)))
+            ( id-arr A b))))
 ```

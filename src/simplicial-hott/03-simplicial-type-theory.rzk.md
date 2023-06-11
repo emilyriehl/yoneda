@@ -10,36 +10,36 @@ This is a literate `rzk` file:
 
 ## Simplices and their subshapes
 
-Simplices:
+### Simplices
 
 ```rzk
--- 1-simplex
+-- the 1-simplex
 #def Δ¹ : 2 -> TOPE
   := \ t -> TOP
 
--- 2-simplex
+-- the 2-simplex
 #def Δ² : (2 * 2) -> TOPE
   := \ (t, s) -> s <= t
 
--- 3-simplex
+-- the 3-simplex
 #def Δ³ : (2 * 2 * 2) -> TOPE
   := \ ((t1, t2), t3) -> t3 <= t2 /\ t2 <= t1
 ```
 
-Boundaries of simplices:
+### Boundaries of simplices
 
 ```rzk
--- boundary of a 1-simplex
+-- the boundary of a 1-simplex
 #def ∂Δ¹ : Δ¹ -> TOPE
   := \ t -> (t === 0_2 \/ t === 1_2)
 
--- boundary of a 2-simplex
+-- the boundary of a 2-simplex
 #def ∂Δ² : Δ² -> TOPE
   := \ ts ->
         ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
 ```
 
-Horns:
+### Horns
 
 ```rzk
 -- the (2,1)-horn
@@ -47,10 +47,11 @@ Horns:
   := \ (t, s) -> (s === 0_2 \/ t === 1_2)
 ```
 
-Products:
+### Products
+
+The product of topes defines the product of shapes.
 
 ```rzk
--- the product of topes defines the product of shapes
 #def shapeProd
   (I J : CUBE)
   (ψ : I -> TOPE)
@@ -79,19 +80,21 @@ Products:
   := shapeProd (2 * 2) 2 Δ² Δ¹
 ```
 
-Intersections:
+### Intersections
+
+The intersection of shapes is defined by conjunction on topes:
 
 ```rzk
--- the conjunction of topes defines the intersection of shapes
 #def shapeIntersection
   (I : CUBE) (ψ χ : I -> TOPE) : I -> TOPE
   := \ t -> ψ t /\ χ t
 ```
 
-Unions:
+### Unions
+
+The union of shapes is defined by disjunction on topes:
 
 ```rzk
--- the disjunction of topes defines the union of shapes
 #def shapeUnion
   (I : CUBE) (ψ χ : I -> TOPE) : I -> TOPE
   := \ t -> ψ t \/ χ t

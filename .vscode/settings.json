@@ -24,7 +24,6 @@
   "editor.formatOnSave": true,
   "editor.detectIndentation": false,
   "editor.insertSpaces": true,
-
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
@@ -57,6 +56,8 @@
     "editor.quickSuggestions": {
       "other": "on"
     },
-    "editor.autoClosingBrackets": "never"
+    "editor.autoClosingBrackets": "never",
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true
   }
 }

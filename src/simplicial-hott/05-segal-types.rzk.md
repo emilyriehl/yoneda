@@ -11,10 +11,14 @@ This is a literate `rzk` file:
 ## Prerequisites
 
 - `hott/1-paths.md` - We require basic path algebra.
-- `hott/2-contractible.md` - We require the notion of contractible types and their data.
-- `hott/total-space.md` — We rely on `contractible-fibers-projection-equiv` and `total-space-projection` in the proof of Theorem 5.5.
-- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
-- `4-extension-types.md` — We use the fubini theorem and extension extensionality.
+- `hott/2-contractible.md` - We require the notion of contractible types and
+  their data.
+- `hott/total-space.md` — We rely on `contractible-fibers-projection-equiv` and
+  `total-space-projection` in the proof of Theorem 5.5.
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their
+  subshapes.
+- `4-extension-types.md` — We use the fubini theorem and extension
+  extensionality.
 
 ## Hom types
 
@@ -73,7 +77,9 @@ Extension types are also used to define the type of commutative triangles:
 
 ## The Segal condition
 
-A type is Segal if every composable pair of arrows has a unique composite. Note this is a considerable simplification of the usual Segal condition, which also requires homotopical uniqueness of higher-order composites.
+A type is Segal if every composable pair of arrows has a unique composite. Note
+this is a considerable simplification of the usual Segal condition, which also
+requires homotopical uniqueness of higher-order composites.
 
 ```rzk
 -- [RS17, Definition 5.3]
@@ -85,7 +91,8 @@ A type is Segal if every composable pair of arrows has a unique composite. Note 
       isContr( ∑ (h : hom A x z), hom2 A x y z f g h)
 ```
 
-Segal types have a composition functor and witnesses to the composition relation:
+Segal types have a composition functor and witnesses to the composition
+relation:
 
 ```rzk
 -- Composition is written in diagrammatic order to match the order of arguments in isSegal.
@@ -109,7 +116,9 @@ Segal types have a composition functor and witnesses to the composition relation
   := second (first (AisSegal x y z f g))
 ```
 
-Composition in a Segal type is unique in the following sense. If there is a witness that an arrow h is a composite of f and g, then the specified composite equals h.
+Composition in a Segal type is unique in the following sense. If there is a
+witness that an arrow h is a composite of f and g, then the specified composite
+equals h.
 
 <svg style="float: right" viewBox="0 0 200 380" width="125">
   <path style="fill: rgb(175,175,175,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
@@ -161,7 +170,8 @@ Composition in a Segal type is unique in the following sense. If there is a witn
 
 ### Characterizing Segal types
 
-Our aim is to prove that a type is Segal if and only if the horn-restriction map, defined below, is an equivalence.
+Our aim is to prove that a type is Segal if and only if the horn-restriction
+map, defined below, is an equivalence.
 
 <svg style="float: right" viewBox="0 0 200 180" width="150" height="150">
   <polyline points="40,30 160,30" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
@@ -309,7 +319,8 @@ Now we prove this definition is equivalent to the original one.
 
 ## Segal function and extension types
 
-Using the new characterization of Segal types, we can show that the type of functions or extensions into a family of Segal types is again a Segal type.
+Using the new characterization of Segal types, we can show that the type of
+functions or extensions into a family of Segal types is again a Segal type.
 
 ```rzk
 -- [RS17, Corollary 5.6(i)] : if X is a type and A : X -> U is such that
@@ -500,8 +511,9 @@ Witness for the left identity law:
   := \{(t, s) : 2 * 2 | Δ² (t, s)} -> f s
 ```
 
-In a Segal type, where composition is unique, it follows that composition with an identity arrow recovers the original arrow.
-Thus, an identity axiom was not needed in the definition of Segal types.
+In a Segal type, where composition is unique, it follows that composition with
+an identity arrow recovers the original arrow. Thus, an identity axiom was not
+needed in the definition of Segal types.
 
 ```rzk
 -- If A is Segal then the right unit law holds
@@ -539,7 +551,8 @@ Thus, an identity axiom was not needed in the definition of Segal types.
 
 ## Associativity
 
-We now prove that composition in a Segal type is associative, by using the fact that the type of arrows in a Segal type is itself a Segal type.
+We now prove that composition in a Segal type is associative, by using the fact
+that the type of arrows in a Segal type is itself a Segal type.
 
 <svg style="float: right" viewBox="0 0 200 180" width="150" height="150">
   <path style="fill: rgb(128,128,128,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
@@ -863,7 +876,9 @@ The front face:
 
 ## Homotopies
 
-We may define a "homotopy" to be a path between parallel arrows. In a Segal type, homotopies are equivalent to terms in hom2 types involving an identity arrow.
+We may define a "homotopy" to be a path between parallel arrows. In a Segal
+type, homotopies are equivalent to terms in hom2 types involving an identity
+arrow.
 
 ```rzk
 #def homotopy-to-hom2
@@ -916,7 +931,8 @@ We may define a "homotopy" to be a path between parallel arrows. In a Segal type
       g)
 ```
 
-More generally, a homotopy between a composite and another map is equivalent to the data provided by a commutative triangle with that boundary.
+More generally, a homotopy between a composite and another map is equivalent to
+the data provided by a commutative triangle with that boundary.
 
 ```rzk
 #def Segal-eq-to-hom2
@@ -977,7 +993,8 @@ More generally, a homotopy between a composite and another map is equivalent to 
       h)
 ```
 
-Homotopies form a congruence, meaning that homotopies are respected by composition:
+Homotopies form a congruence, meaning that homotopies are respected by
+composition:
 
 ```rzk
 -- [RS17, Proposition 5.13]
