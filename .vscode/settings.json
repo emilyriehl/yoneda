@@ -1,24 +1,34 @@
 {
+  "json.schemaDownload.enable": true,
+
   // UI settings
   "breadcrumbs.enabled": false,
 
+  "task.problemMatchers.neverPrompt": {
+    "shell": true
+  },
+
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.unicodeHighlight.invisibleCharacters": true,
+
   // Snippet setup
+  "editor.inlineSuggest.enabled": true,
+  "editor.acceptSuggestionOnEnter": "off",
   "editor.snippetSuggestions": "top",
   "editor.wordBasedSuggestions": false,
   "javascript.suggest.names": false,
 
   // Autoformatting and file type specific settings
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc.json",
   "editor.formatOnType": true,
   "editor.formatOnSave": true,
 
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
-
-  "files.associations": {
-    "*.rzk.md": "literate rzk markdown"
-  },
 
   "[css]": {
     "editor.quickSuggestions": {
@@ -26,25 +36,30 @@
     },
     "editor.suggest.insertMode": "replace",
     "gitlens.codeLens.scopes": ["document"],
-    "editor.tabSize": 2
+    "editor.indentSize": 2
   },
   "[javascript]": {
     "editor.maxTokenizationLineLength": 2500,
-    "editor.tabSize": 2
+    "editor.indentSize": 2
   },
   "[json][jsonc]": {
     "editor.quickSuggestions": {
       "strings": true
     },
     "editor.suggest.insertMode": "replace",
-    "gitlens.codeLens.scopes": ["document"]
+    "gitlens.codeLens.scopes": ["document"],
+    "editor.tabSize": 2,
+    "editor.indentSize": 2
   },
   "[markdown][literate rzk markdown]": {
     "editor.tabSize": 2,
-    // "editor.rulers": [80],
+    "editor.indentSize": 2,
+    "editor.rulers": [80],
     "editor.quickSuggestions": {
-      "other": "inline"
+      "other": "on"
     },
-    "editor.autoClosingBrackets": "never"
+    "editor.autoClosingBrackets": "never",
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true
   }
 }
