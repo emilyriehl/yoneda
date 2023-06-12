@@ -154,10 +154,14 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li><code>hott/1-paths.md</code> - We require basic path algebra.</li>
-<li><code>hott/2-contractible.md</code> - We require the notion of contractible types and their data.</li>
-<li><code>hott/total-space.md</code> — We rely on <code>contractible-fibers-projection-equiv</code> and <code>total-space-projection</code> in the proof of Theorem 5.5.</li>
-<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
-<li><code>4-extension-types.md</code> — We use the fubini theorem and extension extensionality.</li>
+<li><code>hott/2-contractible.md</code> - We require the notion of contractible types and
+  their data.</li>
+<li><code>hott/total-space.md</code> — We rely on <code>contractible-fibers-projection-equiv</code> and
+  <code>total-space-projection</code> in the proof of Theorem 5.5.</li>
+<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their
+  subshapes.</li>
+<li><code>4-extension-types.md</code> — We use the fubini theorem and extension
+  extensionality.</li>
 </ul>
 <h2 id="hom-types">Hom types</h2>
 <p>Extension types are used ∂to define the type of arrows between fixed terms:</p>
@@ -206,7 +210,9 @@
   ]
 </code></pre>
 <h2 id="the-segal-condition">The Segal condition</h2>
-<p>A type is Segal if every composable pair of arrows has a unique composite. Note this is a considerable simplification of the usual Segal condition, which also requires homotopical uniqueness of higher-order composites.</p>
+<p>A type is Segal if every composable pair of arrows has a unique composite. Note
+this is a considerable simplification of the usual Segal condition, which also
+requires homotopical uniqueness of higher-order composites.</p>
 <pre><code class="language-rzk">-- [RS17, Definition 5.3]
 #def isSegal
   (A : U)         -- A type.
@@ -215,7 +221,8 @@
       (f : hom A x y) -&gt; (g : hom A y z) -&gt;
       isContr( ∑ (h : hom A x z), hom2 A x y z f g h)
 </code></pre>
-<p>Segal types have a composition functor and witnesses to the composition relation:</p>
+<p>Segal types have a composition functor and witnesses to the composition
+relation:</p>
 <pre><code class="language-rzk">-- Composition is written in diagrammatic order to match the order of arguments in isSegal.
 #def Segal-comp
   (A : U)                       -- A type.
@@ -236,7 +243,9 @@
   : hom2 A x y z f g (Segal-comp A AisSegal x y z f g)
   := second (first (AisSegal x y z f g))
 </code></pre>
-<p>Composition in a Segal type is unique in the following sense. If there is a witness that an arrow h is a composite of f and g, then the specified composite equals h.</p>
+<p>Composition in a Segal type is unique in the following sense. If there is a
+witness that an arrow h is a composite of f and g, then the specified composite
+equals h.</p>
 <p><svg style="float: right" viewBox="0 0 200 380" width="125">
   <path style="fill: rgb(175,175,175,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
   <polyline points="40,30 160,30" stroke="grey" stroke-width="3" marker-end="url(#arrow-grey)"></polyline>
@@ -283,7 +292,8 @@
         (h, alpha))
 </code></pre>
 <h3 id="characterizing-segal-types">Characterizing Segal types</h3>
-<p>Our aim is to prove that a type is Segal if and only if the horn-restriction map, defined below, is an equivalence.</p>
+<p>Our aim is to prove that a type is Segal if and only if the horn-restriction
+map, defined below, is an equivalence.</p>
 <p><svg style="float: right" viewBox="0 0 200 180" width="150" height="150">
   <polyline points="40,30 160,30" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
   <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
@@ -421,7 +431,8 @@
   := (isSegal-isSegal' A , isSegal'-isSegal A)
 </code></pre>
 <h2 id="segal-function-and-extension-types">Segal function and extension types</h2>
-<p>Using the new characterization of Segal types, we can show that the type of functions or extensions into a family of Segal types is again a Segal type.</p>
+<p>Using the new characterization of Segal types, we can show that the type of
+functions or extensions into a family of Segal types is again a Segal type.</p>
 <pre><code class="language-rzk">-- [RS17, Corollary 5.6(i)] : if X is a type and A : X -&gt; U is such that
 -- A(x) is a Segal type for all x then (x : X) -&gt; A x is a Segal type
 #def Segal-function-types
@@ -601,8 +612,9 @@
   : hom2 A x x y (id-arr A x) f f
   := \{(t, s) : 2 * 2 | Δ² (t, s)} -&gt; f s
 </code></pre>
-<p>In a Segal type, where composition is unique, it follows that composition with an identity arrow recovers the original arrow.
-Thus, an identity axiom was not needed in the definition of Segal types.</p>
+<p>In a Segal type, where composition is unique, it follows that composition with
+an identity arrow recovers the original arrow. Thus, an identity axiom was not
+needed in the definition of Segal types.</p>
 <pre><code class="language-rzk">-- If A is Segal then the right unit law holds
 #def Segal-comp-id
   (A : U)                   -- A type.
@@ -636,7 +648,8 @@ Thus, an identity axiom was not needed in the definition of Segal types.</p>
       (id-comp-witness A x y f)
 </code></pre>
 <h2 id="associativity">Associativity</h2>
-<p>We now prove that composition in a Segal type is associative, by using the fact that the type of arrows in a Segal type is itself a Segal type.</p>
+<p>We now prove that composition in a Segal type is associative, by using the fact
+that the type of arrows in a Segal type is itself a Segal type.</p>
 <p><svg style="float: right" viewBox="0 0 200 180" width="150" height="150">
   <path style="fill: rgb(128,128,128,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
   <path style="fill: rgb(256,128,0,0.5); stroke-cap: round;" d="M 40 52 L 40 160 L 148 160 Z"></path>
@@ -686,7 +699,7 @@ Thus, an identity axiom was not needed in the definition of Segal types.</p>
   : Δ¹×Δ¹ -&gt; A
   := unfolding-square A (Segal-comp-witness A AisSegal x y z f g)
 </code></pre>
-<p>The Segal-comp-witness-square as an arrow in the arrow type:</p>
+<p>The <code>Segal-comp-witness-square</code> as an arrow in the arrow type:</p>
 <p><svg style="float: right" viewBox="0 0 200 200" width="150" height="150">
   <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
   <polyline points="30,40 30,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
@@ -929,7 +942,9 @@ Thus, an identity axiom was not needed in the definition of Segal types.</p>
       (Segal-right-associativity extext A AisSegal w x y z f g h)
 </code></pre>
 <h2 id="homotopies">Homotopies</h2>
-<p>We may define a "homotopy" to be a path between parallel arrows. In a Segal type, homotopies are equivalent to terms in hom2 types involving an identity arrow.</p>
+<p>We may define a "homotopy" to be a path between parallel arrows. In a Segal
+type, homotopies are equivalent to terms in hom2 types involving an identity
+arrow.</p>
 <pre><code class="language-rzk">#def homotopy-to-hom2
   (A : U)
   (x y : A)
@@ -979,7 +994,8 @@ Thus, an identity axiom was not needed in the definition of Segal types.</p>
       (Segal-homotopy-to-hom2-total-map-isEquiv A AisSegal x y f)
       g)
 </code></pre>
-<p>More generally, a homotopy between a composite and another map is equivalent to the data provided by a commutative triangle with that boundary.</p>
+<p>More generally, a homotopy between a composite and another map is equivalent to
+the data provided by a commutative triangle with that boundary.</p>
 <pre><code class="language-rzk">#def Segal-eq-to-hom2
   (A : U)
   (AisSegal : isSegal A)
@@ -1037,7 +1053,8 @@ Thus, an identity axiom was not needed in the definition of Segal types.</p>
       (Segal-eq-to-hom2-total-map-isEquiv A AisSegal x y z f g)
       h)
 </code></pre>
-<p>Homotopies form a congruence, meaning that homotopies are respected by composition:</p>
+<p>Homotopies form a congruence, meaning that homotopies are respected by
+composition:</p>
 <pre><code class="language-rzk">-- [RS17, Proposition 5.13]
 #def Segal-homotopy-congruence
   (A : U)                   -- A type.

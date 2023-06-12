@@ -88,6 +88,20 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Simplicial Type Theory</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#simplices-and-their-subshapes">Simplices and their subshapes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#simplices">Simplices</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#boundaries-of-simplices">Boundaries of simplices</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#horns">Horns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#products">Products</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#intersections">Intersections</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#unions">Unions</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
@@ -131,42 +145,42 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="3-simplicial-type-theory">3. Simplicial Type Theory</h1>
-<p>These formalisations correspond to Section 3 of RS17 paper.</p>
+<p>These formalisations correspond in part to Section 3 of RS17 paper.</p>
 <p>This is a literate <code>rzk</code> file:</p>
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
 <h2 id="simplices-and-their-subshapes">Simplices and their subshapes</h2>
-<p>Simplices:</p>
-<pre><code class="language-rzk">-- 1-simplex
+<h3 id="simplices">Simplices</h3>
+<pre><code class="language-rzk">-- the 1-simplex
 #def Δ¹ : 2 -&gt; TOPE
   := \ t -&gt; TOP
 
--- 2-simplex
+-- the 2-simplex
 #def Δ² : (2 * 2) -&gt; TOPE
   := \ (t, s) -&gt; s &lt;= t
 
--- 3-simplex
+-- the 3-simplex
 #def Δ³ : (2 * 2 * 2) -&gt; TOPE
   := \ ((t1, t2), t3) -&gt; t3 &lt;= t2 /\ t2 &lt;= t1
 </code></pre>
-<p>Boundaries of simplices:</p>
-<pre><code class="language-rzk">-- boundary of a 1-simplex
+<h3 id="boundaries-of-simplices">Boundaries of simplices</h3>
+<pre><code class="language-rzk">-- the boundary of a 1-simplex
 #def ∂Δ¹ : Δ¹ -&gt; TOPE
   := \ t -&gt; (t === 0_2 \/ t === 1_2)
 
--- boundary of a 2-simplex
+-- the boundary of a 2-simplex
 #def ∂Δ² : Δ² -&gt; TOPE
-  := \ ts -&gt; 
+  := \ ts -&gt;
         ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
 </code></pre>
-<p>Horns:</p>
+<h3 id="horns">Horns</h3>
 <pre><code class="language-rzk">-- the (2,1)-horn
 #def Λ : (2 * 2) -&gt; TOPE
   := \ (t, s) -&gt; (s === 0_2 \/ t === 1_2)
 </code></pre>
-<p>Products:</p>
-<pre><code class="language-rzk">-- the product of topes defines the product of shapes
-#def shapeProd
+<h3 id="products">Products</h3>
+<p>The product of topes defines the product of shapes.</p>
+<pre><code class="language-rzk">#def shapeProd
   (I J : CUBE)
   (ψ : I -&gt; TOPE)
   (χ : J -&gt; TOPE)
@@ -181,14 +195,29 @@
 #def ∂□ : (2 * 2) -&gt; TOPE
   := \ (t ,s) -&gt; ((∂Δ¹ t) /\ (Δ¹ s)) \/ ((Δ¹ t) /\ (∂Δ¹ s))
 
--- the vertical boundary of the square 
+-- the vertical boundary of the square
 #def ∂Δ¹×Δ¹ : (2 * 2) -&gt; TOPE
   := shapeProd 2 2 ∂Δ¹ Δ¹
 
+-- the horizontal boundary of the square
+#def Δ¹×∂Δ¹ : (2 * 2) -&gt; TOPE
+  := shapeProd 2 2 Δ¹ ∂Δ¹
 
 -- the prism from a 2-simplex in an arrow type
 #def Δ²×Δ¹ : (2 * 2 * 2) -&gt; TOPE
-  := shapeProd (2 * 2) 2 Δ² Δ¹  
+  := shapeProd (2 * 2) 2 Δ² Δ¹
+</code></pre>
+<h3 id="intersections">Intersections</h3>
+<p>The intersection of shapes is defined by conjunction on topes:</p>
+<pre><code class="language-rzk">#def shapeIntersection
+  (I : CUBE) (ψ χ : I -&gt; TOPE) : I -&gt; TOPE
+  := \ t -&gt; ψ t /\ χ t
+</code></pre>
+<h3 id="unions">Unions</h3>
+<p>The union of shapes is defined by disjunction on topes:</p>
+<pre><code class="language-rzk">#def shapeUnion
+  (I : CUBE) (ψ χ : I -&gt; TOPE) : I -&gt; TOPE
+  := \ t -&gt; ψ t \/ χ t
 </code></pre>
               
             </div>

@@ -146,7 +146,8 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li><code>hott/4-equivalences.rzk</code> — contains the definitions of <code>Eq</code> and <code>compose_Eq</code></li>
-<li>the file <code>hott/4-equivalences.rzk</code> relies in turn on the previous files in <code>hott/</code></li>
+<li>the file <code>hott/4-equivalences.rzk</code> relies in turn on the previous files in
+  <code>hott/</code></li>
 </ul>
 <h2 id="commutation-of-arguments-and-currying">Commutation of arguments and currying</h2>
 <pre><code class="language-rzk">-- [RS17, Theorem 4.1]
@@ -242,7 +243,7 @@
    (b : (t : ϕ) -&gt; Y t (a t))
    : Eq (&lt;{t : I | ψ t} -&gt; (∑ (x : X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;)
      (∑ (f : (&lt;{t : I | ψ t} -&gt; X t [ϕ t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;))
-     := (\ g -&gt; (\ t -&gt; (first (g t)), \ t -&gt; second (g t))  , -- the one way map
+     := (\ g -&gt; (\ t -&gt; (first (g t)), \ t -&gt; second (g t)) , -- the one way map
             ((\ h t -&gt; ((first h) t, (second h) t) -- its retraction
             , \ g -&gt; refl), -- the retracting homotopy
             (\ h t -&gt; ((first h) t, (second h) t) -- its section
@@ -295,8 +296,8 @@
        (\ g -&gt; \ t -&gt; recOR(ϕ t |-&gt; g t, ψ t |-&gt; a t), \ h -&gt; refl)))
 </code></pre>
 <h2 id="relative-function-extensionality">Relative function extensionality</h2>
-<p>There are various equivalent forms of the relative function extensionality axiom.
-Here we state the one that will be most useful and derive an application.</p>
+<p>There are various equivalent forms of the relative function extensionality
+axiom. Here we state the one that will be most useful and derive an application.</p>
 <pre><code class="language-rzk">#def ext-htpy-eq
       (I : CUBE)
       (ψ : I -&gt; TOPE)
@@ -323,7 +324,7 @@ Here we state the one that will be most useful and derive an application.</p>
       (a : (t : ϕ) -&gt; A t) -&gt;
       (f : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;
       (g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;
-      isEquiv (f = g)  (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;)
+      isEquiv (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;)
          (ext-htpy-eq I ψ ϕ A a f g)
 
 -- The equivalence provided by extension extensionality.
@@ -336,7 +337,7 @@ Here we state the one that will be most useful and derive an application.</p>
    (a : (t : ϕ) -&gt; A t)
    (f g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)
    : Eq (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;)
-   := (ext-htpy-eq I ψ ϕ A a f g, extext I ψ ϕ A a f g)
+   := (ext-htpy-eq I ψ ϕ A a f g , extext I ψ ϕ A a f g)
 
 -- In particular, extension extensionality implies that homotopies give rise to identifications. This definition defines eq-ext-htpy to be the retraction to ext-htpy-eq.
 #def eq-ext-htpy
@@ -350,7 +351,8 @@ Here we state the one that will be most useful and derive an application.</p>
    : (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;) -&gt; (f = g)
    := first (first (extext I ψ ϕ A a f g))
 </code></pre>
-<p>By extension extensionality, fiberwise equivalences of extension types define equivalences of extension types.</p>
+<p>By extension extensionality, fiberwise equivalences of extension types define
+equivalences of extension types.</p>
 <pre><code class="language-rzk">-- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
 #def fibered-Eq-extension-Eq
    (extext : ExtExt)
