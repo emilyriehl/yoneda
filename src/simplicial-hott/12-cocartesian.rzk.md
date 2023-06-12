@@ -2,7 +2,9 @@
 
 These formalizations capture cocartesian families as treated in BW23.
 
-The goal, for now, is not to give a general structural account as in the paper but ratger to provide the definitions and results that are necessary to prove the cocartesian Yoneda Lemma.
+The goal, for now, is not to give a general structural account as in the paper
+but rather to provide the definitions and results that are necessary to prove
+the cocartesian Yoneda Lemma.
 
 This is a literate `rzk` file:
 
@@ -12,9 +14,12 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/*` - We require various prerequisites from homotopy type theory, for instance the axiom of function extensionality.
-- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
-- `4-extension-types.md` — We use the fubini theorem and extension extensionality.
+- `hott/*` - We require various prerequisites from homotopy type theory, for
+  instance the axiom of function extensionality.
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their
+  subshapes.
+- `4-extension-types.md` — We use the fubini theorem and extension
+  extensionality.
 - `5-segal-types.md` - We make heavy use of the notion of Segal types
 - `8-covariant.md` - We use covariant type families.
 
@@ -22,41 +27,42 @@ This is a literate `rzk` file:
 
 ```rzk
 #def innerFam
-    (B : U)
-    : U
-    :=
-    (∑(P : B -> U), (b : B) -> (isSegal (P b)))
+  (B : U)
+  : U
+  := ∑ (P : B -> U) , (b : B) -> (isSegal (P b))
 ```
 
-## Definition of cocartesian lifts
+## Definition of cocartesian arrows [BW23, Definition 5.1.1]
 
--- [BW23, Definition 5.1.1]
--- the proposition that a dependent arrow in a family is cocartesian
--- (alternative version using unpacked extension types because this is preferred for usage)
+Here we define the proposition that a dependent arrow in a family is
+cocartesian. This is an alternative version using unpacked extension types, as
+this is preferred for usage.
 
 ```rzk
 #def isCocartArr
-    (B : U)
-    (b b' : B)
-    (u : hom B b b')
-    (P : B -> U)
-    (e : P b)
-    (e' : P b')
-    (f : dhom B b b' u P e e')
-    : U
-    := (b'' : B)
-    -> (v : hom B b' b'')
-    -> (w : hom B b b'')
-    -> (sigma : hom2 B b b' b'' u v w)
-    -> (e'' : P b'')
-    -> (h : dhom B b b'' w P e e'')
-    -> isContr (∑(g : dhom B b' b'' v P e' e''), (dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
+  (B : U)
+  (b b' : B)
+  (u : hom B b b')
+  (P : B -> U)
+  (e : P b)
+  (e' : P b')
+  (f : dhom B b b' u P e e')
+  : U
+  := (b'' : B)
+  -> (v : hom B b' b'')
+  -> (w : hom B b b'')
+  -> (sigma : hom2 B b b' b'' u v w)
+  -> (e'' : P b'')
+  -> (h : dhom B b b'' w P e e'')
+  -> isContr
+      ( ∑ ( g : dhom B b' b'' v P e' e'') ,
+          ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 ```
 
-# Definition of cocartesian lifts
+## Definition of cocartesian lifts [BW23, Definition 5.1.2]
 
--- [BW23, Definition 5.1.2]
--- the type of cocartesian lifts of a fixed arrow in the base with a given starting point in the fiber
+The following is the type of cocartesian lifts of a fixed arrow in the base with
+a given starting point in the fiber.
 
 ```rzk
 #def CocartLift
@@ -67,28 +73,85 @@ This is a literate `rzk` file:
     (e : P b)
     : U
     := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
+```
 
+## Initial objects
+
+```rzk
 #def isInitial
     (A : U)
     (a : A)
     : U
     := (x : A) -> isContr(hom A a x)
+```
 
--- In a Segal type, initial objects are isomorphic.
+In a Segal type, initial objects are isomorphic.
+
+```rzk
 #def initial-iso
-    (A : U)
-    (AisSegal : isSegal A)
-    (a b : A)
-    (ainitial : isInitial A a)
-    (binitial : isInitial A b)
-    : Iso A AisSegal a b
-    := (first (ainitial b),
-        ((first (binitial a),
-            contractible-connecting-htpy (hom A a a) (ainitial a) (Segal-comp A AisSegal a b a (first (ainitial b)) (first (binitial a))) (id-arr A a))
-        ,
-        (first (binitial a),
-            contractible-connecting-htpy (hom A b b) (binitial b) (Segal-comp A AisSegal b a b (first (binitial a)) (first (ainitial b))) (id-arr A b))
-        ))
+  (A : U)
+  (AisSegal : isSegal A)
+  (a b : A)
+  (ainitial : isInitial A a)
+  (binitial : isInitial A b)
+  : Iso A AisSegal a b
+  :=
+    ( first (ainitial b) ,
+      ( ( first (binitial a) ,
+          contractible-connecting-htpy
+            ( hom A a a)
+            ( ainitial a)
+            ( Segal-comp A AisSegal a b a
+              ( first (ainitial b))
+              ( first (binitial a)))
+            ( id-arr A a)) ,
+        ( first (binitial a) ,
+          contractible-connecting-htpy
+            ( hom A b b)
+            ( binitial b)
+            ( Segal-comp A AisSegal b a b
+              ( first (binitial a))
+              ( first (ainitial b)))
+            ( id-arr A b))))
+```
 
+## Final objects
 
+```rzk
+#def isFinal
+  (A : U)
+  (a : A)
+  : U
+  := (x : A) -> isContr(hom A x a)
+```
+
+In a Segal type, final objects are isomorphic.
+
+```rzk
+#def final-iso
+  (A : U)
+  (AisSegal : isSegal A)
+  (a b : A)
+  (afinal : isFinal A a)
+  (bfinal : isFinal A b)
+  (iso : Iso A AisSegal a b)
+  : Iso A AisSegal a b
+  :=
+    ( first (bfinal a) ,
+      ( ( first (afinal b) ,
+          contractible-connecting-htpy
+            ( hom A a a)
+            ( afinal a)
+            ( Segal-comp A AisSegal a b a
+              ( first (bfinal a))
+              ( first (afinal b)))
+            ( id-arr A a)) ,
+        ( first (afinal b) ,
+          contractible-connecting-htpy
+            ( hom A b b)
+            ( bfinal b)
+            ( Segal-comp A AisSegal b a b
+              ( first (afinal b))
+              ( first (bfinal a)))
+            ( id-arr A b))))
 ```
