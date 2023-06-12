@@ -29,7 +29,7 @@ This is a literate `rzk` file:
   := idJ(A, y, \z' q' -> (x = z'), p, z, q)
 
 -- an alternative construction of path composition by induction on the first path
--- this is useful in situations where it's easier to induction on the first path
+-- this is useful in situations where it's easier to induct on the first path
 #def altconcat
   (p : x = y)       -- A path from x to y in A.
   : (y = z) -> (x = z)
@@ -491,5 +491,4 @@ The statements or proofs of the following path algebra coherences reference one 
   (H : q = r)
   : triple-concat A w x y z p q s = triple-concat A w x y z p r s
   := idJ(x = y, q, \r' H' -> triple-concat A w x y z p q s = triple-concat A w x y z p r' s, refl, r, H)
-
 ```

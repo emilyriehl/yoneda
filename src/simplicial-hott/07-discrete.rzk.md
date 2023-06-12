@@ -172,7 +172,16 @@ Discrete types are automatically Segal types.
     : isEquiv (f =_{Δ¹ -> A} g)(hom (arr A) f g)(id-to-arr (arr A) f g)
     := (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g
 
+-- The equivalence underlying Eq-arr.
+#def fibered-arr-free-arr
+    : (arr A) -> (∑ (x : A), (∑ (y : A), hom A x y))
+    := \k -> (k 0_2, (k 1_2, k))
+
+#def id-equiv-Eq-arr uses (w x y z)
+    : isEquiv (f =_{Δ¹ -> A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
+        (ap (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) f g fibered-arr-free-arr)
+    := isEquiv-ap-isEquiv (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) fibered-arr-free-arr
+        (second (Eq-arr A)) f g
+
 #end discrete-arr-equivalences
-
-
 ```
