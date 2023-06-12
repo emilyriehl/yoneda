@@ -198,6 +198,14 @@ The statements or proofs of the following path algebra coherences reference one 
   : (f x = f y)
   := idJ(A, x, \y' -> \p' -> (f x = f y'), refl, y, p)
 
+#def ap-rev
+  (A B : U)
+  (x y : A)
+  (f : A -> B)
+  (p : x = y)
+  : ap A B y x f (rev A x y p) = rev B (f x) (f y) (ap A B x y f p)
+  := idJ(A, x, \y' p' -> ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p'), refl, y, p)
+
 #def ap-concat
   (A B : U)
   (x y z : A)
@@ -431,4 +439,57 @@ The statements or proofs of the following path algebra coherences reference one 
       p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
 
 #end higher-concatenation
+```
+
+## Higher-order coherences
+
+```rzk
+#def rev-refl-id-triple-concat
+  (A : U)
+  (x y : A)
+  (p : x = y)
+  : triple-concat A y x x y (rev A x y p) refl p = refl
+  := idJ(A, x, \y' p' -> triple-concat A y' x x y' (rev A x y' p') refl p' = refl, refl, y, p)
+
+#def ap-rev-refl-id-triple-concat
+  (A B : U)
+  (x y : A)
+  (f : A -> B)
+  (p : x = y)
+  : ap A B y y f (triple-concat A y x x y (rev A x y p) refl p) = refl
+  := idJ(A, x, \y' p' -> ap A B y' y' f (triple-concat A y' x x y' (rev A x y' p') refl p') = refl, refl, y, p)
+
+#def ap-triple-concat
+  (A B : U)
+  (w x y z : A)
+  (f : A -> B)
+  (p : w = x)
+  (q : x = y)
+  (r : y = z)
+  : ap A B w z f (triple-concat A w x y z p q r) =
+    triple-concat B (f w) (f x) (f y) (f z) (ap A B w x f p)(ap A B x y f q)(ap A B y z f r)
+  := idJ(A, y, \z' r' -> ap A B w z' f (triple-concat A w x y z' p q r') =
+    triple-concat B (f w) (f x) (f y) (f z') (ap A B w x f p)(ap A B x y f q)(ap A B y z' f r'),
+    ap-concat A B w x y f p q, z, r)
+
+#def homotopy-triple-concat
+  (A : U)
+  (w x y z : A)
+  (p q : w = x)
+  (r : x = y)
+  (s : y = z)
+  (H : p = q)
+  : triple-concat A w x y z p r s = triple-concat A w x y z q r s
+  := homotopy-concat A w x z p q H (concat A x y z r s)
+
+#def triple-homotopy-concat
+  (A : U)
+  (w x y z : A)
+  (p : w = x)
+  (q r : x = y)
+  (s : y = z)
+  (H : q = r)
+  : triple-concat A w x y z p q s = triple-concat A w x y z p r s
+  := idJ(x = y, q, \r' H' -> triple-concat A w x y z p q s = triple-concat A w x y z p r' s, refl, r, H)
+
 ```

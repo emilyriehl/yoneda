@@ -512,21 +512,277 @@ If a map is homotopic to an equivalence it is an equivalence.
 
 ## Equivalences of identity types
 
-The first step towards the proof that equivalent types have equivalent identity types.
+Equivalent types have equivalent identity types.
 
-````rzk
-#def iff-ap-hasInverse
-    (A B : U)
-    (f : A -> B)
-    (fhasinverse : hasInverse A B f)
+```rzk
+#section equiv-identity-types-equiv
+
+#variables A B : U
+#variable f : A -> B
+#variable fisHAE : isHalfAdjointEquiv A B f
+
+#def iff-ap-isHalfAdjointEquiv
     (x y : A)
     : iff (x = y) (f x = f y)
-    := (ap A B x y f , \p ->
-        triple-concat A x ((hasInverse-inverse A B f fhasinverse) (f x))
-            ((hasInverse-inverse A B f fhasinverse) (f y)) y
-            (rev A (hasInverse-retraction-composite A B f fhasinverse x) x ((first (second fhasinverse)) x))
-            (ap B A (f x) (f y) (hasInverse-inverse A B f fhasinverse) p)
-            ((first (second fhasinverse)) y))
+    := (ap A B x y f , \q ->
+        triple-concat A x ((hasInverse-inverse A B f (first fisHAE)) (f x))
+            ((hasInverse-inverse A B f (first fisHAE)) (f y)) y
+            (rev A (hasInverse-retraction-composite A B f (first fisHAE) x) x ((first (second (first fisHAE))) x))
+            (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q)
+            ((first (second (first fisHAE))) y))
+
+#def hasRetraction-ap-isHalfAdjointEquiv
+    (x y : A)
+    : hasRetraction (x = y) (f x = f y) (ap A B x y f)
+    := (second (iff-ap-isHalfAdjointEquiv x y), \p ->
+            idJ(A, x,
+                \y' p' ->
+                    (second (iff-ap-isHalfAdjointEquiv x y')) (ap A B x y' f p') = p',
+                (rev-refl-id-triple-concat A ((hasInverse-inverse A B f (first fisHAE)) (f x)) x
+                    ((first (second (first fisHAE))) x)),
+                    y, p))
+
+#def ap-triple-concat-isHalfAdjointEquiv
+    (x y : A)
+    (q : f x = f y)
+    : ap A B x y f ((second (iff-ap-isHalfAdjointEquiv x y)) q) =
+        (triple-concat B
+            (f x)
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+            (f y)
+            (ap A B x ((hasInverse-inverse A B f (first fisHAE)) (f x)) f
+            (rev A (hasInverse-retraction-composite A B f (first fisHAE) x) x ((first (second (first fisHAE))) x)))
+            (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x))
+                ((hasInverse-inverse A B f (first fisHAE)) (f y)) f (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q))
+            (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+    := ap-triple-concat A B
+                x ((hasInverse-inverse A B f (first fisHAE)) (f x))
+                ((hasInverse-inverse A B f (first fisHAE)) (f y)) y
+                f
+                (rev A (hasInverse-retraction-composite A B f (first fisHAE) x) x ((first (second (first fisHAE))) x))
+                (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q)
+                ((first (second (first fisHAE))) y)
+
+#def ap-rev-homotopy-triple-concat-isHalfAdjointEquiv
+    (x y : A)
+    (q : f x = f y)
+    : (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (ap A B x ((hasInverse-inverse A B f (first fisHAE)) (f x)) f
+        (rev A (hasInverse-retraction-composite A B f (first fisHAE) x) x ((first (second (first fisHAE))) x)))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x))
+        ((hasInverse-inverse A B f (first fisHAE)) (f y)) f (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+    = (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x))
+        ((hasInverse-inverse A B f (first fisHAE)) (f y)) f (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+    := homotopy-triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (ap A B x ((hasInverse-inverse A B f (first fisHAE)) (f x)) f
+        (rev A (hasInverse-retraction-composite A B f (first fisHAE) x) x ((first (second (first fisHAE))) x)))
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x))
+        ((hasInverse-inverse A B f (first fisHAE)) (f y)) f (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y))
+        (ap-rev A B (hasInverse-retraction-composite A B f (first fisHAE) x) x f ((first (second (first fisHAE))) x))
+
+#def ap-ap-homotopy-triple-concat-isHalfAdjointEquiv
+    (x y : A)
+    (q : f x = f y)
+    : (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x))
+        ((hasInverse-inverse A B f (first fisHAE)) (f y)) f (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+    = (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+    := triple-homotopy-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x))
+            ((hasInverse-inverse A B f (first fisHAE)) (f y)) f (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y))
+        (rev-ap-comp B A B (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) f q)
+
+-- This needs to be reversed later.
+#def triple-concat-higher-homotopy-isHalfAdjointEquiv
+    (x y : A)
+    (q : f x = f y)
+    : (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+            (((second (second (first fisHAE)))) (f x)))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (((second (second (first fisHAE)))) (f y))) =
+    (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+    := triple-concat-higher-homotopy A B
+        (hasInverse-triple-composite A B f (first fisHAE)) f (\a -> (((second (second (first fisHAE)))) (f a))) (\a -> (ap A B (hasInverse-retraction-composite A B f (first fisHAE) a) a f (((first (second (first fisHAE)))) a)))
+        (second fisHAE)
+        x y (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+
+#def triple-concat-nat-htpy-isHalfAdjointEquiv
+    (x y : A)
+    (q : f x = f y)
+    : (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+            (((second (second (first fisHAE)))) (f x)))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (((second (second (first fisHAE)))) (f y)))
+    = ap B B (f x) (f y) (identity B) q
+    := triple-concat-nat-htpy B B (hasInverse-section-composite A B f (first fisHAE)) (identity B)
+        ((second (second (first fisHAE)))) (f x) (f y) q
+
+#def zag-zig-concat-triple-concat-isHalfAdjointEquiv
+    (x y : A)
+    (q : f x = f y)
+    : (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+    = ap B B (f x) (f y) (identity B) q
+    := zag-zig-concat (f x = f y)
+        (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+        (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+            (((second (second (first fisHAE)))) (f x)))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (((second (second (first fisHAE)))) (f y)))
+        (ap B B (f x) (f y) (identity B) q)
+        (triple-concat-higher-homotopy-isHalfAdjointEquiv x y q)
+        (triple-concat-nat-htpy-isHalfAdjointEquiv x y q)
+
+#def triple-concat-reduction-isHalfAdjointEquiv
+    (x y : A)
+    (q : f x = f y)
+    : ap B B (f x) (f y) (identity B) q = q
+    := ap-id B (f x) (f y) q
+
+#def section-htpy-ap-isHalfAdjointEquiv
+    (x y : A)
+    (q : f x = f y)
+    : ap A B x y f ((second (iff-ap-isHalfAdjointEquiv x y)) q) = q
+    := quintuple-concat-alternating (f x = f y)
+        (ap A B x y f ((second (iff-ap-isHalfAdjointEquiv x y)) q))
+        (triple-concat B
+            (f x)
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+            (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+            (f y)
+            (ap A B x ((hasInverse-inverse A B f (first fisHAE)) (f x)) f
+            (rev A (hasInverse-retraction-composite A B f (first fisHAE) x) x ((first (second (first fisHAE))) x)))
+            (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x))
+                ((hasInverse-inverse A B f (first fisHAE)) (f y)) f (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q))
+            (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+        (ap-triple-concat-isHalfAdjointEquiv x y q)
+        (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x))
+        ((hasInverse-inverse A B f (first fisHAE)) (f y)) f (ap B A (f x) (f y) (hasInverse-inverse A B f (first fisHAE)) q))
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+        (ap-rev-homotopy-triple-concat-isHalfAdjointEquiv x y q)
+        (triple-concat B
+        (f x)
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f x)))
+        (f ((hasInverse-inverse A B f (first fisHAE)) (f y)))
+        (f y)
+        (rev B (f (hasInverse-retraction-composite A B f (first fisHAE) x)) (f x)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f x)) x f ((first (second (first fisHAE))) x)))
+        (ap B B (f x) (f y) (hasInverse-section-composite A B f (first fisHAE)) q)
+        (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f y)) y f ((first (second (first fisHAE))) y)))
+        (ap-ap-homotopy-triple-concat-isHalfAdjointEquiv x y q)
+        (ap B B (f x) (f y) (identity B) q)
+        (zag-zig-concat-triple-concat-isHalfAdjointEquiv x y q)
+        q
+        (triple-concat-reduction-isHalfAdjointEquiv x y q)
+
+#def hasSection-ap-isHalfAdjointEquiv uses (fisHAE)
+    (x y : A)
+    : hasSection (x = y) (f x = f y) (ap A B x y f)
+    := (second (iff-ap-isHalfAdjointEquiv x y), section-htpy-ap-isHalfAdjointEquiv x y)
+
+#def isEquiv-ap-isHalfAdjointEquiv uses (fisHAE)
+    (x y : A)
+    : isEquiv (x = y) (f x = f y) (ap A B x y f)
+    := (hasRetraction-ap-isHalfAdjointEquiv x y, hasSection-ap-isHalfAdjointEquiv x y)
+#end equiv-identity-types-equiv
+
+#def isEquiv-ap-isEquiv
+    (A B : U)
+    (f : A -> B)
+    (fisequiv : isEquiv A B f)
+    (x y : A)
+    : isEquiv (x = y) (f x = f y)(ap A B x y f)
+    := isEquiv-ap-isHalfAdjointEquiv A B f (isEquiv-isHalfAdjointEquiv A B f fisequiv) x y
+
 ```
 
 ## Function extensionality
@@ -583,4 +839,7 @@ The function extensionality axiom asserts that this map defines a family of equi
            ((\b -> \x -> (first (second (second (fibequiv x)))) (b x)),
             (\b -> eq-htpy funext X B (\x -> (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -> (second (second (second (fibequiv x)))) (b x))))))
 ```
-````
+
+```
+
+```
