@@ -80,6 +80,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#an-application">An application</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conjugation-with-higher-homotopies">Conjugation with higher homotopies</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../03-equivalences.rzk/">Equivalences</a>
@@ -146,20 +148,20 @@
 #variables A B : U
 
 -- The type of homotopies between parallel functions.
-#def homotopy 
+#def homotopy
     (f g : A -&gt; B)          -- Two parallel functions.
     : U
     := (a : A) -&gt; (f a = g a)
 
--- The reversal of a homotopy    
-#def homotopy-rev 
+-- The reversal of a homotopy
+#def homotopy-rev
     (f g : A -&gt; B)          -- Two parallel functions.
     (H : homotopy f g)  -- A homotopy from f to g.
     : homotopy g f
     := \a -&gt; rev B (f a) (g a) (H a)
 
 -- Homotopy composition is defined in diagrammatic order like concat but unlike composition.
-#def homotopy-composition 
+#def homotopy-composition
     (f g h : A -&gt; B)          -- Three parallel functions.
     (H : homotopy f g)
     (K : homotopy g h)
@@ -173,14 +175,14 @@
 
 #variables A B C : U
 
-#def homotopy-postwhisker 
+#def homotopy-postwhisker
     (f g : A -&gt; B)              -- Two parallel functions.
     (H : homotopy A B f g)      -- A homotopy from f to g.
     (h : B -&gt; C)
     : homotopy A C (composition A B C h f) (composition A B C h g)
     := \a -&gt; ap B C (f a) (g a) h (H a)
 
-#def homotopy-prewhisker 
+#def homotopy-prewhisker
     (f g : B -&gt; C)              -- Two parallel functions
     (H : homotopy B C f g)
     (h : A -&gt; B)
@@ -191,20 +193,33 @@
 </code></pre>
 <h2 id="naturality">Naturality</h2>
 <pre><code class="language-rzk">-- The naturality square associated to a homotopy and a path.
-#def nat-htpy 
+#def nat-htpy
     (A B : U)               -- Two types.
     (f g : A -&gt; B)          -- Two parallel functions.
     (H : homotopy A B f g)  -- A homotopy from f to g.
     (x y : A)
     (p : x = y)
     : (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) = (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
-    := idJ(A, x, 
-            \y' p' 
-                -&gt; (concat B (f x) (f y') (g y') 
+    := idJ(A, x,
+            \y' p'
+                -&gt; (concat B (f x) (f y') (g y')
                         (ap A B x y' f p') (H y')) =
-                   (concat B (f x) (g x) (g y') 
-                        (H x) (ap A B x y' g p')), 
+                   (concat B (f x) (g x) (g y')
+                        (H x) (ap A B x y' g p')),
             refl-concat B (f x) (g x) (H x), y, p)
+
+-- Naturality in another form
+#def triple-concat-nat-htpy
+    (A B : U)               -- Two types.
+    (f g : A -&gt; B)          -- Two parallel functions.
+    (H : homotopy A B f g)  -- A homotopy from f to g.
+    (x y : A)
+    (p : x = y)
+    : triple-concat B (g x) (f x) (f y) (g y)
+        (rev B (f x) (g x) (H x)) (ap A B x y f p) (H y) = ap A B x y g p
+    := idJ(A, x, \y' p' -&gt; triple-concat B (g x) (f x) (f y') (g y')
+        (rev B (f x) (g x) (H x)) (ap A B x y' f p') (H y') = ap A B x y' g p',
+        rev-refl-id-triple-concat B (f x) (g x) (H x), y, p)
 </code></pre>
 <h2 id="an-application">An application</h2>
 <pre><code class="language-rzk">#section cocone-naturality
@@ -215,32 +230,56 @@
 #variable a : A
 
 -- In the case of a homotopy H from f to the identity the previous square applies to the path H a to produce the following naturality square.
-#def cocone-naturality 
+#def cocone-naturality
     : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
             (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
     := nat-htpy A A f (identity A) H (f a) a (H a)
 
 -- After composing with ap-id, this naturality square transforms to the following:
-#def reduced-cocone-naturality 
+#def reduced-cocone-naturality
     : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
             (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
-    := concat ((f (f a)) = a) (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) 
+    := concat ((f (f a)) = a) (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a))
             (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
             (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
                 (cocone-naturality)
                 (concat-homotopy A (f (f a)) (f a) (H (f a)) a (ap A A (f a) a (identity A) (H a)) (H a) (ap-id A (f a) a (H a)))
 
 -- Cancelling the path (H a) on the right and reversing yields a path we need:
-#def cocone-naturality-coherence 
-    : (H (f a)) =(ap A A (f a) a  f (H a))  
-    := rev (f (f a) = f a) (ap A A (f a) a  f (H a)) (H (f a)) 
-        (concat-right-cancel A (f (f a)) (f a) a 
-            (ap A A (f a) a  f (H a)) 
-            (H (f a)) 
-            (H a) 
+#def cocone-naturality-coherence
+    : (H (f a)) =(ap A A (f a) a  f (H a))
+    := rev (f (f a) = f a) (ap A A (f a) a  f (H a)) (H (f a))
+        (concat-right-cancel A (f (f a)) (f a) a
+            (ap A A (f a) a  f (H a))
+            (H (f a))
+            (H a)
                 (reduced-cocone-naturality))
 
-#end cocone-naturality                
+#end cocone-naturality
+</code></pre>
+<h2 id="conjugation-with-higher-homotopies">Conjugation with higher homotopies</h2>
+<pre><code class="language-rzk">-- Conjugation between higher homotopies
+#def triple-concat-higher-homotopy
+    (A B : U)                   -- Two types.
+    (f g : A -&gt; B)              -- Two parallel functions.
+    (H K : homotopy A B f g)    -- Two homotopies from f to g.
+    (α : (a : A) -&gt; H a = K a)
+    (x y : A)
+    (p : f x = f y)
+    : triple-concat B (g x) (f x) (f y) (g y)
+        (rev B (f x) (g x) (H x)) p (H y) =
+        triple-concat B (g x) (f x) (f y) (g y)
+            (rev B (f x) (g x) (K x)) p (K y)
+    := idJ(f y = g y, H y, \Ky α' -&gt;
+        triple-concat B (g x) (f x) (f y) (g y)
+            (rev B (f x) (g x) (H x)) p (H y) =
+        triple-concat B (g x) (f x) (f y) (g y)
+            (rev B (f x) (g x) (K x)) p (Ky),
+        homotopy-triple-concat B (g x) (f x) (f y) (g y)
+            (rev B (f x) (g x) (H x))
+            (rev B (f x) (g x) (K x))
+            p (H y)
+            (ap (f x = g x)(g x = f x) (H x) (K x) (\G -&gt; rev B (f x)(g x) G) (α x)), K y, α y)
 </code></pre>
               
             </div>
