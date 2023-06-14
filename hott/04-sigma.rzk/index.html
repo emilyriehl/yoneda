@@ -80,6 +80,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#identity-types-of-sigma-types">Identity types of sigma types</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#symmetry-of-products">Symmetry of products</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#fubini">Fubini</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#associativity">Associativity</a>
@@ -259,8 +261,20 @@
 
 #end paths-in-sigma
 </code></pre>
+<h2 id="symmetry-of-products">Symmetry of products</h2>
+<pre><code class="language-rzk">#def sym-prod
+  (A B : U)
+  : Eq (prod A B)(prod B A)
+  := (\(a, b) -&gt; (b, a),
+        (
+        (\(b, a) -&gt; (a, b),\p -&gt; refl),
+        (\(b, a) -&gt; (a, b),\p -&gt; refl)
+        )
+      )
+</code></pre>
 <h2 id="fubini">Fubini</h2>
-<p>Given a family over a pair of independent types, the order of summation is unimportant.</p>
+<p>Given a family over a pair of independent types, the order of summation is
+unimportant.</p>
 <pre><code class="language-rzk">#def sigma-fubini
     (A B : U)
     (C : A -&gt; B -&gt; U)

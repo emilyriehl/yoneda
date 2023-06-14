@@ -103,11 +103,11 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#type-of-fiberwise-segal-families-over-a-base-type">Type of fiberwise Segal families over a base type</a>
+    <li class="toctree-l2"><a class="reference internal" href="#fiberwise-segal-families">Fiberwise Segal families</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#definition-of-cocartesian-arrows-bw23-definition-511">Definition of cocartesian arrows [BW23, Definition 5.1.1]</a>
+    <li class="toctree-l2"><a class="reference internal" href="#cocartesian-arrows">Cocartesian arrows</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#definition-of-cocartesian-lifts-bw23-definition-512">Definition of cocartesian lifts [BW23, Definition 5.1.2]</a>
+    <li class="toctree-l2"><a class="reference internal" href="#cocartesian-lifts">Cocartesian lifts</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#initial-objects">Initial objects</a>
     </li>
@@ -159,17 +159,18 @@ the cocartesian Yoneda Lemma.</p>
 <li><code>5-segal-types.md</code> - We make heavy use of the notion of Segal types</li>
 <li><code>8-covariant.md</code> - We use covariant type families.</li>
 </ul>
-<h2 id="type-of-fiberwise-segal-families-over-a-base-type">Type of fiberwise Segal families over a base type</h2>
+<h2 id="fiberwise-segal-families">Fiberwise Segal families</h2>
 <pre><code class="language-rzk">#def innerFam
   (B : U)
   : U
   := ∑ (P : B -&gt; U) , (b : B) -&gt; (isSegal (P b))
 </code></pre>
-<h2 id="definition-of-cocartesian-arrows-bw23-definition-511">Definition of cocartesian arrows [BW23, Definition 5.1.1]</h2>
+<h2 id="cocartesian-arrows">Cocartesian arrows</h2>
 <p>Here we define the proposition that a dependent arrow in a family is
 cocartesian. This is an alternative version using unpacked extension types, as
 this is preferred for usage.</p>
-<pre><code class="language-rzk">#def isCocartArr
+<pre><code class="language-rzk">-- [BW23, Definition 5.1.1]
+#def isCocartArr
   (B : U)
   (b b' : B)
   (u : hom B b b')
@@ -188,10 +189,11 @@ this is preferred for usage.</p>
       ( ∑ ( g : dhom B b' b'' v P e' e'') ,
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 </code></pre>
-<h2 id="definition-of-cocartesian-lifts-bw23-definition-512">Definition of cocartesian lifts [BW23, Definition 5.1.2]</h2>
+<h2 id="cocartesian-lifts">Cocartesian lifts</h2>
 <p>The following is the type of cocartesian lifts of a fixed arrow in the base with
 a given starting point in the fiber.</p>
-<pre><code class="language-rzk">#def CocartLift
+<pre><code class="language-rzk">-- [BW23, Definition 5.1.2]
+#def CocartLift
     (B : U)
     (b b' : B)
     (u : hom B b b')
