@@ -63,6 +63,10 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href=".">About</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#checking-the-formalisations-locally">Checking the Formalisations Locally</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#references">References</a>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -129,17 +133,51 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="yoneda-for-categories">Yoneda for ∞-categories</h1>
-<p>This is a formalization library for simplicial Homotopy Type Theory (HoTT) with the aim of proving the Yoneda lemma for ∞-categories following the paper "<a href="https://higher-structures.math.cas.cz/api/files/issues/Vol1Iss1/RiehlShulman">A type theory for synthetic ∞-categories</a>" [1]. This formalization project could be regarded as a companion to the article "<a href="https://www.ams.org/journals/notices/202305/noti2692/noti2692.html">Could ∞-category theory be taught to undergraduates?</a>" [2]. Our source files are available on <a href="https://github.com/emilyriehl/">github</a>.</p>
-<p>The formalizations are implemented using <a href="https://github.com/fizruk/rzk"><code>rzk</code></a>, an experimental proof assistant for a variant of type theory with shapes developed by <a href="https://fizruk.github.io/">Nikolai Kudasov</a>. Nikolai describes <code>rzk</code> in a recent talk available on <a href="https://youtu.be/QeHcX0gx2uY">YouTube</a>. Formalizations were contributed by Nikolai Kudasov, <a href="https://emilyriehl.github.io/">Emily Riehl</a>, and <a href="https://sites.google.com/view/jonathanweinberger">Jonathan Weinberger</a>.</p>
-<p>Another aim of this project is to compare the proof of the Yoneda lemma for ∞-categories in simplicial HoTT with proofs of the Yoneda lemma for 1-categories in other proof assistants. To that end <a href="https://sinhp.github.io/">Sina Hazratpour</a> has contributed a formalization in <a href="https://leanprover-community.github.io/"><code>Lean3</code></a> extracted from materials he prepared to teach <a href="https://sinhp.github.io/teaching/2022-introduction-to-proofs-with-Lean">Introduction to Proofs</a> at Johns Hopkins, which can be found <a href="https://github.com/emilyriehl/yoneda/blob/master/lean/yoneda.lean">here</a>.</p>
-<p>We also contributed a proof of the <a href="https://unimath.github.io/agda-unimath/category-theory.yoneda-lemma-precategories.html">Yoneda lemma for precategories</a> to the <a href="https://unimath.github.io/agda-unimath/">Agda-Unimath</a> library. Here we prove the Yoneda lemma for pre-∞-categories, since the univalence/completeness condition is not required for this result. By analogy, precategories are the non-univalent 1-categories in HoTT.</p>
-<h1 id="references">References</h1>
+<p>This is a formalization library for simplicial Homotopy Type Theory (HoTT) with
+the aim of proving the Yoneda lemma for ∞-categories following the paper
+"<a href="https://higher-structures.math.cas.cz/api/files/issues/Vol1Iss1/RiehlShulman">A type theory for synthetic ∞-categories</a>"
+[1]. This formalization project could be regarded as a companion to the article
+"<a href="https://www.ams.org/journals/notices/202305/noti2692/noti2692.html">Could ∞-category theory be taught to undergraduates?</a>"
+[2].</p>
+<p>The formalizations are implemented using <a href="https://github.com/fizruk/rzk"><code>rzk</code></a>,
+an experimental proof assistant for a variant of type theory with shapes
+developed by <a href="https://fizruk.github.io/">Nikolai Kudasov</a>. Formalizations were
+contributed by <a href="https://github.com/fredrik-bakke">Fredrik Bakke</a>,
+<a href="https://fizruk.github.io/">Nikolai Kudasov</a>,
+<a href="https://emilyriehl.github.io/">Emily Riehl</a>, and
+<a href="https://sites.google.com/view/jonathanweinberger">Jonathan Weinberger</a>. Our
+source files are available on <a href="https://github.com/emilyriehl/">github</a>.</p>
+<p>Another aim of this project is to compare the proof of the Yoneda lemma for
+∞-categories in simplicial HoTT with proofs of the Yoneda lemma for 1-categories
+in other proof assistants. To that end
+<a href="https://sinhp.github.io/">Sina Hazratpour</a> has contributed a formalization in
+<a href="https://leanprover-community.github.io/"><code>Lean3</code></a> extracted from materials he
+prepared to teach
+<a href="https://sinhp.github.io/teaching/2022-introduction-to-proofs-with-Lean">Introduction to Proofs</a>
+at Johns Hopkins, which can be found
+<a href="https://github.com/emilyriehl/yoneda/blob/master/lean/yoneda.lean">here</a>.</p>
+<p>We also contributed a proof of the
+<a href="https://unimath.github.io/agda-unimath/category-theory.yoneda-lemma-precategories.html">Yoneda lemma for precategories</a>
+to the <a href="https://unimath.github.io/agda-unimath/">Agda-Unimath</a> library. Here we
+prove the Yoneda lemma for pre-∞-categories, since the univalence/completeness
+condition is not required for this result. By analogy, precategories are the
+non-univalent 1-categories in HoTT.</p>
+<h2 id="checking-the-formalisations-locally">Checking the Formalisations Locally</h2>
+<p>Install <a href="https://github.com/fizruk/rzk"><code>rzk</code></a> proof assistant. Then run the
+following command from the root of
+<a href="https://github.com/emilyriehl/">our repository</a>:</p>
+<pre><code class="language-sh">stack exec rzk typecheck src/hott/* src/simplicial-hott/*
+</code></pre>
+<h2 id="references">References</h2>
 <ol>
 <li>
-<p>Emily Riehl &amp; Michael Shulman. A type theory for synthetic ∞-categories. Higher Structures 1(1), 147-224. 2017. https://arxiv.org/abs/1705.07442</p>
+<p>Emily Riehl &amp; Michael Shulman. A type theory for synthetic ∞-categories.
+   Higher Structures 1(1), 147-224. 2017. https://arxiv.org/abs/1705.07442</p>
 </li>
 <li>
-<p>Emily Riehl. Could ∞-category theory be taught to undergraduates? Notices of the AMS. May 2023. https://www.ams.org/journals/notices/202305/noti2692/noti2692.html</p>
+<p>Emily Riehl. Could ∞-category theory be taught to undergraduates? Notices of
+   the AMS. May 2023.
+   https://www.ams.org/journals/notices/202305/noti2692/noti2692.html</p>
 </li>
 </ol>
               

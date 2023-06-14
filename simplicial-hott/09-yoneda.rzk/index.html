@@ -109,6 +109,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#the-yoneda-lemma_1">The Yoneda lemma</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#yoneda-for-contravariant-families">Yoneda for contravariant families</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../12-cocartesian.rzk/">Cocartesian Families</a>
@@ -145,17 +147,23 @@
 </code></pre>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
-<li><code>hott/*</code> - We require various prerequisites from homotopy type theory, for instance the axiom of function extensionality.</li>
-<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
-<li><code>4-extension-types.md</code> — We use the fubini theorem and extension extensionality.</li>
+<li><code>hott/*</code> - We require various prerequisites from homotopy type theory, for
+  instance the axiom of function extensionality.</li>
+<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their
+  subshapes.</li>
+<li><code>4-extension-types.md</code> — We use the fubini theorem and extension
+  extensionality.</li>
 <li><code>5-segal-types.md</code> - We make heavy use of the notion of Segal types</li>
 <li><code>8-covariant.md</code> - We use covariant type families.</li>
 </ul>
 <h2 id="natural-transformations-involving-a-representable-functor">Natural transformations involving a representable functor</h2>
-<p>Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural transformations from the representable type family hom A a : A -&gt; U to a covariant type family C : A -&gt; U. </p>
-<p>Ordinary, such a natural transformation would involve a family of maps </p>
+<p>Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural
+transformations from the representable type family hom A a : A -&gt; U to a
+covariant type family C : A -&gt; U.</p>
+<p>Ordinary, such a natural transformation would involve a family of maps</p>
 <p>ϕ : (z : A) -&gt; hom A a z -&gt; C z</p>
-<p>together with a proof of naturality of these components, but by naturality-covariant-fiberwise-transformation naturality is automatic.</p>
+<p>together with a proof of naturality of these components, but by
+naturality-covariant-fiberwise-transformation naturality is automatic.</p>
 <pre><code class="language-rzk">#def naturality-covariant-fiberwise-representable-transformation
     (A : U)
     (AisSegal : isSegal A)
@@ -166,17 +174,21 @@
     (CisCov : isCovFam A C)
     (ϕ : (z : A) -&gt; hom A a z -&gt; C z)
     : (covTrans A x y g C CisCov (ϕ x f)) = (ϕ y (Segal-comp A AisSegal a x y f g))
-    := naturality-covariant-fiberwise-transformation A x y g (\ z -&gt; hom A a z) C 
+    := naturality-covariant-fiberwise-transformation A x y g (\ z -&gt; hom A a z) C
         (isSegal-representable-isCovFam A AisSegal a)
         CisCov
         ϕ f
 </code></pre>
 <h2 id="the-yoneda-maps">The Yoneda maps</h2>
-<p>For any Segal type A and term a : A, the Yoneda lemma provides an equivalence between the type (z : A) -&gt; hom A a z -&gt; C z of natural transformations out of the functor (hom A a) and valued in an arbitrary covariant family C and the type (C a). </p>
-<p>One of the maps in this equivalence is evaluation at the identity. The inverse map makes use of the covariant transport operation.</p>
-<pre><code class="language-rzk">-- The map evid evaluates a natural transformation 
+<p>For any Segal type A and term a : A, the Yoneda lemma provides an equivalence
+between the type (z : A) -&gt; hom A a z -&gt; C z of natural transformations out of
+the functor (hom A a) and valued in an arbitrary covariant family C and the type
+(C a).</p>
+<p>One of the maps in this equivalence is evaluation at the identity. The inverse
+map makes use of the covariant transport operation.</p>
+<pre><code class="language-rzk">-- The map evid evaluates a natural transformation
 -- out of a representable functor at the identity arrow.
-#def evid 
+#def evid
     (A : U)                             -- The ambient type.
     (a : A)                             -- The representing object.
     (C : A -&gt; U)                        -- A type family.
@@ -207,7 +219,9 @@
     : (evid A a C) ((yon A AisSegal a C CisCov) u) = u
     := covPresId A a C CisCov u
 </code></pre>
-<p>The other composite carries ϕ to an a priori distinct natural transformation. We first show that these are pointwise equal at all x : A and f : hom A a x in two steps.</p>
+<p>The other composite carries ϕ to an a priori distinct natural transformation. We
+first show that these are pointwise equal at all x : A and f : hom A a x in two
+steps.</p>
 <pre><code class="language-rzk">#section yon-evid
 
 #variable A : U                     -- The ambient type.
@@ -220,7 +234,7 @@
 #def yon-evid-twice-pointwise
     (ϕ : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
     (x : A)
-    (f : hom A a x)   
+    (f : hom A a x)
     : ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f = ϕ x f
     := concat (C x)
         (((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f)
@@ -235,8 +249,8 @@
             (Segal-id-comp A AisSegal a x f))
 
 -- By funext, these are equals as functions of f pointwise in x.
-#def yon-evid-once-pointwise    
-    (funext : FunExt)    
+#def yon-evid-once-pointwise
+    (funext : FunExt)
     (ϕ : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
     (x : A)
     : ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x = ϕ x
@@ -248,8 +262,8 @@
         (\ f -&gt; yon-evid-twice-pointwise ϕ x f)
 
 -- By funext again, these are equal as functions of x and f.
-#def yon-evid    
-    (funext : FunExt)        
+#def yon-evid
+    (funext : FunExt)
     (ϕ : (z : A) -&gt; hom A a z -&gt; C z)     -- A natural transformation.
     : ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) = ϕ
     := eq-htpy funext
@@ -264,7 +278,7 @@
 <h2 id="the-yoneda-lemma_1">The Yoneda lemma</h2>
 <p>The Yoneda lemma says that evaluation at the identity defines an equivalence.</p>
 <pre><code class="language-rzk">#def Yoneda-lemma
-    (funext : FunExt)        
+    (funext : FunExt)
     (A : U)                                 -- The ambient type.
     (AisSegal : isSegal A)                  -- A proof that A is Segal.
     (a  : A)                                -- The representing object.
@@ -275,6 +289,139 @@
             yon-evid A AisSegal a C CisCov funext),
         (yon A AisSegal a C CisCov,
             evid-yon A AisSegal a C CisCov))
+</code></pre>
+<h2 id="yoneda-for-contravariant-families">Yoneda for contravariant families</h2>
+<p>Dually, the Yoneda lemma for contravariant type families characterizes natural
+transformations from the contravariant family represented by a term a : A in a
+Segal type to a contravariant type family C : A -&gt; U.</p>
+<p>By naturality-contravariant-fiberwise-transformation naturality is again
+automatic.</p>
+<pre><code class="language-rzk">#def naturality-contravariant-fiberwise-representable-transformation
+    (A : U)
+  (AisSegal : isSegal A)
+    (a x y : A)
+    (f : hom A y a)
+    (g : hom A x y)
+    (C : A -&gt; U)
+    (CisContra : isContraFam A C)
+    (ϕ : (z : A) -&gt; hom A z a -&gt; C z)
+    : (contraTrans A x y g C CisContra (ϕ y f)) =
+        (ϕ x (Segal-comp A AisSegal x y a g f))
+    := naturality-contravariant-fiberwise-transformation A x y g
+        (\ z -&gt; hom A z a) C
+        (isSegal-representable-isContraFam A AisSegal a)
+        CisContra
+        ϕ f
+</code></pre>
+<p>For any Segal type A and term a : A, the contravariant Yoneda lemma provides an
+equivalence between the type (z : A) -&gt; hom A z a -&gt; C z of natural
+transformations out of the functor (\ x -&gt; hom A x a) and valued in an arbitrary
+contravariant family C and the type (C a).</p>
+<p>One of the maps in this equivalence is evaluation at the identity. The inverse
+map makes use of the contravariant transport operation.</p>
+<pre><code class="language-rzk">-- The map evid evaluates a natural transformation
+-- out of a representable functor at the identity arrow.
+#def contra-evid
+    (A : U)                             -- The ambient type.
+    (a : A)                             -- The representing object.
+      (C : A -&gt; U)                      -- A type family.
+    : ((z : A) -&gt; hom A z a -&gt; C z) -&gt; C a
+    := \ ϕ -&gt; ϕ a (id-arr A a)
+
+-- The inverse map only exists for Segal types and contravariant families.
+#def contra-yon
+    (A : U)                                 -- The ambient type.
+    (AisSegal : isSegal A)                    -- A proof that A is Segal.
+    (a : A)                                   -- The representing object.
+      (C : A -&gt; U)                                  -- A type family.
+      (CisContra : isContraFam A C)             -- A contrariant family.
+    : C a -&gt; ((z : A) -&gt; hom A z a -&gt; C z)
+    := \ v z f -&gt; contraTrans A z a f C CisContra v
+</code></pre>
+<p>It remains to show that the Yoneda maps are inverses.</p>
+<pre><code class="language-rzk">-- One retraction is straightforward:
+#def contra-evid-yon
+    (A : U)                             -- The ambient type.
+    (AisSegal : isSegal A)              -- A proof that A is Segal.
+    (a  : A)                            -- The representing object.
+      (C : A -&gt; U)                      -- A type family.
+      (CisContra : isContraFam A C)             -- A contravariant family.
+      (v : C a)
+    : (contra-evid A a C) ((contra-yon A AisSegal a C CisContra) v) = v
+    := contraPresId A a C CisContra v
+</code></pre>
+<p>The other composite carries ϕ to an a priori distinct natural transformation. We
+first show that these are pointwise equal at all x : A and f : hom A x a in two
+steps.</p>
+<pre><code class="language-rzk">#section contra-yon-evid
+
+#variable A : U                          -- The ambient type.
+#variable AisSegal : isSegal A          -- A proof that A is Segal.
+#variable a : A                             -- The representing object.
+#variable C : A -&gt; U                            -- A type family.
+#variable CisContra : isContraFam A C       -- A contravariant family.
+
+-- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A x a.
+#def contra-yon-evid-twice-pointwise
+    (ϕ : (z : A) -&gt; hom A z a -&gt; C z)     -- A natural transformation.
+    (x : A)
+    (f : hom A x a)
+    : ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x f = ϕ x f
+    := concat (C x)
+        (((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x f)
+        (ϕ x (Segal-comp A AisSegal x a a f (id-arr A a)))
+        (ϕ x f)
+        (naturality-contravariant-fiberwise-representable-transformation
+            A AisSegal a x a (id-arr A a) f C CisContra ϕ )
+        (ap (hom A x a) (C x)
+            (Segal-comp A AisSegal x a a f (id-arr A a))
+            f
+            (ϕ x)
+            (Segal-comp-id A AisSegal x a f))
+
+-- By funext, these are equals as functions of f pointwise in x.
+#def contra-yon-evid-once-pointwise
+    (funext : FunExt)
+    (ϕ : (z : A) -&gt; hom A z a -&gt; C z)     -- A natural transformation.
+    (x : A)
+    : ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x = ϕ x
+    := eq-htpy funext
+        (hom A x a)
+        (\ f -&gt; C x)
+        (\ f -&gt;
+          ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x f)
+        (\ f -&gt; (ϕ x f))
+        (\ f -&gt; contra-yon-evid-twice-pointwise ϕ x f)
+
+-- By funext again, these are equal as functions of x and f.
+#def contra-yon-evid
+    (funext : FunExt)
+    (ϕ : (z : A) -&gt; hom A z a -&gt; C z)     -- A natural transformation.
+    : ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) = ϕ
+    := eq-htpy funext
+        A
+        (\ x -&gt; (hom A x a -&gt; C x))
+        (\ x -&gt;
+          ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x)
+        (\ x -&gt; (ϕ x))
+        (\ x -&gt; contra-yon-evid-once-pointwise funext ϕ x)
+
+#end contra-yon-evid
+</code></pre>
+<p>The contravariant Yoneda lemma says that evaluation at the identity defines an
+equivalence.</p>
+<pre><code class="language-rzk">#def contra-Yoneda-lemma
+    (funext : FunExt)
+    (A : U)                                 -- The ambient type.
+    (AisSegal : isSegal A)                  -- A proof that A is Segal.
+    (a  : A)                                -- The representing object.
+      (C : A -&gt; U)                                -- A type family.
+      (CisContra : isContraFam A C)     -- A contravariant family.
+    : isEquiv ((z : A) -&gt; hom A z a -&gt; C z) (C a) (contra-evid A a C)
+    := ((contra-yon A AisSegal a C CisContra,
+            contra-yon-evid A AisSegal a C CisContra funext),
+        (contra-yon A AisSegal a C CisContra,
+            contra-evid-yon A AisSegal a C CisContra))
 </code></pre>
               
             </div>
