@@ -23,7 +23,7 @@ This is a literate `rzk` file:
 - `5-segal-types.md` - We make heavy use of the notion of Segal types
 - `8-covariant.md` - We use covariant type families.
 
-## Type of fiberwise Segal families over a base type
+## Fiberwise Segal families
 
 ```rzk
 #def innerFam
@@ -32,13 +32,14 @@ This is a literate `rzk` file:
   := ∑ (P : B -> U) , (b : B) -> (isSegal (P b))
 ```
 
-## Definition of cocartesian arrows [BW23, Definition 5.1.1]
+## Cocartesian arrows
 
 Here we define the proposition that a dependent arrow in a family is
 cocartesian. This is an alternative version using unpacked extension types, as
 this is preferred for usage.
 
 ```rzk
+-- [BW23, Definition 5.1.1]
 #def isCocartArr
   (B : U)
   (b b' : B)
@@ -59,12 +60,13 @@ this is preferred for usage.
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 ```
 
-## Definition of cocartesian lifts [BW23, Definition 5.1.2]
+## Cocartesian lifts
 
 The following is the type of cocartesian lifts of a fixed arrow in the base with
 a given starting point in the fiber.
 
 ```rzk
+-- [BW23, Definition 5.1.2]
 #def CocartLift
     (B : U)
     (b b' : B)

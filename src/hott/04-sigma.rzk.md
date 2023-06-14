@@ -131,9 +131,24 @@ This is a literate `rzk` file:
 #end paths-in-sigma
 ```
 
+## Symmetry of products
+
+```rzk
+#def sym-prod
+  (A B : U)
+  : Eq (prod A B)(prod B A)
+  := (\(a, b) -> (b, a),
+        (
+        (\(b, a) -> (a, b),\p -> refl),
+        (\(b, a) -> (a, b),\p -> refl)
+        )
+      )
+```
+
 ## Fubini
 
-Given a family over a pair of independent types, the order of summation is unimportant.
+Given a family over a pair of independent types, the order of summation is
+unimportant.
 
 ```rzk
 #def sigma-fubini

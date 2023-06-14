@@ -939,6 +939,59 @@ arrow.
       g)
 ```
 
+A dual notion of homotopy can be defined similarly.
+
+```rzk
+#def homotopy-to-hom2'
+  (A : U)
+  (x y : A)
+  (f g : hom A x y)
+  (p : f = g)
+  : (hom2 A x y y f (id-arr A y) g)
+  := idJ(hom A x y, f,
+          \g' p' -> (hom2 A x y y f (id-arr A y) g'),
+          (comp-id-witness A x y f), g, p)
+
+#def homotopy-to-hom2'-total-map
+  (A : U)
+  (x y : A)
+  (f : hom A x y)
+  : (∑ (g : hom A x y), f = g) ->
+      (∑ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
+  := \(g, p) -> (g, homotopy-to-hom2' A x y f g p)
+
+#def Segal-homotopy-to-hom2'-total-map-isEquiv
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  : isEquiv
+      (∑ (g : hom A x y), f = g)
+      (∑ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
+      (homotopy-to-hom2'-total-map A x y f)
+  := areContr-isEquiv
+        (∑ (g : hom A x y), f = g)
+        (∑ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
+        (based-paths-contractible (hom A x y) f)
+        (AisSegal x y y f (id-arr A y))
+        (homotopy-to-hom2'-total-map A x y f)
+
+-- [RS17, Proposition 5.10]
+#def Eq-Segal-homotopy-hom2'
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f g : hom A x y)
+  : Eq (f = g) (hom2 A x y y f (id-arr A y) g)
+  := (homotopy-to-hom2' A x y f g,
+    total-equiv-family-of-equiv (hom A x y)
+      (\g -> (f = g))
+      (\g -> (hom2 A x y y f (id-arr A y) g))
+      (homotopy-to-hom2' A x y f)
+      (Segal-homotopy-to-hom2'-total-map-isEquiv A AisSegal x y f)
+      g)
+```
+
 More generally, a homotopy between a composite and another map is equivalent to
 the data provided by a commutative triangle with that boundary.
 
