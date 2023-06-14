@@ -25,7 +25,15 @@ in other proof assistants. To that end
 [`Lean3`](https://leanprover-community.github.io/) extracted from materials he
 prepared to teach
 [Introduction to Proofs](https://sinhp.github.io/teaching/2022-introduction-to-proofs-with-Lean)
-at Johns Hopkins.
+at Johns Hopkins, which can be found
+[here](https://github.com/emilyriehl/yoneda/blob/master/lean/yoneda.lean).
+
+We also contributed a proof of the
+[Yoneda lemma for precategories](https://unimath.github.io/agda-unimath/category-theory.yoneda-lemma-precategories.html)
+to the [Agda-Unimath](https://unimath.github.io/agda-unimath/) library. Here we
+prove the Yoneda lemma for pre-∞-categories, since the univalence/completeness
+condition is not required for this result. By analogy, precategories are the
+non-univalent 1-categories in HoTT.
 
 ## Checking the Formalisations Locally
 
