@@ -12,13 +12,15 @@ This is a literate `rzk` file:
 
 - `hott/1-paths.md` - We require basic path algebra.
 - `hott/4-equivalences.md` - We require the notion of equivalence between types.
-- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their subshapes.
+- `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their
+  subshapes.
 - `4-extension-types.md` — We use extension extensionality.
 - `5-segal-types.md` - We use the notion of hom types.
 
 ## The definition
 
-Discrete types are types in which the hom-types are canonically equivalent to identity types.
+Discrete types are types in which the hom-types are canonically equivalent to
+identity types.
 
 ```rzk
 -- [RS17, Definition 7.1]
@@ -37,7 +39,8 @@ Discrete types are types in which the hom-types are canonically equivalent to id
 
 ## Families of discrete types
 
-By function extensionality, the dependent function type associated to a family of discrete types is discrete.
+By function extensionality, the dependent function type associated to a family
+of discrete types is discrete.
 
 ```rzk
 #def Eq-discrete-family
@@ -84,9 +87,9 @@ By function extensionality, the dependent function type associated to a family o
             (second (Eq-discrete-family funext X A Aisdiscrete f g))
 ```
 
-By extension extensionality, an extension type into a family of discrete types is discrete.
-Sinced fibered-Eq-extension-Eq considers total extension types only, extending from BOT,
-that's all we prove here for now.
+By extension extensionality, an extension type into a family of discrete types
+is discrete. Sinced fibered-Eq-extension-Eq considers total extension types
+only, extending from BOT, that's all we prove here for now.
 
 ```rzk
 #def Eq-discrete-extension
@@ -172,6 +175,11 @@ Discrete types are automatically Segal types.
     : isEquiv (f =_{Δ¹ -> A} g)(hom (arr A) f g)(id-to-arr (arr A) f g)
     := (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g
 
+#def Equiv-idtoarr-discrete uses (x y z w)
+    : Eq (f =_{Δ¹ -> A} g)(hom (arr A) f g)
+    := (id-to-arr (arr A) f g,
+          (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g)
+
 -- The equivalence underlying Eq-arr.
 #def fibered-arr-free-arr
     : (arr A) -> (∑ (x : A), (∑ (y : A), hom A x y))
@@ -183,5 +191,40 @@ Discrete types are automatically Segal types.
     := isEquiv-ap-isEquiv (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) fibered-arr-free-arr
         (second (Eq-arr A)) f g
 
+#def id-Eq-Eq-arr uses (w x y z)
+    : Eq (f =_{Δ¹ -> A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
+    := Eq-ap-isEquiv (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) fibered-arr-free-arr
+        (second (Eq-arr A)) f g
+
+#def Eq-Sigma-over-Prod-Eq-Arr
+  : Eq (fibered-arr-free-arr f = fibered-arr-free-arr g)
+        (∑(p : x = z), (∑(q : y = w),
+            (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
+  := Eq-Sigma-over-Prod-Eq A A (\x y -> hom A x y)
+      (fibered-arr-free-arr f) (fibered-arr-free-arr g)
+
+-- Specialising [RS17, Proposition 4.3]
+#def axiom-choice-Arr
+  : Eq (<{t : 2 | Δ¹ t} -> (prod A A) [ t === 0_2 |-> (x, z), t === 1_2 |-> (y, w) ]>)
+     (prod (hom A x y) (hom A z w))
+  := axiom-choice 2 Δ¹ ∂Δ¹ (\t -> A) (\t a -> A)
+        (\t -> recOR(t === 0_2 |-> x, t === 1_2 |-> y))
+        (\t -> recOR(t === 0_2 |-> z, t === 1_2 |-> w))
+
+#def axiom-choice-Arr-again
+  : Eq (<{t : 2 | Δ¹ t} -> (∑ (xy : prod A A), hom A (first xy) (second xy))
+           [t === 0_2 |-> ((x, y), f), t === 1_2 |-> ((z, w), g) ]>)
+      (∑ (hk : (<{t : 2 | Δ¹ t} -> (prod A A) [t === 0_2 |-> (x, y), t === 1_2 |-> (z, w) ]>)),
+          (<{t : 2 | Δ¹ t} -> hom A (first (hk t))(second (hk t))
+          [t === 0_2 |-> f, t === 1_2 |-> g ]>))
+  := axiom-choice 2 Δ¹ ∂Δ¹ (\t -> prod A A)(\t (x, y) -> hom A x y)
+      (\t -> recOR(t === 0_2 |-> (x, y), t === 1_2 |-> (z, w)))
+      (\t -> recOR(t === 0_2 |-> f, t === 1_2 |-> g))
+
 #end discrete-arr-equivalences
 ```
+
+(I : CUBE) (ψ : I -> TOPE) (ϕ : ψ -> TOPE) (X : ψ -> U) (Y : (t : ψ) -> (x : X
+t) -> U) (a : (t : ϕ) -> X t) (b : (t : ϕ) -> Y t (a t)) : Eq (<{t : I | ψ t} ->
+(∑ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>) (∑ (f : (<{t : I | ψ t} -> X t [ϕ
+t |-> a t ]>)), (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]>))

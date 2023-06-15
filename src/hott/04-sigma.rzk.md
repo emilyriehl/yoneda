@@ -131,6 +131,119 @@ This is a literate `rzk` file:
 #end paths-in-sigma
 ```
 
+## Identity types of sigma types over a product
+
+```rzk
+#section paths-in-sigma-over-prod
+
+#variables A B : U
+#variable C : A -> B -> U
+
+#def prod-transport
+  (a a' : A)
+  (b b' : B)
+  (p : a = a')
+  (q : b = b')
+  (c : C a b)
+  : C a' b'
+  := idJ(B, b, \b'' q' -> C a' b'', idJ(A, a, \a'' p' -> C a'' b, c, a', p), b', q)
+
+#def Eq-Sigma-over-Prod
+  (s t : ∑(a : A), (∑(b : B), C a b))
+  : U
+  := ∑(p : (first s) = (first t)), (∑(q : (first (second s)) = (first (second t))),
+      (prod-transport (first s) (first t) (first (second s)) (first (second t)) p q (second (second s)) = (second (second t))))
+
+-- This is the lazy definition with bad computational properties. Could tighten up later if needed.
+#def triple-eq
+  (s t : ∑(a : A), (∑(b : B), C a b))
+  (e : s = t)
+  : (Eq-Sigma-over-Prod s t)
+  := idJ(∑(a : A), (∑(b : B), C a b), s, \t' e' -> (Eq-Sigma-over-Prod s t'), (refl, (refl, refl)), t, e)
+
+-- The inverse with explicit arguments.
+-- It's surprising this typechecks since we defined prod-transport by a dual
+-- path induction over both p and q, rather than by saying that when p is refl
+-- this is ordinary transport
+#def path-of-triples-to-triple-of-paths
+  (a a' : A)
+  (b b' : B)
+  (c : C a b)
+  (p : a = a')
+  : (q : b = b') -> (c' : C a' b') ->
+      (r : prod-transport a a' b b' p q c = c') ->
+        ((a, (b, c)) =_{(∑(a : A), (∑(b : B), C a b))} (a', (b', c')))
+  := idJ(A, a,
+      \a'' p' -> (q : b = b') -> (c' : C a'' b') ->
+        (r : prod-transport a a'' b b' p' q c = c') ->
+          ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a'', (b', c'))),
+      \q c' r -> (sigma-path-fibered-path A (\a -> (∑(b : B), C a b)) a
+                  (b, c) (b', c')
+                  (path-of-pairs-pair-of-paths B (\b -> C a b) b b' q c c' r)),
+                  a',
+                  p)
+
+#def eq-triple
+  (s t : ∑(a : A), (∑(b : B), C a b))
+  (e : Eq-Sigma-over-Prod s t)
+  : (s = t)
+  := path-of-triples-to-triple-of-paths (first s) (first t)
+      (first (second s)) (first (second t))
+      (second (second s)) (first e) (first (second e)) (second (second t))
+      (second (second e))
+
+#def eq-triple-triple-eq
+  (s t : ∑(a : A), (∑(b : B), C a b))
+  (e : s = t)
+  : (eq-triple s t (triple-eq s t e)) = e
+  := idJ(∑(a : A), (∑(b : B), C a b), s,
+        \t' e' -> (eq-triple s t' (triple-eq s t' e')) = e',
+        refl, t, e)
+
+-- Here we've decomposed s t e for induction purposes
+#def triple-eq-eq-triple-split
+  (a a' : A)
+  (b b' : B)
+  (c : C a b)
+  (p : a = a')
+  : (q : b = b') -> (c' : C a' b') ->
+      (r : prod-transport a a' b b' p q c = c') ->
+      triple-eq (a, (b, c)) (a', (b', c'))
+        (eq-triple (a, (b, c)) (a', (b', c')) (p, (q, r))) = (p, (q, r))
+  := idJ(A, a, \a'' p' -> (q : b = b') -> (c' : C a'' b') ->
+      (r : prod-transport a a'' b b' p' q c = c') ->
+      triple-eq (a, (b, c)) (a'', (b', c'))
+        (eq-triple (a, (b, c)) (a'', (b', c')) (p', (q, r))) = (p', (q, r)),
+          \q -> idJ(B, b, \b'' q' -> (c' : C a b'') ->
+                  (r : prod-transport a a b b'' refl q' c = c') ->
+                   triple-eq (a, (b, c)) (a, (b'', c'))
+                  (eq-triple (a, (b, c)) (a, (b'', c')) (refl, (q', r))) =
+                      (refl, (q', r)),
+        \c' r -> idJ(C a b, c,
+            \c'' r' -> triple-eq (a, (b, c)) (a, (b, c''))
+                    (eq-triple (a, (b, c)) (a, (b, c'')) (refl, (refl, r'))) =
+                    (refl, (refl, r')),
+              refl, c', r), b', q), a', p)
+
+#def triple-eq-eq-triple
+  (s t : ∑(a : A), (∑(b : B), C a b))
+  (e : Eq-Sigma-over-Prod s t)
+  : (triple-eq s t (eq-triple s t e)) = e
+  := triple-eq-eq-triple-split (first s) (first t)
+      (first (second s)) (first (second t))
+      (second (second s)) (first e) (first (second e)) (second (second t))
+      (second (second e))
+
+#def Eq-Sigma-over-Prod-Eq
+  (s t : ∑(a : A), (∑(b : B), C a b))
+  : Eq (s = t) (Eq-Sigma-over-Prod s t)
+  := (triple-eq s t,
+      ((eq-triple s t, eq-triple-triple-eq s t),
+      (eq-triple s t, triple-eq-eq-triple s t)))
+
+#end paths-in-sigma-over-prod
+```
+
 ## Symmetry of products
 
 ```rzk

@@ -783,6 +783,14 @@ Equivalent types have equivalent identity types.
     : isEquiv (x = y) (f x = f y)(ap A B x y f)
     := isEquiv-ap-isHalfAdjointEquiv A B f (isEquiv-isHalfAdjointEquiv A B f fisequiv) x y
 
+#def Eq-ap-isEquiv
+    (A B : U)
+    (f : A -> B)
+    (fisequiv : isEquiv A B f)
+    (x y : A)
+    : Eq (x = y) (f x = f y)
+    := (ap A B x y f, isEquiv-ap-isEquiv A B f fisequiv x y)
+
 ```
 
 ## Function extensionality
@@ -799,7 +807,8 @@ By path induction, an identification between functions defines a homotopy
     := idJ((x : X) -> A x, f, \g' p' -> (x : X) -> (f x = g' x), \x -> refl, g, p)
 ```
 
-The function extensionality axiom asserts that this map defines a family of equivalences.
+The function extensionality axiom asserts that this map defines a family of
+equivalences.
 
 ```rzk
 -- The type that encodes the function extensionality axiom.
