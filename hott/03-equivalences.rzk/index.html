@@ -899,6 +899,14 @@
     : isEquiv (x = y) (f x = f y)(ap A B x y f)
     := isEquiv-ap-isHalfAdjointEquiv A B f (isEquiv-isHalfAdjointEquiv A B f fisequiv) x y
 
+#def Eq-ap-isEquiv
+    (A B : U)
+    (f : A -&gt; B)
+    (fisequiv : isEquiv A B f)
+    (x y : A)
+    : Eq (x = y) (f x = f y)
+    := (ap A B x y f, isEquiv-ap-isEquiv A B f fisequiv x y)
+
 </code></pre>
 <h2 id="function-extensionality">Function extensionality</h2>
 <p>By path induction, an identification between functions defines a homotopy</p>
@@ -910,7 +918,8 @@
     : (x : X) -&gt; (f x = g x)
     := idJ((x : X) -&gt; A x, f, \g' p' -&gt; (x : X) -&gt; (f x = g' x), \x -&gt; refl, g, p)
 </code></pre>
-<p>The function extensionality axiom asserts that this map defines a family of equivalences.</p>
+<p>The function extensionality axiom asserts that this map defines a family of
+equivalences.</p>
 <pre><code class="language-rzk">-- The type that encodes the function extensionality axiom.
 #def FunExt : U
     := (X : U) -&gt; (A : X -&gt; U) -&gt;

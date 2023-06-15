@@ -145,12 +145,14 @@
 <ul>
 <li><code>hott/1-paths.md</code> - We require basic path algebra.</li>
 <li><code>hott/4-equivalences.md</code> - We require the notion of equivalence between types.</li>
-<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their subshapes.</li>
+<li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their
+  subshapes.</li>
 <li><code>4-extension-types.md</code> — We use extension extensionality.</li>
 <li><code>5-segal-types.md</code> - We use the notion of hom types.</li>
 </ul>
 <h2 id="the-definition">The definition</h2>
-<p>Discrete types are types in which the hom-types are canonically equivalent to identity types.</p>
+<p>Discrete types are types in which the hom-types are canonically equivalent to
+identity types.</p>
 <pre><code class="language-rzk">-- [RS17, Definition 7.1]
 #def id-to-arr
     (A : U)             -- A type.
@@ -165,7 +167,8 @@
     := (x : A) -&gt; (y : A) -&gt; isEquiv (x =_{A} y) (hom A x y) (id-to-arr A x y)
 </code></pre>
 <h2 id="families-of-discrete-types">Families of discrete types</h2>
-<p>By function extensionality, the dependent function type associated to a family of discrete types is discrete.</p>
+<p>By function extensionality, the dependent function type associated to a family
+of discrete types is discrete.</p>
 <pre><code class="language-rzk">#def Eq-discrete-family
     (funext : FunExt)
     (X : U)
@@ -209,9 +212,9 @@
             (Eq-discrete-family-map funext X A Aisdiscrete f g)
             (second (Eq-discrete-family funext X A Aisdiscrete f g))
 </code></pre>
-<p>By extension extensionality, an extension type into a family of discrete types is discrete.
-Sinced fibered-Eq-extension-Eq considers total extension types only, extending from BOT,
-that's all we prove here for now.</p>
+<p>By extension extensionality, an extension type into a family of discrete types
+is discrete. Sinced fibered-Eq-extension-Eq considers total extension types
+only, extending from BOT, that's all we prove here for now.</p>
 <pre><code class="language-rzk">#def Eq-discrete-extension
     (extext : ExtExt) -- This proof uses extension extensionality.
     (I : CUBE) -- A cube.
@@ -288,6 +291,11 @@ that's all we prove here for now.</p>
     : isEquiv (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)(id-to-arr (arr A) f g)
     := (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g
 
+#def Equiv-idtoarr-discrete uses (x y z w)
+    : Eq (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)
+    := (id-to-arr (arr A) f g,
+          (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g)
+
 -- The equivalence underlying Eq-arr.
 #def fibered-arr-free-arr
     : (arr A) -&gt; (∑ (x : A), (∑ (y : A), hom A x y))
@@ -299,8 +307,42 @@ that's all we prove here for now.</p>
     := isEquiv-ap-isEquiv (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) fibered-arr-free-arr
         (second (Eq-arr A)) f g
 
+#def id-Eq-Eq-arr uses (w x y z)
+    : Eq (f =_{Δ¹ -&gt; A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
+    := Eq-ap-isEquiv (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) fibered-arr-free-arr
+        (second (Eq-arr A)) f g
+
+#def Eq-Sigma-over-Prod-Eq-Arr
+  : Eq (fibered-arr-free-arr f = fibered-arr-free-arr g)
+        (∑(p : x = z), (∑(q : y = w),
+            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
+  := Eq-Sigma-over-Prod-Eq A A (\x y -&gt; hom A x y)
+      (fibered-arr-free-arr f) (fibered-arr-free-arr g)
+
+-- Specialising [RS17, Proposition 4.3]
+#def axiom-choice-Arr
+  : Eq (&lt;{t : 2 | Δ¹ t} -&gt; (prod A A) [ t === 0_2 |-&gt; (x, z), t === 1_2 |-&gt; (y, w) ]&gt;)
+     (prod (hom A x y) (hom A z w))
+  := axiom-choice 2 Δ¹ ∂Δ¹ (\t -&gt; A) (\t a -&gt; A)
+        (\t -&gt; recOR(t === 0_2 |-&gt; x, t === 1_2 |-&gt; y))
+        (\t -&gt; recOR(t === 0_2 |-&gt; z, t === 1_2 |-&gt; w))
+
+#def axiom-choice-Arr-again
+  : Eq (&lt;{t : 2 | Δ¹ t} -&gt; (∑ (xy : prod A A), hom A (first xy) (second xy))
+           [t === 0_2 |-&gt; ((x, y), f), t === 1_2 |-&gt; ((z, w), g) ]&gt;)
+      (∑ (hk : (&lt;{t : 2 | Δ¹ t} -&gt; (prod A A) [t === 0_2 |-&gt; (x, y), t === 1_2 |-&gt; (z, w) ]&gt;)),
+          (&lt;{t : 2 | Δ¹ t} -&gt; hom A (first (hk t))(second (hk t))
+          [t === 0_2 |-&gt; f, t === 1_2 |-&gt; g ]&gt;))
+  := axiom-choice 2 Δ¹ ∂Δ¹ (\t -&gt; prod A A)(\t (x, y) -&gt; hom A x y)
+      (\t -&gt; recOR(t === 0_2 |-&gt; (x, y), t === 1_2 |-&gt; (z, w)))
+      (\t -&gt; recOR(t === 0_2 |-&gt; f, t === 1_2 |-&gt; g))
+
 #end discrete-arr-equivalences
 </code></pre>
+<p>(I : CUBE) (ψ : I -&gt; TOPE) (ϕ : ψ -&gt; TOPE) (X : ψ -&gt; U) (Y : (t : ψ) -&gt; (x : X
+t) -&gt; U) (a : (t : ϕ) -&gt; X t) (b : (t : ϕ) -&gt; Y t (a t)) : Eq (&lt;{t : I | ψ t} -&gt;
+(∑ (x : X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;) (∑ (f : (&lt;{t : I | ψ t} -&gt; X t [ϕ
+t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;))</p>
               
             </div>
           </div><footer>
