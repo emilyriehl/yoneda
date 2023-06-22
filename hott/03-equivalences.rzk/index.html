@@ -98,6 +98,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#function-extensionality">Function extensionality</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#embeddings">Embeddings</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../04-sigma.rzk/">Sigma types</a>
@@ -958,6 +960,14 @@ equivalences.</p>
             (\b -&gt; eq-htpy funext X B (\x -&gt; (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -&gt; (second (second (second (fibequiv x)))) (b x))))))
 </code></pre>
 <pre><code>
+</code></pre>
+<h2 id="embeddings">Embeddings</h2>
+<pre><code class="language-rzk">#def isEmb
+  (A B : U)
+  (f : A -&gt; B)
+  : U
+  := (x : A) -&gt; (y : A) -&gt; isEquiv (x = y) (f x = f y) (ap A B x y f)
+
 </code></pre>
               
             </div>

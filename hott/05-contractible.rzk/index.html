@@ -82,6 +82,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#contractible-type-data">Contractible type data</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#characterization-of-contractibility">Characterization of contractibility</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#retracts-of-contractible-types">Retracts of contractible types</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#functions-between-contractible-types">Functions between contractible types</a>
@@ -89,6 +91,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#based-path-spaces">Based path spaces</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#contractible-products">Contractible products</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#singleton-induction">Singleton induction</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#propositions">Propositions</a>
     </li>
@@ -166,6 +170,13 @@
   : (z : A) -&gt; contraction-center = z
   := second Aiscontr
 
+#def contracting-htpy-realigned uses (Aiscontr)
+  : (z : A) -&gt; contraction-center = z
+  := \z -&gt; (concat A contraction-center contraction-center z 
+          (rev A contraction-center contraction-center (contracting-htpy contraction-center))
+          (contracting-htpy z)
+          )
+
 -- A path between an arbitrary pair of types in a contractible type.
 #def contractible-connecting-htpy uses (Aiscontr)
   (x y : A)
@@ -173,6 +184,44 @@
   := zag-zig-concat A x contraction-center y (contracting-htpy x) (contracting-htpy y)
 
 #end contractible-data
+</code></pre>
+<h2 id="characterization-of-contractibility">Characterization of contractibility</h2>
+<p>A type is contractible if and only if its final projection is an equivalence.</p>
+<pre><code class="language-rzk">
+#def final-proj-is-equiv
+  (A : U)
+  : U
+  := isEquiv A Unit (final-projection A)
+
+#def contr-implies-final-proj-is-equiv-retr
+  (A : U)
+  (AisContr : isContr A)
+  : hasRetraction A Unit (final-projection A)
+  :=
+    (const Unit A (contraction-center A AisContr), \y -&gt; (contracting-htpy A AisContr) y)
+
+#def contr-implies-final-proj-is-equiv-sec
+  (A : U)
+  (AisContr : isContr A)
+  : hasSection A Unit (final-projection A)
+  :=  (const Unit A (contraction-center A AisContr), \z -&gt; refl)
+
+#def contr-implies-final-proj-is-equiv
+  (A : U)
+  (AisContr : isContr A)
+  : isEquiv A Unit (final-projection A)
+  := (contr-implies-final-proj-is-equiv-retr A AisContr, contr-implies-final-proj-is-equiv-sec A AisContr)
+
+#def final-proj-is-equiv-implies-contr
+  (A : U)
+  (e : final-proj-is-equiv A)
+  : isContr A
+  := ( (first (first e)) unit, (second (first e)))
+
+#def contr-iff-final-proj-is-equiv
+  (A : U)
+  : iff (isContr A) (final-proj-is-equiv A)
+  :=  ((contr-implies-final-proj-is-equiv A), (final-proj-is-equiv-implies-contr A))
 </code></pre>
 <h2 id="retracts-of-contractible-types">Retracts of contractible types</h2>
 <p>A retract of contractible types is contractible.</p>
@@ -326,6 +375,44 @@
           (a, b a)
           (second ABisContr (a, b a)))
 </code></pre>
+<h2 id="singleton-induction">Singleton induction</h2>
+<p>A type is contractible if and only if it has singleton induction.</p>
+<pre><code class="language-rzk">#def ev-pt
+  (A : U)
+  (a : A)
+  (B : A -&gt; U)
+  : ((x : A) -&gt; B x) -&gt; B a
+  := \f -&gt; f a
+
+#def has-singleton-induction-pointed
+  (A : U)
+  (a : A)
+  (B : A -&gt; U)
+  : U
+  := hasSection ((x : A) -&gt; B x) (B a) (ev-pt A a B)
+
+#def has-singleton-induction
+  (A : U)
+  : U
+  := ∑ (a : A), (B : A -&gt; U) -&gt; (has-singleton-induction-pointed A a B)
+
+#def ind-sing
+  (A : U)
+  (a : A)
+  (B : A -&gt; U)
+  (AhasSingInd : has-singleton-induction-pointed A a B)
+  : (B a) -&gt; ((x : A) -&gt; B x)
+  := (first AhasSingInd)
+
+#def comp-sing
+  (A : U)
+  (a : A)
+  (B : A -&gt; U)
+  (AhasSingInd : has-singleton-induction-pointed A a B)
+  : (homotopy (B a) (B a) (composition (B a) ((x : A) -&gt; B x) (B a) (ev-pt A a B) (ind-sing A a B AhasSingInd)) (identity (B a)))
+  := (second AhasSingInd)
+
+</code></pre>
 <h2 id="propositions">Propositions</h2>
 <p>A type is a proposition when its identity types are contractible.</p>
 <pre><code class="language-rzk">#def isProp
@@ -333,11 +420,45 @@
   : U
   := (a : A) -&gt; (b : A) -&gt; isContr(a = b)
 
+-- Alternative characterizations: definitions
+
 #def all-elements-equal
   (A : U)
   : U
   := (a : A) -&gt; (b : A) -&gt; (a = b)
+
+#def inhabited-implies-contractible
+  (A : U)
+  : U
+  := A -&gt; isContr A
+
+#def final-proj-is-embedding
+  (A : U)
+  : U
+  := isEmb A Unit (final-projection A)
+
+-- Alternative characterizations: proofs
+
+#def prop-implies-all-elements-equal
+  (A : U)
+  (AisProp : isProp A)
+  : all-elements-equal A
+  := \a -&gt; \b -&gt; (first (AisProp a b))
+
+#def all-elements-equal-implies-inhabited-implies-contractible
+  (A : U)
+  (AhasAllEltsEqual : all-elements-equal A)
+  : inhabited-implies-contractible A
+  := \a -&gt; (a, AhasAllEltsEqual a)
+
 </code></pre>
+<h1 id="def-inhabited-implies-contractible-implies-final-proj-is-embedding-a-u">def inhabited-implies-contractible-implies-final-proj-is-embedding (A : U)</h1>
+<p>(AhasAllEltsEqual : all-elements-equal A) : final-proj-is-embedding A :=</p>
+<h1 id="def-unit-loop-final-projection-sec-hassection-unit-unit-unit">def unit-loop-final-projection-sec : hasSection (unit = unit) Unit</h1>
+<p>(final-projection (unit = unit)) := (\z -&gt; refl_{unit}, (identity Unit))</p>
+<h1 id="def-unit-center-x-unit-x-unit-refl">def unit-center (x : Unit) : (x = unit) := refl</h1>
+<h1 id="def-inhabited-implies-contractible-implies-final-proj-is-embedding-a-u-f">def inhabited-implies-contractible-implies-final-proj-is-embedding (A : U) (f :</h1>
+<p>inhabited-implies-contractible A) : final-proj-is-embedding A</p>
               
             </div>
           </div><footer>

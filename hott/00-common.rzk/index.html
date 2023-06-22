@@ -76,6 +76,10 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#substitution">Substitution</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#final-projection">Final projection</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#unit-type">Unit type</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../01-paths.rzk/">Paths</a>
@@ -189,6 +193,43 @@
   (C : A -&gt; U)
   : (B -&gt; U)
   := \b -&gt; C (f b)
+</code></pre>
+<h2 id="final-projection">Final projection</h2>
+<pre><code class="language-rzk">-- Constant map into a pointed type
+#def const
+  (A : U)
+  (B : U)
+  (b : B)
+  : (A -&gt; B)
+  := \a -&gt; b
+
+-- Final projection as a constant map
+#def final-projection
+  (A : U)
+  : A -&gt; Unit
+  := const A Unit unit
+
+</code></pre>
+<h2 id="unit-type">Unit type</h2>
+<pre><code class="language-rzk">#def ind-Unit
+  (C : Unit -&gt; U)
+  (C-unit : C unit)
+  (x : Unit)
+  : C x
+  := C-unit
+
+#def uniq-Unit
+  (x : Unit)
+  : x = unit
+  := refl
+
+#def isProp-Unit
+  (x y : Unit)
+  : x = y
+  := refl
+
+</code></pre>
+<pre><code>
 </code></pre>
               
             </div>
