@@ -31,6 +31,13 @@ This is a literate `rzk` file:
   : (z : A) -> contraction-center = z
   := second Aiscontr
 
+#def contracting-htpy-realigned uses (Aiscontr)
+  : (z : A) -> contraction-center = z
+  := \z -> (concat A contraction-center contraction-center z 
+          (rev A contraction-center contraction-center (contracting-htpy contraction-center))
+          (contracting-htpy z)
+          )
+
 -- A path between an arbitrary pair of types in a contractible type.
 #def contractible-connecting-htpy uses (Aiscontr)
   (x y : A)
@@ -38,6 +45,48 @@ This is a literate `rzk` file:
   := zag-zig-concat A x contraction-center y (contracting-htpy x) (contracting-htpy y)
 
 #end contractible-data
+```
+
+## Characterization of contractibility
+
+A type is contractible if and only if its final projection is an equivalence.
+
+```rzk
+
+#def final-proj-is-equiv
+  (A : U)
+  : U
+  := isEquiv A Unit (final-projection A)
+
+#def contr-implies-final-proj-is-equiv-retr
+  (A : U)
+  (AisContr : isContr A)
+  : hasRetraction A Unit (final-projection A)
+  :=
+    (const Unit A (contraction-center A AisContr), \y -> (contracting-htpy A AisContr) y)
+
+#def contr-implies-final-proj-is-equiv-sec
+  (A : U)
+  (AisContr : isContr A)
+  : hasSection A Unit (final-projection A)
+  :=  (const Unit A (contraction-center A AisContr), \z -> refl)
+
+#def contr-implies-final-proj-is-equiv
+  (A : U)
+  (AisContr : isContr A)
+  : isEquiv A Unit (final-projection A)
+  := (contr-implies-final-proj-is-equiv-retr A AisContr, contr-implies-final-proj-is-equiv-sec A AisContr)
+
+#def final-proj-is-equiv-implies-contr
+  (A : U)
+  (e : final-proj-is-equiv A)
+  : isContr A
+  := ( (first (first e)) unit, (second (first e)))
+
+#def contr-iff-final-proj-is-equiv
+  (A : U)
+  : iff (isContr A) (final-proj-is-equiv A)
+  :=  ((contr-implies-final-proj-is-equiv A), (final-proj-is-equiv-implies-contr A))
 ```
 
 ## Retracts of contractible types
@@ -210,6 +259,48 @@ For example, we prove that based path spaces are contractible.
           (second ABisContr (a, b a)))
 ```
 
+## Singleton induction
+
+A type is contractible if and only if it has singleton induction.
+
+```rzk
+#def ev-pt
+  (A : U)
+  (a : A)
+  (B : A -> U)
+  : ((x : A) -> B x) -> B a
+  := \f -> f a
+
+#def has-singleton-induction-pointed
+  (A : U)
+  (a : A)
+  (B : A -> U)
+  : U
+  := hasSection ((x : A) -> B x) (B a) (ev-pt A a B)
+
+#def has-singleton-induction
+  (A : U)
+  : U
+  := ∑ (a : A), (B : A -> U) -> (has-singleton-induction-pointed A a B)
+
+#def ind-sing
+  (A : U)
+  (a : A)
+  (B : A -> U)
+  (AhasSingInd : has-singleton-induction-pointed A a B)
+  : (B a) -> ((x : A) -> B x)
+  := (first AhasSingInd)
+
+#def comp-sing
+  (A : U)
+  (a : A)
+  (B : A -> U)
+  (AhasSingInd : has-singleton-induction-pointed A a B)
+  : (homotopy (B a) (B a) (composition (B a) ((x : A) -> B x) (B a) (ev-pt A a B) (ind-sing A a B AhasSingInd)) (identity (B a)))
+  := (second AhasSingInd)
+
+```
+
 ## Propositions
 
 A type is a proposition when its identity types are contractible.
@@ -220,8 +311,46 @@ A type is a proposition when its identity types are contractible.
   : U
   := (a : A) -> (b : A) -> isContr(a = b)
 
+-- Alternative characterizations: definitions
+
 #def all-elements-equal
   (A : U)
   : U
   := (a : A) -> (b : A) -> (a = b)
+
+#def inhabited-implies-contractible
+  (A : U)
+  : U
+  := A -> isContr A
+
+#def final-proj-is-embedding
+  (A : U)
+  : U
+  := isEmb A Unit (final-projection A)
+
+-- Alternative characterizations: proofs
+
+#def prop-implies-all-elements-equal
+  (A : U)
+  (AisProp : isProp A)
+  : all-elements-equal A
+  := \a -> \b -> (first (AisProp a b))
+
+#def all-elements-equal-implies-inhabited-implies-contractible
+  (A : U)
+  (AhasAllEltsEqual : all-elements-equal A)
+  : inhabited-implies-contractible A
+  := \a -> (a, AhasAllEltsEqual a)
+
 ```
+
+#def inhabited-implies-contractible-implies-final-proj-is-embedding (A : U)
+(AhasAllEltsEqual : all-elements-equal A) : final-proj-is-embedding A :=
+
+#def unit-loop-final-projection-sec : hasSection (unit = unit) Unit
+(final-projection (unit = unit)) := (\z -> refl\_{unit}, (identity Unit))
+
+#def unit-center (x : Unit) : (x = unit) := refl
+
+#def inhabited-implies-contractible-implies-final-proj-is-embedding (A : U) (f :
+inhabited-implies-contractible A) : final-proj-is-embedding A

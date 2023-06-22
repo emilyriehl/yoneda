@@ -1119,6 +1119,31 @@ composition:
     ap (hom A x y) (hom A w y) f g (Segal-comp A AisSegal w x y k) p
   := idJ(hom A x y, f, \g' p' -> (Segal-homotopy-prewhisker A AisSegal w x y k f g' p') =
     ap (hom A x y) (hom A w y) f g' (Segal-comp A AisSegal w x y k) p', refl, g, p)
+
+#section isSegal-Unit
+
+#variable extext : ExtExt
+
+#def iscontr-Unit : isContr Unit := (unit, \_ -> refl)
+
+#def isContr-Δ²→Unit uses (extext)
+  : isContr (Δ² -> Unit)
+  := (\_ -> unit, \k -> eq-ext-htpy extext
+    (2 * 2) Δ² (\_ -> BOT)
+    (\_ -> Unit) (\_ -> recBOT)
+    (\_ -> unit) k
+    (\_ -> refl)
+    )
+
+#def isSegal-Unit uses (extext)
+  : isSegal Unit
+  := \x y z f g -> isRetract-ofContr-isContr
+    (∑ (h : hom Unit x z), hom2 Unit x y z f g h)
+    (Δ² -> Unit)
+    (\(_, k) -> k, (\k -> (\t -> k (t, t), k), \_ -> refl))
+    isContr-Δ²→Unit
+
+#end isSegal-Unit
 ```
 
 <!-- Definitions for the SVG images above -->

@@ -67,3 +67,48 @@ This is a literate `rzk` file:
   : (B -> U)
   := \b -> C (f b)
 ```
+
+## Final projection
+
+```rzk
+-- Constant map into a pointed type
+#def const
+  (A : U)
+  (B : U)
+  (b : B)
+  : (A -> B)
+  := \a -> b
+
+-- Final projection as a constant map
+#def final-projection
+  (A : U)
+  : A -> Unit
+  := const A Unit unit
+
+```
+
+## Unit type
+
+```rzk
+#def ind-Unit
+  (C : Unit -> U)
+  (C-unit : C unit)
+  (x : Unit)
+  : C x
+  := C-unit
+
+#def uniq-Unit
+  (x : Unit)
+  : x = unit
+  := refl
+
+#def isProp-Unit
+  (x y : Unit)
+  : x = y
+  := refl
+
+```
+
+```
+
+```

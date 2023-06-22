@@ -82,7 +82,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : (arrow-isIso A AisSegal x y f) -> (arrow-hasInverse A AisSegal x y f)
-    := (\((g, p), (h, q)) 
+    := (\((g, p), (h, q))
         -> (g, (p,
             (concat
             (hom A y y)
@@ -119,6 +119,15 @@ This is a literate `rzk` file:
         )
     )
  )
+
+#def arrow-inverse-iff-iso
+    (extext : ExtExt) -- This proof uses extension extensionality.
+    (A : U)
+    (AisSegal : isSegal A)
+    (x y : A)
+    (f : hom A x y)
+    : iff (arrow-hasInverse A AisSegal x y f) (arrow-isIso A AisSegal x y f)
+    := (arrow-inverse-to-iso A AisSegal x y f, arrow-iso-to-inverse extext A AisSegal x y f)
+
 #end isomorphisms
 ```
-

@@ -852,3 +852,14 @@ equivalences.
 ```
 
 ```
+
+## Embeddings
+
+```rzk
+#def isEmb
+  (A B : U)
+  (f : A -> B)
+  : U
+  := (x : A) -> (y : A) -> isEquiv (x = y) (f x = f y) (ap A B x y f)
+
+```

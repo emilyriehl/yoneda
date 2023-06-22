@@ -107,7 +107,8 @@ This is a literate `rzk` file:
 
 ## Some derived coherences in path algebra
 
-The statements or proofs of the following path algebra coherences reference one of the path algebra coherences defined above.
+The statements or proofs of the following path algebra coherences reference one
+of the path algebra coherences defined above.
 
 ```rzk
 #section derived-path-coherence
