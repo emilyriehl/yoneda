@@ -862,4 +862,10 @@ equivalences.
   : U
   := (x : A) -> (y : A) -> isEquiv (x = y) (f x = f y) (ap A B x y f)
 
+#def inhabited-emb-implies-emb
+  (A B : U)
+  (f : A -> B)
+  (e : A -> isEmb A B f)
+  : isEmb A B f
+  := \x -> \y -> e x x y
 ```

@@ -33,10 +33,14 @@ This is a literate `rzk` file:
 
 #def contracting-htpy-realigned uses (Aiscontr)
   : (z : A) -> contraction-center = z
-  := \z -> (concat A contraction-center contraction-center z 
+  := \z -> (concat A contraction-center contraction-center z
           (rev A contraction-center contraction-center (contracting-htpy contraction-center))
           (contracting-htpy z)
           )
+
+#def contracting-htpy-realigned-path uses (Aiscontr)
+  : (contracting-htpy-realigned contraction-center) = refl
+  := (rev-left-inverse A contraction-center contraction-center (contracting-htpy contraction-center))
 
 -- A path between an arbitrary pair of types in a contractible type.
 #def contractible-connecting-htpy uses (Aiscontr)
@@ -278,6 +282,12 @@ A type is contractible if and only if it has singleton induction.
   : U
   := hasSection ((x : A) -> B x) (B a) (ev-pt A a B)
 
+#def has-singleton-induction-pointed-structure
+  (A : U)
+  (a : A)
+  : U
+  := (B : A -> U) -> hasSection ((x : A) -> B x) (B a) (ev-pt A a B)
+
 #def has-singleton-induction
   (A : U)
   : U
@@ -298,6 +308,33 @@ A type is contractible if and only if it has singleton induction.
   (AhasSingInd : has-singleton-induction-pointed A a B)
   : (homotopy (B a) (B a) (composition (B a) ((x : A) -> B x) (B a) (ev-pt A a B) (ind-sing A a B AhasSingInd)) (identity (B a)))
   := (second AhasSingInd)
+
+#def contr-implies-singleton-induction-ind
+    (A : U)
+    (Aiscontr : isContr A)
+    : (has-singleton-induction A)
+    := (
+      (contraction-center A Aiscontr),
+      \B -> ( (\b -> \x -> (transport A B (contraction-center A Aiscontr) x (contracting-htpy-realigned A Aiscontr x) b)),
+            (\b ->
+            (ap
+            ((contraction-center A Aiscontr) = (contraction-center A Aiscontr))
+            (B (contraction-center A Aiscontr))
+            (contracting-htpy-realigned A Aiscontr (contraction-center A Aiscontr))
+            refl_{(contraction-center A Aiscontr)}
+            (\p -> (transport-loop A B (contraction-center A Aiscontr) b p))
+            (contracting-htpy-realigned-path A Aiscontr)
+            )
+      )
+      )
+      )
+
+#def singleton-induction-ind-implies-contr
+    (A : U)
+    (a : A)
+    (f : has-singleton-induction-pointed-structure A a)
+    : (isContr A)
+    := (a, (first (f (\x -> a = x)))(refl_{a}))
 
 ```
 
