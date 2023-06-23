@@ -451,6 +451,12 @@ of the path algebra coherences defined above.</p>
   : (transport x y p u) = (transport x y q u)
   := idJ(x = y, p, \q' H' -&gt; (transport x y p u) = (transport x y q' u), refl, q, H)
 
+#def transport-loop
+  (a : A)
+  (b : B a)
+  : (a = a) -&gt; B a
+  := \p -&gt; (transport a a p b)
+
 #end transport
 </code></pre>
 <h2 id="dependent-application">Dependent application</h2>

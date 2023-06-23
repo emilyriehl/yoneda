@@ -968,6 +968,12 @@ equivalences.</p>
   : U
   := (x : A) -&gt; (y : A) -&gt; isEquiv (x = y) (f x = f y) (ap A B x y f)
 
+#def inhabited-emb-implies-emb
+  (A B : U)
+  (f : A -&gt; B)
+  (e : A -&gt; isEmb A B f)
+  : isEmb A B f
+  := \x -&gt; \y -&gt; e x x y
 </code></pre>
               
             </div>
