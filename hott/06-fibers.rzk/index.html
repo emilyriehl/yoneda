@@ -98,6 +98,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#fundamental-theorem-of-identity-types">Fundamental theorem of identity types</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#propositions">Propositions</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
@@ -1359,29 +1361,45 @@ equivalence of total spaces.</p>
 
 #end fundamental-thm-id-types
 </code></pre>
-<p>areContr-isEquiv (A B : U) (Aiscontr : isContr A) (Biscontr : isContr B) (f : A
--&gt; B) : isEquiv A B f</p>
-<h1 id="def-total-equiv-family-of-equiv">def total-equiv-family-of-equiv</h1>
-<p>(A : U)
-(B C : A -&gt; U)
-(f : (a : A) -&gt; (B a) -&gt; (C a)) -- a family of maps
-(totalequiv : isEquiv (∑ (x : A), B x) (∑ (x : A), C
-x) (family-of-maps-total-map A B C f))
-(a : A) : isEquiv (B a) (C a) (f a)</p>
-<p>areContr-isEquiv (A B : U) (Aiscontr : isContr A) (Biscontr : isContr B) (f : A
--&gt; B) : isEquiv A B f</p>
-<p>hasInverse-isEquiv (A B : U) (f : A -&gt; B) (fhasinverse : hasInverse A B f) :
-isEquiv A B f</p>
-<h1 id="def-family-of-equiv-total-invertible-a-u-b-c-a-u-f-a-a-b">def family-of-equiv-total-invertible (A : U) (B C : A -&gt; U) (f : (a : A) -&gt; (B</h1>
-<p>a) -&gt; (C a)) -- a family of maps (familyequiv : (a : A) -&gt; isEquiv (B a) (C a)
-(f a)) -- a family of equivalences : hasInverse (∑ (x : A), B x) (∑ (x : A), C
-x) (family-of-maps-total-map A B C f)</p>
-<h1 id="def-fam-of-eqs-implies-sum-over-codomain-is-contr-fisfamofeqs-x-a-">def fam-of-eqs-implies-sum-over-codomain-is-contr (fisfamofeqs : (x : A) -&gt;</h1>
-<p>isEquiv (a = x) (B x) (f x)) : (isContr (∑(x : A), B x)) :=</p>
-<p>family-of-equiv-total-invertible (A : U) (B C : A -&gt; U) (f : (a : A) -&gt; (B a) -&gt;
-(C a)) -- a family of maps (familyequiv : (a : A) -&gt; isEquiv (B a) (C a) (f a))
--- a family of equivalences : hasInverse (∑ (x : A), B x) (∑ (x : A), C x)
-(family-of-maps-total-map A B C f)</p>
+<h2 id="propositions">Propositions</h2>
+<p>A type is a proposition when its identity types are contractible.</p>
+<pre><code class="language-rzk">#def isProp
+  (A : U)
+  : U
+  := (a : A) -&gt; (b : A) -&gt; isContr(a = b)
+
+-- Alternative characterizations: definitions
+
+#def all-elements-equal
+  (A : U)
+  : U
+  := (a : A) -&gt; (b : A) -&gt; (a = b)
+
+#def inhabited-implies-contractible
+  (A : U)
+  : U
+  := A -&gt; isContr A
+
+#def final-proj-is-embedding
+  (A : U)
+  : U
+  := isEmb A Unit (final-projection A)
+
+-- Alternative characterizations: proofs
+
+#def prop-implies-all-elements-equal
+  (A : U)
+  (AisProp : isProp A)
+  : all-elements-equal A
+  := \a -&gt; \b -&gt; (first (AisProp a b))
+
+#def all-elements-equal-implies-inhabited-implies-contractible
+  (A : U)
+  (AhasAllEltsEqual : all-elements-equal A)
+  : inhabited-implies-contractible A
+  := \a -&gt; (a, AhasAllEltsEqual a)
+
+</code></pre>
               
             </div>
           </div><footer>

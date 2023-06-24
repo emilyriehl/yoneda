@@ -94,8 +94,6 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#singleton-induction">Singleton induction</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#propositions">Propositions</a>
-    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
@@ -482,52 +480,6 @@
     := (a, (first (f (\x -&gt; a = x)))(refl_{a}))
 
 </code></pre>
-<h2 id="propositions">Propositions</h2>
-<p>A type is a proposition when its identity types are contractible.</p>
-<pre><code class="language-rzk">#def isProp
-  (A : U)
-  : U
-  := (a : A) -&gt; (b : A) -&gt; isContr(a = b)
-
--- Alternative characterizations: definitions
-
-#def all-elements-equal
-  (A : U)
-  : U
-  := (a : A) -&gt; (b : A) -&gt; (a = b)
-
-#def inhabited-implies-contractible
-  (A : U)
-  : U
-  := A -&gt; isContr A
-
-#def final-proj-is-embedding
-  (A : U)
-  : U
-  := isEmb A Unit (final-projection A)
-
--- Alternative characterizations: proofs
-
-#def prop-implies-all-elements-equal
-  (A : U)
-  (AisProp : isProp A)
-  : all-elements-equal A
-  := \a -&gt; \b -&gt; (first (AisProp a b))
-
-#def all-elements-equal-implies-inhabited-implies-contractible
-  (A : U)
-  (AhasAllEltsEqual : all-elements-equal A)
-  : inhabited-implies-contractible A
-  := \a -&gt; (a, AhasAllEltsEqual a)
-
-</code></pre>
-<h1 id="def-inhabited-implies-contractible-implies-final-proj-is-embedding-a-u">def inhabited-implies-contractible-implies-final-proj-is-embedding (A : U)</h1>
-<p>(AhasAllEltsEqual : all-elements-equal A) : final-proj-is-embedding A :=</p>
-<h1 id="def-unit-loop-final-projection-sec-hassection-unit-unit-unit">def unit-loop-final-projection-sec : hasSection (unit = unit) Unit</h1>
-<p>(final-projection (unit = unit)) := (\z -&gt; refl_{unit}, (identity Unit))</p>
-<h1 id="def-unit-center-x-unit-x-unit-refl">def unit-center (x : Unit) : (x = unit) := refl</h1>
-<h1 id="def-inhabited-implies-contractible-implies-final-proj-is-embedding-a-u-f">def inhabited-implies-contractible-implies-final-proj-is-embedding (A : U) (f :</h1>
-<p>inhabited-implies-contractible A) : final-proj-is-embedding A</p>
               
             </div>
           </div><footer>
