@@ -1281,32 +1281,45 @@ equivalence of total spaces.
 #end fundamental-thm-id-types
 ```
 
-areContr-isEquiv (A B : U) (Aiscontr : isContr A) (Biscontr : isContr B) (f : A
--> B) : isEquiv A B f
+## Propositions
 
-#def total-equiv-family-of-equiv
-(A : U)
-(B C : A -> U)
-(f : (a : A) -> (B a) -> (C a)) -- a family of maps
-(totalequiv : isEquiv (∑ (x : A), B x) (∑ (x : A), C
-x) (family-of-maps-total-map A B C f))
-(a : A) : isEquiv (B a) (C a) (f a)
+A type is a proposition when its identity types are contractible.
 
-areContr-isEquiv (A B : U) (Aiscontr : isContr A) (Biscontr : isContr B) (f : A
--> B) : isEquiv A B f
+```rzk
+#def isProp
+  (A : U)
+  : U
+  := (a : A) -> (b : A) -> isContr(a = b)
 
-hasInverse-isEquiv (A B : U) (f : A -> B) (fhasinverse : hasInverse A B f) :
-isEquiv A B f
+-- Alternative characterizations: definitions
 
-#def family-of-equiv-total-invertible (A : U) (B C : A -> U) (f : (a : A) -> (B
-a) -> (C a)) -- a family of maps (familyequiv : (a : A) -> isEquiv (B a) (C a)
-(f a)) -- a family of equivalences : hasInverse (∑ (x : A), B x) (∑ (x : A), C
-x) (family-of-maps-total-map A B C f)
+#def all-elements-equal
+  (A : U)
+  : U
+  := (a : A) -> (b : A) -> (a = b)
 
-#def fam-of-eqs-implies-sum-over-codomain-is-contr (fisfamofeqs : (x : A) ->
-isEquiv (a = x) (B x) (f x)) : (isContr (∑(x : A), B x)) :=
+#def inhabited-implies-contractible
+  (A : U)
+  : U
+  := A -> isContr A
 
-family-of-equiv-total-invertible (A : U) (B C : A -> U) (f : (a : A) -> (B a) ->
-(C a)) -- a family of maps (familyequiv : (a : A) -> isEquiv (B a) (C a) (f a))
--- a family of equivalences : hasInverse (∑ (x : A), B x) (∑ (x : A), C x)
-(family-of-maps-total-map A B C f)
+#def final-proj-is-embedding
+  (A : U)
+  : U
+  := isEmb A Unit (final-projection A)
+
+-- Alternative characterizations: proofs
+
+#def prop-implies-all-elements-equal
+  (A : U)
+  (AisProp : isProp A)
+  : all-elements-equal A
+  := \a -> \b -> (first (AisProp a b))
+
+#def all-elements-equal-implies-inhabited-implies-contractible
+  (A : U)
+  (AhasAllEltsEqual : all-elements-equal A)
+  : inhabited-implies-contractible A
+  := \a -> (a, AhasAllEltsEqual a)
+
+```
