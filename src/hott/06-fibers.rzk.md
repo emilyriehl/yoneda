@@ -1264,8 +1264,33 @@ equivalence of total spaces.
         )
   )
 
+#def fund-id-sum-over-codomain-contr-implies-fam-of-eqs
+  : (isContr (∑(x : A), B x)) -> ((x : A) -> (isEquiv (a = x) (B x) (f x)))
+  :=  (
+        \Biscontr -> (\x -> (total-equiv-family-of-equiv
+        A
+        (\x -> (a = x))
+        B
+        f
+       (areContr-isEquiv (∑(x : A), (a = x)) (∑(x : A), (B x)) (based-paths-contractible A a) Biscontr (family-of-maps-total-map A (\x -> (a = x)) B f) )
+        x
+         )
+      )
+  )
+
 #end fundamental-thm-id-types
 ```
+
+areContr-isEquiv (A B : U) (Aiscontr : isContr A) (Biscontr : isContr B) (f : A
+-> B) : isEquiv A B f
+
+#def total-equiv-family-of-equiv
+(A : U)
+(B C : A -> U)
+(f : (a : A) -> (B a) -> (C a)) -- a family of maps
+(totalequiv : isEquiv (∑ (x : A), B x) (∑ (x : A), C
+x) (family-of-maps-total-map A B C f))
+(a : A) : isEquiv (B a) (C a) (f a)
 
 areContr-isEquiv (A B : U) (Aiscontr : isContr A) (Biscontr : isContr B) (f : A
 -> B) : isEquiv A B f
