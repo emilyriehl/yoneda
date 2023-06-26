@@ -98,6 +98,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#fundamental-theorem-of-identity-types">Fundamental theorem of identity types</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#propositions">Propositions</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
@@ -1360,7 +1362,7 @@ equivalence of total spaces.</p>
 
 #end fundamental-thm-id-types
 </code></pre>
-<pre><code class="language-rzk">#def equivalences-are-embeddings
+<pre><code class="language-rzk">#def equivalence-to-embedding
   (A B : U)
   (e : A -&gt; B)
   (eisequiv : isEquiv A B e)
@@ -1398,28 +1400,14 @@ equivalence of total spaces.</p>
   )
   )(y) -- evaluate at y
   )
-</code></pre>
-<h1 id="def-isequiv-iscontr-map">def isEquiv-isContr-map</h1>
-<pre><code>(A B : U)
-(f : A -&gt; B)
-(fisequiv : isEquiv A B f)
-: isContr-map A B f
-</code></pre>
-<h1 id="def-rev-isequiv">def rev-isEquiv</h1>
-<pre><code>(A : U)
-(x y : A)
-: isEquiv (x = y) (y = x) (rev A x y)
-</code></pre>
-<p>total-equiv-iff-family-of-equiv
-    (A : U)
-    (B C : A -&gt; U)
-    (f : (a : A) -&gt; (B a) -&gt; (C a))                         -- a family of maps
-    : iff ((a : A) -&gt; isEquiv (B a) (C a) (f a)) (isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))</p>
-<h1 id="def-isequiv-tocontr-iscontr">def isEquiv-toContr-isContr</h1>
-<pre><code>(A B : U)
-(e : Eq A B)
-(Biscontr : isContr B)
-: isContr A
+
+
+#def equivalence-is-embedding
+  (A B : U)
+  (e : A -&gt; B)
+  (eisequiv : isEquiv A B e)
+  : isEmb A B e
+  := (second (equivalence-to-embedding A B e eisequiv))
 </code></pre>
 <h2 id="propositions">Propositions</h2>
 <p>A type is a proposition when its identity types are contractible.</p>
@@ -1427,6 +1415,10 @@ equivalence of total spaces.</p>
   (A : U)
   : U
   := (a : A) -&gt; (b : A) -&gt; isContr(a = b)
+
+#def Unit-isProp
+  : isProp Unit
+  := \x -&gt; \y -&gt; (path-types-of-Unit-are-contractible x y)
 
 -- Alternative characterizations: definitions
 
@@ -1459,8 +1451,37 @@ equivalence of total spaces.</p>
   : inhabited-implies-contractible A
   := \a -&gt; (a, AhasAllEltsEqual a)
 
+#def inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : A -&gt; (final-proj-is-embedding A)
+  := \x -&gt;
+  (equivalence-is-embedding A Unit (final-projection A)
+      (contr-implies-final-proj-is-equiv A (c x))
+  )
+
+#def inhabited-implies-contractible-implies-final-proj-is-embedding
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : (final-proj-is-embedding A)
+  :=
+  (inhabited-emb-implies-emb A Unit (final-projection A)
+    (inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding A c)
+  )
 
 
+
+</code></pre>
+<h1 id="def-final-proj-is-embedding-implies-proposition">def final-proj-is-embedding-implies-proposition</h1>
+<p>(A : U)
+  (f : final-proj-is-embedding A)
+  : isProp A
+  := \x -&gt; \y -&gt; (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) )</p>
+<h1 id="def-isequiv-tocontr-iscontr">def isEquiv-toContr-isContr</h1>
+<pre><code>(A B : U)
+(e : Eq A B)
+(Biscontr : isContr B)
+: isContr A
 </code></pre>
               
             </div>
