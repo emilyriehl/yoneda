@@ -129,7 +129,7 @@ This is a literate `rzk` file:
     : iff (arrow-hasInverse A AisSegal x y f) (arrow-isIso A AisSegal x y f)
     := (arrow-inverse-to-iso A AisSegal x y f, arrow-iso-to-inverse extext A AisSegal x y f)
 
-#def if-iso-then-postcomp-is-fam-of-equiv
+#def if-iso-then-postcomp-has-sections
   (extext : ExtExt) -- This proof uses extension extensionality.
   (A : U)
   (AisSegal : isSegal A)
