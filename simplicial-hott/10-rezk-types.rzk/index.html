@@ -251,6 +251,31 @@
     : iff (arrow-hasInverse A AisSegal x y f) (arrow-isIso A AisSegal x y f)
     := (arrow-inverse-to-iso A AisSegal x y f, arrow-iso-to-inverse extext A AisSegal x y f)
 
+#def if-iso-then-postcomp-is-fam-of-equiv
+  (extext : ExtExt) -- This proof uses extension extensionality.
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  (g : hom A y x)
+  (gg : arrow-hasRetraction A AisSegal x y f g)
+  (h : hom A y x)
+  (hh : arrow-hasSection A AisSegal x y f h)
+  : (z : A) -&gt; hasRetraction (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
+  := \z -&gt; (
+        (Segal-postcomp A AisSegal y x g z),
+        \k -&gt;
+      (triple-concat
+        (hom A z x)
+        (Segal-comp A AisSegal z y x (Segal-comp A AisSegal z x y k f) g) -- g(fk)
+        (Segal-comp A AisSegal z x x k (Segal-comp A AisSegal x y x f g)) -- (gf)k
+        (Segal-comp A AisSegal z x x k (id-arr A x)) -- id_x k
+        k --k
+      (Segal-associativity extext A AisSegal z x y x k f g) -- g(fk) = (gf)k
+      (Segal-homotopy-prewhisker A AisSegal z x x k (Segal-comp A AisSegal x y x f g) (id-arr A x) gg)  -- (gf)k = id_x k from (gf) = id_x
+      (Segal-comp-id A AisSegal z x k) -- id_x k = k
+       )
+  )
 #end isomorphisms
 </code></pre>
               

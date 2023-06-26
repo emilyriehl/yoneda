@@ -940,6 +940,23 @@ that the type of arrows in a Segal type is itself a Segal type.</p>
       (Segal-comp A AisSegal w x z f (Segal-comp A AisSegal x y z g h))
       (Segal-left-associativity extext A AisSegal w x y z f g h)
       (Segal-right-associativity extext A AisSegal w x y z f g h)
+
+
+#def Segal-postcomp
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  : (z : A) -&gt; (hom A z x) -&gt; (hom A z y)
+  := \z -&gt; \g -&gt; (Segal-comp A AisSegal z x y g f)
+
+#def Segal-precomp
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  : (z : A) -&gt; (hom A y z) -&gt; (hom A x z)
+  := \z -&gt; \g -&gt; (Segal-comp A AisSegal x y z f g)
 </code></pre>
 <h2 id="homotopies">Homotopies</h2>
 <p>We may define a "homotopy" to be a path between parallel arrows. In a Segal
