@@ -880,6 +880,23 @@ The front face:
       (Segal-comp A AisSegal w x z f (Segal-comp A AisSegal x y z g h))
       (Segal-left-associativity extext A AisSegal w x y z f g h)
       (Segal-right-associativity extext A AisSegal w x y z f g h)
+
+
+#def Segal-postcomp
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  : (z : A) -> (hom A z x) -> (hom A z y)
+  := \z -> \g -> (Segal-comp A AisSegal z x y g f)
+
+#def Segal-precomp
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  : (z : A) -> (hom A y z) -> (hom A x z)
+  := \z -> \g -> (Segal-comp A AisSegal x y z f g)
 ```
 
 ## Homotopies
