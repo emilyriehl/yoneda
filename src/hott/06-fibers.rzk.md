@@ -1283,7 +1283,7 @@ equivalence of total spaces.
 ```
 
 ```rzk
-#def equivalences-are-embeddings
+#def equivalence-to-embedding
   (A B : U)
   (e : A -> B)
   (eisequiv : isEquiv A B e)
@@ -1321,30 +1321,15 @@ equivalence of total spaces.
   )
   )(y) -- evaluate at y
   )
+
+
+#def equivalence-is-embedding
+  (A B : U)
+  (e : A -> B)
+  (eisequiv : isEquiv A B e)
+  : isEmb A B e
+  := (second (equivalence-to-embedding A B e eisequiv))
 ```
-
-#def isEquiv-isContr-map
-    (A B : U)
-    (f : A -> B)
-    (fisequiv : isEquiv A B f)
-    : isContr-map A B f
-
-#def rev-isEquiv
-    (A : U)
-    (x y : A)
-    : isEquiv (x = y) (y = x) (rev A x y)
-
-total-equiv-iff-family-of-equiv
-    (A : U)
-    (B C : A -> U)
-    (f : (a : A) -> (B a) -> (C a))                         -- a family of maps
-    : iff ((a : A) -> isEquiv (B a) (C a) (f a)) (isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
-
-#def isEquiv-toContr-isContr
-    (A B : U)
-    (e : Eq A B)
-    (Biscontr : isContr B)
-    : isContr A
 
 ## Propositions
 
@@ -1355,6 +1340,10 @@ A type is a proposition when its identity types are contractible.
   (A : U)
   : U
   := (a : A) -> (b : A) -> isContr(a = b)
+
+#def Unit-isProp
+  : isProp Unit
+  := \x -> \y -> (path-types-of-Unit-are-contractible x y)
 
 -- Alternative characterizations: definitions
 
@@ -1387,6 +1376,36 @@ A type is a proposition when its identity types are contractible.
   : inhabited-implies-contractible A
   := \a -> (a, AhasAllEltsEqual a)
 
+#def inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : A -> (final-proj-is-embedding A)
+  := \x ->
+  (equivalence-is-embedding A Unit (final-projection A)
+      (contr-implies-final-proj-is-equiv A (c x))
+  )
+
+#def inhabited-implies-contractible-implies-final-proj-is-embedding
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : (final-proj-is-embedding A)
+  :=
+  (inhabited-emb-implies-emb A Unit (final-projection A)
+    (inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding A c)
+  )
+
 
 
 ```
+
+#def final-proj-is-embedding-implies-proposition
+  (A : U)
+  (f : final-proj-is-embedding A)
+  : isProp A
+  := \x -> \y -> (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) )
+
+#def isEquiv-toContr-isContr
+    (A B : U)
+    (e : Eq A B)
+    (Biscontr : isContr B)
+    : isContr A

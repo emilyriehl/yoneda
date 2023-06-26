@@ -123,6 +123,11 @@ A type is contractible if and only if its final projection is an equivalence.
       \Biscontr -> (equiv-with-contractible-codomain-implies-contractible-domain A B f Biscontr)
       )
 
+#def path-types-of-Unit-are-contractible
+    (x y : Unit)
+    : isContr (x = y)
+    := (final-proj-is-equiv-implies-contr (x = y) (final-projection-of-path-types-of-Unit-isEquiv x y))
+
 ```
 
 ## Retracts of contractible types

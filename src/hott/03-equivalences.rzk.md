@@ -896,3 +896,24 @@ equivalences.
   : isEmb A B f
   := \x -> \y -> e x x y
 ```
+
+```rzk
+#def final-projection-of-path-types-of-Unit-has-retr
+    (x y : Unit)
+    : hasRetraction (x = y) Unit (final-projection (x = y))
+    :=
+    (\a -> refl, \p -> idJ(Unit, x, \y' p' -> refl =_{x = y'} p', refl, y, p))
+
+#def final-projection-of-path-types-of-Unit-has-sec
+    (x y : Unit)
+    : hasSection (x = y) Unit (final-projection (x = y))
+    :=
+    (\a -> refl, \a -> refl)
+
+#def final-projection-of-path-types-of-Unit-isEquiv
+    (x y : Unit)
+    : isEquiv (x = y) Unit (final-projection (x = y))
+    :=
+    ((final-projection-of-path-types-of-Unit-has-retr x y), (final-projection-of-path-types-of-Unit-has-sec x y))
+
+```
