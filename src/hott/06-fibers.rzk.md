@@ -1394,18 +1394,16 @@ A type is a proposition when its identity types are contractible.
     (inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding A c)
   )
 
-
-
-```
-
 #def final-proj-is-embedding-implies-proposition
   (A : U)
   (f : final-proj-is-embedding A)
   : isProp A
-  := \x -> \y -> (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) )
+  := \x -> \y -> (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) (path-types-of-Unit-are-contractible unit unit))
 
-#def isEquiv-toContr-isContr
-    (A B : U)
-    (e : Eq A B)
-    (Biscontr : isContr B)
-    : isContr A
+#def contractible-if-inhabited-implies-proposition
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : isProp A
+  := (final-proj-is-embedding-implies-proposition A (inhabited-implies-contractible-implies-final-proj-is-embedding A c))
+
+```
