@@ -1278,8 +1278,73 @@ equivalence of total spaces.
       )
   )
 
+
 #end fundamental-thm-id-types
 ```
+
+```rzk
+#def equivalences-are-embeddings
+  (A B : U)
+  (e : A -> B)
+  (eisequiv : isEquiv A B e)
+  : (Emb A B) -- For all x, y in A, ap_{e,x,y} is an equivalence
+  := (e,
+      \x -> \y ->
+          (fund-id-sum-over-codomain-contr-implies-fam-of-eqs
+          -- By the fundamental theorem of identity types, it will suffice to show contractibility of Sigma_{t : A} e x = e t
+          -- for the family of maps ap_e, which is of type (\t:A) -> (x = t) -> (e x = e t)
+          A
+          x
+          (\t -> (e x = e t))
+          (\t -> (ap A B x t e)) -- the family of maps ap_e
+        ((isEquiv-toContr-isContr
+        -- Contractibility of Sigma_{t : A} e x = e t will follow since total(\t -> rev B (e x) = (e t)), mapping from Sigma_{t : A} e x = e t to Sigma_{t : A} e t = e x
+        -- is an equivalence, and Sigma_{t : A} e t = e x ~ fib(e, e x) is contractible since e is an equivalence.
+            (∑(y : A), (e x = e y)) -- source type
+            (∑(y : A), (e y = e x)) -- target type
+        (
+         -- total map as equivalence
+        (family-of-maps-total-map A (\y' -> (e x) = (e y')) (\y' -> (e y') = (e x)) (\y' -> (rev B (e x) (e y')))), -- a) total map
+
+        ( -- b) proof that total map is equivalence
+          (first
+            (total-equiv-iff-family-of-equiv A (\y' -> (e x) = (e y')) (\y' -> (e y') = (e x)) (\y' -> (rev B (e x) (e y'))))
+          )
+           (\y' -> (rev-isEquiv B (e x) (e y')))
+        )
+        )
+
+        ( -- fiber of e at e(x) is contractible
+          (isEquiv-isContr-map A B e eisequiv) (e x)
+        )
+      )
+  )
+  )(y) -- evaluate at y
+  )
+```
+
+#def isEquiv-isContr-map
+    (A B : U)
+    (f : A -> B)
+    (fisequiv : isEquiv A B f)
+    : isContr-map A B f
+
+#def rev-isEquiv
+    (A : U)
+    (x y : A)
+    : isEquiv (x = y) (y = x) (rev A x y)
+
+total-equiv-iff-family-of-equiv
+    (A : U)
+    (B C : A -> U)
+    (f : (a : A) -> (B a) -> (C a))                         -- a family of maps
+    : iff ((a : A) -> isEquiv (B a) (C a) (f a)) (isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))
+
+#def isEquiv-toContr-isContr
+    (A B : U)
+    (e : Eq A B)
+    (Biscontr : isContr B)
+    : isContr A
 
 ## Propositions
 
@@ -1321,5 +1386,7 @@ A type is a proposition when its identity types are contractible.
   (AhasAllEltsEqual : all-elements-equal A)
   : inhabited-implies-contractible A
   := \a -> (a, AhasAllEltsEqual a)
+
+
 
 ```
