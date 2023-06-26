@@ -1469,19 +1469,18 @@ equivalence of total spaces.</p>
     (inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding A c)
   )
 
-
-
-</code></pre>
-<h1 id="def-final-proj-is-embedding-implies-proposition">def final-proj-is-embedding-implies-proposition</h1>
-<p>(A : U)
+#def final-proj-is-embedding-implies-proposition
+  (A : U)
   (f : final-proj-is-embedding A)
   : isProp A
-  := \x -&gt; \y -&gt; (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) )</p>
-<h1 id="def-isequiv-tocontr-iscontr">def isEquiv-toContr-isContr</h1>
-<pre><code>(A B : U)
-(e : Eq A B)
-(Biscontr : isContr B)
-: isContr A
+  := \x -&gt; \y -&gt; (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) (path-types-of-Unit-are-contractible unit unit))
+
+#def contractible-if-inhabited-implies-proposition
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : isProp A
+  := (final-proj-is-embedding-implies-proposition A (inhabited-implies-contractible-implies-final-proj-is-embedding A c))
+
 </code></pre>
               
             </div>
