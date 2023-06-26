@@ -98,8 +98,6 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#fundamental-theorem-of-identity-types">Fundamental theorem of identity types</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#propositions">Propositions</a>
-    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
@@ -1359,7 +1357,69 @@ equivalence of total spaces.</p>
       )
   )
 
+
 #end fundamental-thm-id-types
+</code></pre>
+<pre><code class="language-rzk">#def equivalences-are-embeddings
+  (A B : U)
+  (e : A -&gt; B)
+  (eisequiv : isEquiv A B e)
+  : (Emb A B) -- For all x, y in A, ap_{e,x,y} is an equivalence
+  := (e,
+      \x -&gt; \y -&gt;
+          (fund-id-sum-over-codomain-contr-implies-fam-of-eqs
+          -- By the fundamental theorem of identity types, it will suffice to show contractibility of Sigma_{t : A} e x = e t
+          -- for the family of maps ap_e, which is of type (\t:A) -&gt; (x = t) -&gt; (e x = e t)
+          A
+          x
+          (\t -&gt; (e x = e t))
+          (\t -&gt; (ap A B x t e)) -- the family of maps ap_e
+        ((isEquiv-toContr-isContr
+        -- Contractibility of Sigma_{t : A} e x = e t will follow since total(\t -&gt; rev B (e x) = (e t)), mapping from Sigma_{t : A} e x = e t to Sigma_{t : A} e t = e x
+        -- is an equivalence, and Sigma_{t : A} e t = e x ~ fib(e, e x) is contractible since e is an equivalence.
+            (∑(y : A), (e x = e y)) -- source type
+            (∑(y : A), (e y = e x)) -- target type
+        (
+         -- total map as equivalence
+        (family-of-maps-total-map A (\y' -&gt; (e x) = (e y')) (\y' -&gt; (e y') = (e x)) (\y' -&gt; (rev B (e x) (e y')))), -- a) total map
+
+        ( -- b) proof that total map is equivalence
+          (first
+            (total-equiv-iff-family-of-equiv A (\y' -&gt; (e x) = (e y')) (\y' -&gt; (e y') = (e x)) (\y' -&gt; (rev B (e x) (e y'))))
+          )
+           (\y' -&gt; (rev-isEquiv B (e x) (e y')))
+        )
+        )
+
+        ( -- fiber of e at e(x) is contractible
+          (isEquiv-isContr-map A B e eisequiv) (e x)
+        )
+      )
+  )
+  )(y) -- evaluate at y
+  )
+</code></pre>
+<h1 id="def-isequiv-iscontr-map">def isEquiv-isContr-map</h1>
+<pre><code>(A B : U)
+(f : A -&gt; B)
+(fisequiv : isEquiv A B f)
+: isContr-map A B f
+</code></pre>
+<h1 id="def-rev-isequiv">def rev-isEquiv</h1>
+<pre><code>(A : U)
+(x y : A)
+: isEquiv (x = y) (y = x) (rev A x y)
+</code></pre>
+<p>total-equiv-iff-family-of-equiv
+    (A : U)
+    (B C : A -&gt; U)
+    (f : (a : A) -&gt; (B a) -&gt; (C a))                         -- a family of maps
+    : iff ((a : A) -&gt; isEquiv (B a) (C a) (f a)) (isEquiv (∑ (x : A), B x) (∑ (x : A), C x) (family-of-maps-total-map A B C f))</p>
+<h1 id="def-isequiv-tocontr-iscontr">def isEquiv-toContr-isContr</h1>
+<pre><code>(A B : U)
+(e : Eq A B)
+(Biscontr : isContr B)
+: isContr A
 </code></pre>
 <h2 id="propositions">Propositions</h2>
 <p>A type is a proposition when its identity types are contractible.</p>
@@ -1398,6 +1458,8 @@ equivalence of total spaces.</p>
   (AhasAllEltsEqual : all-elements-equal A)
   : inhabited-implies-contractible A
   := \a -&gt; (a, AhasAllEltsEqual a)
+
+
 
 </code></pre>
               

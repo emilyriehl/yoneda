@@ -908,7 +908,26 @@
     (x y : A)
     : Eq (x = y) (f x = f y)
     := (ap A B x y f, isEquiv-ap-isEquiv A B f fisequiv x y)
+</code></pre>
+<pre><code class="language-rzk">#def rev-Retraction
+    (A : U)
+    (y : A)
+    : (x : A) -&gt; hasRetraction (x = y) (y = x) ((\p -&gt; ((rev A x y) p)))
+    := \x -&gt;
+       ((rev A y x), \p -&gt; idJ(A, x, \y' p' -&gt; ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y'))(p') =_{x = y'} p'), refl, y, p))
 
+#def rev-Section
+    (A : U)
+    (y : A)
+    : (x : A) -&gt; hasSection (x = y) (y = x) ((\p -&gt; ((rev A x y) p)))
+    := \x -&gt;
+       ((rev A y x), \p -&gt; idJ(A, y, \x' p' -&gt; ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x'))(p') =_{y = x'} p'), refl, x, p))
+
+#def rev-isEquiv
+    (A : U)
+    (x y : A)
+    : isEquiv (x = y) (y = x) (rev A x y)
+    := ((rev-Retraction A y x), (rev-Section A y x))
 </code></pre>
 <h2 id="function-extensionality">Function extensionality</h2>
 <p>By path induction, an identification between functions defines a homotopy</p>
@@ -967,6 +986,11 @@ equivalences.</p>
   (f : A -&gt; B)
   : U
   := (x : A) -&gt; (y : A) -&gt; isEquiv (x = y) (f x = f y) (ap A B x y f)
+
+#def Emb
+  (A B : U)
+  : U
+  := (∑ (f : A -&gt; B), isEmb A B f)
 
 #def inhabited-emb-implies-emb
   (A B : U)
