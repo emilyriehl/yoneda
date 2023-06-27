@@ -1,5 +1,8 @@
 # Yoneda for ∞-categories
 
+[![Check with latest Rzk](https://github.com/emilyriehl/yoneda/actions/workflows/rzk.yml/badge.svg)](https://github.com/emilyriehl/yoneda/actions/workflows/rzk.yml)
+[![MkDocs to GitHub Pages](https://github.com/emilyriehl/yoneda/actions/workflows/mkdocs.yml/badge.svg)](https://github.com/emilyriehl/yoneda/actions/workflows/mkdocs.yml)
+
 This is a formalization library for simplicial Homotopy Type Theory (sHoTT) with
 the aim of proving the Yoneda lemma for ∞-categories following the paper
 "[A type theory for synthetic ∞-categories](https://higher-structures.math.cas.cz/api/files/issues/Vol1Iss1/RiehlShulman)"

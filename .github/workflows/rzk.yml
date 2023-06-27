@@ -1,0 +1,25 @@
+name: Check with latest Rzk
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events
+  push:
+  # and pull request events
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: Check formalisations
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check all files
+        uses: fizruk/rzk-action@v1
+        with:
+          rzk-version: latest
+          # rzk-version: v0.4.1.1   # example of a specific version
+          files: src/hott/* src/simplicial-hott/*
