@@ -315,6 +315,141 @@
     (if-iso-then-postcomp-has-section extext A AisSegal x y f h hh z)
    )
 
+#def if-iso-then-precomp-has-retraction
+  (extext : ExtExt) -- This proof uses extension extensionality.
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  (h : hom A y x)
+  (hh : arrow-hasSection A AisSegal x y f h)
+  : (z : A) -&gt; hasRetraction (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
+  := \z -&gt; (
+        (Segal-precomp A AisSegal y x h z),
+        \k -&gt;
+      (triple-concat
+        (hom A y z) -- k is an arrow y -&gt; z
+        (Segal-comp A AisSegal y x z h (Segal-comp A AisSegal x y z f k)) -- (kf)h
+        (Segal-comp A AisSegal y y z (Segal-comp A AisSegal y x y h f) k) -- k(fh)
+        (Segal-comp A AisSegal y y z (id-arr A y) k) -- k id_y
+        k --k
+      (rev (hom A y z)
+          (Segal-comp A AisSegal y y z (Segal-comp A AisSegal y x y h f) k)
+          (Segal-comp A AisSegal y x z h (Segal-comp A AisSegal x y z f k))
+          (Segal-associativity extext A AisSegal y x y z h f k)
+      ) -- (kf)h = k(fh)
+
+      (Segal-homotopy-postwhisker A AisSegal y y z (Segal-comp A AisSegal y x y h f) (id-arr A y) k hh)  -- k(fh) = k id_y from (fh) = id_y
+      (Segal-id-comp A AisSegal y z k) -- k id_y = k
+       )
+  )
+
+#def if-iso-then-precomp-has-section
+  (extext : ExtExt) -- This proof uses extension extensionality.
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  (g : hom A y x)
+  (gg : arrow-hasRetraction A AisSegal x y f g)
+  : (z : A) -&gt; hasSection (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
+  := \z -&gt; (
+        (Segal-precomp A AisSegal y x g z),
+        \k -&gt;
+      (triple-concat
+        (hom A x z) -- k is an arrow x -&gt; z
+        (Segal-comp A AisSegal x y z f (Segal-comp A AisSegal y x z g k)) -- (kg)f
+        (Segal-comp A AisSegal x x z (Segal-comp A AisSegal x y x f g) k) -- k(gf)
+        (Segal-comp A AisSegal x x z (id-arr A x) k) -- k id_x
+        k --k
+      (rev (hom A x z)
+          (Segal-comp A AisSegal x x z (Segal-comp A AisSegal x y x f g) k)
+          (Segal-comp A AisSegal x y z f (Segal-comp A AisSegal y x z g k))
+          (Segal-associativity extext A AisSegal x y x z f g k)
+      ) -- (kg)f = k(gf)
+      (Segal-homotopy-postwhisker A AisSegal x x z (Segal-comp A AisSegal x y x f g) (id-arr A x) k gg)  -- k(gf) = k id_x from (gf) = id_x
+      (Segal-id-comp A AisSegal x z k) -- k id_x = k
+       )
+  )
+
+#def if-iso-then-precomp-is-equiv
+  (extext : ExtExt) -- This proof uses extension extensionality.
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  (g : hom A y x)
+  (gg : arrow-hasRetraction A AisSegal x y f g)
+  (h : hom A y x)
+  (hh : arrow-hasSection A AisSegal x y f h)
+  : (z : A) -&gt; isEquiv (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
+  :=
+    \z -&gt; (
+    (if-iso-then-precomp-has-retraction extext A AisSegal x y f h hh z),
+    (if-iso-then-precomp-has-section extext A AisSegal x y f g gg z)
+   )
+
+#def iso-inhabited-implies-hasRetr-contr
+  (extext : ExtExt) -- This proof uses extension extensionality.
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  (g : hom A y x)
+  (gg : arrow-hasRetraction A AisSegal x y f g)
+  (h : hom A y x)
+  (hh : arrow-hasSection A AisSegal x y f h)
+  : isContr (arrow-Retraction A AisSegal x y f)
+  := (isEquiv-isContr-map (hom A y x) (hom A x x) (Segal-precomp A AisSegal x y f x)
+                          (if-iso-then-precomp-is-equiv extext A AisSegal x y f g gg h hh x))
+      (id-arr A x)
+
+#def iso-inhabited-implies-hasSec-contr
+  (extext : ExtExt) -- This proof uses extension extensionality.
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  (g : hom A y x)
+  (gg : arrow-hasRetraction A AisSegal x y f g)
+  (h : hom A y x)
+  (hh : arrow-hasSection A AisSegal x y f h)
+  : isContr (arrow-Section A AisSegal x y f)
+  := (isEquiv-isContr-map (hom A y x) (hom A y y) (Segal-postcomp A AisSegal x y f y)
+                          (if-iso-then-postcomp-is-equiv extext A AisSegal x y f g gg h hh y))
+      (id-arr A y)
+
+#def iso-inhabited-implies-iso-contr
+  (extext : ExtExt) -- This proof uses extension extensionality.
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+  (g : hom A y x)
+  (gg : arrow-hasRetraction A AisSegal x y f g)
+  (h : hom A y x)
+  (hh : arrow-hasSection A AisSegal x y f h)
+  : isContr (arrow-isIso A AisSegal x y f)
+  := (isContr-product (arrow-Retraction A AisSegal x y f) (arrow-Section A AisSegal x y f)
+      (iso-inhabited-implies-hasRetr-contr extext A AisSegal x y f g gg h hh)
+      (iso-inhabited-implies-hasSec-contr extext A AisSegal x y f g gg h hh)
+    )
+
+#def iso-isProp
+  (extext : ExtExt) -- This proof uses extension extensionality.
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  (f : hom A x y)
+   : (isProp (arrow-isIso A AisSegal x y f))
+  := (contractible-if-inhabited-implies-proposition (arrow-isIso A AisSegal x y f)
+      (\isIsof -&gt; (iso-inhabited-implies-iso-contr extext A AisSegal x y f (first (first isIsof)) (second (first isIsof))
+        (first (second isIsof))  (second (second isIsof))))
+    )
+
+
+
+
 #end isomorphisms
 </code></pre>
               
