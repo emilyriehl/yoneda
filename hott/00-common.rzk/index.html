@@ -211,23 +211,28 @@
 
 </code></pre>
 <h2 id="unit-type">Unit type</h2>
-<h1 id="def-ind-unit">def ind-Unit</h1>
-<p>(C : Unit -&gt; U)
+<pre><code class="language-rzk">#def ind-Unit
+  (C : Unit -&gt; U)
   (C-unit : C unit)
   (x : Unit)
   : C x
-  := C-unit</p>
-<h1 id="def-uniq-unit">def uniq-Unit</h1>
-<p>(x : Unit)
+  := C-unit
+
+
+
+#def uniq-Unit
+  (x : Unit)
   : x = unit
-  := refl</p>
-<h1 id="def-isprop-unit">def isProp-Unit</h1>
-<p>(x y : Unit)
+  := refl
+
+#def isProp-Unit
+  (x y : Unit)
   : x = y
-  := refl</p>
+  := refl
+
+</code></pre>
 <pre><code>
 </code></pre>
-<p>```</p>
               
             </div>
           </div><footer>
