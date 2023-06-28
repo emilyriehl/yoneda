@@ -211,12 +211,13 @@
 
 </code></pre>
 <h2 id="unit-type">Unit type</h2>
-<pre><code class="language-rzk">#def ind-Unit
-  (C : Unit -&gt; U)
+<h1 id="def-ind-unit">def ind-Unit</h1>
+<p>(C : Unit -&gt; U)
   (C-unit : C unit)
   (x : Unit)
   : C x
-  := C-unit
+  := C-unit</p>
+<pre><code class="language-rzk">
 
 #def uniq-Unit
   (x : Unit)
