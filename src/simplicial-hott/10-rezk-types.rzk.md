@@ -325,8 +325,70 @@ This is a literate `rzk` file:
         (first (second isIsof))  (second (second isIsof))))
     )
 
+#def id-iso
+  (A : U)
+  (AisSegal : isSegal A)
+  : (x : A) -> Iso A AisSegal x x
+  := \x -> (
+    (id-arr A x),
+    (
+    (
+      (id-arr A x),
+      (Segal-id-comp A AisSegal x x (id-arr A x))
+    ),
+    (
+      (id-arr A x),
+      (Segal-id-comp A AisSegal x x (id-arr A x))
+    )
+      )
+  )
+
+#def idtoiso
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  : (x = y) -> Iso A AisSegal x y
+  := \p -> idJ(A, x, \y' p' -> Iso A AisSegal x y', (id-iso A AisSegal x), y, p)
+
+#def isRezk
+  (A : U)
+  : U
+  := ∑ (AisSegal : isSegal A), (x : A) -> (y : A) -> isEquiv (x = y) (Iso A AisSegal x y) (idtoiso A AisSegal x y)
 
 
 
 #end isomorphisms
 ```
+
+#def cocomma
+  (B : U)
+  (b : B)
+  : U
+  := (∑(x : B), (hom B b x))
+
+#def comma
+  (B : U)
+  (b : B)
+  : U
+  := (∑(x : B), (hom B x b))
+
+#def hom-cocomma
+  (B : U)
+  (b : B)
+  : U
+  := axiom-choice
+  2
+  Δ¹
+  ∂Δ¹
+  (\t ->
+
+#def axiom-choice
+   (I : CUBE)
+   (ψ : I -> TOPE)
+   (ϕ : ψ -> TOPE)
+   (X : ψ -> U)
+   (Y : (t : ψ) -> (x : X t) -> U)
+   (a : (t : ϕ) -> X t)
+   (b : (t : ϕ) -> Y t (a t))
+   : Eq (<{t : I | ψ t} -> (∑ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>)
+     (∑ (f : (<{t : I | ψ t} -> X t [ϕ t |-> a t ]>)), (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]>))
