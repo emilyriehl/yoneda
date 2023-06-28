@@ -96,7 +96,6 @@ This is a literate `rzk` file:
   : C x
   := C-unit
 
-```rzk
 
 
 #def uniq-Unit
