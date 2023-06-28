@@ -447,11 +447,69 @@
         (first (second isIsof))  (second (second isIsof))))
     )
 
+#def id-iso
+  (A : U)
+  (AisSegal : isSegal A)
+  : (x : A) -&gt; Iso A AisSegal x x
+  := \x -&gt; (
+    (id-arr A x),
+    (
+    (
+      (id-arr A x),
+      (Segal-id-comp A AisSegal x x (id-arr A x))
+    ),
+    (
+      (id-arr A x),
+      (Segal-id-comp A AisSegal x x (id-arr A x))
+    )
+      )
+  )
+
+#def idtoiso
+  (A : U)
+  (AisSegal : isSegal A)
+  (x y : A)
+  : (x = y) -&gt; Iso A AisSegal x y
+  := \p -&gt; idJ(A, x, \y' p' -&gt; Iso A AisSegal x y', (id-iso A AisSegal x), y, p)
+
+#def isRezk
+  (A : U)
+  : U
+  := ∑ (AisSegal : isSegal A), (x : A) -&gt; (y : A) -&gt; isEquiv (x = y) (Iso A AisSegal x y) (idtoiso A AisSegal x y)
 
 
 
 #end isomorphisms
 </code></pre>
+<h1 id="def-cocomma">def cocomma</h1>
+<p>(B : U)
+  (b : B)
+  : U
+  := (∑(x : B), (hom B b x))</p>
+<h1 id="def-comma">def comma</h1>
+<p>(B : U)
+  (b : B)
+  : U
+  := (∑(x : B), (hom B x b))</p>
+<h1 id="def-hom-cocomma">def hom-cocomma</h1>
+<p>(B : U)
+  (b : B)
+  : U
+  := axiom-choice
+  2
+  Δ¹
+  ∂Δ¹
+  (\t -&gt;</p>
+<h1 id="def-axiom-choice">def axiom-choice</h1>
+<p>(I : CUBE)
+   (ψ : I -&gt; TOPE)
+   (ϕ : ψ -&gt; TOPE)
+   (X : ψ -&gt; U)
+   (Y : (t : ψ) -&gt; (x : X t) -&gt; U)
+   (a : (t : ϕ) -&gt; X t)
+   (b : (t : ϕ) -&gt; Y t (a t))
+   : Eq (&lt;{t : I | ψ t} -&gt; (∑ (x : X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;)
+     (∑ (f : (&lt;{t : I | ψ t} -&gt; X t [ϕ t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;))</p>
               
             </div>
           </div><footer>

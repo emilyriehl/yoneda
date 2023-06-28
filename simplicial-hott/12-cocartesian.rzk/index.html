@@ -103,15 +103,11 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#fiberwise-segal-families">Fiberwise Segal families</a>
+    <li class="toctree-l2"><a class="reference internal" href="#iso-inner-families">(Iso-)Inner families</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#cocartesian-arrows">Cocartesian arrows</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#cocartesian-lifts">Cocartesian lifts</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#initial-objects">Initial objects</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#final-objects">Final objects</a>
     </li>
     </ul>
                   </li>
@@ -158,12 +154,29 @@ the cocartesian Yoneda Lemma.</p>
   extensionality.</li>
 <li><code>5-segal-types.md</code> - We make heavy use of the notion of Segal types</li>
 <li><code>8-covariant.md</code> - We use covariant type families.</li>
+<li><code>10-rezk-types.md</code>- We use Rezk types.</li>
 </ul>
-<h2 id="fiberwise-segal-families">Fiberwise Segal families</h2>
-<pre><code class="language-rzk">#def innerFam
+<h2 id="iso-inner-families">(Iso-)Inner families</h2>
+<p>This is a (tentative and redundant) definition of (iso-)inner families.
+In the future, hopefully, these can be replaced by instances of
+orthogonal and LARI families.</p>
+<pre><code class="language-rzk">#def totalType
   (B : U)
+  (P : B -&gt; U)
   : U
-  := ∑ (P : B -&gt; U) , (b : B) -&gt; (isSegal (P b))
+  := ∑ (b : B), P b
+
+#def isInnerFam
+  (B : U)
+  (P : B -&gt; U)
+  : U
+  := prod (prod (isSegal B) (isSegal (totalType B P))) ((b : B) -&gt; (isSegal (P b)))
+
+#def isIsoInnerFam
+  (B : U)
+  (P : B -&gt; U)
+  : U
+  := prod (prod (isRezk B) (isRezk (totalType B P))) ((b : B) -&gt; (isSegal (P b)))
 </code></pre>
 <h2 id="cocartesian-arrows">Cocartesian arrows</h2>
 <p>Here we define the proposition that a dependent arrow in a family is
@@ -188,6 +201,7 @@ this is preferred for usage.</p>
   -&gt; isContr
       ( ∑ ( g : dhom B b' b'' v P e' e'') ,
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
+
 </code></pre>
 <h2 id="cocartesian-lifts">Cocartesian lifts</h2>
 <p>The following is the type of cocartesian lifts of a fixed arrow in the base with
@@ -201,6 +215,23 @@ a given starting point in the fiber.</p>
     (e : P b)
     : U
     := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
+
+</code></pre>
+<h1 id="def-cocart-is-prop">def cocart-is-prop</h1>
+<pre><code>(B : U)
+(BisRezk : isRezk B)
+(b b' : B)
+(u : hom B b b')
+(P : B -&gt; U)
+(TPisRezk : isRezk (totalType B P))
+(PisfibRezk : (b : B) -&gt; isRezk (P b))
+(e : P b)
+(e' : P b')
+(f : dhom B b b' u P e e')
+(fiscocart : isCocartArr B b b' u P e e' f)
+: isContr(CocartLift B b b' u P e)
+:= ( (e', f, fiscocart),
+    \d -&gt; \g -&gt;
 </code></pre>
 <h2 id="initial-objects">Initial objects</h2>
 <pre><code class="language-rzk">#def isInitial
