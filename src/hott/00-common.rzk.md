@@ -89,13 +89,15 @@ This is a literate `rzk` file:
 
 ## Unit type
 
-```rzk
 #def ind-Unit
   (C : Unit -> U)
   (C-unit : C unit)
   (x : Unit)
   : C x
   := C-unit
+
+```rzk
+
 
 #def uniq-Unit
   (x : Unit)
