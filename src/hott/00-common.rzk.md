@@ -89,6 +89,7 @@ This is a literate `rzk` file:
 
 ## Unit type
 
+```rzk
 #def ind-Unit
   (C : Unit -> U)
   (C-unit : C unit)
