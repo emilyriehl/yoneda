@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Common - yoneda</title>
+    <title>Propositions - yoneda</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -30,8 +30,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Common";
-        var mkdocs_page_input_path = "hott/00-common.rzk.md";
+        var mkdocs_page_name = "Propositions";
+        var mkdocs_page_input_path = "hott/07-propositions.rzk.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -66,21 +66,7 @@
               </ul>
               <p class="caption"><span class="caption-text">HoTT</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Common</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#products-of-types">Products of types</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-type-of-logical-equivalences-between-types">The type of logical equivalences between types</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#basic-function-definitions">Basic function definitions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#substitution">Substitution</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#final-projection">Final projection</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#unit-type">Unit type</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../00-common.rzk/">Common</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../01-paths.rzk/">Paths</a>
                   </li>
@@ -94,7 +80,15 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../07-propositions.rzk/">Propositions</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Propositions</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#propositions">Propositions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alternative-characterizations-definitions">Alternative characterizations: definitions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alternative-characterizations-proofs">Alternative characterizations: proofs</a>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../08-trivial-fibrations.rzk/">Trivial fibrations</a>
                   </li>
@@ -133,7 +127,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>HoTT &raquo;</li>
-      <li>Common</li>
+      <li>Propositions</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -142,100 +136,87 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="0-common">0. Common</h1>
+                <h1 id="7-propositions">7. Propositions</h1>
 <p>This is a literate <code>rzk</code> file:</p>
 <pre><code class="language-rzk">#lang rzk-1
 </code></pre>
-<h2 id="products-of-types">Products of types</h2>
-<pre><code class="language-rzk">#def prod (A B : U) : U
-  := ∑ (x : A), B
-
--- defined to illustrate the syntax for terms in sigma types
-#def diagonal (A : U) (a : A) : prod A A
-  := (a , a)
-</code></pre>
-<h2 id="the-type-of-logical-equivalences-between-types">The type of logical equivalences between types</h2>
-<pre><code class="language-rzk">#def iff (A B : U) : U
-  := prod (A -&gt; B) (B -&gt; A)
-</code></pre>
-<h2 id="basic-function-definitions">Basic function definitions</h2>
-<pre><code class="language-rzk">#section basic-functions
-
-#variables A B C D : U
-
-#def composition
-  (g : B -&gt; C)    -- The second function.
-  (f : A -&gt; B)    -- The first function.
-  : A -&gt; C        -- The composite function.
-  := \z -&gt; g (f z)
-
-#def triple-composition
-  (h : C -&gt; D)
-  (g : B -&gt; C)
-  (f : A -&gt; B)
-  : A -&gt; D
-  := \z -&gt; h (g (f z))
-
-#def identity
-  : A -&gt; A
-  := \a -&gt; a
-
-#def constant
-  (b : B)         -- The constant output value.
-  : A -&gt; B
-  := \a -&gt; b
-
-#end basic-functions
-</code></pre>
-<h2 id="substitution">Substitution</h2>
-<pre><code class="language-rzk">-- Reindexing a type family along a function into the base type.
-#def reindex
-  (A B : U)
-  (f : B -&gt; A)
-  (C : A -&gt; U)
-  : (B -&gt; U)
-  := \b -&gt; C (f b)
-</code></pre>
-<h2 id="final-projection">Final projection</h2>
-<pre><code class="language-rzk">-- Constant map into a pointed type
-#def const
+<h2 id="propositions">Propositions</h2>
+<p>A type is a proposition when its identity types are contractible.</p>
+<pre><code class="language-rzk">#def isProp
   (A : U)
-  (B : U)
-  (b : B)
-  : (A -&gt; B)
-  := \a -&gt; b
+  : U
+  := (a : A) -&gt; (b : A) -&gt; isContr(a = b)
 
--- Final projection as a constant map
-#def final-projection
-  (A : U)
-  : A -&gt; Unit
-  := const A Unit unit
-
+#def Unit-isProp
+  : isProp Unit
+  := \x -&gt; \y -&gt; (path-types-of-Unit-are-contractible x y)
 </code></pre>
-<h2 id="unit-type">Unit type</h2>
-<pre><code class="language-rzk">#def ind-Unit
-  (C : Unit -&gt; U)
-  (C-unit : C unit)
-  (x : Unit)
-  : C x
-  := C-unit
+<h2 id="alternative-characterizations-definitions">Alternative characterizations: definitions</h2>
+<pre><code class="language-rzk">#def all-elements-equal
+  (A : U)
+  : U
+  := (a : A) -&gt; (b : A) -&gt; (a = b)
 
-#def uniq-Unit
-  (x : Unit)
-  : x = unit
-  := refl
+#def inhabited-implies-contractible
+  (A : U)
+  : U
+  := A -&gt; isContr A
 
-#def isProp-Unit
-  (x y : Unit)
-  : x = y
-  := refl
+#def final-proj-is-embedding
+  (A : U)
+  : U
+  := isEmb A Unit (final-projection A)
+</code></pre>
+<h2 id="alternative-characterizations-proofs">Alternative characterizations: proofs</h2>
+<pre><code class="language-rzk">#def prop-implies-all-elements-equal
+  (A : U)
+  (AisProp : isProp A)
+  : all-elements-equal A
+  := \a -&gt; \b -&gt; (first (AisProp a b))
+
+#def all-elements-equal-implies-inhabited-implies-contractible
+  (A : U)
+  (AhasAllEltsEqual : all-elements-equal A)
+  : inhabited-implies-contractible A
+  := \a -&gt; (a, AhasAllEltsEqual a)
+
+#def inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : A -&gt; (final-proj-is-embedding A)
+  := \x -&gt;
+  (equivalence-is-embedding A Unit (final-projection A)
+      (contr-implies-final-proj-is-equiv A (c x))
+  )
+
+#def inhabited-implies-contractible-implies-final-proj-is-embedding
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : (final-proj-is-embedding A)
+  :=
+  (inhabited-emb-implies-emb A Unit (final-projection A)
+    (inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding A c)
+  )
+
+#def final-proj-is-embedding-implies-proposition
+  (A : U)
+  (f : final-proj-is-embedding A)
+  : isProp A
+  := \x -&gt; \y -&gt; (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) (path-types-of-Unit-are-contractible unit unit))
+
+#def contractible-if-inhabited-implies-proposition
+  (A : U)
+  (c : inhabited-implies-contractible A)
+  : isProp A
+  := (final-proj-is-embedding-implies-proposition A (inhabited-implies-contractible-implies-final-proj-is-embedding A c))
+
 </code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../.." class="btn btn-neutral float-left" title="About"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../01-paths.rzk/" class="btn btn-neutral float-right" title="Paths">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../06-fibers.rzk/" class="btn btn-neutral float-left" title="Fibers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../08-trivial-fibrations.rzk/" class="btn btn-neutral float-right" title="Trivial fibrations">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -258,10 +239,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../06-fibers.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../01-paths.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../08-trivial-fibrations.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -98,7 +98,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-propositions.rzk/">Propositions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08-trivial-fibrations.rzk/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
@@ -266,12 +268,12 @@ of the path algebra coherences defined above.</p>
 -- prewhiskering paths of paths is much harder
 #def concat-homotopy
   (p : x = y)
-  : (z : A) -&gt; (q : y = z) -&gt; (r : y = z) -&gt; (H : q = r) -&gt; (concat A x y z p q) = (concat A x y z p r)
+  : (q : y = z) -&gt; (r : y = z) -&gt; (H : q = r) -&gt; (concat A x y z p q) = (concat A x y z p r)
   := idJ(A, x,
       \y' p'
-        -&gt; (z : A) -&gt; (q : y' = z) -&gt; (r : y' = z) -&gt; (H : q = r)
+        -&gt; (q : y' = z) -&gt; (r : y' = z) -&gt; (H : q = r)
         -&gt; (concat A x y' z p' q) = (concat A x y' z p' r),
-      \z q r H
+      \q r H
         -&gt; concat (x = z) (concat A x x z refl q) r (concat A x x z refl r)
             (concat (x = z) (concat A x x z refl q) q r (refl-concat A x z q) H)
             (rev (x = z) (concat A x x z refl r) r (refl-concat A x z r)),

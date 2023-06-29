@@ -94,7 +94,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-propositions.rzk/">Propositions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08-trivial-fibrations.rzk/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
@@ -302,14 +304,14 @@
   (p : a = a')
   : (q : b = b') -&gt; (c' : C a' b') -&gt;
       (r : prod-transport a a' b b' p q c = c') -&gt;
-        ((a, (b, c)) =_{(∑(a : A), (∑(b : B), C a b))} (a', (b', c')))
+        ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a', (b', c')))
   := idJ(A, a,
       \a'' p' -&gt; (q : b = b') -&gt; (c' : C a'' b') -&gt;
         (r : prod-transport a a'' b b' p' q c = c') -&gt;
           ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a'', (b', c'))),
-      \q c' r -&gt; (sigma-path-fibered-path A (\a -&gt; (∑(b : B), C a b)) a
+      \q c' r -&gt; (sigma-path-fibered-path A (\x -&gt; (∑(b : B), C x b)) a
                   (b, c) (b', c')
-                  (path-of-pairs-pair-of-paths B (\b -&gt; C a b) b b' q c c' r)),
+                  (path-of-pairs-pair-of-paths B (\y -&gt; C a y) b b' q c c' r)),
                   a',
                   p)
 

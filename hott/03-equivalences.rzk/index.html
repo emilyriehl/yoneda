@@ -100,6 +100,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#embeddings">Embeddings</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#identity-types-of-unit-types">Identity types of unit types</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../04-sigma.rzk/">Sigma types</a>
@@ -108,7 +110,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../06-fibers.rzk/">Fibers</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../07-trivial-fibrations.rzk/">Trivial fibrations</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-propositions.rzk/">Propositions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08-trivial-fibrations.rzk/">Trivial fibrations</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
@@ -630,6 +634,14 @@
             (H ((first (second gisequiv)) b))
             ((second (second gisequiv)) b)
             ))
+
+#def isEquiv-rev-homotopic-isEquiv
+    (A B : U)
+    (f g : A -&gt; B)
+    (H : homotopy A B f g)
+    (fisequiv : isEquiv A B f)
+    : isEquiv A B g
+    := isEquiv-homotopic-isEquiv A B g f (homotopy-rev A B f g H) fisequiv
 </code></pre>
 <h2 id="equivalences-of-identity-types">Equivalences of identity types</h2>
 <p>Equivalent types have equivalent identity types.</p>
@@ -978,8 +990,6 @@ equivalences.</p>
            ((\b -&gt; \x -&gt; (first (second (second (fibequiv x)))) (b x)),
             (\b -&gt; eq-htpy funext X B (\x -&gt; (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -&gt; (second (second (second (fibequiv x)))) (b x))))))
 </code></pre>
-<pre><code>
-</code></pre>
 <h2 id="embeddings">Embeddings</h2>
 <pre><code class="language-rzk">#def isEmb
   (A B : U)
@@ -998,7 +1008,17 @@ equivalences.</p>
   (e : A -&gt; isEmb A B f)
   : isEmb A B f
   := \x -&gt; \y -&gt; e x x y
+
+#def inv-ap-isEmb
+  (A B : U)
+  (f : A -&gt; B)
+  (fisemb : isEmb A B f)
+  (x y : A)
+  (p : f x = f y)
+  : (x = y)
+  := (first (first (fisemb x y))) p
 </code></pre>
+<h2 id="identity-types-of-unit-types">Identity types of unit types</h2>
 <pre><code class="language-rzk">#def final-projection-of-path-types-of-Unit-has-retr
     (x y : Unit)
     : hasRetraction (x = y) Unit (final-projection (x = y))
