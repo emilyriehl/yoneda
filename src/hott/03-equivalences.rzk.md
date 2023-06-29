@@ -508,6 +508,14 @@ If a map is homotopic to an equivalence it is an equivalence.
             (H ((first (second gisequiv)) b))
             ((second (second gisequiv)) b)
             ))
+
+#def isEquiv-rev-homotopic-isEquiv
+    (A B : U)
+    (f g : A -> B)
+    (H : homotopy A B f g)
+    (fisequiv : isEquiv A B f)
+    : isEquiv A B g
+    := isEquiv-homotopic-isEquiv A B g f (homotopy-rev A B f g H) fisequiv
 ```
 
 ## Equivalences of identity types
@@ -814,7 +822,6 @@ Equivalent types have equivalent identity types.
     := ((rev-Retraction A y x), (rev-Section A y x))
 ```
 
-
 ## Function extensionality
 
 By path induction, an identification between functions defines a homotopy
@@ -871,10 +878,6 @@ equivalences.
             (\b -> eq-htpy funext X B (\x -> (first (fibequiv x)) ((first (second (second (fibequiv x)))) (b x))) b (\x -> (second (second (second (fibequiv x)))) (b x))))))
 ```
 
-```
-
-```
-
 ## Embeddings
 
 ```rzk
@@ -895,7 +898,18 @@ equivalences.
   (e : A -> isEmb A B f)
   : isEmb A B f
   := \x -> \y -> e x x y
+
+#def inv-ap-isEmb
+  (A B : U)
+  (f : A -> B)
+  (fisemb : isEmb A B f)
+  (x y : A)
+  (p : f x = f y)
+  : (x = y)
+  := (first (first (fisemb x y))) p
 ```
+
+## Identity types of unit types
 
 ```rzk
 #def final-projection-of-path-types-of-Unit-has-retr

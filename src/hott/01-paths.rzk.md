@@ -133,12 +133,12 @@ of the path algebra coherences defined above.
 -- prewhiskering paths of paths is much harder
 #def concat-homotopy
   (p : x = y)
-  : (z : A) -> (q : y = z) -> (r : y = z) -> (H : q = r) -> (concat A x y z p q) = (concat A x y z p r)
+  : (q : y = z) -> (r : y = z) -> (H : q = r) -> (concat A x y z p q) = (concat A x y z p r)
   := idJ(A, x,
       \y' p'
-        -> (z : A) -> (q : y' = z) -> (r : y' = z) -> (H : q = r)
+        -> (q : y' = z) -> (r : y' = z) -> (H : q = r)
         -> (concat A x y' z p' q) = (concat A x y' z p' r),
-      \z q r H
+      \q r H
         -> concat (x = z) (concat A x x z refl q) r (concat A x x z refl r)
             (concat (x = z) (concat A x x z refl q) q r (refl-concat A x z q) H)
             (rev (x = z) (concat A x x z refl r) r (refl-concat A x z r)),

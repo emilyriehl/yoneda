@@ -172,14 +172,14 @@ This is a literate `rzk` file:
   (p : a = a')
   : (q : b = b') -> (c' : C a' b') ->
       (r : prod-transport a a' b b' p q c = c') ->
-        ((a, (b, c)) =_{(∑(a : A), (∑(b : B), C a b))} (a', (b', c')))
+        ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a', (b', c')))
   := idJ(A, a,
       \a'' p' -> (q : b = b') -> (c' : C a'' b') ->
         (r : prod-transport a a'' b b' p' q c = c') ->
           ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a'', (b', c'))),
-      \q c' r -> (sigma-path-fibered-path A (\a -> (∑(b : B), C a b)) a
+      \q c' r -> (sigma-path-fibered-path A (\x -> (∑(b : B), C x b)) a
                   (b, c) (b', c')
-                  (path-of-pairs-pair-of-paths B (\b -> C a b) b b' q c c' r)),
+                  (path-of-pairs-pair-of-paths B (\y -> C a y) b b' q c c' r)),
                   a',
                   p)
 

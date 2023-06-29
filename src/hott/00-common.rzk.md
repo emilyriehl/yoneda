@@ -97,8 +97,6 @@ This is a literate `rzk` file:
   : C x
   := C-unit
 
-
-
 #def uniq-Unit
   (x : Unit)
   : x = unit
@@ -108,9 +106,4 @@ This is a literate `rzk` file:
   (x y : Unit)
   : x = y
   := refl
-
-```
-
-```
-
 ```

@@ -1,4 +1,4 @@
-site_name: "yoneda"
+site_name: 'yoneda'
 docs_dir: src
 nav:
   - General:
@@ -12,7 +12,8 @@ nav:
       - Sigma types: hott/04-sigma.rzk.md
       - Contractible: hott/05-contractible.rzk.md
       - Fibers: hott/06-fibers.rzk.md
-      - Trivial fibrations: hott/07-trivial-fibrations.rzk.md
+      - Propositions: hott/07-propositions.rzk.md
+      - Trivial fibrations: hott/08-trivial-fibrations.rzk.md
 
   - Simplicial HoTT:
       - Simplicial Type Theory: simplicial-hott/03-simplicial-type-theory.rzk.md

@@ -57,8 +57,20 @@ This is a literate `rzk` file:
     (h : A -> B)
     : homotopy A C (composition A B C f h) (composition A B C g h)
     := \a -> H (h a)
-
 #end homotopy-whiskering
+
+#def homotopy-whisker
+    (A B C D : U)
+    (h k : B -> C)
+    (H : homotopy B C h k)
+    (f : A -> B)
+    (g : C -> D)
+    : homotopy A D (triple-composition A B C D g h f) (triple-composition A B C D g k f)
+    := homotopy-postwhisker A C D
+        (composition A B C h f)
+        (composition A B C k f)
+        (homotopy-prewhisker A B C h k H f)
+        g
 ```
 
 ## Naturality
@@ -118,7 +130,7 @@ This is a literate `rzk` file:
             (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
             (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
                 (cocone-naturality)
-                (concat-homotopy A (f (f a)) (f a) (H (f a)) a (ap A A (f a) a (identity A) (H a)) (H a) (ap-id A (f a) a (H a)))
+                (concat-homotopy A (f (f a)) (f a) a (H (f a)) (ap A A (f a) a (identity A) (H a)) (H a) (ap-id A (f a) a (H a)))
 
 -- Cancelling the path (H a) on the right and reversing yields a path we need:
 #def cocone-naturality-coherence

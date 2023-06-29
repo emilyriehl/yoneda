@@ -354,10 +354,10 @@ this homotopy is straightforward.
         (concat-homotopy B
             (f (first z))
             (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z))))
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
             (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
                 ((first (second (first fisHAE))) (first z))))
-            (f ((hasInverse-inverse A B f (first fisHAE)) b))
             (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))
                 ((hasInverse-inverse A B f (first fisHAE)) b) f (rev A ((hasInverse-inverse A B f (first fisHAE)) b) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (ap B A b (f (first z)) (hasInverse-inverse A B f (first fisHAE)) (rev B (f (first z)) b (second z)))))
              (ap A B ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))
@@ -423,10 +423,10 @@ this homotopy is straightforward.
         (concat-homotopy B
             (f (first z))
             (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z))))
+            (f ((hasInverse-inverse A B f (first fisHAE)) b))
             (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
                 ((first (second (first fisHAE))) (first z))))
-            (f ((hasInverse-inverse A B f (first fisHAE)) b))
             (ap A B
                 ((hasInverse-inverse A B f (first fisHAE)) (f (first z)))
                 ((hasInverse-inverse A B f (first fisHAE)) b)
@@ -493,10 +493,10 @@ this homotopy is straightforward.
     := concat-homotopy B
         (f (first z))
         (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z))))
+        b
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
                 ((first (second (first fisHAE))) (first z))))
-        b
         (concat B
             (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z))))
             (f ((hasInverse-inverse A B f (first fisHAE)) b))
@@ -541,10 +541,10 @@ this homotopy is straightforward.
     := concat-homotopy B
         (f (first z))
         (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z))))
+        b
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
                 ((first (second (first fisHAE))) (first z))))
-        b
         (concat B
             (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z))))
             (f (first z))
@@ -560,8 +560,8 @@ this homotopy is straightforward.
         (concat-homotopy B
             (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z))))
             (f (first z))
-            ((second (second (first fisHAE))) (f (first z)))
             b
+            ((second (second (first fisHAE))) (f (first z)))
             (ap B B (f (first z)) b (identity B) (second z))
             (second z)
             (ap-id B (f (first z)) b (second z)))
@@ -620,10 +620,10 @@ this homotopy is straightforward.
             (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f
                 (((first (second (first fisHAE)))) (first z))))
         (concat-homotopy B (f (first z)) (f ((hasInverse-inverse A B f (first fisHAE)) (f (first z))))
+        (f (first z))
         (ap A B (first z) ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) f
                 (rev A ((hasInverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
                 ((first (second (first fisHAE))) (first z))))
-        (f (first z))
         (((second (second (first fisHAE)))) (f (first z)))
         (ap A B (hasInverse-retraction-composite A B f (first fisHAE) (first z)) (first z) f (((first (second (first fisHAE)))) (first z)))
         ((second fisHAE) (first z)))
@@ -1269,16 +1269,14 @@ equivalence of total spaces.
   :=  (
         \Biscontr -> (\x -> (total-equiv-family-of-equiv
         A
-        (\x -> (a = x))
+        (\x' -> (a = x'))
         B
         f
-       (areContr-isEquiv (∑(x : A), (a = x)) (∑(x : A), (B x)) (based-paths-contractible A a) Biscontr (family-of-maps-total-map A (\x -> (a = x)) B f) )
+       (areContr-isEquiv (∑(x' : A), (a = x')) (∑(x' : A), (B x')) (based-paths-contractible A a) Biscontr (family-of-maps-total-map A (\x' -> (a = x')) B f) )
         x
          )
       )
   )
-
-
 #end fundamental-thm-id-types
 ```
 
@@ -1300,8 +1298,8 @@ equivalence of total spaces.
         ((isEquiv-toContr-isContr
         -- Contractibility of Sigma_{t : A} e x = e t will follow since total(\t -> rev B (e x) = (e t)), mapping from Sigma_{t : A} e x = e t to Sigma_{t : A} e t = e x
         -- is an equivalence, and Sigma_{t : A} e t = e x ~ fib(e, e x) is contractible since e is an equivalence.
-            (∑(y : A), (e x = e y)) -- source type
-            (∑(y : A), (e y = e x)) -- target type
+            (∑(y' : A), (e x = e y')) -- source type
+            (∑(y' : A), (e y' = e x)) -- target type
         (
          -- total map as equivalence
         (family-of-maps-total-map A (\y' -> (e x) = (e y')) (\y' -> (e y') = (e x)) (\y' -> (rev B (e x) (e y')))), -- a) total map
@@ -1322,7 +1320,6 @@ equivalence of total spaces.
   )(y) -- evaluate at y
   )
 
-
 #def equivalence-is-embedding
   (A B : U)
   (e : A -> B)
@@ -1331,79 +1328,157 @@ equivalence of total spaces.
   := (second (equivalence-to-embedding A B e eisequiv))
 ```
 
-## Propositions
-
-A type is a proposition when its identity types are contractible.
+## 2-of-3 for equivalences
 
 ```rzk
-#def isProp
-  (A : U)
-  : U
-  := (a : A) -> (b : A) -> isContr(a = b)
+-- It might be better to redo this without appealing to results about
+-- embeddings so that this could go earlier.
+#def RightCancel-isEquiv
+  (A B C : U)
+  (f : A -> B)
+  (g : B -> C)
+  (gisequiv : isEquiv B C g)
+  (gfisequiv : isEquiv A C (composition A B C g f))
+  : isEquiv A B f
+  := ((composition B C A
+        (isEquiv-retraction A C (composition A B C g f) gfisequiv) g,
+        (second (first gfisequiv))),
+      (composition B C A
+        (isEquiv-section A C (composition A B C g f) gfisequiv) g,
+      \b -> inv-ap-isEmb
+                B C g (equivalence-is-embedding B C g gisequiv)
+                (f ((isEquiv-section A C (composition A B C g f) gfisequiv) (g b)))
+                b
+                ((second (second gfisequiv)) (g b))
+      ))
 
-#def Unit-isProp
-  : isProp Unit
-  := \x -> \y -> (path-types-of-Unit-are-contractible x y)
+#def LeftCancel-isEquiv
+  (A B C : U)
+  (f : A -> B)
+  (fisequiv : isEquiv A B f)
+  (g : B -> C)
+  (gfisequiv : isEquiv A C (composition A B C g f))
+  : isEquiv B C g
+  := ((composition C A B
+        f (isEquiv-retraction A C (composition A B C g f) gfisequiv),
+        \b -> triple-concat B
+                (f ((isEquiv-retraction A C (composition A B C g f) gfisequiv) (g b)))
+                (f ((isEquiv-retraction A C (composition A B C g f) gfisequiv) (g (f ((isEquiv-section A B f fisequiv) b)))))
+                (f ((isEquiv-section A B f fisequiv) b))
+                b
+                (ap B B
+                  b
+                  (f ((isEquiv-section A B f fisequiv) b))
+                  (\b0 -> (f ((isEquiv-retraction A C (composition A B C g f) gfisequiv) (g b0))))
+                  (rev B (f ((isEquiv-section A B f fisequiv) b)) b  ((second (second fisequiv)) b)))
+                ((homotopy-whisker B A A B
+                  (\a -> (isEquiv-retraction A C (composition A B C g f) gfisequiv) (g (f a)))
+                  (\a -> a)
+                  (second (first gfisequiv))
+                  (isEquiv-section A B f fisequiv)
+                  f) b)
+                ((second (second fisequiv)) b)
+      )
+      ,
+      (composition C A B
+        f (isEquiv-section A C (composition A B C g f) gfisequiv),
+        (second (second gfisequiv))
+      )
+    )
+```
 
--- Alternative characterizations: definitions
+## Maps over product types
 
-#def all-elements-equal
-  (A : U)
-  : U
-  := (a : A) -> (b : A) -> (a = b)
+For later use, we specialize the previous results to the case of a family of
+types over a product type.
 
-#def inhabited-implies-contractible
-  (A : U)
-  : U
-  := A -> isContr A
+```rzk
+#section fibered-map-over-product
 
-#def final-proj-is-embedding
-  (A : U)
-  : U
-  := isEmb A Unit (final-projection A)
+#variables A A' B B' : U
+#variable C : A -> B -> U
+#variable C' : A' -> B' -> U
+#variable f : A -> A'
+#variable g : B -> B'
+#variable h : (a : A) -> (b : B) -> (c : C a b) -> C' (f a) (g b)
 
--- Alternative characterizations: proofs
+#def total-map-fibered-map-over-product
+  : (∑ (a : A), (∑ (b : B), C a b)) -> (∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+  := \(a, (b, c)) -> (f a, (g b, h a b c))
 
-#def prop-implies-all-elements-equal
-  (A : U)
-  (AisProp : isProp A)
-  : all-elements-equal A
-  := \a -> \b -> (first (AisProp a b))
+#def pullback-is-equiv-base-is-equiv-total-is-equiv
+  (totalisequiv : isEquiv
+                    (∑(a : A), (∑ (b : B), C a b))
+                    (∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+                    total-map-fibered-map-over-product)
+  (fisequiv : isEquiv A A' f)
+  : isEquiv (∑ (a : A), (∑ (b : B), C a b))
+            (∑ (a : A), (∑ (b' : B'), C' (f a) b'))
+            (\(a, (b, c)) -> (a, (g b, h a b c)))
+  := RightCancel-isEquiv
+      (∑(a : A), (∑ (b : B), C a b))
+      (∑ (a : A), (∑ (b' : B'), C' (f a) b'))
+      (∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+      (\(a, (b, c)) -> (a, (g b, h a b c)))
+      (\(a, (b', c')) -> (f a, (b', c')))
+      (second (pullback-is-equiv-total-eq
+                A
+                A'
+                f
+                fisequiv
+                (\a' -> (∑ (b' : B'), C' a' b'))))
+      totalisequiv
 
-#def all-elements-equal-implies-inhabited-implies-contractible
-  (A : U)
-  (AhasAllEltsEqual : all-elements-equal A)
-  : inhabited-implies-contractible A
-  := \a -> (a, AhasAllEltsEqual a)
+#def pullback-is-equiv-bases-are-equiv-total-is-equiv
+  (totalisequiv : isEquiv
+                    (∑(a : A), (∑ (b : B), C a b))
+                    (∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+                    total-map-fibered-map-over-product)
+  (fisequiv : isEquiv A A' f)
+  (gisequiv : isEquiv B B' g)
+  : isEquiv (∑ (a : A), (∑ (b : B), C a b))
+            (∑ (a : A), (∑ (b : B), C' (f a) (g b)))
+            (\(a, (b, c)) -> (a, (b, h a b c)))
+  := RightCancel-isEquiv
+      (∑ (a : A), (∑ (b : B), C a b))
+      (∑ (a : A), (∑ (b : B), C' (f a) (g b)))
+      (∑ (a : A), (∑ (b' : B'), C' (f a) b'))
+      (\(a, (b, c)) -> (a, (b, h a b c)))
+      (\(a, (b, c)) -> (a, (g b, c)))
+      (family-of-equiv-total-equiv A
+        (\a -> (∑ (b : B), C' (f a) (g b)))
+        (\a -> (∑ (b' : B'), C' (f a) b'))
+        (\a (b, c) -> (g b, c))
+        (\a -> (second (pullback-is-equiv-total-eq
+                B
+                B'
+                g
+                gisequiv
+                (\b' -> C' (f a) b')))))
+      (pullback-is-equiv-base-is-equiv-total-is-equiv totalisequiv fisequiv)
 
-#def inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding
-  (A : U)
-  (c : inhabited-implies-contractible A)
-  : A -> (final-proj-is-embedding A)
-  := \x ->
-  (equivalence-is-embedding A Unit (final-projection A)
-      (contr-implies-final-proj-is-equiv A (c x))
-  )
+#def fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
+  (totalisequiv : isEquiv
+                    (∑(a : A), (∑ (b : B), C a b))
+                    (∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+                    total-map-fibered-map-over-product)
+  (fisequiv : isEquiv A A' f)
+  (gisequiv : isEquiv B B' g)
+  (a0 : A)
+  (b0 : B)
+  : isEquiv (C a0 b0) (C' (f a0) (g b0)) (h a0 b0)
+  := total-equiv-family-of-equiv B
+      (\b -> C a0 b)
+      (\b -> C' (f a0) (g b))
+      (\b c -> h a0 b c)
+      (total-equiv-family-of-equiv
+        A
+        (\a -> (∑ (b : B), C a b))
+        (\a -> (∑ (b : B), C' (f a) (g b)))
+        (\a (b, c) -> (b, h a b c))
+        (pullback-is-equiv-bases-are-equiv-total-is-equiv totalisequiv fisequiv gisequiv)
+        a0)
+      b0
 
-#def inhabited-implies-contractible-implies-final-proj-is-embedding
-  (A : U)
-  (c : inhabited-implies-contractible A)
-  : (final-proj-is-embedding A)
-  :=
-  (inhabited-emb-implies-emb A Unit (final-projection A)
-    (inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding A c)
-  )
-
-#def final-proj-is-embedding-implies-proposition
-  (A : U)
-  (f : final-proj-is-embedding A)
-  : isProp A
-  := \x -> \y -> (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) (path-types-of-Unit-are-contractible unit unit))
-
-#def contractible-if-inhabited-implies-proposition
-  (A : U)
-  (c : inhabited-implies-contractible A)
-  : isProp A
-  := (final-proj-is-embedding-implies-proposition A (inhabited-implies-contractible-implies-final-proj-is-embedding A c))
-
+#end fibered-map-over-product
 ```
