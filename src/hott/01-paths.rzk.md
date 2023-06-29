@@ -107,7 +107,8 @@ This is a literate `rzk` file:
 
 ## Some derived coherences in path algebra
 
-The statements or proofs of the following path algebra coherences reference one of the path algebra coherences defined above.
+The statements or proofs of the following path algebra coherences reference one
+of the path algebra coherences defined above.
 
 ```rzk
 #section derived-path-coherence
@@ -322,6 +323,12 @@ The statements or proofs of the following path algebra coherences reference one 
   (u : B x)
   : (transport x y p u) = (transport x y q u)
   := idJ(x = y, p, \q' H' -> (transport x y p u) = (transport x y q' u), refl, q, H)
+
+#def transport-loop
+  (a : A)
+  (b : B a)
+  : (a = a) -> B a
+  := \p -> (transport a a p b)
 
 #end transport
 ```

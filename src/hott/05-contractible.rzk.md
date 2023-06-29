@@ -31,6 +31,17 @@ This is a literate `rzk` file:
   : (z : A) -> contraction-center = z
   := second Aiscontr
 
+#def contracting-htpy-realigned uses (Aiscontr)
+  : (z : A) -> contraction-center = z
+  := \z -> (concat A contraction-center contraction-center z
+          (rev A contraction-center contraction-center (contracting-htpy contraction-center))
+          (contracting-htpy z)
+          )
+
+#def contracting-htpy-realigned-path uses (Aiscontr)
+  : (contracting-htpy-realigned contraction-center) = refl
+  := (rev-left-inverse A contraction-center contraction-center (contracting-htpy contraction-center))
+
 -- A path between an arbitrary pair of types in a contractible type.
 #def contractible-connecting-htpy uses (Aiscontr)
   (x y : A)
@@ -38,6 +49,85 @@ This is a literate `rzk` file:
   := zag-zig-concat A x contraction-center y (contracting-htpy x) (contracting-htpy y)
 
 #end contractible-data
+```
+
+## Characterization of contractibility
+
+A type is contractible if and only if its final projection is an equivalence.
+
+```rzk
+
+#def final-proj-is-equiv
+  (A : U)
+  : U
+  := isEquiv A Unit (final-projection A)
+
+#def contr-implies-final-proj-is-equiv-retr
+  (A : U)
+  (AisContr : isContr A)
+  : hasRetraction A Unit (final-projection A)
+  :=
+    (const Unit A (contraction-center A AisContr), \y -> (contracting-htpy A AisContr) y)
+
+#def contr-implies-final-proj-is-equiv-sec
+  (A : U)
+  (AisContr : isContr A)
+  : hasSection A Unit (final-projection A)
+  :=  (const Unit A (contraction-center A AisContr), \z -> refl)
+
+#def contr-implies-final-proj-is-equiv
+  (A : U)
+  (AisContr : isContr A)
+  : isEquiv A Unit (final-projection A)
+  := (contr-implies-final-proj-is-equiv-retr A AisContr, contr-implies-final-proj-is-equiv-sec A AisContr)
+
+#def final-proj-is-equiv-implies-contr
+  (A : U)
+  (e : final-proj-is-equiv A)
+  : isContr A
+  := ( (first (first e)) unit, (second (first e)))
+
+#def contr-iff-final-proj-is-equiv
+  (A : U)
+  : iff (isContr A) (final-proj-is-equiv A)
+  :=  ((contr-implies-final-proj-is-equiv A), (final-proj-is-equiv-implies-contr A))
+
+#def equiv-with-contractible-domain-implies-contractible-codomain
+  (A B : U)
+  (f : Eq A B)
+  (Aiscontr : isContr A)
+  : isContr B
+  := (final-proj-is-equiv-implies-contr B
+      (second
+      (compose_Eq B A Unit
+        (sym_Eq A B f)
+        (final-projection A, (contr-implies-final-proj-is-equiv A Aiscontr))
+      )
+      )
+    )
+
+#def equiv-with-contractible-codomain-implies-contractible-domain
+  (A B : U)
+  (f : Eq A B)
+  (Biscontr : isContr B)
+  : isContr A
+  := (equiv-with-contractible-domain-implies-contractible-codomain B A (sym_Eq A B f) Biscontr)
+
+
+#def equiv-then-domain-contractible-iff-codomain-contractible
+  (A B : U)
+  (f : Eq A B)
+  : (iff (isContr A) (isContr B))
+  := (
+      \Aiscontr -> (equiv-with-contractible-domain-implies-contractible-codomain A B f Aiscontr),
+      \Biscontr -> (equiv-with-contractible-codomain-implies-contractible-domain A B f Biscontr)
+      )
+
+#def path-types-of-Unit-are-contractible
+    (x y : Unit)
+    : isContr (x = y)
+    := (final-proj-is-equiv-implies-contr (x = y) (final-projection-of-path-types-of-Unit-isEquiv x y))
+
 ```
 
 ## Retracts of contractible types
@@ -210,18 +300,77 @@ For example, we prove that based path spaces are contractible.
           (second ABisContr (a, b a)))
 ```
 
-## Propositions
+## Singleton induction
 
-A type is a proposition when its identity types are contractible.
+A type is contractible if and only if it has singleton induction.
 
 ```rzk
-#def isProp
+#def ev-pt
   (A : U)
-  : U
-  := (a : A) -> (b : A) -> isContr(a = b)
+  (a : A)
+  (B : A -> U)
+  : ((x : A) -> B x) -> B a
+  := \f -> f a
 
-#def all-elements-equal
+#def has-singleton-induction-pointed
+  (A : U)
+  (a : A)
+  (B : A -> U)
+  : U
+  := hasSection ((x : A) -> B x) (B a) (ev-pt A a B)
+
+#def has-singleton-induction-pointed-structure
+  (A : U)
+  (a : A)
+  : U
+  := (B : A -> U) -> hasSection ((x : A) -> B x) (B a) (ev-pt A a B)
+
+#def has-singleton-induction
   (A : U)
   : U
-  := (a : A) -> (b : A) -> (a = b)
+  := ∑ (a : A), (B : A -> U) -> (has-singleton-induction-pointed A a B)
+
+#def ind-sing
+  (A : U)
+  (a : A)
+  (B : A -> U)
+  (AhasSingInd : has-singleton-induction-pointed A a B)
+  : (B a) -> ((x : A) -> B x)
+  := (first AhasSingInd)
+
+#def comp-sing
+  (A : U)
+  (a : A)
+  (B : A -> U)
+  (AhasSingInd : has-singleton-induction-pointed A a B)
+  : (homotopy (B a) (B a) (composition (B a) ((x : A) -> B x) (B a) (ev-pt A a B) (ind-sing A a B AhasSingInd)) (identity (B a)))
+  := (second AhasSingInd)
+
+#def contr-implies-singleton-induction-ind
+    (A : U)
+    (Aiscontr : isContr A)
+    : (has-singleton-induction A)
+    := (
+      (contraction-center A Aiscontr),
+      \B -> ( (\b -> \x -> (transport A B (contraction-center A Aiscontr) x (contracting-htpy-realigned A Aiscontr x) b)),
+            (\b ->
+            (ap
+            ((contraction-center A Aiscontr) = (contraction-center A Aiscontr))
+            (B (contraction-center A Aiscontr))
+            (contracting-htpy-realigned A Aiscontr (contraction-center A Aiscontr))
+            refl_{(contraction-center A Aiscontr)}
+            (\p -> (transport-loop A B (contraction-center A Aiscontr) b p))
+            (contracting-htpy-realigned-path A Aiscontr)
+            )
+      )
+      )
+      )
+
+#def singleton-induction-ind-implies-contr
+    (A : U)
+    (a : A)
+    (f : has-singleton-induction-pointed-structure A a)
+    : (isContr A)
+    := (a, (first (f (\x -> a = x)))(refl_{a}))
+
 ```

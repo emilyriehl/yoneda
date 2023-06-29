@@ -790,8 +790,30 @@ Equivalent types have equivalent identity types.
     (x y : A)
     : Eq (x = y) (f x = f y)
     := (ap A B x y f, isEquiv-ap-isEquiv A B f fisequiv x y)
-
 ```
+
+```rzk
+#def rev-Retraction
+    (A : U)
+    (y : A)
+    : (x : A) -> hasRetraction (x = y) (y = x) ((\p -> ((rev A x y) p)))
+    := \x ->
+       ((rev A y x), \p -> idJ(A, x, \y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y'))(p') =_{x = y'} p'), refl, y, p))
+
+#def rev-Section
+    (A : U)
+    (y : A)
+    : (x : A) -> hasSection (x = y) (y = x) ((\p -> ((rev A x y) p)))
+    := \x ->
+       ((rev A y x), \p -> idJ(A, y, \x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x'))(p') =_{y = x'} p'), refl, x, p))
+
+#def rev-isEquiv
+    (A : U)
+    (x y : A)
+    : isEquiv (x = y) (y = x) (rev A x y)
+    := ((rev-Retraction A y x), (rev-Section A y x))
+```
+
 
 ## Function extensionality
 
@@ -850,5 +872,48 @@ equivalences.
 ```
 
 ```
+
+```
+
+## Embeddings
+
+```rzk
+#def isEmb
+  (A B : U)
+  (f : A -> B)
+  : U
+  := (x : A) -> (y : A) -> isEquiv (x = y) (f x = f y) (ap A B x y f)
+
+#def Emb
+  (A B : U)
+  : U
+  := (∑ (f : A -> B), isEmb A B f)
+
+#def inhabited-emb-implies-emb
+  (A B : U)
+  (f : A -> B)
+  (e : A -> isEmb A B f)
+  : isEmb A B f
+  := \x -> \y -> e x x y
+```
+
+```rzk
+#def final-projection-of-path-types-of-Unit-has-retr
+    (x y : Unit)
+    : hasRetraction (x = y) Unit (final-projection (x = y))
+    :=
+    (\a -> refl, \p -> idJ(Unit, x, \y' p' -> refl =_{x = y'} p', refl, y, p))
+
+#def final-projection-of-path-types-of-Unit-has-sec
+    (x y : Unit)
+    : hasSection (x = y) Unit (final-projection (x = y))
+    :=
+    (\a -> refl, \a -> refl)
+
+#def final-projection-of-path-types-of-Unit-isEquiv
+    (x y : Unit)
+    : isEquiv (x = y) Unit (final-projection (x = y))
+    :=
+    ((final-projection-of-path-types-of-Unit-has-retr x y), (final-projection-of-path-types-of-Unit-has-sec x y))
 
 ```

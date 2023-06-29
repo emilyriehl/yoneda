@@ -22,14 +22,34 @@ This is a literate `rzk` file:
   extensionality.
 - `5-segal-types.md` - We make heavy use of the notion of Segal types
 - `8-covariant.md` - We use covariant type families.
+- `10-rezk-types.md`- We use Rezk types.
 
-## Fiberwise Segal families
+
+
+## (Iso-)Inner families
+
+This is a (tentative and redundant) definition of (iso-)inner families.
+In the future, hopefully, these can be replaced by instances of
+orthogonal and LARI families.
 
 ```rzk
-#def innerFam
+#def totalType
   (B : U)
+  (P : B -> U)
   : U
-  := ∑ (P : B -> U) , (b : B) -> (isSegal (P b))
+  := ∑ (b : B), P b
+
+#def isInnerFam
+  (B : U)
+  (P : B -> U)
+  : U
+  := prod (prod (isSegal B) (isSegal (totalType B P))) ((b : B) -> (isSegal (P b)))
+
+#def isIsoInnerFam
+  (B : U)
+  (P : B -> U)
+  : U
+  := prod (prod (isRezk B) (isRezk (totalType B P))) ((b : B) -> (isSegal (P b)))
 ```
 
 ## Cocartesian arrows
@@ -58,6 +78,7 @@ this is preferred for usage.
   -> isContr
       ( ∑ ( g : dhom B b' b'' v P e' e'') ,
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
+
 ```
 
 ## Cocartesian lifts
@@ -75,7 +96,24 @@ a given starting point in the fiber.
     (e : P b)
     : U
     := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
+
 ```
+
+#def cocart-is-prop
+    (B : U)
+    (BisRezk : isRezk B)
+    (b b' : B)
+    (u : hom B b b')
+    (P : B -> U)
+    (TPisRezk : isRezk (totalType B P))
+    (PisfibRezk : (b : B) -> isRezk (P b))
+    (e : P b)
+    (e' : P b')
+    (f : dhom B b b' u P e e')
+    (fiscocart : isCocartArr B b b' u P e e' f)
+    : isContr(CocartLift B b b' u P e)
+    := ( (e', f, fiscocart),
+        \d -> \g ->
 
 ## Initial objects
 
