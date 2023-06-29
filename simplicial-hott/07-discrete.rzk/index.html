@@ -296,10 +296,22 @@ only, extending from BOT, that's all we prove here for now.</p>
     := (id-to-arr (arr A) f g,
           (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g)
 
+#def Equiv-square-hom-arr
+  : Eq (hom (arr A) f g)
+      (∑(h : hom A x z), (∑(k : hom A y w),
+          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
+  := (\α -&gt; (\t -&gt; α t 0_2, (\t -&gt; α t 1_2, \(t, s) -&gt; α t s)),
+        ((\σ -&gt; \t -&gt; \s -&gt; (second (second σ)) (t, s),\α -&gt; refl ),
+         (\σ -&gt; \t -&gt; \s -&gt; (second (second σ)) (t, s),\σ -&gt; refl )))
+
 -- The equivalence underlying Eq-arr.
 #def fibered-arr-free-arr
     : (arr A) -&gt; (∑ (x : A), (∑ (y : A), hom A x y))
-    := \k -&gt; (k 0_2, (k 1_2, k))
+    := \ k -&gt; (k 0_2, (k 1_2, k))
 
 #def id-equiv-Eq-arr uses (w x y z)
     : isEquiv (f =_{Δ¹ -&gt; A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
@@ -319,6 +331,45 @@ only, extending from BOT, that's all we prove here for now.</p>
   := Eq-Sigma-over-Prod-Eq A A (\x y -&gt; hom A x y)
       (fibered-arr-free-arr f) (fibered-arr-free-arr g)
 
+#def Equiv-square-Sigma-over-Prod uses (extext Aisdiscrete)
+  : Eq (∑(p : x = z), (∑(q : y = w),
+            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
+      (∑(h : hom A x z), (∑(k : hom A y w),
+          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
+  := LeftCancel_Eq
+        (f =_{Δ¹ -&gt; A} g)
+        (∑(p : x = z), (∑(q : y = w),
+            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
+        (∑(h : hom A x z), (∑(k : hom A y w),
+          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
+        (compose_Eq (f =_{Δ¹ -&gt; A} g)
+          (fibered-arr-free-arr f = fibered-arr-free-arr g)
+          (∑(p : x = z), (∑(q : y = w),
+            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
+          id-Eq-Eq-arr
+          Eq-Sigma-over-Prod-Eq-Arr
+        )
+        (compose_Eq (f =_{Δ¹ -&gt; A} g)
+          (hom (arr A) f g)
+          (∑(h : hom A x z), (∑(k : hom A y w),
+              (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
+          Equiv-idtoarr-discrete
+          Equiv-square-hom-arr
+        )
+
+-- Unused equivalences, keeping here for now.
 -- Specialising [RS17, Proposition 4.3]
 #def axiom-choice-Arr
   : Eq (&lt;{t : 2 | Δ¹ t} -&gt; (prod A A) [ t === 0_2 |-&gt; (x, z), t === 1_2 |-&gt; (y, w) ]&gt;)
@@ -336,13 +387,80 @@ only, extending from BOT, that's all we prove here for now.</p>
   := axiom-choice 2 Δ¹ ∂Δ¹ (\t -&gt; prod A A)(\t (x, y) -&gt; hom A x y)
       (\t -&gt; recOR(t === 0_2 |-&gt; (x, y), t === 1_2 |-&gt; (z, w)))
       (\t -&gt; recOR(t === 0_2 |-&gt; f, t === 1_2 |-&gt; g))
-
 #end discrete-arr-equivalences
+
+-- closing the section so I can use path induction
+#def fibered-map-square-Sigma-over-Prod
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : isDiscrete A)
+  (x y z w : A)
+  (f : hom A x y)
+  (p : x = z)
+  (q : y = w)
+  : (g : hom A z w) -&gt; (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g) -&gt;
+        (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; (id-to-arr A x z p) t,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; (id-to-arr A y w q) t ]&gt;)
+  := idJ(A, x, \z' p' -&gt; (g : hom A z' w) -&gt;
+      (prod-transport A A (\a b -&gt; hom A a b) x z' y w p' q f = g) -&gt;
+      (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; (id-to-arr A x z' p') t,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; (id-to-arr A y w q) t ]&gt;),
+            idJ(A, y, \w' q' -&gt; (g : hom A x w') -&gt;
+              (prod-transport A A (\a b -&gt; hom A a b) x x y w' refl q' f = g) -&gt;
+              (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; x,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; (id-to-arr A y w' q') t ]&gt;),
+            \g τ -&gt; idJ(hom A x y, f, \g' τ' -&gt;
+                (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g' s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; x,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; y ]&gt;),
+                \(t , s) -&gt; f s, g, τ),
+            w, q), z, p)
+
+#def square-Sigma-over-Prod
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : isDiscrete A)
+  (x y z w : A)
+  (f : hom A x y)
+  (g : hom A z w)
+  ((p, (q, τ)) : (∑(p : x = z), (∑(q : y = w),
+            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g))))
+  : (∑(h : hom A x z), (∑(k : hom A y w),
+          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
+                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
+                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
+                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
+                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
+  := (id-to-arr A x z p,
+      (id-to-arr A y w q,
+      fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p q g τ))
+
+#def refl-refl-map-Equiv-square-Sigma-over-Prod
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : isDiscrete A)
+  (x y : A)
+  (f g : hom A x y)
+  (τ : prod-transport A A (\a b -&gt; hom A a b) x x y y refl refl f = g)
+  : (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y x y f g))
+          (refl, (refl, τ)) =
+    (square-Sigma-over-Prod extext A Aisdiscrete x y x y f g) (refl, (refl, τ))
+  := idJ(hom A x y, f, \g' τ' -&gt; (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y x y f g'))
+          (refl, (refl, τ')) =
+    (square-Sigma-over-Prod extext A Aisdiscrete x y x y f g') (refl, (refl, τ')),
+    refl, g, τ)
 </code></pre>
-<p>(I : CUBE) (ψ : I -&gt; TOPE) (ϕ : ψ -&gt; TOPE) (X : ψ -&gt; U) (Y : (t : ψ) -&gt; (x : X
-t) -&gt; U) (a : (t : ϕ) -&gt; X t) (b : (t : ϕ) -&gt; Y t (a t)) : Eq (&lt;{t : I | ψ t} -&gt;
-(∑ (x : X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;) (∑ (f : (&lt;{t : I | ψ t} -&gt; X t [ϕ
-t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;))</p>
               
             </div>
           </div><footer>
