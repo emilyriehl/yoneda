@@ -344,4 +344,111 @@ Discrete types are automatically Segal types.
           (refl, (refl, τ')) =
     (square-Sigma-over-Prod extext A Aisdiscrete x y x y f g') (refl, (refl, τ')),
     refl, g, τ)
+
+#def map-Equiv-square-Sigma-over-Prod
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : isDiscrete A)
+  (x y z w : A)
+  (f : hom A x y)
+  (p : x = z)
+  (q : y = w)
+  : (g : hom A z w) ->
+    (τ : prod-transport A A (\a b -> hom A a b) x z y w p q f = g) ->
+    (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))
+          (p, (q, τ)) =
+    (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g) (p, (q, τ))
+  := idJ(A, y, \w' q' -> (g : hom A z w') ->
+            (τ : prod-transport A A (\a b -> hom A a b) x z y w' p q' f = g) ->
+            (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w' f g))
+                (p, (q', τ)) =
+            (square-Sigma-over-Prod extext A Aisdiscrete x y z w' f g) (p, (q', τ)),
+          idJ(A, x, \z' p' -> (g : hom A z' y) ->
+            (τ : prod-transport A A (\a b -> hom A a b) x z' y y p' refl f = g) ->
+            (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z' y f g))
+                (p', (refl, τ)) =
+            (square-Sigma-over-Prod extext A Aisdiscrete x y z' y f g) (p', (refl, τ)),
+            \g τ -> refl-refl-map-Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y f g τ, z, p), w, q)
+
+#def isEquiv-square-Sigma-over-Prod
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : isDiscrete A)
+  (x y z w : A)
+  (f : hom A x y)
+  (g : hom A z w)
+  : isEquiv
+      (∑(p : x = z), (∑(q : y = w),
+            (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
+      (∑(h : hom A x z), (∑(k : hom A y w),
+          (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s,
+										((t === 1_2) /\  Δ¹ s) |-> g s,
+										(Δ¹ t /\  (s === 0_2)) |-> h t,
+										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
+      (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)
+  := isEquiv-rev-homotopic-isEquiv
+      (∑(p : x = z), (∑(q : y = w),
+            (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
+      (∑(h : hom A x z), (∑(k : hom A y w),
+          (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s,
+										((t === 1_2) /\  Δ¹ s) |-> g s,
+										(Δ¹ t /\  (s === 0_2)) |-> h t,
+										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
+      (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))
+      (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)
+      (\(p, (q, τ)) -> map-Equiv-square-Sigma-over-Prod
+                          extext A Aisdiscrete x y z w f p q g τ)
+      (second (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))
+
+#def isEquiv-fibered-map-square-Sigma-over-Prod
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : isDiscrete A)
+  (x y z w : A)
+  (f : hom A x y)
+  (g : hom A z w)
+  (p : x = z)
+  (q : y = w)
+  : isEquiv (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)
+        (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s,
+										((t === 1_2) /\  Δ¹ s) |-> g s,
+										(Δ¹ t /\  (s === 0_2)) |-> (id-to-arr A x z p) t,
+										(Δ¹ t /\  (s === 1_2)) |-> (id-to-arr A y w q) t ]>)
+        (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p q g)
+  := fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
+        (x = z) (hom A x z) (y = w) (hom A y w)
+        (\p' q' -> (prod-transport A A (\a b -> hom A a b) x z y w p' q' f = g))
+        (\h' k' -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s,
+										((t === 1_2) /\  Δ¹ s) |-> g s,
+										(Δ¹ t /\  (s === 0_2)) |-> h' t,
+										(Δ¹ t /\  (s === 1_2)) |-> k' t ]>))
+        (id-to-arr A x z) (id-to-arr A y w)
+        (\p' q' ->
+          (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p' q' g))
+        (isEquiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)
+        (Aisdiscrete x z)
+        (Aisdiscrete y w)
+        p
+        q
+
+#def isEquiv-fibered-map-square-Sigma-over-Prod-refl-refl
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : isDiscrete A)
+  (x y : A)
+  (f : hom A x y)
+  (g : hom A x y)
+  : isEquiv (f = g)
+        (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s,
+										((t === 1_2) /\  Δ¹ s) |-> g s,
+										(Δ¹ t /\  (s === 0_2)) |-> x,
+										(Δ¹ t /\  (s === 1_2)) |-> y ]>)
+        (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y x y f refl refl g)
+  := isEquiv-fibered-map-square-Sigma-over-Prod
+        extext A Aisdiscrete x y x y f g refl refl
 ```
