@@ -1,7 +1,7 @@
 # Style guide and design principles
 
 This guide provides a set of design principles and guidelines for the `yoneda`
-project. Our style and design principles take heavy inspiration from
+project. Our style and design principles borrows heavily from
 [`agda-unimath`](https://github.com/UniMath/agda-unimath).
 
 ## The structure of code
@@ -102,6 +102,15 @@ two-space indentation level increases.
   > - Add example
   > - prepending assumptions and then conclusion
   > - See agda-unimath's description
+  > - > We start with the initial assumption, then, working our way to the
+  >   > conclusion, prepending every central assumption to the name, and finally
+  >   > the conclusion. So for instance the name `iso-is-initial-is-segal`
+  >   > should read like we get an iso of something which is initial given that
+  >   > something is Segal. The true reading should then be obvious.
+  >
+  > > The naming conventions are aimed at improving the readability of the code,
+  > > not to ensure the shortest possible names, nor to minimize the amount of
+  > > typing by the implementers of the library.
 - We mainly use lower case names with words separated by hyphens.
 - Capitalized names are reserved for subuniverses and similar collections. When
   a construction is made internally to such a collection, we _append_ its name.
@@ -117,18 +126,6 @@ two-space indentation level increases.
 - Use meaningful names that accurately represent the concepts applied. For
   example, if a concept is known best by a special name, that name should
   probably be used.
-
-> - [ ] Use a strict naming convention similar to `agda-unimath`
-> - [ ] > We start with the initial assumption, then, working our way to the
->       > conclusion, prepending every central assumption to the name, and
->       > finally the conclusion. So for instance the name
->       > `iso-is-initial-is-segal` should read like we get an iso of something
->       > which is initial given that something is Segal. The true reading
->       > should then be obvious.
->
-> > The naming conventions are aimed at improving the readability of the code,
-> > not to ensure the shortest possible names, nor to minimize the amount of
-> > typing by the implementers of the library.
 
 - For technical lemmas or definitions, where the chance they will be reused is
   very low, the specific names do not matter as much. In these cases, one may
