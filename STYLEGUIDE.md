@@ -73,8 +73,8 @@ example about Segal types:
               Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
                 ( hom2 A
                   ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-                  ( \t -> k (t , 0_2))
-                  ( \t -> k (1_2 , t))
+                  ( \ t -> k (t , 0_2))
+                  ( \ t -> k (1_2 , t))
                   ( h)))
             ( equiv-horn-restriction A))
           ( horn-restriction A , is-local-horn-inclusion-A)))
