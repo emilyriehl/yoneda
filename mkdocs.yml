@@ -1,4 +1,8 @@
 site_name: 'yoneda'
+repo_url: https://github.com/emilyriehl/yoneda
+repo_name: emilyriehl/yoneda
+edit_uri: edit/master/src
+
 docs_dir: src
 nav:
   - General:
@@ -61,14 +65,14 @@ theme:
   palette:
     # Palette toggle for light mode
     - media: '(prefers-color-scheme: light)'
-      primary: blue
+      primary: indigo
       scheme: default
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
     - media: '(prefers-color-scheme: dark)'
-      primary: blue
+      primary: indigo
       scheme: slate
       toggle:
         icon: material/brightness-4
