@@ -216,6 +216,15 @@ A type equivalent to a contractible type is contractible.
     := isRetract-ofContr-isContr A B
         (first e, first (second e))
         Biscontr
+
+#def isEquiv-fromContr-isContr
+    (A B : U)
+    (e : Eq A B)
+    (Aiscontr : isContr A)
+    : isContr B
+    := isRetract-ofContr-isContr B A
+        (first (second (second e)), (first e, second (second (second e))))
+        Aiscontr
 ```
 
 ## Based path spaces
