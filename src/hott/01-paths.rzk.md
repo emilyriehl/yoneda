@@ -62,7 +62,8 @@ This is a literate `rzk` file:
   (p : w = x)         -- A path from w to x in A.
   (q : x = y)         -- A path from x to y in A.
   (r : y = z)         -- A path from y to z in A.
-  : concat A w y z (concat A w x y p q) r = concat A w x z p (concat A x y z q r)
+  : concat A w y z (concat A w x y p q) r =
+    concat A w x z p (concat A x y z q r)
   :=
     idJ(
       A,
@@ -475,7 +476,8 @@ of the path algebra coherences defined above.
   (p : x = y)
   (q : y = z)
   (u : B x)
-  : (transport x z (concat A x y z p q) u) = (transport y z q (transport x y p u))
+  : (transport x z (concat A x y z p q) u) =
+    (transport y z q (transport x y p u))
   :=
     idJ(
       A,
@@ -591,7 +593,6 @@ of the path algebra coherences defined above.
   (p5 : a4 = a5)
   : a0 = a5
   := quadruple-concat a0 a1 a2 a3 a5 p1 p2 p3 (concat A a3 a4 a5 p4 p5)
-
 
 #def 12ary-concat
   (a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 : A)
