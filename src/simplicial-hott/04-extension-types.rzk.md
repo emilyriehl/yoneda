@@ -10,7 +10,7 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/4-equivalences.rzk` — contains the definitions of `Eq` and `compose_Eq`
+- `hott/4-equivalences.rzk` — contains the definitions of `Eq` and `comp-equiv`
 - the file `hott/4-equivalences.rzk` relies in turn on the previous files in
   `hott/`
 
@@ -91,7 +91,7 @@ This is a literate `rzk` file:
    (f : <{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s >)
    : Eq (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
       (<{s : J | ζ s} -> <{ t : I | ψ t} -> X t s [ ϕ t |-> f (t, s) ]> [ χ s |-> \{t : I | ψ t} -> f (t, s) ]>)
-   := compose_Eq
+   := comp-equiv
          (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
          (<{(t, s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)]>)
          (<{s : J | ζ s} -> <{ t : I | ψ t} -> X t s [ ϕ t |-> f (t, s) ]> [ χ s |-> \{t : I | ψ t} -> f (t, s) ]>)

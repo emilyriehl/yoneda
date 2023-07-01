@@ -370,7 +370,7 @@ This is a literate `rzk` file:
     :=  ∑ (f : A -> B), ((isEquiv A) B) f
 
 -- The data of an equivalence is not symmetric so we promote an equivalence to an invertible map to prove symmetry
-#def sym_Eq
+#def inv-equiv
     (A B : U)
     (e : Eq A B)
     : Eq B A
@@ -381,7 +381,7 @@ This is a literate `rzk` file:
                 first (second (isEquiv-hasInverse A B (first e) (second e))) ) ))
 
 -- Composition of equivalences in diagrammatic order.
-#def compose_Eq
+#def comp-equiv
     (A B C : U)
     (A=B : Eq A B)
     (B=C : Eq B C)
@@ -451,7 +451,7 @@ This is a literate `rzk` file:
     (A=C : Eq A C)
     (B=C : Eq B C)
     : Eq A B
-    := compose_Eq A C B (A=C) (sym_Eq B C B=C)
+    := comp-equiv A C B (A=C) (inv-equiv B C B=C)
 
 -- Left cancellation of equivalences in diagrammatic order.
 #def LeftCancel_Eq
@@ -459,7 +459,7 @@ This is a literate `rzk` file:
     (A=B : Eq A B)
     (A=C : Eq A C)
     : Eq B C
-    := compose_Eq B A C (sym_Eq A B A=B) (A=C)
+    := comp-equiv B A C (inv-equiv A B A=B) (A=C)
 
 -- a composition of three equivalences
 #def triple_compose_Eq
@@ -468,7 +468,7 @@ This is a literate `rzk` file:
     (B=C : Eq B C)
     (C=D : Eq C D)
     : Eq A D
-    := compose_Eq A B D (A=B) (compose_Eq B C D B=C C=D)
+    := comp-equiv A B D (A=B) (comp-equiv B C D B=C C=D)
 
 #def triple_compose_isEquiv
     (A B C D : U)

@@ -99,8 +99,8 @@ A type is contractible if and only if its final projection is an equivalence.
   : isContr B
   := (final-proj-is-equiv-implies-contr B
       (second
-      (compose_Eq B A Unit
-        (sym_Eq A B f)
+      (comp-equiv B A Unit
+        (inv-equiv A B f)
         (final-projection A, (contr-implies-final-proj-is-equiv A Aiscontr))
       )
       )
@@ -111,7 +111,7 @@ A type is contractible if and only if its final projection is an equivalence.
   (f : Eq A B)
   (Biscontr : isContr B)
   : isContr A
-  := (equiv-with-contractible-domain-implies-contractible-codomain B A (sym_Eq A B f) Biscontr)
+  := (equiv-with-contractible-domain-implies-contractible-codomain B A (inv-equiv A B f) Biscontr)
 
 
 #def equiv-then-domain-contractible-iff-codomain-contractible

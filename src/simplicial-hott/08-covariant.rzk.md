@@ -303,7 +303,7 @@ Now we introduce the hypothesis that A is Segal type.
 	(u : hom A a x)				-- A lift of the domain.
 	: Eq (dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (hom2 A a x y u f d))
-	:= compose_Eq
+	:= comp-equiv
 		(dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))))
 		(∑ (d : hom A a y), (hom2 A a x y u f d))
@@ -355,9 +355,9 @@ we argue as follows:
 		(isEquiv-toContr-isContr
 			(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
 			(dhomFrom-representable A x y z g f)
-			(sym_Eq (dhomFrom-representable A x y z g f)
+			(inv-equiv (dhomFrom-representable A x y z g f)
 				(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
-				(compose_Eq
+				(comp-equiv
 					(dhomFrom-representable A x y z g f)
 					(∑ (h : hom A x z), (prod (hom2 A x y z f g h) (∑ (v : hom A x z), hom2 A x x z (id-arr A x) v h)))
 					(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
@@ -415,7 +415,7 @@ types as follows.
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>
 		(hom A a y)
-	:= compose_Eq
+	:= comp-equiv
 		(<{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
 			[ ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
@@ -769,7 +769,7 @@ rather lengthy composition of equivalences.
 	(v : hom A y a)	-- A lift of the codomain.
 	: Eq (dhomTo-representable A a x y f v)
     (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d) ))
-	:= compose_Eq
+	:= comp-equiv
       (dhomTo-representable A a x y f v)
       (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
       (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d) ))
@@ -838,7 +838,7 @@ Now we introduce the hypothesis that A is Segal type.
 	(v : hom A y a)				-- A lift of the codomain.
 	: Eq (dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (hom2 A x y a f v d))
-	:= compose_Eq
+	:= comp-equiv
 		(dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (prod (hom2 A x y a f v d) (∑ (u : hom A x a), (u = d))))
 		(∑ (d : hom A x a), (hom2 A x y a f v d))
@@ -891,9 +891,9 @@ we argue as follows:
 		(isEquiv-toContr-isContr
 			(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (u : hom A x z), hom2 A x z z u (id-arr A z) (first hk))
 			(dhomTo-representable A z x y f g)
-			(sym_Eq (dhomTo-representable A z x y f g)
+			(inv-equiv (dhomTo-representable A z x y f g)
 				(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (u : hom A x z), hom2 A x z z u (id-arr A z) (first hk))
-				(compose_Eq
+				(comp-equiv
 					(dhomTo-representable A z x y f g)
 					(∑ (h : hom A x z), (prod (hom2 A x y z f g h) (∑ (u : hom A x z), hom2 A x z z u (id-arr A z) h)))
 					(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (u : hom A x z), hom2 A x z z u (id-arr A z) (first hk))
