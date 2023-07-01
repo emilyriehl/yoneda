@@ -985,6 +985,15 @@
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="err">    := isRetract-ofContr-isContr A B</span>
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="err">        (</span><span class="no">first</span><span class="err"> e, </span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> e))</span>
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="err">        Biscontr</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isEquiv-fromContr-isContr</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="err">    </span><span class="p">(</span><span class="nv">A B </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="err">    </span><span class="p">(</span><span class="nv">e </span><span class="p">:</span><span class="err"> Eq A B)</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="err">    </span><span class="p">(</span><span class="nv">Aiscontr </span><span class="p">:</span><span class="err"> isContr A)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="err">    : isContr B</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="err">    := isRetract-ofContr-isContr B A</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="err">        (</span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> e)), (</span><span class="no">first</span><span class="err"> e, </span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> e))))</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="err">        Aiscontr</span>
 </span></code></pre></div>
 <h2 id="based-path-spaces">Based path spaces<a class="headerlink" href="#based-path-spaces" title="Permanent link">&para;</a></h2>
 <p>For example, we prove that based path spaces are contractible.</p>
