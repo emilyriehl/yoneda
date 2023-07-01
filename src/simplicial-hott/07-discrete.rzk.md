@@ -50,7 +50,7 @@ of discrete types is discrete.
     (Aisdiscrete : (x : X) -> isDiscrete (A x))
     (f g : (x : X) -> A x)
     : Eq (f = g)(hom ((x : X) -> A x) f g)
-    := triple_compose_Eq
+    := triple-comp-equiv
         (f = g)
         ((x : X) -> f x = g x)
         ((x : X) -> hom (A x) (f x) (g x))
@@ -100,7 +100,7 @@ only, extending from BOT, that's all we prove here for now.
     (Aisdiscrete : (t : ψ) -> isDiscrete (A t)) -- An assumption that the fibers are Segal types.
     (f g : (t : ψ) -> A t) -- A pair of elements of the extension type
     : Eq (f = g)(hom ((t : ψ) -> A t) f g)
-    := triple_compose_Eq
+    := triple-comp-equiv
         (f = g)
         ((t : ψ) -> f t = g t)
         ((t : ψ) -> hom (A t) (f t) (g t))
@@ -234,14 +234,14 @@ Discrete types are automatically Segal types.
 										((t === 1_2) /\  Δ¹ s) |-> g s,
 										(Δ¹ t /\  (s === 0_2)) |-> h t,
 										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
-        (compose_Eq (f =_{Δ¹ -> A} g)
+        (comp-equiv (f =_{Δ¹ -> A} g)
           (fibered-arr-free-arr f = fibered-arr-free-arr g)
           (∑(p : x = z), (∑(q : y = w),
             (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
           id-Eq-Eq-arr
           Eq-Sigma-over-Prod-Eq-Arr
         )
-        (compose_Eq (f =_{Δ¹ -> A} g)
+        (comp-equiv (f =_{Δ¹ -> A} g)
           (hom (arr A) f g)
           (∑(h : hom A x z), (∑(k : hom A y w),
               (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A

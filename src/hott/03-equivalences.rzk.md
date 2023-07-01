@@ -462,7 +462,7 @@ This is a literate `rzk` file:
     := comp-equiv B A C (inv-equiv A B A=B) (A=C)
 
 -- a composition of three equivalences
-#def triple_compose_Eq
+#def triple-comp-equiv
     (A B C D : U)
     (A=B : Eq A B)
     (B=C : Eq B C)

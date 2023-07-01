@@ -226,7 +226,7 @@ equivalences.
 	(u : hom A a x)				-- A lift of the domain.
 	: Eq (dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (∑ (v : hom A a y), prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-	:= triple_compose_Eq
+	:= triple-comp-equiv
 		(dhomFrom-representable A a x y f u)
 		(∑ (v : hom A a y), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
@@ -749,7 +749,7 @@ rather lengthy composition of equivalences.
 	(v : hom A y a)	-- A lift of the codomain.
 	: Eq (dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-	:= triple_compose_Eq
+	:= triple-comp-equiv
 		(dhomTo-representable A a x y f v)
 		(∑ (u : hom A x a), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
