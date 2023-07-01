@@ -1219,7 +1219,7 @@
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="err">    :=  </span><span class="kt">∑</span><span class="err"> </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> A -&gt; B), ((isEquiv A) B) f</span>
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c">-- The data of an equivalence is not symmetric so we promote an equivalence to an invertible map to prove symmetry</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">sym_Eq</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">inv-equiv</span>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="err">    </span><span class="p">(</span><span class="nv">A B </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="err">    </span><span class="p">(</span><span class="nv">e </span><span class="p">:</span><span class="err"> Eq A B)</span>
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="err">    : Eq B A</span>
@@ -1230,7 +1230,7 @@
 </span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="err">                </span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> (isEquiv-hasInverse A B (</span><span class="no">first</span><span class="err"> e) (</span><span class="no">second</span><span class="err"> e))) ) ))</span>
 </span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
 </span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="c">-- Composition of equivalences in diagrammatic order.</span>
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">compose_Eq</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">comp-equiv</span>
 </span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="err">    </span><span class="p">(</span><span class="nv">A B C </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="err">    </span><span class="p">(</span><span class="nv">A=B </span><span class="p">:</span><span class="err"> Eq A B)</span>
 </span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="err">    </span><span class="p">(</span><span class="nv">B=C </span><span class="p">:</span><span class="err"> Eq B C)</span>
@@ -1300,7 +1300,7 @@
 </span><span id="__span-9-86"><a id="__codelineno-9-86" name="__codelineno-9-86" href="#__codelineno-9-86"></a><span class="err">    </span><span class="p">(</span><span class="nv">A=C </span><span class="p">:</span><span class="err"> Eq A C)</span>
 </span><span id="__span-9-87"><a id="__codelineno-9-87" name="__codelineno-9-87" href="#__codelineno-9-87"></a><span class="err">    </span><span class="p">(</span><span class="nv">B=C </span><span class="p">:</span><span class="err"> Eq B C)</span>
 </span><span id="__span-9-88"><a id="__codelineno-9-88" name="__codelineno-9-88" href="#__codelineno-9-88"></a><span class="err">    : Eq A B</span>
-</span><span id="__span-9-89"><a id="__codelineno-9-89" name="__codelineno-9-89" href="#__codelineno-9-89"></a><span class="err">    := compose_Eq A C B (A=C) (sym_Eq B C B=C)</span>
+</span><span id="__span-9-89"><a id="__codelineno-9-89" name="__codelineno-9-89" href="#__codelineno-9-89"></a><span class="err">    := comp-equiv A C B (A=C) (inv-equiv B C B=C)</span>
 </span><span id="__span-9-90"><a id="__codelineno-9-90" name="__codelineno-9-90" href="#__codelineno-9-90"></a>
 </span><span id="__span-9-91"><a id="__codelineno-9-91" name="__codelineno-9-91" href="#__codelineno-9-91"></a><span class="c">-- Left cancellation of equivalences in diagrammatic order.</span>
 </span><span id="__span-9-92"><a id="__codelineno-9-92" name="__codelineno-9-92" href="#__codelineno-9-92"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">LeftCancel_Eq</span>
@@ -1308,7 +1308,7 @@
 </span><span id="__span-9-94"><a id="__codelineno-9-94" name="__codelineno-9-94" href="#__codelineno-9-94"></a><span class="err">    </span><span class="p">(</span><span class="nv">A=B </span><span class="p">:</span><span class="err"> Eq A B)</span>
 </span><span id="__span-9-95"><a id="__codelineno-9-95" name="__codelineno-9-95" href="#__codelineno-9-95"></a><span class="err">    </span><span class="p">(</span><span class="nv">A=C </span><span class="p">:</span><span class="err"> Eq A C)</span>
 </span><span id="__span-9-96"><a id="__codelineno-9-96" name="__codelineno-9-96" href="#__codelineno-9-96"></a><span class="err">    : Eq B C</span>
-</span><span id="__span-9-97"><a id="__codelineno-9-97" name="__codelineno-9-97" href="#__codelineno-9-97"></a><span class="err">    := compose_Eq B A C (sym_Eq A B A=B) (A=C)</span>
+</span><span id="__span-9-97"><a id="__codelineno-9-97" name="__codelineno-9-97" href="#__codelineno-9-97"></a><span class="err">    := comp-equiv B A C (inv-equiv A B A=B) (A=C)</span>
 </span><span id="__span-9-98"><a id="__codelineno-9-98" name="__codelineno-9-98" href="#__codelineno-9-98"></a>
 </span><span id="__span-9-99"><a id="__codelineno-9-99" name="__codelineno-9-99" href="#__codelineno-9-99"></a><span class="c">-- a composition of three equivalences</span>
 </span><span id="__span-9-100"><a id="__codelineno-9-100" name="__codelineno-9-100" href="#__codelineno-9-100"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">triple_compose_Eq</span>
@@ -1317,7 +1317,7 @@
 </span><span id="__span-9-103"><a id="__codelineno-9-103" name="__codelineno-9-103" href="#__codelineno-9-103"></a><span class="err">    </span><span class="p">(</span><span class="nv">B=C </span><span class="p">:</span><span class="err"> Eq B C)</span>
 </span><span id="__span-9-104"><a id="__codelineno-9-104" name="__codelineno-9-104" href="#__codelineno-9-104"></a><span class="err">    </span><span class="p">(</span><span class="nv">C=D </span><span class="p">:</span><span class="err"> Eq C D)</span>
 </span><span id="__span-9-105"><a id="__codelineno-9-105" name="__codelineno-9-105" href="#__codelineno-9-105"></a><span class="err">    : Eq A D</span>
-</span><span id="__span-9-106"><a id="__codelineno-9-106" name="__codelineno-9-106" href="#__codelineno-9-106"></a><span class="err">    := compose_Eq A B D (A=B) (compose_Eq B C D B=C C=D)</span>
+</span><span id="__span-9-106"><a id="__codelineno-9-106" name="__codelineno-9-106" href="#__codelineno-9-106"></a><span class="err">    := comp-equiv A B D (A=B) (comp-equiv B C D B=C C=D)</span>
 </span><span id="__span-9-107"><a id="__codelineno-9-107" name="__codelineno-9-107" href="#__codelineno-9-107"></a>
 </span><span id="__span-9-108"><a id="__codelineno-9-108" name="__codelineno-9-108" href="#__codelineno-9-108"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">triple_compose_isEquiv</span>
 </span><span id="__span-9-109"><a id="__codelineno-9-109" name="__codelineno-9-109" href="#__codelineno-9-109"></a><span class="err">    </span><span class="p">(</span><span class="nv">A B C D </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>

@@ -758,7 +758,7 @@
 </span></code></pre></div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>hott/4-equivalences.rzk</code> — contains the definitions of <code>Eq</code> and <code>compose_Eq</code></li>
+<li><code>hott/4-equivalences.rzk</code> — contains the definitions of <code>Eq</code> and <code>comp-equiv</code></li>
 <li>the file <code>hott/4-equivalences.rzk</code> relies in turn on the previous files in
   <code>hott/</code></li>
 </ul>
@@ -837,7 +837,7 @@
 </span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> &lt;{(t, s) : I * J | (ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s)} -&gt; X t s &gt;)</span>
 </span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
 </span><span id="__span-1-74"><a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a><span class="err">      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)</span>
-</span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a><span class="err">   := compose_Eq</span>
+</span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a><span class="err">   := comp-equiv</span>
 </span><span id="__span-1-76"><a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a><span class="err">         (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
 </span><span id="__span-1-77"><a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a><span class="err">         (&lt;{(t, s) : I * J | ψ t </span><span class="o">/\</span><span class="err"> ζ s} -&gt; X t s [(ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s) |-&gt; f (t , s)]&gt;)</span>
 </span><span id="__span-1-78"><a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a><span class="err">         (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)</span>
