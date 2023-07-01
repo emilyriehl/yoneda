@@ -67,13 +67,13 @@ A type is contractible if and only if its final projection is an equivalence.
   (AisContr : isContr A)
   : hasRetraction A Unit (final-projection A)
   :=
-    (const Unit A (contraction-center A AisContr), \y -> (contracting-htpy A AisContr) y)
+    (constant Unit A (contraction-center A AisContr), \y -> (contracting-htpy A AisContr) y)
 
 #def contr-implies-final-proj-is-equiv-sec
   (A : U)
   (AisContr : isContr A)
   : hasSection A Unit (final-projection A)
-  :=  (const Unit A (contraction-center A AisContr), \z -> refl)
+  :=  (constant Unit A (contraction-center A AisContr), \z -> refl)
 
 #def contr-implies-final-proj-is-equiv
   (A : U)
