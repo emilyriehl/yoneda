@@ -1,4 +1,8 @@
 site_name: 'yoneda'
+repo_url: https://github.com/emilyriehl/yoneda
+repo_name: emilyriehl/yoneda
+edit_uri: edit/master/src
+
 docs_dir: src
 nav:
   - General:
@@ -23,14 +27,61 @@ nav:
       - Discrete Types: simplicial-hott/07-discrete.rzk.md
       - Covariantly Functorial Type Families: simplicial-hott/08-covariant.rzk.md
       - The Yoneda Lemma: simplicial-hott/09-yoneda.rzk.md
+      - Rezk Types: simplicial-hott/10-rezk-types.rzk.md
       - Cocartesian Families: simplicial-hott/12-cocartesian.rzk.md
 
 markdown_extensions:
+  - admonition
+  - footnotes
+  - pymdownx.details
   - mdx_math
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 theme:
-  name: readthedocs
-  highlights: false # we override default highlights in custom_theme/
-  custom_dir: custom_theme/
-extra_css:
-  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
+  features:
+    - content.code.copy
+    - content.action.edit
+    - navigation.footer
+    - navigation.sections
+    - navigation.path
+  palette:
+    # Palette toggle for light mode
+    - media: '(prefers-color-scheme: light)'
+      primary: indigo
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: '(prefers-color-scheme: dark)'
+      primary: indigo
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra_javascript:
+  - javascript/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search

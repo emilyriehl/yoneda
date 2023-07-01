@@ -1,1 +1,3 @@
+mkdocs-material
 python-markdown-math
+pygments-rzk
