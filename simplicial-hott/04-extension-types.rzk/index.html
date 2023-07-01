@@ -1,436 +1,1087 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Extension Types - yoneda</title>
-    <link rel="stylesheet" href="../../css/theme.css" />
-    <link rel="stylesheet" href="../../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
-<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
-<link rel="manifest" href="/yoneda/site.webmanifest">
-<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
-<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
-<script src="../../js/highlight-11.7.0.min.js"></script>
-<script src="../../js/rzk.js"></script>
-<link rel="stylesheet" href="../../css/gruvbox-light.css" />
-<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
-<script src="../../js/highlightjs-copy.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-  hljs.addPlugin(new CopyButtonPlugin());
-  hljs.highlightAll();
-</script>
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Extension Types - yoneda</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.472b142f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.08040f6c.min.css">
+        
+      
+      
 
     
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Extension Types";
-        var mkdocs_page_input_path = "simplicial-hott/04-extension-types.rzk.md";
-        var mkdocs_page_url = null;
-      </script>
     
-    <script src="../../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script>
- 
-</head>
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-<body class="wy-body-for-nav" role="document">
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-equivalences-involving-extension-types" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> yoneda
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="yoneda" class="md-header__button md-logo" aria-label="yoneda" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">General</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">HoTT</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/00-common.rzk/">Common</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/01-paths.rzk/">Paths</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/02-homotopies.rzk/">Homotopies</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/03-equivalences.rzk/">Equivalences</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/04-sigma.rzk/">Sigma types</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/05-contractible.rzk/">Contractible</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/06-fibers.rzk/">Fibers</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/07-propositions.rzk/">Propositions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/08-trivial-fibrations.rzk/">Trivial fibrations</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Extension Types</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#commutation-of-arguments-and-currying">Commutation of arguments and currying</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#extending-into-types-the-non-axiom-of-choice">Extending into ∑-types (the non-axiom of choice)</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#composites-and-unions-of-cofibrations">Composites and unions of cofibrations</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#relative-function-extensionality">Relative function extensionality</a>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../05-segal-types.rzk/">Segal Types</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../07-discrete.rzk/">Discrete Types</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../08-covariant.rzk/">Covariantly Functorial Type Families</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../09-yoneda.rzk/">The Yoneda Lemma</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../12-cocartesian.rzk/">Cocartesian Families</a>
-                  </li>
-              </ul>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            yoneda
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Extension Types
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">yoneda</a>
+    
+      <form class="md-header__option" data-md-component="palette">
         
+          
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
       </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Simplicial HoTT &raquo;</li>
-      <li>Extension Types</li>
-    <li class="wy-breadcrumbs-aside">
-    </li>
-  </ul>
-  <hr/>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/emilyriehl/yoneda" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    emilyriehl/yoneda
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <h1 id="4-equivalences-involving-extension-types">4. Equivalences involving extension types</h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="yoneda" class="md-nav__button md-logo" aria-label="yoneda" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    yoneda
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/emilyriehl/yoneda" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    emilyriehl/yoneda
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          General
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="General" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          General
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          HoTT
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HoTT" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          HoTT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/00-common.rzk/" class="md-nav__link">
+        Common
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/01-paths.rzk/" class="md-nav__link">
+        Paths
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/02-homotopies.rzk/" class="md-nav__link">
+        Homotopies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/03-equivalences.rzk/" class="md-nav__link">
+        Equivalences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/04-sigma.rzk/" class="md-nav__link">
+        Sigma types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/05-contractible.rzk/" class="md-nav__link">
+        Contractible
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/06-fibers.rzk/" class="md-nav__link">
+        Fibers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/07-propositions.rzk/" class="md-nav__link">
+        Propositions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/08-trivial-fibrations.rzk/" class="md-nav__link">
+        Trivial fibrations
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Simplicial HoTT
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Simplicial HoTT" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Simplicial HoTT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-simplicial-type-theory.rzk/" class="md-nav__link">
+        Simplicial Type Theory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Extension Types
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Extension Types
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commutation-of-arguments-and-currying" class="md-nav__link">
+    Commutation of arguments and currying
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending-into-types-the-non-axiom-of-choice" class="md-nav__link">
+    Extending into ∑-types (the non-axiom of choice)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composites-and-unions-of-cofibrations" class="md-nav__link">
+    Composites and unions of cofibrations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relative-function-extensionality" class="md-nav__link">
+    Relative function extensionality
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-segal-types.rzk/" class="md-nav__link">
+        Segal Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-2cat-of-segal-types.rzk/" class="md-nav__link">
+        2-Category of Segal Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-discrete.rzk/" class="md-nav__link">
+        Discrete Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-covariant.rzk/" class="md-nav__link">
+        Covariantly Functorial Type Families
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-yoneda.rzk/" class="md-nav__link">
+        The Yoneda Lemma
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-rezk-types.rzk/" class="md-nav__link">
+        Rezk Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-cocartesian.rzk/" class="md-nav__link">
+        Cocartesian Families
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commutation-of-arguments-and-currying" class="md-nav__link">
+    Commutation of arguments and currying
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending-into-types-the-non-axiom-of-choice" class="md-nav__link">
+    Extending into ∑-types (the non-axiom of choice)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composites-and-unions-of-cofibrations" class="md-nav__link">
+    Composites and unions of cofibrations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relative-function-extensionality" class="md-nav__link">
+    Relative function extensionality
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/emilyriehl/yoneda/edit/master/src/simplicial-hott/04-extension-types.rzk.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="4-equivalences-involving-extension-types">4. Equivalences involving extension types<a class="headerlink" href="#4-equivalences-involving-extension-types" title="Permanent link">&para;</a></h1>
 <p>These formalisations correspond to Section 3 of RS17 paper.</p>
 <p>This is a literate <code>rzk</code> file:</p>
-<pre><code class="language-rzk">#lang rzk-1
-</code></pre>
-<h2 id="prerequisites">Prerequisites</h2>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
+</span></code></pre></div>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>hott/4-equivalences.rzk</code> — contains the definitions of <code>Eq</code> and <code>compose_Eq</code></li>
 <li>the file <code>hott/4-equivalences.rzk</code> relies in turn on the previous files in
   <code>hott/</code></li>
 </ul>
-<h2 id="commutation-of-arguments-and-currying">Commutation of arguments and currying</h2>
-<pre><code class="language-rzk">-- [RS17, Theorem 4.1]
-#def flip-ext-fun
-   (I : CUBE)
-   (ψ : I -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (X : U)
-   (Y : ψ -&gt; X -&gt; U)
-   (f : (t : ϕ) -&gt; (x : X) -&gt; Y t x)
-   : Eq (&lt;{t : I | ψ t} -&gt; ((x : X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)
-       ((x : X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)
-   := (\ g x t -&gt; g t x, -- the one-way map
-            ((\ h t x -&gt; (h x) t, -- the retraction
-            \ g -&gt; refl), -- the retracting homotopy
-            (\ h t x -&gt; (h x) t, -- the section
-            \ h -&gt; refl))) -- the section homotopy
-
-#def flip-ext-fun-inv
-   (I : CUBE)
-   (ψ : I -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (X : U)
-   (Y : ψ -&gt; X -&gt; U)
-   (f : (t : ϕ) -&gt; (x : X) -&gt; Y t x)
-   : Eq ((x : X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)
-      (&lt;{t : I | ψ t} -&gt; ((x : X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)
-   := (\ h t x -&gt; (h x) t, -- the one-way map
-            ((\ g x t -&gt; g t x, -- the retraction
-            \ h -&gt; refl), -- the retracting homotopy
-            (\ g x t -&gt; g t x, -- the section
-            \ g -&gt; refl)))
-
--- [RS17, Theorem 4.2]
-#def curry-uncurry
-   (I J : CUBE)
-   (ψ : I -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (ζ : J -&gt; TOPE)
-   (χ : ζ -&gt; TOPE)
-   (X : ψ -&gt; ζ -&gt; U)
-   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
-   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
-      (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
-   := (\ g (t, s) -&gt; (g t) s, -- the one way map
-         ((\ h t s -&gt; h (t , s) -- its retraction
-            ,\ g -&gt; refl), -- the retracting homotopy
-         (\ h t s -&gt; h (t , s) -- its section
-            ,\ h -&gt; refl)))  -- the section homotopy
-
-#def uncurry-opcurry
-   (I J : CUBE)
-   (ψ : I -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (ζ : J -&gt; TOPE)
-   (χ : ζ -&gt; TOPE)
-   (X : ψ -&gt; ζ -&gt; U)
-   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
-   : Eq (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
-      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
-   := (\ h s t -&gt; h (t , s) , -- the one way map
-      ((\ g (t, s) -&gt; (g s) t -- its retraction
-            ,\ h -&gt; refl), -- the retracting homotopy
-      (\ g (t, s) -&gt; (g s) t -- its section
-            ,\ g -&gt; refl))) -- the section homotopy
-
-#def fubini
-   (I J : CUBE)
-   (ψ : I -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (ζ : J -&gt; TOPE)
-   (χ : ζ -&gt; TOPE)
-   (X : ψ -&gt; ζ -&gt; U)
-   (f : &lt;{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -&gt; X t s &gt;)
-   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
-      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
-   := compose_Eq
-         (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)
-         (&lt;{(t, s) : I * J | ψ t /\ ζ s} -&gt; X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-&gt; f (t , s)]&gt;)
-         (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)
-         (curry-uncurry I J ψ ϕ ζ χ X f)
-         (uncurry-opcurry I J ψ ϕ ζ χ X f)
-</code></pre>
-<h2 id="extending-into-types-the-non-axiom-of-choice">Extending into ∑-types (the non-axiom of choice)</h2>
-<pre><code class="language-rzk">-- [RS17, Theorem 4.3]
-#def axiom-choice
-   (I : CUBE)
-   (ψ : I -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (X : ψ -&gt; U)
-   (Y : (t : ψ) -&gt; (x : X t) -&gt; U)
-   (a : (t : ϕ) -&gt; X t)
-   (b : (t : ϕ) -&gt; Y t (a t))
-   : Eq (&lt;{t : I | ψ t} -&gt; (∑ (x : X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;)
-     (∑ (f : (&lt;{t : I | ψ t} -&gt; X t [ϕ t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;))
-     := (\ g -&gt; (\ t -&gt; (first (g t)), \ t -&gt; second (g t)) , -- the one way map
-            ((\ h t -&gt; ((first h) t, (second h) t) -- its retraction
-            , \ g -&gt; refl), -- the retracting homotopy
-            (\ h t -&gt; ((first h) t, (second h) t) -- its section
-            , \ h -&gt; refl))) -- the section homotopy
-</code></pre>
-<h2 id="composites-and-unions-of-cofibrations">Composites and unions of cofibrations</h2>
-<pre><code class="language-rzk">-- [RS17, Theorem 4.4]
--- Reformulated via tope disjunction instead of inclusion.
--- See https://github.com/fizruk/rzk/issues/8
-#def cofibration_composition'
-   (I : CUBE)
-   (χ ψ ϕ : I -&gt; TOPE)
-   (X : χ -&gt; U)
-   (a : &lt;{t : I | χ t /\ ψ t /\ ϕ t} -&gt; X t &gt;)
-   : Eq &lt;{t : I | χ t} -&gt; X t [ χ t /\ ψ t /\ ϕ t |-&gt; a t ]&gt;
-       (∑ (f : &lt;{t : I | χ t /\ ψ t} -&gt; X t [ χ t /\ ψ t /\ ϕ t |-&gt; a t ]&gt;),
-          &lt;{t : I | χ t} -&gt; X t [ χ t /\ ψ t |-&gt; f t ]&gt;)
-  := (\ h -&gt; (\ t -&gt; h t,
-             \ t -&gt; h t),
-      ((\ fg t -&gt; (second fg) t, \ h -&gt; refl),
-      ((\ fg t -&gt; (second fg) t, \ h -&gt; refl))))
-
--- [RS17, Theorem 4.4]
--- original form
-#def cofibration-composition
-   (I : CUBE)
-   (χ : I -&gt; TOPE)
-   (ψ : χ -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (X : χ -&gt; U)
-   (a : (t : ϕ) -&gt; X t)
-   : Eq &lt;{t : I | χ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;
-      (∑ (f : &lt;{t : I | ψ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;),
-          &lt;{t : I | χ t} -&gt; X t [ ψ t |-&gt; f t ]&gt;)
-   := (\ h -&gt; (\ t -&gt; h t,
-             \ t -&gt; h t),
-      ((\ fg t -&gt; (second fg) t, \ h -&gt; refl),
-      ((\ fg t -&gt; (second fg) t, \ h -&gt; refl))))
-
--- [RS17, Theorem 4.5]
-#def cofibration_union
-   (I : CUBE)
-   (ϕ ψ : I -&gt; TOPE)
-   (X : &lt;{t : I | ϕ t \/ ψ t} -&gt; U &gt;)
-   (a : (t : ψ) -&gt; X t)
-   : Eq &lt;{t : I | ϕ t \/ ψ t} -&gt; X t [ ψ t |-&gt; a t ]&gt;
-       &lt;{t : I | ϕ t} -&gt; X t [ ϕ t /\ ψ t |-&gt; a t ]&gt;
-  := (\ h -&gt; \ t -&gt; h t,
-      ((\ g -&gt; \ t -&gt; recOR(ϕ t |-&gt; g t, ψ t |-&gt; a t), \ h -&gt; refl),
-       (\ g -&gt; \ t -&gt; recOR(ϕ t |-&gt; g t, ψ t |-&gt; a t), \ h -&gt; refl)))
-</code></pre>
-<h2 id="relative-function-extensionality">Relative function extensionality</h2>
+<h2 id="commutation-of-arguments-and-currying">Commutation of arguments and currying<a class="headerlink" href="#commutation-of-arguments-and-currying" title="Permanent link">&para;</a></h2>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c">-- [RS17, Theorem 4.1]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">flip-ext-fun</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">Y </span><span class="p">:</span><span class="err"> ψ -&gt; X -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">       </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">g x t </span><span class="err">-&gt; g t x, </span><span class="c">-- the one-way map</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="err">            ((</span><span class="p">\ </span><span class="nv">h t x </span><span class="err">-&gt; (h x) t, </span><span class="c">-- the retraction</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="err">            </span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">), </span><span class="c">-- the retracting homotopy</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="err">            (</span><span class="p">\ </span><span class="nv">h t x </span><span class="err">-&gt; (h x) t, </span><span class="c">-- the section</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="err">            </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">))) </span><span class="c">-- the section homotopy</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">flip-ext-fun-inv</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="err">   </span><span class="p">(</span><span class="nv">Y </span><span class="p">:</span><span class="err"> ψ -&gt; X -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x)</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="err">   : Eq </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="err">      (&lt;{t : I | ψ t} -&gt; </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">h t x </span><span class="err">-&gt; (h x) t, </span><span class="c">-- the one-way map</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="err">            ((</span><span class="p">\ </span><span class="nv">g x t </span><span class="err">-&gt; g t x, </span><span class="c">-- the retraction</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="err">            </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">), </span><span class="c">-- the retracting homotopy</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="err">            (</span><span class="p">\ </span><span class="nv">g x t </span><span class="err">-&gt; g t x, </span><span class="c">-- the section</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="err">            </span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">)))</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="c">-- [RS17, Theorem 4.2]</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">curry-uncurry</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="err">   </span><span class="p">(</span><span class="nv">I J </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="err">   </span><span class="p">(</span><span class="nv">ζ </span><span class="p">:</span><span class="err"> J -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ </span><span class="p">:</span><span class="err"> ζ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> ψ -&gt; ζ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> &lt;{(t, s) : I * J | (ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s)} -&gt; X t s &gt;)</span>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="err">      (&lt;{(t, s) : I * J | ψ t </span><span class="o">/\</span><span class="err"> ζ s} -&gt; X t s [(ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s) |-&gt; f (t , s)]&gt;)</span>
+</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">g </span><span class="err">(t, s) -&gt; (g t) s, </span><span class="c">-- the one way map</span>
+</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="err">         ((</span><span class="p">\ </span><span class="nv">h t s </span><span class="err">-&gt; h (t , s) </span><span class="c">-- its retraction</span>
+</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="err">            ,</span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">), </span><span class="c">-- the retracting homotopy</span>
+</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="err">         (</span><span class="p">\ </span><span class="nv">h t s </span><span class="err">-&gt; h (t , s) </span><span class="c">-- its section</span>
+</span><span id="__span-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="err">            ,</span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">)))  </span><span class="c">-- the section homotopy</span>
+</span><span id="__span-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>
+</span><span id="__span-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">uncurry-opcurry</span>
+</span><span id="__span-1-50"><a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="err">   </span><span class="p">(</span><span class="nv">I J </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-1-51"><a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-52"><a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-53"><a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a><span class="err">   </span><span class="p">(</span><span class="nv">ζ </span><span class="p">:</span><span class="err"> J -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-54"><a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ </span><span class="p">:</span><span class="err"> ζ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-55"><a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> ψ -&gt; ζ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-1-56"><a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> &lt;{(t, s) : I * J | (ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s)} -&gt; X t s &gt;)</span>
+</span><span id="__span-1-57"><a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="err">   : Eq (&lt;{(t, s) : I * J | ψ t </span><span class="o">/\</span><span class="err"> ζ s} -&gt; X t s [(ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s) |-&gt; f (t , s)]&gt;)</span>
+</span><span id="__span-1-58"><a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a><span class="err">      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)</span>
+</span><span id="__span-1-59"><a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">h s t </span><span class="err">-&gt; h (t , s) , </span><span class="c">-- the one way map</span>
+</span><span id="__span-1-60"><a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a><span class="err">      ((</span><span class="p">\ </span><span class="nv">g </span><span class="err">(t, s) -&gt; (g s) t </span><span class="c">-- its retraction</span>
+</span><span id="__span-1-61"><a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a><span class="err">            ,</span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">), </span><span class="c">-- the retracting homotopy</span>
+</span><span id="__span-1-62"><a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="err">      (</span><span class="p">\ </span><span class="nv">g </span><span class="err">(t, s) -&gt; (g s) t </span><span class="c">-- its section</span>
+</span><span id="__span-1-63"><a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a><span class="err">            ,</span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">))) </span><span class="c">-- the section homotopy</span>
+</span><span id="__span-1-64"><a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a>
+</span><span id="__span-1-65"><a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">fubini</span>
+</span><span id="__span-1-66"><a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a><span class="err">   </span><span class="p">(</span><span class="nv">I J </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-1-67"><a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-68"><a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-69"><a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a><span class="err">   </span><span class="p">(</span><span class="nv">ζ </span><span class="p">:</span><span class="err"> J -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-70"><a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ </span><span class="p">:</span><span class="err"> ζ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-1-71"><a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> ψ -&gt; ζ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> &lt;{(t, s) : I * J | (ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s)} -&gt; X t s &gt;)</span>
+</span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
+</span><span id="__span-1-74"><a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a><span class="err">      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)</span>
+</span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a><span class="err">   := compose_Eq</span>
+</span><span id="__span-1-76"><a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a><span class="err">         (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
+</span><span id="__span-1-77"><a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a><span class="err">         (&lt;{(t, s) : I * J | ψ t </span><span class="o">/\</span><span class="err"> ζ s} -&gt; X t s [(ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s) |-&gt; f (t , s)]&gt;)</span>
+</span><span id="__span-1-78"><a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a><span class="err">         (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)</span>
+</span><span id="__span-1-79"><a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a><span class="err">         (curry-uncurry I J ψ ϕ ζ χ X f)</span>
+</span><span id="__span-1-80"><a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a><span class="err">         (uncurry-opcurry I J ψ ϕ ζ χ X f)</span>
+</span></code></pre></div>
+<h2 id="extending-into-types-the-non-axiom-of-choice">Extending into ∑-types (the non-axiom of choice)<a class="headerlink" href="#extending-into-types-the-non-axiom-of-choice" title="Permanent link">&para;</a></h2>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c">-- [RS17, Theorem 4.3]</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">axiom-choice</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">Y </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X t) -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; X t)</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">   </span><span class="p">(</span><span class="nv">b </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; Y t (a t))</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; </span><span class="p">(</span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;)</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">     </span><span class="p">(</span><span class="nv">∑ (f </span><span class="p">:</span><span class="err"> (&lt;{t : I | ψ t} -&gt; X t [ϕ t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;))</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="err">     := (</span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (g t)), </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">second</span><span class="err"> (g t)) , </span><span class="c">-- the one way map</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">            ((</span><span class="p">\ </span><span class="nv">h t </span><span class="err">-&gt; ((</span><span class="no">first</span><span class="err"> h) t, (</span><span class="no">second</span><span class="err"> h) t) </span><span class="c">-- its retraction</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="err">            , </span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">), </span><span class="c">-- the retracting homotopy</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="err">            (</span><span class="p">\ </span><span class="nv">h t </span><span class="err">-&gt; ((</span><span class="no">first</span><span class="err"> h) t, (</span><span class="no">second</span><span class="err"> h) t) </span><span class="c">-- its section</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="err">            , </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">))) </span><span class="c">-- the section homotopy</span>
+</span></code></pre></div>
+<h2 id="composites-and-unions-of-cofibrations">Composites and unions of cofibrations<a class="headerlink" href="#composites-and-unions-of-cofibrations" title="Permanent link">&para;</a></h2>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c">-- [RS17, Theorem 4.4]</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c">-- Reformulated via tope disjunction instead of inclusion.</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c">-- See https://github.com/fizruk/rzk/issues/8</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">cofibration_composition&#39;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ ψ ϕ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> χ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> &lt;{t : I | χ t </span><span class="o">/\</span><span class="err"> ψ t </span><span class="o">/\</span><span class="err"> ϕ t} -&gt; X t &gt;)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">   : Eq &lt;{t : I | χ t} -&gt; X t [ χ t </span><span class="o">/\</span><span class="err"> ψ t </span><span class="o">/\</span><span class="err"> ϕ t |-&gt; a t ]&gt;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">       </span><span class="p">(</span><span class="nv">∑ (f </span><span class="p">:</span><span class="err"> &lt;{t : I | χ t </span><span class="o">/\</span><span class="err"> ψ t} -&gt; X t [ χ t </span><span class="o">/\</span><span class="err"> ψ t </span><span class="o">/\</span><span class="err"> ϕ t |-&gt; a t ]&gt;),</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">          &lt;{t : I | χ t} -&gt; X t [ χ t </span><span class="o">/\</span><span class="err"> ψ t |-&gt; f t ]&gt;)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">  := (</span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; h t,</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">             </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; h t),</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">      ((</span><span class="p">\ </span><span class="nv">fg t </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> fg) t, </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">),</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">      ((</span><span class="p">\ </span><span class="nv">fg t </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> fg) t, </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">))))</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="c">-- [RS17, Theorem 4.4]</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="c">-- original form</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">cofibration-composition</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> χ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> χ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; X t)</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="err">   : Eq &lt;{t : I | χ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑ (f </span><span class="p">:</span><span class="err"> &lt;{t : I | ψ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;),</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="err">          &lt;{t : I | χ t} -&gt; X t [ ψ t |-&gt; f t ]&gt;)</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; h t,</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="err">             </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; h t),</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="err">      ((</span><span class="p">\ </span><span class="nv">fg t </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> fg) t, </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">),</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="err">      ((</span><span class="p">\ </span><span class="nv">fg t </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> fg) t, </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">))))</span>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="c">-- [RS17, Theorem 4.5]</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">cofibration_union</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> &lt;{t : I | ϕ t </span><span class="o">\/</span><span class="err"> ψ t} -&gt; </span><span class="kt">U</span><span class="err"> &gt;)</span>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; X t)</span>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="err">   : Eq &lt;{t : I | ϕ t </span><span class="o">\/</span><span class="err"> ψ t} -&gt; X t [ ψ t |-&gt; a t ]&gt;</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="err">       &lt;{t : I | ϕ t} -&gt; X t [ ϕ t </span><span class="o">/\</span><span class="err"> ψ t |-&gt; a t ]&gt;</span>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="err">  := (</span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; h t,</span>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="err">      ((</span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">recOR</span><span class="err">(ϕ t |-&gt; g t, ψ t |-&gt; a t), </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">),</span>
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="err">       (</span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">recOR</span><span class="err">(ϕ t |-&gt; g t, ψ t |-&gt; a t), </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">)))</span>
+</span></code></pre></div>
+<h2 id="relative-function-extensionality">Relative function extensionality<a class="headerlink" href="#relative-function-extensionality" title="Permanent link">&para;</a></h2>
 <p>There are various equivalent forms of the relative function extensionality
 axiom. Here we state the one that will be most useful and derive an application.</p>
-<pre><code class="language-rzk">#def ext-htpy-eq
-      (I : CUBE)
-      (ψ : I -&gt; TOPE)
-      (ϕ : ψ -&gt; TOPE)
-      (A : ψ -&gt; U)
-      (a : (t : ϕ) -&gt; A t)
-      (f g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)
-      (p : f = g)
-      : &lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;
-      := idJ(&lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;, f,
-               \g' p' -&gt;  &lt;{t : I | ψ t} -&gt; (f t = g' t) [ ϕ t |-&gt; refl ]&gt;,
-               \t -&gt; refl,
-               g,
-               p)
-
--- [RS17, Proposition 4.8(ii)]
--- as suggested by footnote 8, we assert this as an &quot;extension extensionality&quot; axiom
--- The type that encodes the extension extensionality axiom.
-#def ExtExt : U
-   := (I : CUBE) -&gt;
-      (ψ : I -&gt; TOPE) -&gt;
-      (ϕ : ψ -&gt; TOPE) -&gt;
-      (A : ψ -&gt; U) -&gt;
-      (a : (t : ϕ) -&gt; A t) -&gt;
-      (f : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;
-      (g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;
-      isEquiv (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;)
-         (ext-htpy-eq I ψ ϕ A a f g)
-
--- The equivalence provided by extension extensionality.
-#def ExtExtEq
-   (extext : ExtExt)
-   (I : CUBE)
-   (ψ : I -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (A : ψ -&gt; U)
-   (a : (t : ϕ) -&gt; A t)
-   (f g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)
-   : Eq (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;)
-   := (ext-htpy-eq I ψ ϕ A a f g , extext I ψ ϕ A a f g)
-
--- In particular, extension extensionality implies that homotopies give rise to identifications. This definition defines eq-ext-htpy to be the retraction to ext-htpy-eq.
-#def eq-ext-htpy
-   (extext : ExtExt)
-   (I : CUBE)
-   (ψ : I -&gt; TOPE)
-   (ϕ : ψ -&gt; TOPE)
-   (A : ψ -&gt; U)
-   (a : (t : ϕ) -&gt; A t)
-   (f g : &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)
-   : (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; refl ]&gt;) -&gt; (f = g)
-   := first (first (extext I ψ ϕ A a f g))
-</code></pre>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">ext-htpy-eq</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">      </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">      </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">      </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">      </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">      </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; A t)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">      </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">      </span><span class="p">(</span><span class="nv">p </span><span class="p">:</span><span class="err"> f = g)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">      : &lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; </span><span class="no">refl</span><span class="err"> ]&gt;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">      := </span><span class="no">idJ</span><span class="err">(&lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;, f,</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">               </span><span class="p">\</span><span class="nv">g&#39; p&#39; </span><span class="err">-&gt;  &lt;{t : I | ψ t} -&gt; (f t = g&#39; t) [ ϕ t |-&gt; </span><span class="no">refl</span><span class="err"> ]&gt;,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">               </span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">,</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">               g,</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">               p)</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="c">-- [RS17, Proposition 4.8(ii)]</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="c">-- as suggested by footnote 8, we assert this as an &quot;extension extensionality&quot; axiom</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="c">-- The type that encodes the extension extensionality axiom.</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">ExtExt</span><span class="err"> : </span><span class="kt">U</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="err">   := </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">) -&gt;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="err">      </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">) -&gt;</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="err">      </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">) -&gt;</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="err">      </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">) -&gt;</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">      </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; A t) -&gt;</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="err">      </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="err">      </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;) -&gt;</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="err">      isEquiv (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; </span><span class="no">refl</span><span class="err"> ]&gt;)</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="err">         (ext-htpy-eq I ψ ϕ A a f g)</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="c">-- The equivalence provided by extension extensionality.</span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">ExtExtEq</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="err">   </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="err">   </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; A t)</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="err">   </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)</span>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="err">   : Eq (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; </span><span class="no">refl</span><span class="err"> ]&gt;)</span>
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="err">   := (ext-htpy-eq I ψ ϕ A a f g , extext I ψ ϕ A a f g)</span>
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
+</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="c">-- In particular, extension extensionality implies that homotopies give rise to identifications. This definition defines eq-ext-htpy to be the retraction to ext-htpy-eq.</span>
+</span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">eq-ext-htpy</span>
+</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="err">   </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="err">   </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; A t)</span>
+</span><span id="__span-4-50"><a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a><span class="err">   </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)</span>
+</span><span id="__span-4-51"><a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a><span class="err">   : (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; </span><span class="no">refl</span><span class="err"> ]&gt;) -&gt; (f = g)</span>
+</span><span id="__span-4-52"><a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a><span class="err">   := </span><span class="no">first</span><span class="err"> (</span><span class="no">first</span><span class="err"> (extext I ψ ϕ A a f g))</span>
+</span></code></pre></div>
 <p>By extension extensionality, fiberwise equivalences of extension types define
 equivalences of extension types.</p>
-<pre><code class="language-rzk">-- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
-#def fibered-Eq-extension-Eq
-   (extext : ExtExt)
-   (I : CUBE)
-   (ψ : I -&gt; TOPE)
-   (A B : ψ -&gt; U)
-   (fibequiv : (t : ψ) -&gt; (Eq (A t) (B t)) )
-   : Eq (&lt;{t : I | ψ t } -&gt; A t &gt;) (&lt;{t : I | ψ t } -&gt; B t &gt;)
-   := ((\ a t -&gt; (first (fibequiv t)) (a t)),
-         (((\ b t -&gt; (first (first (second (fibequiv t)))) (b t)),
-            \ a -&gt; eq-ext-htpy
-                     extext
-                     I
-                     ψ
-                     (\ t -&gt; BOT)
-                     A
-                     (\ u -&gt; recBOT)
-                     (\ t -&gt; (first (first (second (fibequiv t)))) ((first (fibequiv t)) (a t)))
-                     a
-                     (\ t -&gt; (second (first (second (fibequiv t)))) (a t))),
-         ((\ b t -&gt; (first (second (second (fibequiv t)))) (b t)),
-            (\ b -&gt; eq-ext-htpy
-                     extext
-                     I
-                     ψ
-                     (\ t -&gt; BOT)
-                     B
-                     (\ u -&gt; recBOT)
-                     (\ t -&gt; (first (fibequiv t)) ((first (second (second (fibequiv t)))) (b t)))
-                     b
-                     (\ t -&gt; (second (second (second (fibequiv t)))) (b t))))))
-</code></pre>
-              
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c">-- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">fibered-Eq-extension-Eq</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="err">   </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">   </span><span class="p">(</span><span class="nv">A B </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">fibequiv </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; (Eq (A t) (B t)) )</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="err">   : Eq (&lt;{t : I | ψ t } -&gt; A t &gt;) (&lt;{t : I | ψ t } -&gt; B t &gt;)</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">   := ((</span><span class="p">\ </span><span class="nv">a t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (fibequiv t)) (a t)),</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">         (((</span><span class="p">\ </span><span class="nv">b t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (</span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> (fibequiv t)))) (b t)),</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">            </span><span class="p">\ </span><span class="nv">a </span><span class="err">-&gt; eq-ext-htpy</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">                     extext</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="err">                     I</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="err">                     ψ</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="err">                     (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">BOT</span><span class="err">)</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="err">                     A</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="err">                     (</span><span class="p">\ </span><span class="nv">u </span><span class="err">-&gt; </span><span class="no">recBOT</span><span class="err">)</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="err">                     (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (</span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> (fibequiv t)))) ((</span><span class="no">first</span><span class="err"> (fibequiv t)) (a t)))</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="err">                     a</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="err">                     (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> (</span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> (fibequiv t)))) (a t))),</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="err">         ((</span><span class="p">\ </span><span class="nv">b t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> (fibequiv t)))) (b t)),</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="err">            (</span><span class="p">\ </span><span class="nv">b </span><span class="err">-&gt; eq-ext-htpy</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="err">                     extext</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="err">                     I</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="err">                     ψ</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="err">                     (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">BOT</span><span class="err">)</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="err">                     B</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="err">                     (</span><span class="p">\ </span><span class="nv">u </span><span class="err">-&gt; </span><span class="no">recBOT</span><span class="err">)</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="err">                     (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (fibequiv t)) ((</span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> (fibequiv t)))) (b t)))</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="err">                     b</span>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="err">                     (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> (fibequiv t)))) (b t))))))</span>
+</span></code></pre></div>
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../03-simplicial-type-theory.rzk/" class="btn btn-neutral float-left" title="Simplicial Type Theory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../05-segal-types.rzk/" class="btn btn-neutral float-right" title="Segal Types">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
+          
           
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
+        
+      </main>
+      
+        <footer class="md-footer">
+  
     
-    
-      <span><a href="../03-simplicial-type-theory.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../05-segal-types.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../03-simplicial-type-theory.rzk/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Simplicial Type Theory" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Simplicial Type Theory
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../05-segal-types.rzk/" class="md-footer__link md-footer__link--next" aria-label="Next: Segal Types" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Segal Types
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme_extra.js" defer></script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="../../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+        <script src="../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
 </html>

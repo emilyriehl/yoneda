@@ -1,149 +1,748 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Discrete Types - yoneda</title>
-    <link rel="stylesheet" href="../../css/theme.css" />
-    <link rel="stylesheet" href="../../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet" />
-<link rel="apple-touch-icon" sizes="180x180" href="/yoneda/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/yoneda/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/yoneda/favicon-16x16.png">
-<link rel="manifest" href="/yoneda/site.webmanifest">
-<!-- <link rel="stylesheet" href="../../css/highlightjs-11.7.0.min.css" /> -->
-<link rel="stylesheet" href="../../css/highlightjs-copy.css" />
-<script src="../../js/highlight-11.7.0.min.js"></script>
-<script src="../../js/rzk.js"></script>
-<link rel="stylesheet" href="../../css/gruvbox-light.css" />
-<!-- <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" /> -->
-<script src="../../js/highlightjs-copy.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-  hljs.addPlugin(new CopyButtonPlugin());
-  hljs.highlightAll();
-</script>
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Discrete Types - yoneda</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.472b142f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.08040f6c.min.css">
+        
+      
+      
 
     
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Discrete Types";
-        var mkdocs_page_input_path = "simplicial-hott/07-discrete.rzk.md";
-        var mkdocs_page_url = null;
-      </script>
     
-    <script src="../../js/jquery-3.6.0.min.js" defer></script>
-    <!--[if lt IE 9]>
-      <script src="../../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script>
- 
-</head>
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-<body class="wy-body-for-nav" role="document">
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#discrete-types" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="../.." class="icon icon-home"> yoneda
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="yoneda" class="md-header__button md-logo" aria-label="yoneda" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">General</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../..">About</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">HoTT</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/00-common.rzk/">Common</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/01-paths.rzk/">Paths</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/02-homotopies.rzk/">Homotopies</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/03-equivalences.rzk/">Equivalences</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/04-sigma.rzk/">Sigma types</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/05-contractible.rzk/">Contractible</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/06-fibers.rzk/">Fibers</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/07-propositions.rzk/">Propositions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../hott/08-trivial-fibrations.rzk/">Trivial fibrations</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Simplicial HoTT</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../03-simplicial-type-theory.rzk/">Simplicial Type Theory</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../04-extension-types.rzk/">Extension Types</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../05-segal-types.rzk/">Segal Types</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../06-2cat-of-segal-types.rzk/">2-Category of Segal Types</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Discrete Types</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-definition">The definition</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#families-of-discrete-types">Families of discrete types</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#discrete-types-are-segal-types">Discrete types are Segal types</a>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../08-covariant.rzk/">Covariantly Functorial Type Families</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../09-yoneda.rzk/">The Yoneda Lemma</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../12-cocartesian.rzk/">Cocartesian Families</a>
-                  </li>
-              </ul>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            yoneda
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Discrete Types
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">yoneda</a>
+    
+      <form class="md-header__option" data-md-component="palette">
         
+          
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
       </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Simplicial HoTT &raquo;</li>
-      <li>Discrete Types</li>
-    <li class="wy-breadcrumbs-aside">
-    </li>
-  </ul>
-  <hr/>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/emilyriehl/yoneda" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    emilyriehl/yoneda
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <h1 id="discrete-types">Discrete types</h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="yoneda" class="md-nav__button md-logo" aria-label="yoneda" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    yoneda
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/emilyriehl/yoneda" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    emilyriehl/yoneda
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          General
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="General" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          General
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          HoTT
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HoTT" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          HoTT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/00-common.rzk/" class="md-nav__link">
+        Common
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/01-paths.rzk/" class="md-nav__link">
+        Paths
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/02-homotopies.rzk/" class="md-nav__link">
+        Homotopies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/03-equivalences.rzk/" class="md-nav__link">
+        Equivalences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/04-sigma.rzk/" class="md-nav__link">
+        Sigma types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/05-contractible.rzk/" class="md-nav__link">
+        Contractible
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/06-fibers.rzk/" class="md-nav__link">
+        Fibers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/07-propositions.rzk/" class="md-nav__link">
+        Propositions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/08-trivial-fibrations.rzk/" class="md-nav__link">
+        Trivial fibrations
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Simplicial HoTT
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Simplicial HoTT" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Simplicial HoTT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-simplicial-type-theory.rzk/" class="md-nav__link">
+        Simplicial Type Theory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-extension-types.rzk/" class="md-nav__link">
+        Extension Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-segal-types.rzk/" class="md-nav__link">
+        Segal Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-2cat-of-segal-types.rzk/" class="md-nav__link">
+        2-Category of Segal Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Discrete Types
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Discrete Types
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-definition" class="md-nav__link">
+    The definition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#families-of-discrete-types" class="md-nav__link">
+    Families of discrete types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discrete-types-are-segal-types" class="md-nav__link">
+    Discrete types are Segal types
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-covariant.rzk/" class="md-nav__link">
+        Covariantly Functorial Type Families
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-yoneda.rzk/" class="md-nav__link">
+        The Yoneda Lemma
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-rezk-types.rzk/" class="md-nav__link">
+        Rezk Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-cocartesian.rzk/" class="md-nav__link">
+        Cocartesian Families
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-definition" class="md-nav__link">
+    The definition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#families-of-discrete-types" class="md-nav__link">
+    Families of discrete types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discrete-types-are-segal-types" class="md-nav__link">
+    Discrete types are Segal types
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/emilyriehl/yoneda/edit/master/src/simplicial-hott/07-discrete.rzk.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="discrete-types">Discrete types<a class="headerlink" href="#discrete-types" title="Permanent link">&para;</a></h1>
 <p>These formalisations correspond to Section 7 of RS17 paper.</p>
 <p>This is a literate <code>rzk</code> file:</p>
-<pre><code class="language-rzk">#lang rzk-1
-</code></pre>
-<h2 id="prerequisites">Prerequisites</h2>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
+</span></code></pre></div>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>hott/1-paths.md</code> - We require basic path algebra.</li>
 <li><code>hott/4-equivalences.md</code> - We require the notion of equivalence between types.</li>
@@ -152,468 +751,508 @@
 <li><code>4-extension-types.md</code> — We use extension extensionality.</li>
 <li><code>5-segal-types.md</code> - We use the notion of hom types.</li>
 </ul>
-<h2 id="the-definition">The definition</h2>
+<h2 id="the-definition">The definition<a class="headerlink" href="#the-definition" title="Permanent link">&para;</a></h2>
 <p>Discrete types are types in which the hom-types are canonically equivalent to
 identity types.</p>
-<pre><code class="language-rzk">-- [RS17, Definition 7.1]
-#def id-to-arr
-    (A : U)             -- A type.
-    (x y : A)           -- Two points of type A.
-    (p : x = y)         -- A path p from x to y in A.
-    : hom A x y         -- An arrow p from x to y in A.
-    := idJ(A, x, \y' -&gt; \p' -&gt; hom A x y', (id-arr A x), y, p)
-
-#def isDiscrete
-    (A : U)             -- A type.
-    : U
-    := (x : A) -&gt; (y : A) -&gt; isEquiv (x =_{A} y) (hom A x y) (id-to-arr A x y)
-</code></pre>
-<h2 id="families-of-discrete-types">Families of discrete types</h2>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c">-- [RS17, Definition 7.1]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">id-to-arr</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)             </span><span class="c">-- A type.</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">    </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)           </span><span class="c">-- Two points of type A.</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="err">    </span><span class="p">(</span><span class="nv">p </span><span class="p">:</span><span class="err"> x = y)         </span><span class="c">-- A path p from x to y in A.</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="err">    : hom A x y         </span><span class="c">-- An arrow p from x to y in A.</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">    := </span><span class="no">idJ</span><span class="err">(A, x, </span><span class="p">\</span><span class="nv">y&#39; </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">p&#39; </span><span class="err">-&gt; hom A x y&#39;, (id-arr A x), y, p)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isDiscrete</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)             </span><span class="c">-- A type.</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">    : </span><span class="kt">U</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="err">    := </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> A) -&gt; </span><span class="p">(</span><span class="nv">y </span><span class="p">:</span><span class="err"> A) -&gt; isEquiv (x =_{A} y) (hom A x y) (id-to-arr A x y)</span>
+</span></code></pre></div>
+<h2 id="families-of-discrete-types">Families of discrete types<a class="headerlink" href="#families-of-discrete-types" title="Permanent link">&para;</a></h2>
 <p>By function extensionality, the dependent function type associated to a family
 of discrete types is discrete.</p>
-<pre><code class="language-rzk">#def Eq-discrete-family
-    (funext : FunExt)
-    (X : U)
-    (A : X -&gt; U)
-    (Aisdiscrete : (x : X) -&gt; isDiscrete (A x))
-    (f g : (x : X) -&gt; A x)
-    : Eq (f = g)(hom ((x : X) -&gt; A x) f g)
-    := triple_compose_Eq
-        (f = g)
-        ((x : X) -&gt; f x = g x)
-        ((x : X) -&gt; hom (A x) (f x) (g x))
-        (hom ((x : X) -&gt; A x) f g)
-            (FunExtEq funext X A f g)
-            (fibered-Eq-function-Eq funext X
-                (\x -&gt; (f x = g x))(\x -&gt; hom (A x) (f x) (g x))
-                (\x -&gt; (id-to-arr (A x) (f x) (g x),(Aisdiscrete x (f x) (g x)))))
-            (flip-ext-fun-inv 2 Δ¹ ∂Δ¹ X (\t x -&gt; A x) (\t x -&gt; recOR (t === 0_2 |-&gt; f x, t === 1_2 |-&gt; g x)))
-
-#def Eq-discrete-family-map
-    (funext : FunExt)
-    (X : U)
-    (A : X -&gt; U)
-    (Aisdiscrete : (x : X) -&gt; isDiscrete (A x))
-    (f g : (x : X) -&gt; A x)
-    (h : f = g)
-    : id-to-arr ((x : X) -&gt; A x) f g h = (first (Eq-discrete-family funext X A Aisdiscrete f g)) h
-    := idJ((x : X) -&gt; A x, f, \g' h' -&gt;  id-to-arr ((x : X) -&gt; A x) f g' h' = (first (Eq-discrete-family funext X A Aisdiscrete f g')) h', refl, g, h)
-
--- [RS17, Proposition 7.2]
-#def isDiscrete-dependent-function-discrete-family
-    (funext : FunExt)
-    (X : U)
-    (A : X -&gt; U)
-    (Aisdiscrete : (x : X) -&gt; isDiscrete (A x))
-    : isDiscrete ((x : X) -&gt; A x)
-    := \f g -&gt; isEquiv-homotopic-isEquiv
-            (f = g)
-            (hom ((x : X) -&gt; A x) f g)
-            (id-to-arr ((x : X) -&gt; A x) f g)
-            (first (Eq-discrete-family funext X A Aisdiscrete f g))
-            (Eq-discrete-family-map funext X A Aisdiscrete f g)
-            (second (Eq-discrete-family funext X A Aisdiscrete f g))
-</code></pre>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Eq-discrete-family</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="err">    </span><span class="p">(</span><span class="nv">funext </span><span class="p">:</span><span class="err"> FunExt)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">    </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> X -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">    </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; isDiscrete (A x))</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="err">    </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; A x)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">    : Eq (f = g)</span><span class="p">(</span><span class="nv">hom ((x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">    := triple_compose_Eq</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">        (f = g)</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">        </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; f x = g x)</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">        </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; hom (A x) (f x) (g x))</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="err">        </span><span class="p">(</span><span class="nv">hom ((x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g)</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">            (FunExtEq funext X A f g)</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="err">            (fibered-Eq-function-Eq funext X</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="err">                (</span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt; (f x = g x))(</span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt; hom (A x) (f x) (g x))</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="err">                (</span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt; (id-to-arr (A x) (f x) (g x),(Aisdiscrete x (f x) (g x)))))</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="err">            (flip-ext-fun-inv </span><span class="kt">2</span><span class="err"> Δ¹ ∂Δ¹ X (</span><span class="p">\</span><span class="nv">t x </span><span class="err">-&gt; A x) (</span><span class="p">\</span><span class="nv">t x </span><span class="err">-&gt; </span><span class="no">recOR</span><span class="err"> (t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; f x, t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; g x)))</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Eq-discrete-family-map</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="err">    </span><span class="p">(</span><span class="nv">funext </span><span class="p">:</span><span class="err"> FunExt)</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="err">    </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> X -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="err">    </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; isDiscrete (A x))</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="err">    </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; A x)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="err">    </span><span class="p">(</span><span class="nv">h </span><span class="p">:</span><span class="err"> f = g)</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="err">    : id-to-arr </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g h = (</span><span class="no">first</span><span class="err"> (Eq-discrete-family funext X A Aisdiscrete f g)) h</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="err">    := </span><span class="no">idJ</span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; A x, f, </span><span class="p">\</span><span class="nv">g&#39; h&#39; </span><span class="err">-&gt;  id-to-arr </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g&#39; h&#39; = (</span><span class="no">first</span><span class="err"> (Eq-discrete-family funext X A Aisdiscrete f g&#39;)) h&#39;, </span><span class="no">refl</span><span class="err">, g, h)</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="c">-- [RS17, Proposition 7.2]</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isDiscrete-dependent-function-discrete-family</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="err">    </span><span class="p">(</span><span class="nv">funext </span><span class="p">:</span><span class="err"> FunExt)</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="err">    </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> X -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="err">    </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; isDiscrete (A x))</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="err">    : isDiscrete </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; A x)</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="err">    := </span><span class="p">\</span><span class="nv">f g </span><span class="err">-&gt; isEquiv-homotopic-isEquiv</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="err">            (f = g)</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="err">            </span><span class="p">(</span><span class="nv">hom ((x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g)</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="err">            </span><span class="p">(</span><span class="nv">id-to-arr ((x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g)</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="err">            (</span><span class="no">first</span><span class="err"> (Eq-discrete-family funext X A Aisdiscrete f g))</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="err">            (Eq-discrete-family-map funext X A Aisdiscrete f g)</span>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="err">            (</span><span class="no">second</span><span class="err"> (Eq-discrete-family funext X A Aisdiscrete f g))</span>
+</span></code></pre></div>
 <p>By extension extensionality, an extension type into a family of discrete types
 is discrete. Sinced fibered-Eq-extension-Eq considers total extension types
 only, extending from BOT, that's all we prove here for now.</p>
-<pre><code class="language-rzk">#def Eq-discrete-extension
-    (extext : ExtExt) -- This proof uses extension extensionality.
-    (I : CUBE) -- A cube.
-    (ψ : I -&gt; TOPE) -- A tope.
-    (A : ψ -&gt; U) -- A type family over the tope.
-    (Aisdiscrete : (t : ψ) -&gt; isDiscrete (A t)) -- An assumption that the fibers are Segal types.
-    (f g : (t : ψ) -&gt; A t) -- A pair of elements of the extension type
-    : Eq (f = g)(hom ((t : ψ) -&gt; A t) f g)
-    := triple_compose_Eq
-        (f = g)
-        ((t : ψ) -&gt; f t = g t)
-        ((t : ψ) -&gt; hom (A t) (f t) (g t))
-        (hom ((t : ψ) -&gt; A t) f g)
-            (ExtExtEq extext I ψ (\t -&gt; BOT) A (\ u -&gt; recBOT) f g)
-            (fibered-Eq-extension-Eq
-                extext
-                I
-                ψ
-                (\t -&gt; f t = g t)
-                (\t -&gt; hom (A t)(f t)(g t))
-                (\t -&gt; (id-to-arr (A t) (f t) (g t), (Aisdiscrete t (f t)(g t))))
-            )
-            (fubini I 2 ψ (\ t -&gt; BOT) Δ¹ ∂Δ¹ (\t s -&gt; A t)
-                (\(t, s) -&gt;
-                    recOR (s === 0_2 |-&gt; f t, s === 1_2 |-&gt; g t)))
-
-#def Eq-discrete-extension-map
-    (extext : ExtExt) -- This proof uses extension extensionality.
-    (I : CUBE) -- A cube.
-    (ψ : (t : I) -&gt; TOPE) -- A tope.
-    (A : ψ -&gt; U) -- A type family over the tope.
-    (Aisdiscrete : (t : ψ) -&gt; isDiscrete (A t)) -- An assumption that the fibers are Segal types.
-    (f g : (t : ψ) -&gt; A t) -- A pair of elements of the extension type
-    (h : f = g)
-    : id-to-arr ((t : ψ) -&gt; A t) f g h = (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g)) h
-    := idJ((t : ψ) -&gt; A t, f, \g' h' -&gt;  id-to-arr ((t : ψ) -&gt; A t) f g' h' = (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g')) h', refl, g, h)
-
--- [RS17, Proposition 7.2, for extension types]
-#def isDiscrete-extension-family
-    (extext : ExtExt) -- This proof uses extension extensionality.
-    (I : CUBE) -- A cube.
-    (ψ : (t : I) -&gt; TOPE) -- A tope.
-    (A : ψ -&gt; U) -- A type family over the tope.
-    (Aisdiscrete : (t : ψ) -&gt; isDiscrete (A t)) -- An assumption that the fibers are Segal types.
-    : isDiscrete ((t : ψ) -&gt; A t)
-    := \f g -&gt; isEquiv-homotopic-isEquiv
-            (f = g)
-            (hom ((t : ψ) -&gt; A t) f g)
-            (id-to-arr ((t : ψ) -&gt; A t) f g)
-            (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g))
-            (Eq-discrete-extension-map extext I ψ A Aisdiscrete f g)
-            (second (Eq-discrete-extension extext I ψ A Aisdiscrete f g))
-</code></pre>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Eq-discrete-extension</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">    </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt) </span><span class="c">-- This proof uses extension extensionality.</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">    </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">) </span><span class="c">-- A cube.</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">    </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">) </span><span class="c">-- A tope.</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">) </span><span class="c">-- A type family over the tope.</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">    </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; isDiscrete (A t)) </span><span class="c">-- An assumption that the fibers are Segal types.</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">    </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) </span><span class="c">-- A pair of elements of the extension type</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">    : Eq (f = g)</span><span class="p">(</span><span class="nv">hom ((t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">    := triple_compose_Eq</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">        (f = g)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">        </span><span class="p">(</span><span class="nv">(t </span><span class="p">:</span><span class="err"> ψ) -&gt; f t = g t)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">        </span><span class="p">(</span><span class="nv">(t </span><span class="p">:</span><span class="err"> ψ) -&gt; hom (A t) (f t) (g t))</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">        </span><span class="p">(</span><span class="nv">hom ((t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g)</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">            (ExtExtEq extext I ψ (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">BOT</span><span class="err">) A (</span><span class="p">\ </span><span class="nv">u </span><span class="err">-&gt; </span><span class="no">recBOT</span><span class="err">) f g)</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">            (fibered-Eq-extension-Eq</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">                extext</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">                I</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="err">                ψ</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="err">                (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; f t = g t)</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="err">                (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; hom (A t)(f t)(g t))</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="err">                (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; (id-to-arr (A t) (f t) (g t), (Aisdiscrete t (f t)(g t))))</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="err">            )</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="err">            (fubini I </span><span class="kt">2</span><span class="err"> ψ (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">BOT</span><span class="err">) Δ¹ ∂Δ¹ (</span><span class="p">\</span><span class="nv">t s </span><span class="err">-&gt; A t)</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="err">                (\(t, s) -&gt;</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="err">                    </span><span class="no">recOR</span><span class="err"> (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; f t, s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; g t)))</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Eq-discrete-extension-map</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="err">    </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt) </span><span class="c">-- This proof uses extension extensionality.</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="err">    </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">) </span><span class="c">-- A cube.</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="err">    </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> I) -&gt; </span><span class="kt">TOPE</span><span class="err">) </span><span class="c">-- A tope.</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">) </span><span class="c">-- A type family over the tope.</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="err">    </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; isDiscrete (A t)) </span><span class="c">-- An assumption that the fibers are Segal types.</span>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="err">    </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) </span><span class="c">-- A pair of elements of the extension type</span>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="err">    </span><span class="p">(</span><span class="nv">h </span><span class="p">:</span><span class="err"> f = g)</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="err">    : id-to-arr </span><span class="p">(</span><span class="nv">(t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g h = (</span><span class="no">first</span><span class="err"> (Eq-discrete-extension extext I ψ A Aisdiscrete f g)) h</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="err">    := </span><span class="no">idJ</span><span class="p">(</span><span class="nv">(t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t, f, </span><span class="p">\</span><span class="nv">g&#39; h&#39; </span><span class="err">-&gt;  id-to-arr </span><span class="p">(</span><span class="nv">(t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g&#39; h&#39; = (</span><span class="no">first</span><span class="err"> (Eq-discrete-extension extext I ψ A Aisdiscrete f g&#39;)) h&#39;, </span><span class="no">refl</span><span class="err">, g, h)</span>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="c">-- [RS17, Proposition 7.2, for extension types]</span>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isDiscrete-extension-family</span>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="err">    </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt) </span><span class="c">-- This proof uses extension extensionality.</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="err">    </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">) </span><span class="c">-- A cube.</span>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="err">    </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> I) -&gt; </span><span class="kt">TOPE</span><span class="err">) </span><span class="c">-- A tope.</span>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">) </span><span class="c">-- A type family over the tope.</span>
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="err">    </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; isDiscrete (A t)) </span><span class="c">-- An assumption that the fibers are Segal types.</span>
+</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a><span class="err">    : isDiscrete </span><span class="p">(</span><span class="nv">(t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t)</span>
+</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="err">    := </span><span class="p">\</span><span class="nv">f g </span><span class="err">-&gt; isEquiv-homotopic-isEquiv</span>
+</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a><span class="err">            (f = g)</span>
+</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a><span class="err">            </span><span class="p">(</span><span class="nv">hom ((t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g)</span>
+</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a><span class="err">            </span><span class="p">(</span><span class="nv">id-to-arr ((t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g)</span>
+</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a><span class="err">            (</span><span class="no">first</span><span class="err"> (Eq-discrete-extension extext I ψ A Aisdiscrete f g))</span>
+</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a><span class="err">            (Eq-discrete-extension-map extext I ψ A Aisdiscrete f g)</span>
+</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a><span class="err">            (</span><span class="no">second</span><span class="err"> (Eq-discrete-extension extext I ψ A Aisdiscrete f g))</span>
+</span></code></pre></div>
 <p>For instance, the arrow type of a discrete type is discrete.</p>
-<pre><code class="language-rzk">#def isDiscrete-arr-isDiscrete
-    (extext : ExtExt) -- This proof uses extension extensionality.
-    (A : U)
-    (Aisdiscrete : isDiscrete A)
-    : isDiscrete (arr A)
-    := isDiscrete-extension-family extext 2 Δ¹ (\t -&gt; A)(\t -&gt; Aisdiscrete)
-</code></pre>
-<h2 id="discrete-types-are-segal-types">Discrete types are Segal types</h2>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isDiscrete-arr-isDiscrete</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">    </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt) </span><span class="c">-- This proof uses extension extensionality.</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">    </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">    </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> isDiscrete A)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">    : isDiscrete (arr A)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">    := isDiscrete-extension-family extext </span><span class="kt">2</span><span class="err"> Δ¹ (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; A)(</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; Aisdiscrete)</span>
+</span></code></pre></div>
+<h2 id="discrete-types-are-segal-types">Discrete types are Segal types<a class="headerlink" href="#discrete-types-are-segal-types" title="Permanent link">&para;</a></h2>
 <p>Discrete types are automatically Segal types.</p>
-<pre><code class="language-rzk">#section discrete-arr-equivalences
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nd">#section</span><span class="ni"> discrete-arr-equivalences</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">extext</span><span class="err"> : ExtExt</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">A</span><span class="err"> : </span><span class="kt">U</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">Aisdiscrete</span><span class="err"> : isDiscrete A</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kd">#variables</span><span class="p"> </span><span class="nv">x y z w</span><span class="err"> : A</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">f</span><span class="err"> : hom A x y</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">g</span><span class="err"> : hom A z w</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isEquiv-idtoarr-discrete</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">x y z w</span><span class="p">)</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">    : isEquiv (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)(id-to-arr (arr A) f g)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">    := (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Equiv-idtoarr-discrete</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">x y z w</span><span class="p">)</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="err">    : Eq (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="err">    := (id-to-arr (arr A) f g,</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="err">          (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g)</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Equiv-square-hom-arr</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="err">  : Eq (hom (arr A) f g)</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(h </span><span class="p">:</span><span class="err"> hom A x z), </span><span class="p">(</span><span class="nv">∑(k </span><span class="p">:</span><span class="err"> hom A y w),</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="err">          (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; h t,</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; k t ]&gt;)))</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="err">  := (</span><span class="p">\</span><span class="nv">α </span><span class="err">-&gt; (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; α t </span><span class="no">0_2</span><span class="err">, (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; α t </span><span class="no">1_2</span><span class="err">, \(t, s) -&gt; α t s)),</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="err">        ((</span><span class="p">\</span><span class="nv">σ </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">s </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> σ)) (t, s),</span><span class="p">\</span><span class="nv">α </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err"> ),</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="err">         (</span><span class="p">\</span><span class="nv">σ </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">s </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> (</span><span class="no">second</span><span class="err"> σ)) (t, s),</span><span class="p">\</span><span class="nv">σ </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err"> )))</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="c">-- The equivalence underlying Eq-arr.</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">fibered-arr-free-arr</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="err">    : (arr A) -&gt; </span><span class="p">(</span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (y </span><span class="p">:</span><span class="err"> A), hom A x y))</span>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="err">    := </span><span class="p">\ </span><span class="nv">k </span><span class="err">-&gt; (k </span><span class="no">0_2</span><span class="err">, (k </span><span class="no">1_2</span><span class="err">, k))</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">id-equiv-Eq-arr</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">w x y z</span><span class="p">)</span>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="err">    : isEquiv (f =_{Δ¹ -&gt; A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)</span>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="err">        (ap (arr A) </span><span class="p">(</span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (y </span><span class="p">:</span><span class="err"> A), hom A x y)) f g fibered-arr-free-arr)</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a><span class="err">    := isEquiv-ap-isEquiv (arr A) </span><span class="p">(</span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (y </span><span class="p">:</span><span class="err"> A), hom A x y)) fibered-arr-free-arr</span>
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="err">        (</span><span class="no">second</span><span class="err"> (Eq-arr A)) f g</span>
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">id-Eq-Eq-arr</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">w x y z</span><span class="p">)</span>
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a><span class="err">    : Eq (f =_{Δ¹ -&gt; A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)</span>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a><span class="err">    := Eq-ap-isEquiv (arr A) </span><span class="p">(</span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (y </span><span class="p">:</span><span class="err"> A), hom A x y)) fibered-arr-free-arr</span>
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a><span class="err">        (</span><span class="no">second</span><span class="err"> (Eq-arr A)) f g</span>
+</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>
+</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Eq-Sigma-over-Prod-Eq-Arr</span>
+</span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a><span class="err">  : Eq (fibered-arr-free-arr f = fibered-arr-free-arr g)</span>
+</span><span id="__span-5-49"><a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a><span class="err">        </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z), </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
+</span><span id="__span-5-50"><a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a><span class="err">            (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)))</span>
+</span><span id="__span-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a><span class="err">  := Eq-Sigma-over-Prod-Eq A A (</span><span class="p">\</span><span class="nv">x y </span><span class="err">-&gt; hom A x y)</span>
+</span><span id="__span-5-52"><a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a><span class="err">      (fibered-arr-free-arr f) (fibered-arr-free-arr g)</span>
+</span><span id="__span-5-53"><a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a>
+</span><span id="__span-5-54"><a id="__codelineno-5-54" name="__codelineno-5-54" href="#__codelineno-5-54"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Equiv-square-Sigma-over-Prod</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">extext Aisdiscrete</span><span class="p">)</span>
+</span><span id="__span-5-55"><a id="__codelineno-5-55" name="__codelineno-5-55" href="#__codelineno-5-55"></a><span class="err">  : Eq </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z), </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
+</span><span id="__span-5-56"><a id="__codelineno-5-56" name="__codelineno-5-56" href="#__codelineno-5-56"></a><span class="err">            (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)))</span>
+</span><span id="__span-5-57"><a id="__codelineno-5-57" name="__codelineno-5-57" href="#__codelineno-5-57"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(h </span><span class="p">:</span><span class="err"> hom A x z), </span><span class="p">(</span><span class="nv">∑(k </span><span class="p">:</span><span class="err"> hom A y w),</span>
+</span><span id="__span-5-58"><a id="__codelineno-5-58" name="__codelineno-5-58" href="#__codelineno-5-58"></a><span class="err">          (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-59"><a id="__codelineno-5-59" name="__codelineno-5-59" href="#__codelineno-5-59"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-60"><a id="__codelineno-5-60" name="__codelineno-5-60" href="#__codelineno-5-60"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-61"><a id="__codelineno-5-61" name="__codelineno-5-61" href="#__codelineno-5-61"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; h t,</span>
+</span><span id="__span-5-62"><a id="__codelineno-5-62" name="__codelineno-5-62" href="#__codelineno-5-62"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; k t ]&gt;)))</span>
+</span><span id="__span-5-63"><a id="__codelineno-5-63" name="__codelineno-5-63" href="#__codelineno-5-63"></a><span class="err">  := LeftCancel_Eq</span>
+</span><span id="__span-5-64"><a id="__codelineno-5-64" name="__codelineno-5-64" href="#__codelineno-5-64"></a><span class="err">        (f =_{Δ¹ -&gt; A} g)</span>
+</span><span id="__span-5-65"><a id="__codelineno-5-65" name="__codelineno-5-65" href="#__codelineno-5-65"></a><span class="err">        </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z), </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
+</span><span id="__span-5-66"><a id="__codelineno-5-66" name="__codelineno-5-66" href="#__codelineno-5-66"></a><span class="err">            (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)))</span>
+</span><span id="__span-5-67"><a id="__codelineno-5-67" name="__codelineno-5-67" href="#__codelineno-5-67"></a><span class="err">        </span><span class="p">(</span><span class="nv">∑(h </span><span class="p">:</span><span class="err"> hom A x z), </span><span class="p">(</span><span class="nv">∑(k </span><span class="p">:</span><span class="err"> hom A y w),</span>
+</span><span id="__span-5-68"><a id="__codelineno-5-68" name="__codelineno-5-68" href="#__codelineno-5-68"></a><span class="err">          (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-69"><a id="__codelineno-5-69" name="__codelineno-5-69" href="#__codelineno-5-69"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-70"><a id="__codelineno-5-70" name="__codelineno-5-70" href="#__codelineno-5-70"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-71"><a id="__codelineno-5-71" name="__codelineno-5-71" href="#__codelineno-5-71"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; h t,</span>
+</span><span id="__span-5-72"><a id="__codelineno-5-72" name="__codelineno-5-72" href="#__codelineno-5-72"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; k t ]&gt;)))</span>
+</span><span id="__span-5-73"><a id="__codelineno-5-73" name="__codelineno-5-73" href="#__codelineno-5-73"></a><span class="err">        (compose_Eq (f =_{Δ¹ -&gt; A} g)</span>
+</span><span id="__span-5-74"><a id="__codelineno-5-74" name="__codelineno-5-74" href="#__codelineno-5-74"></a><span class="err">          (fibered-arr-free-arr f = fibered-arr-free-arr g)</span>
+</span><span id="__span-5-75"><a id="__codelineno-5-75" name="__codelineno-5-75" href="#__codelineno-5-75"></a><span class="err">          </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z), </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
+</span><span id="__span-5-76"><a id="__codelineno-5-76" name="__codelineno-5-76" href="#__codelineno-5-76"></a><span class="err">            (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)))</span>
+</span><span id="__span-5-77"><a id="__codelineno-5-77" name="__codelineno-5-77" href="#__codelineno-5-77"></a><span class="err">          id-Eq-Eq-arr</span>
+</span><span id="__span-5-78"><a id="__codelineno-5-78" name="__codelineno-5-78" href="#__codelineno-5-78"></a><span class="err">          Eq-Sigma-over-Prod-Eq-Arr</span>
+</span><span id="__span-5-79"><a id="__codelineno-5-79" name="__codelineno-5-79" href="#__codelineno-5-79"></a><span class="err">        )</span>
+</span><span id="__span-5-80"><a id="__codelineno-5-80" name="__codelineno-5-80" href="#__codelineno-5-80"></a><span class="err">        (compose_Eq (f =_{Δ¹ -&gt; A} g)</span>
+</span><span id="__span-5-81"><a id="__codelineno-5-81" name="__codelineno-5-81" href="#__codelineno-5-81"></a><span class="err">          (hom (arr A) f g)</span>
+</span><span id="__span-5-82"><a id="__codelineno-5-82" name="__codelineno-5-82" href="#__codelineno-5-82"></a><span class="err">          </span><span class="p">(</span><span class="nv">∑(h </span><span class="p">:</span><span class="err"> hom A x z), </span><span class="p">(</span><span class="nv">∑(k </span><span class="p">:</span><span class="err"> hom A y w),</span>
+</span><span id="__span-5-83"><a id="__codelineno-5-83" name="__codelineno-5-83" href="#__codelineno-5-83"></a><span class="err">              (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-84"><a id="__codelineno-5-84" name="__codelineno-5-84" href="#__codelineno-5-84"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-85"><a id="__codelineno-5-85" name="__codelineno-5-85" href="#__codelineno-5-85"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-86"><a id="__codelineno-5-86" name="__codelineno-5-86" href="#__codelineno-5-86"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; h t,</span>
+</span><span id="__span-5-87"><a id="__codelineno-5-87" name="__codelineno-5-87" href="#__codelineno-5-87"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; k t ]&gt;)))</span>
+</span><span id="__span-5-88"><a id="__codelineno-5-88" name="__codelineno-5-88" href="#__codelineno-5-88"></a><span class="err">          Equiv-idtoarr-discrete</span>
+</span><span id="__span-5-89"><a id="__codelineno-5-89" name="__codelineno-5-89" href="#__codelineno-5-89"></a><span class="err">          Equiv-square-hom-arr</span>
+</span><span id="__span-5-90"><a id="__codelineno-5-90" name="__codelineno-5-90" href="#__codelineno-5-90"></a><span class="err">        )</span>
+</span><span id="__span-5-91"><a id="__codelineno-5-91" name="__codelineno-5-91" href="#__codelineno-5-91"></a>
+</span><span id="__span-5-92"><a id="__codelineno-5-92" name="__codelineno-5-92" href="#__codelineno-5-92"></a><span class="c">-- Unused equivalences, keeping here for now.</span>
+</span><span id="__span-5-93"><a id="__codelineno-5-93" name="__codelineno-5-93" href="#__codelineno-5-93"></a><span class="c">-- Specialising [RS17, Proposition 4.3]</span>
+</span><span id="__span-5-94"><a id="__codelineno-5-94" name="__codelineno-5-94" href="#__codelineno-5-94"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">axiom-choice-Arr</span>
+</span><span id="__span-5-95"><a id="__codelineno-5-95" name="__codelineno-5-95" href="#__codelineno-5-95"></a><span class="err">  : Eq (&lt;{t : </span><span class="kt">2</span><span class="err"> | Δ¹ t} -&gt; (prod A A) [ t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; (x, z), t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; (y, w) ]&gt;)</span>
+</span><span id="__span-5-96"><a id="__codelineno-5-96" name="__codelineno-5-96" href="#__codelineno-5-96"></a><span class="err">     (prod (hom A x y) (hom A z w))</span>
+</span><span id="__span-5-97"><a id="__codelineno-5-97" name="__codelineno-5-97" href="#__codelineno-5-97"></a><span class="err">  := axiom-choice </span><span class="kt">2</span><span class="err"> Δ¹ ∂Δ¹ (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; A) (</span><span class="p">\</span><span class="nv">t a </span><span class="err">-&gt; A)</span>
+</span><span id="__span-5-98"><a id="__codelineno-5-98" name="__codelineno-5-98" href="#__codelineno-5-98"></a><span class="err">        (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">recOR</span><span class="err">(t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; x, t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; y))</span>
+</span><span id="__span-5-99"><a id="__codelineno-5-99" name="__codelineno-5-99" href="#__codelineno-5-99"></a><span class="err">        (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">recOR</span><span class="err">(t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; z, t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; w))</span>
+</span><span id="__span-5-100"><a id="__codelineno-5-100" name="__codelineno-5-100" href="#__codelineno-5-100"></a>
+</span><span id="__span-5-101"><a id="__codelineno-5-101" name="__codelineno-5-101" href="#__codelineno-5-101"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">axiom-choice-Arr-again</span>
+</span><span id="__span-5-102"><a id="__codelineno-5-102" name="__codelineno-5-102" href="#__codelineno-5-102"></a><span class="err">  : Eq (&lt;{t : </span><span class="kt">2</span><span class="err"> | Δ¹ t} -&gt; </span><span class="p">(</span><span class="nv">∑ (xy </span><span class="p">:</span><span class="err"> prod A A), hom A (</span><span class="no">first</span><span class="err"> xy) (</span><span class="no">second</span><span class="err"> xy))</span>
+</span><span id="__span-5-103"><a id="__codelineno-5-103" name="__codelineno-5-103" href="#__codelineno-5-103"></a><span class="err">           [t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; ((x, y), f), t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; ((z, w), g) ]&gt;)</span>
+</span><span id="__span-5-104"><a id="__codelineno-5-104" name="__codelineno-5-104" href="#__codelineno-5-104"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑ (hk </span><span class="p">:</span><span class="err"> (&lt;{t : </span><span class="kt">2</span><span class="err"> | Δ¹ t} -&gt; (prod A A) [t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; (x, y), t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; (z, w) ]&gt;)),</span>
+</span><span id="__span-5-105"><a id="__codelineno-5-105" name="__codelineno-5-105" href="#__codelineno-5-105"></a><span class="err">          (&lt;{t : </span><span class="kt">2</span><span class="err"> | Δ¹ t} -&gt; hom A (</span><span class="no">first</span><span class="err"> (hk t))(</span><span class="no">second</span><span class="err"> (hk t))</span>
+</span><span id="__span-5-106"><a id="__codelineno-5-106" name="__codelineno-5-106" href="#__codelineno-5-106"></a><span class="err">          [t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; f, t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; g ]&gt;))</span>
+</span><span id="__span-5-107"><a id="__codelineno-5-107" name="__codelineno-5-107" href="#__codelineno-5-107"></a><span class="err">  := axiom-choice </span><span class="kt">2</span><span class="err"> Δ¹ ∂Δ¹ (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; prod A A)(</span><span class="p">\</span><span class="nv">t </span><span class="err">(x, y) -&gt; hom A x y)</span>
+</span><span id="__span-5-108"><a id="__codelineno-5-108" name="__codelineno-5-108" href="#__codelineno-5-108"></a><span class="err">      (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">recOR</span><span class="err">(t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; (x, y), t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; (z, w)))</span>
+</span><span id="__span-5-109"><a id="__codelineno-5-109" name="__codelineno-5-109" href="#__codelineno-5-109"></a><span class="err">      (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">recOR</span><span class="err">(t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; f, t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> |-&gt; g))</span>
+</span><span id="__span-5-110"><a id="__codelineno-5-110" name="__codelineno-5-110" href="#__codelineno-5-110"></a><span class="nd">#end</span><span class="ni"> discrete-arr-equivalences</span>
+</span><span id="__span-5-111"><a id="__codelineno-5-111" name="__codelineno-5-111" href="#__codelineno-5-111"></a>
+</span><span id="__span-5-112"><a id="__codelineno-5-112" name="__codelineno-5-112" href="#__codelineno-5-112"></a><span class="c">-- closing the section so I can use path induction</span>
+</span><span id="__span-5-113"><a id="__codelineno-5-113" name="__codelineno-5-113" href="#__codelineno-5-113"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">fibered-map-square-Sigma-over-Prod</span>
+</span><span id="__span-5-114"><a id="__codelineno-5-114" name="__codelineno-5-114" href="#__codelineno-5-114"></a><span class="err">  </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-5-115"><a id="__codelineno-5-115" name="__codelineno-5-115" href="#__codelineno-5-115"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-5-116"><a id="__codelineno-5-116" name="__codelineno-5-116" href="#__codelineno-5-116"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> isDiscrete A)</span>
+</span><span id="__span-5-117"><a id="__codelineno-5-117" name="__codelineno-5-117" href="#__codelineno-5-117"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y z w </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-5-118"><a id="__codelineno-5-118" name="__codelineno-5-118" href="#__codelineno-5-118"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-5-119"><a id="__codelineno-5-119" name="__codelineno-5-119" href="#__codelineno-5-119"></a><span class="err">  </span><span class="p">(</span><span class="nv">p </span><span class="p">:</span><span class="err"> x = z)</span>
+</span><span id="__span-5-120"><a id="__codelineno-5-120" name="__codelineno-5-120" href="#__codelineno-5-120"></a><span class="err">  </span><span class="p">(</span><span class="nv">q </span><span class="p">:</span><span class="err"> y = w)</span>
+</span><span id="__span-5-121"><a id="__codelineno-5-121" name="__codelineno-5-121" href="#__codelineno-5-121"></a><span class="err">  : </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A z w) -&gt; (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g) -&gt;</span>
+</span><span id="__span-5-122"><a id="__codelineno-5-122" name="__codelineno-5-122" href="#__codelineno-5-122"></a><span class="err">        (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-123"><a id="__codelineno-5-123" name="__codelineno-5-123" href="#__codelineno-5-123"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-124"><a id="__codelineno-5-124" name="__codelineno-5-124" href="#__codelineno-5-124"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-125"><a id="__codelineno-5-125" name="__codelineno-5-125" href="#__codelineno-5-125"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; (id-to-arr A x z p) t,</span>
+</span><span id="__span-5-126"><a id="__codelineno-5-126" name="__codelineno-5-126" href="#__codelineno-5-126"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; (id-to-arr A y w q) t ]&gt;)</span>
+</span><span id="__span-5-127"><a id="__codelineno-5-127" name="__codelineno-5-127" href="#__codelineno-5-127"></a><span class="err">  := </span><span class="no">idJ</span><span class="p">(</span><span class="nv">A, x, \z&#39; p&#39; -&gt; (g </span><span class="p">:</span><span class="err"> hom A z&#39; w) -&gt;</span>
+</span><span id="__span-5-128"><a id="__codelineno-5-128" name="__codelineno-5-128" href="#__codelineno-5-128"></a><span class="err">      (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z&#39; y w p&#39; q f = g) -&gt;</span>
+</span><span id="__span-5-129"><a id="__codelineno-5-129" name="__codelineno-5-129" href="#__codelineno-5-129"></a><span class="err">      (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-130"><a id="__codelineno-5-130" name="__codelineno-5-130" href="#__codelineno-5-130"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-131"><a id="__codelineno-5-131" name="__codelineno-5-131" href="#__codelineno-5-131"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-132"><a id="__codelineno-5-132" name="__codelineno-5-132" href="#__codelineno-5-132"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; (id-to-arr A x z&#39; p&#39;) t,</span>
+</span><span id="__span-5-133"><a id="__codelineno-5-133" name="__codelineno-5-133" href="#__codelineno-5-133"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; (id-to-arr A y w q) t ]&gt;),</span>
+</span><span id="__span-5-134"><a id="__codelineno-5-134" name="__codelineno-5-134" href="#__codelineno-5-134"></a><span class="err">            </span><span class="no">idJ</span><span class="p">(</span><span class="nv">A, y, \w&#39; q&#39; -&gt; (g </span><span class="p">:</span><span class="err"> hom A x w&#39;) -&gt;</span>
+</span><span id="__span-5-135"><a id="__codelineno-5-135" name="__codelineno-5-135" href="#__codelineno-5-135"></a><span class="err">              (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x x y w&#39; </span><span class="no">refl</span><span class="err"> q&#39; f = g) -&gt;</span>
+</span><span id="__span-5-136"><a id="__codelineno-5-136" name="__codelineno-5-136" href="#__codelineno-5-136"></a><span class="err">              (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-137"><a id="__codelineno-5-137" name="__codelineno-5-137" href="#__codelineno-5-137"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-138"><a id="__codelineno-5-138" name="__codelineno-5-138" href="#__codelineno-5-138"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-139"><a id="__codelineno-5-139" name="__codelineno-5-139" href="#__codelineno-5-139"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; x,</span>
+</span><span id="__span-5-140"><a id="__codelineno-5-140" name="__codelineno-5-140" href="#__codelineno-5-140"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; (id-to-arr A y w&#39; q&#39;) t ]&gt;),</span>
+</span><span id="__span-5-141"><a id="__codelineno-5-141" name="__codelineno-5-141" href="#__codelineno-5-141"></a><span class="err">            </span><span class="p">\</span><span class="nv">g τ </span><span class="err">-&gt; </span><span class="no">idJ</span><span class="err">(hom A x y, f, </span><span class="p">\</span><span class="nv">g&#39; τ&#39; </span><span class="err">-&gt;</span>
+</span><span id="__span-5-142"><a id="__codelineno-5-142" name="__codelineno-5-142" href="#__codelineno-5-142"></a><span class="err">                (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-143"><a id="__codelineno-5-143" name="__codelineno-5-143" href="#__codelineno-5-143"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-144"><a id="__codelineno-5-144" name="__codelineno-5-144" href="#__codelineno-5-144"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g&#39; s,</span>
+</span><span id="__span-5-145"><a id="__codelineno-5-145" name="__codelineno-5-145" href="#__codelineno-5-145"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; x,</span>
+</span><span id="__span-5-146"><a id="__codelineno-5-146" name="__codelineno-5-146" href="#__codelineno-5-146"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; y ]&gt;),</span>
+</span><span id="__span-5-147"><a id="__codelineno-5-147" name="__codelineno-5-147" href="#__codelineno-5-147"></a><span class="err">                \(t , s) -&gt; f s, g, τ),</span>
+</span><span id="__span-5-148"><a id="__codelineno-5-148" name="__codelineno-5-148" href="#__codelineno-5-148"></a><span class="err">            w, q), z, p)</span>
+</span><span id="__span-5-149"><a id="__codelineno-5-149" name="__codelineno-5-149" href="#__codelineno-5-149"></a>
+</span><span id="__span-5-150"><a id="__codelineno-5-150" name="__codelineno-5-150" href="#__codelineno-5-150"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">square-Sigma-over-Prod</span>
+</span><span id="__span-5-151"><a id="__codelineno-5-151" name="__codelineno-5-151" href="#__codelineno-5-151"></a><span class="err">  </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-5-152"><a id="__codelineno-5-152" name="__codelineno-5-152" href="#__codelineno-5-152"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-5-153"><a id="__codelineno-5-153" name="__codelineno-5-153" href="#__codelineno-5-153"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> isDiscrete A)</span>
+</span><span id="__span-5-154"><a id="__codelineno-5-154" name="__codelineno-5-154" href="#__codelineno-5-154"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y z w </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-5-155"><a id="__codelineno-5-155" name="__codelineno-5-155" href="#__codelineno-5-155"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-5-156"><a id="__codelineno-5-156" name="__codelineno-5-156" href="#__codelineno-5-156"></a><span class="err">  </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A z w)</span>
+</span><span id="__span-5-157"><a id="__codelineno-5-157" name="__codelineno-5-157" href="#__codelineno-5-157"></a><span class="err">  ((p, (q, τ)) : </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z), </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
+</span><span id="__span-5-158"><a id="__codelineno-5-158" name="__codelineno-5-158" href="#__codelineno-5-158"></a><span class="err">            (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g))))</span>
+</span><span id="__span-5-159"><a id="__codelineno-5-159" name="__codelineno-5-159" href="#__codelineno-5-159"></a><span class="err">  : </span><span class="p">(</span><span class="nv">∑(h </span><span class="p">:</span><span class="err"> hom A x z), </span><span class="p">(</span><span class="nv">∑(k </span><span class="p">:</span><span class="err"> hom A y w),</span>
+</span><span id="__span-5-160"><a id="__codelineno-5-160" name="__codelineno-5-160" href="#__codelineno-5-160"></a><span class="err">          (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-161"><a id="__codelineno-5-161" name="__codelineno-5-161" href="#__codelineno-5-161"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-162"><a id="__codelineno-5-162" name="__codelineno-5-162" href="#__codelineno-5-162"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-163"><a id="__codelineno-5-163" name="__codelineno-5-163" href="#__codelineno-5-163"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; h t,</span>
+</span><span id="__span-5-164"><a id="__codelineno-5-164" name="__codelineno-5-164" href="#__codelineno-5-164"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; k t ]&gt;)))</span>
+</span><span id="__span-5-165"><a id="__codelineno-5-165" name="__codelineno-5-165" href="#__codelineno-5-165"></a><span class="err">  := (id-to-arr A x z p,</span>
+</span><span id="__span-5-166"><a id="__codelineno-5-166" name="__codelineno-5-166" href="#__codelineno-5-166"></a><span class="err">      (id-to-arr A y w q,</span>
+</span><span id="__span-5-167"><a id="__codelineno-5-167" name="__codelineno-5-167" href="#__codelineno-5-167"></a><span class="err">      fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p q g τ))</span>
+</span><span id="__span-5-168"><a id="__codelineno-5-168" name="__codelineno-5-168" href="#__codelineno-5-168"></a>
+</span><span id="__span-5-169"><a id="__codelineno-5-169" name="__codelineno-5-169" href="#__codelineno-5-169"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">refl-refl-map-Equiv-square-Sigma-over-Prod</span>
+</span><span id="__span-5-170"><a id="__codelineno-5-170" name="__codelineno-5-170" href="#__codelineno-5-170"></a><span class="err">  </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-5-171"><a id="__codelineno-5-171" name="__codelineno-5-171" href="#__codelineno-5-171"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-5-172"><a id="__codelineno-5-172" name="__codelineno-5-172" href="#__codelineno-5-172"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> isDiscrete A)</span>
+</span><span id="__span-5-173"><a id="__codelineno-5-173" name="__codelineno-5-173" href="#__codelineno-5-173"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-5-174"><a id="__codelineno-5-174" name="__codelineno-5-174" href="#__codelineno-5-174"></a><span class="err">  </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-5-175"><a id="__codelineno-5-175" name="__codelineno-5-175" href="#__codelineno-5-175"></a><span class="err">  </span><span class="p">(</span><span class="nv">τ </span><span class="p">:</span><span class="err"> prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x x y y </span><span class="no">refl</span><span class="err"> </span><span class="no">refl</span><span class="err"> f = g)</span>
+</span><span id="__span-5-176"><a id="__codelineno-5-176" name="__codelineno-5-176" href="#__codelineno-5-176"></a><span class="err">  : (</span><span class="no">first</span><span class="err"> (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y x y f g))</span>
+</span><span id="__span-5-177"><a id="__codelineno-5-177" name="__codelineno-5-177" href="#__codelineno-5-177"></a><span class="err">          (</span><span class="no">refl</span><span class="err">, (</span><span class="no">refl</span><span class="err">, τ)) =</span>
+</span><span id="__span-5-178"><a id="__codelineno-5-178" name="__codelineno-5-178" href="#__codelineno-5-178"></a><span class="err">    (square-Sigma-over-Prod extext A Aisdiscrete x y x y f g) (</span><span class="no">refl</span><span class="err">, (</span><span class="no">refl</span><span class="err">, τ))</span>
+</span><span id="__span-5-179"><a id="__codelineno-5-179" name="__codelineno-5-179" href="#__codelineno-5-179"></a><span class="err">  := </span><span class="no">idJ</span><span class="err">(hom A x y, f, </span><span class="p">\</span><span class="nv">g&#39; τ&#39; </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y x y f g&#39;))</span>
+</span><span id="__span-5-180"><a id="__codelineno-5-180" name="__codelineno-5-180" href="#__codelineno-5-180"></a><span class="err">          (</span><span class="no">refl</span><span class="err">, (</span><span class="no">refl</span><span class="err">, τ&#39;)) =</span>
+</span><span id="__span-5-181"><a id="__codelineno-5-181" name="__codelineno-5-181" href="#__codelineno-5-181"></a><span class="err">    (square-Sigma-over-Prod extext A Aisdiscrete x y x y f g&#39;) (</span><span class="no">refl</span><span class="err">, (</span><span class="no">refl</span><span class="err">, τ&#39;)),</span>
+</span><span id="__span-5-182"><a id="__codelineno-5-182" name="__codelineno-5-182" href="#__codelineno-5-182"></a><span class="err">    </span><span class="no">refl</span><span class="err">, g, τ)</span>
+</span><span id="__span-5-183"><a id="__codelineno-5-183" name="__codelineno-5-183" href="#__codelineno-5-183"></a>
+</span><span id="__span-5-184"><a id="__codelineno-5-184" name="__codelineno-5-184" href="#__codelineno-5-184"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">map-Equiv-square-Sigma-over-Prod</span>
+</span><span id="__span-5-185"><a id="__codelineno-5-185" name="__codelineno-5-185" href="#__codelineno-5-185"></a><span class="err">  </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-5-186"><a id="__codelineno-5-186" name="__codelineno-5-186" href="#__codelineno-5-186"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-5-187"><a id="__codelineno-5-187" name="__codelineno-5-187" href="#__codelineno-5-187"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> isDiscrete A)</span>
+</span><span id="__span-5-188"><a id="__codelineno-5-188" name="__codelineno-5-188" href="#__codelineno-5-188"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y z w </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-5-189"><a id="__codelineno-5-189" name="__codelineno-5-189" href="#__codelineno-5-189"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-5-190"><a id="__codelineno-5-190" name="__codelineno-5-190" href="#__codelineno-5-190"></a><span class="err">  </span><span class="p">(</span><span class="nv">p </span><span class="p">:</span><span class="err"> x = z)</span>
+</span><span id="__span-5-191"><a id="__codelineno-5-191" name="__codelineno-5-191" href="#__codelineno-5-191"></a><span class="err">  </span><span class="p">(</span><span class="nv">q </span><span class="p">:</span><span class="err"> y = w)</span>
+</span><span id="__span-5-192"><a id="__codelineno-5-192" name="__codelineno-5-192" href="#__codelineno-5-192"></a><span class="err">  : </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A z w) -&gt;</span>
+</span><span id="__span-5-193"><a id="__codelineno-5-193" name="__codelineno-5-193" href="#__codelineno-5-193"></a><span class="err">    </span><span class="p">(</span><span class="nv">τ </span><span class="p">:</span><span class="err"> prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g) -&gt;</span>
+</span><span id="__span-5-194"><a id="__codelineno-5-194" name="__codelineno-5-194" href="#__codelineno-5-194"></a><span class="err">    (</span><span class="no">first</span><span class="err"> (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))</span>
+</span><span id="__span-5-195"><a id="__codelineno-5-195" name="__codelineno-5-195" href="#__codelineno-5-195"></a><span class="err">          (p, (q, τ)) =</span>
+</span><span id="__span-5-196"><a id="__codelineno-5-196" name="__codelineno-5-196" href="#__codelineno-5-196"></a><span class="err">    (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g) (p, (q, τ))</span>
+</span><span id="__span-5-197"><a id="__codelineno-5-197" name="__codelineno-5-197" href="#__codelineno-5-197"></a><span class="err">  := </span><span class="no">idJ</span><span class="p">(</span><span class="nv">A, y, \w&#39; q&#39; -&gt; (g </span><span class="p">:</span><span class="err"> hom A z w&#39;) -&gt;</span>
+</span><span id="__span-5-198"><a id="__codelineno-5-198" name="__codelineno-5-198" href="#__codelineno-5-198"></a><span class="err">            </span><span class="p">(</span><span class="nv">τ </span><span class="p">:</span><span class="err"> prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w&#39; p q&#39; f = g) -&gt;</span>
+</span><span id="__span-5-199"><a id="__codelineno-5-199" name="__codelineno-5-199" href="#__codelineno-5-199"></a><span class="err">            (</span><span class="no">first</span><span class="err"> (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w&#39; f g))</span>
+</span><span id="__span-5-200"><a id="__codelineno-5-200" name="__codelineno-5-200" href="#__codelineno-5-200"></a><span class="err">                (p, (q&#39;, τ)) =</span>
+</span><span id="__span-5-201"><a id="__codelineno-5-201" name="__codelineno-5-201" href="#__codelineno-5-201"></a><span class="err">            (square-Sigma-over-Prod extext A Aisdiscrete x y z w&#39; f g) (p, (q&#39;, τ)),</span>
+</span><span id="__span-5-202"><a id="__codelineno-5-202" name="__codelineno-5-202" href="#__codelineno-5-202"></a><span class="err">          </span><span class="no">idJ</span><span class="p">(</span><span class="nv">A, x, \z&#39; p&#39; -&gt; (g </span><span class="p">:</span><span class="err"> hom A z&#39; y) -&gt;</span>
+</span><span id="__span-5-203"><a id="__codelineno-5-203" name="__codelineno-5-203" href="#__codelineno-5-203"></a><span class="err">            </span><span class="p">(</span><span class="nv">τ </span><span class="p">:</span><span class="err"> prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z&#39; y y p&#39; </span><span class="no">refl</span><span class="err"> f = g) -&gt;</span>
+</span><span id="__span-5-204"><a id="__codelineno-5-204" name="__codelineno-5-204" href="#__codelineno-5-204"></a><span class="err">            (</span><span class="no">first</span><span class="err"> (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z&#39; y f g))</span>
+</span><span id="__span-5-205"><a id="__codelineno-5-205" name="__codelineno-5-205" href="#__codelineno-5-205"></a><span class="err">                (p&#39;, (</span><span class="no">refl</span><span class="err">, τ)) =</span>
+</span><span id="__span-5-206"><a id="__codelineno-5-206" name="__codelineno-5-206" href="#__codelineno-5-206"></a><span class="err">            (square-Sigma-over-Prod extext A Aisdiscrete x y z&#39; y f g) (p&#39;, (</span><span class="no">refl</span><span class="err">, τ)),</span>
+</span><span id="__span-5-207"><a id="__codelineno-5-207" name="__codelineno-5-207" href="#__codelineno-5-207"></a><span class="err">            </span><span class="p">\</span><span class="nv">g τ </span><span class="err">-&gt; refl-refl-map-Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y f g τ, z, p), w, q)</span>
+</span><span id="__span-5-208"><a id="__codelineno-5-208" name="__codelineno-5-208" href="#__codelineno-5-208"></a>
+</span><span id="__span-5-209"><a id="__codelineno-5-209" name="__codelineno-5-209" href="#__codelineno-5-209"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isEquiv-square-Sigma-over-Prod</span>
+</span><span id="__span-5-210"><a id="__codelineno-5-210" name="__codelineno-5-210" href="#__codelineno-5-210"></a><span class="err">  </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-5-211"><a id="__codelineno-5-211" name="__codelineno-5-211" href="#__codelineno-5-211"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-5-212"><a id="__codelineno-5-212" name="__codelineno-5-212" href="#__codelineno-5-212"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> isDiscrete A)</span>
+</span><span id="__span-5-213"><a id="__codelineno-5-213" name="__codelineno-5-213" href="#__codelineno-5-213"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y z w </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-5-214"><a id="__codelineno-5-214" name="__codelineno-5-214" href="#__codelineno-5-214"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-5-215"><a id="__codelineno-5-215" name="__codelineno-5-215" href="#__codelineno-5-215"></a><span class="err">  </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A z w)</span>
+</span><span id="__span-5-216"><a id="__codelineno-5-216" name="__codelineno-5-216" href="#__codelineno-5-216"></a><span class="err">  : isEquiv</span>
+</span><span id="__span-5-217"><a id="__codelineno-5-217" name="__codelineno-5-217" href="#__codelineno-5-217"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z), </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
+</span><span id="__span-5-218"><a id="__codelineno-5-218" name="__codelineno-5-218" href="#__codelineno-5-218"></a><span class="err">            (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)))</span>
+</span><span id="__span-5-219"><a id="__codelineno-5-219" name="__codelineno-5-219" href="#__codelineno-5-219"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(h </span><span class="p">:</span><span class="err"> hom A x z), </span><span class="p">(</span><span class="nv">∑(k </span><span class="p">:</span><span class="err"> hom A y w),</span>
+</span><span id="__span-5-220"><a id="__codelineno-5-220" name="__codelineno-5-220" href="#__codelineno-5-220"></a><span class="err">          (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-221"><a id="__codelineno-5-221" name="__codelineno-5-221" href="#__codelineno-5-221"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-222"><a id="__codelineno-5-222" name="__codelineno-5-222" href="#__codelineno-5-222"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-223"><a id="__codelineno-5-223" name="__codelineno-5-223" href="#__codelineno-5-223"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; h t,</span>
+</span><span id="__span-5-224"><a id="__codelineno-5-224" name="__codelineno-5-224" href="#__codelineno-5-224"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; k t ]&gt;)))</span>
+</span><span id="__span-5-225"><a id="__codelineno-5-225" name="__codelineno-5-225" href="#__codelineno-5-225"></a><span class="err">      (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)</span>
+</span><span id="__span-5-226"><a id="__codelineno-5-226" name="__codelineno-5-226" href="#__codelineno-5-226"></a><span class="err">  := isEquiv-rev-homotopic-isEquiv</span>
+</span><span id="__span-5-227"><a id="__codelineno-5-227" name="__codelineno-5-227" href="#__codelineno-5-227"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z), </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
+</span><span id="__span-5-228"><a id="__codelineno-5-228" name="__codelineno-5-228" href="#__codelineno-5-228"></a><span class="err">            (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)))</span>
+</span><span id="__span-5-229"><a id="__codelineno-5-229" name="__codelineno-5-229" href="#__codelineno-5-229"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(h </span><span class="p">:</span><span class="err"> hom A x z), </span><span class="p">(</span><span class="nv">∑(k </span><span class="p">:</span><span class="err"> hom A y w),</span>
+</span><span id="__span-5-230"><a id="__codelineno-5-230" name="__codelineno-5-230" href="#__codelineno-5-230"></a><span class="err">          (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-231"><a id="__codelineno-5-231" name="__codelineno-5-231" href="#__codelineno-5-231"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-232"><a id="__codelineno-5-232" name="__codelineno-5-232" href="#__codelineno-5-232"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-233"><a id="__codelineno-5-233" name="__codelineno-5-233" href="#__codelineno-5-233"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; h t,</span>
+</span><span id="__span-5-234"><a id="__codelineno-5-234" name="__codelineno-5-234" href="#__codelineno-5-234"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; k t ]&gt;)))</span>
+</span><span id="__span-5-235"><a id="__codelineno-5-235" name="__codelineno-5-235" href="#__codelineno-5-235"></a><span class="err">      (</span><span class="no">first</span><span class="err"> (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))</span>
+</span><span id="__span-5-236"><a id="__codelineno-5-236" name="__codelineno-5-236" href="#__codelineno-5-236"></a><span class="err">      (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)</span>
+</span><span id="__span-5-237"><a id="__codelineno-5-237" name="__codelineno-5-237" href="#__codelineno-5-237"></a><span class="err">      (\(p, (q, τ)) -&gt; map-Equiv-square-Sigma-over-Prod</span>
+</span><span id="__span-5-238"><a id="__codelineno-5-238" name="__codelineno-5-238" href="#__codelineno-5-238"></a><span class="err">                          extext A Aisdiscrete x y z w f p q g τ)</span>
+</span><span id="__span-5-239"><a id="__codelineno-5-239" name="__codelineno-5-239" href="#__codelineno-5-239"></a><span class="err">      (</span><span class="no">second</span><span class="err"> (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))</span>
+</span><span id="__span-5-240"><a id="__codelineno-5-240" name="__codelineno-5-240" href="#__codelineno-5-240"></a>
+</span><span id="__span-5-241"><a id="__codelineno-5-241" name="__codelineno-5-241" href="#__codelineno-5-241"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isEquiv-fibered-map-square-Sigma-over-Prod</span>
+</span><span id="__span-5-242"><a id="__codelineno-5-242" name="__codelineno-5-242" href="#__codelineno-5-242"></a><span class="err">  </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-5-243"><a id="__codelineno-5-243" name="__codelineno-5-243" href="#__codelineno-5-243"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-5-244"><a id="__codelineno-5-244" name="__codelineno-5-244" href="#__codelineno-5-244"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> isDiscrete A)</span>
+</span><span id="__span-5-245"><a id="__codelineno-5-245" name="__codelineno-5-245" href="#__codelineno-5-245"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y z w </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-5-246"><a id="__codelineno-5-246" name="__codelineno-5-246" href="#__codelineno-5-246"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-5-247"><a id="__codelineno-5-247" name="__codelineno-5-247" href="#__codelineno-5-247"></a><span class="err">  </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A z w)</span>
+</span><span id="__span-5-248"><a id="__codelineno-5-248" name="__codelineno-5-248" href="#__codelineno-5-248"></a><span class="err">  </span><span class="p">(</span><span class="nv">p </span><span class="p">:</span><span class="err"> x = z)</span>
+</span><span id="__span-5-249"><a id="__codelineno-5-249" name="__codelineno-5-249" href="#__codelineno-5-249"></a><span class="err">  </span><span class="p">(</span><span class="nv">q </span><span class="p">:</span><span class="err"> y = w)</span>
+</span><span id="__span-5-250"><a id="__codelineno-5-250" name="__codelineno-5-250" href="#__codelineno-5-250"></a><span class="err">  : isEquiv (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)</span>
+</span><span id="__span-5-251"><a id="__codelineno-5-251" name="__codelineno-5-251" href="#__codelineno-5-251"></a><span class="err">        (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-252"><a id="__codelineno-5-252" name="__codelineno-5-252" href="#__codelineno-5-252"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-253"><a id="__codelineno-5-253" name="__codelineno-5-253" href="#__codelineno-5-253"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-254"><a id="__codelineno-5-254" name="__codelineno-5-254" href="#__codelineno-5-254"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; (id-to-arr A x z p) t,</span>
+</span><span id="__span-5-255"><a id="__codelineno-5-255" name="__codelineno-5-255" href="#__codelineno-5-255"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; (id-to-arr A y w q) t ]&gt;)</span>
+</span><span id="__span-5-256"><a id="__codelineno-5-256" name="__codelineno-5-256" href="#__codelineno-5-256"></a><span class="err">        (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p q g)</span>
+</span><span id="__span-5-257"><a id="__codelineno-5-257" name="__codelineno-5-257" href="#__codelineno-5-257"></a><span class="err">  := fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv</span>
+</span><span id="__span-5-258"><a id="__codelineno-5-258" name="__codelineno-5-258" href="#__codelineno-5-258"></a><span class="err">        (x = z) (hom A x z) (y = w) (hom A y w)</span>
+</span><span id="__span-5-259"><a id="__codelineno-5-259" name="__codelineno-5-259" href="#__codelineno-5-259"></a><span class="err">        (</span><span class="p">\</span><span class="nv">p&#39; q&#39; </span><span class="err">-&gt; (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p&#39; q&#39; f = g))</span>
+</span><span id="__span-5-260"><a id="__codelineno-5-260" name="__codelineno-5-260" href="#__codelineno-5-260"></a><span class="err">        (</span><span class="p">\</span><span class="nv">h&#39; k&#39; </span><span class="err">-&gt; (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-261"><a id="__codelineno-5-261" name="__codelineno-5-261" href="#__codelineno-5-261"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-262"><a id="__codelineno-5-262" name="__codelineno-5-262" href="#__codelineno-5-262"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-263"><a id="__codelineno-5-263" name="__codelineno-5-263" href="#__codelineno-5-263"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; h&#39; t,</span>
+</span><span id="__span-5-264"><a id="__codelineno-5-264" name="__codelineno-5-264" href="#__codelineno-5-264"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; k&#39; t ]&gt;))</span>
+</span><span id="__span-5-265"><a id="__codelineno-5-265" name="__codelineno-5-265" href="#__codelineno-5-265"></a><span class="err">        (id-to-arr A x z) (id-to-arr A y w)</span>
+</span><span id="__span-5-266"><a id="__codelineno-5-266" name="__codelineno-5-266" href="#__codelineno-5-266"></a><span class="err">        (</span><span class="p">\</span><span class="nv">p&#39; q&#39; </span><span class="err">-&gt;</span>
+</span><span id="__span-5-267"><a id="__codelineno-5-267" name="__codelineno-5-267" href="#__codelineno-5-267"></a><span class="err">          (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p&#39; q&#39; g))</span>
+</span><span id="__span-5-268"><a id="__codelineno-5-268" name="__codelineno-5-268" href="#__codelineno-5-268"></a><span class="err">        (isEquiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)</span>
+</span><span id="__span-5-269"><a id="__codelineno-5-269" name="__codelineno-5-269" href="#__codelineno-5-269"></a><span class="err">        (Aisdiscrete x z)</span>
+</span><span id="__span-5-270"><a id="__codelineno-5-270" name="__codelineno-5-270" href="#__codelineno-5-270"></a><span class="err">        (Aisdiscrete y w)</span>
+</span><span id="__span-5-271"><a id="__codelineno-5-271" name="__codelineno-5-271" href="#__codelineno-5-271"></a><span class="err">        p</span>
+</span><span id="__span-5-272"><a id="__codelineno-5-272" name="__codelineno-5-272" href="#__codelineno-5-272"></a><span class="err">        q</span>
+</span><span id="__span-5-273"><a id="__codelineno-5-273" name="__codelineno-5-273" href="#__codelineno-5-273"></a>
+</span><span id="__span-5-274"><a id="__codelineno-5-274" name="__codelineno-5-274" href="#__codelineno-5-274"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">isEquiv-fibered-map-square-Sigma-over-Prod-refl-refl</span>
+</span><span id="__span-5-275"><a id="__codelineno-5-275" name="__codelineno-5-275" href="#__codelineno-5-275"></a><span class="err">  </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
+</span><span id="__span-5-276"><a id="__codelineno-5-276" name="__codelineno-5-276" href="#__codelineno-5-276"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-5-277"><a id="__codelineno-5-277" name="__codelineno-5-277" href="#__codelineno-5-277"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> isDiscrete A)</span>
+</span><span id="__span-5-278"><a id="__codelineno-5-278" name="__codelineno-5-278" href="#__codelineno-5-278"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-5-279"><a id="__codelineno-5-279" name="__codelineno-5-279" href="#__codelineno-5-279"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-5-280"><a id="__codelineno-5-280" name="__codelineno-5-280" href="#__codelineno-5-280"></a><span class="err">  </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-5-281"><a id="__codelineno-5-281" name="__codelineno-5-281" href="#__codelineno-5-281"></a><span class="err">  : isEquiv (f = g)</span>
+</span><span id="__span-5-282"><a id="__codelineno-5-282" name="__codelineno-5-282" href="#__codelineno-5-282"></a><span class="err">        (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
+</span><span id="__span-5-283"><a id="__codelineno-5-283" name="__codelineno-5-283" href="#__codelineno-5-283"></a><span class="err">                    [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
+</span><span id="__span-5-284"><a id="__codelineno-5-284" name="__codelineno-5-284" href="#__codelineno-5-284"></a><span class="err">                                        ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
+</span><span id="__span-5-285"><a id="__codelineno-5-285" name="__codelineno-5-285" href="#__codelineno-5-285"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; x,</span>
+</span><span id="__span-5-286"><a id="__codelineno-5-286" name="__codelineno-5-286" href="#__codelineno-5-286"></a><span class="err">                                        (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; y ]&gt;)</span>
+</span><span id="__span-5-287"><a id="__codelineno-5-287" name="__codelineno-5-287" href="#__codelineno-5-287"></a><span class="err">        (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y x y f </span><span class="no">refl</span><span class="err"> </span><span class="no">refl</span><span class="err"> g)</span>
+</span><span id="__span-5-288"><a id="__codelineno-5-288" name="__codelineno-5-288" href="#__codelineno-5-288"></a><span class="err">  := isEquiv-fibered-map-square-Sigma-over-Prod</span>
+</span><span id="__span-5-289"><a id="__codelineno-5-289" name="__codelineno-5-289" href="#__codelineno-5-289"></a><span class="err">        extext A Aisdiscrete x y x y f g </span><span class="no">refl</span><span class="err"> </span><span class="no">refl</span>
+</span></code></pre></div>
 
-#variable extext : ExtExt
-#variable A : U
-#variable Aisdiscrete : isDiscrete A
-#variables x y z w : A
-#variable f : hom A x y
-#variable g : hom A z w
 
-#def isEquiv-idtoarr-discrete uses (x y z w)
-    : isEquiv (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)(id-to-arr (arr A) f g)
-    := (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g
 
-#def Equiv-idtoarr-discrete uses (x y z w)
-    : Eq (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)
-    := (id-to-arr (arr A) f g,
-          (isDiscrete-arr-isDiscrete extext A Aisdiscrete) f g)
 
-#def Equiv-square-hom-arr
-  : Eq (hom (arr A) f g)
-      (∑(h : hom A x z), (∑(k : hom A y w),
-          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
-  := (\α -&gt; (\t -&gt; α t 0_2, (\t -&gt; α t 1_2, \(t, s) -&gt; α t s)),
-        ((\σ -&gt; \t -&gt; \s -&gt; (second (second σ)) (t, s),\α -&gt; refl ),
-         (\σ -&gt; \t -&gt; \s -&gt; (second (second σ)) (t, s),\σ -&gt; refl )))
 
--- The equivalence underlying Eq-arr.
-#def fibered-arr-free-arr
-    : (arr A) -&gt; (∑ (x : A), (∑ (y : A), hom A x y))
-    := \ k -&gt; (k 0_2, (k 1_2, k))
-
-#def id-equiv-Eq-arr uses (w x y z)
-    : isEquiv (f =_{Δ¹ -&gt; A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
-        (ap (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) f g fibered-arr-free-arr)
-    := isEquiv-ap-isEquiv (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) fibered-arr-free-arr
-        (second (Eq-arr A)) f g
-
-#def id-Eq-Eq-arr uses (w x y z)
-    : Eq (f =_{Δ¹ -&gt; A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
-    := Eq-ap-isEquiv (arr A) (∑ (x : A), (∑ (y : A), hom A x y)) fibered-arr-free-arr
-        (second (Eq-arr A)) f g
-
-#def Eq-Sigma-over-Prod-Eq-Arr
-  : Eq (fibered-arr-free-arr f = fibered-arr-free-arr g)
-        (∑(p : x = z), (∑(q : y = w),
-            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
-  := Eq-Sigma-over-Prod-Eq A A (\x y -&gt; hom A x y)
-      (fibered-arr-free-arr f) (fibered-arr-free-arr g)
-
-#def Equiv-square-Sigma-over-Prod uses (extext Aisdiscrete)
-  : Eq (∑(p : x = z), (∑(q : y = w),
-            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
-      (∑(h : hom A x z), (∑(k : hom A y w),
-          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
-  := LeftCancel_Eq
-        (f =_{Δ¹ -&gt; A} g)
-        (∑(p : x = z), (∑(q : y = w),
-            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
-        (∑(h : hom A x z), (∑(k : hom A y w),
-          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
-        (compose_Eq (f =_{Δ¹ -&gt; A} g)
-          (fibered-arr-free-arr f = fibered-arr-free-arr g)
-          (∑(p : x = z), (∑(q : y = w),
-            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
-          id-Eq-Eq-arr
-          Eq-Sigma-over-Prod-Eq-Arr
-        )
-        (compose_Eq (f =_{Δ¹ -&gt; A} g)
-          (hom (arr A) f g)
-          (∑(h : hom A x z), (∑(k : hom A y w),
-              (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
-          Equiv-idtoarr-discrete
-          Equiv-square-hom-arr
-        )
-
--- Unused equivalences, keeping here for now.
--- Specialising [RS17, Proposition 4.3]
-#def axiom-choice-Arr
-  : Eq (&lt;{t : 2 | Δ¹ t} -&gt; (prod A A) [ t === 0_2 |-&gt; (x, z), t === 1_2 |-&gt; (y, w) ]&gt;)
-     (prod (hom A x y) (hom A z w))
-  := axiom-choice 2 Δ¹ ∂Δ¹ (\t -&gt; A) (\t a -&gt; A)
-        (\t -&gt; recOR(t === 0_2 |-&gt; x, t === 1_2 |-&gt; y))
-        (\t -&gt; recOR(t === 0_2 |-&gt; z, t === 1_2 |-&gt; w))
-
-#def axiom-choice-Arr-again
-  : Eq (&lt;{t : 2 | Δ¹ t} -&gt; (∑ (xy : prod A A), hom A (first xy) (second xy))
-           [t === 0_2 |-&gt; ((x, y), f), t === 1_2 |-&gt; ((z, w), g) ]&gt;)
-      (∑ (hk : (&lt;{t : 2 | Δ¹ t} -&gt; (prod A A) [t === 0_2 |-&gt; (x, y), t === 1_2 |-&gt; (z, w) ]&gt;)),
-          (&lt;{t : 2 | Δ¹ t} -&gt; hom A (first (hk t))(second (hk t))
-          [t === 0_2 |-&gt; f, t === 1_2 |-&gt; g ]&gt;))
-  := axiom-choice 2 Δ¹ ∂Δ¹ (\t -&gt; prod A A)(\t (x, y) -&gt; hom A x y)
-      (\t -&gt; recOR(t === 0_2 |-&gt; (x, y), t === 1_2 |-&gt; (z, w)))
-      (\t -&gt; recOR(t === 0_2 |-&gt; f, t === 1_2 |-&gt; g))
-#end discrete-arr-equivalences
-
--- closing the section so I can use path induction
-#def fibered-map-square-Sigma-over-Prod
-  (extext : ExtExt)
-  (A : U)
-  (Aisdiscrete : isDiscrete A)
-  (x y z w : A)
-  (f : hom A x y)
-  (p : x = z)
-  (q : y = w)
-  : (g : hom A z w) -&gt; (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g) -&gt;
-        (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; (id-to-arr A x z p) t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; (id-to-arr A y w q) t ]&gt;)
-  := idJ(A, x, \z' p' -&gt; (g : hom A z' w) -&gt;
-      (prod-transport A A (\a b -&gt; hom A a b) x z' y w p' q f = g) -&gt;
-      (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; (id-to-arr A x z' p') t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; (id-to-arr A y w q) t ]&gt;),
-            idJ(A, y, \w' q' -&gt; (g : hom A x w') -&gt;
-              (prod-transport A A (\a b -&gt; hom A a b) x x y w' refl q' f = g) -&gt;
-              (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; x,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; (id-to-arr A y w' q') t ]&gt;),
-            \g τ -&gt; idJ(hom A x y, f, \g' τ' -&gt;
-                (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g' s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; x,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; y ]&gt;),
-                \(t , s) -&gt; f s, g, τ),
-            w, q), z, p)
-
-#def square-Sigma-over-Prod
-  (extext : ExtExt)
-  (A : U)
-  (Aisdiscrete : isDiscrete A)
-  (x y z w : A)
-  (f : hom A x y)
-  (g : hom A z w)
-  ((p, (q, τ)) : (∑(p : x = z), (∑(q : y = w),
-            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g))))
-  : (∑(h : hom A x z), (∑(k : hom A y w),
-          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
-  := (id-to-arr A x z p,
-      (id-to-arr A y w q,
-      fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p q g τ))
-
-#def refl-refl-map-Equiv-square-Sigma-over-Prod
-  (extext : ExtExt)
-  (A : U)
-  (Aisdiscrete : isDiscrete A)
-  (x y : A)
-  (f g : hom A x y)
-  (τ : prod-transport A A (\a b -&gt; hom A a b) x x y y refl refl f = g)
-  : (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y x y f g))
-          (refl, (refl, τ)) =
-    (square-Sigma-over-Prod extext A Aisdiscrete x y x y f g) (refl, (refl, τ))
-  := idJ(hom A x y, f, \g' τ' -&gt; (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y x y f g'))
-          (refl, (refl, τ')) =
-    (square-Sigma-over-Prod extext A Aisdiscrete x y x y f g') (refl, (refl, τ')),
-    refl, g, τ)
-
-#def map-Equiv-square-Sigma-over-Prod
-  (extext : ExtExt)
-  (A : U)
-  (Aisdiscrete : isDiscrete A)
-  (x y z w : A)
-  (f : hom A x y)
-  (p : x = z)
-  (q : y = w)
-  : (g : hom A z w) -&gt;
-    (τ : prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g) -&gt;
-    (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))
-          (p, (q, τ)) =
-    (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g) (p, (q, τ))
-  := idJ(A, y, \w' q' -&gt; (g : hom A z w') -&gt;
-            (τ : prod-transport A A (\a b -&gt; hom A a b) x z y w' p q' f = g) -&gt;
-            (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w' f g))
-                (p, (q', τ)) =
-            (square-Sigma-over-Prod extext A Aisdiscrete x y z w' f g) (p, (q', τ)),
-          idJ(A, x, \z' p' -&gt; (g : hom A z' y) -&gt;
-            (τ : prod-transport A A (\a b -&gt; hom A a b) x z' y y p' refl f = g) -&gt;
-            (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z' y f g))
-                (p', (refl, τ)) =
-            (square-Sigma-over-Prod extext A Aisdiscrete x y z' y f g) (p', (refl, τ)),
-            \g τ -&gt; refl-refl-map-Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y f g τ, z, p), w, q)
-
-#def isEquiv-square-Sigma-over-Prod
-  (extext : ExtExt)
-  (A : U)
-  (Aisdiscrete : isDiscrete A)
-  (x y z w : A)
-  (f : hom A x y)
-  (g : hom A z w)
-  : isEquiv
-      (∑(p : x = z), (∑(q : y = w),
-            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
-      (∑(h : hom A x z), (∑(k : hom A y w),
-          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
-      (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)
-  := isEquiv-rev-homotopic-isEquiv
-      (∑(p : x = z), (∑(q : y = w),
-            (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)))
-      (∑(h : hom A x z), (∑(k : hom A y w),
-          (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k t ]&gt;)))
-      (first (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))
-      (square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)
-      (\(p, (q, τ)) -&gt; map-Equiv-square-Sigma-over-Prod
-                          extext A Aisdiscrete x y z w f p q g τ)
-      (second (Equiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g))
-
-#def isEquiv-fibered-map-square-Sigma-over-Prod
-  (extext : ExtExt)
-  (A : U)
-  (Aisdiscrete : isDiscrete A)
-  (x y z w : A)
-  (f : hom A x y)
-  (g : hom A z w)
-  (p : x = z)
-  (q : y = w)
-  : isEquiv (prod-transport A A (\a b -&gt; hom A a b) x z y w p q f = g)
-        (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; (id-to-arr A x z p) t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; (id-to-arr A y w q) t ]&gt;)
-        (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p q g)
-  := fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
-        (x = z) (hom A x z) (y = w) (hom A y w)
-        (\p' q' -&gt; (prod-transport A A (\a b -&gt; hom A a b) x z y w p' q' f = g))
-        (\h' k' -&gt; (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; h' t,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; k' t ]&gt;))
-        (id-to-arr A x z) (id-to-arr A y w)
-        (\p' q' -&gt;
-          (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y z w f p' q' g))
-        (isEquiv-square-Sigma-over-Prod extext A Aisdiscrete x y z w f g)
-        (Aisdiscrete x z)
-        (Aisdiscrete y w)
-        p
-        q
-
-#def isEquiv-fibered-map-square-Sigma-over-Prod-refl-refl
-  (extext : ExtExt)
-  (A : U)
-  (Aisdiscrete : isDiscrete A)
-  (x y : A)
-  (f : hom A x y)
-  (g : hom A x y)
-  : isEquiv (f = g)
-        (&lt;{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -&gt; A
-                    [((t === 0_2) /\  Δ¹ s) |-&gt; f s,
-                                        ((t === 1_2) /\  Δ¹ s) |-&gt; g s,
-                                        (Δ¹ t /\  (s === 0_2)) |-&gt; x,
-                                        (Δ¹ t /\  (s === 1_2)) |-&gt; y ]&gt;)
-        (fibered-map-square-Sigma-over-Prod extext A Aisdiscrete x y x y f refl refl g)
-  := isEquiv-fibered-map-square-Sigma-over-Prod
-        extext A Aisdiscrete x y x y f g refl refl
-</code></pre>
-              
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../06-2cat-of-segal-types.rzk/" class="btn btn-neutral float-left" title="2-Category of Segal Types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../08-covariant.rzk/" class="btn btn-neutral float-right" title="Covariantly Functorial Type Families">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
+          
           
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
+        
+      </main>
+      
+        <footer class="md-footer">
+  
     
-    
-      <span><a href="../06-2cat-of-segal-types.rzk/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../08-covariant.rzk/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../06-2cat-of-segal-types.rzk/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 2-Category of Segal Types" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              2-Category of Segal Types
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../08-covariant.rzk/" class="md-footer__link md-footer__link--next" aria-label="Next: Covariantly Functorial Type Families" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Covariantly Functorial Type Families
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme_extra.js" defer></script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="../../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+        <script src="../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
 </html>
