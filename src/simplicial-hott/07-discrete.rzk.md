@@ -395,7 +395,7 @@ Discrete types are automatically Segal types.
 						(Δ¹ t /\  (s === 0_2)) |-> h t,
 						(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
   :=
-    (arr-eq A x z p,
+    ( arr-eq A x z p,
       ( arr-eq A y w q,
         fibered-map-square-Sigma-over-Prod
           extext
@@ -577,7 +577,11 @@ Discrete types are automatically Segal types.
   :=
     is-equiv-fibered-map-square-sigma-over-prod
       extext A Aisdiscrete x y x y f g refl refl
+```
 
+The previous calculations allow us to establish a family of equivalences:
+
+```rzk
 #def is-equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
   (extext : ExtExt)
   (A : U)
@@ -650,7 +654,12 @@ Discrete types are automatically Segal types.
               extext A Aisdiscrete x y x y f refl refl g))),
     is-equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
       extext A Aisdiscrete x y f)
+```
 
+Now using the equivalence on total spaces and the contractibility of based path
+spaces, we conclude that the codomain extension type is contractible.
+
+```rzk
 #def is-contr-horn-refl-refl-extension-type
   (extext : ExtExt)
   (A : U)
@@ -672,4 +681,123 @@ Discrete types are automatically Segal types.
       ( equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
           extext A Aisdiscrete x y f)
       ( based-paths-contractible (hom A x y) f)
+```
+
+The extension types that appear in the Segal condition are retracts of this type
+--- at least when the second arrow in the composable pair is an identity.
+
+```rzk
+#def triangle-to-square-section
+  (A : U)
+  (x y : A)
+  (f g : hom A x y)
+  (α : hom2 A x y y f (id-arr A y) g)
+  : <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s,
+										          (Δ¹ t /\  (s === 0_2)) |-> x,
+										          (Δ¹ t /\  (s === 1_2)) |-> y ]>
+  := \ (t, s) -> recOR (t <= s |-> α (s, t), s <= t |-> g s)
+
+#def sigma-triangle-to-sigma-square-section
+  (A : U)
+  (x y : A)
+  (f : hom A x y)
+  ((d, α) : ∑ (d : hom A x y), hom2 A x y y f (id-arr A y) d)
+  : ∑ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s,
+										          (Δ¹ t /\  (s === 0_2)) |-> x,
+										          (Δ¹ t /\  (s === 1_2)) |-> y ]>
+  := (d, triangle-to-square-section A x y f d α)
+
+#def sigma-square-to-sigma-triangle-retraction
+  (A : U)
+  (x y : A)
+  (f : hom A x y)
+  ((g, σ) : ∑ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s,
+										          (Δ¹ t /\  (s === 0_2)) |-> x,
+										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
+  : ∑ (d : hom A x y), hom2 A x y y f (id-arr A y) d
+  := (\ t -> σ (t, t), \ (t, s) -> σ (s, t))
+
+#def sigma-triangle-to-sigma-square-retract
+  (A : U)
+  (x y : A)
+  (f : hom A x y)
+  : isRetract
+      ( ∑ (d : hom A x y), hom2 A x y y f (id-arr A y) d)
+      ( ∑ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s,
+										          (Δ¹ t /\  (s === 0_2)) |-> x,
+										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
+  :=
+    ( sigma-triangle-to-sigma-square-section A x y f,
+      ( sigma-square-to-sigma-triangle-retraction A x y f ,
+      \ dα -> refl ))
+```
+
+We can now verify the Segal condition in the case of composable pairs in which
+the second arrow is an identity.
+
+```rzk
+#def is-contr-hom2-with-id-is-discrete
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : is-discrete A)
+  (x y : A)
+  (f : hom A x y)
+  : isContr ( ∑ (d : hom A x y), hom2 A x y y f (id-arr A y) d)
+  :=
+    isRetract-ofContr-isContr
+      ( ∑ (d : hom A x y), hom2 A x y y f (id-arr A y) d)
+      ( ∑ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s,
+										          (Δ¹ t /\  (s === 0_2)) |-> x,
+										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
+      ( sigma-triangle-to-sigma-square-retract A x y f)
+      ( is-contr-horn-refl-refl-extension-type extext A Aisdiscrete x y f)
+```
+
+But since A is discrete, its hom type family is equivalent to its identity type
+family, and we can use "path induction" over arrows to reduce the general case
+to the one just proven:
+
+```rzk
+#def is-contr-hom2-is-discrete
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : is-discrete A)
+  (x y z : A)
+  (f : hom A x y)
+  (g : hom A y z)
+  : isContr ( ∑ (h : hom A x z), hom2 A x y z f g h)
+  :=
+    ind-based-path
+      A
+      y
+      ( \ w -> hom A y w)
+      ( \ w -> arr-eq A y w)
+      ( Aisdiscrete y)
+      ( \ w d -> isContr ( ∑ (h : hom A x w), hom2 A x y w f d h))
+      ( is-contr-hom2-with-id-is-discrete
+          extext A Aisdiscrete x y f)
+      ( z)
+      ( g)
+```
+
+Finally, we conclude:
+
+```rzk
+-- [RS, Proposition 7.3]
+#def is-segal-is-discrete
+  (extext : ExtExt)
+  (A : U)
+  (Aisdiscrete : is-discrete A)
+  : isSegal A
+  := \ x y z f g -> is-contr-hom2-is-discrete extext A Aisdiscrete x y z f g
 ```

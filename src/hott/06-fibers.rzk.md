@@ -1277,6 +1277,28 @@ equivalence of total spaces.
          )
       )
   )
+
+-- This allows us to apply "based path induction"
+-- to a family satisfying the fundamental theorem.
+-- Please suggest a better name.
+
+#def ind-based-path
+  (familyequiv : (z : A) -> (isEquiv (a = z) (B z) (f z)))
+  (P : (z : A) -> B z -> U)
+  (p0 : P a (f a refl))
+  (x : A)
+  (p : B x)
+  : P x p
+  :=
+    (ind-sing
+      ( ∑(x : A), B x)
+      ( a, f a refl)
+      ( \ (x', p') -> P x' p')
+      ( contr-implies-singleton-induction-pointed
+        ( ∑(x : A), B x)
+        ( fund-id-fam-of-eqs-implies-sum-over-codomain-contr familyequiv)
+        ( \ (x', p') -> P x' p'))) p0 (x, p)
+
 #end fundamental-thm-id-types
 ```
 

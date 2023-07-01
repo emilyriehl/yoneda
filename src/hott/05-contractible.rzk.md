@@ -375,6 +375,13 @@ A type is contractible if and only if it has singleton induction.
       )
       )
 
+#def contr-implies-singleton-induction-pointed
+  (A : U)
+  (Aiscontr : isContr A)
+  (B : A -> U)
+  : has-singleton-induction-pointed A (contraction-center A Aiscontr) B
+  := (second (contr-implies-singleton-induction-ind A Aiscontr)) B
+
 #def singleton-induction-ind-implies-contr
     (A : U)
     (a : A)
