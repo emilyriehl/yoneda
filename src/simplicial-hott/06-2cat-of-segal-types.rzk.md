@@ -71,8 +71,8 @@ Functions between types automatically preserve identity arrows.
 -- Preservation of composition requires the Segal hypothesis.
 #def functors-pres-comp
   (A B : U)
-  (AisSegal : isSegal A)
-  (BisSegal : isSegal B)
+  (AisSegal : is-segal A)
+  (BisSegal : is-segal B)
   (F : A -> B)
   (x y z : A)
   (f : hom A x y)
@@ -149,7 +149,7 @@ i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
   (A : U)
   (B : A -> U)
   (f g : (x : A) -> (B x))
-  : isEquiv
+  : is-equiv
       ( nat-trans A B f g)
       ( nat-trans-components A B f g)
       ( ev-components-nat-trans A B f g)
@@ -204,7 +204,7 @@ Segal types.
 #def vertical-comp-nat-trans-components
   (A : U)
   (B : A -> U)
-  (BisSegal : (x : A) -> isSegal (B x))
+  (BisSegal : (x : A) -> is-segal (B x))
   (f g h : (x : A) -> (B x))
   (η : nat-trans-components A B f g)
   (η' : nat-trans-components A B g h)
@@ -214,7 +214,7 @@ Segal types.
 #def vertical-comp-nat-trans
   (A : U)
   (B : A -> U)
-  (BisSegal : (x : A) -> isSegal (B x))
+  (BisSegal : (x : A) -> is-segal (B x))
   (f g h : (x : A) -> (B x))
   (η : nat-trans A B f g)
   (η' : nat-trans A B g h)

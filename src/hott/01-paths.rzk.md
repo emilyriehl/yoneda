@@ -30,7 +30,7 @@ This is a literate `rzk` file:
 
 -- an alternative construction of path composition by induction on the first path
 -- this is useful in situations where it's easier to induct on the first path
-#def altconcat
+#def concat'
   (p : x = y)       -- A path from x to y in A.
   : (y = z) -> (x = z)
   := idJ(A, x, \ y' p' -> (y' = z) -> (x = z), \ q' -> q', y, p)
@@ -46,7 +46,7 @@ This is a literate `rzk` file:
 #variable A : U
 #variables w x y z : A
 
-#def rev-involution
+#def rev-rev
   (p : x = y)       -- A path from x to y in A.
   : (rev A y x (rev A x y p)) = p
   := idJ(A, x, \ y' p' -> (rev A y' x (rev A x y' p')) = p', refl, y, p)
@@ -92,7 +92,7 @@ This is a literate `rzk` file:
       z,
       r)
 
-#def rev-right-inverse
+#def right-inverse
   (p : x = y)
   : concat A x y x p (rev A x y p) = refl
   :=
@@ -104,7 +104,7 @@ This is a literate `rzk` file:
       y,
       p)
 
-#def rev-left-inverse
+#def left-inverse
   (p : x = y)
   : concat A y x y (rev A x y p) p = refl
   :=
@@ -219,54 +219,54 @@ of the path algebra coherences defined above.
       p)
 
 -- a higher path comparing the two compositions
-#def concat-altconcat
+#def concat-concat'
   (p : x = y)       -- A path from x to y in A.
-  : (q : y = z) -> (concat A x y z p q) = (altconcat A x y z p q)
+  : (q : y = z) -> (concat A x y z p q) = (concat' A x y z p q)
   :=
     idJ(
       A,
       x,
       \ y' p' ->
         (q' : y' =_{A} z) ->
-        (concat A x y' z p' q') =_{x =_{A} z} altconcat A x y' z p' q',
+        (concat A x y' z p' q') =_{x =_{A} z} concat' A x y' z p' q',
       \ q' -> refl-concat A x z q',
       y,
       p)
 
 -- a higher path comparing the two compositions in the other order
-#def altconcat-concat
+#def concat'-concat
   (p : x = y)       -- A path from x to y in A.
   (q : y = z)       -- A path from y to z in A.
-  : (altconcat A x y z p q) = concat A x y z p q
+  : (concat' A x y z p q) = concat A x y z p q
   :=
     rev
       ( x = z)
       ( concat A x y z p q)
-      ( altconcat A x y z p q)
-      ( concat-altconcat p q)
+      ( concat' A x y z p q)
+      ( concat-concat' p q)
 
--- this is easier to prove for altconcat then for concat
+-- this is easier to prove for concat' then for concat
 #def alt-triangle-rotation
   (p : x = z)
   (q : x = y)
   : (r : y = z) ->
-    (H : p = altconcat A x y z q r) ->
-    (altconcat A y x z (rev A x y q) p) = r
+    (H : p = concat' A x y z q r) ->
+    (concat' A y x z (rev A x y q) p) = r
   :=
     idJ(
       A,
       x,
       \ y' q' ->
         (r' : y' =_{A} z) ->
-        (H' : p = altconcat A x y' z q' r') ->
-        (altconcat A y' x z (rev A x y' q') p) = r',
+        (H' : p = concat' A x y' z q' r') ->
+        (concat' A y' x z (rev A x y' q') p) = r',
       \ r' H' -> H',
       y,
       q)
 
 #end derived-path-coherence
 
--- This needs to be outside the previous section because of the usage of concat-altconcat A y x
+-- This needs to be outside the previous section because of the usage of concat-concat' A y x
 #def triangle-rotation
   (A : U)
   (x y z : A)
@@ -279,9 +279,9 @@ of the path algebra coherences defined above.
     concat
       ( y = z)
       ( concat A y x z (rev A x y q) p)
-      ( altconcat A y x z (rev A x y q) p)
+      ( concat' A y x z (rev A x y q) p)
       r
-      ( concat-altconcat A y x z (rev A x y q) p)
+      ( concat-concat' A y x z (rev A x y q) p)
       ( alt-triangle-rotation
         A
         x
@@ -294,9 +294,9 @@ of the path algebra coherences defined above.
             ( x = z)
             p
             ( concat A x y z q r)
-            ( altconcat A x y z q r)
+            ( concat' A x y z q r)
             H
-            (concat-altconcat A x y z q r)))
+            (concat-concat' A x y z q r)))
 ```
 
 ## Application of functions to paths

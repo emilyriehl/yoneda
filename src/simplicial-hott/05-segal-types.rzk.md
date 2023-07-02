@@ -83,22 +83,22 @@ requires homotopical uniqueness of higher-order composites.
 
 ```rzk
 -- [RS17, Definition 5.3]
-#def isSegal
+#def is-segal
   (A : U)         -- A type.
   : U
   := (x : A) -> (y : A) -> (z : A) ->
       (f : hom A x y) -> (g : hom A y z) ->
-      isContr( Σ (h : hom A x z), hom2 A x y z f g h)
+      is-contr( Σ (h : hom A x z), hom2 A x y z f g h)
 ```
 
 Segal types have a composition functor and witnesses to the composition
 relation:
 
 ```rzk
--- Composition is written in diagrammatic order to match the order of arguments in isSegal.
+-- Composition is written in diagrammatic order to match the order of arguments in is-segal.
 #def Segal-comp
   (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.
+  (AisSegal : is-segal A)        -- A proof that A is Segal.
   (x y z : A)                   -- Three points in A.
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
@@ -108,7 +108,7 @@ relation:
 -- Segal types have composition witnesses
 #def Segal-comp-witness
   (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.
+  (AisSegal : is-segal A)        -- A proof that A is Segal.
   (x y z : A)                   -- Three points in A.
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
@@ -149,7 +149,7 @@ equals h.
 ```rzk
 #def Segal-comp-uniqueness
   (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.
+  (AisSegal : is-segal A)        -- A proof that A is Segal.
   (x y z : A)                   -- Three points in A.
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
@@ -205,7 +205,7 @@ map, defined below, is an equivalence.
 
 -- An alternate definition of Segal types.
 #def is-local-horn-inclusion (A : U) : U
-  := isEquiv (Δ² -> A) (Λ -> A) (horn-restriction A)
+  := is-equiv (Δ² -> A) (Λ -> A) (horn-restriction A)
 ```
 
 Now we prove this definition is equivalent to the original one.
@@ -243,7 +243,7 @@ Now we prove this definition is equivalent to the original one.
 -- [RS17, Theorem 5.5], the hard direction:
 #def Segal-equiv-horn-restriction
   (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.
+  (AisSegal : is-segal A)        -- A proof that A is Segal.
   : Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) -- (horn-restriction A)
   := comp-equiv
         (<{t : 2 * 2 | Δ² t} -> A >)
@@ -270,14 +270,14 @@ Now we prove this definition is equivalent to the original one.
 -- is exactly (horn-restriction A)
 #def Segal-equiv-horn-restriction-test
   (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.
+  (AisSegal : is-segal A)        -- A proof that A is Segal.
   : (first (Segal-equiv-horn-restriction A AisSegal)) = (horn-restriction A)
   := refl
 
 -- Segal types are Segal' types.
-#def isSegal-is-local-horn-inclusion
+#def is-local-horn-inclusion-is-segal
   (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.
+  (AisSegal : is-segal A)        -- A proof that A is Segal.
   : is-local-horn-inclusion A
   := second (Segal-equiv-horn-restriction A AisSegal)
 
@@ -285,7 +285,7 @@ Now we prove this definition is equivalent to the original one.
 #def is-segal-is-local-horn-inclusion
   ( A : U)
   ( is-local-horn-inclusion-A : is-local-horn-inclusion A)
-  : isSegal A
+  : is-segal A
   :=
     \ x y z f g ->
     projection-equiv-contractible-fibers
@@ -322,10 +322,10 @@ Now we prove this definition is equivalent to the original one.
     ( horn A x y z f g)
 
 -- [RS17, Theorem 5.5] proves that both notions of Segal types are logically equivalent.
-#def isSegal-iff-is-local-horn-inclusion
+#def is-segal-iff-is-local-horn-inclusion
   (A : U)                       -- A type.
-  : iff (isSegal A) (is-local-horn-inclusion A)
-  := (isSegal-is-local-horn-inclusion A , is-segal-is-local-horn-inclusion A)
+  : iff (is-segal A) (is-local-horn-inclusion A)
+  := (is-local-horn-inclusion-is-segal A , is-segal-is-local-horn-inclusion A)
 ```
 
 ## Segal function and extension types
@@ -342,7 +342,7 @@ functions or extensions into a family of Segal types is again a Segal type.
   (A : (_ : X) -> U)                                -- A type family
   (fiberwiseAisSegal : (x : X) -> is-local-horn-inclusion (A x))   -- An assumption that the fibers are Segal types.
   : is-local-horn-inclusion ((x : X) -> A x)
-  := triple_compose_isEquiv
+  := triple-compose-is-equiv
        (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >)
        ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)
        ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >)
@@ -378,7 +378,7 @@ functions or extensions into a family of Segal types is again a Segal type.
   (A : <{s : I | ψ s} -> U >)                                 -- An extension type.
   (fiberwiseAisSegal : <{s : I | ψ s} -> is-local-horn-inclusion (A s) >)    -- An assumption that the fibers are Segal types.
   : is-local-horn-inclusion (<{s : I | ψ s} -> A s >)
-  := triple_compose_isEquiv
+  := triple-compose-is-equiv
         (<{t : 2 * 2 | Δ² t} -> <{s : I | ψ s} -> A s > >)
         (<{s : I | ψ s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
         (<{s : I | ψ s} -> <{t : 2 * 2 | Λ t} -> A s > >)
@@ -444,15 +444,15 @@ In particular, the arrow type of a Segal type is Segal.
 #def Segal-arrow-types
   (extext : ExtExt)                         -- This proof uses extension extensionality.
   (A : U)                                   -- A type.
-  (AisSegal : isSegal A)                    -- A proof that A is Segal.
-  : isSegal (arr A)
+  (AisSegal : is-segal A)                    -- A proof that A is Segal.
+  : is-segal (arr A)
   := is-segal-is-local-horn-inclusion (arr A)
       (Segal-extension-types
         extext
         2
         Δ¹
         (\{t : 2 | Δ¹ t} -> A)
-        (\{t : 2 | Δ¹ t} -> (isSegal-is-local-horn-inclusion A AisSegal)))
+        (\{t : 2 | Δ¹ t} -> (is-local-horn-inclusion-is-segal A AisSegal)))
 ```
 
 ## Identity
@@ -538,7 +538,7 @@ needed in the definition of Segal types.
 -- If A is Segal then the right unit law holds
 #def Segal-comp-id
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (x y : A)                 -- Two points in A.
   (f : hom A x y)           -- An arrow from x to y in A.
   : (Segal-comp A AisSegal x y y f (id-arr A y)) =_{hom A x y} f
@@ -554,7 +554,7 @@ needed in the definition of Segal types.
 -- If A is Segal then the left unit law holds
 #def Segal-id-comp
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (x y : A)                 -- Two points in A.
   (f : hom A x y)           -- An arrow from x to y in A.
   : (Segal-comp A AisSegal x x y (id-arr A x) f) =_{hom A x y} f
@@ -621,7 +621,7 @@ For use in the proof of associativity:
 ```rzk
 #def Segal-comp-witness-square
   (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.
+  (AisSegal : is-segal A)        -- A proof that A is Segal.
   (x y z : A)                   -- Three points in A.
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
@@ -646,7 +646,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
 ```rzk
 #def Segal-arr-in-arr
   (A : U)                       -- A type.
-  (AisSegal : isSegal A)        -- A proof that A is Segal.
+  (AisSegal : is-segal A)        -- A proof that A is Segal.
   (x y z : A)                   -- Three points in A.
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
@@ -683,7 +683,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
 #def Segal-associativity-witness
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y z : A)             -- Four points in A.
   (f : hom A w x)           -- An arrow in A from w to x.
   (g : hom A x y)           -- An arrow in A from x to y.
@@ -725,7 +725,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
 #def Segal-associativity-tetrahedron
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y z : A)             -- Four points in A.
   (f : hom A w x)           -- An arrow in A from w to x.
   (g : hom A x y)           -- An arrow in A from x to y.
@@ -758,7 +758,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
 #def Segal-triple-composite
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y z : A)             -- Four points in A.
   (f : hom A w x)           -- An arrow in A from w to x.
   (g : hom A x y)           -- An arrow in A from x to y.
@@ -792,7 +792,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
 #def Segal-left-associativity-witness
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y z : A)             -- Four points in A.
   (f : hom A w x)           -- An arrow in A from w to x.
   (g : hom A x y)           -- An arrow in A from x to y.
@@ -831,7 +831,7 @@ The front face:
 #def Segal-right-associativity-witness
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y z : A)             -- Four points in A.
   (f : hom A w x)           -- An arrow in A from w to x.
   (g : hom A x y)           -- An arrow in A from x to y.
@@ -848,7 +848,7 @@ The front face:
 #def Segal-left-associativity
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y z : A)             -- Four points in A.
   (f : hom A w x)           -- An arrow in A from w to x.
   (g : hom A x y)           -- An arrow in A from x to y.
@@ -863,7 +863,7 @@ The front face:
 #def Segal-right-associativity
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y z : A)             -- Four points in A.
   (f : hom A w x)           -- An arrow in A from w to x.
   (g : hom A x y)           -- An arrow in A from x to y.
@@ -878,7 +878,7 @@ The front face:
 #def Segal-associativity
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y z : A)             -- Four points in A.
   (f : hom A w x)           -- An arrow in A from w to x.
   (g : hom A x y)           -- An arrow in A from x to y.
@@ -895,7 +895,7 @@ The front face:
 
 #def Segal-postcomp
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y : A)
   (f : hom A x y)
   : (z : A) -> (hom A z x) -> (hom A z y)
@@ -903,7 +903,7 @@ The front face:
 
 #def Segal-precomp
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y : A)
   (f : hom A x y)
   : (z : A) -> (hom A y z) -> (hom A x z)
@@ -935,16 +935,16 @@ arrow.
       (Σ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
   := \(g, p) -> (g, homotopy-to-hom2 A x y f g p)
 
-#def Segal-homotopy-to-hom2-total-map-isEquiv
+#def Segal-homotopy-to-hom2-total-map-is-equiv
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y : A)
   (f : hom A x y)
-  : isEquiv
+  : is-equiv
       (Σ (g : hom A x y), f = g)
       (Σ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
       (homotopy-to-hom2-total-map A x y f)
-  := areContr-isEquiv
+  := areContr-is-equiv
         (Σ (g : hom A x y), f = g)
         (Σ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
         (based-paths-contractible (hom A x y) f)
@@ -954,7 +954,7 @@ arrow.
 -- [RS17, Proposition 5.10]
 #def Eq-Segal-homotopy-hom2
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y : A)
   (f g : hom A x y)
   : Eq (f = g) (hom2 A x x y (id-arr A x) f g)
@@ -963,7 +963,7 @@ arrow.
       (\g -> (f = g))
       (\g -> (hom2 A x x y (id-arr A x) f g))
       (homotopy-to-hom2 A x y f)
-      (Segal-homotopy-to-hom2-total-map-isEquiv A AisSegal x y f)
+      (Segal-homotopy-to-hom2-total-map-is-equiv A AisSegal x y f)
       g)
 ```
 
@@ -988,16 +988,16 @@ A dual notion of homotopy can be defined similarly.
       (Σ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
   := \(g, p) -> (g, homotopy-to-hom2' A x y f g p)
 
-#def Segal-homotopy-to-hom2'-total-map-isEquiv
+#def Segal-homotopy-to-hom2'-total-map-is-equiv
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y : A)
   (f : hom A x y)
-  : isEquiv
+  : is-equiv
       (Σ (g : hom A x y), f = g)
       (Σ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
       (homotopy-to-hom2'-total-map A x y f)
-  := areContr-isEquiv
+  := areContr-is-equiv
         (Σ (g : hom A x y), f = g)
         (Σ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
         (based-paths-contractible (hom A x y) f)
@@ -1007,7 +1007,7 @@ A dual notion of homotopy can be defined similarly.
 -- [RS17, Proposition 5.10]
 #def Eq-Segal-homotopy-hom2'
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y : A)
   (f g : hom A x y)
   : Eq (f = g) (hom2 A x y y f (id-arr A y) g)
@@ -1016,7 +1016,7 @@ A dual notion of homotopy can be defined similarly.
       (\g -> (f = g))
       (\g -> (hom2 A x y y f (id-arr A y) g))
       (homotopy-to-hom2' A x y f)
-      (Segal-homotopy-to-hom2'-total-map-isEquiv A AisSegal x y f)
+      (Segal-homotopy-to-hom2'-total-map-is-equiv A AisSegal x y f)
       g)
 ```
 
@@ -1026,7 +1026,7 @@ the data provided by a commutative triangle with that boundary.
 ```rzk
 #def Segal-eq-to-hom2
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
@@ -1039,7 +1039,7 @@ the data provided by a commutative triangle with that boundary.
 
 #def Segal-eq-to-hom2-total-map
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
@@ -1047,17 +1047,17 @@ the data provided by a commutative triangle with that boundary.
       (Σ (h : hom A x z), (hom2 A x y z f g h))
   := \(h, p) -> (h, Segal-eq-to-hom2 A AisSegal x y z f g h p)
 
-#def Segal-eq-to-hom2-total-map-isEquiv
+#def Segal-eq-to-hom2-total-map-is-equiv
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
-  : isEquiv
+  : is-equiv
       (Σ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h)
       (Σ (h : hom A x z), (hom2 A x y z f g h))
       (Segal-eq-to-hom2-total-map A AisSegal x y z f g)
-  := areContr-isEquiv
+  := areContr-is-equiv
         (Σ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h)
         (Σ (h : hom A x z), (hom2 A x y z f g h))
         (based-paths-contractible (hom A x z) (Segal-comp A AisSegal x y z f g) )
@@ -1067,7 +1067,7 @@ the data provided by a commutative triangle with that boundary.
 -- [RS17, Proposition 5.12]
 #def Eq-Segal-eq-hom2
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
@@ -1078,7 +1078,7 @@ the data provided by a commutative triangle with that boundary.
       (\h -> (Segal-comp A AisSegal x y z f g) = h)
       (\h -> hom2 A x y z f g h)
       (Segal-eq-to-hom2 A AisSegal x y z f g)
-      (Segal-eq-to-hom2-total-map-isEquiv A AisSegal x y z f g)
+      (Segal-eq-to-hom2-total-map-is-equiv A AisSegal x y z f g)
       h)
 ```
 
@@ -1089,7 +1089,7 @@ composition:
 -- [RS17, Proposition 5.13]
 #def Segal-homotopy-congruence
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (x y z : A)
   (f g : hom A x y)
   (h k : hom A y z)
@@ -1103,7 +1103,7 @@ composition:
 -- As a special case of the above:
 #def Segal-homotopy-postwhisker
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (x y z : A)
   (f g : hom A x y)
   (h : hom A y z)
@@ -1114,7 +1114,7 @@ composition:
 -- As a special case of the above:
 #def Segal-homotopy-prewhisker
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y : A)
   (k : hom A w x)
   (f g : hom A x y)
@@ -1125,7 +1125,7 @@ composition:
 -- [RS17, Proposition 5.14(a)]
 #def Segal-homotopy-postwhisker-is-ap
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (x y z : A)
   (f g : hom A x y)
   (h : hom A y z)
@@ -1138,7 +1138,7 @@ composition:
 -- [RS17, Proposition 5.14(b)]
 #def Segal-homotopy-prewhisker-is-ap
   (A : U)                   -- A type.
-  (AisSegal : isSegal A)    -- A proof that A is Segal.
+  (AisSegal : is-segal A)    -- A proof that A is Segal.
   (w x y : A)
   (k : hom A w x)
   (f g : hom A x y)
@@ -1148,14 +1148,14 @@ composition:
   := idJ(hom A x y, f, \g' p' -> (Segal-homotopy-prewhisker A AisSegal w x y k f g' p') =
     ap (hom A x y) (hom A w y) f g' (Segal-comp A AisSegal w x y k) p', refl, g, p)
 
-#section isSegal-Unit
+#section is-segal-Unit
 
 #variable extext : ExtExt
 
-#def iscontr-Unit : isContr Unit := (unit, \_ -> refl)
+#def iscontr-Unit : is-contr Unit := (unit, \_ -> refl)
 
-#def isContr-Δ²→Unit uses (extext)
-  : isContr (Δ² -> Unit)
+#def is-contr-Δ²→Unit uses (extext)
+  : is-contr (Δ² -> Unit)
   := (\_ -> unit, \k -> eq-ext-htpy extext
     (2 * 2) Δ² (\_ -> BOT)
     (\_ -> Unit) (\_ -> recBOT)
@@ -1163,15 +1163,15 @@ composition:
     (\_ -> refl)
     )
 
-#def isSegal-Unit uses (extext)
-  : isSegal Unit
-  := \x y z f g -> isRetract-ofContr-isContr
+#def is-segal-Unit uses (extext)
+  : is-segal Unit
+  := \x y z f g -> isRetract-ofContr-is-contr
     (Σ (h : hom Unit x z), hom2 Unit x y z f g h)
     (Δ² -> Unit)
     (\(_, k) -> k, (\k -> (\t -> k (t, t), k), \_ -> refl))
-    isContr-Δ²→Unit
+    is-contr-Δ²→Unit
 
-#end isSegal-Unit
+#end is-segal-Unit
 ```
 
 <!-- Definitions for the SVG images above -->

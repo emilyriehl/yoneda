@@ -47,12 +47,12 @@ This is a literate `rzk` file:
   := \ (t, s) -> (s === 0_2 \/ t === 1_2)
 ```
 
-### Products
+### products
 
 The product of topes defines the product of shapes.
 
 ```rzk
-#def shapeProd
+#def shapeprod
   (I J : CUBE)
   (ψ : I -> TOPE)
   (χ : J -> TOPE)
@@ -61,7 +61,7 @@ The product of topes defines the product of shapes.
 
 -- the square as a product
 #def Δ¹×Δ¹ : (2 * 2) -> TOPE
-  := shapeProd 2 2 Δ¹ Δ¹
+  := shapeprod 2 2 Δ¹ Δ¹
 
 -- the total boundary of the square
 #def ∂□ : (2 * 2) -> TOPE
@@ -69,15 +69,15 @@ The product of topes defines the product of shapes.
 
 -- the vertical boundary of the square
 #def ∂Δ¹×Δ¹ : (2 * 2) -> TOPE
-  := shapeProd 2 2 ∂Δ¹ Δ¹
+  := shapeprod 2 2 ∂Δ¹ Δ¹
 
 -- the horizontal boundary of the square
 #def Δ¹×∂Δ¹ : (2 * 2) -> TOPE
-  := shapeProd 2 2 Δ¹ ∂Δ¹
+  := shapeprod 2 2 Δ¹ ∂Δ¹
 
 -- the prism from a 2-simplex in an arrow type
 #def Δ²×Δ¹ : (2 * 2 * 2) -> TOPE
-  := shapeProd (2 * 2) 2 Δ² Δ¹
+  := shapeprod (2 * 2) 2 Δ² Δ¹
 ```
 
 ### Intersections

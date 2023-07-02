@@ -6,7 +6,7 @@ This is a literate `rzk` file:
 #lang rzk-1
 ```
 
-## Products of types
+## products of types
 
 ```rzk
 #def prod
@@ -77,25 +77,20 @@ This is a literate `rzk` file:
 ## Unit type
 
 ```rzk
-#def ind-Unit
+#def ind-unit
   (C : Unit -> U)
   (C-unit : C unit)
   (x : Unit)
   : C x
   := C-unit
 
-#def uniq-Unit
-  (x : Unit)
-  : x = unit
-  := refl
-
-#def isProp-Unit
+#def is-prop-unit
   (x y : Unit)
   : x = y
   := refl
 
--- Final projection as a constant map
-#def final-projection
+-- Terminal projection as a constant map
+#def terminal-map
   (A : U)
   : A -> Unit
   := constant A Unit unit

@@ -126,7 +126,7 @@ This is a literate `rzk` file:
 -- [RS17, Theorem 4.4]
 -- Reformulated via tope disjunction instead of inclusion.
 -- See https://github.com/fizruk/rzk/issues/8
-#def cofibration_composition'
+#def cofibration-composition'
    (I : CUBE)
    (χ ψ ϕ : I -> TOPE)
    (X : χ -> U)
@@ -201,7 +201,7 @@ axiom. Here we state the one that will be most useful and derive an application.
       (a : (t : ϕ) -> A t) ->
       (f : <{t : I | ψ t} -> A t [ ϕ t |-> a t ]>) ->
       (g : <{t : I | ψ t} -> A t [ ϕ t |-> a t ]>) ->
-      isEquiv (f = g) (<{t : I | ψ t} -> (f t = g t) [ ϕ t |-> refl ]>)
+      is-equiv (f = g) (<{t : I | ψ t} -> (f t = g t) [ ϕ t |-> refl ]>)
          (ext-htpy-eq I ψ ϕ A a f g)
 
 -- The equivalence provided by extension extensionality.

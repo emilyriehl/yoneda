@@ -10,7 +10,7 @@ This is a literate `rzk` file:
 
 ```rzk
 -- contractible types
-#def isContr (A : U) : U
+#def is-contr (A : U) : U
   := ∑ (x : A), (y : A) -> x = y
 ```
 
@@ -20,7 +20,7 @@ This is a literate `rzk` file:
 #section contractible-data
 
 #variable A : U
-#variable Aiscontr : isContr A
+#variable Aiscontr : is-contr A
 
 #def contraction-center
   : A
@@ -40,7 +40,7 @@ This is a literate `rzk` file:
 
 #def contracting-htpy-realigned-path uses (Aiscontr)
   : (contracting-htpy-realigned contraction-center) = refl
-  := (rev-left-inverse A contraction-center contraction-center (contracting-htpy contraction-center))
+  := (left-inverse A contraction-center contraction-center (contracting-htpy contraction-center))
 
 -- A path between an arbitrary pair of types in a contractible type.
 #def contractible-connecting-htpy uses (Aiscontr)
@@ -53,55 +53,55 @@ This is a literate `rzk` file:
 
 ## Characterization of contractibility
 
-A type is contractible if and only if its final projection is an equivalence.
+A type is contractible if and only if its terminal map is an equivalence.
 
 ```rzk
 
-#def final-proj-is-equiv
+#def terminal-map-is-equiv
   (A : U)
   : U
-  := isEquiv A Unit (final-projection A)
+  := is-equiv A Unit (terminal-map A)
 
-#def contr-implies-final-proj-is-equiv-retr
+#def contr-implies-terminal-map-is-equiv-retr
   (A : U)
-  (AisContr : isContr A)
-  : hasRetraction A Unit (final-projection A)
+  (AisContr : is-contr A)
+  : has-retraction A Unit (terminal-map A)
   :=
     (constant Unit A (contraction-center A AisContr), \y -> (contracting-htpy A AisContr) y)
 
-#def contr-implies-final-proj-is-equiv-sec
+#def contr-implies-terminal-map-is-equiv-sec
   (A : U)
-  (AisContr : isContr A)
-  : hasSection A Unit (final-projection A)
+  (AisContr : is-contr A)
+  : has-section A Unit (terminal-map A)
   :=  (constant Unit A (contraction-center A AisContr), \z -> refl)
 
-#def contr-implies-final-proj-is-equiv
+#def contr-implies-terminal-map-is-equiv
   (A : U)
-  (AisContr : isContr A)
-  : isEquiv A Unit (final-projection A)
-  := (contr-implies-final-proj-is-equiv-retr A AisContr, contr-implies-final-proj-is-equiv-sec A AisContr)
+  (AisContr : is-contr A)
+  : is-equiv A Unit (terminal-map A)
+  := (contr-implies-terminal-map-is-equiv-retr A AisContr, contr-implies-terminal-map-is-equiv-sec A AisContr)
 
-#def final-proj-is-equiv-implies-contr
+#def terminal-map-is-equiv-implies-contr
   (A : U)
-  (e : final-proj-is-equiv A)
-  : isContr A
+  (e : terminal-map-is-equiv A)
+  : is-contr A
   := ( (first (first e)) unit, (second (first e)))
 
-#def contr-iff-final-proj-is-equiv
+#def contr-iff-terminal-map-is-equiv
   (A : U)
-  : iff (isContr A) (final-proj-is-equiv A)
-  :=  ((contr-implies-final-proj-is-equiv A), (final-proj-is-equiv-implies-contr A))
+  : iff (is-contr A) (terminal-map-is-equiv A)
+  :=  ((contr-implies-terminal-map-is-equiv A), (terminal-map-is-equiv-implies-contr A))
 
 #def equiv-with-contractible-domain-implies-contractible-codomain
   (A B : U)
   (f : Eq A B)
-  (Aiscontr : isContr A)
-  : isContr B
-  := (final-proj-is-equiv-implies-contr B
+  (Aiscontr : is-contr A)
+  : is-contr B
+  := (terminal-map-is-equiv-implies-contr B
       (second
       (comp-equiv B A Unit
         (inv-equiv A B f)
-        (final-projection A, (contr-implies-final-proj-is-equiv A Aiscontr))
+        (terminal-map A, (contr-implies-terminal-map-is-equiv A Aiscontr))
       )
       )
     )
@@ -109,15 +109,15 @@ A type is contractible if and only if its final projection is an equivalence.
 #def equiv-with-contractible-codomain-implies-contractible-domain
   (A B : U)
   (f : Eq A B)
-  (Biscontr : isContr B)
-  : isContr A
+  (Biscontr : is-contr B)
+  : is-contr A
   := (equiv-with-contractible-domain-implies-contractible-codomain B A (inv-equiv A B f) Biscontr)
 
 
 #def equiv-then-domain-contractible-iff-codomain-contractible
   (A B : U)
   (f : Eq A B)
-  : (iff (isContr A) (isContr B))
+  : (iff (is-contr A) (is-contr B))
   := (
       \Aiscontr -> (equiv-with-contractible-domain-implies-contractible-codomain A B f Aiscontr),
       \Biscontr -> (equiv-with-contractible-codomain-implies-contractible-domain A B f Biscontr)
@@ -125,8 +125,8 @@ A type is contractible if and only if its final projection is an equivalence.
 
 #def path-types-of-Unit-are-contractible
     (x y : Unit)
-    : isContr (x = y)
-    := (final-proj-is-equiv-implies-contr (x = y) (final-projection-of-path-types-of-Unit-isEquiv x y))
+    : is-contr (x = y)
+    := (terminal-map-is-equiv-implies-contr (x = y) (terminal-map-of-path-types-of-Unit-is-equiv x y))
 
 ```
 
@@ -136,11 +136,11 @@ A retract of contractible types is contractible.
 
 ```rzk
 -- A type that records a proof that A is a retract of B.
--- Very similar to hasRetraction.
+-- Very similar to has-retraction.
 #def isRetract
   (A B : U)
   : U
-  := ∑ (s : A -> B), hasRetraction A B s
+  := ∑ (s : A -> B), has-retraction A B s
 
 #section retraction-data
 
@@ -161,13 +161,13 @@ A retract of contractible types is contractible.
 
 -- If A is a retract of a contractible type it has a term.
 #def isRetract-ofContr-isInhabited uses (AretractB)
-  (Biscontr : isContr B)
+  (Biscontr : is-contr B)
   : A
   := isRetract-retraction (contraction-center B Biscontr)
 
 -- If A is a retract of a contractible type it has a contracting homotopy.
 #def isRetract-ofContr-hasHtpy uses (AretractB)
-  (Biscontr : isContr B)
+  (Biscontr : is-contr B)
   (a : A)
   : (isRetract-ofContr-isInhabited Biscontr) = a
   := concat
@@ -180,9 +180,9 @@ A retract of contractible types is contractible.
       (isRetract-homotopy a)
 
 -- If A is a retract of a contractible type it is contractible.
-#def isRetract-ofContr-isContr uses (AretractB)
-  (Biscontr : isContr B)
-  : isContr A
+#def isRetract-ofContr-is-contr uses (AretractB)
+  (Biscontr : is-contr B)
+  : is-contr A
   := (isRetract-ofContr-isInhabited Biscontr, isRetract-ofContr-hasHtpy Biscontr)
 
 #end retraction-data
@@ -193,12 +193,12 @@ A retract of contractible types is contractible.
 A function between contractible types is an equivalence
 
 ```rzk
-#def areContr-isEquiv
+#def areContr-is-equiv
     (A B : U)
-    (Aiscontr : isContr A)
-    (Biscontr : isContr B)
+    (Aiscontr : is-contr A)
+    (Biscontr : is-contr B)
     (f : A -> B)
-    : isEquiv A B f
+    : is-equiv A B f
     := ((\b -> contraction-center A Aiscontr,
         \a -> contracting-htpy A Aiscontr a),
        (\b -> contraction-center A Aiscontr,
@@ -208,21 +208,21 @@ A function between contractible types is an equivalence
 A type equivalent to a contractible type is contractible.
 
 ```rzk
-#def isEquiv-toContr-isContr
+#def is-equiv-toContr-is-contr
     (A B : U)
     (e : Eq A B)
-    (Biscontr : isContr B)
-    : isContr A
-    := isRetract-ofContr-isContr A B
+    (Biscontr : is-contr B)
+    : is-contr A
+    := isRetract-ofContr-is-contr A B
         (first e, first (second e))
         Biscontr
 
-#def isEquiv-fromContr-isContr
+#def is-equiv-fromContr-is-contr
     (A B : U)
     (e : Eq A B)
-    (Aiscontr : isContr A)
-    : isContr B
-    := isRetract-ofContr-isContr B A
+    (Aiscontr : is-contr A)
+    : is-contr B
+    := isRetract-ofContr-is-contr B A
         (first (second (second e)), (first e, second (second (second e))))
         Aiscontr
 ```
@@ -266,18 +266,18 @@ For example, we prove that based path spaces are contractible.
 #def based-paths-contractible
     (A : U)         -- The ambient type.
     (a : A)         -- The basepoint.
-    : isContr (∑ (x : A), a = x)
+    : is-contr (∑ (x : A), a = x)
     := (based-paths-center A a, based-paths-contracting-homotopy A a)
 ```
 
 ## Contractible products
 
 ```rzk
-#def isContr-product
+#def is-contr-product
   (A B : U)
-  (AisContr : isContr A)
-  (BisContr : isContr B)
-  : isContr (prod A B)
+  (AisContr : is-contr A)
+  (BisContr : is-contr B)
+  : is-contr (prod A B)
   := ((first AisContr, first BisContr), \p ->
     path-product A B
       (first AisContr) (first p)
@@ -286,22 +286,22 @@ For example, we prove that based path spaces are contractible.
       (second BisContr (second p))
       )
 
-#def first-isContr-product
+#def first-is-contr-product
   (A B : U)
-  (AxBisContr : isContr (prod A B))
-  : isContr A
+  (AxBisContr : is-contr (prod A B))
+  : is-contr A
   := (first (first AxBisContr), \a ->
     first-path-product A B
       (first AxBisContr)
       (a, second (first AxBisContr))
       (second AxBisContr (a, second (first AxBisContr))))
 
-#def first-isContr-sigma
+#def first-is-contr-sigma
   (A : U)
   (B : A -> U)
   (b : (a : A) -> B a)
-  (ABisContr : isContr (∑ (a : A), B a))
-  : isContr A
+  (ABisContr : is-contr (∑ (a : A), B a))
+  : is-contr A
   := (first (first ABisContr), \a ->
         first-path-sigma A B
           (first ABisContr)
@@ -326,13 +326,13 @@ A type is contractible if and only if it has singleton induction.
   (a : A)
   (B : A -> U)
   : U
-  := hasSection ((x : A) -> B x) (B a) (ev-pt A a B)
+  := has-section ((x : A) -> B x) (B a) (ev-pt A a B)
 
 #def has-singleton-induction-pointed-structure
   (A : U)
   (a : A)
   : U
-  := (B : A -> U) -> hasSection ((x : A) -> B x) (B a) (ev-pt A a B)
+  := (B : A -> U) -> has-section ((x : A) -> B x) (B a) (ev-pt A a B)
 
 #def has-singleton-induction
   (A : U)
@@ -357,7 +357,7 @@ A type is contractible if and only if it has singleton induction.
 
 #def contr-implies-singleton-induction-ind
     (A : U)
-    (Aiscontr : isContr A)
+    (Aiscontr : is-contr A)
     : (has-singleton-induction A)
     := (
       (contraction-center A Aiscontr),
@@ -377,7 +377,7 @@ A type is contractible if and only if it has singleton induction.
 
 #def contr-implies-singleton-induction-pointed
   (A : U)
-  (Aiscontr : isContr A)
+  (Aiscontr : is-contr A)
   (B : A -> U)
   : has-singleton-induction-pointed A (contraction-center A Aiscontr) B
   := (second (contr-implies-singleton-induction-ind A Aiscontr)) B
@@ -386,7 +386,7 @@ A type is contractible if and only if it has singleton induction.
     (A : U)
     (a : A)
     (f : has-singleton-induction-pointed-structure A a)
-    : (isContr A)
+    : (is-contr A)
     := (a, (first (f (\x -> a = x)))(refl_{a}))
 
 ```

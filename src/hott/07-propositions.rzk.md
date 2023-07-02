@@ -11,13 +11,13 @@ This is a literate `rzk` file:
 A type is a proposition when its identity types are contractible.
 
 ```rzk
-#def isProp
+#def is-prop
   (A : U)
   : U
-  := (a : A) -> (b : A) -> isContr(a = b)
+  := (a : A) -> (b : A) -> is-contr(a = b)
 
-#def Unit-isProp
-  : isProp Unit
+#def Unit-is-prop
+  : is-prop Unit
   := \x -> \y -> (path-types-of-Unit-are-contractible x y)
 ```
 
@@ -32,12 +32,12 @@ A type is a proposition when its identity types are contractible.
 #def inhabited-implies-contractible
   (A : U)
   : U
-  := A -> isContr A
+  := A -> is-contr A
 
-#def final-proj-is-embedding
+#def terminal-map-is-embedding
   (A : U)
   : U
-  := isEmb A Unit (final-projection A)
+  := is-emb A Unit (terminal-map A)
 ```
 
 ## Alternative characterizations: proofs
@@ -45,7 +45,7 @@ A type is a proposition when its identity types are contractible.
 ```rzk
 #def prop-implies-all-elements-equal
   (A : U)
-  (AisProp : isProp A)
+  (AisProp : is-prop A)
   : all-elements-equal A
   := \a -> \b -> (first (AisProp a b))
 
@@ -55,34 +55,34 @@ A type is a proposition when its identity types are contractible.
   : inhabited-implies-contractible A
   := \a -> (a, AhasAllEltsEqual a)
 
-#def inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding
+#def inhabited-implies-contractible-implies-if-inhabited-then-terminal-map-is-embedding
   (A : U)
   (c : inhabited-implies-contractible A)
-  : A -> (final-proj-is-embedding A)
+  : A -> (terminal-map-is-embedding A)
   := \x ->
-  (equivalence-is-embedding A Unit (final-projection A)
-      (contr-implies-final-proj-is-equiv A (c x))
+  (equivalence-is-embedding A Unit (terminal-map A)
+      (contr-implies-terminal-map-is-equiv A (c x))
   )
 
-#def inhabited-implies-contractible-implies-final-proj-is-embedding
+#def inhabited-implies-contractible-implies-terminal-map-is-embedding
   (A : U)
   (c : inhabited-implies-contractible A)
-  : (final-proj-is-embedding A)
+  : (terminal-map-is-embedding A)
   :=
-  (inhabited-emb-implies-emb A Unit (final-projection A)
-    (inhabited-implies-contractible-implies-if-inhabited-then-final-proj-is-embedding A c)
+  (inhabited-emb-implies-emb A Unit (terminal-map A)
+    (inhabited-implies-contractible-implies-if-inhabited-then-terminal-map-is-embedding A c)
   )
 
-#def final-proj-is-embedding-implies-proposition
+#def terminal-map-is-embedding-implies-proposition
   (A : U)
-  (f : final-proj-is-embedding A)
-  : isProp A
-  := \x -> \y -> (isEquiv-toContr-isContr (x = y) (unit = unit) ((ap A Unit x y (final-projection A)), (f x y)) (path-types-of-Unit-are-contractible unit unit))
+  (f : terminal-map-is-embedding A)
+  : is-prop A
+  := \x -> \y -> (is-equiv-toContr-is-contr (x = y) (unit = unit) ((ap A Unit x y (terminal-map A)), (f x y)) (path-types-of-Unit-are-contractible unit unit))
 
 #def contractible-if-inhabited-implies-proposition
   (A : U)
   (c : inhabited-implies-contractible A)
-  : isProp A
-  := (final-proj-is-embedding-implies-proposition A (inhabited-implies-contractible-implies-final-proj-is-embedding A c))
+  : is-prop A
+  := (terminal-map-is-embedding-implies-proposition A (inhabited-implies-contractible-implies-terminal-map-is-embedding A c))
 
 ```

@@ -24,13 +24,11 @@ This is a literate `rzk` file:
 - `8-covariant.md` - We use covariant type families.
 - `10-rezk-types.md`- We use Rezk types.
 
-
-
 ## (Iso-)Inner families
 
-This is a (tentative and redundant) definition of (iso-)inner families.
-In the future, hopefully, these can be replaced by instances of
-orthogonal and LARI families.
+This is a (tentative and redundant) definition of (iso-)inner families. In the
+future, hopefully, these can be replaced by instances of orthogonal and LARI
+families.
 
 ```rzk
 #def totalType
@@ -43,13 +41,13 @@ orthogonal and LARI families.
   (B : U)
   (P : B -> U)
   : U
-  := prod (prod (isSegal B) (isSegal (totalType B P))) ((b : B) -> (isSegal (P b)))
+  := prod (prod (is-segal B) (is-segal (totalType B P))) ((b : B) -> (is-segal (P b)))
 
-#def isIsoInnerFam
+#def is-isoInnerFam
   (B : U)
   (P : B -> U)
   : U
-  := prod (prod (isRezk B) (isRezk (totalType B P))) ((b : B) -> (isSegal (P b)))
+  := prod (prod (is-rezk B) (is-rezk (totalType B P))) ((b : B) -> (is-segal (P b)))
 ```
 
 ## Cocartesian arrows
@@ -75,7 +73,7 @@ this is preferred for usage.
   -> (sigma : hom2 B b b' b'' u v w)
   -> (e'' : P b'')
   -> (h : dhom B b b'' w P e e'')
-  -> isContr
+  -> is-contr
       ( ∑ ( g : dhom B b' b'' v P e' e'') ,
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 
@@ -99,30 +97,20 @@ a given starting point in the fiber.
 
 ```
 
-#def cocart-is-prop
-    (B : U)
-    (BisRezk : isRezk B)
-    (b b' : B)
-    (u : hom B b b')
-    (P : B -> U)
-    (TPisRezk : isRezk (totalType B P))
-    (PisfibRezk : (b : B) -> isRezk (P b))
-    (e : P b)
-    (e' : P b')
-    (f : dhom B b b' u P e e')
-    (fiscocart : isCocartArr B b b' u P e e' f)
-    : isContr(CocartLift B b b' u P e)
-    := ( (e', f, fiscocart),
-        \d -> \g ->
+#def cocart-is-prop (B : U) (Bis-rezk : is-rezk B) (b b' : B) (u : hom B b b') (P
+: B -> U) (TPis-rezk : is-rezk (totalType B P)) (PisfibRezk : (b : B) -> is-rezk (P
+b)) (e : P b) (e' : P b') (f : dhom B b b' u P e e') (fiscocart : isCocartArr B
+b b' u P e e' f) : is-contr(CocartLift B b b' u P e) := ( (e', f, fiscocart), \d
+-> \g ->
 
 ## Initial objects
 
 ```rzk
-#def isInitial
+#def is-initial
     (A : U)
     (a : A)
     : U
-    := (x : A) -> isContr(hom A a x)
+    := (x : A) -> is-contr(hom A a x)
 ```
 
 In a Segal type, initial objects are isomorphic.
@@ -130,10 +118,10 @@ In a Segal type, initial objects are isomorphic.
 ```rzk
 #def initial-iso
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (a b : A)
-  (ainitial : isInitial A a)
-  (binitial : isInitial A b)
+  (ainitial : is-initial A a)
+  (binitial : is-initial A b)
   : Iso A AisSegal a b
   :=
     ( first (ainitial b) ,
@@ -158,11 +146,11 @@ In a Segal type, initial objects are isomorphic.
 ## Final objects
 
 ```rzk
-#def isFinal
+#def is-final
   (A : U)
   (a : A)
   : U
-  := (x : A) -> isContr(hom A x a)
+  := (x : A) -> is-contr(hom A x a)
 ```
 
 In a Segal type, final objects are isomorphic.
@@ -170,10 +158,10 @@ In a Segal type, final objects are isomorphic.
 ```rzk
 #def final-iso
   (A : U)
-  (AisSegal : isSegal A)
+  (AisSegal : is-segal A)
   (a b : A)
-  (afinal : isFinal A a)
-  (bfinal : isFinal A b)
+  (afinal : is-final A a)
+  (bfinal : is-final A b)
   (iso : Iso A AisSegal a b)
   : Iso A AisSegal a b
   :=

@@ -89,7 +89,7 @@ unique lift with specified domain.
 	(C : A -> U)
 	: U
 	:= (x : A) -> (y : A) -> (f : hom A x y) -> (u : C x)
-		-> isContr (dhomFrom A x y f C u)
+		-> is-contr (dhomFrom A x y f C u)
 
 -- Type of covariant families over a fixed type
 #def covFam (A : U) : U
@@ -246,7 +246,7 @@ equivalences.
 	(u : hom A a x)				-- A lift of the domain.
 	: Eq (dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
-	:= RightCancel_Eq
+	:= right-cancel-equiv
 		(dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
 		(∑ (d : hom A a y), (∑ (v : hom A a y), prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
@@ -262,13 +262,13 @@ Now we introduce the hypothesis that A is Segal type.
 ```rzk
 #def Segal-representable-dhomFrom-path-space
 	(A : U)						-- The ambient type.
-	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
+	(AisSegal : is-segal A)		-- A proof that A is a Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
 	: Eq (dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))))
-	:= RightCancel_Eq
+	:= right-cancel-equiv
 		(dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))))
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
@@ -295,9 +295,9 @@ Now we introduce the hypothesis that A is Segal type.
 	:= contractible-fibers-projection-Eq (hom2 A a x y u f d) (\ alpha -> (∑ (v : hom A a y), (v = d)))
 		(\ alpha -> codomain-based-paths-contractible (hom A a y) d)
 
-#def isSegal-representable-dhomFrom-hom2
+#def is-segal-representable-dhomFrom-hom2
 	(A : U)						-- The ambient type.
-	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
+	(AisSegal : is-segal A)		-- A proof that A is a Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
@@ -313,16 +313,16 @@ Now we introduce the hypothesis that A is Segal type.
 			(\ d -> hom2 A a x y u f d)
 			(\ d -> codomain-based-paths-contraction A a x y f u d))
 
-#def isSegal-representable-dhomFrom-contractible
+#def is-segal-representable-dhomFrom-contractible
 	(A : U)						-- The ambient type.
-	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
+	(AisSegal : is-segal A)		-- A proof that A is a Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: isContr (dhomFrom-representable A a x y f u)
-	:= isEquiv-toContr-isContr (dhomFrom-representable A a x y f u)
+	: is-contr (dhomFrom-representable A a x y f u)
+	:= is-equiv-toContr-is-contr (dhomFrom-representable A a x y f u)
 				(∑ (d : hom A a y), (hom2 A a x y u f d))
-				(isSegal-representable-dhomFrom-hom2 A AisSegal a x y f u)
+				(is-segal-representable-dhomFrom-hom2 A AisSegal a x y f u)
 				(AisSegal a x y u f)
 ```
 
@@ -330,12 +330,12 @@ Finally, we see that covariant hom families in a Segal type are covariant.
 
 ```rzk
 -- [RS, Proposition 8.13(<-)]
-#def isSegal-representable-isCovFam
+#def is-segal-representable-isCovFam
 	(A : U)
-	(AisSegal : isSegal A)
+	(AisSegal : is-segal A)
 	(a : A)
 	: isCovFam A (\ x -> hom A a x)
-	:= \ x y f u -> isSegal-representable-dhomFrom-contractible A AisSegal a x y f u
+	:= \ x y f u -> is-segal-representable-dhomFrom-contractible A AisSegal a x y f u
 ```
 
 The proof of the claimed converse result given in the original source is
@@ -344,15 +344,15 @@ we argue as follows:
 
 ```rzk
 -- [RS, Proposition 8.13(->)]
-#def representable-isCovFam-isSegal
+#def representable-isCovFam-is-segal
 	(A : U)
 	(repiscovfam : (a : A) -> isCovFam A (\ x -> hom A a x))
-	: isSegal A
-	:= \ x y z f g -> first-isContr-sigma
+	: is-segal A
+	:= \ x y z f g -> first-is-contr-sigma
 		(∑ (h : hom A x z), hom2 A x y z f g h)
 		(\ hk -> ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
 		(\ hk -> (first hk, \ (t, s) -> first hk s))
-		(isEquiv-toContr-isContr
+		(is-equiv-toContr-is-contr
 			(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
 			(dhomFrom-representable A x y z g f)
 			(inv-equiv (dhomFrom-representable A x y z g f)
@@ -466,7 +466,7 @@ types as follows.
 											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2, s)),
 											(Δ¹ t /\  (s === 0_2)) |-> a,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
-	:= RightCancel_Eq (dhomFrom-representable A a x y f u)
+	:= right-cancel-equiv (dhomFrom-representable A a x y f u)
 				(∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
 						[ ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
@@ -513,7 +513,7 @@ types as follows.
 		(<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [ ((t === 0_2) /\  Δ¹ s) |-> u s,
 												(Δ¹ t /\  (s === 0_2)) |-> a,
 												(Δ¹ t /\  (s === 1_2)) |-> f t]> )
-	:= RightCancel_Eq (dhomFrom-representable A a x y f u)
+	:= right-cancel-equiv (dhomFrom-representable A a x y f u)
 				(<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [ ((t === 0_2) /\  Δ¹ s) |-> u s,
 												(Δ¹ t /\  (s === 0_2)) |-> a,
 												(Δ¹ t /\  (s === 1_2)) |-> f t]> )
@@ -656,7 +656,7 @@ has a unique lift with specified codomain.
 	(C : A -> U)
 	: U
 	:= (x : A) -> (y : A) -> (f : hom A x y) -> (v : C y)
-		-> isContr (dhomTo A x y f C v)
+		-> is-contr (dhomTo A x y f C v)
 
 -- Type of contravariant families over a fixed type
 #def contraFam (A : U) : U
@@ -790,7 +790,7 @@ rather lengthy composition of equivalences.
 	: Eq (dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a ), (prod (hom2 A x y a f v d)
       (∑ (u : hom A x a ), hom2 A x a a u (id-arr A a) d)))
-	:= RightCancel_Eq
+	:= right-cancel-equiv
 		(dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a ), (prod (hom2 A x y a f v d)
       (∑ (u : hom A x a ), hom2 A x a a u (id-arr A a) d)))
@@ -808,13 +808,13 @@ Now we introduce the hypothesis that A is Segal type.
 ```rzk
 #def Segal-representable-dhomTo-path-space
 	(A : U)						-- The ambient type.
-	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
+	(AisSegal : is-segal A)		-- A proof that A is a Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(v : hom A y a)				-- A lift of the codomain.
 	: Eq (dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (prod (hom2 A x y a f v d)  (∑ (u : hom A x a), (u = d))))
-	:= RightCancel_Eq
+	:= right-cancel-equiv
 		(dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (prod (hom2 A x y a f v d) (∑ (u : hom A x a), (u = d))))
 		(∑ (d : hom A x a), (prod (hom2 A x y a f v d) (∑ (u : hom A x a), (hom2 A x a a u (id-arr A a) d))))
@@ -830,9 +830,9 @@ Now we introduce the hypothesis that A is Segal type.
 					(\ u -> hom2 A x a a u (id-arr A a) d)
 					(\ u -> (Eq-Segal-homotopy-hom2' A AisSegal x a u d)))))))
 
-#def isSegal-representable-dhomTo-hom2
+#def is-segal-representable-dhomTo-hom2
 	(A : U)						-- The ambient type.
-	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
+	(AisSegal : is-segal A)		-- A proof that A is a Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(v : hom A y a)				-- A lift of the codomain.
@@ -848,16 +848,16 @@ Now we introduce the hypothesis that A is Segal type.
 			(\ d -> hom2 A x y a f v d)
 			(\ d -> codomain-based-paths-contraction A x y a v f d))
 
-#def isSegal-representable-dhomTo-contractible
+#def is-segal-representable-dhomTo-contractible
 	(A : U)						    -- The ambient type.
-	(AisSegal : isSegal A)		-- A proof that A is a Segal type.
+	(AisSegal : is-segal A)		-- A proof that A is a Segal type.
 	(a x y : A)					  -- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(v : hom A y a)				-- A lift of the codomain.
-	: isContr (dhomTo-representable A a x y f v)
-	:= isEquiv-toContr-isContr (dhomTo-representable A a x y f v)
+	: is-contr (dhomTo-representable A a x y f v)
+	:= is-equiv-toContr-is-contr (dhomTo-representable A a x y f v)
 				(∑ (d : hom A x a), (hom2 A x y a f v d))
-				(isSegal-representable-dhomTo-hom2 A AisSegal a x y f v)
+				(is-segal-representable-dhomTo-hom2 A AisSegal a x y f v)
 				(AisSegal x y a f v)
 ```
 
@@ -866,12 +866,12 @@ contravariant.
 
 ```rzk
 -- [RS, Proposition 8.13(<-), dual]
-#def isSegal-representable-isContraFam
+#def is-segal-representable-isContraFam
 	(A : U)
-	(AisSegal : isSegal A)
+	(AisSegal : is-segal A)
 	(a : A)
 	: isContraFam A (\ x -> hom A x a)
-	:= \ x y f v -> isSegal-representable-dhomTo-contractible A AisSegal a x y f v
+	:= \ x y f v -> is-segal-representable-dhomTo-contractible A AisSegal a x y f v
 ```
 
 The proof of the claimed converse result given in the original source is
@@ -880,15 +880,15 @@ we argue as follows:
 
 ```rzk
 -- [RS, Proposition 8.13(->), dual]
-#def representable-isContraFam-isSegal
+#def representable-isContraFam-is-segal
 	(A : U)
 	(repiscontrafam : (a : A) -> isContraFam A (\ x -> hom A x a))
-	: isSegal A
-	:= \ x y z f g -> first-isContr-sigma
+	: is-segal A
+	:= \ x y z f g -> first-is-contr-sigma
 		(∑ (h : hom A x z), hom2 A x y z f g h)
 		(\ hk -> ∑ (u : hom A x z), hom2 A x z z u (id-arr A z) (first hk))
 		(\ hk -> (first hk, \ (t, s) -> first hk t))
-		(isEquiv-toContr-isContr
+		(is-equiv-toContr-is-contr
 			(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (u : hom A x z), hom2 A x z z u (id-arr A z) (first hk))
 			(dhomTo-representable A z x y f g)
 			(inv-equiv (dhomTo-representable A z x y f g)

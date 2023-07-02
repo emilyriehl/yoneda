@@ -1,4 +1,4 @@
-# 4. Sigma types
+# 4. sigma types
 
 This is a literate `rzk` file:
 
@@ -60,7 +60,7 @@ This is a literate `rzk` file:
             refl, t, e)
 
 -- [Rijke 22, Definition 9.3.1]
-#def Eq-Sigma
+#def Eq-sigma
   (s t : ∑(a : A), B a)
   : U
   := ∑(p : (first s) = (first t)), (transport A B (first s) (first t) p (second s)) = (second t)
@@ -69,7 +69,7 @@ This is a literate `rzk` file:
 #def pair-eq
   (s t : ∑(a : A), B a)
   (e : s = t)
-  : (Eq-Sigma s t)
+  : (Eq-sigma s t)
   := (first-path-sigma s t e, second-path-sigma s t e)
 
 -- A path in a fiber defines a path in the total space
@@ -93,7 +93,7 @@ This is a literate `rzk` file:
 -- The inverse to pair-eq.
 #def eq-pair
     (s t : ∑(a : A), B a)
-    (e : Eq-Sigma s t)
+    (e : Eq-sigma s t)
     : (s = t)
     := path-of-pairs-pair-of-paths (first s) (first t) (first e) (second s) (second t) (second e)
 
@@ -104,28 +104,28 @@ This is a literate `rzk` file:
   := idJ(∑(a : A), B a, s, \t' e' -> (eq-pair s t' (pair-eq s t' e')) = e', refl, t, e)
 
 
--- Here we've decomposed e : Eq-Sigma s t as (e0, e1) and decomposed s and t similarly for induction purposes
+-- Here we've decomposed e : Eq-sigma s t as (e0, e1) and decomposed s and t similarly for induction purposes
 #def pair-eq-eq-pair-split
   (s0 : A)
   (s1 : B s0)
   (t0 : A)
   (e0 : s0 = t0)
   : (t1 : B t0) -> (e1 : (transport A B s0 t0 e0 s1) = t1) ->
-    (pair-eq (s0, s1) (t0, t1) (eq-pair (s0, s1) (t0, t1) (e0, e1))) =_{Eq-Sigma (s0, s1) (t0, t1)} (e0, e1)
+    (pair-eq (s0, s1) (t0, t1) (eq-pair (s0, s1) (t0, t1) (e0, e1))) =_{Eq-sigma (s0, s1) (t0, t1)} (e0, e1)
   := idJ(A, s0,
        \t0' e0' -> (t1 : B t0') -> (e1 : (transport A B s0 t0' e0' s1) = t1) ->
-    (pair-eq (s0, s1) (t0', t1) (eq-pair (s0, s1) (t0', t1) (e0', e1))) =_{Eq-Sigma (s0, s1) (t0', t1)} (e0', e1), \t1 e1 -> idJ(B s0, s1,
-              \t1' e1' -> (pair-eq (s0, s1) (s0, t1') (eq-pair (s0, s1) (s0, t1') (refl, e1'))) =_{Eq-Sigma (s0, s1) (s0, t1')} (refl, e1'), refl, t1, e1), t0, e0)
+    (pair-eq (s0, s1) (t0', t1) (eq-pair (s0, s1) (t0', t1) (e0', e1))) =_{Eq-sigma (s0, s1) (t0', t1)} (e0', e1), \t1 e1 -> idJ(B s0, s1,
+              \t1' e1' -> (pair-eq (s0, s1) (s0, t1') (eq-pair (s0, s1) (s0, t1') (refl, e1'))) =_{Eq-sigma (s0, s1) (s0, t1')} (refl, e1'), refl, t1, e1), t0, e0)
 
 #def pair-eq-eq-pair
   (s t : ∑(a : A), B a)
-  (e : Eq-Sigma s t)
-  : (pair-eq s t (eq-pair s t e)) =_{Eq-Sigma s t} e
+  (e : Eq-sigma s t)
+  : (pair-eq s t (eq-pair s t e)) =_{Eq-sigma s t} e
   := pair-eq-eq-pair-split (first s) (second s) (first t) (first e) (second t) (second e)
 
-#def Eq-Sigma-Eq
+#def Eq-sigma-Eq
   (s t : ∑(a : A), B a)
-  : Eq (s = t) (Eq-Sigma s t)
+  : Eq (s = t) (Eq-sigma s t)
   := (pair-eq s t, ((eq-pair s t, eq-pair-pair-eq s t),(eq-pair s t, pair-eq-eq-pair s t)))
 
 #end paths-in-sigma
@@ -148,7 +148,7 @@ This is a literate `rzk` file:
   : C a' b'
   := idJ(B, b, \b'' q' -> C a' b'', idJ(A, a, \a'' p' -> C a'' b, c, a', p), b', q)
 
-#def Eq-Sigma-over-Prod
+#def Eq-sigma-over-prod
   (s t : ∑(a : A), (∑(b : B), C a b))
   : U
   := ∑(p : (first s) = (first t)), (∑(q : (first (second s)) = (first (second t))),
@@ -158,8 +158,8 @@ This is a literate `rzk` file:
 #def triple-eq
   (s t : ∑(a : A), (∑(b : B), C a b))
   (e : s = t)
-  : (Eq-Sigma-over-Prod s t)
-  := idJ(∑(a : A), (∑(b : B), C a b), s, \t' e' -> (Eq-Sigma-over-Prod s t'), (refl, (refl, refl)), t, e)
+  : (Eq-sigma-over-prod s t)
+  := idJ(∑(a : A), (∑(b : B), C a b), s, \t' e' -> (Eq-sigma-over-prod s t'), (refl, (refl, refl)), t, e)
 
 -- The inverse with explicit arguments.
 -- It's surprising this typechecks since we defined prod-transport by a dual
@@ -185,7 +185,7 @@ This is a literate `rzk` file:
 
 #def eq-triple
   (s t : ∑(a : A), (∑(b : B), C a b))
-  (e : Eq-Sigma-over-Prod s t)
+  (e : Eq-sigma-over-prod s t)
   : (s = t)
   := path-of-triples-to-triple-of-paths (first s) (first t)
       (first (second s)) (first (second t))
@@ -227,16 +227,16 @@ This is a literate `rzk` file:
 
 #def triple-eq-eq-triple
   (s t : ∑(a : A), (∑(b : B), C a b))
-  (e : Eq-Sigma-over-Prod s t)
+  (e : Eq-sigma-over-prod s t)
   : (triple-eq s t (eq-triple s t e)) = e
   := triple-eq-eq-triple-split (first s) (first t)
       (first (second s)) (first (second t))
       (second (second s)) (first e) (first (second e)) (second (second t))
       (second (second e))
 
-#def Eq-Sigma-over-Prod-Eq
+#def Eq-sigma-over-prod-Eq
   (s t : ∑(a : A), (∑(b : B), C a b))
-  : Eq (s = t) (Eq-Sigma-over-Prod s t)
+  : Eq (s = t) (Eq-sigma-over-prod s t)
   := (triple-eq s t,
       ((eq-triple s t, eq-triple-triple-eq s t),
       (eq-triple s t, triple-eq-eq-triple s t)))
@@ -275,7 +275,7 @@ unimportant.
         \t -> refl)))
 ```
 
-Products distribute inside a Sigma type:
+products distribute inside a sigma type:
 
 ```rzk
 #def prod-distribute-sigma
