@@ -113,14 +113,8 @@ This is a literate `rzk` file:
   (x y : A)
   (p : x = y)
   : triple-concat
-      B
-      ( g x)
-      ( f x)
-      ( f y)
-      ( g y)
-      ( rev B (f x) (g x) (H x))
-      ( ap A B x y f p)
-      ( H y) =
+      ( B) (g x) (f x) (f y) (g y)
+      ( rev B (f x) (g x) (H x)) (ap A B x y f p) (H y) =
     ap A B x y g p
   :=
     idJ(
@@ -128,14 +122,14 @@ This is a literate `rzk` file:
       x,
       \ y' p' ->
         triple-concat
-          B
+          ( B)
           ( g x)
           ( f x)
           ( f y')
           ( g y')
-          (rev B (f x) (g x) (H x))
-          (ap A B x y' f p')
-          (H y') =
+          ( rev B (f x) (g x) (H x))
+          ( ap A B x y' f p')
+          ( H y') =
         ap A B x y' g p',
       rev-refl-id-triple-concat B (f x) (g x) (H x),
       y,
@@ -158,7 +152,8 @@ This is a literate `rzk` file:
     (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
   := nat-htpy A A f (identity A) H (f a) a (H a)
 
--- After composing with ap-id, this naturality square transforms to the following:
+-- After composing with ap-id, this naturality square transforms to the
+-- following:
 #def reduced-cocone-naturality
   : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
     (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
@@ -167,7 +162,7 @@ This is a literate `rzk` file:
       ( (f (f a)) = a)
       ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a))
       ( concat
-        A
+        ( A)
         ( f (f a))
         ( f a)
         ( a)
@@ -176,10 +171,10 @@ This is a literate `rzk` file:
       ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))
       (cocone-naturality)
       (concat-homotopy
-        A
+        ( A)
         ( f (f a))
         ( f a)
-        a
+        ( a)
         ( H (f a))
         ( ap A A (f a) a (identity A) (H a))
         ( H a)
@@ -193,10 +188,10 @@ This is a literate `rzk` file:
       ( f (f a) = f a)
       ( ap A A (f a) a  f (H a)) (H (f a))
       ( concat-right-cancel
-        A
+        ( A)
         ( f (f a))
         ( f a)
-        a
+        ( a)
         ( ap A A (f a) a  f (H a))
         ( H (f a))
         ( H a)
@@ -224,23 +219,11 @@ This is a literate `rzk` file:
       H y,
       \ Ky α' ->
         triple-concat
-          B
-          ( g x)
-          ( f x)
-          ( f y)
-          ( g y)
-          ( rev B (f x) (g x) (H x))
-          p
-          (H y) =
+          ( B) (g x) (f x) (f y) (g y)
+          ( rev B (f x) (g x) (H x)) (p) (H y) =
         triple-concat
-          B
-          ( g x)
-          ( f x)
-          ( f y)
-          ( g y)
-          ( rev B (f x) (g x) (K x))
-          p
-          ( Ky),
+          ( B) (g x) (f x) (f y) (g y)
+          ( rev B (f x) (g x) (K x)) (p) (Ky),
       homotopy-triple-concat
         B
         ( g x)
@@ -256,7 +239,7 @@ This is a literate `rzk` file:
           ( g x = f x)
           ( H x)
           ( K x)
-          (\ G -> rev B (f x)(g x) G) (α x)),
+          ( \ G -> rev B (f x)(g x) G) (α x)),
       K y,
       α y)
 ```

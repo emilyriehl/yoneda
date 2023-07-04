@@ -283,20 +283,13 @@ of the path algebra coherences defined above.
       r
       ( concat-concat' A y x z (rev A x y q) p)
       ( alt-triangle-rotation
-        A
-        x
-        y
-        z
-        p
-        q
-        r
-        ( concat
-            ( x = z)
-            p
-            ( concat A x y z q r)
-            ( concat' A x y z q r)
-            H
-            (concat-concat' A x y z q r)))
+        A x y z p q r ( concat
+                        ( x = z)
+                        ( p)
+                        ( concat A x y z q r)
+                        ( concat' A x y z q r)
+                        ( H)
+                        (concat-concat' A x y z q r)))
 ```
 
 ## Application of functions to paths
@@ -376,12 +369,8 @@ of the path algebra coherences defined above.
       x,
       \ y' p' ->
         (concat
-          B
-          ( f y')
-          ( f x)
-          ( f y')
-          ( ap A B y' x f (rev A x y' p'))
-          ( ap A B x y' f p')) =
+          ( B) (f y') (f x) (f y')
+          ( ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) =
         refl,
       refl,
       y,

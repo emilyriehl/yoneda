@@ -120,7 +120,7 @@ equivalences.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
 	(v : hom A a y)				-- A lift of the codomain.
-	: Eq (dhom-representable A a x y f u v)
+	: Equiv (dhom-representable A a x y f u v)
 	(<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> a,
@@ -145,12 +145,12 @@ equivalences.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (dhomFrom-representable A a x y f u)
+	: Equiv (dhomFrom-representable A a x y f u)
 		(∑ (v : hom A a y), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> a,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
-	:= family-Eq-total-Eq (hom A a y) (\ v -> dhom-representable A a x y f u v)
+	:= total-equiv-family-equiv (hom A a y) (\ v -> dhom-representable A a x y f u v)
 		(\ v -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> a,
@@ -192,7 +192,7 @@ equivalences.
 	(f : hom A x z)
 	(g : hom A w y)
 	(v : hom A y z)
-	: Eq (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
+	: Equiv (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> g t,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>)
@@ -206,12 +206,12 @@ equivalences.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (∑ (v : hom A a y), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
+	: Equiv (∑ (v : hom A a y), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> a,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
 		(∑ (v : hom A a y), (∑ (d : hom A a y), prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-	:= family-Eq-total-Eq (hom A a y)
+	:= total-equiv-family-equiv (hom A a y)
 		(\ v -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> a,
@@ -224,7 +224,7 @@ equivalences.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (dhomFrom-representable A a x y f u)
+	: Equiv (dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (∑ (v : hom A a y), prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
 	:= triple-comp-equiv
 		(dhomFrom-representable A a x y f u)
@@ -244,14 +244,14 @@ equivalences.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (dhomFrom-representable A a x y f u)
+	: Equiv (dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
 	:= right-cancel-equiv
 		(dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
 		(∑ (d : hom A a y), (∑ (v : hom A a y), prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
 		(representable-dhomFrom-hom2 A a x y f u)
-		(family-Eq-total-Eq (hom A a y)
+		(total-equiv-family-equiv (hom A a y)
 			(\ d -> (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
 			(\ d -> (∑ (v : hom A a y), prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
 			(\ d -> (prod-distribute-sigma (hom2 A a x y u f d) (hom A a y)(\ v -> hom2 A a a y (id-arr A a) v d))))
@@ -266,20 +266,20 @@ Now we introduce the hypothesis that A is Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (dhomFrom-representable A a x y f u)
+	: Equiv (dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))))
 	:= right-cancel-equiv
 		(dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))))
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
 		(representable-dhomFrom-hom2-dist A a x y f u)
-		(family-Eq-total-Eq (hom A a y)
+		(total-equiv-family-equiv (hom A a y)
 			(\ d -> (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))))
 			(\ d -> (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
-			(\ d -> (family-Eq-total-Eq (hom2 A a x y u f d)
+			(\ d -> (total-equiv-family-equiv (hom2 A a x y u f d)
 				(\ alpha -> (∑ (v : hom A a y), (v = d)))
 				(\ alpha -> (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d))
-				(\ alpha -> (family-Eq-total-Eq (hom A a y)
+				(\ alpha -> (total-equiv-family-equiv (hom A a y)
 					(\ v -> (v = d))
 					(\ v -> hom2 A a a y (id-arr A a) v d)
 					(\ v -> (Eq-Segal-homotopy-hom2 A AisSegal a y v d)))))))
@@ -291,9 +291,9 @@ Now we introduce the hypothesis that A is Segal type.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
 	(d : hom A a y)
-	: Eq (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))) (hom2 A a x y u f d)
-	:= contractible-fibers-projection-Eq (hom2 A a x y u f d) (\ alpha -> (∑ (v : hom A a y), (v = d)))
-		(\ alpha -> codomain-based-paths-contractible (hom A a y) d)
+	: Equiv (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))) (hom2 A a x y u f d)
+	:= equiv-projection-contractible-fibers (hom2 A a x y u f d) (\ alpha -> (∑ (v : hom A a y), (v = d)))
+		(\ alpha -> is-contr-codomain-based-paths (hom A a y) d)
 
 #def is-segal-representable-dhomFrom-hom2
 	(A : U)						-- The ambient type.
@@ -301,14 +301,14 @@ Now we introduce the hypothesis that A is Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (dhomFrom-representable A a x y f u)
+	: Equiv (dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (hom2 A a x y u f d))
 	:= comp-equiv
 		(dhomFrom-representable A a x y f u)
 		(∑ (d : hom A a y), (prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d))))
 		(∑ (d : hom A a y), (hom2 A a x y u f d))
 		(Segal-representable-dhomFrom-path-space A AisSegal a x y f u)
-		(family-Eq-total-Eq (hom A a y)
+		(total-equiv-family-equiv (hom A a y)
 			(\ d -> prod (hom2 A a x y u f d) (∑ (v : hom A a y), (v = d)))
 			(\ d -> hom2 A a x y u f d)
 			(\ d -> codomain-based-paths-contraction A a x y f u d))
@@ -320,7 +320,7 @@ Now we introduce the hypothesis that A is Segal type.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
 	: is-contr (dhomFrom-representable A a x y f u)
-	:= is-equiv-toContr-is-contr (dhomFrom-representable A a x y f u)
+	:= is-contr-is-equiv-to-contr (dhomFrom-representable A a x y f u)
 				(∑ (d : hom A a y), (hom2 A a x y u f d))
 				(is-segal-representable-dhomFrom-hom2 A AisSegal a x y f u)
 				(AisSegal a x y u f)
@@ -352,7 +352,7 @@ we argue as follows:
 		(∑ (h : hom A x z), hom2 A x y z f g h)
 		(\ hk -> ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
 		(\ hk -> (first hk, \ (t, s) -> first hk s))
-		(is-equiv-toContr-is-contr
+		(is-contr-is-equiv-to-contr
 			(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (v : hom A x z), hom2 A x x z (id-arr A x) v (first hk))
 			(dhomFrom-representable A x y z g f)
 			(inv-equiv (dhomFrom-representable A x y z g f)
@@ -379,7 +379,7 @@ types as follows.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
+	: Equiv <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
 			[ ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>
@@ -397,7 +397,7 @@ types as follows.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (<{(t, s) : 2 * 2 | ((t === 1_2) /\  (Δ¹ s))} -> A [ ((t === 1_2) /\  (s === 0_2)) |-> a,  ((t === 1_2) /\  (s === 1_2)) |-> y ]>)
+	: Equiv (<{(t, s) : 2 * 2 | ((t === 1_2) /\  (Δ¹ s))} -> A [ ((t === 1_2) /\  (s === 0_2)) |-> a,  ((t === 1_2) /\  (s === 1_2)) |-> y ]>)
 		(hom A a y)
 	:= (\ v -> (\ r -> v ((1_2, r))),
 			((\ v -> \ (t, s) -> v s,
@@ -410,7 +410,7 @@ types as follows.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
+	: Equiv <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
 			[ ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>
@@ -430,7 +430,7 @@ types as follows.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
+	: Equiv (∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
 						[ ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
@@ -441,7 +441,7 @@ types as follows.
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> a,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
-	:= pullback-is-equiv-total-eq (	<{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
+	:= total-equiv-pullback-is-equiv (	<{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
 			[ ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]> )
@@ -458,7 +458,7 @@ types as follows.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (dhomFrom-representable A a x y f u)
+	: Equiv (dhomFrom-representable A a x y f u)
 			(∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
 						[ ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
@@ -487,7 +487,7 @@ types as follows.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [ ((t === 0_2) /\  Δ¹ s) |-> u s,
+	: Equiv (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [ ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t]> )
 		(∑ (sq : <{(t, s) : 2 * 2 | ∂□ (t, s)} -> A
@@ -509,7 +509,7 @@ types as follows.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A a x)				-- A lift of the domain.
-	: Eq (dhomFrom-representable A a x y f u)
+	: Equiv (dhomFrom-representable A a x y f u)
 		(<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [ ((t === 0_2) /\  Δ¹ s) |-> u s,
 												(Δ¹ t /\  (s === 0_2)) |-> a,
 												(Δ¹ t /\  (s === 1_2)) |-> f t]> )
@@ -687,7 +687,7 @@ rather lengthy composition of equivalences.
 	(f : hom A x y)				-- An arrow in the base.
 	(u : hom A x a)				-- A lift of the domain.
 	(v : hom A y a)				-- A lift of the codomain.
-	: Eq (dhom-contra-representable A a x y f u v)
+	: Equiv (dhom-contra-representable A a x y f u v)
 	(<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> f t,
@@ -712,12 +712,12 @@ rather lengthy composition of equivalences.
 	(a x y : A)				-- The representing object and two points in the base.
 	(f : hom A x y)		-- An arrow in the base.
 	(v : hom A y a)		-- A lift of the codomain.
-	: Eq (dhomTo-representable A a x y f v)
+	: Equiv (dhomTo-representable A a x y f v)
 		(∑ (u : hom A x a), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> f t,
 											(Δ¹ t /\  (s === 1_2)) |-> a ]>))
-	:= family-Eq-total-Eq (hom A x a) (\ u -> dhom-contra-representable A a x y f u v)
+	:= total-equiv-family-equiv (hom A x a) (\ u -> dhom-contra-representable A a x y f u v)
 		(\ u -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> f t,
@@ -729,12 +729,12 @@ rather lengthy composition of equivalences.
 	(a x y : A)				-- The representing object and two points in the base.
 	(f : hom A x y)		-- An arrow in the base.
 	(v : hom A y a)		-- A lift of the codomain.
-	: Eq (∑ (u : hom A x a), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
+	: Equiv (∑ (u : hom A x a), (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> f t,
 											(Δ¹ t /\  (s === 1_2)) |-> a ]>))
 		(∑ (u : hom A x a), (∑ (d : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-	:= family-Eq-total-Eq (hom A x a)
+	:= total-equiv-family-equiv (hom A x a)
 		(\ u -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s,
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> f t,
@@ -747,7 +747,7 @@ rather lengthy composition of equivalences.
 	(a x y : A)			-- The representing object and two points in the base.
 	(f : hom A x y)	-- An arrow in the base.
 	(v : hom A y a)	-- A lift of the codomain.
-	: Eq (dhomTo-representable A a x y f v)
+	: Equiv (dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
 	:= triple-comp-equiv
 		(dhomTo-representable A a x y f v)
@@ -767,17 +767,17 @@ rather lengthy composition of equivalences.
 	(a x y : A)			-- The representing object and two points in the base.
 	(f : hom A x y)	-- An arrow in the base.
 	(v : hom A y a)	-- A lift of the codomain.
-	: Eq (dhomTo-representable A a x y f v)
+	: Equiv (dhomTo-representable A a x y f v)
     (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d) ))
 	:= comp-equiv
       (dhomTo-representable A a x y f v)
       (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
       (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d) ))
       (representable-dhomTo-hom2 A a x y f v)
-      (family-Eq-total-Eq (hom A x a)
+      (total-equiv-family-equiv (hom A x a)
         (\ d -> (∑ (u : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
         (\ d -> (∑ (u : hom A x a), prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d) ))
-        (\ d -> family-Eq-total-Eq (hom A x a)
+        (\ d -> total-equiv-family-equiv (hom A x a)
           (\ u ->  prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d))
           (\ u -> prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d))
           (\ u -> sym-prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d))))
@@ -787,7 +787,7 @@ rather lengthy composition of equivalences.
 	(a x y : A)			  -- The representing object and two points in the base.
 	(f : hom A x y)		-- An arrow in the base.
 	(v : hom A y a)		-- A lift of the codomain.
-	: Eq (dhomTo-representable A a x y f v)
+	: Equiv (dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a ), (prod (hom2 A x y a f v d)
       (∑ (u : hom A x a ), hom2 A x a a u (id-arr A a) d)))
 	:= right-cancel-equiv
@@ -796,7 +796,7 @@ rather lengthy composition of equivalences.
       (∑ (u : hom A x a ), hom2 A x a a u (id-arr A a) d)))
 		(∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d)))
 		(representable-dhomTo-hom2-swap A a x y f v)
-		(family-Eq-total-Eq (hom A x a)
+		(total-equiv-family-equiv (hom A x a)
 			(\ d -> (prod (hom2 A x y a f v d)
       (∑ (u : hom A x a ), hom2 A x a a u (id-arr A a) d)))
 			(\ d -> (∑ (u : hom A x a), prod (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
@@ -812,20 +812,20 @@ Now we introduce the hypothesis that A is Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(v : hom A y a)				-- A lift of the codomain.
-	: Eq (dhomTo-representable A a x y f v)
+	: Equiv (dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (prod (hom2 A x y a f v d)  (∑ (u : hom A x a), (u = d))))
 	:= right-cancel-equiv
 		(dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (prod (hom2 A x y a f v d) (∑ (u : hom A x a), (u = d))))
 		(∑ (d : hom A x a), (prod (hom2 A x y a f v d) (∑ (u : hom A x a), (hom2 A x a a u (id-arr A a) d))))
 		(representable-dhomTo-hom2-dist A a x y f v)
-		(family-Eq-total-Eq (hom A x a)
+		(total-equiv-family-equiv (hom A x a)
 			(\ d -> (prod (hom2 A x y a f v d) (∑ (u : hom A x a), (u = d))))
 			(\ d -> (prod (hom2 A x y a f v d) (∑ (u : hom A x a), hom2 A x a a u (id-arr A a) d)))
-			(\ d -> (family-Eq-total-Eq (hom2 A x y a f v d)
+			(\ d -> (total-equiv-family-equiv (hom2 A x y a f v d)
 				(\ α -> (∑ (u : hom A x a), (u = d)))
 				(\ α -> (∑ (u : hom A x a), hom2 A x a a u (id-arr A a) d))
-				(\ α -> (family-Eq-total-Eq (hom A x a)
+				(\ α -> (total-equiv-family-equiv (hom A x a)
 					(\ u -> (u = d))
 					(\ u -> hom2 A x a a u (id-arr A a) d)
 					(\ u -> (Eq-Segal-homotopy-hom2' A AisSegal x a u d)))))))
@@ -836,14 +836,14 @@ Now we introduce the hypothesis that A is Segal type.
 	(a x y : A)					-- The representing object and two points in the base.
 	(f : hom A x y)				-- An arrow in the base.
 	(v : hom A y a)				-- A lift of the codomain.
-	: Eq (dhomTo-representable A a x y f v)
+	: Equiv (dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (hom2 A x y a f v d))
 	:= comp-equiv
 		(dhomTo-representable A a x y f v)
 		(∑ (d : hom A x a), (prod (hom2 A x y a f v d) (∑ (u : hom A x a), (u = d))))
 		(∑ (d : hom A x a), (hom2 A x y a f v d))
 		(Segal-representable-dhomTo-path-space A AisSegal a x y f v)
-		(family-Eq-total-Eq (hom A x a)
+		(total-equiv-family-equiv (hom A x a)
 			(\ d -> prod (hom2 A x y a f v d) (∑ (u : hom A x a), (u = d)))
 			(\ d -> hom2 A x y a f v d)
 			(\ d -> codomain-based-paths-contraction A x y a v f d))
@@ -855,7 +855,7 @@ Now we introduce the hypothesis that A is Segal type.
 	(f : hom A x y)				-- An arrow in the base.
 	(v : hom A y a)				-- A lift of the codomain.
 	: is-contr (dhomTo-representable A a x y f v)
-	:= is-equiv-toContr-is-contr (dhomTo-representable A a x y f v)
+	:= is-contr-is-equiv-to-contr (dhomTo-representable A a x y f v)
 				(∑ (d : hom A x a), (hom2 A x y a f v d))
 				(is-segal-representable-dhomTo-hom2 A AisSegal a x y f v)
 				(AisSegal x y a f v)
@@ -888,7 +888,7 @@ we argue as follows:
 		(∑ (h : hom A x z), hom2 A x y z f g h)
 		(\ hk -> ∑ (u : hom A x z), hom2 A x z z u (id-arr A z) (first hk))
 		(\ hk -> (first hk, \ (t, s) -> first hk t))
-		(is-equiv-toContr-is-contr
+		(is-contr-is-equiv-to-contr
 			(∑ (hk : ∑ (h : hom A x z), hom2 A x y z f g h), ∑ (u : hom A x z), hom2 A x z z u (id-arr A z) (first hk))
 			(dhomTo-representable A z x y f g)
 			(inv-equiv (dhomTo-representable A z x y f g)

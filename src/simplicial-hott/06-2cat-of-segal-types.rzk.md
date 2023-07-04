@@ -29,7 +29,7 @@ targets.
   (x y : A)
   (f : hom A x y)
   : hom B (F x) (F y)
-  := \t -> F (f t)
+  := \ t -> F (f t)
 
 #def ap-hom2
   (A B : U)
@@ -39,8 +39,9 @@ targets.
   (g : hom A y z)
   (h : hom A x z)
   (alpha : hom2 A x y z f g h)
-  : hom2 B (F x) (F y) (F z) (ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z h)
-  := \t -> F (alpha t)
+  : hom2 B (F x) (F y) (F z)
+    ( ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z h)
+  := \ t -> F (alpha t)
 ```
 
 Functions between types automatically preserve identity arrows.
@@ -59,13 +60,13 @@ Functions between types automatically preserve identity arrows.
       2
       Δ¹
       ∂Δ¹
-      (\t -> B)
-      (\t -> recOR(
+      (\  t -> B)
+      (\  t -> recOR(
         t === 0_2 |-> F x,
         t === 1_2 |-> F x))
       (ap-hom A B F x x (id-arr A x))
       (id-arr B (F x))
-      (\t -> refl)
+      (\  t -> refl)
 
 -- [RS17, Proposition 6.1.b]
 -- Preservation of composition requires the Segal hypothesis.
@@ -161,9 +162,7 @@ i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
   (A : U)
   (B : A -> U)
   (f g : (x : A) -> (B x))
-  : Eq
-      ( nat-trans A B f g)
-      ( nat-trans-components A B f g)
+  : Equiv (nat-trans A B f g) (nat-trans-components A B f g)
   :=
     ( ev-components-nat-trans A B f g ,
       is-equiv-ev-components-nat-trans A B f g)
@@ -222,8 +221,8 @@ Segal types.
   :=
     \ t x ->
     vertical-comp-nat-trans-components A B BisSegal f g h
-      ( \ x t -> η t x)
-      ( \ x t -> η' t x)
+      ( \ x' t' -> η t' x')
+      ( \ x' t' -> η' t' x')
       ( x)
       ( t)
 ```

@@ -13,11 +13,13 @@ nav:
       - Paths: hott/01-paths.rzk.md
       - Homotopies: hott/02-homotopies.rzk.md
       - Equivalences: hott/03-equivalences.rzk.md
-      - Sigma types: hott/04-sigma.rzk.md
-      - Contractible: hott/05-contractible.rzk.md
-      - Fibers: hott/06-fibers.rzk.md
-      - Propositions: hott/07-propositions.rzk.md
-      - Trivial fibrations: hott/08-trivial-fibrations.rzk.md
+      - Half Adjoint Equivalences: hott/04-half-adjoint-equivalences.rzk.md
+      - Sigma types: hott/05-sigma.rzk.md
+      - Contractible: hott/06-contractible.rzk.md
+      - Fibers: hott/07-fibers.rzk.md
+      - Families of maps: hott/08-families-of-maps.rzk.md
+      - Propositions: hott/09-propositions.rzk.md
+      - Trivial fibrations: hott/10-trivial-fibrations.rzk.md
 
   - Simplicial HoTT:
       - Simplicial Type Theory: simplicial-hott/03-simplicial-type-theory.rzk.md

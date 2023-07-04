@@ -13,8 +13,8 @@ This is a literate `rzk` file:
 - `hott/1-paths.md` - We require basic path algebra.
 - `hott/2-contractible.md` - We require the notion of contractible types and
   their data.
-- `hott/total-space.md` — We rely on `contractible-fibers-projection-equiv` and
-  `total-space-projection` in the proof of Theorem 5.5.
+- `hott/total-space.md` — We rely on `is-equiv-projection-contractible-fibers`
+  and `total-space-projection` in the proof of Theorem 5.5.
 - `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their
   subshapes.
 - `4-extension-types.md` — We use the fubini theorem and extension
@@ -220,7 +220,7 @@ Now we prove this definition is equivalent to the original one.
   (x y z : A)                   -- Three points in A.
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
-  : Eq (Σ (h : hom A x z), hom2 A x y z f g h)
+  : Equiv (Σ (h : hom A x z), hom2 A x y z f g h)
        <{t : 2 * 2 | Δ² t } -> A [ Λ t |-> horn A x y z f g t ]>
   := (\hh -> \{t : 2 * 2 | Δ² t} -> (second hh) t,
       ((\k -> (\(t : 2) -> k (t, t), \(t, s) -> k (t, s)), \hh -> refl),
@@ -228,7 +228,7 @@ Now we prove this definition is equivalent to the original one.
 
 #def equiv-horn-restriction
   (A : U)                       -- A type.
-  : Eq (<{t : 2 * 2 | Δ² t} -> A >)
+  : Equiv (<{t : 2 * 2 | Δ² t} -> A >)
       (Σ (k : <{t : 2 * 2 | Λ t} -> A >),
         Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
           hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
@@ -244,7 +244,7 @@ Now we prove this definition is equivalent to the original one.
 #def Segal-equiv-horn-restriction
   (A : U)                       -- A type.
   (AisSegal : is-segal A)        -- A proof that A is Segal.
-  : Eq (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) -- (horn-restriction A)
+  : Equiv (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) -- (horn-restriction A)
   := comp-equiv
         (<{t : 2 * 2 | Δ² t} -> A >)
         (Σ (k : <{t : 2 * 2 | Λ t} -> A >),
@@ -258,7 +258,7 @@ Now we prove this definition is equivalent to the original one.
             (\k -> Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
                         hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
                             (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h),
-        (contractible-fibers-projection-equiv
+        (is-equiv-projection-contractible-fibers
             (<{t : 2 * 2 | Λ t} -> A >)
             (\k -> Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
                         hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
@@ -288,7 +288,7 @@ Now we prove this definition is equivalent to the original one.
   : is-segal A
   :=
     \ x y z f g ->
-    projection-equiv-contractible-fibers
+    contractible-fibers-is-equiv-projection
       ( < {t : 2 * 2 | Λ t} -> A >)
       ( \ k ->
         Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
@@ -355,7 +355,7 @@ functions or extensions into a family of Segal types is again a Segal type.
               (\{t : 2 * 2 | Δ² t} -> A)
               (\{t : 2 * 2 | BOT} -> recBOT)))
         (\h -> \x -> \{t : 2 * 2 | Λ t} -> h x t) -- second equivalence
-          (second (fibered-Eq-function-Eq
+          (second (function-equiv-fibered-equiv
               funext
               X
               (\x -> <{t : 2 * 2 | Δ² t} -> A x >)
@@ -394,7 +394,7 @@ functions or extensions into a family of Segal types is again a Segal type.
               (\{t : 2 * 2 | Δ² t} -> \{s : I | ψ s} -> A s)
               (\{u : (2 * 2) * I | BOT} -> recBOT)))
         (\h -> \{s : I | ψ s} -> \{t : 2 * 2 | Λ t} -> h s t) -- second equivalence
-          (second (fibered-Eq-extension-Eq extext I ψ
+          (second (fibered-Eq-extension-Equiv extext I ψ
             (\{s : I | ψ s} -> <{t : 2 * 2 | Δ² t} -> A s >)
             (\{s : I | ψ s} -> <{t : 2 * 2 | Λ t} -> A s >)
             (\{s : I | ψ s} -> (horn-restriction (A s), fiberwiseAisSegal s))     ))
@@ -422,7 +422,7 @@ In particular, the arrow type of a Segal type is Segal.
 -- For later use, an equivalent characterization of the arrow type.
 #def Eq-arr
   (A : U)
-  : Eq (arr A) (Σ (x : A), (Σ (y : A), hom A x y))
+  : Equiv (arr A) (Σ (x : A), (Σ (y : A), hom A x y))
   := (\f -> (f 0_2, (f 1_2, f)),
       ((\(x, (y, f)) -> f, \f -> refl) ,
        (\(x, (y, f)) -> f, \xyf -> refl)))
@@ -947,7 +947,7 @@ arrow.
   := areContr-is-equiv
         (Σ (g : hom A x y), f = g)
         (Σ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
-        (based-paths-contractible (hom A x y) f)
+        (is-contr-based-paths (hom A x y) f)
         (AisSegal x x y (id-arr A x) f)
         (homotopy-to-hom2-total-map A x y f)
 
@@ -957,7 +957,7 @@ arrow.
   (AisSegal : is-segal A)
   (x y : A)
   (f g : hom A x y)
-  : Eq (f = g) (hom2 A x x y (id-arr A x) f g)
+  : Equiv (f = g) (hom2 A x x y (id-arr A x) f g)
   := (homotopy-to-hom2 A x y f g,
     total-equiv-family-of-equiv (hom A x y)
       (\g -> (f = g))
@@ -1000,7 +1000,7 @@ A dual notion of homotopy can be defined similarly.
   := areContr-is-equiv
         (Σ (g : hom A x y), f = g)
         (Σ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
-        (based-paths-contractible (hom A x y) f)
+        (is-contr-based-paths (hom A x y) f)
         (AisSegal x y y f (id-arr A y))
         (homotopy-to-hom2'-total-map A x y f)
 
@@ -1010,7 +1010,7 @@ A dual notion of homotopy can be defined similarly.
   (AisSegal : is-segal A)
   (x y : A)
   (f g : hom A x y)
-  : Eq (f = g) (hom2 A x y y f (id-arr A y) g)
+  : Equiv (f = g) (hom2 A x y y f (id-arr A y) g)
   := (homotopy-to-hom2' A x y f g,
     total-equiv-family-of-equiv (hom A x y)
       (\g -> (f = g))
@@ -1060,7 +1060,7 @@ the data provided by a commutative triangle with that boundary.
   := areContr-is-equiv
         (Σ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h)
         (Σ (h : hom A x z), (hom2 A x y z f g h))
-        (based-paths-contractible (hom A x z) (Segal-comp A AisSegal x y z f g) )
+        (is-contr-based-paths (hom A x z) (Segal-comp A AisSegal x y z f g) )
         (AisSegal x y z f g)
         (Segal-eq-to-hom2-total-map A AisSegal x y z f g)
 
@@ -1072,7 +1072,7 @@ the data provided by a commutative triangle with that boundary.
   (f : hom A x y)
   (g : hom A y z)
   (h : hom A x z)
-  : Eq ((Segal-comp A AisSegal x y z f g) = h) (hom2 A x y z f g h)
+  : Equiv ((Segal-comp A AisSegal x y z f g) = h) (hom2 A x y z f g h)
   := (Segal-eq-to-hom2 A AisSegal x y z f g h,
     total-equiv-family-of-equiv (hom A x z)
       (\h -> (Segal-comp A AisSegal x y z f g) = h)
@@ -1165,7 +1165,7 @@ composition:
 
 #def is-segal-Unit uses (extext)
   : is-segal Unit
-  := \x y z f g -> isRetract-ofContr-is-contr
+  := \x y z f g -> is-retract-of-is-contr-is-contr
     (Σ (h : hom Unit x z), hom2 Unit x y z f g h)
     (Δ² -> Unit)
     (\(_, k) -> k, (\k -> (\t -> k (t, t), k), \_ -> refl))

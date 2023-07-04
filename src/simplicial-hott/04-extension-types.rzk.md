@@ -25,7 +25,7 @@ This is a literate `rzk` file:
    (X : U)
    (Y : ψ -> X -> U)
    (f : (t : ϕ) -> (x : X) -> Y t x)
-   : Eq (<{t : I | ψ t} -> ((x : X) -> Y t x) [ ϕ t |-> f t ]>)
+   : Equiv (<{t : I | ψ t} -> ((x : X) -> Y t x) [ ϕ t |-> f t ]>)
        ((x : X) -> <{t : I | ψ t} -> Y t x [ ϕ t |-> f t x]>)
    := (\ g x t -> g t x, -- the one-way map
             ((\ h t x -> (h x) t, -- the retraction
@@ -40,7 +40,7 @@ This is a literate `rzk` file:
    (X : U)
    (Y : ψ -> X -> U)
    (f : (t : ϕ) -> (x : X) -> Y t x)
-   : Eq ((x : X) -> <{t : I | ψ t} -> Y t x [ ϕ t |-> f t x]>)
+   : Equiv ((x : X) -> <{t : I | ψ t} -> Y t x [ ϕ t |-> f t x]>)
       (<{t : I | ψ t} -> ((x : X) -> Y t x) [ ϕ t |-> f t ]>)
    := (\ h t x -> (h x) t, -- the one-way map
             ((\ g x t -> g t x, -- the retraction
@@ -57,7 +57,7 @@ This is a literate `rzk` file:
    (χ : ζ -> TOPE)
    (X : ψ -> ζ -> U)
    (f : <{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s >)
-   : Eq (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
+   : Equiv (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
       (<{(t, s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)]>)
    := (\ g (t, s) -> (g t) s, -- the one way map
          ((\ h t s -> h (t , s) -- its retraction
@@ -73,7 +73,7 @@ This is a literate `rzk` file:
    (χ : ζ -> TOPE)
    (X : ψ -> ζ -> U)
    (f : <{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s >)
-   : Eq (<{(t, s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)]>)
+   : Equiv (<{(t, s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)]>)
       (<{s : J | ζ s} -> <{ t : I | ψ t} -> X t s [ ϕ t |-> f (t, s) ]> [ χ s |-> \{t : I | ψ t} -> f (t, s) ]>)
    := (\ h s t -> h (t , s) , -- the one way map
       ((\ g (t, s) -> (g s) t -- its retraction
@@ -89,7 +89,7 @@ This is a literate `rzk` file:
    (χ : ζ -> TOPE)
    (X : ψ -> ζ -> U)
    (f : <{(t, s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s >)
-   : Eq (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
+   : Equiv (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
       (<{s : J | ζ s} -> <{ t : I | ψ t} -> X t s [ ϕ t |-> f (t, s) ]> [ χ s |-> \{t : I | ψ t} -> f (t, s) ]>)
    := comp-equiv
          (<{t : I | ψ t} -> <{ s : J | ζ s} -> X t s [ χ s |-> f (t, s) ]> [ ϕ t |-> \{s : J | ζ s} -> f (t, s) ]>)
@@ -111,7 +111,7 @@ This is a literate `rzk` file:
    (Y : (t : ψ) -> (x : X t) -> U)
    (a : (t : ϕ) -> X t)
    (b : (t : ϕ) -> Y t (a t))
-   : Eq (<{t : I | ψ t} -> (∑ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>)
+   : Equiv (<{t : I | ψ t} -> (∑ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>)
      (∑ (f : (<{t : I | ψ t} -> X t [ϕ t |-> a t ]>)), (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]>))
      := (\ g -> (\ t -> (first (g t)), \ t -> second (g t)) , -- the one way map
             ((\ h t -> ((first h) t, (second h) t) -- its retraction
@@ -131,7 +131,7 @@ This is a literate `rzk` file:
    (χ ψ ϕ : I -> TOPE)
    (X : χ -> U)
    (a : <{t : I | χ t /\ ψ t /\ ϕ t} -> X t >)
-   : Eq <{t : I | χ t} -> X t [ χ t /\ ψ t /\ ϕ t |-> a t ]>
+   : Equiv <{t : I | χ t} -> X t [ χ t /\ ψ t /\ ϕ t |-> a t ]>
        (∑ (f : <{t : I | χ t /\ ψ t} -> X t [ χ t /\ ψ t /\ ϕ t |-> a t ]>),
           <{t : I | χ t} -> X t [ χ t /\ ψ t |-> f t ]>)
   := (\ h -> (\ t -> h t,
@@ -148,7 +148,7 @@ This is a literate `rzk` file:
    (ϕ : ψ -> TOPE)
    (X : χ -> U)
    (a : (t : ϕ) -> X t)
-   : Eq <{t : I | χ t} -> X t [ ϕ t |-> a t ]>
+   : Equiv <{t : I | χ t} -> X t [ ϕ t |-> a t ]>
       (∑ (f : <{t : I | ψ t} -> X t [ ϕ t |-> a t ]>),
           <{t : I | χ t} -> X t [ ψ t |-> f t ]>)
    := (\ h -> (\ t -> h t,
@@ -162,7 +162,7 @@ This is a literate `rzk` file:
    (ϕ ψ : I -> TOPE)
    (X : <{t : I | ϕ t \/ ψ t} -> U >)
    (a : (t : ψ) -> X t)
-   : Eq <{t : I | ϕ t \/ ψ t} -> X t [ ψ t |-> a t ]>
+   : Equiv <{t : I | ϕ t \/ ψ t} -> X t [ ψ t |-> a t ]>
        <{t : I | ϕ t} -> X t [ ϕ t /\ ψ t |-> a t ]>
   := (\ h -> \ t -> h t,
       ((\ g -> \ t -> recOR(ϕ t |-> g t, ψ t |-> a t), \ h -> refl),
@@ -205,7 +205,7 @@ axiom. Here we state the one that will be most useful and derive an application.
          (ext-htpy-eq I ψ ϕ A a f g)
 
 -- The equivalence provided by extension extensionality.
-#def ExtExtEq
+#def ExtExtEquiv
    (extext : ExtExt)
    (I : CUBE)
    (ψ : I -> TOPE)
@@ -213,7 +213,7 @@ axiom. Here we state the one that will be most useful and derive an application.
    (A : ψ -> U)
    (a : (t : ϕ) -> A t)
    (f g : <{t : I | ψ t} -> A t [ ϕ t |-> a t ]>)
-   : Eq (f = g) (<{t : I | ψ t} -> (f t = g t) [ ϕ t |-> refl ]>)
+   : Equiv (f = g) (<{t : I | ψ t} -> (f t = g t) [ ϕ t |-> refl ]>)
    := (ext-htpy-eq I ψ ϕ A a f g , extext I ψ ϕ A a f g)
 
 -- In particular, extension extensionality implies that homotopies give rise to identifications. This definition defines eq-ext-htpy to be the retraction to ext-htpy-eq.
@@ -234,13 +234,13 @@ equivalences of extension types.
 
 ```rzk
 -- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
-#def fibered-Eq-extension-Eq
+#def fibered-Eq-extension-Equiv
    (extext : ExtExt)
    (I : CUBE)
    (ψ : I -> TOPE)
    (A B : ψ -> U)
-   (fibequiv : (t : ψ) -> (Eq (A t) (B t)) )
-   : Eq (<{t : I | ψ t } -> A t >) (<{t : I | ψ t } -> B t >)
+   (fibequiv : (t : ψ) -> (Equiv (A t) (B t)) )
+   : Equiv (<{t : I | ψ t } -> A t >) (<{t : I | ψ t } -> B t >)
    := ((\ a t -> (first (fibequiv t)) (a t)),
          (((\ b t -> (first (first (second (fibequiv t)))) (b t)),
             \ a -> eq-ext-htpy

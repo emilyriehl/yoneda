@@ -278,7 +278,7 @@ This is a literate `rzk` file:
   (h : hom A y x)
   (hh : arrow-has-section A AisSegal x y f h)
   : is-contr (arrow-Retraction A AisSegal x y f)
-  := (is-equiv-is-contr-map (hom A y x) (hom A x x) (Segal-precomp A AisSegal x y f x)
+  := (is-contr-map-is-equiv (hom A y x) (hom A x x) (Segal-precomp A AisSegal x y f x)
                           (if-iso-then-precomp-is-equiv extext A AisSegal x y f g gg h hh x))
       (id-arr A x)
 
@@ -293,7 +293,7 @@ This is a literate `rzk` file:
   (h : hom A y x)
   (hh : arrow-has-section A AisSegal x y f h)
   : is-contr (arrow-Section A AisSegal x y f)
-  := (is-equiv-is-contr-map (hom A y x) (hom A y y) (Segal-postcomp A AisSegal x y f y)
+  := (is-contr-map-is-equiv (hom A y x) (hom A y y) (Segal-postcomp A AisSegal x y f y)
                           (if-iso-then-postcomp-is-equiv extext A AisSegal x y f g gg h hh y))
       (id-arr A y)
 
@@ -320,7 +320,7 @@ This is a literate `rzk` file:
   (x y : A)
   (f : hom A x y)
    : (is-prop (arrow-is-iso A AisSegal x y f))
-  := (contractible-if-inhabited-implies-proposition (arrow-is-iso A AisSegal x y f)
+  := (is-prop-is-contr-is-inhabited (arrow-is-iso A AisSegal x y f)
       (\is-isof -> (iso-inhabited-implies-iso-contr extext A AisSegal x y f (first (first is-isof)) (second (first is-isof))
         (first (second is-isof))  (second (second is-isof))))
     )
@@ -329,7 +329,8 @@ This is a literate `rzk` file:
   (A : U)
   (AisSegal : is-segal A)
   : (x : A) -> Iso A AisSegal x x
-  := \x -> (
+  :=
+    \ x -> (
     (id-arr A x),
     (
     (

@@ -73,25 +73,3 @@ This is a literate `rzk` file:
   : (B -> U)
   := \ b -> C (f b)
 ```
-
-## Unit type
-
-```rzk
-#def ind-unit
-  (C : Unit -> U)
-  (C-unit : C unit)
-  (x : Unit)
-  : C x
-  := C-unit
-
-#def is-prop-unit
-  (x y : Unit)
-  : x = y
-  := refl
-
--- Terminal projection as a constant map
-#def terminal-map
-  (A : U)
-  : A -> Unit
-  := constant A Unit unit
-```
