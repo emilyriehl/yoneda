@@ -383,11 +383,11 @@ have equivalent identity types.
   :=
     ( second (iff-ap-is-half-adjoint-equiv x y),
       \ p ->
-          idJ(
+          idJ (
             A,
             x,
             \ y' p' ->
-              ( second (iff-ap-is-half-adjoint-equiv x y'))(ap A B x y' f p') =
+              ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
                p',
             ( rev-refl-id-triple-concat A
               ( (has-inverse-inverse A B f (first fisHAE)) (f x)) x
@@ -525,7 +525,7 @@ have equivalent identity types.
       ( f ((has-inverse-inverse A B f (first fisHAE)) (f x)))
       ( f ((has-inverse-inverse A B f (first fisHAE)) (f y)))
       ( f y)
-      ( rev B (f(has-inverse-retraction-composite A B f (first fisHAE) x)) (f x)
+      ( rev B ( f (has-inverse-retraction-composite A B f (first fisHAE) x)) (f x)
         ( ap A B ((has-inverse-inverse A B f (first fisHAE)) (f x)) x f
           ( (first (second (first fisHAE))) x)))
       ( ap A B
@@ -548,7 +548,7 @@ have equivalent identity types.
       ( f ((has-inverse-inverse A B f (first fisHAE)) (f x)))
       ( f ((has-inverse-inverse A B f (first fisHAE)) (f y)))
       ( f y)
-      ( rev B (f(has-inverse-retraction-composite A B f (first fisHAE) x)) (f x)
+      ( rev B ( f (has-inverse-retraction-composite A B f (first fisHAE) x)) (f x)
         ( (second (second (first fisHAE))) (f x)))
       ( ap B B (f x) (f y)
         ( has-inverse-section-composite A B f (first fisHAE)) q)
@@ -633,7 +633,7 @@ have equivalent identity types.
         ( f ((has-inverse-inverse A B f (first fisHAE)) (f y)))
         ( f y)
         ( rev B
-          ( f(has-inverse-retraction-composite A B f (first fisHAE) x))
+          ( f (has-inverse-retraction-composite A B f (first fisHAE) x))
           ( f x)
           ( ((second (second (first fisHAE)))) (f x)))
         ( ap B B (f x) (f y)
@@ -727,7 +727,7 @@ have equivalent identity types.
   (f : A -> B)
   (fisequiv : is-equiv A B f)
   (x y : A)
-  : is-equiv (x = y) (f x = f y)(ap A B x y f)
+  : is-equiv (x = y) (f x = f y) (ap A B x y f)
   :=
     is-equiv-ap-is-half-adjoint-equiv A B f
     ( is-half-adjoint-equiv-is-equiv A B f fisequiv) x y

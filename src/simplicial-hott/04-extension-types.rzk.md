@@ -165,8 +165,8 @@ This is a literate `rzk` file:
    : Equiv <{t : I | ϕ t \/ ψ t} -> X t [ ψ t |-> a t ]>
        <{t : I | ϕ t} -> X t [ ϕ t /\ ψ t |-> a t ]>
   := (\ h -> \ t -> h t,
-      ((\ g -> \ t -> recOR(ϕ t |-> g t, ψ t |-> a t), \ h -> refl),
-       (\ g -> \ t -> recOR(ϕ t |-> g t, ψ t |-> a t), \ h -> refl)))
+      ((\ g -> \ t -> recOR (ϕ t |-> g t, ψ t |-> a t), \ h -> refl),
+       (\ g -> \ t -> recOR (ϕ t |-> g t, ψ t |-> a t), \ h -> refl)))
 ```
 
 ## Relative function extensionality
@@ -184,7 +184,7 @@ axiom. Here we state the one that will be most useful and derive an application.
       (f g : <{t : I | ψ t} -> A t [ ϕ t |-> a t ]>)
       (p : f = g)
       : <{t : I | ψ t} -> (f t = g t) [ ϕ t |-> refl ]>
-      := idJ(<{t : I | ψ t} -> A t [ ϕ t |-> a t ]>, f,
+      := idJ (<{t : I | ψ t} -> A t [ ϕ t |-> a t ]>, f,
                \g' p' ->  <{t : I | ψ t} -> (f t = g' t) [ ϕ t |-> refl ]>,
                \t -> refl,
                g,

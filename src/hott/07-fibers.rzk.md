@@ -30,7 +30,7 @@ The homotopy fiber of a map is the following type:
   : (transport A ( \ x -> (f x) = b) a a' p u) =
     (concat B (f a') (f a) b (ap A B a' a f (rev A a a' p)) u)
   :=
-    idJ(
+    idJ (
       A,
       a,
       \ a'' p' ->
@@ -67,13 +67,13 @@ Contractible maps are equivalences:
 -- The inverse to a contractible map
 #def is-contr-map-inverse
   : B -> A
-  := \ b -> first(contraction-center (fib A B f b) (fiscontr b))
+  := \ b -> first (contraction-center (fib A B f b) (fiscontr b))
 
 #def has-section-is-contr-map
   : has-section A B f
   :=
     ( is-contr-map-inverse,
-      \ b -> second(contraction-center (fib A B f b) (fiscontr b)))
+      \ b -> second (contraction-center (fib A B f b) (fiscontr b)))
 
 #def is-contr-map-data-in-fiber uses (fiscontr)
   (a : A)

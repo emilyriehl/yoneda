@@ -126,7 +126,7 @@ equivalences.
 											(Δ¹ t /\  (s === 0_2)) |-> a,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>)
 	:= curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s -> A)
-		(\ (t, s) -> recOR(((t === 0_2) /\  Δ¹ s) |-> u s,
+		(\ (t, s) -> recOR (((t === 0_2) /\  Δ¹ s) |-> u s,
 						((t === 1_2) /\  Δ¹ s) |-> v s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ))
@@ -254,7 +254,7 @@ equivalences.
 		(total-equiv-family-equiv (hom A a y)
 			(\ d -> (prod (hom2 A a x y u f d) (∑ (v : hom A a y), hom2 A a a y (id-arr A a) v d)))
 			(\ d -> (∑ (v : hom A a y), prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-			(\ d -> (prod-distribute-sigma (hom2 A a x y u f d) (hom A a y)(\ v -> hom2 A a a y (id-arr A a) v d))))
+			(\ d -> (prod-distribute-sigma (hom2 A a x y u f d) (hom A a y) (\ v -> hom2 A a a y (id-arr A a) v d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.
@@ -388,7 +388,7 @@ types as follows.
 	(\ (t, s) -> (t === 1_2) /\  Δ¹ s)
 	(\ (t, s) -> ((t === 0_2) /\  Δ¹ s) \/ (Δ¹ t /\  (s === 0_2)) \/ (Δ¹ t /\  (s === 1_2)))
 	(\ (t, s) -> A)
-	(\ (t, s) -> recOR(((t === 0_2) /\  Δ¹ s) |-> u s,
+	(\ (t, s) -> recOR (((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ))
 
@@ -500,7 +500,7 @@ types as follows.
 	:= cofibration-composition (2 * 2) Δ¹×Δ¹ ∂□
 			(\ (t, s) -> ((t === 0_2) /\  Δ¹ s) \/ (Δ¹ t /\  (s === 0_2)) \/ (Δ¹ t /\  (s === 1_2)))
 			(\ ts -> A)
-			(\ (t, s) -> recOR( ((t === 0_2) /\  Δ¹ s) |-> u s,
+			(\ (t, s) -> recOR ( ((t === 0_2) /\  Δ¹ s) |-> u s,
 						(Δ¹ t /\  (s === 0_2)) |-> a,
 						(Δ¹ t /\  (s === 1_2)) |-> f t))
 
@@ -693,7 +693,7 @@ rather lengthy composition of equivalences.
 											(Δ¹ t /\  (s === 0_2)) |-> f t,
 											(Δ¹ t /\  (s === 1_2)) |-> a ]>)
 	:= curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s -> A)
-		(\ (t, s) -> recOR(((t === 0_2) /\  Δ¹ s) |-> u s,
+		(\ (t, s) -> recOR (((t === 0_2) /\  Δ¹ s) |-> u s,
 						((t === 1_2) /\  Δ¹ s) |-> v s,
 						(Δ¹ t /\  (s === 0_2)) |-> f t,
 						(Δ¹ t /\  (s === 1_2)) |-> a ))
@@ -739,7 +739,7 @@ rather lengthy composition of equivalences.
 											((t === 1_2) /\  Δ¹ s) |-> v s,
 											(Δ¹ t /\  (s === 0_2)) |-> f t,
 											(Δ¹ t /\  (s === 1_2)) |-> a ]>))
-		(\ u -> (∑ (d : hom A x a), prod (hom2 A x a a u (id-arr A a) d)(hom2 A x y a f v d) ))
+		(\ u -> (∑ (d : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
 		(\ u -> Eq-square-hom2-pushout A x a y a u (id-arr A a) f v)
 
 #def representable-dhomTo-hom2
@@ -768,18 +768,18 @@ rather lengthy composition of equivalences.
 	(f : hom A x y)	-- An arrow in the base.
 	(v : hom A y a)	-- A lift of the codomain.
 	: Equiv (dhomTo-representable A a x y f v)
-    (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d) ))
+    (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
 	:= comp-equiv
       (dhomTo-representable A a x y f v)
       (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-      (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d) ))
+      (∑ (d : hom A x a), (∑ (u : hom A x a), prod (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
       (representable-dhomTo-hom2 A a x y f v)
       (total-equiv-family-equiv (hom A x a)
         (\ d -> (∑ (u : hom A x a), prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-        (\ d -> (∑ (u : hom A x a), prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d) ))
+        (\ d -> (∑ (u : hom A x a), prod (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
         (\ d -> total-equiv-family-equiv (hom A x a)
           (\ u ->  prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d))
-          (\ u -> prod (hom2 A x y a f v d)(hom2 A x a a u (id-arr A a) d))
+          (\ u -> prod (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d))
           (\ u -> sym-prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d))))
 
 #def representable-dhomTo-hom2-dist
@@ -800,7 +800,7 @@ rather lengthy composition of equivalences.
 			(\ d -> (prod (hom2 A x y a f v d)
       (∑ (u : hom A x a ), hom2 A x a a u (id-arr A a) d)))
 			(\ d -> (∑ (u : hom A x a), prod (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
-			(\ d -> (prod-distribute-sigma (hom2 A x y a f v d) (hom A x a)(\ u -> hom2 A x a a u (id-arr A a) d))))
+			(\ d -> (prod-distribute-sigma (hom2 A x y a f v d) (hom A x a) (\ u -> hom2 A x a a u (id-arr A a) d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.

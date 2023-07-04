@@ -89,7 +89,7 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
   : has-retraction (x = y) Unit (terminal-map (x = y))
   :=
     ( \ a -> refl,
-      \ p -> idJ(Unit, x, \ y' p' -> refl =_{x = y'} p', refl, y, p))
+      \ p -> idJ (Unit, x, \ y' p' -> refl =_{x = y'} p', refl, y, p))
 
 #def terminal-map-of-path-types-of-Unit-has-sec
   (x y : Unit)
@@ -187,7 +187,7 @@ A type is contractible if and only if its terminal map is an equivalence.
   : is-contr (x = y)
   :=
     ( terminal-map-is-equiv-implies-contr
-      ( x = y)(terminal-map-of-path-types-of-Unit-is-equiv x y))
+      ( x = y) (terminal-map-of-path-types-of-Unit-is-equiv x y))
 ```
 
 ## Retracts of contractible types
@@ -216,7 +216,7 @@ A retract of contractible types is contractible.
   := first (second AretractB)
 
 #def is-retract-of-homotopy
-  : homotopy A A (composition A B A is-retract-of-retraction is-retract-of-section)(identity A)
+  : homotopy A A (composition A B A is-retract-of-retraction is-retract-of-section) (identity A)
   := second (second AretractB)
 
 -- If A is a retract of a contractible type it has a term.
@@ -304,7 +304,7 @@ For example, we prove that based path spaces are contractible.
   (q : x = y)         -- A path in the base.
   : (transport A (\z -> (a = z)) x y q p) = (concat A a x y p q)
   :=
-    idJ(
+    idJ (
       A,
       x,
       \ y' q' ->
@@ -467,5 +467,5 @@ A type is contractible if and only if it has singleton induction.
   (a : A)
   (f : has-singleton-induction-pointed-structure A a)
   : (is-contr A)
-  := (  a, (first (f (  \ x -> a = x)))(refl_{a}))
+  := (  a, (first (f (  \ x -> a = x))) (refl_{a}))
 ```

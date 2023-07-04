@@ -61,7 +61,7 @@ Functions between types automatically preserve identity arrows.
       Δ¹
       ∂Δ¹
       (\  t -> B)
-      (\  t -> recOR(
+      (\  t -> recOR (
         t === 0_2 |-> F x,
         t === 1_2 |-> F x))
       (ap-hom A B F x x (id-arr A x))

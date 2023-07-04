@@ -57,12 +57,12 @@ This is a literate `rzk` file:
   : (transport A B (first s) (first t) (first-path-sigma s t e) (second s)) =
     (second t)
   :=
-    idJ(
+    idJ (
       (∑ (a : A), B a),
       s,
       \t' e' ->
         ( transport A B
-          ( first s)(first t')(first-path-sigma s t' e')(second s)) =
+          ( first s) (first t') (first-path-sigma s t' e') (second s)) =
         ( second t'),
       refl,
       t,
@@ -70,14 +70,14 @@ This is a literate `rzk` file:
 
 -- [Rijke 22, Definition 9.3.1]
 #def Eq-sigma
-  (s t : ∑(a : A), B a)
+  (s t : ∑ (a : A), B a)
   : U
-  := ∑(p : (first s) = (first t)),
+  := ∑ (p : (first s) = (first t)),
       ( transport A B (first s) (first t) p (second s)) = (second t)
 
 -- [Rijke 22, Definition 9.3.3]
 #def pair-eq
-  (s t : ∑(a : A), B a)
+  (s t : ∑ (a : A), B a)
   (e : s = t)
   : (Eq-sigma s t)
   := (first-path-sigma s t e, second-path-sigma s t e)
@@ -88,7 +88,7 @@ This is a literate `rzk` file:
   (u v : B x)
   (p : u = v)
   : (x , u) =_{∑ (a : A), B a} (x , v)
-  := idJ(B x, u, \v' p' -> (x , u) = (x , v'), refl, v, p)
+  := idJ (B x, u, \v' p' -> (x , u) = (x , v'), refl, v, p)
 
 -- Essentially eq-pair but with explicit arguments.
 #def path-of-pairs-pair-of-paths
@@ -97,7 +97,7 @@ This is a literate `rzk` file:
   : (u : B x) -> (v : B y) -> ((transport A B x y p u) = v) ->
       (x, u) =_{∑ (z : A), B z} (y, v)
   :=
-    idJ(
+    idJ (
       A,
       x,
       \ y' p' -> (u' : B x) -> (v' : B y') ->
@@ -109,7 +109,7 @@ This is a literate `rzk` file:
 
 -- The inverse to pair-eq.
 #def eq-pair
-  (s t : ∑(a : A), B a)
+  (s t : ∑ (a : A), B a)
   (e : Eq-sigma s t)
   : (s = t)
   :=
@@ -117,12 +117,12 @@ This is a literate `rzk` file:
     ( first s) (first t) (first e) (second s) (second t) (second e)
 
 #def eq-pair-pair-eq
-  (s t : ∑(a : A), B a)
+  (s t : ∑ (a : A), B a)
   (e : s = t)
   : (eq-pair s t (pair-eq s t e)) = e
   :=
-    idJ(
-      ∑(a : A),
+    idJ (
+      ∑ (a : A),
       B a,
       s,
       \ t' e' -> (eq-pair s t' (pair-eq s t' e')) = e',
@@ -141,14 +141,14 @@ This is a literate `rzk` file:
     (pair-eq (s0, s1) (t0, t1) (eq-pair (s0, s1) (t0, t1) (e0, e1)))
     =_{Eq-sigma (s0, s1) (t0, t1)} (e0, e1)
   :=
-    idJ(
+    idJ (
       A,
       s0,
       \ t0' e0' -> (t1 : B t0') -> (e1 : (transport A B s0 t0' e0' s1) = t1) ->
         (pair-eq (s0, s1) (t0', t1) (eq-pair (s0, s1) (t0', t1) (e0', e1)))
         =_{Eq-sigma (s0, s1) (t0', t1)} (e0', e1),
       \ t1 e1 ->
-        idJ(
+        idJ (
           B s0,
           s1,
           \ t1' e1' ->
@@ -162,7 +162,7 @@ This is a literate `rzk` file:
       e0)
 
 #def pair-eq-eq-pair
-  (s t : ∑(a : A), B a)
+  (s t : ∑ (a : A), B a)
   (e : Eq-sigma s t)
   : (pair-eq s t (eq-pair s t e)) =_{Eq-sigma s t} e
   :=
@@ -170,7 +170,7 @@ This is a literate `rzk` file:
     ( first s) (second s) (first t) (first e) (second t) (second e)
 
 #def Eq-sigma-equiv
-  (s t : ∑(a : A), B a)
+  (s t : ∑ (a : A), B a)
   : Equiv (s = t) (Eq-sigma s t)
   :=
     ( pair-eq s t,
@@ -195,20 +195,20 @@ This is a literate `rzk` file:
   (q : b = b')
   (c : C a b)
   : C a' b'
-  := idJ(
+  := idJ (
       B,
       b,
       \ b'' q' -> C a' b'',
-      idJ(A, a, \a'' p' -> C a'' b, c, a', p),
+      idJ (A, a, \a'' p' -> C a'' b, c, a', p),
       b',
       q)
 
 #def Eq-sigma-over-prod
-  (s t : ∑(a : A), (∑(b : B), C a b))
+  (s t : ∑ (a : A), (∑ (b : B), C a b))
   : U
   :=
-    ∑(p : (first s) = (first t)),
-      (∑(q : (first (second s)) = (first (second t))),
+    ∑ (p : (first s) = (first t)),
+      (∑ (q : (first (second s)) = (first (second t))),
         ( prod-transport
           ( first s) (first t)
           ( first (second s)) (first (second t)) p q (second (second s)) =
@@ -216,11 +216,11 @@ This is a literate `rzk` file:
 
 -- This is the lazy definition with bad computational properties.
 #def triple-eq
-  (s t : ∑(a : A), (∑(b : B), C a b))
+  (s t : ∑ (a : A), (∑ (b : B), C a b))
   (e : s = t)
   : (Eq-sigma-over-prod s t)
-  := idJ(
-      ∑(a : A), (∑(b : B), C a b),
+  := idJ (
+      ∑ (a : A), (∑ (b : B), C a b),
       s,
       \ t' e' -> (Eq-sigma-over-prod s t'),
       ( refl, (refl, refl)),
@@ -238,23 +238,23 @@ This is a literate `rzk` file:
   (p : a = a')
   : (q : b = b') -> (c' : C a' b') ->
       (r : prod-transport a a' b b' p q c = c') ->
-        ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a', (b', c')))
+        ((a, (b, c)) =_{ (∑ (x : A), (∑ (y : B), C x y))} (a', (b', c')))
   :=
-    idJ(
+    idJ (
       A,
       a,
       \ a'' p' -> (q : b = b') -> (c' : C a'' b') ->
           (r : prod-transport a a'' b b' p' q c = c') ->
-            ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a'', (b', c'))),
+            ((a, (b, c)) =_{ (∑ (x : A), (∑ (y : B), C x y))} (a'', (b', c'))),
       \ q c' r ->
-        ( sigma-path-fibered-path A (\x -> (∑(b : B), C x b)) a
+        ( sigma-path-fibered-path A (\x -> (∑ (b : B), C x b)) a
           ( b, c) ( b', c')
           ( path-of-pairs-pair-of-paths B (\y -> C a y) b b' q c c' r)),
       a',
       p)
 
 #def eq-triple
-  (s t : ∑(a : A), (∑(b : B), C a b))
+  (s t : ∑ (a : A), (∑ (b : B), C a b))
   (e : Eq-sigma-over-prod s t)
   : (s = t)
   :=
@@ -266,11 +266,11 @@ This is a literate `rzk` file:
     ( second (second e))
 
 #def eq-triple-triple-eq
-  (s t : ∑(a : A), (∑(b : B), C a b))
+  (s t : ∑ (a : A), (∑ (b : B), C a b))
   (e : s = t)
   : (eq-triple s t (triple-eq s t e)) = e
-  := idJ(
-      ∑(a : A), (∑(b : B), C a b),
+  := idJ (
+      ∑ (a : A), (∑ (b : B), C a b),
       s,
       \ t' e' -> (eq-triple s t' (triple-eq s t' e')) = e',
       refl,
@@ -288,7 +288,7 @@ This is a literate `rzk` file:
         triple-eq (a, (b, c)) (a', (b', c'))
           (eq-triple (a, (b, c)) (a', (b', c')) (p, (q, r))) = (p, (q, r))
   :=
-    idJ(
+    idJ (
       A,
       a,
       \ a'' p' -> (q : b = b') -> (c' : C a'' b') ->
@@ -296,7 +296,7 @@ This is a literate `rzk` file:
           triple-eq (a, (b, c)) (a'', (b', c'))
             (eq-triple (a, (b, c)) (a'', (b', c')) (p', (q, r))) = (p', (q, r)),
       \ q ->
-        idJ(
+        idJ (
           B,
           b,
           \ b'' q' ->
@@ -306,7 +306,7 @@ This is a literate `rzk` file:
                   ( eq-triple (a, (b, c)) (a, (b'', c')) (refl, (q', r))) =
                   ( refl, (q', r)),
           \ c' r ->
-            idJ(
+            idJ (
               C a b,
               c,
               \ c'' r' ->
@@ -322,7 +322,7 @@ This is a literate `rzk` file:
       p)
 
 #def triple-eq-eq-triple
-  (s t : ∑(a : A), (∑(b : B), C a b))
+  (s t : ∑ (a : A), (∑ (b : B), C a b))
   (e : Eq-sigma-over-prod s t)
   : (triple-eq s t (eq-triple s t e)) = e
   := triple-eq-eq-triple-split
@@ -333,7 +333,7 @@ This is a literate `rzk` file:
       ( second (second e))
 
 #def Eq-sigma-over-prod-equiv
-  (s t : ∑(a : A), (∑(b : B), C a b))
+  (s t : ∑ (a : A), (∑ (b : B), C a b))
   : Equiv (s = t) (Eq-sigma-over-prod s t)
   := (triple-eq s t,
       ((eq-triple s t, eq-triple-triple-eq s t),
@@ -347,7 +347,7 @@ This is a literate `rzk` file:
 ```rzk
 #def sym-prod
   (A B : U)
-  : Equiv (prod A B)(prod B A)
+  : Equiv (prod A B) (prod B A)
   :=
     ( \ (a, b) -> (b, a),
       ( ( \ (b, a) -> (a, b),\p -> refl),

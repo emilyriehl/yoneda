@@ -116,9 +116,9 @@ steps.
     (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     (x : A)
     (f : hom A a x)
-	: ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f = ϕ x f
+	: ((yon A AisSegal a C CisCov) ((evid A a C) ϕ )) x f = ϕ x f
     := concat (C x)
-        (((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f)
+        (((yon A AisSegal a C CisCov) ((evid A a C) ϕ )) x f)
         (ϕ x (Segal-comp A AisSegal a a x (id-arr A a) f))
         (ϕ x f)
         (naturality-covariant-fiberwise-representable-transformation
@@ -134,11 +134,11 @@ steps.
     (funext : FunExt)
     (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
     (x : A)
-	: ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x = ϕ x
+	: ((yon A AisSegal a C CisCov) ((evid A a C) ϕ )) x = ϕ x
     := eq-htpy funext
         (hom A a x)
         (\ f -> C x)
-        (\ f -> ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x f)
+        (\ f -> ((yon A AisSegal a C CisCov) ((evid A a C) ϕ )) x f)
         (\ f -> (ϕ x f))
         (\ f -> yon-evid-twice-pointwise ϕ x f)
 
@@ -146,11 +146,11 @@ steps.
 #def yon-evid
     (funext : FunExt)
     (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
-    : ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) = ϕ
+    : ((yon A AisSegal a C CisCov) ((evid A a C) ϕ )) = ϕ
     := eq-htpy funext
         A
         (\ x -> (hom A a x -> C x))
-        (\ x -> ((yon A AisSegal a C CisCov)((evid A a C) ϕ )) x)
+        (\ x -> ((yon A AisSegal a C CisCov) ((evid A a C) ϕ )) x)
         (\ x -> (ϕ x))
         (\ x -> yon-evid-once-pointwise funext ϕ x)
 
@@ -266,9 +266,9 @@ steps.
     (ϕ : (z : A) -> hom A z a -> C z)     -- A natural transformation.
     (x : A)
     (f : hom A x a)
-	: ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x f = ϕ x f
+	: ((contra-yon A AisSegal a C CisContra) ((contra-evid A a C) ϕ )) x f = ϕ x f
     := concat (C x)
-        (((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x f)
+        (((contra-yon A AisSegal a C CisContra) ((contra-evid A a C) ϕ )) x f)
         (ϕ x (Segal-comp A AisSegal x a a f (id-arr A a)))
         (ϕ x f)
         (naturality-contravariant-fiberwise-representable-transformation
@@ -284,12 +284,12 @@ steps.
     (funext : FunExt)
     (ϕ : (z : A) -> hom A z a -> C z)     -- A natural transformation.
     (x : A)
-	: ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x = ϕ x
+	: ((contra-yon A AisSegal a C CisContra) ((contra-evid A a C) ϕ )) x = ϕ x
     := eq-htpy funext
         (hom A x a)
         (\ f -> C x)
         (\ f ->
-          ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x f)
+          ((contra-yon A AisSegal a C CisContra) ((contra-evid A a C) ϕ )) x f)
         (\ f -> (ϕ x f))
         (\ f -> contra-yon-evid-twice-pointwise ϕ x f)
 
@@ -297,12 +297,12 @@ steps.
 #def contra-yon-evid
     (funext : FunExt)
     (ϕ : (z : A) -> hom A z a -> C z)     -- A natural transformation.
-    : ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) = ϕ
+    : ((contra-yon A AisSegal a C CisContra) ((contra-evid A a C) ϕ )) = ϕ
     := eq-htpy funext
         A
         (\ x -> (hom A x a -> C x))
         (\ x ->
-          ((contra-yon A AisSegal a C CisContra)((contra-evid A a C) ϕ )) x)
+          ((contra-yon A AisSegal a C CisContra) ((contra-evid A a C) ϕ )) x)
         (\ x -> (ϕ x))
         (\ x -> contra-yon-evid-once-pointwise funext ϕ x)
 

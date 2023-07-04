@@ -73,7 +73,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : (arrow-has-inverse A AisSegal x y f) -> (arrow-is-iso A AisSegal x y f)
-    := (\(g, (p, q)) -> ((g, p), (g, q)))
+    := (\ (g, (p, q)) -> ((g, p), (g, q)))
 
 #def arrow-iso-to-inverse
     (extext : ExtExt) -- This proof uses extension extensionality.
@@ -82,7 +82,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : (arrow-is-iso A AisSegal x y f) -> (arrow-has-inverse A AisSegal x y f)
-    := (\((g, p), (h, q))
+    := (\ ((g, p), (h, q))
         -> (g, (p,
             (concat
             (hom A y y)
@@ -349,7 +349,7 @@ This is a literate `rzk` file:
   (AisSegal : is-segal A)
   (x y : A)
   : (x = y) -> Iso A AisSegal x y
-  := \p -> idJ(A, x, \y' p' -> Iso A AisSegal x y', (id-iso A AisSegal x), y, p)
+  := \p -> idJ (A, x, \y' p' -> Iso A AisSegal x y', (id-iso A AisSegal x), y, p)
 
 #def is-rezk
   (A : U)
@@ -361,9 +361,9 @@ This is a literate `rzk` file:
 #end isomorphisms
 ```
 
-#def cocomma (B : U) (b : B) : U := (∑(x : B), (hom B b x))
+#def cocomma (B : U) (b : B) : U := (∑ (x : B), (hom B b x))
 
-#def comma (B : U) (b : B) : U := (∑(x : B), (hom B x b))
+#def comma (B : U) (b : B) : U := (∑ (x : B), (hom B x b))
 
 #def hom-cocomma (B : U) (b : B) : U := axiom-choice 2 Δ¹ ∂Δ¹ (\t ->
 

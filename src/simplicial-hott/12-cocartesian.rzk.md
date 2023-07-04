@@ -93,15 +93,15 @@ a given starting point in the fiber.
     (P : B -> U)
     (e : P b)
     : U
-    := ∑(e' : P b'), ∑(f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
+    := ∑ (e' : P b'), ∑ (f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
 
 ```
 
-#def cocart-is-prop (B : U) (Bis-rezk : is-rezk B) (b b' : B) (u : hom B b b') (P
-: B -> U) (TPis-rezk : is-rezk (totalType B P)) (PisfibRezk : (b : B) -> is-rezk (P
-b)) (e : P b) (e' : P b') (f : dhom B b b' u P e e') (fiscocart : isCocartArr B
-b b' u P e e' f) : is-contr(CocartLift B b b' u P e) := ( (e', f, fiscocart), \d
--> \g ->
+#def cocart-is-prop (B : U) (Bis-rezk : is-rezk B) (b b' : B) (u : hom B b b')
+(P : B -> U) (TPis-rezk : is-rezk (totalType B P)) (PisfibRezk : (b : B) ->
+is-rezk (P b)) (e : P b) (e' : P b') (f : dhom B b b' u P e e') (fiscocart :
+isCocartArr B b b' u P e e' f) : is-contr (CocartLift B b b' u P e) := ( (e', f,
+fiscocart), \d -> \g ->
 
 ## Initial objects
 
@@ -110,7 +110,7 @@ b b' u P e e' f) : is-contr(CocartLift B b b' u P e) := ( (e', f, fiscocart), \d
     (A : U)
     (a : A)
     : U
-    := (x : A) -> is-contr(hom A a x)
+    := (x : A) -> is-contr (hom A a x)
 ```
 
 In a Segal type, initial objects are isomorphic.
@@ -150,7 +150,7 @@ In a Segal type, initial objects are isomorphic.
   (A : U)
   (a : A)
   : U
-  := (x : A) -> is-contr(hom A x a)
+  := (x : A) -> is-contr (hom A x a)
 ```
 
 In a Segal type, final objects are isomorphic.

@@ -16,12 +16,12 @@ This is a literate `rzk` file:
 #def has-section
     (f : A -> B)
     : U
-    := ∑ (s : B -> A), homotopy B B (composition B A B f s)(identity B)
+    := ∑ (s : B -> A), homotopy B B (composition B A B f s) (identity B)
 
 #def has-retraction
     (f : A -> B)
     : U
-    := ∑ (r : B -> A), homotopy A A (composition A B A r f)(identity A)
+    := ∑ (r : B -> A), homotopy A A (composition A B A r f) (identity A)
 
 -- equivalences are bi-invertible maps
 #def is-equiv
@@ -83,9 +83,9 @@ This is a literate `rzk` file:
   : U
   :=
     ∑ (g : B -> A), ( prod
-                      ( homotopy A A (composition A B A g f)(identity A))
+                      ( homotopy A A (composition A B A g f) (identity A))
                             -- The retracting homotopy
-                      ( homotopy B B (composition B A B f g)(identity B)))
+                      ( homotopy B B (composition B A B f g) (identity B)))
                             -- The section homotopy
 ```
 
@@ -361,7 +361,7 @@ By path induction, an identification between functions defines a homotopy
   (p : f = g)
   : (x : X) -> (f x = g x)
   :=
-    idJ(
+    idJ (
       (x : X) -> A x,
       f,
       \ g' p' -> (x : X) -> (f x = g' x),
@@ -381,7 +381,7 @@ equivalences.
       (A : X -> U) ->
         (f : (x : X) -> A x) ->
           (g : (x : X) -> A x) ->
-            is-equiv (f = g)((x : X) -> f x = g x)(htpy-eq X A f g)
+            is-equiv (f = g) ((x : X) -> f x = g x) (htpy-eq X A f g)
 
 -- The equivalence provided by function extensionality.
 #def FunExt-equiv
@@ -469,14 +469,14 @@ equivalences.
     (y : A)
     : (x : A) -> has-retraction (x = y) (y = x) ((\p -> ((rev A x y) p)))
     := \x ->
-       ((rev A y x), \p -> idJ(A, x, \y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y'))(p') =_{x = y'} p'), refl, y, p))
+       ((rev A y x), \p -> idJ (A, x, \y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y')) (p') =_{x = y'} p'), refl, y, p))
 
 #def has-section-rev
     (A : U)
     (y : A)
     : (x : A) -> has-section (x = y) (y = x) ((\p -> ((rev A x y) p)))
     := \x ->
-       ((rev A y x), \p -> idJ(A, y, \x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x'))(p') =_{y = x'} p'), refl, x, p))
+       ((rev A y x), \p -> idJ (A, y, \x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x')) (p') =_{y = x'} p'), refl, x, p))
 
 #def is-equiv-rev
     (A : U)
