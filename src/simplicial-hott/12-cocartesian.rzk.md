@@ -35,7 +35,7 @@ families.
   (B : U)
   (P : B -> U)
   : U
-  := ∑ (b : B), P b
+  := Σ (b : B), P b
 
 #def isInnerFam
   (B : U)
@@ -74,7 +74,7 @@ this is preferred for usage.
   -> (e'' : P b'')
   -> (h : dhom B b b'' w P e e'')
   -> is-contr
-      ( ∑ ( g : dhom B b' b'' v P e' e'') ,
+      ( Σ ( g : dhom B b' b'' v P e' e'') ,
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 
 ```
@@ -93,7 +93,7 @@ a given starting point in the fiber.
     (P : B -> U)
     (e : P b)
     : U
-    := ∑ (e' : P b'), ∑ (f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
+    := Σ (e' : P b'), Σ (f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
 
 ```
 

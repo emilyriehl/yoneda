@@ -16,12 +16,12 @@ This is a literate `rzk` file:
 #def has-section
     (f : A -> B)
     : U
-    := ∑ (s : B -> A), homotopy B B (composition B A B f s) (identity B)
+    := Σ (s : B -> A), homotopy B B (composition B A B f s) (identity B)
 
 #def has-retraction
     (f : A -> B)
     : U
-    := ∑ (r : B -> A), homotopy A A (composition A B A r f) (identity A)
+    := Σ (r : B -> A), homotopy A A (composition A B A r f) (identity A)
 
 -- equivalences are bi-invertible maps
 #def is-equiv
@@ -82,7 +82,7 @@ This is a literate `rzk` file:
   (f : A -> B)
   : U
   :=
-    ∑ (g : B -> A), ( prod
+    Σ (g : B -> A), ( prod
                       ( homotopy A A (composition A B A g f) (identity A))
                             -- The retracting homotopy
                       ( homotopy B B (composition B A B f g) (identity B)))
@@ -166,7 +166,7 @@ The type of equivalences between types uses is-equiv rather than has-inverse.
 #def Equiv
   (A B : U)
   : U
-  :=  ∑ (f : A -> B), ((is-equiv A) B) f
+  :=  Σ (f : A -> B), ((is-equiv A) B) f
 ```
 
 The data of an equivalence is not symmetric so we promote an equivalence to an
@@ -442,7 +442,7 @@ equivalences.
 #def Emb
   (A B : U)
   : U
-  := (∑ (f : A -> B), is-emb A B f)
+  := (Σ (f : A -> B), is-emb A B f)
 
 #def is-emb-is-inhabited-emb
   (A B : U)

@@ -15,7 +15,7 @@ This is a literate `rzk` file:
   (f : A -> B)
   : U
   :=
-    ∑ (fhasinverse : (has-inverse A B f)),
+    Σ (fhasinverse : (has-inverse A B f)),
       (a : A) ->
         ((second (second fhasinverse)) (f a)) =
         (ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
@@ -27,7 +27,7 @@ This is a literate `rzk` file:
   (A B : U)
   (f : A -> B)
   : U
-  := ∑ (fhasinverse : (has-inverse A B f)),
+  := Σ (fhasinverse : (has-inverse A B f)),
       ( homotopy-prewhisker A B B
         ( has-inverse-section-composite A B f fhasinverse)
         ( identity B)

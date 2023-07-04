@@ -25,7 +25,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : U
-    := ∑ (g : hom A y x), (arrow-has-retraction A AisSegal x y f g)
+    := Σ (g : hom A y x), (arrow-has-retraction A AisSegal x y f g)
 
 #def arrow-has-section
     (A : U)
@@ -42,7 +42,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : U
-    := ∑ (h : hom A y x), (arrow-has-section A AisSegal x y f h)
+    := Σ (h : hom A y x), (arrow-has-section A AisSegal x y f h)
 
 #def arrow-is-iso
     (A : U)
@@ -57,7 +57,7 @@ This is a literate `rzk` file:
     (AisSegal : is-segal A)
     (x y : A)
     : U
-    := ∑ (f : hom A x y), arrow-is-iso A AisSegal x y f
+    := Σ (f : hom A x y), arrow-is-iso A AisSegal x y f
 
 #def arrow-has-inverse
     (A : U)
@@ -65,7 +65,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : U
-    := ∑ (g : hom A y x), prod (arrow-has-retraction A AisSegal x y f g) (arrow-has-section A AisSegal x y f g)
+    := Σ (g : hom A y x), prod (arrow-has-retraction A AisSegal x y f g) (arrow-has-section A AisSegal x y f g)
 
 #def arrow-inverse-to-iso
     (A : U)
@@ -354,21 +354,21 @@ This is a literate `rzk` file:
 #def is-rezk
   (A : U)
   : U
-  := ∑ (AisSegal : is-segal A), (x : A) -> (y : A) -> is-equiv (x = y) (Iso A AisSegal x y) (idtoiso A AisSegal x y)
+  := Σ (AisSegal : is-segal A), (x : A) -> (y : A) -> is-equiv (x = y) (Iso A AisSegal x y) (idtoiso A AisSegal x y)
 
 
 
 #end isomorphisms
 ```
 
-#def cocomma (B : U) (b : B) : U := (∑ (x : B), (hom B b x))
+#def cocomma (B : U) (b : B) : U := (Σ (x : B), (hom B b x))
 
-#def comma (B : U) (b : B) : U := (∑ (x : B), (hom B x b))
+#def comma (B : U) (b : B) : U := (Σ (x : B), (hom B x b))
 
 #def hom-cocomma (B : U) (b : B) : U := axiom-choice 2 Δ¹ ∂Δ¹ (\t ->
 
 #def axiom-choice (I : CUBE) (ψ : I -> TOPE) (ϕ : ψ -> TOPE) (X : ψ -> U) (Y :
 (t : ψ) -> (x : X t) -> U) (a : (t : ϕ) -> X t) (b : (t : ϕ) -> Y t (a t)) : Eq
-(<{t : I | ψ t} -> (∑ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>) (∑ (f : (<{t :
+(<{t : I | ψ t} -> (Σ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>) (Σ (f : (<{t :
 I | ψ t} -> X t [ϕ t |-> a t ]>)), (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t
 ]>))

@@ -17,7 +17,7 @@ The homotopy fiber of a map is the following type:
   (f : A -> B)
   (b : B)
   : U
-  := ∑ (a : A), (f a) = b
+  := Σ (a : A), (f a) = b
 
 -- We calculate the transport of (a, q) : fib b along p : a = a'
 #def transport-in-fiber

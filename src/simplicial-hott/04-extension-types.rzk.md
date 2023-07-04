@@ -99,7 +99,7 @@ This is a literate `rzk` file:
          (uncurry-opcurry I J ψ ϕ ζ χ X f)
 ```
 
-## Extending into ∑-types (the non-axiom of choice)
+## Extending into Σ-types (the non-axiom of choice)
 
 ```rzk
 -- [RS17, Theorem 4.3]
@@ -111,8 +111,8 @@ This is a literate `rzk` file:
    (Y : (t : ψ) -> (x : X t) -> U)
    (a : (t : ϕ) -> X t)
    (b : (t : ϕ) -> Y t (a t))
-   : Equiv (<{t : I | ψ t} -> (∑ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>)
-     (∑ (f : (<{t : I | ψ t} -> X t [ϕ t |-> a t ]>)), (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]>))
+   : Equiv (<{t : I | ψ t} -> (Σ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>)
+     (Σ (f : (<{t : I | ψ t} -> X t [ϕ t |-> a t ]>)), (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]>))
      := (\ g -> (\ t -> (first (g t)), \ t -> second (g t)) , -- the one way map
             ((\ h t -> ((first h) t, (second h) t) -- its retraction
             , \ g -> refl), -- the retracting homotopy
@@ -132,7 +132,7 @@ This is a literate `rzk` file:
    (X : χ -> U)
    (a : <{t : I | χ t /\ ψ t /\ ϕ t} -> X t >)
    : Equiv <{t : I | χ t} -> X t [ χ t /\ ψ t /\ ϕ t |-> a t ]>
-       (∑ (f : <{t : I | χ t /\ ψ t} -> X t [ χ t /\ ψ t /\ ϕ t |-> a t ]>),
+       (Σ (f : <{t : I | χ t /\ ψ t} -> X t [ χ t /\ ψ t /\ ϕ t |-> a t ]>),
           <{t : I | χ t} -> X t [ χ t /\ ψ t |-> f t ]>)
   := (\ h -> (\ t -> h t,
              \ t -> h t),
@@ -149,7 +149,7 @@ This is a literate `rzk` file:
    (X : χ -> U)
    (a : (t : ϕ) -> X t)
    : Equiv <{t : I | χ t} -> X t [ ϕ t |-> a t ]>
-      (∑ (f : <{t : I | ψ t} -> X t [ ϕ t |-> a t ]>),
+      (Σ (f : <{t : I | ψ t} -> X t [ ϕ t |-> a t ]>),
           <{t : I | χ t} -> X t [ ψ t |-> f t ]>)
    := (\ h -> (\ t -> h t,
              \ t -> h t),

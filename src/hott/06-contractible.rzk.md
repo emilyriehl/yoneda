@@ -11,7 +11,7 @@ This is a literate `rzk` file:
 ```rzk
 -- contractible types
 #def is-contr (A : U) : U
-  := ∑ (x : A), (y : A) -> x = y
+  := Σ (x : A), (y : A) -> x = y
 ```
 
 ## Contractible type data
@@ -200,7 +200,7 @@ A retract of contractible types is contractible.
 #def is-retract-of
   (A B : U)
   : U
-  := ∑ (s : A -> B), has-retraction A B s
+  := Σ (s : A -> B), has-retraction A B s
 
 #section retraction-data
 
@@ -317,15 +317,15 @@ For example, we prove that based path spaces are contractible.
 #def based-paths-center
   (A : U)         -- The ambient type.
   (a : A)         -- The basepoint.
-  : ∑ (x : A), a = x
+  : Σ (x : A), a = x
   := (a, refl)
 
 -- The contracting homotopy.
 #def based-paths-contracting-homotopy
   (A : U)                     -- The ambient type.
   (a : A)                     -- The basepoint.
-  (p : ∑ (x : A), a = x)      -- Another based path.
-  : (based-paths-center A a) =_{∑ (x : A), a = x} p
+  (p : Σ (x : A), a = x)      -- Another based path.
+  : (based-paths-center A a) =_{Σ (x : A), a = x} p
   :=
     path-of-pairs-pair-of-paths
       A ( \ z -> a = z) a (first p) (second p) (refl) (second p)
@@ -341,7 +341,7 @@ For example, we prove that based path spaces are contractible.
 #def is-contr-based-paths
   (A : U)         -- The ambient type.
   (a : A)         -- The basepoint.
-  : is-contr (∑ (x : A), a = x)
+  : is-contr (Σ (x : A), a = x)
   := (based-paths-center A a, based-paths-contracting-homotopy A a)
 ```
 
@@ -376,7 +376,7 @@ For example, we prove that based path spaces are contractible.
   (A : U)
   (B : A -> U)
   (b : (a : A) -> B a)
-  (ABisContr : is-contr (∑ (a : A), B a))
+  (ABisContr : is-contr (Σ (a : A), B a))
   : is-contr A
   :=
     ( first (first ABisContr),
@@ -414,7 +414,7 @@ A type is contractible if and only if it has singleton induction.
 #def has-singleton-induction
   (A : U)
   : U
-  := ∑ (a : A), (B : A -> U) -> (has-singleton-induction-pointed A a B)
+  := Σ (a : A), (B : A -> U) -> (has-singleton-induction-pointed A a B)
 
 #def ind-sing
   (A : U)

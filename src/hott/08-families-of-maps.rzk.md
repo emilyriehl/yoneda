@@ -16,16 +16,16 @@ maps.
   (A : U)
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))             -- a family of maps
-  : (∑ (x : A), B x) -> (∑ (x : A), C x)      -- the induced map on total spaces
+  : (Σ (x : A), B x) -> (Σ (x : A), C x)      -- the induced map on total spaces
   := \ z -> (first z, f (first z) (second z))
 
 #def total-map-to-fiber
   (A : U)
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))             -- a family of maps
-  (w : (∑ (x : A), C x))
+  (w : (Σ (x : A), C x))
   : fib (B (first w)) (C (first w)) (f (first w)) (second w) ->
-    ( fib (∑ (x : A), B x) (∑ (x : A), C x) (total-map-family-of-maps A B C f) w)
+    ( fib (Σ (x : A), B x) (Σ (x : A), C x) (total-map-family-of-maps A B C f) w)
   :=
     \ (b, p) ->
       ( (first w, b),
@@ -35,13 +35,13 @@ maps.
   (A : U)
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))             -- a family of maps
-  (w : (∑ (x : A), C x))
-  : (fib (∑ (x : A), B x) (∑ (x : A), C x) (total-map-family-of-maps A B C f) w)
+  (w : (Σ (x : A), C x))
+  : (fib (Σ (x : A), B x) (Σ (x : A), C x) (total-map-family-of-maps A B C f) w)
     -> fib (B (first w)) (C (first w)) (f (first w)) (second w)
   :=
     \ (z, p) ->
       idJ (
-        (∑ (x : A), C x),
+        (Σ (x : A), C x),
         ((total-map-family-of-maps A B C f) z),
         \ w' p' -> fib (B (first w')) (C (first w')) (f (first w')) (second w'), ((second z), refl),
         w,
@@ -51,10 +51,10 @@ maps.
   (A : U)
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))
-  (w : (∑ (x : A), C x))
+  (w : (Σ (x : A), C x))
   : has-retraction
     ( fib (B (first w)) (C (first w)) (f (first w)) (second w))
-    ( fib (∑ (x : A), B x) (∑ (x : A), C x) (total-map-family-of-maps A B C f) w)
+    ( fib (Σ (x : A), B x) (Σ (x : A), C x) (total-map-family-of-maps A B C f) w)
     ( total-map-to-fiber A B C f w)
   :=
     ( total-map-from-fiber A B C f w,
@@ -75,16 +75,16 @@ maps.
   (A : U)
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))             -- a family of maps
-  (w : (∑ (x : A), C x))
+  (w : (Σ (x : A), C x))
   : has-section
     ( fib (B (first w)) (C (first w)) (f (first w)) (second w))
-    ( fib (∑ (x : A), B x) (∑ (x : A), C x) (total-map-family-of-maps A B C f) w)
+    ( fib (Σ (x : A), B x) (Σ (x : A), C x) (total-map-family-of-maps A B C f) w)
     ( total-map-to-fiber A B C f w)
   :=
     ( total-map-from-fiber A B C f w,
       \ (z, p) ->
         idJ (
-          (∑ (x : A), C x),
+          (Σ (x : A), C x),
           ((first z, f (first z) (second z))),
           \ w' p' ->
             ( (total-map-to-fiber A B C f w')
@@ -98,10 +98,10 @@ maps.
   (A : U)
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))             -- a family of maps
-  (w : (∑ (x : A), C x))
+  (w : (Σ (x : A), C x))
   : is-equiv
     ( fib (B (first w)) (C (first w)) (f (first w)) (second w))
-    ( fib (∑ (x : A), B x) (∑ (x : A), C x)
+    ( fib (Σ (x : A), B x) (Σ (x : A), C x)
       ( total-map-family-of-maps A B C f) w)
     ( total-map-to-fiber A B C f w)
   :=
@@ -112,10 +112,10 @@ maps.
   (A : U)
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))             -- a family of maps
-  (w : (∑ (x : A), C x))
+  (w : (Σ (x : A), C x))
   : Equiv
     ( fib (B (first w)) (C (first w)) (f (first w)) (second w))
-    ( fib (∑ (x : A), B x) (∑ (x : A), C x)
+    ( fib (Σ (x : A), B x) (Σ (x : A), C x)
       ( total-map-family-of-maps A B C f) w)
   := (total-map-to-fiber A B C f w, total-map-to-fiber-is-equiv A B C f w)
 ```
@@ -131,7 +131,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))
   (invfamily : (a : A) -> has-inverse (B a) (C a) (f a))
-  : (∑ (x : A), C x) -> (∑ (x : A), B x)
+  : (Σ (x : A), C x) -> (Σ (x : A), B x)
   := \ (a, c) -> (a, (has-inverse-inverse (B a) (C a) (f a) (invfamily a)) c)
 
 #def invertible-family-total-retraction
@@ -140,8 +140,8 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   (f : (a : A) -> (B a) -> (C a))
   (invfamily : (a : A) -> has-inverse (B a) (C a) (f a))
   : has-retraction
-    ( ∑ (x : A), B x)
-    ( ∑ (x : A), C x)
+    ( Σ (x : A), B x)
+    ( Σ (x : A), C x)
     ( total-map-family-of-maps A B C f)
   :=
     ( invertible-family-total-inverse A B C f invfamily,
@@ -155,7 +155,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))
   (invfamily : (a : A) -> has-inverse (B a) (C a) (f a))
-  : has-section (∑ (x : A), B x) (∑ (x : A), C x) (total-map-family-of-maps A B C f)
+  : has-section (Σ (x : A), B x) (Σ (x : A), C x) (total-map-family-of-maps A B C f)
   :=
     ( invertible-family-total-inverse A B C f invfamily,
       \ (a, c) ->
@@ -169,8 +169,8 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   (f : (a : A) -> (B a) -> (C a))
   (invfamily : (a : A) -> has-inverse (B a) (C a) (f a))
   : has-inverse
-    ( ∑ (x : A), B x)
-    ( ∑ (x : A), C x)
+    ( Σ (x : A), B x)
+    ( Σ (x : A), C x)
     ( total-map-family-of-maps A B C f)
   :=
     ( invertible-family-total-inverse A B C f invfamily,
@@ -183,10 +183,10 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   (f : (a : A) -> (B a) -> (C a))
   (familyequiv : (a : A) -> is-equiv (B a) (C a) (f a))
   : is-equiv
-    ( ∑ (x : A), B x) (∑ (x : A), C x) (total-map-family-of-maps A B C f)
+    ( Σ (x : A), B x) (Σ (x : A), C x) (total-map-family-of-maps A B C f)
   :=
     is-equiv-has-inverse
-    ( ∑ (x : A), B x) (∑ (x : A), C x) (total-map-family-of-maps A B C f)
+    ( Σ (x : A), B x) (Σ (x : A), C x) (total-map-family-of-maps A B C f)
     ( invertible-family-total-invertible A B C f
       ( \ a -> has-inverse-is-equiv (B a) (C a) (f a) (familyequiv a)))
 
@@ -194,7 +194,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   ( A : U)
   ( B C : A -> U)
   ( familyeq : (a : A) -> Equiv (B a) (C a))
-  : Equiv (∑ (x : A), B x) (∑ (x : A), C x)
+  : Equiv (Σ (x : A), B x) (Σ (x : A), C x)
   :=
     ( total-map-family-of-maps A B C (\ a -> first (familyeq a)),
       family-of-equiv-total-equiv A B C
@@ -211,7 +211,7 @@ thus an equivalence) on total spaces.
   ( B C : A -> U)
   ( f : (a : A) -> (B a) -> (C a))
   ( familyequiv : (a : A) -> is-equiv (B a) (C a) (f a))
-  : has-inverse (∑ (x : A), B x) (∑ (x : A), C x) (total-map-family-of-maps A B C f)
+  : has-inverse (Σ (x : A), B x) (Σ (x : A), C x) (total-map-family-of-maps A B C f)
   :=
     invertible-family-total-invertible A B C f
     ( \a -> has-inverse-is-equiv (B a) (C a) (f a) (familyequiv a))
@@ -227,8 +227,8 @@ implication could be proven similarly.
   ( f : (a : A) -> (B a) -> (C a))                         -- a family of maps
   ( totalcontrmap :
     is-contr-map
-      ( ∑ (x : A), B x)
-      ( ∑ (x : A), C x)
+      ( Σ (x : A), B x)
+      ( Σ (x : A), C x)
       ( total-map-family-of-maps A B C f))
   ( a : A)
   : is-contr-map (B a) (C a) (f a)
@@ -236,7 +236,7 @@ implication could be proven similarly.
     \ c ->
       is-contr-is-equiv-to-contr
         ( fib (B a) (C a) (f a) c)
-        ( fib (∑ (x : A), B x) (∑ (x : A), C x)
+        ( fib (Σ (x : A), B x) (Σ (x : A), C x)
           ( total-map-family-of-maps A B C f) ((a, c)))
         ( total-map-fiber-equiv A B C f ((a, c)))
         ( totalcontrmap ((a, c)))
@@ -246,8 +246,8 @@ implication could be proven similarly.
   (B C : A -> U)
   (f : (a : A) -> (B a) -> (C a))                         -- a family of maps
   (totalequiv : is-equiv
-                ( ∑ (x : A), B x)
-                ( ∑ (x : A), C x)
+                ( Σ (x : A), B x)
+                ( Σ (x : A), C x)
                 ( total-map-family-of-maps A B C f))
   (a : A)
   : is-equiv (B a) (C a) (f a)
@@ -255,7 +255,7 @@ implication could be proven similarly.
     is-equiv-is-contr-map (B a) (C a) (f a)
     ( total-contr-map-family-of-contr-maps A B C f
       ( is-contr-map-is-equiv
-        ( ∑ (x : A), B x) (∑ (x : A), C x)
+        ( Σ (x : A), B x) (Σ (x : A), C x)
         ( total-map-family-of-maps A B C f) totalequiv) a)
 ```
 
@@ -269,7 +269,7 @@ equivalence.
   (f : (a : A) -> (B a) -> (C a))
   : iff
       ( (a : A) -> is-equiv (B a) (C a) (f a))
-      ( is-equiv (∑ (x : A), B x) (∑ (x : A), C x)
+      ( is-equiv (Σ (x : A), B x) (Σ (x : A), C x)
         ( total-map-family-of-maps A B C f))
   := (family-of-equiv-total-equiv A B C f, total-equiv-family-of-equiv A B C f)
 ```
@@ -287,16 +287,16 @@ equivalence.
 #def equiv-based-paths
   ( A : U)
   (a : A)
-  : Equiv (∑ (x : A), x = a) (∑ (x : A), a = x)
+  : Equiv (Σ (x : A), x = a) (Σ (x : A), a = x)
   := total-equiv-family-equiv A (\x -> x = a) (\x -> a = x) (\x -> equiv-rev A x a)
 
 -- Codomain based path spaces are contractible
 #def is-contr-codomain-based-paths
   (A : U)         -- The ambient type.
   (a : A)         -- The basepoint.
-  : is-contr (∑ (x : A), x = a)
+  : is-contr (Σ (x : A), x = a)
   :=
-    is-contr-is-equiv-to-contr (∑ (x : A), x = a) (∑ (x : A), a = x)
+    is-contr-is-equiv-to-contr (Σ (x : A), x = a) (Σ (x : A), a = x)
       ( equiv-based-paths A a)
       ( is-contr-based-paths A a)
 ```
@@ -390,7 +390,7 @@ space.
   ( A B : U)
   ( f : A -> B)
   ( C : B -> U)
-  : (∑ (a : A), (pullback A B f C) a) -> (∑ (b : B), C b)
+  : (Σ (a : A), (pullback A B f C) a) -> (Σ (b : B), C b)
   := \ (a, c) -> (f a, c)
 ```
 
@@ -404,22 +404,22 @@ map.
   (A B : U)
   (f : A -> B)
   (C : B -> U)
-  (z : ∑ (b : B), C b)
+  (z : Σ (b : B), C b)
   : U
   :=
-    fib (∑ (a : A), (pullback A B f C) a) (∑ (b : B), C b)
+    fib (Σ (a : A), (pullback A B f C) a) (Σ (b : B), C b)
       ( pullback-comparison-map A B f C) z
 
 #def pullback-comparison-fiber-to-fiber
   (A B : U)
   (f : A -> B)
   (C : B -> U)
-  (z : ∑ (b : B), C b)
+  (z : Σ (b : B), C b)
   : (pullback-comparison-fiber A B f C z) -> (fib A B f (first z))
   :=
     \ (w, p) ->
       idJ (
-        (∑ (b : B), C b),
+        (Σ (b : B), C b),
         (pullback-comparison-map A B f C w),
         \ z' p' ->
           ( fib A B f (first z')),
@@ -448,7 +448,7 @@ map.
   (A B : U)
   (f : A -> B)
   (C : B -> U)
-  (z : ∑ (b : B), C b)
+  (z : Σ (b : B), C b)
   : (fib A B f (first z)) -> (pullback-comparison-fiber A B f C z)
   :=
     \ (a, p) ->
@@ -459,13 +459,13 @@ map.
   (A B : U)
   (f : A -> B)
   (C : B -> U)
-  (z : ∑ (b : B), C b)
+  (z : Σ (b : B), C b)
   ((w, p) : pullback-comparison-fiber A B f C z)
   : ( (pullback-comparison-fiber-to-fiber-inv A B f C z)
       ( (pullback-comparison-fiber-to-fiber A B f C z) (w, p))) = (w, p)
   :=
     idJ (
-      (∑ (b : B), C b),
+      (Σ (b : B), C b),
       (pullback-comparison-map A B f C w),
       \ z' p' ->
         ((pullback-comparison-fiber-to-fiber-inv A B f C z')
@@ -500,7 +500,7 @@ map.
   (A B : U)
   (f : A -> B)
   (C : B -> U)
-  (z : ∑ (b : B), C b)
+  (z : Σ (b : B), C b)
   ((a, p) : fib A B f (first z))
   : ((pullback-comparison-fiber-to-fiber A B f C z)
       ((pullback-comparison-fiber-to-fiber-inv A B f C z) (a, p))) = (a, p)
@@ -512,7 +512,7 @@ map.
   (A B : U)
   (f : A -> B)
   (C : B -> U)
-  (z : ∑ (b : B), C b)
+  (z : Σ (b : B), C b)
   : Equiv (pullback-comparison-fiber A B f C z) (fib A B f (first z))
   :=
     ( pullback-comparison-fiber-to-fiber A B f C z,
@@ -531,12 +531,12 @@ equivalence of total spaces.
   (f : A -> B)
   (fisequiv : is-equiv A B f)
   (C : B -> U)
-  : Equiv (∑ (a : A), (pullback A B f C) a) (∑ (b : B), C b)
+  : Equiv (Σ (a : A), (pullback A B f C) a) (Σ (b : B), C b)
   :=
     ( pullback-comparison-map A B f C,
       is-equiv-is-contr-map
-        ( ∑ (a : A), (pullback A B f C) a)
-        ( ∑ (b : B), C b)
+        ( Σ (a : A), (pullback A B f C) a)
+        ( Σ (b : B), C b)
         ( pullback-comparison-map A B f C)
         ( \ z ->
           ( is-contr-is-equiv-to-contr
@@ -557,20 +557,20 @@ equivalence of total spaces.
 #variable f : (x : A) -> (a = x) -> B x
 
 #def fund-id-fam-of-eqs-implies-sum-over-codomain-contr
-  : ((x : A) -> (is-equiv (a = x) (B x) (f x))) -> (is-contr (∑ (x : A), B x))
+  : ((x : A) -> (is-equiv (a = x) (B x) (f x))) -> (is-contr (Σ (x : A), B x))
   :=
     ( \ familyequiv ->
       ( equiv-with-contractible-domain-implies-contractible-codomain
-        ( ∑ (x : A), a = x) (∑ (x : A), B x)
+        ( Σ (x : A), a = x) (Σ (x : A), B x)
         ( ( total-map-family-of-maps A ( \ x -> (a = x)) B f),
-          ( is-equiv-has-inverse (∑ (x : A), a = x) (∑ (x : A), B x)
+          ( is-equiv-has-inverse (Σ (x : A), a = x) (Σ (x : A), B x)
             ( total-map-family-of-maps A ( \ x -> (a = x)) B f)
             ( total-has-inverse-family-equiv A
               ( \ x -> (a = x)) B f familyequiv)))
         ( is-contr-based-paths A a)))
 
 #def fund-id-sum-over-codomain-contr-implies-fam-of-eqs
-  : (is-contr (∑ (x : A), B x)) -> ((x : A) -> (is-equiv (a = x) (B x) (f x)))
+  : (is-contr (Σ (x : A), B x)) -> ((x : A) -> (is-equiv (a = x) (B x) (f x)))
   :=
     ( \ Biscontr ->
       ( \ x ->
@@ -578,7 +578,7 @@ equivalence of total spaces.
           ( \ x' -> (a = x'))
           B
           f
-          ( areContr-is-equiv (∑ (x' : A), (a = x')) (∑ (x' : A), (B x'))
+          ( areContr-is-equiv (Σ (x' : A), (a = x')) (Σ (x' : A), (B x'))
             ( is-contr-based-paths A a) Biscontr
             ( total-map-family-of-maps A ( \ x' -> (a = x')) B f))
           x)))
@@ -595,11 +595,11 @@ equivalence of total spaces.
   : P x p
   :=
     ( ind-sing
-      ( ∑ (x : A), B x)
+      ( Σ (x : A), B x)
       ( a, f a refl)
       ( \ (x', p') -> P x' p')
       ( contr-implies-singleton-induction-pointed
-        ( ∑ (x : A), B x)
+        ( Σ (x : A), B x)
         ( fund-id-fam-of-eqs-implies-sum-over-codomain-contr familyequiv)
         ( \ (x', p') -> P x' p'))) p0 (x, p)
 
@@ -630,8 +630,8 @@ equivalence of total spaces.
   -- sigma_{t : A} e t = e x
   -- is an equivalence, and sigma_{t : A} e t = e x ~ fib (e, e x) is
   -- contractible since e is an equivalence.
-                (∑ (y' : A), (e x = e y')) -- source type
-                (∑ (y' : A), (e y' = e x)) -- target type
+                (Σ (y' : A), (e x = e y')) -- source type
+                (Σ (y' : A), (e y' = e x)) -- target type
                 ((total-map-family-of-maps A
                   ( \ y' -> (e x) = (e y'))
                   ( \ y' -> (e y') = (e x))
@@ -739,24 +739,24 @@ types over a product type.
 #variable h : (a : A) -> (b : B) -> (c : C a b) -> C' (f a) (g b)
 
 #def total-map-fibered-map-over-product
-  : (∑ (a : A), (∑ (b : B), C a b)) -> (∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+  : (Σ (a : A), (Σ (b : B), C a b)) -> (Σ (a' : A'), (Σ (b' : B'), C' a' b'))
   := \  (a, (b, c)) -> (f a, (g b, h a b c))
 
 #def pullback-is-equiv-base-is-equiv-total-is-equiv
   (totalisequiv : is-equiv
-                    (∑ (a : A), (∑ (b : B), C a b))
-                    (∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+                    (Σ (a : A), (Σ (b : B), C a b))
+                    (Σ (a' : A'), (Σ (b' : B'), C' a' b'))
                     total-map-fibered-map-over-product)
   (fisequiv : is-equiv A A' f)
   : is-equiv
-    ( ∑ (a : A), (∑ (b : B), C a b))
-    ( ∑ (a : A), (∑ (b' : B'), C' (f a) b'))
+    ( Σ (a : A), (Σ (b : B), C a b))
+    ( Σ (a : A), (Σ (b' : B'), C' (f a) b'))
     ( \ (a, (b, c)) -> (a, (g b, h a b c)))
   :=
     RightCancel-is-equiv
-    ( ∑ (a : A), (∑ (b : B), C a b))
-    ( ∑ (a : A), (∑ (b' : B'), C' (f a) b'))
-    ( ∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+    ( Σ (a : A), (Σ (b : B), C a b))
+    ( Σ (a : A), (Σ (b' : B'), C' (f a) b'))
+    ( Σ (a' : A'), (Σ (b' : B'), C' a' b'))
     ( \ (a, (b, c)) -> (a, (g b, h a b c)))
     ( \ (a, (b', c')) -> (f a, (b', c')))
     ( second (total-equiv-pullback-is-equiv
@@ -764,30 +764,30 @@ types over a product type.
                 A'
                 f
                 fisequiv
-                ( \ a' -> (∑ (b' : B'), C' a' b'))))
+                ( \ a' -> (Σ (b' : B'), C' a' b'))))
     ( totalisequiv)
 
 #def pullback-is-equiv-bases-are-equiv-total-is-equiv
   (totalisequiv : is-equiv
-                    ( ∑ (a : A), (∑ (b : B), C a b))
-                    ( ∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+                    ( Σ (a : A), (Σ (b : B), C a b))
+                    ( Σ (a' : A'), (Σ (b' : B'), C' a' b'))
                     total-map-fibered-map-over-product)
   (fisequiv : is-equiv A A' f)
   (gisequiv : is-equiv B B' g)
   : is-equiv
-    ( ∑ (a : A), (∑ (b : B), C a b))
-    ( ∑ (a : A), (∑ (b : B), C' (f a) (g b)))
+    ( Σ (a : A), (Σ (b : B), C a b))
+    ( Σ (a : A), (Σ (b : B), C' (f a) (g b)))
     ( \ (a, (b, c)) -> (a, (b, h a b c)))
   :=
     RightCancel-is-equiv
-    ( ∑ (a : A), (∑ (b : B), C a b))
-    ( ∑ (a : A), (∑ (b : B), C' (f a) (g b)))
-    ( ∑ (a : A), (∑ (b' : B'), C' (f a) b'))
+    ( Σ (a : A), (Σ (b : B), C a b))
+    ( Σ (a : A), (Σ (b : B), C' (f a) (g b)))
+    ( Σ (a : A), (Σ (b' : B'), C' (f a) b'))
     ( \ (a, (b, c)) -> (a, (b, h a b c)))
     ( \ (a, (b, c)) -> (a, (g b, c)))
     ( family-of-equiv-total-equiv A
-      ( \ a -> (∑ (b : B), C' (f a) (g b)))
-      ( \ a -> (∑ (b' : B'), C' (f a) b'))
+      ( \ a -> (Σ (b : B), C' (f a) (g b)))
+      ( \ a -> (Σ (b' : B'), C' (f a) b'))
       ( \ a (b, c) -> (g b, c))
       ( \ a ->
         ( second
@@ -801,8 +801,8 @@ types over a product type.
 
 #def fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
   (totalisequiv : is-equiv
-                  ( ∑ (a : A), (∑ (b : B), C a b))
-                  ( ∑ (a' : A'), (∑ (b' : B'), C' a' b'))
+                  ( Σ (a : A), (Σ (b : B), C a b))
+                  ( Σ (a' : A'), (Σ (b' : B'), C' a' b'))
                   total-map-fibered-map-over-product)
   (fisequiv : is-equiv A A' f)
   (gisequiv : is-equiv B B' g)
@@ -816,8 +816,8 @@ types over a product type.
     ( \ b c -> h a0 b c)
     ( total-equiv-family-of-equiv
       A
-      ( \ a -> (∑ (b : B), C a b))
-      ( \ a -> (∑ (b : B), C' (f a) (g b)))
+      ( \ a -> (Σ (b : B), C a b))
+      ( \ a -> (Σ (b : B), C' (f a) (g b)))
       ( \ a (b, c) -> (b, h a b c))
       ( pullback-is-equiv-bases-are-equiv-total-is-equiv
           totalisequiv fisequiv gisequiv)

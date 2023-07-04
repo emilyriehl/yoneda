@@ -458,12 +458,12 @@ of the path algebra coherences defined above.
     (x y : A)
     (p : x = y)
     (u : B x)
-    : (x, u) =_{∑ (z : A), B z} (y, transport x y p u)
+    : (x, u) =_{Σ (z : A), B z} (y, transport x y p u)
     :=
       idJ (
         A,
         x,
-        \ y' p' -> (x, u) =_{∑ (z : A), B z} (y', transport x y' p' u),
+        \ y' p' -> (x, u) =_{Σ (z : A), B z} (y', transport x y' p' u),
         refl,
         y,
         p)
