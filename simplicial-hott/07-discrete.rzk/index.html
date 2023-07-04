@@ -367,7 +367,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/04-sigma.rzk/" class="md-nav__link">
+      <a href="../../hott/04-half-adjoint-equivalences.rzk/" class="md-nav__link">
+        Half Adjoint Equivalences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/05-sigma.rzk/" class="md-nav__link">
         Sigma types
       </a>
     </li>
@@ -381,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/05-contractible.rzk/" class="md-nav__link">
+      <a href="../../hott/06-contractible.rzk/" class="md-nav__link">
         Contractible
       </a>
     </li>
@@ -395,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/06-fibers.rzk/" class="md-nav__link">
+      <a href="../../hott/07-fibers.rzk/" class="md-nav__link">
         Fibers
       </a>
     </li>
@@ -409,7 +423,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/07-propositions.rzk/" class="md-nav__link">
+      <a href="../../hott/08-families-of-maps.rzk/" class="md-nav__link">
+        Families of maps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/09-propositions.rzk/" class="md-nav__link">
         Propositions
       </a>
     </li>
@@ -423,7 +451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/08-trivial-fibrations.rzk/" class="md-nav__link">
+      <a href="../../hott/10-trivial-fibrations.rzk/" class="md-nav__link">
         Trivial fibrations
       </a>
     </li>
@@ -776,15 +804,15 @@ of discrete types is discrete.</p>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> X -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; is-discrete (A x))</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="err">  </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; A x)</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">  : Eq (f = g)</span><span class="p">(</span><span class="nv">hom ((x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">  : Equiv (f = g)</span><span class="p">(</span><span class="nv">hom ((x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g)</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">  :=</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">    triple-comp-equiv</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">      ( f = g)</span>
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">      </span><span class="p">( </span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; f x = g x)</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="err">      </span><span class="p">( </span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; hom (A x) (f x) (g x))</span>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">      </span><span class="p">( </span><span class="nv">hom ((x </span><span class="p">:</span><span class="err"> X) -&gt; A x) f g)</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="err">      ( FunExtEq funext X A f g)</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="err">      ( fibered-Eq-function-Eq funext X</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="err">      ( FunExt-equiv funext X A f g)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="err">      ( function-equiv-fibered-equiv funext X</span>
 </span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="err">        (</span><span class="p">\ </span><span class="nv">x </span><span class="err">-&gt; (f x = g x))(</span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt; hom (A x) (f x) (g x))</span>
 </span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="err">        (</span><span class="p">\ </span><span class="nv">x </span><span class="err">-&gt; (arr-eq (A x) (f x) (g x),(Aisdiscrete x (f x) (g x)))))</span>
 </span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="err">      (flip-ext-fun-inv</span>
@@ -832,7 +860,7 @@ of discrete types is discrete.</p>
 </span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a><span class="err">        ( </span><span class="no">second</span><span class="err"> (equiv-discrete-family funext X A Aisdiscrete f g))</span>
 </span></code></pre></div>
 <p>By extension extensionality, an extension type into a family of discrete types
-is discrete. Sinced fibered-Eq-extension-Eq considers total extension types
+is discrete. Sinced fibered-Eq-extension-Equiv considers total extension types
 only, extending from BOT, that's all we prove here for now.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Eq-discrete-extension</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt) </span><span class="c">-- This proof uses extension extensionality.</span>
@@ -841,15 +869,15 @@ only, extending from BOT, that's all we prove here for now.</p>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">) </span><span class="c">-- A type family over the tope.</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; is-discrete (A t))</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) </span><span class="c">-- A pair of elements of the extension type</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">  : Eq (f = g)</span><span class="p">(</span><span class="nv">hom ((t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">  : Equiv (f = g)</span><span class="p">(</span><span class="nv">hom ((t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g)</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">  :=</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">    triple-comp-equiv</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">      ( f = g)</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">      </span><span class="p">( </span><span class="nv">(t </span><span class="p">:</span><span class="err"> ψ) -&gt; f t = g t)</span>
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">      </span><span class="p">( </span><span class="nv">(t </span><span class="p">:</span><span class="err"> ψ) -&gt; hom (A t) (f t) (g t))</span>
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">      </span><span class="p">( </span><span class="nv">hom ((t </span><span class="p">:</span><span class="err"> ψ) -&gt; A t) f g)</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">      ( ExtExtEq extext I ψ (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">BOT</span><span class="err">) A (</span><span class="p">\ </span><span class="nv">u </span><span class="err">-&gt; </span><span class="no">recBOT</span><span class="err">) f g)</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">      ( fibered-Eq-extension-Eq</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">      ( ExtExtEquiv extext I ψ (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">BOT</span><span class="err">) A (</span><span class="p">\ </span><span class="nv">u </span><span class="err">-&gt; </span><span class="no">recBOT</span><span class="err">) f g)</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">      ( fibered-Eq-extension-Equiv</span>
 </span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">        extext</span>
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="err">        I</span>
 </span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="err">        ψ</span>
@@ -928,12 +956,12 @@ only, extending from BOT, that's all we prove here for now.</p>
 </span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">  := (is-discrete-arr-is-discrete extext A Aisdiscrete) f g</span>
 </span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
 </span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">equiv-arr-eq-discrete</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">x y z w</span><span class="p">)</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="err">  : Eq (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="err">  : Equiv (f =_{Δ¹ -&gt; A} g)(hom (arr A) f g)</span>
 </span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="err">  := (arr-eq (arr A) f g,</span>
 </span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="err">          (is-discrete-arr-is-discrete extext A Aisdiscrete) f g)</span>
 </span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
 </span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">equiv-square-hom-arr</span>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="err">  : Eq (hom (arr A) f g)</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="err">  : Equiv (hom (arr A) f g)</span>
 </span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(h </span><span class="p">:</span><span class="err"> hom A x z),</span>
 </span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="err">        </span><span class="p">(</span><span class="nv">∑(k </span><span class="p">:</span><span class="err"> hom A y w),</span>
 </span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="err">          (&lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
@@ -957,42 +985,42 @@ only, extending from BOT, that's all we prove here for now.</p>
 </span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a><span class="err">  : is-equiv</span>
 </span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a><span class="err">      ( f =_{Δ¹ -&gt; A} g)</span>
 </span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a><span class="err">      ( fibered-arr-free-arr f = fibered-arr-free-arr g)</span>
-</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a><span class="err">      ( ap (arr A) </span><span class="p">(</span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (y </span><span class="p">:</span><span class="err"> A), hom A x y)) f g fibered-arr-free-arr)</span>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a><span class="err">      ( ap (arr A) </span><span class="p">(</span><span class="nv">∑ (u </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (v </span><span class="p">:</span><span class="err"> A), hom A u v)) f g fibered-arr-free-arr)</span>
 </span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a><span class="err">  :=</span>
 </span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a><span class="err">    is-equiv-ap-is-equiv</span>
 </span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a><span class="err">      ( arr A)</span>
-</span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (y </span><span class="p">:</span><span class="err"> A), hom A x y))</span>
+</span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (u </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (v </span><span class="p">:</span><span class="err"> A), hom A u v))</span>
 </span><span id="__span-5-49"><a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a><span class="err">      fibered-arr-free-arr</span>
 </span><span id="__span-5-50"><a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a><span class="err">      ( </span><span class="no">second</span><span class="err"> (Eq-arr A))</span>
 </span><span id="__span-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a><span class="err">      f</span>
 </span><span id="__span-5-52"><a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a><span class="err">      g</span>
 </span><span id="__span-5-53"><a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a>
 </span><span id="__span-5-54"><a id="__codelineno-5-54" name="__codelineno-5-54" href="#__codelineno-5-54"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">id-Eq-Eq-arr</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">w x y z</span><span class="p">)</span>
-</span><span id="__span-5-55"><a id="__codelineno-5-55" name="__codelineno-5-55" href="#__codelineno-5-55"></a><span class="err">  : Eq (f =_{Δ¹ -&gt; A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)</span>
+</span><span id="__span-5-55"><a id="__codelineno-5-55" name="__codelineno-5-55" href="#__codelineno-5-55"></a><span class="err">  : Equiv (f =_{Δ¹ -&gt; A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)</span>
 </span><span id="__span-5-56"><a id="__codelineno-5-56" name="__codelineno-5-56" href="#__codelineno-5-56"></a><span class="err">  :=</span>
 </span><span id="__span-5-57"><a id="__codelineno-5-57" name="__codelineno-5-57" href="#__codelineno-5-57"></a><span class="err">    Eq-ap-is-equiv</span>
 </span><span id="__span-5-58"><a id="__codelineno-5-58" name="__codelineno-5-58" href="#__codelineno-5-58"></a><span class="err">      ( arr A)</span>
 </span><span id="__span-5-59"><a id="__codelineno-5-59" name="__codelineno-5-59" href="#__codelineno-5-59"></a><span class="err">      </span><span class="p">(</span>
-</span><span id="__span-5-60"><a id="__codelineno-5-60" name="__codelineno-5-60" href="#__codelineno-5-60"></a><span class="p">      </span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (y </span><span class="p">:</span><span class="err"> A), hom A x y)) fibered-arr-free-arr</span>
+</span><span id="__span-5-60"><a id="__codelineno-5-60" name="__codelineno-5-60" href="#__codelineno-5-60"></a><span class="p">      </span><span class="nv">∑ (u </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">∑ (v </span><span class="p">:</span><span class="err"> A), hom A u v)) fibered-arr-free-arr</span>
 </span><span id="__span-5-61"><a id="__codelineno-5-61" name="__codelineno-5-61" href="#__codelineno-5-61"></a><span class="err">      (</span><span class="no">second</span><span class="err"> (Eq-arr A))</span>
 </span><span id="__span-5-62"><a id="__codelineno-5-62" name="__codelineno-5-62" href="#__codelineno-5-62"></a><span class="err">      f</span>
 </span><span id="__span-5-63"><a id="__codelineno-5-63" name="__codelineno-5-63" href="#__codelineno-5-63"></a><span class="err">      g</span>
 </span><span id="__span-5-64"><a id="__codelineno-5-64" name="__codelineno-5-64" href="#__codelineno-5-64"></a>
 </span><span id="__span-5-65"><a id="__codelineno-5-65" name="__codelineno-5-65" href="#__codelineno-5-65"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">equiv-sigma-over-prod-arr-eq</span>
-</span><span id="__span-5-66"><a id="__codelineno-5-66" name="__codelineno-5-66" href="#__codelineno-5-66"></a><span class="err">  : Eq</span>
+</span><span id="__span-5-66"><a id="__codelineno-5-66" name="__codelineno-5-66" href="#__codelineno-5-66"></a><span class="err">  : Equiv</span>
 </span><span id="__span-5-67"><a id="__codelineno-5-67" name="__codelineno-5-67" href="#__codelineno-5-67"></a><span class="err">      (fibered-arr-free-arr f = fibered-arr-free-arr g)</span>
 </span><span id="__span-5-68"><a id="__codelineno-5-68" name="__codelineno-5-68" href="#__codelineno-5-68"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z),</span>
 </span><span id="__span-5-69"><a id="__codelineno-5-69" name="__codelineno-5-69" href="#__codelineno-5-69"></a><span class="err">        </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
 </span><span id="__span-5-70"><a id="__codelineno-5-70" name="__codelineno-5-70" href="#__codelineno-5-70"></a><span class="err">          (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)))</span>
-</span><span id="__span-5-71"><a id="__codelineno-5-71" name="__codelineno-5-71" href="#__codelineno-5-71"></a><span class="err">  := Eq-sigma-over-prod-Eq</span>
+</span><span id="__span-5-71"><a id="__codelineno-5-71" name="__codelineno-5-71" href="#__codelineno-5-71"></a><span class="err">  := Eq-sigma-over-prod-equiv</span>
 </span><span id="__span-5-72"><a id="__codelineno-5-72" name="__codelineno-5-72" href="#__codelineno-5-72"></a><span class="err">      A</span>
 </span><span id="__span-5-73"><a id="__codelineno-5-73" name="__codelineno-5-73" href="#__codelineno-5-73"></a><span class="err">      A</span>
-</span><span id="__span-5-74"><a id="__codelineno-5-74" name="__codelineno-5-74" href="#__codelineno-5-74"></a><span class="err">      ( </span><span class="p">\ </span><span class="nv">x y </span><span class="err">-&gt; hom A x y)</span>
+</span><span id="__span-5-74"><a id="__codelineno-5-74" name="__codelineno-5-74" href="#__codelineno-5-74"></a><span class="err">      ( </span><span class="p">\ </span><span class="nv">u v </span><span class="err">-&gt; hom A u v)</span>
 </span><span id="__span-5-75"><a id="__codelineno-5-75" name="__codelineno-5-75" href="#__codelineno-5-75"></a><span class="err">      ( fibered-arr-free-arr f)</span>
 </span><span id="__span-5-76"><a id="__codelineno-5-76" name="__codelineno-5-76" href="#__codelineno-5-76"></a><span class="err">      ( fibered-arr-free-arr g)</span>
 </span><span id="__span-5-77"><a id="__codelineno-5-77" name="__codelineno-5-77" href="#__codelineno-5-77"></a>
 </span><span id="__span-5-78"><a id="__codelineno-5-78" name="__codelineno-5-78" href="#__codelineno-5-78"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">equiv-square-sigma-over-prod</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">extext Aisdiscrete</span><span class="p">)</span>
-</span><span id="__span-5-79"><a id="__codelineno-5-79" name="__codelineno-5-79" href="#__codelineno-5-79"></a><span class="err">  : Eq</span>
+</span><span id="__span-5-79"><a id="__codelineno-5-79" name="__codelineno-5-79" href="#__codelineno-5-79"></a><span class="err">  : Equiv</span>
 </span><span id="__span-5-80"><a id="__codelineno-5-80" name="__codelineno-5-80" href="#__codelineno-5-80"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑(p </span><span class="p">:</span><span class="err"> x = z),</span>
 </span><span id="__span-5-81"><a id="__codelineno-5-81" name="__codelineno-5-81" href="#__codelineno-5-81"></a><span class="err">        </span><span class="p">(</span><span class="nv">∑(q </span><span class="p">:</span><span class="err"> y = w),</span>
 </span><span id="__span-5-82"><a id="__codelineno-5-82" name="__codelineno-5-82" href="#__codelineno-5-82"></a><span class="err">          (prod-transport A A (</span><span class="p">\</span><span class="nv">a b </span><span class="err">-&gt; hom A a b) x z y w p q f = g)))</span>
@@ -1309,7 +1337,7 @@ only, extending from BOT, that's all we prove here for now.</p>
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="err">                                                  ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="err">                                                  (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; x,</span>
 </span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="err">                                                  (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; y ]&gt;)</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="err">      ( family-of-maps-total-map</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="err">      ( total-map-family-of-maps</span>
 </span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="err">        ( hom A x y)</span>
 </span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="err">        ( </span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; f = g)</span>
 </span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="err">        ( </span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; &lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
@@ -1347,7 +1375,7 @@ only, extending from BOT, that's all we prove here for now.</p>
 </span><span id="__span-6-49"><a id="__codelineno-6-49" name="__codelineno-6-49" href="#__codelineno-6-49"></a><span class="err">  </span><span class="p">(</span><span class="nv">Aisdiscrete </span><span class="p">:</span><span class="err"> is-discrete A)</span>
 </span><span id="__span-6-50"><a id="__codelineno-6-50" name="__codelineno-6-50" href="#__codelineno-6-50"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-6-51"><a id="__codelineno-6-51" name="__codelineno-6-51" href="#__codelineno-6-51"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-6-52"><a id="__codelineno-6-52" name="__codelineno-6-52" href="#__codelineno-6-52"></a><span class="err">  : Eq</span>
+</span><span id="__span-6-52"><a id="__codelineno-6-52" name="__codelineno-6-52" href="#__codelineno-6-52"></a><span class="err">  : Equiv</span>
 </span><span id="__span-6-53"><a id="__codelineno-6-53" name="__codelineno-6-53" href="#__codelineno-6-53"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (g </span><span class="p">:</span><span class="err"> hom A x y), f = g)</span>
 </span><span id="__span-6-54"><a id="__codelineno-6-54" name="__codelineno-6-54" href="#__codelineno-6-54"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (g </span><span class="p">:</span><span class="err"> hom A x y), &lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
 </span><span id="__span-6-55"><a id="__codelineno-6-55" name="__codelineno-6-55" href="#__codelineno-6-55"></a><span class="err">                             [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
@@ -1355,7 +1383,7 @@ only, extending from BOT, that's all we prove here for now.</p>
 </span><span id="__span-6-57"><a id="__codelineno-6-57" name="__codelineno-6-57" href="#__codelineno-6-57"></a><span class="err">                                                  (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; x,</span>
 </span><span id="__span-6-58"><a id="__codelineno-6-58" name="__codelineno-6-58" href="#__codelineno-6-58"></a><span class="err">                                                  (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; y ]&gt;)</span>
 </span><span id="__span-6-59"><a id="__codelineno-6-59" name="__codelineno-6-59" href="#__codelineno-6-59"></a><span class="err">  :=</span>
-</span><span id="__span-6-60"><a id="__codelineno-6-60" name="__codelineno-6-60" href="#__codelineno-6-60"></a><span class="err">    ( ( family-of-maps-total-map</span>
+</span><span id="__span-6-60"><a id="__codelineno-6-60" name="__codelineno-6-60" href="#__codelineno-6-60"></a><span class="err">    ( ( total-map-family-of-maps</span>
 </span><span id="__span-6-61"><a id="__codelineno-6-61" name="__codelineno-6-61" href="#__codelineno-6-61"></a><span class="err">        ( hom A x y)</span>
 </span><span id="__span-6-62"><a id="__codelineno-6-62" name="__codelineno-6-62" href="#__codelineno-6-62"></a><span class="err">        ( </span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; f = g)</span>
 </span><span id="__span-6-63"><a id="__codelineno-6-63" name="__codelineno-6-63" href="#__codelineno-6-63"></a><span class="err">        ( </span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; &lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
@@ -1382,7 +1410,7 @@ spaces, we conclude that the codomain extension type is contractible.</p>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="err">                                                  ((t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; g s,</span>
 </span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="err">                                                  (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">)) |-&gt; x,</span>
 </span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="err">                                                  (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; y ]&gt;)</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="err">  := is-equiv-fromContr-is-contr</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="err">  := is-contr-is-equiv-from-contr</span>
 </span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (g </span><span class="p">:</span><span class="err"> hom A x y), f = g)</span>
 </span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (g </span><span class="p">:</span><span class="err"> hom A x y), &lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
 </span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="err">                             [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
@@ -1391,7 +1419,7 @@ spaces, we conclude that the codomain extension type is contractible.</p>
 </span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="err">                                                  (Δ¹ t </span><span class="o">/\</span><span class="err">  (s </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)) |-&gt; y ]&gt;)</span>
 </span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="err">      ( equiv-sum-fibered-map-square-sigma-over-prod-refl-refl</span>
 </span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="err">          extext A Aisdiscrete x y f)</span>
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="err">      ( based-paths-contractible (hom A x y) f)</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="err">      ( is-contr-based-paths (hom A x y) f)</span>
 </span></code></pre></div>
 <p>The extension types that appear in the Segal condition are retracts of this type
 --- at least when the second arrow in the composable pair is an identity.</p>
@@ -1435,7 +1463,7 @@ spaces, we conclude that the codomain extension type is contractible.</p>
 </span><span id="__span-8-38"><a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-8-39"><a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-8-40"><a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-8-41"><a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a><span class="err">  : isRetract</span>
+</span><span id="__span-8-41"><a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a><span class="err">  : is-retract-of</span>
 </span><span id="__span-8-42"><a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (d </span><span class="p">:</span><span class="err"> hom A x y), hom2 A x y y f (id-arr A y) d)</span>
 </span><span id="__span-8-43"><a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (g </span><span class="p">:</span><span class="err"> hom A x y), &lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
 </span><span id="__span-8-44"><a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a><span class="err">                             [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>
@@ -1457,7 +1485,7 @@ the second arrow is an identity.</p>
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="err">  : is-contr </span><span class="p">( </span><span class="nv">∑ (d </span><span class="p">:</span><span class="err"> hom A x y), hom2 A x y y f (id-arr A y) d)</span>
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="err">  :=</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="err">    isRetract-ofContr-is-contr</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="err">    is-retract-of-is-contr-is-contr</span>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (d </span><span class="p">:</span><span class="err"> hom A x y), hom2 A x y y f (id-arr A y) d)</span>
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="err">      </span><span class="p">( </span><span class="nv">∑ (g </span><span class="p">:</span><span class="err"> hom A x y), &lt;{(t, s) : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ¹×Δ¹ (t, s)} -&gt; A</span>
 </span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="err">                             [((t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err">) </span><span class="o">/\</span><span class="err">  Δ¹ s) |-&gt; f s,</span>

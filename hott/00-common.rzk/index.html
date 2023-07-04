@@ -374,13 +374,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#unit-type" class="md-nav__link">
-    Unit type
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -438,7 +431,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-sigma.rzk/" class="md-nav__link">
+      <a href="../04-half-adjoint-equivalences.rzk/" class="md-nav__link">
+        Half Adjoint Equivalences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-sigma.rzk/" class="md-nav__link">
         Sigma types
       </a>
     </li>
@@ -452,7 +459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-contractible.rzk/" class="md-nav__link">
+      <a href="../06-contractible.rzk/" class="md-nav__link">
         Contractible
       </a>
     </li>
@@ -466,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-fibers.rzk/" class="md-nav__link">
+      <a href="../07-fibers.rzk/" class="md-nav__link">
         Fibers
       </a>
     </li>
@@ -480,7 +487,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-propositions.rzk/" class="md-nav__link">
+      <a href="../08-families-of-maps.rzk/" class="md-nav__link">
+        Families of maps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-propositions.rzk/" class="md-nav__link">
         Propositions
       </a>
     </li>
@@ -494,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-trivial-fibrations.rzk/" class="md-nav__link">
+      <a href="../10-trivial-fibrations.rzk/" class="md-nav__link">
         Trivial fibrations
       </a>
     </li>
@@ -724,13 +745,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#unit-type" class="md-nav__link">
-    Unit type
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -810,25 +824,6 @@
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">  : (B -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">  := </span><span class="p">\ </span><span class="nv">b </span><span class="err">-&gt; C (f b)</span>
-</span></code></pre></div>
-<h2 id="unit-type">Unit type<a class="headerlink" href="#unit-type" title="Permanent link">&para;</a></h2>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">ind-unit</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> </span><span class="kt">Unit</span><span class="err"> -&gt; </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">C-unit </span><span class="p">:</span><span class="err"> C </span><span class="no">unit</span><span class="err">)</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="err">  </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> </span><span class="kt">Unit</span><span class="err">)</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="err">  : C x</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">  := C-unit</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-prop-unit</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> </span><span class="kt">Unit</span><span class="err">)</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">  : x = y</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">  := </span><span class="no">refl</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c">-- Terminal projection as a constant map</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">terminal-map</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="err">  : A -&gt; </span><span class="kt">Unit</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="err">  := constant A </span><span class="kt">Unit</span><span class="err"> </span><span class="no">unit</span>
 </span></code></pre></div>
 
 

@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#7-propositions" class="md-skip">
+        <a href="#9-propositions" class="md-skip">
           Skip to content
         </a>
       
@@ -369,7 +369,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-sigma.rzk/" class="md-nav__link">
+      <a href="../04-half-adjoint-equivalences.rzk/" class="md-nav__link">
+        Half Adjoint Equivalences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-sigma.rzk/" class="md-nav__link">
         Sigma types
       </a>
     </li>
@@ -383,7 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-contractible.rzk/" class="md-nav__link">
+      <a href="../06-contractible.rzk/" class="md-nav__link">
         Contractible
       </a>
     </li>
@@ -397,8 +411,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-fibers.rzk/" class="md-nav__link">
+      <a href="../07-fibers.rzk/" class="md-nav__link">
         Fibers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-families-of-maps.rzk/" class="md-nav__link">
+        Families of maps
       </a>
     </li>
   
@@ -480,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-trivial-fibrations.rzk/" class="md-nav__link">
+      <a href="../10-trivial-fibrations.rzk/" class="md-nav__link">
         Trivial fibrations
       </a>
     </li>
@@ -717,13 +745,13 @@
                 
                   
 
-  <a href="https://github.com/emilyriehl/yoneda/edit/master/src/hott/07-propositions.rzk.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/emilyriehl/yoneda/edit/master/src/hott/09-propositions.rzk.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="7-propositions">7. Propositions<a class="headerlink" href="#7-propositions" title="Permanent link">&para;</a></h1>
+<h1 id="9-propositions">9. Propositions<a class="headerlink" href="#9-propositions" title="Permanent link">&para;</a></h1>
 <p>This is a literate <code>rzk</code> file:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
 </span></code></pre></div>
@@ -732,11 +760,11 @@
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-prop</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="err">  : </span><span class="kt">U</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">  := </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A) -&gt; </span><span class="p">(</span><span class="nv">b </span><span class="p">:</span><span class="err"> A) -&gt; is-contr(a = b)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">  := </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A) -&gt; </span><span class="p">(</span><span class="nv">b </span><span class="p">:</span><span class="err"> A) -&gt; is-contr (a = b)</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Unit-is-prop</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-prop-Unit</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">  : is-prop </span><span class="kt">Unit</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">  := </span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">y </span><span class="err">-&gt; (path-types-of-Unit-are-contractible x y)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">  := </span><span class="p">\ </span><span class="nv">x y </span><span class="err">-&gt; (path-types-of-Unit-are-contractible x y)</span>
 </span></code></pre></div>
 <h2 id="alternative-characterizations-definitions">Alternative characterizations: definitions<a class="headerlink" href="#alternative-characterizations-definitions" title="Permanent link">&para;</a></h2>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">all-elements-equal</span>
@@ -744,58 +772,63 @@
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">  : </span><span class="kt">U</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">  := </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A) -&gt; </span><span class="p">(</span><span class="nv">b </span><span class="p">:</span><span class="err"> A) -&gt; (a = b)</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">inhabited-implies-contractible</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-contr-is-inhabited</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">  : </span><span class="kt">U</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">  := A -&gt; is-contr A</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">terminal-map-is-embedding</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-emb-terminal-map</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">  : </span><span class="kt">U</span>
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="err">  := is-emb A </span><span class="kt">Unit</span><span class="err"> (terminal-map A)</span>
 </span></code></pre></div>
 <h2 id="alternative-characterizations-proofs">Alternative characterizations: proofs<a class="headerlink" href="#alternative-characterizations-proofs" title="Permanent link">&para;</a></h2>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">prop-implies-all-elements-equal</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">all-elements-equal-is-prop</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">AisProp </span><span class="p">:</span><span class="err"> is-prop A)</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">  : all-elements-equal A</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">  := </span><span class="p">\</span><span class="nv">a </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">b </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (AisProp a b))</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">  := </span><span class="p">\ </span><span class="nv">a b </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (AisProp a b))</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">all-elements-equal-implies-inhabited-implies-contractible</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-contr-is-inhabited-all-elements-equal</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">  </span><span class="p">(</span><span class="nv">AhasAllEltsEqual </span><span class="p">:</span><span class="err"> all-elements-equal A)</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">  : inhabited-implies-contractible A</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">  := </span><span class="p">\</span><span class="nv">a </span><span class="err">-&gt; (a, AhasAllEltsEqual a)</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">  : is-contr-is-inhabited A</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">  := </span><span class="p">\ </span><span class="nv">a </span><span class="err">-&gt; (a, AhasAllEltsEqual a)</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">inhabited-implies-contractible-implies-if-inhabited-then-terminal-map-is-embedding</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">terminal-map-is-emb-is-inhabited-is-contr-is-inhabited</span>
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">  </span><span class="p">(</span><span class="nv">c </span><span class="p">:</span><span class="err"> inhabited-implies-contractible A)</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">  : A -&gt; (terminal-map-is-embedding A)</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">  := </span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt;</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="err">  (equivalence-is-embedding A </span><span class="kt">Unit</span><span class="err"> (terminal-map A)</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="err">      (contr-implies-terminal-map-is-equiv A (c x))</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="err">  )</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">  </span><span class="p">(</span><span class="nv">c </span><span class="p">:</span><span class="err"> is-contr-is-inhabited A)</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">  : A -&gt; (is-emb-terminal-map A)</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">  :=</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="err">    </span><span class="p">\ </span><span class="nv">x </span><span class="err">-&gt;</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="err">      ( is-emb-is-equiv A </span><span class="kt">Unit</span><span class="err"> (terminal-map A)</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="err">        ( contr-implies-terminal-map-is-equiv A (c x)))</span>
 </span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">inhabited-implies-contractible-implies-terminal-map-is-embedding</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">terminal-map-is-emb-is-contr-is-inhabited</span>
 </span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="err">  </span><span class="p">(</span><span class="nv">c </span><span class="p">:</span><span class="err"> inhabited-implies-contractible A)</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="err">  : (terminal-map-is-embedding A)</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="err">  </span><span class="p">(</span><span class="nv">c </span><span class="p">:</span><span class="err"> is-contr-is-inhabited A)</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="err">  : (is-emb-terminal-map A)</span>
 </span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="err">  :=</span>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="err">  (inhabited-emb-implies-emb A </span><span class="kt">Unit</span><span class="err"> (terminal-map A)</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="err">    (inhabited-implies-contractible-implies-if-inhabited-then-terminal-map-is-embedding A c)</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="err">  )</span>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">terminal-map-is-embedding-implies-proposition</span>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> terminal-map-is-embedding A)</span>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="err">  : is-prop A</span>
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="err">  := </span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">y </span><span class="err">-&gt; (is-equiv-toContr-is-contr (x = y) (</span><span class="no">unit</span><span class="err"> = </span><span class="no">unit</span><span class="err">) ((ap A </span><span class="kt">Unit</span><span class="err"> x y (terminal-map A)), (f x y)) (path-types-of-Unit-are-contractible </span><span class="no">unit</span><span class="err"> </span><span class="no">unit</span><span class="err">))</span>
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">contractible-if-inhabited-implies-proposition</span>
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="err">  </span><span class="p">(</span><span class="nv">c </span><span class="p">:</span><span class="err"> inhabited-implies-contractible A)</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="err">  : is-prop A</span>
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="err">  := (terminal-map-is-embedding-implies-proposition A (inhabited-implies-contractible-implies-terminal-map-is-embedding A c))</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="err">    ( is-emb-is-inhabited-emb A </span><span class="kt">Unit</span><span class="err"> (terminal-map A)</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="err">      ( terminal-map-is-emb-is-inhabited-is-contr-is-inhabited A c))</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-prop-is-emb-terminal-map</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> is-emb-terminal-map A)</span>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="err">  : is-prop A</span>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="err">  :=</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="err">    </span><span class="p">\ </span><span class="nv">x y </span><span class="err">-&gt;</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="err">      ( is-contr-is-equiv-to-contr (x = y) (</span><span class="no">unit</span><span class="err"> = </span><span class="no">unit</span><span class="err">)</span>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="err">        ( (ap A </span><span class="kt">Unit</span><span class="err"> x y (terminal-map A)), (f x y))</span>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="err">        ( path-types-of-Unit-are-contractible </span><span class="no">unit</span><span class="err"> </span><span class="no">unit</span><span class="err">))</span>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-prop-is-contr-is-inhabited</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="err">  </span><span class="p">(</span><span class="nv">c </span><span class="p">:</span><span class="err"> is-contr-is-inhabited A)</span>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="err">  : is-prop A</span>
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="err">  :=</span>
+</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a><span class="err">    ( is-prop-is-emb-terminal-map A</span>
+</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="err">      ( terminal-map-is-emb-is-contr-is-inhabited A c))</span>
 </span></code></pre></div>
 
 
@@ -817,7 +850,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../06-fibers.rzk/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Fibers" rel="prev">
+        <a href="../08-families-of-maps.rzk/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Families of maps" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -826,14 +859,14 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Fibers
+              Families of maps
             </div>
           </div>
         </a>
       
       
         
-        <a href="../08-trivial-fibrations.rzk/" class="md-footer__link md-footer__link--next" aria-label="Next: Trivial fibrations" rel="next">
+        <a href="../10-trivial-fibrations.rzk/" class="md-footer__link md-footer__link--next" aria-label="Next: Trivial fibrations" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">

@@ -367,7 +367,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/04-sigma.rzk/" class="md-nav__link">
+      <a href="../../hott/04-half-adjoint-equivalences.rzk/" class="md-nav__link">
+        Half Adjoint Equivalences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/05-sigma.rzk/" class="md-nav__link">
         Sigma types
       </a>
     </li>
@@ -381,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/05-contractible.rzk/" class="md-nav__link">
+      <a href="../../hott/06-contractible.rzk/" class="md-nav__link">
         Contractible
       </a>
     </li>
@@ -395,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/06-fibers.rzk/" class="md-nav__link">
+      <a href="../../hott/07-fibers.rzk/" class="md-nav__link">
         Fibers
       </a>
     </li>
@@ -409,7 +423,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/07-propositions.rzk/" class="md-nav__link">
+      <a href="../../hott/08-families-of-maps.rzk/" class="md-nav__link">
+        Families of maps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/09-propositions.rzk/" class="md-nav__link">
         Propositions
       </a>
     </li>
@@ -423,7 +451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/08-trivial-fibrations.rzk/" class="md-nav__link">
+      <a href="../../hott/10-trivial-fibrations.rzk/" class="md-nav__link">
         Trivial fibrations
       </a>
     </li>
@@ -771,7 +799,7 @@
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">Y </span><span class="p">:</span><span class="err"> ψ -&gt; X -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x)</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="err">   : Equiv (&lt;{t : I | ψ t} -&gt; </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">       </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">g x t </span><span class="err">-&gt; g t x, </span><span class="c">-- the one-way map</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="err">            ((</span><span class="p">\ </span><span class="nv">h t x </span><span class="err">-&gt; (h x) t, </span><span class="c">-- the retraction</span>
@@ -786,7 +814,7 @@
 </span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="err">   </span><span class="p">(</span><span class="nv">Y </span><span class="p">:</span><span class="err"> ψ -&gt; X -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x)</span>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="err">   : Eq </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="err">   : Equiv </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; &lt;{t : I | ψ t} -&gt; Y t x [ ϕ t |-&gt; f t x]&gt;)</span>
 </span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="err">      (&lt;{t : I | ψ t} -&gt; </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> X) -&gt; Y t x) [ ϕ t |-&gt; f t ]&gt;)</span>
 </span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">h t x </span><span class="err">-&gt; (h x) t, </span><span class="c">-- the one-way map</span>
 </span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="err">            ((</span><span class="p">\ </span><span class="nv">g x t </span><span class="err">-&gt; g t x, </span><span class="c">-- the retraction</span>
@@ -803,7 +831,7 @@
 </span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ </span><span class="p">:</span><span class="err"> ζ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> ψ -&gt; ζ -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> &lt;{(t, s) : I * J | (ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s)} -&gt; X t s &gt;)</span>
-</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="err">   : Equiv (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
 </span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="err">      (&lt;{(t, s) : I * J | ψ t </span><span class="o">/\</span><span class="err"> ζ s} -&gt; X t s [(ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s) |-&gt; f (t , s)]&gt;)</span>
 </span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">g </span><span class="err">(t, s) -&gt; (g t) s, </span><span class="c">-- the one way map</span>
 </span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="err">         ((</span><span class="p">\ </span><span class="nv">h t s </span><span class="err">-&gt; h (t , s) </span><span class="c">-- its retraction</span>
@@ -819,7 +847,7 @@
 </span><span id="__span-1-54"><a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ </span><span class="p">:</span><span class="err"> ζ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-1-55"><a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> ψ -&gt; ζ -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-1-56"><a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> &lt;{(t, s) : I * J | (ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s)} -&gt; X t s &gt;)</span>
-</span><span id="__span-1-57"><a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="err">   : Eq (&lt;{(t, s) : I * J | ψ t </span><span class="o">/\</span><span class="err"> ζ s} -&gt; X t s [(ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s) |-&gt; f (t , s)]&gt;)</span>
+</span><span id="__span-1-57"><a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="err">   : Equiv (&lt;{(t, s) : I * J | ψ t </span><span class="o">/\</span><span class="err"> ζ s} -&gt; X t s [(ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s) |-&gt; f (t , s)]&gt;)</span>
 </span><span id="__span-1-58"><a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a><span class="err">      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)</span>
 </span><span id="__span-1-59"><a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">h s t </span><span class="err">-&gt; h (t , s) , </span><span class="c">-- the one way map</span>
 </span><span id="__span-1-60"><a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a><span class="err">      ((</span><span class="p">\ </span><span class="nv">g </span><span class="err">(t, s) -&gt; (g s) t </span><span class="c">-- its retraction</span>
@@ -835,7 +863,7 @@
 </span><span id="__span-1-70"><a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ </span><span class="p">:</span><span class="err"> ζ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-1-71"><a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> ψ -&gt; ζ -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a><span class="err">   </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> &lt;{(t, s) : I * J | (ϕ t </span><span class="o">/\</span><span class="err"> ζ s) </span><span class="o">\/</span><span class="err"> (ψ t </span><span class="o">/\</span><span class="err"> χ s)} -&gt; X t s &gt;)</span>
-</span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
+</span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a><span class="err">   : Equiv (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
 </span><span id="__span-1-74"><a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a><span class="err">      (&lt;{s : J | ζ s} -&gt; &lt;{ t : I | ψ t} -&gt; X t s [ ϕ t |-&gt; f (t, s) ]&gt; [ χ s |-&gt; \{t : I | ψ t} -&gt; f (t, s) ]&gt;)</span>
 </span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a><span class="err">   := comp-equiv</span>
 </span><span id="__span-1-76"><a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a><span class="err">         (&lt;{t : I | ψ t} -&gt; &lt;{ s : J | ζ s} -&gt; X t s [ χ s |-&gt; f (t, s) ]&gt; [ ϕ t |-&gt; \{s : J | ζ s} -&gt; f (t, s) ]&gt;)</span>
@@ -854,7 +882,7 @@
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">Y </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> X t) -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; X t)</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">   </span><span class="p">(</span><span class="nv">b </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; Y t (a t))</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">   : Eq (&lt;{t : I | ψ t} -&gt; </span><span class="p">(</span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;)</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">   : Equiv (&lt;{t : I | ψ t} -&gt; </span><span class="p">(</span><span class="nv">∑ (x </span><span class="p">:</span><span class="err"> X t), Y t x) [ ϕ t |-&gt; (a t , b t) ]&gt;)</span>
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">     </span><span class="p">(</span><span class="nv">∑ (f </span><span class="p">:</span><span class="err"> (&lt;{t : I | ψ t} -&gt; X t [ϕ t |-&gt; a t ]&gt;)), (&lt;{t : I | ψ t} -&gt; Y t (f t) [ ϕ t |-&gt; b t ]&gt;))</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="err">     := (</span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (g t)), </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">second</span><span class="err"> (g t)) , </span><span class="c">-- the one way map</span>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">            ((</span><span class="p">\ </span><span class="nv">h t </span><span class="err">-&gt; ((</span><span class="no">first</span><span class="err"> h) t, (</span><span class="no">second</span><span class="err"> h) t) </span><span class="c">-- its retraction</span>
@@ -871,7 +899,7 @@
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">   </span><span class="p">(</span><span class="nv">χ ψ ϕ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> χ -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> &lt;{t : I | χ t </span><span class="o">/\</span><span class="err"> ψ t </span><span class="o">/\</span><span class="err"> ϕ t} -&gt; X t &gt;)</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">   : Eq &lt;{t : I | χ t} -&gt; X t [ χ t </span><span class="o">/\</span><span class="err"> ψ t </span><span class="o">/\</span><span class="err"> ϕ t |-&gt; a t ]&gt;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">   : Equiv &lt;{t : I | χ t} -&gt; X t [ χ t </span><span class="o">/\</span><span class="err"> ψ t </span><span class="o">/\</span><span class="err"> ϕ t |-&gt; a t ]&gt;</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">       </span><span class="p">(</span><span class="nv">∑ (f </span><span class="p">:</span><span class="err"> &lt;{t : I | χ t </span><span class="o">/\</span><span class="err"> ψ t} -&gt; X t [ χ t </span><span class="o">/\</span><span class="err"> ψ t </span><span class="o">/\</span><span class="err"> ϕ t |-&gt; a t ]&gt;),</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">          &lt;{t : I | χ t} -&gt; X t [ χ t </span><span class="o">/\</span><span class="err"> ψ t |-&gt; f t ]&gt;)</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">  := (</span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; h t,</span>
@@ -888,7 +916,7 @@
 </span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> χ -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; X t)</span>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="err">   : Eq &lt;{t : I | χ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="err">   : Equiv &lt;{t : I | χ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;</span>
 </span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="err">      </span><span class="p">(</span><span class="nv">∑ (f </span><span class="p">:</span><span class="err"> &lt;{t : I | ψ t} -&gt; X t [ ϕ t |-&gt; a t ]&gt;),</span>
 </span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="err">          &lt;{t : I | χ t} -&gt; X t [ ψ t |-&gt; f t ]&gt;)</span>
 </span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="err">   := (</span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; (</span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; h t,</span>
@@ -902,7 +930,7 @@
 </span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="err">   </span><span class="p">(</span><span class="nv">ϕ ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="err">   </span><span class="p">(</span><span class="nv">X </span><span class="p">:</span><span class="err"> &lt;{t : I | ϕ t </span><span class="o">\/</span><span class="err"> ψ t} -&gt; </span><span class="kt">U</span><span class="err"> &gt;)</span>
 </span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; X t)</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="err">   : Eq &lt;{t : I | ϕ t </span><span class="o">\/</span><span class="err"> ψ t} -&gt; X t [ ψ t |-&gt; a t ]&gt;</span>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="err">   : Equiv &lt;{t : I | ϕ t </span><span class="o">\/</span><span class="err"> ψ t} -&gt; X t [ ψ t |-&gt; a t ]&gt;</span>
 </span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="err">       &lt;{t : I | ϕ t} -&gt; X t [ ϕ t </span><span class="o">/\</span><span class="err"> ψ t |-&gt; a t ]&gt;</span>
 </span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="err">  := (</span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; h t,</span>
 </span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="err">      ((</span><span class="p">\ </span><span class="nv">g </span><span class="err">-&gt; </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; </span><span class="no">recOR</span><span class="err">(ϕ t |-&gt; g t, ψ t |-&gt; a t), </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">),</span>
@@ -941,7 +969,7 @@ axiom. Here we state the one that will be most useful and derive an application.
 </span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="err">         (ext-htpy-eq I ψ ϕ A a f g)</span>
 </span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>
 </span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="c">-- The equivalence provided by extension extensionality.</span>
-</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">ExtExtEq</span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">ExtExtEquiv</span>
 </span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="err">   </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
 </span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
 </span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
@@ -949,7 +977,7 @@ axiom. Here we state the one that will be most useful and derive an application.
 </span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="err">   </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="err">   </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ϕ) -&gt; A t)</span>
 </span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="err">   </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> &lt;{t : I | ψ t} -&gt; A t [ ϕ t |-&gt; a t ]&gt;)</span>
-</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="err">   : Eq (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; </span><span class="no">refl</span><span class="err"> ]&gt;)</span>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="err">   : Equiv (f = g) (&lt;{t : I | ψ t} -&gt; (f t = g t) [ ϕ t |-&gt; </span><span class="no">refl</span><span class="err"> ]&gt;)</span>
 </span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="err">   := (ext-htpy-eq I ψ ϕ A a f g , extext I ψ ϕ A a f g)</span>
 </span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
 </span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="c">-- In particular, extension extensionality implies that homotopies give rise to identifications. This definition defines eq-ext-htpy to be the retraction to ext-htpy-eq.</span>
@@ -967,13 +995,13 @@ axiom. Here we state the one that will be most useful and derive an application.
 <p>By extension extensionality, fiberwise equivalences of extension types define
 equivalences of extension types.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c">-- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">fibered-Eq-extension-Eq</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">fibered-Eq-extension-Equiv</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="err">   </span><span class="p">(</span><span class="nv">extext </span><span class="p">:</span><span class="err"> ExtExt)</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="err">   </span><span class="p">(</span><span class="nv">I </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="err">   </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">   </span><span class="p">(</span><span class="nv">A B </span><span class="p">:</span><span class="err"> ψ -&gt; </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">fibequiv </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; (Eq (A t) (B t)) )</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="err">   : Eq (&lt;{t : I | ψ t } -&gt; A t &gt;) (&lt;{t : I | ψ t } -&gt; B t &gt;)</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">   </span><span class="p">(</span><span class="nv">fibequiv </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">t </span><span class="p">:</span><span class="err"> ψ) -&gt; (Equiv (A t) (B t)) )</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="err">   : Equiv (&lt;{t : I | ψ t } -&gt; A t &gt;) (&lt;{t : I | ψ t } -&gt; B t &gt;)</span>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">   := ((</span><span class="p">\ </span><span class="nv">a t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (fibequiv t)) (a t)),</span>
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">         (((</span><span class="p">\ </span><span class="nv">b t </span><span class="err">-&gt; (</span><span class="no">first</span><span class="err"> (</span><span class="no">first</span><span class="err"> (</span><span class="no">second</span><span class="err"> (fibequiv t)))) (b t)),</span>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">            </span><span class="p">\ </span><span class="nv">a </span><span class="err">-&gt; eq-ext-htpy</span>

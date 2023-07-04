@@ -367,7 +367,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/04-sigma.rzk/" class="md-nav__link">
+      <a href="../../hott/04-half-adjoint-equivalences.rzk/" class="md-nav__link">
+        Half Adjoint Equivalences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/05-sigma.rzk/" class="md-nav__link">
         Sigma types
       </a>
     </li>
@@ -381,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/05-contractible.rzk/" class="md-nav__link">
+      <a href="../../hott/06-contractible.rzk/" class="md-nav__link">
         Contractible
       </a>
     </li>
@@ -395,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/06-fibers.rzk/" class="md-nav__link">
+      <a href="../../hott/07-fibers.rzk/" class="md-nav__link">
         Fibers
       </a>
     </li>
@@ -409,7 +423,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/07-propositions.rzk/" class="md-nav__link">
+      <a href="../../hott/08-families-of-maps.rzk/" class="md-nav__link">
+        Families of maps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hott/09-propositions.rzk/" class="md-nav__link">
         Propositions
       </a>
     </li>
@@ -423,7 +451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hott/08-trivial-fibrations.rzk/" class="md-nav__link">
+      <a href="../../hott/10-trivial-fibrations.rzk/" class="md-nav__link">
         Trivial fibrations
       </a>
     </li>
@@ -815,8 +843,8 @@
 <li><code>hott/1-paths.md</code> - We require basic path algebra.</li>
 <li><code>hott/2-contractible.md</code> - We require the notion of contractible types and
   their data.</li>
-<li><code>hott/total-space.md</code> — We rely on <code>contractible-fibers-projection-equiv</code> and
-  <code>total-space-projection</code> in the proof of Theorem 5.5.</li>
+<li><code>hott/total-space.md</code> — We rely on <code>is-equiv-projection-contractible-fibers</code>
+  and <code>total-space-projection</code> in the proof of Theorem 5.5.</li>
 <li><code>3-simplicial-type-theory.md</code> — We rely on definitions of simplicies and their
   subshapes.</li>
 <li><code>4-extension-types.md</code> — We use the fubini theorem and extension
@@ -993,7 +1021,7 @@ map, defined below, is an equivalence.</p>
 </span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y z </span><span class="p">:</span><span class="err"> A)                   </span><span class="c">-- Three points in A.</span>
 </span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)               </span><span class="c">-- An arrow in A from x to y.</span>
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="err">  </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A y z)               </span><span class="c">-- An arrow in A from y to z.</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="err">  : Eq </span><span class="p">(</span><span class="nv">Σ (h </span><span class="p">:</span><span class="err"> hom A x z), hom2 A x y z f g h)</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="err">  : Equiv </span><span class="p">(</span><span class="nv">Σ (h </span><span class="p">:</span><span class="err"> hom A x z), hom2 A x y z f g h)</span>
 </span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="err">       &lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t } -&gt; A [ Λ t |-&gt; horn A x y z f g t ]&gt;</span>
 </span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="err">  := (</span><span class="p">\</span><span class="nv">hh </span><span class="err">-&gt; \{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; (</span><span class="no">second</span><span class="err"> hh) t,</span>
 </span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="err">      </span><span class="p">(</span><span class="nv">(\k -&gt; (\(t </span><span class="p">:</span><span class="err"> </span><span class="kt">2</span><span class="err">) -&gt; k (t, t), \(t, s) -&gt; k (t, s)), </span><span class="p">\</span><span class="nv">hh </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">),</span>
@@ -1001,7 +1029,7 @@ map, defined below, is an equivalence.</p>
 </span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
 </span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">equiv-horn-restriction</span>
 </span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)                       </span><span class="c">-- A type.</span>
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="err">  : Eq (&lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; A &gt;)</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="err">  : Equiv (&lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; A &gt;)</span>
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="err">      </span><span class="p">(</span><span class="nv">Σ (k </span><span class="p">:</span><span class="err"> &lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; A &gt;),</span>
 </span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="err">        </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span><span class="nv">h </span><span class="p">:</span><span class="err"> hom A (k (</span><span class="no">0_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">1_2</span><span class="err">))),</span>
 </span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="err">          hom2 A (k (</span><span class="no">0_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">1_2</span><span class="err">))</span>
@@ -1017,7 +1045,7 @@ map, defined below, is an equivalence.</p>
 </span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Segal-equiv-horn-restriction</span>
 </span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)                       </span><span class="c">-- A type.</span>
 </span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a><span class="err">  </span><span class="p">(</span><span class="nv">AisSegal </span><span class="p">:</span><span class="err"> is-segal A)        </span><span class="c">-- A proof that A is Segal.</span>
-</span><span id="__span-8-34"><a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a><span class="err">  : Eq (&lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; A &gt;) (&lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; A &gt;) </span><span class="c">-- (horn-restriction A)</span>
+</span><span id="__span-8-34"><a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a><span class="err">  : Equiv (&lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; A &gt;) (&lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; A &gt;) </span><span class="c">-- (horn-restriction A)</span>
 </span><span id="__span-8-35"><a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a><span class="err">  := comp-equiv</span>
 </span><span id="__span-8-36"><a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a><span class="err">        (&lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; A &gt;)</span>
 </span><span id="__span-8-37"><a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a><span class="err">        </span><span class="p">(</span><span class="nv">Σ (k </span><span class="p">:</span><span class="err"> &lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; A &gt;),</span>
@@ -1031,7 +1059,7 @@ map, defined below, is an equivalence.</p>
 </span><span id="__span-8-45"><a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a><span class="err">            </span><span class="p">(</span><span class="nv">\k -&gt; Σ (h </span><span class="p">:</span><span class="err"> hom A (k (</span><span class="no">0_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">1_2</span><span class="err">))),</span>
 </span><span id="__span-8-46"><a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a><span class="err">                        hom2 A (k (</span><span class="no">0_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">1_2</span><span class="err">))</span>
 </span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a><span class="err">                            (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; k (t, </span><span class="no">0_2</span><span class="err">)) (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; k (</span><span class="no">1_2</span><span class="err">, t)) h),</span>
-</span><span id="__span-8-48"><a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a><span class="err">        (contractible-fibers-projection-equiv</span>
+</span><span id="__span-8-48"><a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a><span class="err">        (is-equiv-projection-contractible-fibers</span>
 </span><span id="__span-8-49"><a id="__codelineno-8-49" name="__codelineno-8-49" href="#__codelineno-8-49"></a><span class="err">            (&lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; A &gt;)</span>
 </span><span id="__span-8-50"><a id="__codelineno-8-50" name="__codelineno-8-50" href="#__codelineno-8-50"></a><span class="err">            </span><span class="p">(</span><span class="nv">\k -&gt; Σ (h </span><span class="p">:</span><span class="err"> hom A (k (</span><span class="no">0_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">1_2</span><span class="err">))),</span>
 </span><span id="__span-8-51"><a id="__codelineno-8-51" name="__codelineno-8-51" href="#__codelineno-8-51"></a><span class="err">                        hom2 A (k (</span><span class="no">0_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err">, </span><span class="no">1_2</span><span class="err">))</span>
@@ -1061,7 +1089,7 @@ map, defined below, is an equivalence.</p>
 </span><span id="__span-8-75"><a id="__codelineno-8-75" name="__codelineno-8-75" href="#__codelineno-8-75"></a><span class="err">  : is-segal A</span>
 </span><span id="__span-8-76"><a id="__codelineno-8-76" name="__codelineno-8-76" href="#__codelineno-8-76"></a><span class="err">  :=</span>
 </span><span id="__span-8-77"><a id="__codelineno-8-77" name="__codelineno-8-77" href="#__codelineno-8-77"></a><span class="err">    </span><span class="p">\ </span><span class="nv">x y z f g </span><span class="err">-&gt;</span>
-</span><span id="__span-8-78"><a id="__codelineno-8-78" name="__codelineno-8-78" href="#__codelineno-8-78"></a><span class="err">    projection-equiv-contractible-fibers</span>
+</span><span id="__span-8-78"><a id="__codelineno-8-78" name="__codelineno-8-78" href="#__codelineno-8-78"></a><span class="err">    contractible-fibers-is-equiv-projection</span>
 </span><span id="__span-8-79"><a id="__codelineno-8-79" name="__codelineno-8-79" href="#__codelineno-8-79"></a><span class="err">      ( &lt; {t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; A &gt;)</span>
 </span><span id="__span-8-80"><a id="__codelineno-8-80" name="__codelineno-8-80" href="#__codelineno-8-80"></a><span class="err">      </span><span class="p">( </span><span class="nv">\ k -&gt;</span>
 </span><span id="__span-8-81"><a id="__codelineno-8-81" name="__codelineno-8-81" href="#__codelineno-8-81"></a><span class="nv">        Σ ( h </span><span class="p">:</span><span class="err"> hom A (k (</span><span class="no">0_2</span><span class="err"> , </span><span class="no">0_2</span><span class="err">)) (k (</span><span class="no">1_2</span><span class="err"> , </span><span class="no">1_2</span><span class="err">))) ,</span>
@@ -1124,7 +1152,7 @@ functions or extensions into a family of Segal types is again a Segal type.</p>
 </span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="err">              (\{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; A)</span>
 </span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="err">              (\{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | </span><span class="no">BOT</span><span class="err">} -&gt; </span><span class="no">recBOT</span><span class="err">)))</span>
 </span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="err">        (</span><span class="p">\</span><span class="nv">h </span><span class="err">-&gt; </span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt; \{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; h x t) </span><span class="c">-- second equivalence</span>
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="err">          (</span><span class="no">second</span><span class="err"> (fibered-Eq-function-Eq</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="err">          (</span><span class="no">second</span><span class="err"> (function-equiv-fibered-equiv</span>
 </span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="err">              funext</span>
 </span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="err">              X</span>
 </span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="err">              (</span><span class="p">\</span><span class="nv">x </span><span class="err">-&gt; &lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; A x &gt;)</span>
@@ -1163,7 +1191,7 @@ functions or extensions into a family of Segal types is again a Segal type.</p>
 </span><span id="__span-9-58"><a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a><span class="err">              (\{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; \{s : I | ψ s} -&gt; A s)</span>
 </span><span id="__span-9-59"><a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a><span class="err">              (\{u : (</span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err">) * I | </span><span class="no">BOT</span><span class="err">} -&gt; </span><span class="no">recBOT</span><span class="err">)))</span>
 </span><span id="__span-9-60"><a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a><span class="err">        (</span><span class="p">\</span><span class="nv">h </span><span class="err">-&gt; \{s : I | ψ s} -&gt; \{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; h s t) </span><span class="c">-- second equivalence</span>
-</span><span id="__span-9-61"><a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a><span class="err">          (</span><span class="no">second</span><span class="err"> (fibered-Eq-extension-Eq extext I ψ</span>
+</span><span id="__span-9-61"><a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a><span class="err">          (</span><span class="no">second</span><span class="err"> (fibered-Eq-extension-Equiv extext I ψ</span>
 </span><span id="__span-9-62"><a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a><span class="err">            (\{s : I | ψ s} -&gt; &lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Δ² t} -&gt; A s &gt;)</span>
 </span><span id="__span-9-63"><a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a><span class="err">            (\{s : I | ψ s} -&gt; &lt;{t : </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> | Λ t} -&gt; A s &gt;)</span>
 </span><span id="__span-9-64"><a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a><span class="err">            (\{s : I | ψ s} -&gt; (horn-restriction (A s), fiberwiseAisSegal s))     ))</span>
@@ -1188,7 +1216,7 @@ functions or extensions into a family of Segal types is again a Segal type.</p>
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c">-- For later use, an equivalent characterization of the arrow type.</span>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Eq-arr</span>
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="err">  : Eq (arr A) </span><span class="p">(</span><span class="nv">Σ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">Σ (y </span><span class="p">:</span><span class="err"> A), hom A x y))</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="err">  : Equiv (arr A) </span><span class="p">(</span><span class="nv">Σ (x </span><span class="p">:</span><span class="err"> A), </span><span class="p">(</span><span class="nv">Σ (y </span><span class="p">:</span><span class="err"> A), hom A x y))</span>
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="err">  := (</span><span class="p">\</span><span class="nv">f </span><span class="err">-&gt; (f </span><span class="no">0_2</span><span class="err">, (f </span><span class="no">1_2</span><span class="err">, f)),</span>
 </span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="err">      ((\(x, (y, f)) -&gt; f, </span><span class="p">\</span><span class="nv">f </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">) ,</span>
 </span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="err">       (\(x, (y, f)) -&gt; f, </span><span class="p">\</span><span class="nv">xyf </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">)))</span>
@@ -1662,7 +1690,7 @@ arrow.</p>
 </span><span id="__span-24-28"><a id="__codelineno-24-28" name="__codelineno-24-28" href="#__codelineno-24-28"></a><span class="err">  := areContr-is-equiv</span>
 </span><span id="__span-24-29"><a id="__codelineno-24-29" name="__codelineno-24-29" href="#__codelineno-24-29"></a><span class="err">        </span><span class="p">(</span><span class="nv">Σ (g </span><span class="p">:</span><span class="err"> hom A x y), f = g)</span>
 </span><span id="__span-24-30"><a id="__codelineno-24-30" name="__codelineno-24-30" href="#__codelineno-24-30"></a><span class="err">        </span><span class="p">(</span><span class="nv">Σ (g </span><span class="p">:</span><span class="err"> hom A x y), (hom2 A x x y (id-arr A x) f g))</span>
-</span><span id="__span-24-31"><a id="__codelineno-24-31" name="__codelineno-24-31" href="#__codelineno-24-31"></a><span class="err">        (based-paths-contractible (hom A x y) f)</span>
+</span><span id="__span-24-31"><a id="__codelineno-24-31" name="__codelineno-24-31" href="#__codelineno-24-31"></a><span class="err">        (is-contr-based-paths (hom A x y) f)</span>
 </span><span id="__span-24-32"><a id="__codelineno-24-32" name="__codelineno-24-32" href="#__codelineno-24-32"></a><span class="err">        (AisSegal x x y (id-arr A x) f)</span>
 </span><span id="__span-24-33"><a id="__codelineno-24-33" name="__codelineno-24-33" href="#__codelineno-24-33"></a><span class="err">        (homotopy-to-hom2-total-map A x y f)</span>
 </span><span id="__span-24-34"><a id="__codelineno-24-34" name="__codelineno-24-34" href="#__codelineno-24-34"></a>
@@ -1672,7 +1700,7 @@ arrow.</p>
 </span><span id="__span-24-38"><a id="__codelineno-24-38" name="__codelineno-24-38" href="#__codelineno-24-38"></a><span class="err">  </span><span class="p">(</span><span class="nv">AisSegal </span><span class="p">:</span><span class="err"> is-segal A)</span>
 </span><span id="__span-24-39"><a id="__codelineno-24-39" name="__codelineno-24-39" href="#__codelineno-24-39"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-24-40"><a id="__codelineno-24-40" name="__codelineno-24-40" href="#__codelineno-24-40"></a><span class="err">  </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-24-41"><a id="__codelineno-24-41" name="__codelineno-24-41" href="#__codelineno-24-41"></a><span class="err">  : Eq (f = g) (hom2 A x x y (id-arr A x) f g)</span>
+</span><span id="__span-24-41"><a id="__codelineno-24-41" name="__codelineno-24-41" href="#__codelineno-24-41"></a><span class="err">  : Equiv (f = g) (hom2 A x x y (id-arr A x) f g)</span>
 </span><span id="__span-24-42"><a id="__codelineno-24-42" name="__codelineno-24-42" href="#__codelineno-24-42"></a><span class="err">  := (homotopy-to-hom2 A x y f g,</span>
 </span><span id="__span-24-43"><a id="__codelineno-24-43" name="__codelineno-24-43" href="#__codelineno-24-43"></a><span class="err">    total-equiv-family-of-equiv (hom A x y)</span>
 </span><span id="__span-24-44"><a id="__codelineno-24-44" name="__codelineno-24-44" href="#__codelineno-24-44"></a><span class="err">      (</span><span class="p">\</span><span class="nv">g </span><span class="err">-&gt; (f = g))</span>
@@ -1712,7 +1740,7 @@ arrow.</p>
 </span><span id="__span-25-28"><a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a><span class="err">  := areContr-is-equiv</span>
 </span><span id="__span-25-29"><a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a><span class="err">        </span><span class="p">(</span><span class="nv">Σ (g </span><span class="p">:</span><span class="err"> hom A x y), f = g)</span>
 </span><span id="__span-25-30"><a id="__codelineno-25-30" name="__codelineno-25-30" href="#__codelineno-25-30"></a><span class="err">        </span><span class="p">(</span><span class="nv">Σ (g </span><span class="p">:</span><span class="err"> hom A x y), (hom2 A x y y f (id-arr A y) g))</span>
-</span><span id="__span-25-31"><a id="__codelineno-25-31" name="__codelineno-25-31" href="#__codelineno-25-31"></a><span class="err">        (based-paths-contractible (hom A x y) f)</span>
+</span><span id="__span-25-31"><a id="__codelineno-25-31" name="__codelineno-25-31" href="#__codelineno-25-31"></a><span class="err">        (is-contr-based-paths (hom A x y) f)</span>
 </span><span id="__span-25-32"><a id="__codelineno-25-32" name="__codelineno-25-32" href="#__codelineno-25-32"></a><span class="err">        (AisSegal x y y f (id-arr A y))</span>
 </span><span id="__span-25-33"><a id="__codelineno-25-33" name="__codelineno-25-33" href="#__codelineno-25-33"></a><span class="err">        (homotopy-to-hom2&#39;-total-map A x y f)</span>
 </span><span id="__span-25-34"><a id="__codelineno-25-34" name="__codelineno-25-34" href="#__codelineno-25-34"></a>
@@ -1722,7 +1750,7 @@ arrow.</p>
 </span><span id="__span-25-38"><a id="__codelineno-25-38" name="__codelineno-25-38" href="#__codelineno-25-38"></a><span class="err">  </span><span class="p">(</span><span class="nv">AisSegal </span><span class="p">:</span><span class="err"> is-segal A)</span>
 </span><span id="__span-25-39"><a id="__codelineno-25-39" name="__codelineno-25-39" href="#__codelineno-25-39"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-25-40"><a id="__codelineno-25-40" name="__codelineno-25-40" href="#__codelineno-25-40"></a><span class="err">  </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-25-41"><a id="__codelineno-25-41" name="__codelineno-25-41" href="#__codelineno-25-41"></a><span class="err">  : Eq (f = g) (hom2 A x y y f (id-arr A y) g)</span>
+</span><span id="__span-25-41"><a id="__codelineno-25-41" name="__codelineno-25-41" href="#__codelineno-25-41"></a><span class="err">  : Equiv (f = g) (hom2 A x y y f (id-arr A y) g)</span>
 </span><span id="__span-25-42"><a id="__codelineno-25-42" name="__codelineno-25-42" href="#__codelineno-25-42"></a><span class="err">  := (homotopy-to-hom2&#39; A x y f g,</span>
 </span><span id="__span-25-43"><a id="__codelineno-25-43" name="__codelineno-25-43" href="#__codelineno-25-43"></a><span class="err">    total-equiv-family-of-equiv (hom A x y)</span>
 </span><span id="__span-25-44"><a id="__codelineno-25-44" name="__codelineno-25-44" href="#__codelineno-25-44"></a><span class="err">      (</span><span class="p">\</span><span class="nv">g </span><span class="err">-&gt; (f = g))</span>
@@ -1769,7 +1797,7 @@ the data provided by a commutative triangle with that boundary.</p>
 </span><span id="__span-26-34"><a id="__codelineno-26-34" name="__codelineno-26-34" href="#__codelineno-26-34"></a><span class="err">  := areContr-is-equiv</span>
 </span><span id="__span-26-35"><a id="__codelineno-26-35" name="__codelineno-26-35" href="#__codelineno-26-35"></a><span class="err">        </span><span class="p">(</span><span class="nv">Σ (h </span><span class="p">:</span><span class="err"> hom A x z), (Segal-comp A AisSegal x y z f g) = h)</span>
 </span><span id="__span-26-36"><a id="__codelineno-26-36" name="__codelineno-26-36" href="#__codelineno-26-36"></a><span class="err">        </span><span class="p">(</span><span class="nv">Σ (h </span><span class="p">:</span><span class="err"> hom A x z), (hom2 A x y z f g h))</span>
-</span><span id="__span-26-37"><a id="__codelineno-26-37" name="__codelineno-26-37" href="#__codelineno-26-37"></a><span class="err">        (based-paths-contractible (hom A x z) (Segal-comp A AisSegal x y z f g) )</span>
+</span><span id="__span-26-37"><a id="__codelineno-26-37" name="__codelineno-26-37" href="#__codelineno-26-37"></a><span class="err">        (is-contr-based-paths (hom A x z) (Segal-comp A AisSegal x y z f g) )</span>
 </span><span id="__span-26-38"><a id="__codelineno-26-38" name="__codelineno-26-38" href="#__codelineno-26-38"></a><span class="err">        (AisSegal x y z f g)</span>
 </span><span id="__span-26-39"><a id="__codelineno-26-39" name="__codelineno-26-39" href="#__codelineno-26-39"></a><span class="err">        (Segal-eq-to-hom2-total-map A AisSegal x y z f g)</span>
 </span><span id="__span-26-40"><a id="__codelineno-26-40" name="__codelineno-26-40" href="#__codelineno-26-40"></a>
@@ -1781,7 +1809,7 @@ the data provided by a commutative triangle with that boundary.</p>
 </span><span id="__span-26-46"><a id="__codelineno-26-46" name="__codelineno-26-46" href="#__codelineno-26-46"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A x y)</span>
 </span><span id="__span-26-47"><a id="__codelineno-26-47" name="__codelineno-26-47" href="#__codelineno-26-47"></a><span class="err">  </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A y z)</span>
 </span><span id="__span-26-48"><a id="__codelineno-26-48" name="__codelineno-26-48" href="#__codelineno-26-48"></a><span class="err">  </span><span class="p">(</span><span class="nv">h </span><span class="p">:</span><span class="err"> hom A x z)</span>
-</span><span id="__span-26-49"><a id="__codelineno-26-49" name="__codelineno-26-49" href="#__codelineno-26-49"></a><span class="err">  : Eq ((Segal-comp A AisSegal x y z f g) = h) (hom2 A x y z f g h)</span>
+</span><span id="__span-26-49"><a id="__codelineno-26-49" name="__codelineno-26-49" href="#__codelineno-26-49"></a><span class="err">  : Equiv ((Segal-comp A AisSegal x y z f g) = h) (hom2 A x y z f g h)</span>
 </span><span id="__span-26-50"><a id="__codelineno-26-50" name="__codelineno-26-50" href="#__codelineno-26-50"></a><span class="err">  := (Segal-eq-to-hom2 A AisSegal x y z f g h,</span>
 </span><span id="__span-26-51"><a id="__codelineno-26-51" name="__codelineno-26-51" href="#__codelineno-26-51"></a><span class="err">    total-equiv-family-of-equiv (hom A x z)</span>
 </span><span id="__span-26-52"><a id="__codelineno-26-52" name="__codelineno-26-52" href="#__codelineno-26-52"></a><span class="err">      (</span><span class="p">\</span><span class="nv">h </span><span class="err">-&gt; (Segal-comp A AisSegal x y z f g) = h)</span>
@@ -1871,7 +1899,7 @@ composition:</p>
 </span><span id="__span-27-77"><a id="__codelineno-27-77" name="__codelineno-27-77" href="#__codelineno-27-77"></a>
 </span><span id="__span-27-78"><a id="__codelineno-27-78" name="__codelineno-27-78" href="#__codelineno-27-78"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-segal-Unit</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">extext</span><span class="p">)</span>
 </span><span id="__span-27-79"><a id="__codelineno-27-79" name="__codelineno-27-79" href="#__codelineno-27-79"></a><span class="err">  : is-segal </span><span class="kt">Unit</span>
-</span><span id="__span-27-80"><a id="__codelineno-27-80" name="__codelineno-27-80" href="#__codelineno-27-80"></a><span class="err">  := </span><span class="p">\</span><span class="nv">x y z f g </span><span class="err">-&gt; isRetract-ofContr-is-contr</span>
+</span><span id="__span-27-80"><a id="__codelineno-27-80" name="__codelineno-27-80" href="#__codelineno-27-80"></a><span class="err">  := </span><span class="p">\</span><span class="nv">x y z f g </span><span class="err">-&gt; is-retract-of-is-contr-is-contr</span>
 </span><span id="__span-27-81"><a id="__codelineno-27-81" name="__codelineno-27-81" href="#__codelineno-27-81"></a><span class="err">    </span><span class="p">(</span><span class="nv">Σ (h </span><span class="p">:</span><span class="err"> hom </span><span class="kt">Unit</span><span class="err"> x z), hom2 </span><span class="kt">Unit</span><span class="err"> x y z f g h)</span>
 </span><span id="__span-27-82"><a id="__codelineno-27-82" name="__codelineno-27-82" href="#__codelineno-27-82"></a><span class="err">    (Δ² -&gt; </span><span class="kt">Unit</span><span class="err">)</span>
 </span><span id="__span-27-83"><a id="__codelineno-27-83" name="__codelineno-27-83" href="#__codelineno-27-83"></a><span class="err">    (\(_, k) -&gt; k, (</span><span class="p">\</span><span class="nv">k </span><span class="err">-&gt; (</span><span class="p">\</span><span class="nv">t </span><span class="err">-&gt; k (t, t), k), </span><span class="p">\</span><span class="nv">_ </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">))</span>
