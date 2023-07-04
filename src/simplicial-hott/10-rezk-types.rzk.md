@@ -138,9 +138,9 @@ This is a literate `rzk` file:
   (g : hom A y x)
   (gg : arrow-has-retraction A AisSegal x y f g)
   : (z : A) -> has-retraction (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
-  := \z -> (
+  := \ z -> (
         (Segal-postcomp A AisSegal y x g z) ,
-        \k ->
+        \ k ->
       (triple-concat
         (hom A z x) -- k is an arrow z -> x
         (Segal-comp A AisSegal z y x (Segal-comp A AisSegal z x y k f) g) -- g(fk)
@@ -162,9 +162,9 @@ This is a literate `rzk` file:
   (h : hom A y x)
   (hh : arrow-has-section A AisSegal x y f h)
   : (z : A) -> has-section (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
-  := \z -> (
+  := \ z -> (
         (Segal-postcomp A AisSegal y x h z) ,
-        \k ->
+        \ k ->
       (triple-concat
         (hom A z y) -- k is an arrow z to y
         (Segal-comp A AisSegal z x y (Segal-comp A AisSegal z y x k h) f) -- f(hk)
@@ -188,7 +188,7 @@ This is a literate `rzk` file:
   (h : hom A y x)
   (hh : arrow-has-section A AisSegal x y f h)
    : (z : A) -> is-equiv (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
-   := \z -> (
+   := \ z -> (
     (if-iso-then-postcomp-has-retraction extext A AisSegal x y f g gg z) ,
     (if-iso-then-postcomp-has-section extext A AisSegal x y f h hh z)
    )
@@ -202,9 +202,9 @@ This is a literate `rzk` file:
   (h : hom A y x)
   (hh : arrow-has-section A AisSegal x y f h)
   : (z : A) -> has-retraction (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
-  := \z -> (
+  := \ z -> (
         (Segal-precomp A AisSegal y x h z) ,
-        \k ->
+        \ k ->
       (triple-concat
         (hom A y z) -- k is an arrow y -> z
         (Segal-comp A AisSegal y x z h (Segal-comp A AisSegal x y z f k)) -- (kf)h
@@ -231,9 +231,9 @@ This is a literate `rzk` file:
   (g : hom A y x)
   (gg : arrow-has-retraction A AisSegal x y f g)
   : (z : A) -> has-section (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
-  := \z -> (
+  := \ z -> (
         (Segal-precomp A AisSegal y x g z) ,
-        \k ->
+        \ k ->
       (triple-concat
         (hom A x z) -- k is an arrow x -> z
         (Segal-comp A AisSegal x y z f (Segal-comp A AisSegal y x z g k)) -- (kg)f
@@ -262,7 +262,7 @@ This is a literate `rzk` file:
   (hh : arrow-has-section A AisSegal x y f h)
   : (z : A) -> is-equiv (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
   :=
-    \z -> (
+    \ z -> (
     (if-iso-then-precomp-has-retraction extext A AisSegal x y f h hh z) ,
     (if-iso-then-precomp-has-section extext A AisSegal x y f g gg z)
    )
@@ -321,7 +321,7 @@ This is a literate `rzk` file:
   (f : hom A x y)
    : (is-prop (arrow-is-iso A AisSegal x y f))
   := (is-prop-is-contr-is-inhabited (arrow-is-iso A AisSegal x y f)
-      (\is-isof -> (iso-inhabited-implies-iso-contr extext A AisSegal x y f (first (first is-isof)) (second (first is-isof))
+      (\ is-isof -> (iso-inhabited-implies-iso-contr extext A AisSegal x y f (first (first is-isof)) (second (first is-isof))
         (first (second is-isof))  (second (second is-isof))))
     )
 
@@ -349,7 +349,7 @@ This is a literate `rzk` file:
   (AisSegal : is-segal A)
   (x y : A)
   : (x = y) -> Iso A AisSegal x y
-  := \p -> idJ (A , x , \y' p' -> Iso A AisSegal x y' , (id-iso A AisSegal x) , y , p)
+  := \ p -> idJ (A , x , \ y' p' -> Iso A AisSegal x y' , (id-iso A AisSegal x) , y , p)
 
 #def is-rezk
   (A : U)
@@ -365,7 +365,7 @@ This is a literate `rzk` file:
 
 #def comma (B : U) (b : B) : U := (Σ (x : B) , (hom B x b))
 
-#def hom-cocomma (B : U) (b : B) : U := axiom-choice 2 Δ¹ ∂Δ¹ (\t ->
+#def hom-cocomma (B : U) (b : B) : U := axiom-choice 2 Δ¹ ∂Δ¹ (\ t ->
 
 #def axiom-choice (I : CUBE) (ψ : I -> TOPE) (ϕ : ψ -> TOPE) (X : ψ -> U) (Y :
 (t : ψ) -> (x : X t) -> U) (a : (t : ϕ) -> X t) (b : (t : ϕ) -> Y t (a t)) : Eq

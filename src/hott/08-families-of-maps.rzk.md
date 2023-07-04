@@ -214,7 +214,7 @@ thus an equivalence) on total spaces.
   : has-inverse (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f)
   :=
     invertible-family-total-invertible A B C f
-    ( \a -> has-inverse-is-equiv (B a) (C a) (f a) (familyequiv a))
+    ( \ a -> has-inverse-is-equiv (B a) (C a) (f a) (familyequiv a))
 ```
 
 For the converse, we make use of our calculation on fibers. The first
@@ -288,7 +288,7 @@ equivalence.
   ( A : U)
   (a : A)
   : Equiv (Σ (x : A) , x = a) (Σ (x : A) , a = x)
-  := total-equiv-family-equiv A (\x -> x = a) (\x -> a = x) (\x -> equiv-rev A x a)
+  := total-equiv-family-equiv A (\ x -> x = a) (\ x -> a = x) (\ x -> equiv-rev A x a)
 
 -- Codomain based path spaces are contractible
 #def is-contr-codomain-based-paths
@@ -628,7 +628,7 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
             ( \ t -> (ap A B x t e)) -- the family of maps ap_e
             ( (is-contr-is-equiv-to-contr
   -- Contractibility of sigma_{t : A} e x = e t will follow since
-  -- total (\t -> rev B (e x) = (e t)), mapping from sigma_{t : A} e x = e t to
+  -- total (\ t -> rev B (e x) = (e t)), mapping from sigma_{t : A} e x = e t to
   -- sigma_{t : A} e t = e x
   -- is an equivalence, and `Σ_{t : A} e t = e x ~ fib (e , e x)` is
   -- contractible since e is an equivalence.
@@ -705,7 +705,7 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
             ( ap B B
               ( b)
               ( f ((is-equiv-section A B f fisequiv) b))
-              ( \b0 ->
+              ( \ b0 ->
                 ( f ((is-equiv-retraction A C
                       ( composition A B C g f) gfisequiv) (g b0))))
               ( rev B (f ((is-equiv-section A B f fisequiv) b)) b
@@ -798,7 +798,7 @@ types over a product type.
               B'
               g
               gisequiv
-              ( \b' -> C' (f a) b')))))
+              ( \ b' -> C' (f a) b')))))
     ( pullback-is-equiv-base-is-equiv-total-is-equiv totalisequiv fisequiv)
 
 #def fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv

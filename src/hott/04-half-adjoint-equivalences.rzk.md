@@ -253,7 +253,7 @@ following naturality square.
 
 -- This will replace the discarded homotopy
 #def has-inverse-corrected-htpy
-  : homotopy B B (has-inverse-section-composite A B f fhasinverse) (\b -> b)
+  : homotopy B B (has-inverse-section-composite A B f fhasinverse) (\ b -> b)
   :=
     \ b ->
       concat B

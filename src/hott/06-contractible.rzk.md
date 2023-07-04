@@ -302,13 +302,13 @@ For example, we prove that based path spaces are contractible.
   (a x y : A)         -- The basepoint and two other points.
   (p : a = x)         -- An element of the based path space.
   (q : x = y)         -- A path in the base.
-  : (transport A (\z -> (a = z)) x y q p) = (concat A a x y p q)
+  : (transport A (\ z -> (a = z)) x y q p) = (concat A a x y p q)
   :=
     idJ (
       A ,
       x ,
       \ y' q' ->
-        ( transport A (\z -> (a = z)) x y' q' p) = (concat A a x y' p q') ,
+        ( transport A (\ z -> (a = z)) x y' q' p) = (concat A a x y' p q') ,
       refl,
       y ,
       q)
@@ -331,7 +331,7 @@ For example, we prove that based path spaces are contractible.
       A ( \ z -> a = z) a (first p) (second p) (refl) (second p)
         (concat
           ( a = (first p))
-          ( transport A (\z -> (a = z)) a (first p) (second p) (refl))
+          ( transport A (\ z -> (a = z)) a (first p) (second p) (refl))
           ( concat A a a (first p) (refl) (second p))
           ( second p)
           ( concat-as-based-transport A a a (first p) (refl) (second p))

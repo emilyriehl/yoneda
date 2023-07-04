@@ -665,7 +665,7 @@ has a unique lift with specified codomain.
 
 ## Representable contravariant families
 
-If A is a Segal type and a : A is any term, then the family \x -> hom A x a
+If A is a Segal type and a : A is any term, then the family \ x -> hom A x a
 defines a contravariant family over A , and conversely if this family is
 contravariant for every a : A , then A must be a Segal type. The proof involves
 a rather lengthy composition of equivalences.

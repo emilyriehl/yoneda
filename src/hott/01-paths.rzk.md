@@ -310,7 +310,7 @@ of the path algebra coherences defined above.
   (f : A -> B)
   (p : x = y)
   : (f x = f y)
-  := idJ (A , x , \ y' -> \p' -> (f x = f y') , refl, y , p)
+  := idJ (A , x , \ y' -> \ p' -> (f x = f y') , refl, y , p)
 
 #def ap-rev
   (A B : U)
@@ -415,7 +415,7 @@ of the path algebra coherences defined above.
       A ,
       x ,
       \ y' p' ->
-        (ap A C x y' (\z -> g (f z)) p') =
+        (ap A C x y' (\ z -> g (f z)) p') =
         (ap B C (f x) (f y') g (ap A B x y' f p')) ,
       refl,
       y ,
@@ -432,7 +432,7 @@ of the path algebra coherences defined above.
   :=
     rev
       ( g (f x) = g (f y))
-      ( ap A C x y (\z -> g (f z)) p)
+      ( ap A C x y (\ z -> g (f z)) p)
       ( ap B C (f x) (f y) g (ap A B x y f p))
       ( ap-comp A B C x y f g p)
 ```
@@ -525,7 +525,7 @@ of the path algebra coherences defined above.
   (a : A)
   (b : B a)
   : (a = a) -> B a
-  := \p -> (transport a a p b)
+  := \ p -> (transport a a p b)
 
 #end transport
 ```

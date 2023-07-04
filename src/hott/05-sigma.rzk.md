@@ -60,7 +60,7 @@ This is a literate `rzk` file:
     idJ (
       (Σ (a : A) , B a) ,
       s ,
-      \t' e' ->
+      \ t' e' ->
         ( transport A B
           ( first s) (first t') (first-path-sigma s t' e') (second s)) =
         ( second t') ,
@@ -88,7 +88,7 @@ This is a literate `rzk` file:
   (u v : B x)
   (p : u = v)
   : (x , u) =_{Σ (a : A) , B a} (x , v)
-  := idJ (B x , u , \v' p' -> (x , u) = (x , v') , refl, v , p)
+  := idJ (B x , u , \ v' p' -> (x , u) = (x , v') , refl, v , p)
 
 -- Essentially eq-pair but with explicit arguments.
 #def path-of-pairs-pair-of-paths
@@ -199,7 +199,7 @@ This is a literate `rzk` file:
       B ,
       b ,
       \ b'' q' -> C a' b'' ,
-      idJ (A , a , \a'' p' -> C a'' b , c , a' , p) ,
+      idJ (A , a , \ a'' p' -> C a'' b , c , a' , p) ,
       b' ,
       q)
 
@@ -247,9 +247,9 @@ This is a literate `rzk` file:
           (r : prod-transport a a'' b b' p' q c = c') ->
             ((a , (b , c)) =_{ (Σ (x : A) , (Σ (y : B) , C x y))} (a'' , (b' , c'))) ,
       \ q c' r ->
-        ( sigma-path-fibered-path A (\x -> (Σ (b : B) , C x b)) a
+        ( sigma-path-fibered-path A (\ x -> (Σ (b : B) , C x b)) a
           ( b , c) ( b' , c')
-          ( path-of-pairs-pair-of-paths B (\y -> C a y) b b' q c c' r)) ,
+          ( path-of-pairs-pair-of-paths B (\ y -> C a y) b b' q c c' r)) ,
       a' ,
       p)
 
@@ -350,8 +350,8 @@ This is a literate `rzk` file:
   : Equiv (prod A B) (prod B A)
   :=
     ( \ (a , b) -> (b , a) ,
-      ( ( \ (b , a) -> (a , b) ,\p -> refl) ,
-        ( \ (b , a) -> (a , b) ,\p -> refl)))
+      ( ( \ (b , a) -> (a , b) ,\ p -> refl) ,
+        ( \ (b , a) -> (a , b) ,\ p -> refl)))
 ```
 
 ## Fubini
@@ -381,8 +381,8 @@ Products distribute inside a sigma type:
   : Equiv (prod A (Σ (b : B) , C b)) (Σ (b : B) , prod A (C b))
   :=
     ( \ (a , (b , c)) -> (b , (a , c)) ,
-      ( ( \ (b , (a , c)) -> (a , (b , c)) , \z -> refl) ,
-        ( \ (b , (a , c)) -> (a , (b , c)) , \z -> refl)))
+      ( ( \ (b , (a , c)) -> (a , (b , c)) , \ z -> refl) ,
+        ( \ (b , (a , c)) -> (a , (b , c)) , \ z -> refl)))
 ```
 
 ## Associativity
@@ -397,6 +397,6 @@ Products distribute inside a sigma type:
       (Σ (ab : Σ (a : A) , B a) , C (first ab) (second ab))
   :=
     ( \ (a , (b , c)) -> ((a , b) , c) ,
-      ( ( \ ((a , b) , c) -> (a , (b , c)) , \_ -> refl) ,
-        ( \ ((a , b) , c) -> (a , (b , c)) , \_ -> refl)))
+      ( ( \ ((a , b) , c) -> (a , (b , c)) , \ _ -> refl) ,
+        ( \ ((a , b) , c) -> (a , (b , c)) , \ _ -> refl)))
 ```

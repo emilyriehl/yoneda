@@ -101,7 +101,7 @@ a given starting point in the fiber.
 (P : B -> U) (TPis-rezk : is-rezk (totalType B P)) (PisfibRezk : (b : B) ->
 is-rezk (P b)) (e : P b) (e' : P b') (f : dhom B b b' u P e e') (fiscocart :
 isCocartArr B b b' u P e e' f) : is-contr (CocartLift B b b' u P e) := ( (e' , f
-, fiscocart) , \d -> \g ->
+, fiscocart) , \ d -> \ g ->
 
 ## Initial objects
 
