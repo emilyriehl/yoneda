@@ -42,7 +42,7 @@ Path composition by induction on the second path.
 #def concat'
   (p : x = y)       -- A path from x to y in A.
   : (y = z) -> (x = z)
-  := idJ (A, x, \ y' p' -> (y' = z) -> (x = z), \ q' -> q', y, p)
+  := idJ (A , x , \ y' p' -> (y' = z) -> (x = z) , \ q' -> q' , y , p)
 
 #end path-algebra
 ```
@@ -58,13 +58,13 @@ Path composition by induction on the second path.
 #def rev-rev
   (p : x = y)       -- A path from x to y in A.
   : (rev A y x (rev A x y p)) = p
-  := idJ (A, x, \ y' p' -> (rev A y' x (rev A x y' p')) = p', refl, y, p)
+  := idJ (A , x , \ y' p' -> (rev A y' x (rev A x y' p')) = p' , refl, y , p)
 
 -- the coherence we don't have definitionally
 #def refl-concat
   (p : x = y)
   : (concat A x x y refl p) = p
-  := idJ (A, x, \ y' p' -> (concat A x x y' refl p') = p', refl, y, p)
+  := idJ (A , x , \ y' p' -> (concat A x x y' refl p') = p' , refl, y , p)
 
 -- associativity
 #def concat-assoc
@@ -75,13 +75,13 @@ Path composition by induction on the second path.
     concat A w x z p (concat A x y z q r)
   :=
     idJ (
-      A,
-      y,
+      A ,
+      y ,
       \ z' r' ->
         concat A w y z' (concat A w x y p q) r' =
-        concat A w x z' p (concat A x y z' q r'),
+        concat A w x z' p (concat A x y z' q r') ,
       refl,
-      z,
+      z ,
       r)
 
 #def assoc-concat
@@ -92,13 +92,13 @@ Path composition by induction on the second path.
     concat A w y z (concat A w x y p q) r
   :=
     idJ (
-      A,
-      y,
+      A ,
+      y ,
       \ z' r' ->
         concat A w x z' p (concat A x y z' q r') =
-        concat A w y z' (concat A w x y p q) r',
+        concat A w y z' (concat A w x y p q) r' ,
       refl,
-      z,
+      z ,
       r)
 
 #def right-inverse
@@ -106,11 +106,11 @@ Path composition by induction on the second path.
   : concat A x y x p (rev A x y p) = refl
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' -> concat A x y' x p' (rev A x y' p') = refl,
       refl,
-      y,
+      y ,
       p)
 
 #def left-inverse
@@ -118,11 +118,11 @@ Path composition by induction on the second path.
   : concat A y x y (rev A x y p) p = refl
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' -> concat A y' x y' (rev A x y' p') p' = refl,
       refl,
-      y,
+      y ,
       p)
 
 -- concatenation of two paths with common codomain; defined using concat and rev
@@ -145,11 +145,11 @@ Path composition by induction on the second path.
   : ((concat A x y z p r) = (concat A x y z q r)) -> (p = q)
   :=
     idJ (
-      A,
-      y,
-      \ z' r' -> ((concat A x y z' p r') = (concat A x y z' q r')) -> (p = q),
-      \ H -> H,
-      z,
+      A ,
+      y ,
+      \ z' r' -> ((concat A x y z' p r') = (concat A x y z' q r')) -> (p = q) ,
+      \ H -> H ,
+      z ,
       r)
 
 #end basic-path-coherence
@@ -172,17 +172,17 @@ of the path algebra coherences defined above.
     (concat A z y x (rev A y z q) (rev A x y p))
   :=
     idJ (
-      A,
-      y,
+      A ,
+      y ,
       \ z' q' ->
         (rev A x z' (concat A x y z' p q')) =
-        (concat A z' y x (rev A y z' q') (rev A x y p)),
+        (concat A z' y x (rev A y z' q') (rev A x y p)) ,
       rev
         ( y = x)
         ( concat A y y x refl (rev A x y p))
         ( rev A x y p)
-        ( refl-concat A y x (rev A x y p)),
-      z,
+        ( refl-concat A y x (rev A x y p)) ,
+      z ,
       q)
 
 -- postwhiskering paths of paths
@@ -193,11 +193,11 @@ of the path algebra coherences defined above.
   : (concat A x y z p r) = (concat A x y z q r)
   :=
     idJ (
-      A,
-      y,
-      \ z' r' -> (concat A x y z' p r') = (concat A x y z' q r'),
-      H,
-      z,
+      A ,
+      y ,
+      \ z' r' -> (concat A x y z' p r') = (concat A x y z' q r') ,
+      H ,
+      z ,
       r)
 
 -- prewhiskering paths of paths is much harder
@@ -209,13 +209,13 @@ of the path algebra coherences defined above.
     (concat A x y z p q) = (concat A x y z p r)
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' ->
       (q : y' = z) ->
       (r : y' = z) ->
       (H : q = r) ->
-      (concat A x y' z p' q) = (concat A x y' z p' r),
+      (concat A x y' z p' q) = (concat A x y' z p' r) ,
       \ q r H ->
         concat
           ( x = z)
@@ -223,8 +223,8 @@ of the path algebra coherences defined above.
           r
           ( concat A x x z refl r)
           ( concat (x = z) (concat A x x z refl q) q r (refl-concat A x z q) H)
-          ( rev (x = z) (concat A x x z refl r) r (refl-concat A x z r)),
-      y,
+          ( rev (x = z) (concat A x x z refl r) r (refl-concat A x z r)) ,
+      y ,
       p)
 
 -- a higher path comparing the two compositions
@@ -233,13 +233,13 @@ of the path algebra coherences defined above.
   : (q : y = z) -> (concat A x y z p q) = (concat' A x y z p q)
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' ->
         (q' : y' =_{A} z) ->
-        (concat A x y' z p' q') =_{x =_{A} z} concat' A x y' z p' q',
-      \ q' -> refl-concat A x z q',
-      y,
+        (concat A x y' z p' q') =_{x =_{A} z} concat' A x y' z p' q' ,
+      \ q' -> refl-concat A x z q' ,
+      y ,
       p)
 
 -- a higher path comparing the two compositions in the other order
@@ -263,14 +263,14 @@ of the path algebra coherences defined above.
     (concat' A y x z (rev A x y q) p) = r
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' q' ->
         (r' : y' =_{A} z) ->
         (H' : p = concat' A x y' z q' r') ->
-        (concat' A y' x z (rev A x y' q') p) = r',
-      \ r' H' -> H',
-      y,
+        (concat' A y' x z (rev A x y' q') p) = r' ,
+      \ r' H' -> H' ,
+      y ,
       q)
 
 #end derived-path-coherence
@@ -310,7 +310,7 @@ of the path algebra coherences defined above.
   (f : A -> B)
   (p : x = y)
   : (f x = f y)
-  := idJ (A, x, \ y' -> \p' -> (f x = f y'), refl, y, p)
+  := idJ (A , x , \ y' -> \p' -> (f x = f y') , refl, y , p)
 
 #def ap-rev
   (A B : U)
@@ -320,12 +320,12 @@ of the path algebra coherences defined above.
   : ap A B y x f (rev A x y p) = rev B (f x) (f y) (ap A B x y f p)
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' ->
-        ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p'),
+        ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p') ,
       refl,
-      y,
+      y ,
       p)
 
 #def ap-concat
@@ -338,13 +338,13 @@ of the path algebra coherences defined above.
     (concat B (f x) (f y) (f z) (ap A B x y f p) (ap A B y z f q))
   :=
     idJ (
-      A,
-      y,
+      A ,
+      y ,
       \ z' q' ->
         (ap A B x z' f (concat A x y z' p q')) =
-        (concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')),
+        (concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')) ,
       refl,
-      z,
+      z ,
       q)
 
 #def rev-ap-rev
@@ -355,13 +355,13 @@ of the path algebra coherences defined above.
   : (rev B (f y) (f x) (ap A B y x f (rev A x y p))) = (ap A B x y f p)
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' ->
         (rev B (f y') (f x) (ap A B y' x f (rev A x y' p'))) =
-        (ap A B x y' f p'),
+        (ap A B x y' f p') ,
       refl,
-      y,
+      y ,
       p)
 
 -- For specific use
@@ -374,15 +374,15 @@ of the path algebra coherences defined above.
     refl
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' ->
         (concat
           ( B) (f y') (f x) (f y')
           ( ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) =
         refl,
       refl,
-      y,
+      y ,
       p)
 
 #def ap-id
@@ -390,7 +390,7 @@ of the path algebra coherences defined above.
   (x y : A)
   (p : x = y)
   : (ap A A x y (identity A) p) = p
-    := idJ (A, x, \ y' p' -> (ap A A x y' (\ z -> z) p') = p', refl, y, p)
+    := idJ (A , x , \ y' p' -> (ap A A x y' (\ z -> z) p') = p' , refl, y , p)
 
 -- application of a function to homotopic paths yields homotopic paths
 #def ap-htpy
@@ -400,7 +400,7 @@ of the path algebra coherences defined above.
   (p q : x = y)
   (H : p = q)
   : (ap A B x y f p) = (ap A B x y f q)
-  := idJ (x = y, p, \ q' H' -> (ap A B x y f p) = (ap A B x y f q'), refl, q, H)
+  := idJ (x = y , p , \ q' H' -> (ap A B x y f p) = (ap A B x y f q') , refl, q , H)
 
 #def ap-comp
   (A B C : U)
@@ -412,13 +412,13 @@ of the path algebra coherences defined above.
     (ap B C (f x) (f y) g (ap A B x y f p))
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' ->
         (ap A C x y' (\z -> g (f z)) p') =
-        (ap B C (f x) (f y') g (ap A B x y' f p')),
+        (ap B C (f x) (f y') g (ap A B x y' f p')) ,
       refl,
-      y,
+      y ,
       p)
 
 #def rev-ap-comp
@@ -451,21 +451,21 @@ of the path algebra coherences defined above.
   (p : x = y)
   (u : B x)
   : B y
-  := idJ (A, x, \ y' p' -> B y', u, y, p)
+  := idJ (A , x , \ y' p' -> B y' , u , y , p)
 
 -- The lift of a base path to a path from a term in the total space to its transport.
 #def transport-lift
     (x y : A)
     (p : x = y)
     (u : B x)
-    : (x, u) =_{Σ (z : A), B z} (y, transport x y p u)
+    : (x , u) =_{Σ (z : A) , B z} (y , transport x y p u)
     :=
       idJ (
-        A,
-        x,
-        \ y' p' -> (x, u) =_{Σ (z : A), B z} (y', transport x y' p' u),
+        A ,
+        x ,
+        \ y' p' -> (x , u) =_{Σ (z : A) , B z} (y' , transport x y' p' u) ,
         refl,
-        y,
+        y ,
         p)
 
 -- transport along concatenated paths
@@ -478,13 +478,13 @@ of the path algebra coherences defined above.
     (transport y z q (transport x y p u))
   :=
     idJ (
-      A,
-      y,
+      A ,
+      y ,
       \ z' q' ->
         (transport x z' (concat A x y z' p q') u) =
-        (transport y z' q' (transport x y p u)),
+        (transport y z' q' (transport x y p u)) ,
       refl,
-      z,
+      z ,
       q)
 
 #def transport-concat-rev
@@ -496,13 +496,13 @@ of the path algebra coherences defined above.
     (transport x z (concat A x y z p q) u)
   :=
     idJ (
-      A,
-      y,
+      A ,
+      y ,
       \ z' q' ->
         (transport y z' q' (transport x y p u)) =
-        (transport x z' (concat A x y z' p q') u),
+        (transport x z' (concat A x y z' p q') u) ,
       refl,
-      z,
+      z ,
       q)
 
 -- A path between transportation along homotopic paths
@@ -514,11 +514,11 @@ of the path algebra coherences defined above.
   : (transport x y p u) = (transport x y q u)
   :=
     idJ (
-      x = y,
-      p,
-      \ q' H' -> (transport x y p u) = (transport x y q' u),
+      x = y ,
+      p ,
+      \ q' H' -> (transport x y p u) = (transport x y q' u) ,
       refl,
-      q,
+      q ,
       H)
 
 #def transport-loop
@@ -541,7 +541,7 @@ of the path algebra coherences defined above.
   (f : (z : A) -> B z)
   (p : x = y)
   : ((transport A B x y p (f x)) = f y)
-  := idJ (A, x, \ y' p' -> ((transport A B x y' p' (f x)) = f y'), refl, y, p)
+  := idJ (A , x , \ y' p' -> ((transport A B x y' p' (f x)) = f y') , refl, y , p)
 ```
 
 ## Higher-order concatenation
@@ -656,11 +656,11 @@ of the path algebra coherences defined above.
   : triple-concat A y x x y (rev A x y p) refl p = refl
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' -> triple-concat A y' x x y' (rev A x y' p') refl p' = refl,
       refl,
-      y,
+      y ,
       p)
 
 #def ap-rev-refl-id-triple-concat
@@ -671,13 +671,13 @@ of the path algebra coherences defined above.
   : ap A B y y f (triple-concat A y x x y (rev A x y p) refl p) = refl
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' ->
         ap A B y' y' f (triple-concat A y' x x y' (rev A x y' p') refl p') =
         refl,
       refl,
-      y,
+      y ,
       p)
 
 #def ap-triple-concat
@@ -699,8 +699,8 @@ of the path algebra coherences defined above.
       ( ap A B y z f r)
   :=
     idJ (
-      A,
-      y,
+      A ,
+      y ,
       \ z' r' ->
         ap A B w z' f (triple-concat A w x y z' p q r') =
         triple-concat
@@ -711,9 +711,9 @@ of the path algebra coherences defined above.
           ( f z')
           ( ap A B w x f p)
           ( ap A B x y f q)
-          ( ap A B y z' f r'),
-      ap-concat A B w x y f p q,
-      z,
+          ( ap A B y z' f r') ,
+      ap-concat A B w x y f p q ,
+      z ,
       r)
 
 #def homotopy-triple-concat
@@ -736,11 +736,11 @@ of the path algebra coherences defined above.
   : triple-concat A w x y z p q s = triple-concat A w x y z p r s
   :=
     idJ (
-      x = y,
-      q,
+      x = y ,
+      q ,
       \ r' H' ->
-        triple-concat A w x y z p q s = triple-concat A w x y z p r' s,
+        triple-concat A w x y z p q s = triple-concat A w x y z p r' s ,
       refl,
-      r,
+      r ,
       H)
 ```

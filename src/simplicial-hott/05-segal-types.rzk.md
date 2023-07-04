@@ -38,7 +38,7 @@ Extension types are used ∂to define the type of arrows between fixed terms:
   (x y : A) -- Two points in A.
   : U                   -- (hom A x y) is a 1-simplex (an arrow)
   := (t : Δ¹) -> A [    -- in A where
-    t === 0_2 |-> x,    -- * the left endpoint is exactly x
+    t === 0_2 |-> x ,    -- * the left endpoint is exactly x
     t === 1_2 |-> y     -- * the right endpoint is exactly y
   ]
 ```
@@ -88,7 +88,7 @@ requires homotopical uniqueness of higher-order composites.
   : U
   := (x : A) -> (y : A) -> (z : A) ->
       (f : hom A x y) -> (g : hom A y z) ->
-      is-contr ( Σ (h : hom A x z), hom2 A x y z f g h)
+      is-contr ( Σ (h : hom A x z) , hom2 A x y z f g h)
 ```
 
 Segal types have a composition functor and witnesses to the composition
@@ -117,7 +117,7 @@ relation:
 ```
 
 Composition in a Segal type is unique in the following sense. If there is a
-witness that an arrow h is a composite of f and g, then the specified composite
+witness that an arrow h is a composite of f and g , then the specified composite
 equals h.
 
 <svg style="float: right" viewBox="0 0 200 380" width="125">
@@ -159,13 +159,13 @@ equals h.
   := first-path-sigma
       (hom A x z)
       (\k -> hom2 A x y z f g k)
-      (Segal-comp A AisSegal x y z f g,
+      (Segal-comp A AisSegal x y z f g ,
         Segal-comp-witness A AisSegal x y z f g)
-      (h, alpha)
+      (h , alpha)
       (contracting-htpy
-        (Σ (k : hom A x z), hom2 A x y z f g k)
+        (Σ (k : hom A x z) , hom2 A x y z f g k)
         (AisSegal x y z f g)
-        (h, alpha))
+        (h , alpha))
 ```
 
 ### Characterizing Segal types
@@ -191,8 +191,8 @@ map, defined below, is an equivalence.
   (f : hom A x y)   -- An arrow in A from x to y.
   (g : hom A y z)   -- An arrow in A from y to z.
   : Λ -> A
-  := \ (t, s) -> recOR (
-    s === 0_2 |-> f t,
+  := \ (t , s) -> recOR (
+    s === 0_2 |-> f t ,
     t === 1_2 |-> g s
   )
 ```
@@ -220,25 +220,25 @@ Now we prove this definition is equivalent to the original one.
   (x y z : A)                   -- Three points in A.
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
-  : Equiv (Σ (h : hom A x z), hom2 A x y z f g h)
+  : Equiv (Σ (h : hom A x z) , hom2 A x y z f g h)
        <{t : 2 * 2 | Δ² t } -> A [ Λ t |-> horn A x y z f g t ]>
-  := (\hh -> \{t : 2 * 2 | Δ² t} -> (second hh) t,
-      ((\k -> (\ (t : 2) -> k (t, t), \ (t, s) -> k (t, s)), \hh -> refl),
-       (\k -> (\ (t : 2) -> k (t, t), \ (t, s) -> k (t, s)), \hh -> refl)))
+  := (\hh -> \{t : 2 * 2 | Δ² t} -> (second hh) t ,
+      ((\k -> (\ (t : 2) -> k (t , t) , \ (t , s) -> k (t , s)) , \hh -> refl) ,
+       (\k -> (\ (t : 2) -> k (t , t) , \ (t , s) -> k (t , s)) , \hh -> refl)))
 
 #def equiv-horn-restriction
   (A : U)                       -- A type.
   : Equiv (<{t : 2 * 2 | Δ² t} -> A >)
-      (Σ (k : <{t : 2 * 2 | Λ t} -> A >),
-        Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
+      (Σ (k : <{t : 2 * 2 | Λ t} -> A >) ,
+        Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))) ,
           hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                 (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h)
+                 (\t -> k (t , 0_2)) (\t -> k (1_2, t)) h)
   := (\k ->
-      (\{t : 2 * 2 | Λ t} -> k t,
-        (\ (t : 2) -> k (t, t),
-         \{t : 2 * 2 | Δ² t} -> k t)),
-      ((\khh -> \{t : 2 * 2 | Δ² t} -> (second (second khh)) t, \k -> refl_{k}),
-        (\khh -> \{t : 2 * 2 | Δ² t} -> (second (second khh)) t, \k -> refl_{k})))
+      (\{t : 2 * 2 | Λ t} -> k t ,
+        (\ (t : 2) -> k (t , t) ,
+         \{t : 2 * 2 | Δ² t} -> k t)) ,
+      ((\khh -> \{t : 2 * 2 | Δ² t} -> (second (second khh)) t , \k -> refl_{k}) ,
+        (\khh -> \{t : 2 * 2 | Δ² t} -> (second (second khh)) t , \k -> refl_{k})))
 
 -- [RS17, Theorem 5.5], the hard direction:
 #def Segal-equiv-horn-restriction
@@ -247,24 +247,24 @@ Now we prove this definition is equivalent to the original one.
   : Equiv (<{t : 2 * 2 | Δ² t} -> A >) (<{t : 2 * 2 | Λ t} -> A >) -- (horn-restriction A)
   := comp-equiv
         (<{t : 2 * 2 | Δ² t} -> A >)
-        (Σ (k : <{t : 2 * 2 | Λ t} -> A >),
-            Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
+        (Σ (k : <{t : 2 * 2 | Λ t} -> A >) ,
+            Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))) ,
             hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                    (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h)
+                    (\t -> k (t , 0_2)) (\t -> k (1_2, t)) h)
         (<{t : 2 * 2 | Λ t} -> A >)
         (equiv-horn-restriction A)
         (total-space-projection
             (<{t : 2 * 2 | Λ t} -> A >)
-            (\k -> Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
+            (\k -> Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))) ,
                         hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                            (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h),
+                            (\t -> k (t , 0_2)) (\t -> k (1_2, t)) h) ,
         (is-equiv-projection-contractible-fibers
             (<{t : 2 * 2 | Λ t} -> A >)
-            (\k -> Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))),
+            (\k -> Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))) ,
                         hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                            (\t -> k (t, 0_2)) (\t -> k (1_2, t)) h)
+                            (\t -> k (t , 0_2)) (\t -> k (1_2, t)) h)
             (\k -> AisSegal (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                            (\t -> k (t, 0_2)) (\t -> k (1_2, t)))))
+                            (\t -> k (t , 0_2)) (\t -> k (1_2, t)))))
 
 -- Verify that the mapping in (Segal-equiv-horn-restriction A AisSegal)
 -- is exactly (horn-restriction A)
@@ -397,7 +397,7 @@ functions or extensions into a family of Segal types is again a Segal type.
           (second (fibered-Eq-extension-Equiv extext I ψ
             (\{s : I | ψ s} -> <{t : 2 * 2 | Δ² t} -> A s >)
             (\{s : I | ψ s} -> <{t : 2 * 2 | Λ t} -> A s >)
-            (\{s : I | ψ s} -> (horn-restriction (A s), fiberwiseAisSegal s))     ))
+            (\{s : I | ψ s} -> (horn-restriction (A s) , fiberwiseAisSegal s))     ))
         (\h -> \{t : 2 * 2 | Λ t} -> \{s : I | ψ s} -> (h s) t) -- third equivalence
           (second (fubini
             I
@@ -422,10 +422,10 @@ In particular, the arrow type of a Segal type is Segal.
 -- For later use, an equivalent characterization of the arrow type.
 #def Eq-arr
   (A : U)
-  : Equiv (arr A) (Σ (x : A), (Σ (y : A), hom A x y))
-  := (\f -> (f 0_2, (f 1_2, f)),
-      ((\ (x, (y, f)) -> f, \f -> refl) ,
-       (\ (x, (y, f)) -> f, \xyf -> refl)))
+  : Equiv (arr A) (Σ (x : A) , (Σ (y : A) , hom A x y))
+  := (\f -> (f 0_2, (f 1_2, f)) ,
+      ((\ (x , (y , f)) -> f , \f -> refl) ,
+       (\ (x , (y , f)) -> f , \xyf -> refl)))
 
 -- A special case of [RS17, Corollary 5.6(ii)], using is-Segal'.
 #def Segal'-arrow-types
@@ -500,7 +500,7 @@ Witness for the right identity law:
   (x y : A)                 -- Two points in A.
   (f : hom A x y)           -- An arrow from x to y in A.
   : hom2 A x y y f (id-arr A y) f
-  := \{(t, s) : 2 * 2 | Δ² (t, s)} -> f t
+  := \{(t , s) : 2 * 2 | Δ² (t , s)} -> f t
 ```
 
 Witness for the left identity law:
@@ -527,7 +527,7 @@ Witness for the left identity law:
   (x y : A)                 -- Two points in A.
   (f : hom A x y)           -- An arrow from x to y in A.
   : hom2 A x x y (id-arr A x) f f
-  := \{(t, s) : 2 * 2 | Δ² (t, s)} -> f s
+  := \{(t , s) : 2 * 2 | Δ² (t , s)} -> f s
 ```
 
 In a Segal type, where composition is unique, it follows that composition with
@@ -592,8 +592,8 @@ that the type of arrows in a Segal type is itself a Segal type.
   (A : U)                         -- A type.
   (triangle : Δ² -> A)            -- A triangle in A.
   : Δ¹×Δ¹ -> A                    -- A square in A, defined by gluing
-  := \ (t, s) ->                   -- two copies of the triangle along the common diagonal edge.
-    recOR (t <= s |-> triangle (s , t),
+  := \ (t , s) ->                   -- two copies of the triangle along the common diagonal edge.
+    recOR (t <= s |-> triangle (s , t) ,
         s <= t |-> triangle (t , s))
 ```
 
@@ -651,7 +651,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
   (f : hom A x y)               -- An arrow in A from x to y.
   (g : hom A y z)               -- An arrow in A from y to z.
   : hom (arr A) f g
-  := \t -> \s -> (Segal-comp-witness-square A AisSegal x y z f g) (t, s)
+  := \t -> \s -> (Segal-comp-witness-square A AisSegal x y z f g) (t , s)
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -721,7 +721,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
 
 ```rzk
 -- The Segal-associativity-witness curries to define a diagram Δ²×Δ¹ -> A.
--- The Segal-associativity-tetrahedron is extracted via the middle-simplex map \((t, s), r) -> ((t, r), s) from Δ³ to Δ²×Δ¹
+-- The Segal-associativity-tetrahedron is extracted via the middle-simplex map `\((t , s) , r) -> ((t , r) , s)` from Δ³ to Δ²×Δ¹
 #def Segal-associativity-tetrahedron
   (extext : ExtExt)         -- This proof uses extension extensionality.
   (A : U)                   -- A type.
@@ -731,8 +731,8 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
   (g : hom A x y)           -- An arrow in A from x to y.
   (h : hom A y z)           -- An arrow in A from y to z.
   : Δ³ -> A
-  := \ ((t, s), r) ->
-    (Segal-associativity-witness extext A AisSegal w x y z f g h) (t, r) s
+  := \ ((t , s) , r) ->
+    (Segal-associativity-witness extext A AisSegal w x y z f g h) (t , r) s
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -765,7 +765,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
   (h : hom A y z)           -- An arrow in A from y to z.
   : hom A w z
   := \t ->
-    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), t)
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t , t) , t)
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -801,8 +801,8 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
     (Segal-comp A AisSegal w x y f g)
     h
     (Segal-triple-composite extext A AisSegal w x y z f g h)
-  := \ (t, s) ->
-    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, t), s)
+  := \ (t , s) ->
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t , t) , s)
 ```
 
 The front face:
@@ -840,8 +840,8 @@ The front face:
     f
     (Segal-comp A AisSegal x y z g h)
     (Segal-triple-composite extext A AisSegal w x y z f g h)
-  := \ (t, s) ->
-    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t, s), s)
+  := \ (t , s) ->
+    (Segal-associativity-tetrahedron extext A AisSegal w x y z f g h) ((t , s) , s)
 ```
 
 ```rzk
@@ -923,17 +923,17 @@ arrow.
   (f g : hom A x y)
   (p : f = g)
   : (hom2 A x x y (id-arr A x) f g)
-  := idJ (hom A x y, f,
-          \g' p' -> (hom2 A x x y (id-arr A x) f g'),
-          (id-comp-witness A x y f), g, p)
+  := idJ (hom A x y , f ,
+          \g' p' -> (hom2 A x x y (id-arr A x) f g') ,
+          (id-comp-witness A x y f) , g , p)
 
 #def homotopy-to-hom2-total-map
   (A : U)
   (x y : A)
   (f : hom A x y)
-  : (Σ (g : hom A x y), f = g) ->
-      (Σ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
-  := \ (g, p) -> (g, homotopy-to-hom2 A x y f g p)
+  : (Σ (g : hom A x y) , f = g) ->
+      (Σ (g : hom A x y) , (hom2 A x x y (id-arr A x) f g))
+  := \ (g , p) -> (g , homotopy-to-hom2 A x y f g p)
 
 #def Segal-homotopy-to-hom2-total-map-is-equiv
   (A : U)
@@ -941,12 +941,12 @@ arrow.
   (x y : A)
   (f : hom A x y)
   : is-equiv
-      (Σ (g : hom A x y), f = g)
-      (Σ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
+      (Σ (g : hom A x y) , f = g)
+      (Σ (g : hom A x y) , (hom2 A x x y (id-arr A x) f g))
       (homotopy-to-hom2-total-map A x y f)
   := areContr-is-equiv
-        (Σ (g : hom A x y), f = g)
-        (Σ (g : hom A x y), (hom2 A x x y (id-arr A x) f g))
+        (Σ (g : hom A x y) , f = g)
+        (Σ (g : hom A x y) , (hom2 A x x y (id-arr A x) f g))
         (is-contr-based-paths (hom A x y) f)
         (AisSegal x x y (id-arr A x) f)
         (homotopy-to-hom2-total-map A x y f)
@@ -958,7 +958,7 @@ arrow.
   (x y : A)
   (f g : hom A x y)
   : Equiv (f = g) (hom2 A x x y (id-arr A x) f g)
-  := (homotopy-to-hom2 A x y f g,
+  := (homotopy-to-hom2 A x y f g ,
     total-equiv-family-of-equiv (hom A x y)
       (\g -> (f = g))
       (\g -> (hom2 A x x y (id-arr A x) f g))
@@ -976,17 +976,17 @@ A dual notion of homotopy can be defined similarly.
   (f g : hom A x y)
   (p : f = g)
   : (hom2 A x y y f (id-arr A y) g)
-  := idJ (hom A x y, f,
-          \g' p' -> (hom2 A x y y f (id-arr A y) g'),
-          (comp-id-witness A x y f), g, p)
+  := idJ (hom A x y , f ,
+          \g' p' -> (hom2 A x y y f (id-arr A y) g') ,
+          (comp-id-witness A x y f) , g , p)
 
 #def homotopy-to-hom2'-total-map
   (A : U)
   (x y : A)
   (f : hom A x y)
-  : (Σ (g : hom A x y), f = g) ->
-      (Σ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
-  := \ (g, p) -> (g, homotopy-to-hom2' A x y f g p)
+  : (Σ (g : hom A x y) , f = g) ->
+      (Σ (g : hom A x y) , (hom2 A x y y f (id-arr A y) g))
+  := \ (g , p) -> (g , homotopy-to-hom2' A x y f g p)
 
 #def Segal-homotopy-to-hom2'-total-map-is-equiv
   (A : U)
@@ -994,12 +994,12 @@ A dual notion of homotopy can be defined similarly.
   (x y : A)
   (f : hom A x y)
   : is-equiv
-      (Σ (g : hom A x y), f = g)
-      (Σ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
+      (Σ (g : hom A x y) , f = g)
+      (Σ (g : hom A x y) , (hom2 A x y y f (id-arr A y) g))
       (homotopy-to-hom2'-total-map A x y f)
   := areContr-is-equiv
-        (Σ (g : hom A x y), f = g)
-        (Σ (g : hom A x y), (hom2 A x y y f (id-arr A y) g))
+        (Σ (g : hom A x y) , f = g)
+        (Σ (g : hom A x y) , (hom2 A x y y f (id-arr A y) g))
         (is-contr-based-paths (hom A x y) f)
         (AisSegal x y y f (id-arr A y))
         (homotopy-to-hom2'-total-map A x y f)
@@ -1011,7 +1011,7 @@ A dual notion of homotopy can be defined similarly.
   (x y : A)
   (f g : hom A x y)
   : Equiv (f = g) (hom2 A x y y f (id-arr A y) g)
-  := (homotopy-to-hom2' A x y f g,
+  := (homotopy-to-hom2' A x y f g ,
     total-equiv-family-of-equiv (hom A x y)
       (\g -> (f = g))
       (\g -> (hom2 A x y y f (id-arr A y) g))
@@ -1033,9 +1033,9 @@ the data provided by a commutative triangle with that boundary.
   (h : hom A x z)
   (p : (Segal-comp A AisSegal x y z f g) = h)
   : (hom2 A x y z f g h)
-  := idJ (hom A x z, (Segal-comp A AisSegal x y z f g),
-          \h' p' -> (hom2 A x y z f g h'),
-          Segal-comp-witness A AisSegal x y z f g, h, p)
+  := idJ (hom A x z , (Segal-comp A AisSegal x y z f g) ,
+          \h' p' -> (hom2 A x y z f g h') ,
+          Segal-comp-witness A AisSegal x y z f g , h , p)
 
 #def Segal-eq-to-hom2-total-map
   (A : U)
@@ -1043,9 +1043,9 @@ the data provided by a commutative triangle with that boundary.
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
-  : (Σ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h) ->
-      (Σ (h : hom A x z), (hom2 A x y z f g h))
-  := \ (h, p) -> (h, Segal-eq-to-hom2 A AisSegal x y z f g h p)
+  : (Σ (h : hom A x z) , (Segal-comp A AisSegal x y z f g) = h) ->
+      (Σ (h : hom A x z) , (hom2 A x y z f g h))
+  := \ (h , p) -> (h , Segal-eq-to-hom2 A AisSegal x y z f g h p)
 
 #def Segal-eq-to-hom2-total-map-is-equiv
   (A : U)
@@ -1054,12 +1054,12 @@ the data provided by a commutative triangle with that boundary.
   (f : hom A x y)
   (g : hom A y z)
   : is-equiv
-      (Σ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h)
-      (Σ (h : hom A x z), (hom2 A x y z f g h))
+      (Σ (h : hom A x z) , (Segal-comp A AisSegal x y z f g) = h)
+      (Σ (h : hom A x z) , (hom2 A x y z f g h))
       (Segal-eq-to-hom2-total-map A AisSegal x y z f g)
   := areContr-is-equiv
-        (Σ (h : hom A x z), (Segal-comp A AisSegal x y z f g) = h)
-        (Σ (h : hom A x z), (hom2 A x y z f g h))
+        (Σ (h : hom A x z) , (Segal-comp A AisSegal x y z f g) = h)
+        (Σ (h : hom A x z) , (hom2 A x y z f g h))
         (is-contr-based-paths (hom A x z) (Segal-comp A AisSegal x y z f g) )
         (AisSegal x y z f g)
         (Segal-eq-to-hom2-total-map A AisSegal x y z f g)
@@ -1073,7 +1073,7 @@ the data provided by a commutative triangle with that boundary.
   (g : hom A y z)
   (h : hom A x z)
   : Equiv ((Segal-comp A AisSegal x y z f g) = h) (hom2 A x y z f g h)
-  := (Segal-eq-to-hom2 A AisSegal x y z f g h,
+  := (Segal-eq-to-hom2 A AisSegal x y z f g h ,
     total-equiv-family-of-equiv (hom A x z)
       (\h -> (Segal-comp A AisSegal x y z f g) = h)
       (\h -> hom2 A x y z f g h)
@@ -1096,9 +1096,9 @@ composition:
   (p : f = g)
   (q : h = k)
   : (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g k)
-  := idJ (hom A y z, h, \k' q' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g k'),
-    idJ (hom A x y, f, \g' p' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g' h), refl, g, p)
-    , k, q)
+  := idJ (hom A y z , h , \k' q' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g k') ,
+    idJ (hom A x y , f , \g' p' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g' h) , refl, g , p)
+    , k , q)
 
 -- As a special case of the above:
 #def Segal-homotopy-postwhisker
@@ -1132,8 +1132,8 @@ composition:
   (p : f = g)
   : (Segal-homotopy-postwhisker A AisSegal x y z f g h p) =
     ap (hom A x y) (hom A x z) f g (\k -> Segal-comp A AisSegal x y z k h) p
-  := idJ (hom A x y, f, \g' p' -> (Segal-homotopy-postwhisker A AisSegal x y z f g' h p') =
-    ap (hom A x y) (hom A x z) f g' (\k -> Segal-comp A AisSegal x y z k h) p', refl, g, p)
+  := idJ (hom A x y , f , \g' p' -> (Segal-homotopy-postwhisker A AisSegal x y z f g' h p') =
+    ap (hom A x y) (hom A x z) f g' (\k -> Segal-comp A AisSegal x y z k h) p' , refl, g , p)
 
 -- [RS17, Proposition 5.14(b)]
 #def Segal-homotopy-prewhisker-is-ap
@@ -1145,8 +1145,8 @@ composition:
   (p : f = g)
   : (Segal-homotopy-prewhisker A AisSegal w x y k f g p) =
     ap (hom A x y) (hom A w y) f g (Segal-comp A AisSegal w x y k) p
-  := idJ (hom A x y, f, \g' p' -> (Segal-homotopy-prewhisker A AisSegal w x y k f g' p') =
-    ap (hom A x y) (hom A w y) f g' (Segal-comp A AisSegal w x y k) p', refl, g, p)
+  := idJ (hom A x y , f , \g' p' -> (Segal-homotopy-prewhisker A AisSegal w x y k f g' p') =
+    ap (hom A x y) (hom A w y) f g' (Segal-comp A AisSegal w x y k) p' , refl, g , p)
 
 #section is-segal-Unit
 
@@ -1166,9 +1166,9 @@ composition:
 #def is-segal-Unit uses (extext)
   : is-segal Unit
   := \x y z f g -> is-retract-of-is-contr-is-contr
-    (Σ (h : hom Unit x z), hom2 Unit x y z f g h)
+    (Σ (h : hom Unit x z) , hom2 Unit x y z f g h)
     (Δ² -> Unit)
-    (\ (_, k) -> k, (\k -> (\t -> k (t, t), k), \_ -> refl))
+    (\ (_ , k) -> k , (\k -> (\t -> k (t , t) , k) , \_ -> refl))
     is-contr-Δ²→Unit
 
 #end is-segal-Unit

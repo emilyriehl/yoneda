@@ -16,12 +16,12 @@ This is a literate `rzk` file:
 #def has-section
     (f : A -> B)
     : U
-    := Σ (s : B -> A), homotopy B B (composition B A B f s) (identity B)
+    := Σ (s : B -> A) , homotopy B B (composition B A B f s) (identity B)
 
 #def has-retraction
     (f : A -> B)
     : U
-    := Σ (r : B -> A), homotopy A A (composition A B A r f) (identity A)
+    := Σ (r : B -> A) , homotopy A A (composition A B A r f) (identity A)
 
 -- equivalences are bi-invertible maps
 #def is-equiv
@@ -82,7 +82,7 @@ This is a literate `rzk` file:
   (f : A -> B)
   : U
   :=
-    Σ (g : B -> A), ( prod
+    Σ (g : B -> A) , ( prod
                       ( homotopy A A (composition A B A g f) (identity A))
                             -- The retracting homotopy
                       ( homotopy B B (composition B A B f g) (identity B)))
@@ -99,7 +99,7 @@ This is a literate `rzk` file:
   (fhasinverse : has-inverse A B f)
   : is-equiv A B f
   :=
-    ( ( first fhasinverse, first (second fhasinverse)),
+    ( ( first fhasinverse, first (second fhasinverse)) ,
       ( first fhasinverse, second (second fhasinverse)))
 
 -- equivalences are invertible
@@ -166,7 +166,7 @@ The type of equivalences between types uses is-equiv rather than has-inverse.
 #def Equiv
   (A B : U)
   : U
-  :=  Σ (f : A -> B), ((is-equiv A) B) f
+  :=  Σ (f : A -> B) , ((is-equiv A) B) f
 ```
 
 The data of an equivalence is not symmetric so we promote an equivalence to an
@@ -194,9 +194,9 @@ Composition of equivalences in diagrammatic order.
   (B=C : Equiv B C)
   : Equiv A C
   :=
-    ( \ a -> (first B=C) ((first A=B) a), -- the composite equivalence
+    ( \ a -> (first B=C) ((first A=B) a) , -- the composite equivalence
       ( ( \ c ->
-          ( first (first (second A=B))) ((first (first (second (B=C)))) c),
+          ( first (first (second A=B))) ((first (first (second (B=C)))) c) ,
           ( \ a ->
             concat A
               ( (first (first (second A=B)))
@@ -210,10 +210,10 @@ Composition of equivalences in diagrammatic order.
                 ( (first A=B) a) -- should be inferred
                 ( first (first (second A=B)))
                 ( (second (first (second B=C))) ((first A=B) a)))
-              ( (second (first (second A=B))) a))),
+              ( (second (first (second A=B))) a))) ,
                 ( \ c ->
                   ( first (second (second A=B)))
-                  ( (first (second (second (B=C)))) c),
+                  ( (first (second (second (B=C)))) c) ,
           ( \ c ->
             concat C
               ( (first B=C) ((first A=B) ((first (second (second A=B)))
@@ -240,7 +240,7 @@ Composition of equivalences in diagrammatic order.
   :=
     ( ( composition C B A
       ( is-equiv-retraction A B f fisequiv)
-      ( is-equiv-retraction B C g gisequiv),
+      ( is-equiv-retraction B C g gisequiv) ,
       \ a ->
         concat A
           ( (is-equiv-retraction A B f fisequiv)
@@ -252,10 +252,10 @@ Composition of equivalences in diagrammatic order.
             ( f a) -- should be inferred
             ( is-equiv-retraction A B f fisequiv)
             ( (second (first gisequiv)) (f a)))
-          ( (second (first fisequiv)) a)),
+          ( (second (first fisequiv)) a)) ,
       ( composition C B A
         ( is-equiv-section A B f fisequiv)
-        ( is-equiv-section B C g gisequiv),
+        ( is-equiv-section B C g gisequiv) ,
       \ c ->
         concat C
           ( g (f ((first (second fisequiv)) ((first (second gisequiv)) c))))
@@ -323,15 +323,15 @@ If a map is homotopic to an equivalence it is an equivalence.
   (gisequiv : is-equiv A B g)
   : is-equiv A B f
   :=
-    ( ( first (first gisequiv),
+    ( ( first (first gisequiv) ,
         \ a ->
           concat A
             ( (first (first gisequiv)) (f a))
             ( (first (first gisequiv)) (g a))
             ( a)
             ( ap B A (f a) (g a) (first (first gisequiv)) (H a))
-            ( (second (first gisequiv)) a)),
-      ( first (second gisequiv),
+            ( (second (first gisequiv)) a)) ,
+      ( first (second gisequiv) ,
         \ b ->
           concat B
             ( f ((first (second gisequiv)) b))
@@ -362,11 +362,11 @@ By path induction, an identification between functions defines a homotopy
   : (x : X) -> (f x = g x)
   :=
     idJ (
-      (x : X) -> A x,
-      f,
-      \ g' p' -> (x : X) -> (f x = g' x),
+      (x : X) -> A x ,
+      f ,
+      \ g' p' -> (x : X) -> (f x = g' x) ,
       \ x -> refl,
-      g,
+      g ,
       p)
 ```
 
@@ -390,7 +390,7 @@ equivalences.
   (A : X -> U)
   (f g : (x : X) -> A x)
   : Equiv (f = g) ((x : X) -> f x = g x)
-  := (htpy-eq X A f g, funext X A f g)
+  := (htpy-eq X A f g , funext X A f g)
 
 -- In particular, function extensionality implies that homotopies give rise to identifications. This defines eq-htpy to be the retraction to htpy-eq.
 #def eq-htpy
@@ -409,8 +409,8 @@ equivalences.
   (fibequiv : (x : X) -> Equiv (A x) (B x))
   : Equiv ((x : X) -> A x) ((x : X) -> B x)
   :=
-    ( ( \ a x -> (first (fibequiv x)) (a x)),
-      ( ( ( \ b x -> (first (first (second (fibequiv x)))) (b x)),
+    ( ( \ a x -> (first (fibequiv x)) (a x)) ,
+      ( ( ( \ b x -> (first (first (second (fibequiv x)))) (b x)) ,
             \ a ->
               eq-htpy
                 funext X A
@@ -418,8 +418,8 @@ equivalences.
                   (first (first (second (fibequiv x))))
                     ((first (fibequiv x)) (a x)))
                 a
-                ( \ x -> (second (first (second (fibequiv x)))) (a x))),
-        ( ( \ b x -> (first (second (second (fibequiv x)))) (b x)),
+                ( \ x -> (second (first (second (fibequiv x)))) (a x))) ,
+        ( ( \ b x -> (first (second (second (fibequiv x)))) (b x)) ,
           ( \ b ->
               eq-htpy
                 funext X B
@@ -442,7 +442,7 @@ equivalences.
 #def Emb
   (A B : U)
   : U
-  := (Σ (f : A -> B), is-emb A B f)
+  := (Σ (f : A -> B) , is-emb A B f)
 
 #def is-emb-is-inhabited-emb
   (A B : U)
@@ -469,18 +469,18 @@ equivalences.
     (y : A)
     : (x : A) -> has-retraction (x = y) (y = x) ((\p -> ((rev A x y) p)))
     := \x ->
-       ((rev A y x), \p -> idJ (A, x, \y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y')) (p') =_{x = y'} p'), refl, y, p))
+       ((rev A y x) , \p -> idJ (A , x , \y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y')) (p') =_{x = y'} p') , refl, y , p))
 
 #def has-section-rev
     (A : U)
     (y : A)
     : (x : A) -> has-section (x = y) (y = x) ((\p -> ((rev A x y) p)))
     := \x ->
-       ((rev A y x), \p -> idJ (A, y, \x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x')) (p') =_{y = x'} p'), refl, x, p))
+       ((rev A y x) , \p -> idJ (A , y , \x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x')) (p') =_{y = x'} p') , refl, x , p))
 
 #def is-equiv-rev
     (A : U)
     (x y : A)
     : is-equiv (x = y) (y = x) (rev A x y)
-    := ((has-retraction-rev A y x), (has-section-rev A y x))
+    := ((has-retraction-rev A y x) , (has-section-rev A y x))
 ```

@@ -29,7 +29,7 @@ identity types.
   (x y : A)           -- Two points of type A.
   (p : x = y)         -- A path p from x to y in A.
   : hom A x y         -- An arrow p from x to y in A.
-  := idJ (A, x, \y' -> \p' -> hom A x y', (id-arr A x), y, p)
+  := idJ (A , x , \y' -> \p' -> hom A x y' , (id-arr A x) , y , p)
 
 #def is-discrete
   (A : U)             -- A type.
@@ -59,14 +59,14 @@ of discrete types is discrete.
       ( FunExt-equiv funext X A f g)
       ( function-equiv-fibered-equiv funext X
         (\ x -> (f x = g x)) (\x -> hom (A x) (f x) (g x))
-        (\ x -> (arr-eq (A x) (f x) (g x), (Aisdiscrete x (f x) (g x)))))
+        (\ x -> (arr-eq (A x) (f x) (g x) , (Aisdiscrete x (f x) (g x)))))
       (flip-ext-fun-inv
         2
         Δ¹
         ∂Δ¹
         X
         ( \ t x -> A x)
-        ( \ t x -> recOR (t === 0_2 |-> f x, t === 1_2 |-> g x)))
+        ( \ t x -> recOR (t === 0_2 |-> f x , t === 1_2 |-> g x)))
 
 #def equiv-discrete-family-map
   (funext : FunExt)
@@ -79,13 +79,13 @@ of discrete types is discrete.
     (first (equiv-discrete-family funext X A Aisdiscrete f g)) h
   :=
     idJ (
-      (x : X) -> A x,
-      f,
+      (x : X) -> A x ,
+      f ,
       \ g' h' ->
         arr-eq ((x : X) -> A x) f g' h' =
-        (first (equiv-discrete-family funext X A Aisdiscrete f g')) h',
+        (first (equiv-discrete-family funext X A Aisdiscrete f g')) h' ,
       refl,
-      g,
+      g ,
       h)
 
 -- [RS17, Proposition 7.2]
@@ -131,7 +131,7 @@ only, extending from BOT, that's all we prove here for now.
         ψ
         ( \ t -> f t = g t)
         ( \ t -> hom (A t) (f t) (g t))
-        ( \ t -> (arr-eq (A t) (f t) (g t), (Aisdiscrete t (f t) (g t)))))
+        ( \ t -> (arr-eq (A t) (f t) (g t) , (Aisdiscrete t (f t) (g t)))))
       ( fubini
         I
         2
@@ -140,7 +140,7 @@ only, extending from BOT, that's all we prove here for now.
         Δ¹
         ∂Δ¹
         ( \ t s -> A t)
-        ( \ (t, s) -> recOR (s === 0_2 |-> f t, s === 1_2 |-> g t)))
+        ( \ (t , s) -> recOR (s === 0_2 |-> f t , s === 1_2 |-> g t)))
 
 #def Eq-discrete-extension-map
   (extext : ExtExt) -- This proof uses extension extensionality.
@@ -154,13 +154,13 @@ only, extending from BOT, that's all we prove here for now.
     (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g)) h
   :=
     idJ (
-      (t : ψ) -> A t,
-      f,
+      (t : ψ) -> A t ,
+      f ,
       \ g' h' ->
         arr-eq ((t : ψ) -> A t) f g' h' =
-        (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g')) h',
+        (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g')) h' ,
       refl,
-      g,
+      g ,
       h)
 
 -- [RS17, Proposition 7.2, for extension types]
@@ -212,39 +212,39 @@ Discrete types are automatically Segal types.
 
 #def equiv-arr-eq-discrete uses (x y z w)
   : Equiv (f =_{Δ¹ -> A} g) (hom (arr A) f g)
-  := (arr-eq (arr A) f g,
+  := (arr-eq (arr A) f g ,
           (is-discrete-arr-is-discrete extext A Aisdiscrete) f g)
 
 #def equiv-square-hom-arr
   : Equiv (hom (arr A) f g)
-      (Σ (h : hom A x z),
-        (Σ (k : hom A y w),
-          (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                    [((t === 0_2) /\  Δ¹ s) |-> f s,
-										((t === 1_2) /\  Δ¹ s) |-> g s,
-										(Δ¹ t /\  (s === 0_2)) |-> h t,
+      (Σ (h : hom A x z) ,
+        (Σ (k : hom A y w) ,
+          (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										((t === 1_2) /\  Δ¹ s) |-> g s ,
+										(Δ¹ t /\  (s === 0_2)) |-> h t ,
 										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
   :=
-    ( \ α -> (\t -> α t 0_2, (\ t -> α t 1_2, \ (t, s) -> α t s)),
-      ( ( \ σ -> \t -> \s -> (second (second σ)) (t, s),
-        \ α -> refl ),
-        ( \ σ -> \t -> \s -> (second (second σ)) (t, s),
+    ( \ α -> (\t -> α t 0_2, (\ t -> α t 1_2, \ (t , s) -> α t s)) ,
+      ( ( \ σ -> \t -> \s -> (second (second σ)) (t , s) ,
+        \ α -> refl ) ,
+        ( \ σ -> \t -> \s -> (second (second σ)) (t , s) ,
         \ σ -> refl )))
 
 -- The equivalence underlying Eq-arr.
 #def fibered-arr-free-arr
-  : (arr A) -> (Σ (x : A), (Σ (y : A), hom A x y))
+  : (arr A) -> (Σ (x : A) , (Σ (y : A) , hom A x y))
   := \ k -> (k 0_2, (k 1_2, k))
 
 #def id-equiv-Eq-arr uses (w x y z)
   : is-equiv
       ( f =_{Δ¹ -> A} g)
       ( fibered-arr-free-arr f = fibered-arr-free-arr g)
-      ( ap (arr A) (Σ (u : A), (Σ (v : A), hom A u v)) f g fibered-arr-free-arr)
+      ( ap (arr A) (Σ (u : A) , (Σ (v : A) , hom A u v)) f g fibered-arr-free-arr)
   :=
     is-equiv-ap-is-equiv
       ( arr A)
-      ( Σ (u : A), (Σ (v : A), hom A u v))
+      ( Σ (u : A) , (Σ (v : A) , hom A u v))
       fibered-arr-free-arr
       ( second (Eq-arr A))
       f
@@ -256,7 +256,7 @@ Discrete types are automatically Segal types.
     Eq-ap-is-equiv
       ( arr A)
       (
-      Σ (u : A), (Σ (v : A), hom A u v)) fibered-arr-free-arr
+      Σ (u : A) , (Σ (v : A) , hom A u v)) fibered-arr-free-arr
       (second (Eq-arr A))
       f
       g
@@ -264,8 +264,8 @@ Discrete types are automatically Segal types.
 #def equiv-sigma-over-prod-arr-eq
   : Equiv
       (fibered-arr-free-arr f = fibered-arr-free-arr g)
-      (Σ (p : x = z),
-        (Σ (q : y = w),
+      (Σ (p : x = z) ,
+        (Σ (q : y = w) ,
           (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
   := Eq-sigma-over-prod-equiv
       A
@@ -276,46 +276,46 @@ Discrete types are automatically Segal types.
 
 #def equiv-square-sigma-over-prod uses (extext Aisdiscrete)
   : Equiv
-      (Σ (p : x = z),
-        (Σ (q : y = w),
+      (Σ (p : x = z) ,
+        (Σ (q : y = w) ,
           (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
-      (Σ (h : hom A x z),
-        (Σ (k : hom A y w),
-          (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                    [((t === 0_2) /\  Δ¹ s) |-> f s,
-										((t === 1_2) /\  Δ¹ s) |-> g s,
-										(Δ¹ t /\  (s === 0_2)) |-> h t,
+      (Σ (h : hom A x z) ,
+        (Σ (k : hom A y w) ,
+          (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										((t === 1_2) /\  Δ¹ s) |-> g s ,
+										(Δ¹ t /\  (s === 0_2)) |-> h t ,
 										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
   :=
     left-cancel-equiv
       ( f =_{Δ¹ -> A} g)
-      ( Σ (p : x = z),
-        (Σ (q : y = w),
+      ( Σ (p : x = z) ,
+        (Σ (q : y = w) ,
             (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
-      ( Σ (h : hom A x z),
-        (Σ (k : hom A y w),
-          (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                    [((t === 0_2) /\  Δ¹ s) |-> f s,
-										((t === 1_2) /\  Δ¹ s) |-> g s,
-										(Δ¹ t /\  (s === 0_2)) |-> h t,
+      ( Σ (h : hom A x z) ,
+        (Σ (k : hom A y w) ,
+          (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										((t === 1_2) /\  Δ¹ s) |-> g s ,
+										(Δ¹ t /\  (s === 0_2)) |-> h t ,
 										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
       ( comp-equiv
         ( f =_{Δ¹ -> A} g)
         ( fibered-arr-free-arr f = fibered-arr-free-arr g)
-        ( Σ (p : x = z),
-          (Σ (q : y = w),
+        ( Σ (p : x = z) ,
+          (Σ (q : y = w) ,
             (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
         id-Eq-Eq-arr
         equiv-sigma-over-prod-arr-eq)
       ( comp-equiv
         ( f =_{Δ¹ -> A} g)
         ( hom (arr A) f g)
-        ( Σ (h : hom A x z),
-          (Σ (k : hom A y w),
-            (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                [((t === 0_2) /\  Δ¹ s) |-> f s,
-								((t === 1_2) /\  Δ¹ s) |-> g s,
-								(Δ¹ t /\  (s === 0_2)) |-> h t,
+        ( Σ (h : hom A x z) ,
+          (Σ (k : hom A y w) ,
+            (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                [((t === 0_2) /\  Δ¹ s) |-> f s ,
+								((t === 1_2) /\  Δ¹ s) |-> g s ,
+								(Δ¹ t /\  (s === 0_2)) |-> h t ,
 								(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
         equiv-arr-eq-discrete
         equiv-square-hom-arr)
@@ -333,49 +333,49 @@ Discrete types are automatically Segal types.
   (q : y = w)
   : (g : hom A z w) ->
     (prod-transport A A (\a b -> hom A a b) x z y w p q f = g) ->
-    (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-        [((t === 0_2) /\  Δ¹ s) |-> f s,
-				((t === 1_2) /\  Δ¹ s) |-> g s,
-				(Δ¹ t /\  (s === 0_2)) |-> (arr-eq A x z p) t,
+    (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        [((t === 0_2) /\  Δ¹ s) |-> f s ,
+				((t === 1_2) /\  Δ¹ s) |-> g s ,
+				(Δ¹ t /\  (s === 0_2)) |-> (arr-eq A x z p) t ,
 				(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w q) t ]>)
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ z' p' ->
         (g : hom A z' w) ->
         (prod-transport A A (\ a b -> hom A a b) x z' y w p' q f = g) ->
-        (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-            [((t === 0_2) /\  Δ¹ s) |-> f s,
-						((t === 1_2) /\  Δ¹ s) |-> g s,
-						(Δ¹ t /\  (s === 0_2)) |-> (arr-eq A x z' p') t,
-						(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w q) t ]>),
+        (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+            [((t === 0_2) /\  Δ¹ s) |-> f s ,
+						((t === 1_2) /\  Δ¹ s) |-> g s ,
+						(Δ¹ t /\  (s === 0_2)) |-> (arr-eq A x z' p') t ,
+						(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w q) t ]>) ,
         idJ (
-          A,
-          y,
+          A ,
+          y ,
           \ w' q' ->
             (g : hom A x w') ->
             (prod-transport A A (\a b -> hom A a b) x x y w' refl q' f = g) ->
-            (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                  [((t === 0_2) /\  Δ¹ s) |-> f s,
-									((t === 1_2) /\  Δ¹ s) |-> g s,
-									(Δ¹ t /\  (s === 0_2)) |-> x,
-									(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w' q') t ]>),
+            (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                  [((t === 0_2) /\  Δ¹ s) |-> f s ,
+									((t === 1_2) /\  Δ¹ s) |-> g s ,
+									(Δ¹ t /\  (s === 0_2)) |-> x ,
+									(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w' q') t ]>) ,
           \ g τ ->
             idJ (
-              hom A x y,
-              f,
-              \ g' τ' -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                            [((t === 0_2) /\  Δ¹ s) |-> f s,
-								            ((t === 1_2) /\  Δ¹ s) |-> g' s,
-					            			(Δ¹ t /\  (s === 0_2)) |-> x,
-					            			(Δ¹ t /\  (s === 1_2)) |-> y ]>),
-              \ (t , s) -> f s,
-              g,
-              τ),
-          w,
-          q),
-      z,
+              hom A x y ,
+              f ,
+              \ g' τ' -> (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                            [((t === 0_2) /\  Δ¹ s) |-> f s ,
+								            ((t === 1_2) /\  Δ¹ s) |-> g' s ,
+					            			(Δ¹ t /\  (s === 0_2)) |-> x ,
+					            			(Δ¹ t /\  (s === 1_2)) |-> y ]>) ,
+              \ (t , s) -> f s ,
+              g ,
+              τ) ,
+          w ,
+          q) ,
+      z ,
       p)
 
 #def square-sigma-over-prod
@@ -385,18 +385,18 @@ Discrete types are automatically Segal types.
   (x y z w : A)
   (f : hom A x y)
   (g : hom A z w)
-  ((p, (q, τ)) : (Σ (p : x = z), (Σ (q : y = w),
+  ((p , (q , τ)) : (Σ (p : x = z) , (Σ (q : y = w) ,
                   (prod-transport A A (\a b -> hom A a b) x z y w p q f = g))))
-  : (Σ (h : hom A x z),
-      (Σ (k : hom A y w),
-        (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-            [((t === 0_2) /\  Δ¹ s) |-> f s,
-						((t === 1_2) /\  Δ¹ s) |-> g s,
-						(Δ¹ t /\  (s === 0_2)) |-> h t,
+  : (Σ (h : hom A x z) ,
+      (Σ (k : hom A y w) ,
+        (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+            [((t === 0_2) /\  Δ¹ s) |-> f s ,
+						((t === 1_2) /\  Δ¹ s) |-> g s ,
+						(Δ¹ t /\  (s === 0_2)) |-> h t ,
 						(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
   :=
-    ( arr-eq A x z p,
-      ( arr-eq A y w q,
+    ( arr-eq A x z p ,
+      ( arr-eq A y w q ,
         fibered-map-square-sigma-over-prod
           extext
           A
@@ -423,15 +423,15 @@ Discrete types are automatically Segal types.
     (square-sigma-over-prod extext A Aisdiscrete x y x y f g) (refl, (refl, τ))
   :=
     idJ (
-      hom A x y,
-      f,
+      hom A x y ,
+      f ,
       \ g' τ' ->
         (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y x y f g'))
           (refl, (refl, τ')) =
         (square-sigma-over-prod extext A Aisdiscrete x y x y f g')
-          (refl, (refl, τ')),
+          (refl, (refl, τ')) ,
       refl,
-      g,
+      g ,
       τ)
 
 #def map-equiv-square-sigma-over-prod
@@ -445,28 +445,28 @@ Discrete types are automatically Segal types.
   : (g : hom A z w) ->
     (τ : prod-transport A A (\a b -> hom A a b) x z y w p q f = g) ->
     (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y z w f g))
-          (p, (q, τ)) =
-    (square-sigma-over-prod extext A Aisdiscrete x y z w f g) (p, (q, τ))
+          (p , (q , τ)) =
+    (square-sigma-over-prod extext A Aisdiscrete x y z w f g) (p , (q , τ))
   :=
     idJ (
-      A,
-      y,
+      A ,
+      y ,
       \ w' q' ->
         (g : hom A z w') ->
         (τ : prod-transport A A (\a b -> hom A a b) x z y w' p q' f = g) ->
         (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y z w' f g))
-          (p, (q', τ)) =
-        (square-sigma-over-prod extext A Aisdiscrete x y z w' f g) (p, (q', τ)),
+          (p , (q' , τ)) =
+        (square-sigma-over-prod extext A Aisdiscrete x y z w' f g) (p , (q' , τ)) ,
       idJ (
-        A,
-        x,
+        A ,
+        x ,
         \ z' p' ->
           (g : hom A z' y) ->
           (τ : prod-transport A A (\a b -> hom A a b) x z' y y p' refl f = g) ->
           (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y z' y f g))
-            (p', (refl, τ)) =
+            (p' , (refl, τ)) =
           (square-sigma-over-prod extext A Aisdiscrete x y z' y f g)
-            (p', (refl, τ)),
+            (p' , (refl, τ)) ,
         \ g τ ->
           refl-refl-map-equiv-square-sigma-over-prod
             extext
@@ -476,10 +476,10 @@ Discrete types are automatically Segal types.
             y
             f
             g
-            τ,
-        z,
-        p),
-      w,
+            τ ,
+        z ,
+        p) ,
+      w ,
       q)
 
 #def is-equiv-square-sigma-over-prod
@@ -490,32 +490,32 @@ Discrete types are automatically Segal types.
   (f : hom A x y)
   (g : hom A z w)
   : is-equiv
-      (Σ (p : x = z),
-        (Σ (q : y = w),
+      (Σ (p : x = z) ,
+        (Σ (q : y = w) ,
             (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
-      (Σ (h : hom A x z),
-        (Σ (k : hom A y w),
-          (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                    [((t === 0_2) /\  Δ¹ s) |-> f s,
-										((t === 1_2) /\  Δ¹ s) |-> g s,
-										(Δ¹ t /\  (s === 0_2)) |-> h t,
+      (Σ (h : hom A x z) ,
+        (Σ (k : hom A y w) ,
+          (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										((t === 1_2) /\  Δ¹ s) |-> g s ,
+										(Δ¹ t /\  (s === 0_2)) |-> h t ,
 										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
       (square-sigma-over-prod extext A Aisdiscrete x y z w f g)
   :=
     is-equiv-rev-homotopic-is-equiv
-      ( Σ (p : x = z),
-        (Σ (q : y = w),
+      ( Σ (p : x = z) ,
+        (Σ (q : y = w) ,
             (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)))
-      ( Σ (h : hom A x z),
-        (Σ (k : hom A y w),
-          (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                    [((t === 0_2) /\  Δ¹ s) |-> f s,
-										((t === 1_2) /\  Δ¹ s) |-> g s,
-										(Δ¹ t /\  (s === 0_2)) |-> h t,
+      ( Σ (h : hom A x z) ,
+        (Σ (k : hom A y w) ,
+          (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                    [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										((t === 1_2) /\  Δ¹ s) |-> g s ,
+										(Δ¹ t /\  (s === 0_2)) |-> h t ,
 										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
       ( first (equiv-square-sigma-over-prod extext A Aisdiscrete x y z w f g))
       ( square-sigma-over-prod extext A Aisdiscrete x y z w f g)
-      ( \ (p, (q, τ)) -> map-equiv-square-sigma-over-prod
+      ( \ (p , (q , τ)) -> map-equiv-square-sigma-over-prod
                           extext A Aisdiscrete x y z w f p q g τ)
       ( second (equiv-square-sigma-over-prod extext A Aisdiscrete x y z w f g))
 
@@ -530,10 +530,10 @@ Discrete types are automatically Segal types.
   (q : y = w)
   : is-equiv
     (prod-transport A A (\a b -> hom A a b) x z y w p q f = g)
-    (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-        [((t === 0_2) /\  Δ¹ s) |-> f s,
-				((t === 1_2) /\  Δ¹ s) |-> g s,
-				(Δ¹ t /\  (s === 0_2)) |-> (arr-eq A x z p) t,
+    (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        [((t === 0_2) /\  Δ¹ s) |-> f s ,
+				((t === 1_2) /\  Δ¹ s) |-> g s ,
+				(Δ¹ t /\  (s === 0_2)) |-> (arr-eq A x z p) t ,
 				(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w q) t ]>)
     (fibered-map-square-sigma-over-prod extext A Aisdiscrete x y z w f p q g)
   :=
@@ -543,10 +543,10 @@ Discrete types are automatically Segal types.
       ( y = w)
       ( hom A y w)
       ( \ p' q' -> (prod-transport A A (\a b -> hom A a b) x z y w p' q' f = g))
-      ( \ h' k' -> (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                      [((t === 0_2) /\  Δ¹ s) |-> f s,
-										  ((t === 1_2) /\  Δ¹ s) |-> g s,
-										  (Δ¹ t /\  (s === 0_2)) |-> h' t,
+      ( \ h' k' -> (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                      [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										  ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										  (Δ¹ t /\  (s === 0_2)) |-> h' t ,
 										  (Δ¹ t /\  (s === 1_2)) |-> k' t ]>))
       ( arr-eq A x z)
       ( arr-eq A y w)
@@ -567,10 +567,10 @@ Discrete types are automatically Segal types.
   (g : hom A x y)
   : is-equiv
     (f = g)
-    (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-            [((t === 0_2) /\  Δ¹ s) |-> f s,
-						((t === 1_2) /\  Δ¹ s) |-> g s,
-						(Δ¹ t /\  (s === 0_2)) |-> x,
+    (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+            [((t === 0_2) /\  Δ¹ s) |-> f s ,
+						((t === 1_2) /\  Δ¹ s) |-> g s ,
+						(Δ¹ t /\  (s === 0_2)) |-> x ,
           	(Δ¹ t /\  (s === 1_2)) |-> y ]>)
     (fibered-map-square-sigma-over-prod
       extext A Aisdiscrete x y x y f refl refl g)
@@ -589,19 +589,19 @@ The previous calculations allow us to establish a family of equivalences:
   (x y : A)
   (f : hom A x y)
   : is-equiv
-      ( Σ (g : hom A x y), f = g)
-      ( Σ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+      ( Σ (g : hom A x y) , f = g)
+      ( Σ (g : hom A x y) , <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
       ( total-map-family-of-maps
         ( hom A x y)
         ( \ g -> f = g)
-        ( \ g -> <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+        ( \ g -> <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
         ( \ g ->
             (fibered-map-square-sigma-over-prod
@@ -610,10 +610,10 @@ The previous calculations allow us to establish a family of equivalences:
     family-of-equiv-total-equiv
       ( hom A x y)
       ( \ g -> f = g)
-      ( \ g -> <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                          [((t === 0_2) /\  Δ¹ s) |-> f s,
-								          ((t === 1_2) /\  Δ¹ s) |-> g s,
-								          (Δ¹ t /\  (s === 0_2)) |-> x,
+      ( \ g -> <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                          [((t === 0_2) /\  Δ¹ s) |-> f s ,
+								          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+								          (Δ¹ t /\  (s === 0_2)) |-> x ,
 								          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
       ( \ g ->
           (fibered-map-square-sigma-over-prod
@@ -634,24 +634,24 @@ The previous calculations allow us to establish a family of equivalences:
   (x y : A)
   (f : hom A x y)
   : Equiv
-      ( Σ (g : hom A x y), f = g)
-      ( Σ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+      ( Σ (g : hom A x y) , f = g)
+      ( Σ (g : hom A x y) , <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
   :=
     ( ( total-map-family-of-maps
         ( hom A x y)
         ( \ g -> f = g)
-        ( \ g -> <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+        ( \ g -> <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
         ( \ g ->
             (fibered-map-square-sigma-over-prod
-              extext A Aisdiscrete x y x y f refl refl g))),
+              extext A Aisdiscrete x y x y f refl refl g))) ,
     is-equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
       extext A Aisdiscrete x y f)
 ```
@@ -666,17 +666,17 @@ spaces, we conclude that the codomain extension type is contractible.
   (Aisdiscrete : is-discrete A)
   (x y : A)
   (f : hom A x y)
-  : is-contr ( Σ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+  : is-contr ( Σ (g : hom A x y) , <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
   := is-contr-is-equiv-from-contr
-      ( Σ (g : hom A x y), f = g)
-      ( Σ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+      ( Σ (g : hom A x y) , f = g)
+      ( Σ (g : hom A x y) , <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
       ( equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
           extext A Aisdiscrete x y f)
@@ -692,50 +692,50 @@ The extension types that appear in the Segal condition are retracts of this type
   (x y : A)
   (f g : hom A x y)
   (α : hom2 A x y y f (id-arr A y) g)
-  : <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+  : <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>
-  := \ (t, s) -> recOR (t <= s |-> α (s, t), s <= t |-> g s)
+  := \ (t , s) -> recOR (t <= s |-> α (s , t) , s <= t |-> g s)
 
 #def sigma-triangle-to-sigma-square-section
   (A : U)
   (x y : A)
   (f : hom A x y)
-  ((d, α) : Σ (d : hom A x y), hom2 A x y y f (id-arr A y) d)
-  : Σ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+  ((d , α) : Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+  : Σ (g : hom A x y) , <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>
-  := (d, triangle-to-square-section A x y f d α)
+  := (d , triangle-to-square-section A x y f d α)
 
 #def sigma-square-to-sigma-triangle-retraction
   (A : U)
   (x y : A)
   (f : hom A x y)
-  ((g, σ) : Σ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+  ((g , σ) : Σ (g : hom A x y) , <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
-  : Σ (d : hom A x y), hom2 A x y y f (id-arr A y) d
-  := (\ t -> σ (t, t), \ (t, s) -> σ (s, t))
+  : Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d
+  := (\ t -> σ (t , t) , \ (t , s) -> σ (s , t))
 
 #def sigma-triangle-to-sigma-square-retract
   (A : U)
   (x y : A)
   (f : hom A x y)
   : is-retract-of
-      ( Σ (d : hom A x y), hom2 A x y y f (id-arr A y) d)
-      ( Σ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+      ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+      ( Σ (g : hom A x y) , <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
   :=
-    ( sigma-triangle-to-sigma-square-section A x y f,
+    ( sigma-triangle-to-sigma-square-section A x y f ,
       ( sigma-square-to-sigma-triangle-retraction A x y f ,
       \ dα -> refl ))
 ```
@@ -750,14 +750,14 @@ the second arrow is an identity.
   (Aisdiscrete : is-discrete A)
   (x y : A)
   (f : hom A x y)
-  : is-contr ( Σ (d : hom A x y), hom2 A x y y f (id-arr A y) d)
+  : is-contr ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
   :=
     is-retract-of-is-contr-is-contr
-      ( Σ (d : hom A x y), hom2 A x y y f (id-arr A y) d)
-      ( Σ (g : hom A x y), <{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                             [((t === 0_2) /\  Δ¹ s) |-> f s,
-										          ((t === 1_2) /\  Δ¹ s) |-> g s,
-										          (Δ¹ t /\  (s === 0_2)) |-> x,
+      ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+      ( Σ (g : hom A x y) , <{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
+										          ((t === 1_2) /\  Δ¹ s) |-> g s ,
+										          (Δ¹ t /\  (s === 0_2)) |-> x ,
 										          (Δ¹ t /\  (s === 1_2)) |-> y ]>)
       ( sigma-triangle-to-sigma-square-retract A x y f)
       ( is-contr-horn-refl-refl-extension-type extext A Aisdiscrete x y f)
@@ -775,7 +775,7 @@ to the one just proven:
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
-  : is-contr ( Σ (h : hom A x z), hom2 A x y z f g h)
+  : is-contr ( Σ (h : hom A x z) , hom2 A x y z f g h)
   :=
     ind-based-path
       A
@@ -783,7 +783,7 @@ to the one just proven:
       ( \ w -> hom A y w)
       ( \ w -> arr-eq A y w)
       ( Aisdiscrete y)
-      ( \ w d -> is-contr ( Σ (h : hom A x w), hom2 A x y w f d h))
+      ( \ w d -> is-contr ( Σ (h : hom A x w) , hom2 A x y w f d h))
       ( is-contr-hom2-with-id-is-discrete
           extext A Aisdiscrete x y f)
       ( z)

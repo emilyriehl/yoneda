@@ -18,9 +18,9 @@ This is a literate `rzk` file:
   (b b' : B)
   (e_A : a = a')
   (e_B : b = b')
-  : (a, b) =_{prod A B} (a', b')
-  := transport A (\ x -> (a, b) =_{prod A B} (x, b')) a a' e_A
-      ( transport B (\ y -> (a, b) =_{prod A B} (a, y)) b b' e_B refl)
+  : (a , b) =_{prod A B} (a' , b')
+  := transport A (\ x -> (a , b) =_{prod A B} (x , b')) a a' e_A
+      ( transport B (\ y -> (a , b) =_{prod A B} (a , y)) b b' e_B refl)
 
 #def first-path-product
   (x y : prod A B)
@@ -46,70 +46,70 @@ This is a literate `rzk` file:
 #variable B : A -> U
 
 #def first-path-sigma
-  (s t : Σ (a : A), B a)
+  (s t : Σ (a : A) , B a)
   (e : s = t)
   : first s = first t
-  := ap (Σ (a : A), B a) A s t (\ z -> first z) e
+  := ap (Σ (a : A) , B a) A s t (\ z -> first z) e
 
 #def second-path-sigma
-  (s t : Σ (a : A), B a)
+  (s t : Σ (a : A) , B a)
   (e : s = t)
   : (transport A B (first s) (first t) (first-path-sigma s t e) (second s)) =
     (second t)
   :=
     idJ (
-      (Σ (a : A), B a),
-      s,
+      (Σ (a : A) , B a) ,
+      s ,
       \t' e' ->
         ( transport A B
           ( first s) (first t') (first-path-sigma s t' e') (second s)) =
-        ( second t'),
+        ( second t') ,
       refl,
-      t,
+      t ,
       e)
 
 -- [Rijke 22, Definition 9.3.1]
 #def Eq-sigma
-  (s t : Σ (a : A), B a)
+  (s t : Σ (a : A) , B a)
   : U
-  := Σ (p : (first s) = (first t)),
+  := Σ (p : (first s) = (first t)) ,
       ( transport A B (first s) (first t) p (second s)) = (second t)
 
 -- [Rijke 22, Definition 9.3.3]
 #def pair-eq
-  (s t : Σ (a : A), B a)
+  (s t : Σ (a : A) , B a)
   (e : s = t)
   : (Eq-sigma s t)
-  := (first-path-sigma s t e, second-path-sigma s t e)
+  := (first-path-sigma s t e , second-path-sigma s t e)
 
 -- A path in a fiber defines a path in the total space
 #def sigma-path-fibered-path
   (x : A)
   (u v : B x)
   (p : u = v)
-  : (x , u) =_{Σ (a : A), B a} (x , v)
-  := idJ (B x, u, \v' p' -> (x , u) = (x , v'), refl, v, p)
+  : (x , u) =_{Σ (a : A) , B a} (x , v)
+  := idJ (B x , u , \v' p' -> (x , u) = (x , v') , refl, v , p)
 
 -- Essentially eq-pair but with explicit arguments.
 #def path-of-pairs-pair-of-paths
   (x y : A)
   (p : x = y)
   : (u : B x) -> (v : B y) -> ((transport A B x y p u) = v) ->
-      (x, u) =_{Σ (z : A), B z} (y, v)
+      (x , u) =_{Σ (z : A) , B z} (y , v)
   :=
     idJ (
-      A,
-      x,
+      A ,
+      x ,
       \ y' p' -> (u' : B x) -> (v' : B y') ->
         ((transport A B x y' p' u') = v') ->
-        (x, u') =_{Σ (z : A), B z} (y', v'),
-      \ u' v' q' -> (sigma-path-fibered-path x u' v' q'),
-      y,
+        (x , u') =_{Σ (z : A) , B z} (y' , v') ,
+      \ u' v' q' -> (sigma-path-fibered-path x u' v' q') ,
+      y ,
       p)
 
 -- The inverse to pair-eq.
 #def eq-pair
-  (s t : Σ (a : A), B a)
+  (s t : Σ (a : A) , B a)
   (e : Eq-sigma s t)
   : (s = t)
   :=
@@ -117,17 +117,17 @@ This is a literate `rzk` file:
     ( first s) (first t) (first e) (second s) (second t) (second e)
 
 #def eq-pair-pair-eq
-  (s t : Σ (a : A), B a)
+  (s t : Σ (a : A) , B a)
   (e : s = t)
   : (eq-pair s t (pair-eq s t e)) = e
   :=
     idJ (
-      Σ (a : A),
-      B a,
-      s,
-      \ t' e' -> (eq-pair s t' (pair-eq s t' e')) = e',
+      Σ (a : A) ,
+      B a ,
+      s ,
+      \ t' e' -> (eq-pair s t' (pair-eq s t' e')) = e' ,
       refl,
-      t,
+      t ,
       e)
 
 -- Here we've decomposed e : Eq-sigma s t as (e0, e1) and decomposed s and t
@@ -142,11 +142,11 @@ This is a literate `rzk` file:
     =_{Eq-sigma (s0, s1) (t0, t1)} (e0, e1)
   :=
     idJ (
-      A,
+      A ,
       s0,
       \ t0' e0' -> (t1 : B t0') -> (e1 : (transport A B s0 t0' e0' s1) = t1) ->
-        (pair-eq (s0, s1) (t0', t1) (eq-pair (s0, s1) (t0', t1) (e0', e1)))
-        =_{Eq-sigma (s0, s1) (t0', t1)} (e0', e1),
+        (pair-eq (s0, s1) (t0' , t1) (eq-pair (s0, s1) (t0' , t1) (e0' , e1)))
+        =_{Eq-sigma (s0, s1) (t0' , t1)} (e0' , e1) ,
       \ t1 e1 ->
         idJ (
           B s0,
@@ -154,15 +154,15 @@ This is a literate `rzk` file:
           \ t1' e1' ->
             ( pair-eq (s0, s1) (s0, t1')
               ( eq-pair (s0, s1) (s0, t1') (refl, e1')))
-              =_{Eq-sigma (s0, s1) (s0, t1')} (refl, e1'),
+              =_{Eq-sigma (s0, s1) (s0, t1')} (refl, e1') ,
           refl,
           t1,
-          e1),
+          e1) ,
       t0,
       e0)
 
 #def pair-eq-eq-pair
-  (s t : Σ (a : A), B a)
+  (s t : Σ (a : A) , B a)
   (e : Eq-sigma s t)
   : (pair-eq s t (eq-pair s t e)) =_{Eq-sigma s t} e
   :=
@@ -170,12 +170,12 @@ This is a literate `rzk` file:
     ( first s) (second s) (first t) (first e) (second t) (second e)
 
 #def Eq-sigma-equiv
-  (s t : Σ (a : A), B a)
+  (s t : Σ (a : A) , B a)
   : Equiv (s = t) (Eq-sigma s t)
   :=
-    ( pair-eq s t,
-      ( ( eq-pair s t, eq-pair-pair-eq s t),
-        ( eq-pair s t, pair-eq-eq-pair s t)))
+    ( pair-eq s t ,
+      ( ( eq-pair s t , eq-pair-pair-eq s t) ,
+        ( eq-pair s t , pair-eq-eq-pair s t)))
 
 #end paths-in-sigma
 ```
@@ -196,19 +196,19 @@ This is a literate `rzk` file:
   (c : C a b)
   : C a' b'
   := idJ (
-      B,
-      b,
-      \ b'' q' -> C a' b'',
-      idJ (A, a, \a'' p' -> C a'' b, c, a', p),
-      b',
+      B ,
+      b ,
+      \ b'' q' -> C a' b'' ,
+      idJ (A , a , \a'' p' -> C a'' b , c , a' , p) ,
+      b' ,
       q)
 
 #def Eq-sigma-over-prod
-  (s t : Σ (a : A), (Σ (b : B), C a b))
+  (s t : Σ (a : A) , (Σ (b : B) , C a b))
   : U
   :=
-    Σ (p : (first s) = (first t)),
-      (Σ (q : (first (second s)) = (first (second t))),
+    Σ (p : (first s) = (first t)) ,
+      (Σ (q : (first (second s)) = (first (second t))) ,
         ( prod-transport
           ( first s) (first t)
           ( first (second s)) (first (second t)) p q (second (second s)) =
@@ -216,15 +216,15 @@ This is a literate `rzk` file:
 
 -- This is the lazy definition with bad computational properties.
 #def triple-eq
-  (s t : Σ (a : A), (Σ (b : B), C a b))
+  (s t : Σ (a : A) , (Σ (b : B) , C a b))
   (e : s = t)
   : (Eq-sigma-over-prod s t)
   := idJ (
-      Σ (a : A), (Σ (b : B), C a b),
-      s,
-      \ t' e' -> (Eq-sigma-over-prod s t'),
-      ( refl, (refl, refl)),
-      t,
+      Σ (a : A) , (Σ (b : B) , C a b) ,
+      s ,
+      \ t' e' -> (Eq-sigma-over-prod s t') ,
+      ( refl, (refl, refl)) ,
+      t ,
       e)
 
 -- The inverse with explicit arguments.
@@ -238,23 +238,23 @@ This is a literate `rzk` file:
   (p : a = a')
   : (q : b = b') -> (c' : C a' b') ->
       (r : prod-transport a a' b b' p q c = c') ->
-        ((a, (b, c)) =_{ (Σ (x : A), (Σ (y : B), C x y))} (a', (b', c')))
+        ((a , (b , c)) =_{ (Σ (x : A) , (Σ (y : B) , C x y))} (a' , (b' , c')))
   :=
     idJ (
-      A,
-      a,
+      A ,
+      a ,
       \ a'' p' -> (q : b = b') -> (c' : C a'' b') ->
           (r : prod-transport a a'' b b' p' q c = c') ->
-            ((a, (b, c)) =_{ (Σ (x : A), (Σ (y : B), C x y))} (a'', (b', c'))),
+            ((a , (b , c)) =_{ (Σ (x : A) , (Σ (y : B) , C x y))} (a'' , (b' , c'))) ,
       \ q c' r ->
-        ( sigma-path-fibered-path A (\x -> (Σ (b : B), C x b)) a
-          ( b, c) ( b', c')
-          ( path-of-pairs-pair-of-paths B (\y -> C a y) b b' q c c' r)),
-      a',
+        ( sigma-path-fibered-path A (\x -> (Σ (b : B) , C x b)) a
+          ( b , c) ( b' , c')
+          ( path-of-pairs-pair-of-paths B (\y -> C a y) b b' q c c' r)) ,
+      a' ,
       p)
 
 #def eq-triple
-  (s t : Σ (a : A), (Σ (b : B), C a b))
+  (s t : Σ (a : A) , (Σ (b : B) , C a b))
   (e : Eq-sigma-over-prod s t)
   : (s = t)
   :=
@@ -266,15 +266,15 @@ This is a literate `rzk` file:
     ( second (second e))
 
 #def eq-triple-triple-eq
-  (s t : Σ (a : A), (Σ (b : B), C a b))
+  (s t : Σ (a : A) , (Σ (b : B) , C a b))
   (e : s = t)
   : (eq-triple s t (triple-eq s t e)) = e
   := idJ (
-      Σ (a : A), (Σ (b : B), C a b),
-      s,
-      \ t' e' -> (eq-triple s t' (triple-eq s t' e')) = e',
+      Σ (a : A) , (Σ (b : B) , C a b) ,
+      s ,
+      \ t' e' -> (eq-triple s t' (triple-eq s t' e')) = e' ,
       refl,
-      t,
+      t ,
       e)
 
 -- Here we've decomposed s t e for induction purposes
@@ -285,44 +285,44 @@ This is a literate `rzk` file:
   (p : a = a')
   : (q : b = b') -> (c' : C a' b') ->
       (r : prod-transport a a' b b' p q c = c') ->
-        triple-eq (a, (b, c)) (a', (b', c'))
-          (eq-triple (a, (b, c)) (a', (b', c')) (p, (q, r))) = (p, (q, r))
+        triple-eq (a , (b , c)) (a' , (b' , c'))
+          (eq-triple (a , (b , c)) (a' , (b' , c')) (p , (q , r))) = (p , (q , r))
   :=
     idJ (
-      A,
-      a,
+      A ,
+      a ,
       \ a'' p' -> (q : b = b') -> (c' : C a'' b') ->
         (r : prod-transport a a'' b b' p' q c = c') ->
-          triple-eq (a, (b, c)) (a'', (b', c'))
-            (eq-triple (a, (b, c)) (a'', (b', c')) (p', (q, r))) = (p', (q, r)),
+          triple-eq (a , (b , c)) (a'' , (b' , c'))
+            (eq-triple (a , (b , c)) (a'' , (b' , c')) (p' , (q , r))) = (p' , (q , r)) ,
       \ q ->
         idJ (
-          B,
-          b,
+          B ,
+          b ,
           \ b'' q' ->
             (c' : C a b'') ->
               (r : prod-transport a a b b'' refl q' c = c') ->
-                triple-eq (a, (b, c)) (a, (b'', c'))
-                  ( eq-triple (a, (b, c)) (a, (b'', c')) (refl, (q', r))) =
-                  ( refl, (q', r)),
+                triple-eq (a , (b , c)) (a , (b'' , c'))
+                  ( eq-triple (a , (b , c)) (a , (b'' , c')) (refl, (q' , r))) =
+                  ( refl, (q' , r)) ,
           \ c' r ->
             idJ (
-              C a b,
-              c,
+              C a b ,
+              c ,
               \ c'' r' ->
-                triple-eq (a, (b, c)) (a, (b, c''))
-                  ( eq-triple (a, (b, c)) (a, (b, c'')) (refl, (refl, r'))) =
-                  ( refl, (refl, r')),
+                triple-eq (a , (b , c)) (a , (b , c''))
+                  ( eq-triple (a , (b , c)) (a , (b , c'')) (refl, (refl, r'))) =
+                  ( refl, (refl, r')) ,
               refl,
-              c',
-              r),
-          b',
-          q),
-      a',
+              c' ,
+              r) ,
+          b' ,
+          q) ,
+      a' ,
       p)
 
 #def triple-eq-eq-triple
-  (s t : Σ (a : A), (Σ (b : B), C a b))
+  (s t : Σ (a : A) , (Σ (b : B) , C a b))
   (e : Eq-sigma-over-prod s t)
   : (triple-eq s t (eq-triple s t e)) = e
   := triple-eq-eq-triple-split
@@ -333,11 +333,11 @@ This is a literate `rzk` file:
       ( second (second e))
 
 #def Eq-sigma-over-prod-equiv
-  (s t : Σ (a : A), (Σ (b : B), C a b))
+  (s t : Σ (a : A) , (Σ (b : B) , C a b))
   : Equiv (s = t) (Eq-sigma-over-prod s t)
-  := (triple-eq s t,
-      ((eq-triple s t, eq-triple-triple-eq s t),
-      (eq-triple s t, triple-eq-eq-triple s t)))
+  := (triple-eq s t ,
+      ((eq-triple s t , eq-triple-triple-eq s t) ,
+      (eq-triple s t , triple-eq-eq-triple s t)))
 
 #end paths-in-sigma-over-prod
 ```
@@ -349,9 +349,9 @@ This is a literate `rzk` file:
   (A B : U)
   : Equiv (prod A B) (prod B A)
   :=
-    ( \ (a, b) -> (b, a),
-      ( ( \ (b, a) -> (a, b),\p -> refl),
-        ( \ (b, a) -> (a, b),\p -> refl)))
+    ( \ (a , b) -> (b , a) ,
+      ( ( \ (b , a) -> (a , b) ,\p -> refl) ,
+        ( \ (b , a) -> (a , b) ,\p -> refl)))
 ```
 
 ## Fubini
@@ -363,12 +363,12 @@ unimportant.
 #def sigma-fubini
   (A B : U)
   (C : A -> B -> U)
-  : Equiv (Σ (x : A), Σ (y : B), C x y) (Σ (y : B), Σ (x : A), C x y)
+  : Equiv (Σ (x : A) , Σ (y : B) , C x y) (Σ (y : B) , Σ (x : A) , C x y)
   :=
-    ( \ t -> (first (second t), (first t, second (second t))),
-      ( ( \ t -> (first (second t), (first t, second (second t))),
-          \ t -> refl),
-        ( \ t -> (first (second t), (first t, second (second t))),
+    ( \ t -> (first (second t) , (first t , second (second t))) ,
+      ( ( \ t -> (first (second t) , (first t , second (second t))) ,
+          \ t -> refl) ,
+        ( \ t -> (first (second t) , (first t , second (second t))) ,
           \ t -> refl)))
 ```
 
@@ -378,11 +378,11 @@ Products distribute inside a sigma type:
 #def prod-distribute-sigma
   (A B : U)
   (C : B -> U)
-  : Equiv (prod A (Σ (b : B), C b)) (Σ (b : B), prod A (C b))
+  : Equiv (prod A (Σ (b : B) , C b)) (Σ (b : B) , prod A (C b))
   :=
-    ( \ (a, (b, c)) -> (b, (a, c)),
-      ( ( \ (b, (a, c)) -> (a, (b, c)), \z -> refl),
-        ( \ (b, (a, c)) -> (a, (b, c)), \z -> refl)))
+    ( \ (a , (b , c)) -> (b , (a , c)) ,
+      ( ( \ (b , (a , c)) -> (a , (b , c)) , \z -> refl) ,
+        ( \ (b , (a , c)) -> (a , (b , c)) , \z -> refl)))
 ```
 
 ## Associativity
@@ -393,10 +393,10 @@ Products distribute inside a sigma type:
   (B : A -> U)
   (C : (a : A) -> B a -> U)
   : Equiv
-      (Σ (a : A), Σ (b : B a), C a b)
-      (Σ (ab : Σ (a : A), B a), C (first ab) (second ab))
+      (Σ (a : A) , Σ (b : B a) , C a b)
+      (Σ (ab : Σ (a : A) , B a) , C (first ab) (second ab))
   :=
-    ( \ (a, (b, c)) -> ((a, b), c),
-      ( ( \ ((a, b), c) -> (a, (b, c)), \_ -> refl),
-        ( \ ((a, b), c) -> (a, (b, c)), \_ -> refl)))
+    ( \ (a , (b , c)) -> ((a , b) , c) ,
+      ( ( \ ((a , b) , c) -> (a , (b , c)) , \_ -> refl) ,
+        ( \ ((a , b) , c) -> (a , (b , c)) , \_ -> refl)))
 ```

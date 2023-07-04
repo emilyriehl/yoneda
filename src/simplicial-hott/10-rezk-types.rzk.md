@@ -25,7 +25,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : U
-    := Σ (g : hom A y x), (arrow-has-retraction A AisSegal x y f g)
+    := Σ (g : hom A y x) , (arrow-has-retraction A AisSegal x y f g)
 
 #def arrow-has-section
     (A : U)
@@ -42,7 +42,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : U
-    := Σ (h : hom A y x), (arrow-has-section A AisSegal x y f h)
+    := Σ (h : hom A y x) , (arrow-has-section A AisSegal x y f h)
 
 #def arrow-is-iso
     (A : U)
@@ -57,7 +57,7 @@ This is a literate `rzk` file:
     (AisSegal : is-segal A)
     (x y : A)
     : U
-    := Σ (f : hom A x y), arrow-is-iso A AisSegal x y f
+    := Σ (f : hom A x y) , arrow-is-iso A AisSegal x y f
 
 #def arrow-has-inverse
     (A : U)
@@ -65,7 +65,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : U
-    := Σ (g : hom A y x), prod (arrow-has-retraction A AisSegal x y f g) (arrow-has-section A AisSegal x y f g)
+    := Σ (g : hom A y x) , prod (arrow-has-retraction A AisSegal x y f g) (arrow-has-section A AisSegal x y f g)
 
 #def arrow-inverse-to-iso
     (A : U)
@@ -73,7 +73,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : (arrow-has-inverse A AisSegal x y f) -> (arrow-is-iso A AisSegal x y f)
-    := (\ (g, (p, q)) -> ((g, p), (g, q)))
+    := (\ (g , (p , q)) -> ((g , p) , (g , q)))
 
 #def arrow-iso-to-inverse
     (extext : ExtExt) -- This proof uses extension extensionality.
@@ -82,8 +82,8 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : (arrow-is-iso A AisSegal x y f) -> (arrow-has-inverse A AisSegal x y f)
-    := (\ ((g, p), (h, q))
-        -> (g, (p,
+    := (\ ((g , p) , (h , q))
+        -> (g , (p ,
             (concat
             (hom A y y)
             (Segal-comp A AisSegal y x y g f)
@@ -127,7 +127,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : iff (arrow-has-inverse A AisSegal x y f) (arrow-is-iso A AisSegal x y f)
-    := (arrow-inverse-to-iso A AisSegal x y f, arrow-iso-to-inverse extext A AisSegal x y f)
+    := (arrow-inverse-to-iso A AisSegal x y f , arrow-iso-to-inverse extext A AisSegal x y f)
 
 #def if-iso-then-postcomp-has-retraction
   (extext : ExtExt) -- This proof uses extension extensionality.
@@ -139,7 +139,7 @@ This is a literate `rzk` file:
   (gg : arrow-has-retraction A AisSegal x y f g)
   : (z : A) -> has-retraction (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
   := \z -> (
-        (Segal-postcomp A AisSegal y x g z),
+        (Segal-postcomp A AisSegal y x g z) ,
         \k ->
       (triple-concat
         (hom A z x) -- k is an arrow z -> x
@@ -163,7 +163,7 @@ This is a literate `rzk` file:
   (hh : arrow-has-section A AisSegal x y f h)
   : (z : A) -> has-section (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
   := \z -> (
-        (Segal-postcomp A AisSegal y x h z),
+        (Segal-postcomp A AisSegal y x h z) ,
         \k ->
       (triple-concat
         (hom A z y) -- k is an arrow z to y
@@ -189,7 +189,7 @@ This is a literate `rzk` file:
   (hh : arrow-has-section A AisSegal x y f h)
    : (z : A) -> is-equiv (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
    := \z -> (
-    (if-iso-then-postcomp-has-retraction extext A AisSegal x y f g gg z),
+    (if-iso-then-postcomp-has-retraction extext A AisSegal x y f g gg z) ,
     (if-iso-then-postcomp-has-section extext A AisSegal x y f h hh z)
    )
 
@@ -203,7 +203,7 @@ This is a literate `rzk` file:
   (hh : arrow-has-section A AisSegal x y f h)
   : (z : A) -> has-retraction (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
   := \z -> (
-        (Segal-precomp A AisSegal y x h z),
+        (Segal-precomp A AisSegal y x h z) ,
         \k ->
       (triple-concat
         (hom A y z) -- k is an arrow y -> z
@@ -232,7 +232,7 @@ This is a literate `rzk` file:
   (gg : arrow-has-retraction A AisSegal x y f g)
   : (z : A) -> has-section (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
   := \z -> (
-        (Segal-precomp A AisSegal y x g z),
+        (Segal-precomp A AisSegal y x g z) ,
         \k ->
       (triple-concat
         (hom A x z) -- k is an arrow x -> z
@@ -263,7 +263,7 @@ This is a literate `rzk` file:
   : (z : A) -> is-equiv (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
   :=
     \z -> (
-    (if-iso-then-precomp-has-retraction extext A AisSegal x y f h hh z),
+    (if-iso-then-precomp-has-retraction extext A AisSegal x y f h hh z) ,
     (if-iso-then-precomp-has-section extext A AisSegal x y f g gg z)
    )
 
@@ -331,14 +331,14 @@ This is a literate `rzk` file:
   : (x : A) -> Iso A AisSegal x x
   :=
     \ x -> (
-    (id-arr A x),
+    (id-arr A x) ,
     (
     (
-      (id-arr A x),
+      (id-arr A x) ,
       (Segal-id-comp A AisSegal x x (id-arr A x))
-    ),
+    ) ,
     (
-      (id-arr A x),
+      (id-arr A x) ,
       (Segal-id-comp A AisSegal x x (id-arr A x))
     )
       )
@@ -349,26 +349,26 @@ This is a literate `rzk` file:
   (AisSegal : is-segal A)
   (x y : A)
   : (x = y) -> Iso A AisSegal x y
-  := \p -> idJ (A, x, \y' p' -> Iso A AisSegal x y', (id-iso A AisSegal x), y, p)
+  := \p -> idJ (A , x , \y' p' -> Iso A AisSegal x y' , (id-iso A AisSegal x) , y , p)
 
 #def is-rezk
   (A : U)
   : U
-  := Σ (AisSegal : is-segal A), (x : A) -> (y : A) -> is-equiv (x = y) (Iso A AisSegal x y) (idtoiso A AisSegal x y)
+  := Σ (AisSegal : is-segal A) , (x : A) -> (y : A) -> is-equiv (x = y) (Iso A AisSegal x y) (idtoiso A AisSegal x y)
 
 
 
 #end isomorphisms
 ```
 
-#def cocomma (B : U) (b : B) : U := (Σ (x : B), (hom B b x))
+#def cocomma (B : U) (b : B) : U := (Σ (x : B) , (hom B b x))
 
-#def comma (B : U) (b : B) : U := (Σ (x : B), (hom B x b))
+#def comma (B : U) (b : B) : U := (Σ (x : B) , (hom B x b))
 
 #def hom-cocomma (B : U) (b : B) : U := axiom-choice 2 Δ¹ ∂Δ¹ (\t ->
 
 #def axiom-choice (I : CUBE) (ψ : I -> TOPE) (ϕ : ψ -> TOPE) (X : ψ -> U) (Y :
 (t : ψ) -> (x : X t) -> U) (a : (t : ϕ) -> X t) (b : (t : ϕ) -> Y t (a t)) : Eq
-(<{t : I | ψ t} -> (Σ (x : X t), Y t x) [ ϕ t |-> (a t , b t) ]>) (Σ (f : (<{t :
-I | ψ t} -> X t [ϕ t |-> a t ]>)), (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t
+(<{t : I | ψ t} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ]>) (Σ (f : (<{t
+: I | ψ t} -> X t [ϕ t |-> a t ]>)) , (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t
 ]>))

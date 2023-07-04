@@ -15,7 +15,7 @@ This is a literate `rzk` file:
   (f : A -> B)
   : U
   :=
-    Σ (fhasinverse : (has-inverse A B f)),
+    Σ (fhasinverse : (has-inverse A B f)) ,
       (a : A) ->
         ((second (second fhasinverse)) (f a)) =
         (ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
@@ -27,7 +27,7 @@ This is a literate `rzk` file:
   (A B : U)
   (f : A -> B)
   : U
-  := Σ (fhasinverse : (has-inverse A B f)),
+  := Σ (fhasinverse : (has-inverse A B f)) ,
       ( homotopy-prewhisker A B B
         ( has-inverse-section-composite A B f fhasinverse)
         ( identity B)
@@ -381,18 +381,18 @@ have equivalent identity types.
   (x y : A)
   : has-retraction (x = y) (f x = f y) (ap A B x y f)
   :=
-    ( second (iff-ap-is-half-adjoint-equiv x y),
+    ( second (iff-ap-is-half-adjoint-equiv x y) ,
       \ p ->
           idJ (
-            A,
-            x,
+            A ,
+            x ,
             \ y' p' ->
               ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
-               p',
+               p' ,
             ( rev-refl-id-triple-concat A
               ( (has-inverse-inverse A B f (first fisHAE)) (f x)) x
-              ( (first (second (first fisHAE))) x)),
-            y,
+              ( (first (second (first fisHAE))) x)) ,
+            y ,
             p))
 
 #def ap-triple-concat-is-half-adjoint-equiv
@@ -711,14 +711,14 @@ have equivalent identity types.
   (x y : A)
   : has-section (x = y) (f x = f y) (ap A B x y f)
   :=
-    ( second (iff-ap-is-half-adjoint-equiv x y),
+    ( second (iff-ap-is-half-adjoint-equiv x y) ,
       section-htpy-ap-is-half-adjoint-equiv x y)
 
 #def is-equiv-ap-is-half-adjoint-equiv uses (fisHAE)
   (x y : A)
   : is-equiv (x = y) (f x = f y) (ap A B x y f)
   :=
-    ( has-retraction-ap-is-half-adjoint-equiv x y,
+    ( has-retraction-ap-is-half-adjoint-equiv x y ,
       has-section-ap-is-half-adjoint-equiv x y)
 #end equiv-identity-types-equiv
 
@@ -738,5 +738,5 @@ have equivalent identity types.
   (fisequiv : is-equiv A B f)
   (x y : A)
   : Equiv (x = y) (f x = f y)
-  := (ap A B x y f, is-equiv-ap-is-equiv A B f fisequiv x y)
+  := (ap A B x y f , is-equiv-ap-is-equiv A B f fisequiv x y)
 ```

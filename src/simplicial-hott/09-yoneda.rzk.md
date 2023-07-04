@@ -170,8 +170,8 @@ The Yoneda lemma says that evaluation at the identity defines an equivalence.
 	(C : A -> U)							-- A type family.
 	(CisCov : isCovFam A C)					-- A covariant family.
     : is-equiv ((z : A) -> hom A a z -> C z) (C a) (evid A a C)
-    := ((yon A AisSegal a C CisCov,
-            yon-evid A AisSegal a C CisCov funext),
+    := ((yon A AisSegal a C CisCov ,
+            yon-evid A AisSegal a C CisCov funext) ,
         (yon A AisSegal a C CisCov,
             evid-yon A AisSegal a C CisCov))
 ```
@@ -322,7 +322,7 @@ equivalence.
 	  (CisContra : isContraFam A C)		-- A contravariant family.
     : is-equiv ((z : A) -> hom A z a -> C z) (C a) (contra-evid A a C)
     := ((contra-yon A AisSegal a C CisContra,
-            contra-yon-evid A AisSegal a C CisContra funext),
+            contra-yon-evid A AisSegal a C CisContra funext) ,
         (contra-yon A AisSegal a C CisContra,
             contra-evid-yon A AisSegal a C CisContra))
 ```

@@ -35,7 +35,7 @@ families.
   (B : U)
   (P : B -> U)
   : U
-  := Σ (b : B), P b
+  := Σ (b : B) , P b
 
 #def isInnerFam
   (B : U)
@@ -93,15 +93,15 @@ a given starting point in the fiber.
     (P : B -> U)
     (e : P b)
     : U
-    := Σ (e' : P b'), Σ (f : dhom B b b' u P e e'), isCocartArr B b b' u P e e' f
+    := Σ (e' : P b') , Σ (f : dhom B b b' u P e e') , isCocartArr B b b' u P e e' f
 
 ```
 
 #def cocart-is-prop (B : U) (Bis-rezk : is-rezk B) (b b' : B) (u : hom B b b')
 (P : B -> U) (TPis-rezk : is-rezk (totalType B P)) (PisfibRezk : (b : B) ->
 is-rezk (P b)) (e : P b) (e' : P b') (f : dhom B b b' u P e e') (fiscocart :
-isCocartArr B b b' u P e e' f) : is-contr (CocartLift B b b' u P e) := ( (e', f,
-fiscocart), \d -> \g ->
+isCocartArr B b b' u P e e' f) : is-contr (CocartLift B b b' u P e) := ( (e' , f
+, fiscocart) , \d -> \g ->
 
 ## Initial objects
 

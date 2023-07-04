@@ -12,7 +12,7 @@ This is a literate `rzk` file:
 #def prod
   (A B : U)
   : U
-  := Σ (x : A), B
+  := Σ (x : A) , B
 
 -- defined to illustrate the syntax for terms in sigma types
 #def diagonal

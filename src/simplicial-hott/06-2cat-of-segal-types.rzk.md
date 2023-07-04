@@ -17,7 +17,7 @@ This is a literate `rzk` file:
 
 ## Functors
 
-Functions between types induce an action on hom types, preserving sources and
+Functions between types induce an action on hom types , preserving sources and
 targets.
 
 ```rzk
@@ -62,7 +62,7 @@ Functions between types automatically preserve identity arrows.
       ∂Δ¹
       (\  t -> B)
       (\  t -> recOR (
-        t === 0_2 |-> F x,
+        t === 0_2 |-> F x ,
         t === 1_2 |-> F x))
       (ap-hom A B F x x (id-arr A x))
       (id-arr B (F x))
@@ -100,7 +100,7 @@ Functions between types automatically preserve identity arrows.
 
 This corresponds to Section 6.2 in [RS17].
 
-Given two simplicial maps `f g : (x : A) -> B x`, a **natural transformation**
+Given two simplicial maps `f g : (x : A) -> B x` , a **natural transformation**
 from `f` to `g` is an arrow `η : hom ((x : A) -> B x) f g` between them.
 
 ```rzk
@@ -112,8 +112,8 @@ from `f` to `g` is an arrow `η : hom ((x : A) -> B x) f g` between them.
   := hom ((x : A) -> (B x)) f g
 ```
 
-Equivalently, natural transformations can be determined by their **components**,
-i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
+Equivalently , natural transformations can be determined by their **components**
+, i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
 
 ```rzk
 #def nat-trans-components
@@ -171,7 +171,7 @@ i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
 ### Horizontal composition
 
 Horizontal composition of natural transformations makes sense over any type. In
-particular, contrary to what is written in [RS17] we do not need `C` to be
+particular , contrary to what is written in [RS17] we do not need `C` to be
 Segal.
 
 ```rzk
