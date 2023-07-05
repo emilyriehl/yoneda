@@ -43,7 +43,7 @@ This is a literate `rzk` file:
 #def contracting-htpy-realigned-path uses (Aiscontr)
   : (contracting-htpy-realigned contraction-center) = refl
   :=
-    ( left-inverse A contraction-center contraction-center
+    ( left-inverse-concat A contraction-center contraction-center
       ( contracting-htpy contraction-center))
 
 -- A path between an arbitrary pair of types in a contractible type.
@@ -335,7 +335,7 @@ For example, we prove that based path spaces are contractible.
           ( concat A a a (first p) (refl) (second p))
           ( second p)
           ( concat-as-based-transport A a a (first p) (refl) (second p))
-          ( refl-concat A a (first p) (second p)))
+          ( left-unit-concat A a (first p) (second p)))
 
 -- Based path spaces are contractible
 #def is-contr-based-paths

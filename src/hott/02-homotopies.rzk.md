@@ -15,20 +15,20 @@ This is a literate `rzk` file:
 
 -- The type of homotopies between parallel functions.
 #def homotopy
-  (f g : A -> B)          -- Two parallel functions.
+  (f g : A -> B)
   : U
   := (a : A) -> (f a = g a)
 
 -- The reversal of a homotopy
 #def homotopy-rev
-  (f g : A -> B)          -- Two parallel functions.
-  (H : homotopy f g)  -- A homotopy from f to g.
+  (f g : A -> B)
+  (H : homotopy f g)
   : homotopy g f
   := \ a -> rev B (f a) (g a) (H a)
 
 -- Homotopy composition is defined in diagrammatic order like concat but unlike composition.
 #def homotopy-composition
-  (f g h : A -> B)          -- Three parallel functions.
+  (f g h : A -> B)
   (H : homotopy f g)
   (K : homotopy g h)
   : homotopy f h
@@ -101,7 +101,7 @@ This is a literate `rzk` file:
       \ y' p' ->
         (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
         (concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')) ,
-      refl-concat B (f x) (g x) (H x) ,
+      left-unit-concat B (f x) (g x) (H x) ,
       y ,
       p)
 
@@ -187,7 +187,7 @@ This is a literate `rzk` file:
     rev
       ( f (f a) = f a)
       ( ap A A (f a) a f (H a)) (H (f a))
-      ( concat-right-cancel
+      ( right-cancel-concat
         ( A)
         ( f (f a))
         ( f a)
@@ -205,9 +205,9 @@ This is a literate `rzk` file:
 ```rzk
 -- Conjugation between higher homotopies
 #def triple-concat-higher-homotopy
-  (A B : U)                   -- Two types.
-  (f g : A -> B)              -- Two parallel functions.
-  (H K : homotopy A B f g)    -- Two homotopies from f to g.
+  (A B : U)
+  (f g : A -> B)
+  (H K : homotopy A B f g)
   (α : (a : A) -> H a = K a)
   (x y : A)
   (p : f x = f y)

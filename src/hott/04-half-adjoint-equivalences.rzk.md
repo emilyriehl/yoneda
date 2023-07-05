@@ -654,7 +654,7 @@ have equivalent identity types.
   (q : f x = f y)
   : ap A B x y f ((second (iff-ap-is-half-adjoint-equiv x y)) q) = q
   :=
-    quintuple-concat-alternating (f x = f y)
+    alternating-quintuple-concat (f x = f y)
       ( ap A B x y f ((second (iff-ap-is-half-adjoint-equiv x y)) q))
       ( triple-concat B
         ( f x)

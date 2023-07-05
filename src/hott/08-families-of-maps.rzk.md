@@ -354,7 +354,7 @@ The pullback of a family along homotopic maps is equivalent.
           ( rev B (f a) (g a) (α a)) c)
         ( transport2 B C (f a) (f a)
         ( concat B (f a) (g a) (f a) (α a) (rev B (f a) (g a) (α a))) refl
-        ( right-inverse B (f a) (g a) (α a)) c))
+        ( right-inverse-concat B (f a) (g a) (α a)) c))
 
 #def pullback-homotopy-has-section
   : has-section (pullback A B f C a) (pullback A B g C a)
@@ -372,7 +372,7 @@ The pullback of a family along homotopic maps is equivalent.
             ( rev B (f a) (g a) (α a)) (α a) c)
           ( transport2 B C (g a) (g a)
             ( concat B (g a) (f a) (g a) (rev B (f a) (g a) (α a)) (α a)) refl
-            ( left-inverse B (f a) (g a) (α a)) c))
+            ( left-inverse-concat B (f a) (g a) (α a)) c))
 
 #def is-equiv-pullback-homotopy uses (α)
   : is-equiv

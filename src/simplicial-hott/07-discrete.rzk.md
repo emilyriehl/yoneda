@@ -793,7 +793,7 @@ to the one just proven:
 Finally, we conclude:
 
 ```rzk
--- [RS, Proposition 7.3]
+-- [RS17, Proposition 7.3]
 #def is-segal-is-discrete
   (extext : ExtExt)
   (A : U)

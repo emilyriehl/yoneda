@@ -329,7 +329,7 @@ Now we introduce the hypothesis that A is Segal type.
 Finally, we see that covariant hom families in a Segal type are covariant.
 
 ```rzk
--- [RS, Proposition 8.13(<-)]
+-- [RS17, Proposition 8.13(<-)]
 #def is-segal-representable-isCovFam
 	(A : U)
 	(AisSegal : is-segal A)
@@ -343,7 +343,7 @@ circular - using Proposition 5.10, which holds only for Segal types - so instead
 we argue as follows:
 
 ```rzk
--- [RS, Proposition 8.13(->)]
+-- [RS17, Proposition 8.13(->)]
 #def representable-isCovFam-is-segal
 	(A : U)
 	(repiscovfam : (a : A) -> isCovFam A (\ x -> hom A a x))
@@ -865,7 +865,7 @@ Finally, we see that contravariant hom families in a Segal type are
 contravariant.
 
 ```rzk
--- [RS, Proposition 8.13(<-), dual]
+-- [RS17, Proposition 8.13(<-), dual]
 #def is-segal-representable-isContraFam
 	(A : U)
 	(AisSegal : is-segal A)
@@ -879,7 +879,7 @@ circular - using Proposition 5.10, which holds only for Segal types - so instead
 we argue as follows:
 
 ```rzk
--- [RS, Proposition 8.13(->), dual]
+-- [RS17, Proposition 8.13(->), dual]
 #def representable-isContraFam-is-segal
 	(A : U)
 	(repiscontrafam : (a : A) -> isContraFam A (\ x -> hom A x a))

@@ -37,7 +37,7 @@ The homotopy fiber of a map is the following type:
         (transport A (\ x -> (f x) = b) a a'' p' u) =
         (concat B (f a'') (f a) b (ap A B a'' a f (rev A a a'' p')) u) ,
       ( rev ((f a) = b) (concat B (f a) (f a) b refl u) u
-        ( refl-concat B (f a) b u)) ,
+        ( left-unit-concat B (f a) b u)) ,
       a' ,
       p)
 ```
@@ -608,7 +608,7 @@ this homotopy is straightforward.
         ( second z))
       ( (second (second (first fisHAE))) b))
   :=
-    concat-assoc B
+    associative-concat B
     ( f (first z))
     ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
     ( f ((has-inverse-inverse A B f (first fisHAE)) b))
@@ -804,7 +804,7 @@ this homotopy is straightforward.
         ( (second (second (first fisHAE))) (f (first z))))
       ( second z)
   :=
-    assoc-concat B
+    rev-associative-concat B
     ( f (first z))
     ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
     ( f (first z))
@@ -947,7 +947,7 @@ this homotopy is straightforward.
 
 #def isHAE-fib-base-path-transport-HAE-final-reduction uses (A)
   : concat B (f (first z)) (f (first z)) b (refl) (second z) = second z
-  := refl-concat B (f (first z)) b (second z)
+  := left-unit-concat B (f (first z)) b (second z)
 
 #def isHAE-fib-base-path-transport-path
   : transport A ( \ x -> (f x) = b)
@@ -955,7 +955,7 @@ this homotopy is straightforward.
     ( isHAE-fib-base-path )
     ( (second (second (first fisHAE))) b) = second z
   :=
-    12ary-concat-alternating ( (f (first z)) = b)
+    alternating-12ary-concat ( (f (first z)) = b)
     ( transport A ( \ x -> (f x) = b)
       ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)
       ( isHAE-fib-base-path )

@@ -90,7 +90,7 @@ This is a literate `rzk` file:
             (Segal-comp A AisSegal y x y h f)
             (id-arr A y)
             (Segal-homotopy-postwhisker A AisSegal y x y g h f
-                (quintuple-concat-alternating (hom A y x)
+                (alternating-quintuple-concat (hom A y x)
                 g (Segal-comp A AisSegal y y x (id-arr A y) g) -- a0 = g and a1 = g o id_y
                 (rev (hom A y x) (Segal-comp A AisSegal y y x (id-arr A y) g) g (Segal-id-comp A AisSegal y x g)) -- p1 = identity law
 
