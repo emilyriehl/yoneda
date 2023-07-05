@@ -95,8 +95,8 @@ This is a literate `rzk` file:
   : (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =
     (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
   :=
-    idJ (
-      A ,
+    idJ
+    ( A ,
       x ,
       \ y' p' ->
         (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
@@ -117,8 +117,8 @@ This is a literate `rzk` file:
       ( rev B (f x) (g x) (H x)) (ap A B x y f p) (H y) =
     ap A B x y g p
   :=
-    idJ (
-      A ,
+    idJ
+    ( A ,
       x ,
       \ y' p' ->
         triple-concat
@@ -214,8 +214,8 @@ This is a literate `rzk` file:
   : triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (H x)) p (H y) =
     triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (K x)) p (K y)
   :=
-    idJ (
-      f y = g y ,
+    idJ
+    ( f y = g y ,
       H y ,
       \ Ky α' ->
         triple-concat

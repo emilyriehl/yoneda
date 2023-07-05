@@ -40,8 +40,8 @@ maps.
     -> fib (B (first w)) (C (first w)) (f (first w)) (second w)
   :=
     \ (z , p) ->
-      idJ (
-        (Σ (x : A) , C x) ,
+      idJ
+      ( (Σ (x : A) , C x) ,
         ((total-map-family-of-maps A B C f) z) ,
         \ w' p' -> fib (B (first w')) (C (first w')) (f (first w')) (second w') , ((second z) , refl) ,
         w ,
@@ -59,8 +59,8 @@ maps.
   :=
     ( total-map-from-fiber A B C f w ,
       \ (b , p) ->
-        idJ (
-          (C (first w)) ,
+        idJ
+        ( (C (first w)) ,
           (f (first w) b) ,
           \ w1 p' ->
             ((total-map-from-fiber A B C f ((first w , w1)))
@@ -83,8 +83,8 @@ maps.
   :=
     ( total-map-from-fiber A B C f w ,
       \ (z , p) ->
-        idJ (
-          (Σ (x : A) , C x) ,
+        idJ
+        ( (Σ (x : A) , C x) ,
           ((first z , f (first z) (second z))) ,
           \ w' p' ->
             ( (total-map-to-fiber A B C f w')
@@ -418,8 +418,8 @@ map.
   : (pullback-comparison-fiber A B f C z) -> (fib A B f (first z))
   :=
     \ (w , p) ->
-      idJ (
-        (Σ (b : B) , C b) ,
+      idJ
+      ( (Σ (b : B) , C b) ,
         (pullback-comparison-map A B f C w) ,
         \ z' p' ->
           ( fib A B f (first z')) ,
@@ -435,8 +435,8 @@ map.
   : (fib A B f b) -> (c : C b) -> (pullback-comparison-fiber A B f C (b , c))
   :=
     \ (a , p) ->
-        idJ (
-          B ,
+        idJ
+        ( B ,
           f a ,
           \ b' p' ->
             (c : C b') -> (pullback-comparison-fiber A B f C ((b' , c))) ,
@@ -464,8 +464,8 @@ map.
   : ( (pullback-comparison-fiber-to-fiber-inv A B f C z)
       ( (pullback-comparison-fiber-to-fiber A B f C z) (w , p))) = (w , p)
   :=
-    idJ (
-      (Σ (b : B) , C b) ,
+    idJ
+    ( (Σ (b : B) , C b) ,
       (pullback-comparison-map A B f C w) ,
       \ z' p' ->
         ((pullback-comparison-fiber-to-fiber-inv A B f C z')
@@ -485,8 +485,8 @@ map.
         ((pullback-comparison-fiber-to-fiber-inv A B f C (b , c)) (a , p))) =
       (a , p)
   :=
-    idJ (
-      B ,
+    idJ
+    ( B ,
       f a ,
       \ b' p' -> (c : C b') ->
         ( (pullback-comparison-fiber-to-fiber A B f C (b' , c))

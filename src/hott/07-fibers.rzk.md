@@ -30,8 +30,8 @@ The homotopy fiber of a map is the following type:
   : (transport A ( \ x -> (f x) = b) a a' p u) =
     (concat B (f a') (f a) b (ap A B a' a f (rev A a a' p)) u)
   :=
-    idJ (
-      A ,
+    idJ
+    ( A ,
       a ,
       \ a'' p' ->
         (transport A (\ x -> (f x) = b) a a'' p' u) =

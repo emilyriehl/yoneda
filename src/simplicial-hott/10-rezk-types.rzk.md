@@ -138,8 +138,9 @@ This is a literate `rzk` file:
   (g : hom A y x)
   (gg : arrow-has-retraction A AisSegal x y f g)
   : (z : A) -> has-retraction (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
-  := \ z -> (
-        (Segal-postcomp A AisSegal y x g z) ,
+  :=
+    \ z ->
+    ( (Segal-postcomp A AisSegal y x g z) ,
         \ k ->
       (triple-concat
         (hom A z x) -- k is an arrow z -> x
@@ -162,8 +163,9 @@ This is a literate `rzk` file:
   (h : hom A y x)
   (hh : arrow-has-section A AisSegal x y f h)
   : (z : A) -> has-section (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
-  := \ z -> (
-        (Segal-postcomp A AisSegal y x h z) ,
+  :=
+    \ z ->
+    ( (Segal-postcomp A AisSegal y x h z) ,
         \ k ->
       (triple-concat
         (hom A z y) -- k is an arrow z to y
@@ -187,11 +189,11 @@ This is a literate `rzk` file:
   (gg : arrow-has-retraction A AisSegal x y f g)
   (h : hom A y x)
   (hh : arrow-has-section A AisSegal x y f h)
-   : (z : A) -> is-equiv (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
-   := \ z -> (
-    (if-iso-then-postcomp-has-retraction extext A AisSegal x y f g gg z) ,
-    (if-iso-then-postcomp-has-section extext A AisSegal x y f h hh z)
-   )
+  : (z : A) -> is-equiv (hom A z x) (hom A z y) (Segal-postcomp A AisSegal x y f z)
+  :=
+    \ z ->
+    ( (if-iso-then-postcomp-has-retraction extext A AisSegal x y f g gg z) ,
+      (if-iso-then-postcomp-has-section extext A AisSegal x y f h hh z))
 
 #def if-iso-then-precomp-has-retraction
   (extext : ExtExt) -- This proof uses extension extensionality.
@@ -202,8 +204,9 @@ This is a literate `rzk` file:
   (h : hom A y x)
   (hh : arrow-has-section A AisSegal x y f h)
   : (z : A) -> has-retraction (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
-  := \ z -> (
-        (Segal-precomp A AisSegal y x h z) ,
+  :=
+    \ z ->
+    ( (Segal-precomp A AisSegal y x h z) ,
         \ k ->
       (triple-concat
         (hom A y z) -- k is an arrow y -> z
@@ -231,8 +234,9 @@ This is a literate `rzk` file:
   (g : hom A y x)
   (gg : arrow-has-retraction A AisSegal x y f g)
   : (z : A) -> has-section (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
-  := \ z -> (
-        (Segal-precomp A AisSegal y x g z) ,
+  :=
+    \ z ->
+    ( (Segal-precomp A AisSegal y x g z) ,
         \ k ->
       (triple-concat
         (hom A x z) -- k is an arrow x -> z
@@ -262,10 +266,9 @@ This is a literate `rzk` file:
   (hh : arrow-has-section A AisSegal x y f h)
   : (z : A) -> is-equiv (hom A y z) (hom A x z) (Segal-precomp A AisSegal x y f z)
   :=
-    \ z -> (
-    (if-iso-then-precomp-has-retraction extext A AisSegal x y f h hh z) ,
-    (if-iso-then-precomp-has-section extext A AisSegal x y f g gg z)
-   )
+    \ z ->
+    ( (if-iso-then-precomp-has-retraction extext A AisSegal x y f h hh z) ,
+    (if-iso-then-precomp-has-section extext A AisSegal x y f g gg z))
 
 #def iso-inhabited-implies-hasRetr-contr
   (extext : ExtExt) -- This proof uses extension extensionality.
@@ -330,7 +333,8 @@ This is a literate `rzk` file:
   (AisSegal : is-segal A)
   : (x : A) -> Iso A AisSegal x x
   :=
-    \ x -> (
+    \ x ->
+    (
     (id-arr A x) ,
     (
     (

@@ -361,8 +361,8 @@ By path induction, an identification between functions defines a homotopy
   (p : f = g)
   : (x : X) -> (f x = g x)
   :=
-    idJ (
-      (x : X) -> A x ,
+    idJ
+    ( (x : X) -> A x ,
       f ,
       \ g' p' -> (x : X) -> (f x = g' x) ,
       \ x -> refl ,

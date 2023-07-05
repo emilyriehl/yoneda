@@ -78,8 +78,8 @@ of discrete types is discrete.
   : arr-eq ((x : X) -> A x) f g h =
     (first (equiv-discrete-family funext X A Aisdiscrete f g)) h
   :=
-    idJ (
-      (x : X) -> A x ,
+    idJ
+    ( (x : X) -> A x ,
       f ,
       \ g' h' ->
         arr-eq ((x : X) -> A x) f g' h' =
@@ -153,8 +153,8 @@ only, extending from BOT, that's all we prove here for now.
   : arr-eq ((t : ψ) -> A t) f g h =
     (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g)) h
   :=
-    idJ (
-      (t : ψ) -> A t ,
+    idJ
+    ( (t : ψ) -> A t ,
       f ,
       \ g' h' ->
         arr-eq ((t : ψ) -> A t) f g' h' =
@@ -339,8 +339,8 @@ Discrete types are automatically Segal types.
 				(Δ¹ t /\  (s === 0_2)) |-> (arr-eq A x z p) t ,
 				(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w q) t ]>)
   :=
-    idJ (
-      A ,
+    idJ
+    ( A ,
       x ,
       \ z' p' ->
         (g : hom A z' w) ->
@@ -350,8 +350,8 @@ Discrete types are automatically Segal types.
 						((t === 1_2) /\  Δ¹ s) |-> g s ,
 						(Δ¹ t /\  (s === 0_2)) |-> (arr-eq A x z' p') t ,
 						(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w q) t ]>) ,
-        idJ (
-          A ,
+        idJ
+        ( A ,
           y ,
           \ w' q' ->
             (g : hom A x w') ->
@@ -362,8 +362,8 @@ Discrete types are automatically Segal types.
 									(Δ¹ t /\  (s === 0_2)) |-> x ,
 									(Δ¹ t /\  (s === 1_2)) |-> (arr-eq A y w' q') t ]>) ,
           \ g τ ->
-            idJ (
-              hom A x y ,
+            idJ
+            ( hom A x y ,
               f ,
               \ g' τ' -> (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
                             [((t === 0_2) /\  Δ¹ s) |-> f s ,
@@ -422,8 +422,8 @@ Discrete types are automatically Segal types.
           (refl , (refl , τ)) =
     (square-sigma-over-prod extext A Aisdiscrete x y x y f g) (refl , (refl , τ))
   :=
-    idJ (
-      hom A x y ,
+    idJ
+    ( hom A x y ,
       f ,
       \ g' τ' ->
         (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y x y f g'))
@@ -448,8 +448,8 @@ Discrete types are automatically Segal types.
           (p , (q , τ)) =
     (square-sigma-over-prod extext A Aisdiscrete x y z w f g) (p , (q , τ))
   :=
-    idJ (
-      A ,
+    idJ
+    ( A ,
       y ,
       \ w' q' ->
         (g : hom A z w') ->
@@ -457,8 +457,8 @@ Discrete types are automatically Segal types.
         (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y z w' f g))
           (p , (q' , τ)) =
         (square-sigma-over-prod extext A Aisdiscrete x y z w' f g) (p , (q' , τ)) ,
-      idJ (
-        A ,
+      idJ
+      ( A ,
         x ,
         \ z' p' ->
           (g : hom A z' y) ->

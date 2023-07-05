@@ -383,8 +383,8 @@ have equivalent identity types.
   :=
     ( second (iff-ap-is-half-adjoint-equiv x y) ,
       \ p ->
-          idJ (
-            A ,
+          idJ
+          ( A ,
             x ,
             \ y' p' ->
               ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =

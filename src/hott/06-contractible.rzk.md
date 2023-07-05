@@ -304,8 +304,8 @@ For example, we prove that based path spaces are contractible.
   (q : x = y)         -- A path in the base.
   : (transport A (\ z -> (a = z)) x y q p) = (concat A a x y p q)
   :=
-    idJ (
-      A ,
+    idJ
+    ( A ,
       x ,
       \ y' q' ->
         ( transport A (\ z -> (a = z)) x y' q' p) = (concat A a x y' p q') ,
