@@ -501,7 +501,7 @@ Witness for the right identity law:
   (x y : A)                 -- Two points in A.
   (f : hom A x y)           -- An arrow from x to y in A.
   : hom2 A x y y f (id-arr A y) f
-  := \{(t , s) : 2 * 2 | Δ² (t , s)} -> f t
+  := \{ (t , s) : 2 * 2 | Δ² (t , s)} -> f t
 ```
 
 Witness for the left identity law:
@@ -528,7 +528,7 @@ Witness for the left identity law:
   (x y : A)                 -- Two points in A.
   (f : hom A x y)           -- An arrow from x to y in A.
   : hom2 A x x y (id-arr A x) f f
-  := \{(t , s) : 2 * 2 | Δ² (t , s)} -> f s
+  := \{ (t , s) : 2 * 2 | Δ² (t , s)} -> f s
 ```
 
 In a Segal type, where composition is unique, it follows that composition with

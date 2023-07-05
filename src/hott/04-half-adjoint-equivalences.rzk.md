@@ -388,7 +388,7 @@ have equivalent identity types.
             x ,
             \ y' p' ->
               ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
-               p' ,
+              p' ,
             ( rev-refl-id-triple-concat A
               ( (has-inverse-inverse A B f (first fisHAE)) (f x)) x
               ( (first (second (first fisHAE))) x)) ,
