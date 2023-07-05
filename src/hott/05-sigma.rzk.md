@@ -233,23 +233,23 @@ This is a literate `rzk` file:
 -- this is ordinary transport
 #def path-of-triples-to-triple-of-paths
   (a a' : A)
-  (b b' : B)
-  (c : C a b)
+  (u u' : B)
+  (c : C a u)
   (p : a = a')
-  : (q : b = b') -> (c' : C a' b') ->
-      (r : prod-transport a a' b b' p q c = c') ->
-        ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a', (b', c')))
+  : (q : u = u') -> (c' : C a' u') ->
+      (r : prod-transport a a' u u' p q c = c') ->
+        ((a, (u, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a', (u', c')))
   :=
     idJ(
       A,
       a,
-      \ a'' p' -> (q : b = b') -> (c' : C a'' b') ->
-          (r : prod-transport a a'' b b' p' q c = c') ->
-            ((a, (b, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a'', (b', c'))),
+      \ a'' p' -> (q : u = u') -> (c' : C a'' u') ->
+          (r : prod-transport a a'' u u' p' q c = c') ->
+            ((a, (u, c)) =_{(∑(x : A), (∑(y : B), C x y))} (a'', (u', c'))),
       \ q c' r ->
-        ( sigma-path-fibered-path A (\x -> (∑(b : B), C x b)) a
-          ( b, c) ( b', c')
-          ( path-of-pairs-pair-of-paths B (\y -> C a y) b b' q c c' r)),
+        ( sigma-path-fibered-path A (\x -> (∑(v : B), C x v)) a
+          ( u, c) ( u', c')
+          ( path-of-pairs-pair-of-paths B (\y -> C a y) u u' q c c' r)),
       a',
       p)
 

@@ -219,11 +219,12 @@ Discrete types are automatically Segal types.
   : Equiv (hom (arr A) f g)
       (∑(h : hom A x z),
         (∑(k : hom A y w),
-          (<{(t, s) : 2 * 2 | Δ¹×Δ¹ (t, s)} -> A
-                    [((t === 0_2) /\  Δ¹ s) |-> f s,
-										((t === 1_2) /\  Δ¹ s) |-> g s,
-										(Δ¹ t /\  (s === 0_2)) |-> h t,
-										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
+
+          { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A
+                    [t === 0_2 /\ Δ¹ s |-> f s,
+                    t === 1_2 /\ Δ¹ s |-> g s,
+                    Δ¹ t /\ s === 0_2 |-> h t,
+                    Δ¹ t /\ s === 1_2 |-> k t]))
   :=
     ( \ α -> (\t -> α t 0_2, (\ t -> α t 1_2, \(t, s) -> α t s)),
       ( ( \ σ -> \t -> \s -> (second (second σ)) (t, s),
@@ -233,7 +234,7 @@ Discrete types are automatically Segal types.
 
 -- The equivalence underlying Eq-arr.
 #def fibered-arr-free-arr
-  : (arr A) -> (∑ (x : A), (∑ (y : A), hom A x y))
+  : (arr A) -> (∑ (u : A), (∑ (v : A), hom A u v))
   := \ k -> (k 0_2, (k 1_2, k))
 
 #def id-equiv-Eq-arr uses (w x y z)
