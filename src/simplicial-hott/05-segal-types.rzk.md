@@ -191,10 +191,11 @@ map, defined below, is an equivalence.
   (f : hom A x y)   -- An arrow in A from x to y.
   (g : hom A y z)   -- An arrow in A from y to z.
   : Λ -> A
-  := \ (t , s) -> recOR (
-    s === 0_2 |-> f t ,
-    t === 1_2 |-> g s
-  )
+  :=
+    \ (t , s) ->
+    recOR
+    ( s === 0_2 |-> f t ,
+      t === 1_2 |-> g s)
 ```
 
 ```rzk
