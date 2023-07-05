@@ -563,11 +563,24 @@
     Horns
   </a>
   
+    <nav class="md-nav" aria-label="Horns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-21-horn" class="md-nav__link">
+    The \((2,1)\)-horn
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#products" class="md-nav__link">
-    products
+    Products
   </a>
   
 </li>
@@ -771,11 +784,24 @@
     Horns
   </a>
   
+    <nav class="md-nav" aria-label="Horns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-21-horn" class="md-nav__link">
+    The \((2,1)\)-horn
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#products" class="md-nav__link">
-    products
+    Products
   </a>
   
 </li>
@@ -820,7 +846,7 @@
 
 
 <h1 id="3-simplicial-type-theory">3. Simplicial Type Theory<a class="headerlink" href="#3-simplicial-type-theory" title="Permanent link">&para;</a></h1>
-<p>These formalisations correspond in part to Section 3 of RS17 paper.</p>
+<p>These formalisations correspond in part to Section 3 of the RS17 paper.</p>
 <p>This is a literate <code>rzk</code> file:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
 </span></code></pre></div>
@@ -832,11 +858,11 @@
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c">-- the 2-simplex</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Δ²</span><span class="err"> : (</span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err">) -&gt; </span><span class="kt">TOPE</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">  := \ (t, s) -&gt; s </span><span class="o">&lt;=</span><span class="err"> t</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">  := \ (t , s) -&gt; s </span><span class="o">&lt;=</span><span class="err"> t</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c">-- the 3-simplex</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Δ³</span><span class="err"> : (</span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err">) -&gt; </span><span class="kt">TOPE</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">  := \ ((t1, t2), t3) -&gt; t3 </span><span class="o">&lt;=</span><span class="err"> t2 </span><span class="o">/\</span><span class="err"> t2 </span><span class="o">&lt;=</span><span class="err"> t1</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">  := \ ((t1 , t2) , t3) -&gt; t3 </span><span class="o">&lt;=</span><span class="err"> t2 </span><span class="o">/\</span><span class="err"> t2 </span><span class="o">&lt;=</span><span class="err"> t1</span>
 </span></code></pre></div>
 <h3 id="boundaries-of-simplices">Boundaries of simplices<a class="headerlink" href="#boundaries-of-simplices" title="Permanent link">&para;</a></h3>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c">-- the boundary of a 1-simplex</span>
@@ -849,18 +875,18 @@
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">        ((</span><span class="no">second</span><span class="err"> ts) </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> </span><span class="o">\/</span><span class="err"> (</span><span class="no">first</span><span class="err"> ts) </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err"> </span><span class="o">\/</span><span class="err"> (</span><span class="no">second</span><span class="err"> ts) </span><span class="o">===</span><span class="err"> (</span><span class="no">first</span><span class="err"> ts))</span>
 </span></code></pre></div>
 <h3 id="horns">Horns<a class="headerlink" href="#horns" title="Permanent link">&para;</a></h3>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c">-- the (2,1)-horn</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Λ</span><span class="err"> : (</span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err">) -&gt; </span><span class="kt">TOPE</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">  := \ (t, s) -&gt; (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> </span><span class="o">\/</span><span class="err"> t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)</span>
+<h4 id="the-21-horn">The <span class="arithmatex">\((2,1)\)</span>-horn<a class="headerlink" href="#the-21-horn" title="Permanent link">&para;</a></h4>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Λ</span><span class="err"> : (</span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err">) -&gt; </span><span class="kt">TOPE</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">  := \ (t , s) -&gt; (s </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> </span><span class="o">\/</span><span class="err"> t </span><span class="o">===</span><span class="err"> </span><span class="no">1_2</span><span class="err">)</span>
 </span></code></pre></div>
-<h3 id="products">products<a class="headerlink" href="#products" title="Permanent link">&para;</a></h3>
+<h3 id="products">Products<a class="headerlink" href="#products" title="Permanent link">&para;</a></h3>
 <p>The product of topes defines the product of shapes.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">shapeprod</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">I J </span><span class="p">:</span><span class="err"> </span><span class="kt">CUBE</span><span class="err">)</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">ψ </span><span class="p">:</span><span class="err"> I -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">  </span><span class="p">(</span><span class="nv">χ </span><span class="p">:</span><span class="err"> J -&gt; </span><span class="kt">TOPE</span><span class="err">)</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">  : (I * J) -&gt; </span><span class="kt">TOPE</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">  := \ (t, s) -&gt; ψ t </span><span class="o">/\</span><span class="err"> χ s</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">  := \ (t , s) -&gt; ψ t </span><span class="o">/\</span><span class="err"> χ s</span>
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c">-- the square as a product</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">Δ¹×Δ¹</span><span class="err"> : (</span><span class="kt">2</span><span class="err"> * </span><span class="kt">2</span><span class="err">) -&gt; </span><span class="kt">TOPE</span>
