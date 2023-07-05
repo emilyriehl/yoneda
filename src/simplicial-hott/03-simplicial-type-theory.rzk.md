@@ -1,6 +1,6 @@
 # 3. Simplicial Type Theory
 
-These formalisations correspond in part to Section 3 of RS17 paper.
+These formalisations correspond in part to Section 3 of the RS17 paper.
 
 This is a literate `rzk` file:
 

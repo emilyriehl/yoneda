@@ -1,6 +1,6 @@
 # Discrete types
 
-These formalisations correspond to Section 7 of RS17 paper.
+These formalisations correspond to Section 7 of the RS17 paper.
 
 This is a literate `rzk` file:
 

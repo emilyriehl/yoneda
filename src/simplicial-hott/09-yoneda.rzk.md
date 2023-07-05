@@ -1,6 +1,6 @@
 # The Yoneda lemma
 
-These formalisations correspond to Section 9 of RS17 paper.
+These formalisations correspond to Section 9 of the RS17 paper.
 
 This is a literate `rzk` file:
 

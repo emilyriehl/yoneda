@@ -1,6 +1,6 @@
 # The 2-category of Segal types
 
-These formalisations correspond to Section 6 of RS17 paper.
+These formalisations correspond to Section 6 of the RS17 paper.
 
 This is a literate `rzk` file:
 

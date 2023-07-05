@@ -1,6 +1,6 @@
 # Segal Types
 
-These formalisations correspond to Section 5 of RS17 paper.
+These formalisations correspond to Section 5 of the RS17 paper.
 
 This is a literate `rzk` file:
 

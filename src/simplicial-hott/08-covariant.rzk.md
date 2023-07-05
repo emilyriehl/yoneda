@@ -1,6 +1,6 @@
 # Covariantly functorial type families
 
-These formalisations correspond to Section 8 of RS17 paper.
+These formalisations correspond to Section 8 of the RS17 paper.
 
 This is a literate `rzk` file:
 
