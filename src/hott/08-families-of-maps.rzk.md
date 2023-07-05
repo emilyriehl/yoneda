@@ -67,7 +67,7 @@ maps.
               ((total-map-to-fiber A B C f (first w , w1)) (b , p')))
             =_{(fib (B (first w)) (C (first w)) (f (first w)) (w1))}
             (b , p') ,
-          refl,
+          refl ,
           (second w) ,
           p))
 
@@ -90,7 +90,7 @@ maps.
             ( (total-map-to-fiber A B C f w')
               ( (total-map-from-fiber A B C f w') (z , p'))) =
             ( z , p') ,
-          refl,
+          refl ,
           w ,
           p))
 
@@ -144,7 +144,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
     ( Σ (x : A) , C x)
     ( total-map-family-of-maps A B C f)
   :=
-    ( invertible-family-total-inverse A B C f invfamily,
+    ( invertible-family-total-inverse A B C f invfamily ,
       \ (a , b) ->
         (sigma-path-fibered-path A B a
           ( (has-inverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b
@@ -157,7 +157,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   (invfamily : (a : A) -> has-inverse (B a) (C a) (f a))
   : has-section (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f)
   :=
-    ( invertible-family-total-inverse A B C f invfamily,
+    ( invertible-family-total-inverse A B C f invfamily ,
       \ (a , c) ->
         ( sigma-path-fibered-path A C a
           ( f a ((has-inverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c
@@ -173,7 +173,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
     ( Σ (x : A) , C x)
     ( total-map-family-of-maps A B C f)
   :=
-    ( invertible-family-total-inverse A B C f invfamily,
+    ( invertible-family-total-inverse A B C f invfamily ,
       ( second (invertible-family-total-retraction A B C f invfamily) ,
         second (invertible-family-total-section A B C f invfamily)))
 
@@ -340,7 +340,7 @@ The pullback of a family along homotopic maps is equivalent.
     ( pullback A B g C a)
     ( pullback-homotopy)
   :=
-    ( pullback-homotopy-inverse,
+    ( pullback-homotopy-inverse ,
       \ c ->
         concat
         ( pullback A B f C a)
@@ -360,7 +360,7 @@ The pullback of a family along homotopic maps is equivalent.
   : has-section (pullback A B f C a) (pullback A B g C a)
     ( pullback-homotopy)
   :=
-    ( pullback-homotopy-inverse,
+    ( pullback-homotopy-inverse ,
       \ c ->
         concat (pullback A B g C a)
           ( transport B C (f a) (g a) (α a)
@@ -377,7 +377,7 @@ The pullback of a family along homotopic maps is equivalent.
 #def is-equiv-pullback-homotopy uses (α)
   : is-equiv
     (pullback A B f C a) (pullback A B g C a) (pullback-homotopy)
-  := ( pullback-homotopy-has-retraction, pullback-homotopy-has-section)
+  := ( pullback-homotopy-has-retraction , pullback-homotopy-has-section)
 
 #end is-equiv-pullback-htpy
 ```
@@ -470,7 +470,7 @@ map.
       \ z' p' ->
         ((pullback-comparison-fiber-to-fiber-inv A B f C z')
           ((pullback-comparison-fiber-to-fiber A B f C z') (w , p'))) = (w , p') ,
-      refl,
+      refl ,
       z ,
       p)
 
@@ -492,7 +492,7 @@ map.
         ( (pullback-comparison-fiber-to-fiber A B f C (b' , c))
           ( (pullback-comparison-fiber-to-fiber-inv A B f C (b' , c)) (a , p'))) =
         ( a , p') ,
-      \ c -> refl,
+      \ c -> refl ,
       b ,
       p)
 

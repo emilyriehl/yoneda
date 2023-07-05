@@ -324,8 +324,8 @@ the invertible map by replacing the discarded homotopy with the corrected one.
   (fhasinverse : has-inverse A B f)
   : has-inverse A B f
   :=
-    ( has-inverse-inverse A B f fhasinverse,
-      ( has-inverse-kept-htpy A B f fhasinverse,
+    ( has-inverse-inverse A B f fhasinverse ,
+      ( has-inverse-kept-htpy A B f fhasinverse ,
         has-inverse-corrected-htpy A B f fhasinverse))
 
 -- Invertible maps are half adjoint equivalences!
@@ -335,7 +335,7 @@ the invertible map by replacing the discarded homotopy with the corrected one.
   (fhasinverse : has-inverse A B f)
   : is-half-adjoint-equiv A B f
   :=
-    ( corrected-has-inverse-has-inverse A B f fhasinverse,
+    ( corrected-has-inverse-has-inverse A B f fhasinverse ,
       has-inverse-coherence A B f fhasinverse)
 
 -- Equivalences are half adjoint equivalences!

@@ -186,7 +186,7 @@ axiom. Here we state the one that will be most useful and derive an application.
       : <{t : I | ψ t} -> (f t = g t) [ ϕ t |-> refl ]>
       := idJ (<{t : I | ψ t} -> A t [ ϕ t |-> a t ]> , f ,
                \ g' p' ->  <{t : I | ψ t} -> (f t = g' t) [ ϕ t |-> refl ]> ,
-               \ t -> refl,
+               \ t -> refl ,
                g ,
                p)
 

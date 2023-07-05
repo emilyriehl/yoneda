@@ -68,9 +68,9 @@ Extension types are also used to define the type of commutative triangles:
   (g : hom A y z)   -- An arrow in A from y to z.
   (h : hom A x z)   -- An arrow in A from x to z.
   : U                           -- (hom2 A x y z f g h) is a 2-simplex (triangle)
-  := { (t1, t2) : Δ² } -> A [   -- in A where
-    t2 === 0_2 |-> f t1,        -- * the top edge is exactly f,
-    t1 === 1_2 |-> g t2,        -- * the right edge is exactly g, and
+  := { (t1 , t2) : Δ² } -> A [   -- in A where
+    t2 === 0_2 |-> f t1 ,        -- * the top edge is exactly f,
+    t1 === 1_2 |-> g t2 ,        -- * the right edge is exactly g, and
     t2 === t1  |-> h t2         -- * the diagonal is exactly h
   ]
 ```
@@ -230,9 +230,9 @@ Now we prove this definition is equivalent to the original one.
   (A : U)                       -- A type.
   : Equiv (<{t : 2 * 2 | Δ² t} -> A >)
       (Σ (k : <{t : 2 * 2 | Λ t} -> A >) ,
-        Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))) ,
-          hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                 (\ t -> k (t , 0_2)) (\ t -> k (1_2, t)) h)
+        Σ (h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+          hom2 A (k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
+                 (\ t -> k (t , 0_2)) (\ t -> k (1_2 , t)) h)
   := (\ k ->
       (\{t : 2 * 2 | Λ t} -> k t ,
         (\ (t : 2) -> k (t , t) ,
@@ -248,23 +248,23 @@ Now we prove this definition is equivalent to the original one.
   := comp-equiv
         (<{t : 2 * 2 | Δ² t} -> A >)
         (Σ (k : <{t : 2 * 2 | Λ t} -> A >) ,
-            Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))) ,
-            hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                    (\ t -> k (t , 0_2)) (\ t -> k (1_2, t)) h)
+            Σ (h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+            hom2 A (k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
+                    (\ t -> k (t , 0_2)) (\ t -> k (1_2 , t)) h)
         (<{t : 2 * 2 | Λ t} -> A >)
         (equiv-horn-restriction A)
         (total-space-projection
             (<{t : 2 * 2 | Λ t} -> A >)
-            (\ k -> Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))) ,
-                        hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                            (\ t -> k (t , 0_2)) (\ t -> k (1_2, t)) h) ,
+            (\ k -> Σ (h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+                        hom2 A (k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
+                            (\ t -> k (t , 0_2)) (\ t -> k (1_2 , t)) h) ,
         (is-equiv-projection-contractible-fibers
             (<{t : 2 * 2 | Λ t} -> A >)
-            (\ k -> Σ (h : hom A (k (0_2, 0_2)) (k (1_2, 1_2))) ,
-                        hom2 A (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                            (\ t -> k (t , 0_2)) (\ t -> k (1_2, t)) h)
-            (\ k -> AisSegal (k (0_2, 0_2)) (k (1_2, 0_2)) (k (1_2, 1_2))
-                            (\ t -> k (t , 0_2)) (\ t -> k (1_2, t)))))
+            (\ k -> Σ (h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+                        hom2 A (k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
+                            (\ t -> k (t , 0_2)) (\ t -> k (1_2 , t)) h)
+            (\ k -> AisSegal (k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
+                            (\ t -> k (t , 0_2)) (\ t -> k (1_2 , t)))))
 
 -- Verify that the mapping in (Segal-equiv-horn-restriction A AisSegal)
 -- is exactly (horn-restriction A)
@@ -423,7 +423,7 @@ In particular, the arrow type of a Segal type is Segal.
 #def Eq-arr
   (A : U)
   : Equiv (arr A) (Σ (x : A) , (Σ (y : A) , hom A x y))
-  := (\ f -> (f 0_2, (f 1_2, f)) ,
+  := (\ f -> (f 0_2 , (f 1_2 , f)) ,
       ((\ (x , (y , f)) -> f , \ f -> refl) ,
        (\ (x , (y , f)) -> f , \ xyf -> refl)))
 
@@ -1097,7 +1097,7 @@ composition:
   (q : h = k)
   : (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g k)
   := idJ (hom A y z , h , \ k' q' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g k') ,
-    idJ (hom A x y , f , \ g' p' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g' h) , refl, g , p)
+    idJ (hom A x y , f , \ g' p' -> (Segal-comp A AisSegal x y z f h) = (Segal-comp A AisSegal x y z g' h) , refl , g , p)
     , k , q)
 
 -- As a special case of the above:
@@ -1133,7 +1133,7 @@ composition:
   : (Segal-homotopy-postwhisker A AisSegal x y z f g h p) =
     ap (hom A x y) (hom A x z) f g (\ k -> Segal-comp A AisSegal x y z k h) p
   := idJ (hom A x y , f , \ g' p' -> (Segal-homotopy-postwhisker A AisSegal x y z f g' h p') =
-    ap (hom A x y) (hom A x z) f g' (\ k -> Segal-comp A AisSegal x y z k h) p' , refl, g , p)
+    ap (hom A x y) (hom A x z) f g' (\ k -> Segal-comp A AisSegal x y z k h) p' , refl , g , p)
 
 -- [RS17, Proposition 5.14(b)]
 #def Segal-homotopy-prewhisker-is-ap
@@ -1146,17 +1146,17 @@ composition:
   : (Segal-homotopy-prewhisker A AisSegal w x y k f g p) =
     ap (hom A x y) (hom A w y) f g (Segal-comp A AisSegal w x y k) p
   := idJ (hom A x y , f , \ g' p' -> (Segal-homotopy-prewhisker A AisSegal w x y k f g' p') =
-    ap (hom A x y) (hom A w y) f g' (Segal-comp A AisSegal w x y k) p' , refl, g , p)
+    ap (hom A x y) (hom A w y) f g' (Segal-comp A AisSegal w x y k) p' , refl , g , p)
 
 #section is-segal-Unit
 
 #variable extext : ExtExt
 
-#def iscontr-Unit : is-contr Unit := (unit, \ _ -> refl)
+#def iscontr-Unit : is-contr Unit := (unit , \ _ -> refl)
 
 #def is-contr-Δ²→Unit uses (extext)
   : is-contr (Δ² -> Unit)
-  := (\ _ -> unit, \ k -> eq-ext-htpy extext
+  := (\ _ -> unit , \ k -> eq-ext-htpy extext
     (2 * 2) Δ² (\ _ -> BOT)
     (\ _ -> Unit) (\ _ -> recBOT)
     (\ _ -> unit) k

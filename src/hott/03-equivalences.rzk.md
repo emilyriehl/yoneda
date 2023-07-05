@@ -99,8 +99,8 @@ This is a literate `rzk` file:
   (fhasinverse : has-inverse A B f)
   : is-equiv A B f
   :=
-    ( ( first fhasinverse, first (second fhasinverse)) ,
-      ( first fhasinverse, second (second fhasinverse)))
+    ( ( first fhasinverse , first (second fhasinverse)) ,
+      ( first fhasinverse , second (second fhasinverse)))
 
 -- equivalences are invertible
 #def has-inverse-is-equiv
@@ -109,7 +109,7 @@ This is a literate `rzk` file:
   (fisequiv : is-equiv A B f)
   : has-inverse A B f
   :=
-    ( is-equiv-section A B f fisequiv,
+    ( is-equiv-section A B f fisequiv ,
       ( homotopy-composition A A
         ( composition A B A (is-equiv-section A B f fisequiv) f)
         ( composition A B A (is-equiv-retraction A B f fisequiv) f)
@@ -365,7 +365,7 @@ By path induction, an identification between functions defines a homotopy
       (x : X) -> A x ,
       f ,
       \ g' p' -> (x : X) -> (f x = g' x) ,
-      \ x -> refl,
+      \ x -> refl ,
       g ,
       p)
 ```
@@ -469,14 +469,14 @@ equivalences.
     (y : A)
     : (x : A) -> has-retraction (x = y) (y = x) ((\ p -> ((rev A x y) p)))
     := \ x ->
-       ((rev A y x) , \ p -> idJ (A , x , \ y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y')) (p') =_{x = y'} p') , refl, y , p))
+       ((rev A y x) , \ p -> idJ (A , x , \ y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y')) (p') =_{x = y'} p') , refl , y , p))
 
 #def has-section-rev
     (A : U)
     (y : A)
     : (x : A) -> has-section (x = y) (y = x) ((\ p -> ((rev A x y) p)))
     := \ x ->
-       ((rev A y x) , \ p -> idJ (A , y , \ x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x')) (p') =_{y = x'} p') , refl, x , p))
+       ((rev A y x) , \ p -> idJ (A , y , \ x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x')) (p') =_{y = x'} p') , refl , x , p))
 
 #def is-equiv-rev
     (A : U)

@@ -88,13 +88,13 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
   (x y : Unit)
   : has-retraction (x = y) Unit (terminal-map (x = y))
   :=
-    ( \ a -> refl,
-      \ p -> idJ (Unit, x , \ y' p' -> refl =_{x = y'} p' , refl, y , p))
+    ( \ a -> refl ,
+      \ p -> idJ (Unit , x , \ y' p' -> refl =_{x = y'} p' , refl , y , p))
 
 #def terminal-map-of-path-types-of-Unit-has-sec
   (x y : Unit)
   : has-section (x = y) Unit (terminal-map (x = y))
-  := ( \ a -> refl, \ a -> refl)
+  := ( \ a -> refl , \ a -> refl)
 
 #def terminal-map-of-path-types-of-Unit-is-equiv
   (x y : Unit)
@@ -134,14 +134,14 @@ A type is contractible if and only if its terminal map is an equivalence.
   (AisContr : is-contr A)
   : is-equiv A Unit (terminal-map A)
   :=
-    ( contr-implies-terminal-map-is-equiv-retr A AisContr,
+    ( contr-implies-terminal-map-is-equiv-retr A AisContr ,
       contr-implies-terminal-map-is-equiv-sec A AisContr)
 
 #def terminal-map-is-equiv-implies-contr
   (A : U)
   (e : terminal-map-is-equiv A)
   : is-contr A
-  := ((first (first e)) unit, (second (first e)))
+  := ((first (first e)) unit , (second (first e)))
 
 #def contr-iff-terminal-map-is-equiv
   (A : U)
@@ -245,7 +245,7 @@ A retract of contractible types is contractible.
   (Biscontr : is-contr B)
   : is-contr A
   :=
-    ( is-retract-of-is-contr-isInhabited Biscontr,
+    ( is-retract-of-is-contr-isInhabited Biscontr ,
       is-retract-of-is-contr-hasHtpy Biscontr)
 
 #end retraction-data
@@ -263,9 +263,9 @@ A function between contractible types is an equivalence
   (f : A -> B)
   : is-equiv A B f
   :=
-    ( ( \ b -> contraction-center A Aiscontr,
+    ( ( \ b -> contraction-center A Aiscontr ,
         \ a -> contracting-htpy A Aiscontr a) ,
-      ( \ b -> contraction-center A Aiscontr,
+      ( \ b -> contraction-center A Aiscontr ,
         \ b -> contractible-connecting-htpy B Biscontr
                 (f (contraction-center A Aiscontr)) b))
 ```
@@ -309,7 +309,7 @@ For example, we prove that based path spaces are contractible.
       x ,
       \ y' q' ->
         ( transport A (\ z -> (a = z)) x y' q' p) = (concat A a x y' p q') ,
-      refl,
+      refl ,
       y ,
       q)
 
@@ -354,7 +354,7 @@ For example, we prove that based path spaces are contractible.
   (BisContr : is-contr B)
   : is-contr (prod A B)
   :=
-    ( (first AisContr, first BisContr) ,
+    ( (first AisContr , first BisContr) ,
       \ p -> path-product A B
               ( first AisContr) (first p)
               ( first BisContr) (second p)

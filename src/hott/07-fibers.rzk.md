@@ -19,7 +19,7 @@ The homotopy fiber of a map is the following type:
   : U
   := Σ (a : A) , (f a) = b
 
--- We calculate the transport of (a, q) : fib b along p : a = a'
+-- We calculate the transport of (a , q) : fib b along p : a = a'
 #def transport-in-fiber
   (A B : U)
   (f : A -> B)
@@ -72,7 +72,7 @@ Contractible maps are equivalences:
 #def has-section-is-contr-map
   : has-section A B f
   :=
-    ( is-contr-map-inverse,
+    ( is-contr-map-inverse ,
       \ b -> second (contraction-center (fib A B f b) (fiscontr b)))
 
 #def is-contr-map-data-in-fiber uses (fiscontr)
@@ -92,7 +92,7 @@ Contractible maps are equivalences:
 #def is-contr-map-has-retraction uses (fiscontr)
   : has-retraction A B f
   :=
-    ( is-contr-map-inverse,
+    ( is-contr-map-inverse ,
       \ a -> ( ap (fib A B f (f a)) A
                 ( is-contr-map-data-in-fiber a)
                 ( (a , refl))
@@ -101,7 +101,7 @@ Contractible maps are equivalences:
 
 #def is-equiv-is-contr-map uses (fiscontr)
   : is-equiv A B f
-  := (is-contr-map-has-retraction, has-section-is-contr-map)
+  := (is-contr-map-has-retraction , has-section-is-contr-map)
 
 #end is-contr-map-is-equiv
 ```

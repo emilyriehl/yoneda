@@ -64,7 +64,7 @@ This is a literate `rzk` file:
         ( transport A B
           ( first s) (first t') (first-path-sigma s t' e') (second s)) =
         ( second t') ,
-      refl,
+      refl ,
       t ,
       e)
 
@@ -88,7 +88,7 @@ This is a literate `rzk` file:
   (u v : B x)
   (p : u = v)
   : (x , u) =_{Σ (a : A) , B a} (x , v)
-  := idJ (B x , u , \ v' p' -> (x , u) = (x , v') , refl, v , p)
+  := idJ (B x , u , \ v' p' -> (x , u) = (x , v') , refl , v , p)
 
 -- Essentially eq-pair but with explicit arguments.
 #def path-of-pairs-pair-of-paths
@@ -126,7 +126,7 @@ This is a literate `rzk` file:
       B a ,
       s ,
       \ t' e' -> (eq-pair s t' (pair-eq s t' e')) = e' ,
-      refl,
+      refl ,
       t ,
       e)
 
@@ -138,27 +138,27 @@ This is a literate `rzk` file:
   (t0 : A)
   (e0 : s0 = t0)
   : (t1 : B t0) -> (e1 : (transport A B s0 t0 e0 s1) = t1) ->
-    (pair-eq (s0, s1) (t0, t1) (eq-pair (s0, s1) (t0, t1) (e0, e1)))
-    =_{Eq-sigma (s0, s1) (t0, t1)} (e0, e1)
+    (pair-eq (s0 , s1) (t0 , t1) (eq-pair (s0 , s1) (t0 , t1) (e0 , e1)))
+    =_{Eq-sigma (s0 , s1) (t0 , t1)} (e0 , e1)
   :=
     idJ (
       A ,
-      s0,
+      s0 ,
       \ t0' e0' -> (t1 : B t0') -> (e1 : (transport A B s0 t0' e0' s1) = t1) ->
-        (pair-eq (s0, s1) (t0' , t1) (eq-pair (s0, s1) (t0' , t1) (e0' , e1)))
-        =_{Eq-sigma (s0, s1) (t0' , t1)} (e0' , e1) ,
+        (pair-eq (s0 , s1) (t0' , t1) (eq-pair (s0 , s1) (t0' , t1) (e0' , e1)))
+        =_{Eq-sigma (s0 , s1) (t0' , t1)} (e0' , e1) ,
       \ t1 e1 ->
         idJ (
-          B s0,
-          s1,
+          B s0 ,
+          s1 ,
           \ t1' e1' ->
-            ( pair-eq (s0, s1) (s0, t1')
-              ( eq-pair (s0, s1) (s0, t1') (refl, e1')))
-              =_{Eq-sigma (s0, s1) (s0, t1')} (refl, e1') ,
-          refl,
-          t1,
+            ( pair-eq (s0 , s1) (s0 , t1')
+              ( eq-pair (s0 , s1) (s0 , t1') (refl , e1')))
+              =_{Eq-sigma (s0 , s1) (s0 , t1')} (refl , e1') ,
+          refl ,
+          t1 ,
           e1) ,
-      t0,
+      t0 ,
       e0)
 
 #def pair-eq-eq-pair
@@ -223,13 +223,13 @@ This is a literate `rzk` file:
       Σ (a : A) , (Σ (b : B) , C a b) ,
       s ,
       \ t' e' -> (Eq-sigma-over-prod s t') ,
-      ( refl, (refl, refl)) ,
+      ( refl , (refl , refl)) ,
       t ,
       e)
 
 -- The inverse with explicit arguments.
 -- It's surprising this typechecks since we defined prod-transport by a dual
--- path induction over both p and q, rather than by saying that when p is refl
+-- path induction over both p and q , rather than by saying that when p is refl
 -- this is ordinary transport
 #def path-of-triples-to-triple-of-paths
   (a a' : A)
@@ -273,7 +273,7 @@ This is a literate `rzk` file:
       Σ (a : A) , (Σ (b : B) , C a b) ,
       s ,
       \ t' e' -> (eq-triple s t' (triple-eq s t' e')) = e' ,
-      refl,
+      refl ,
       t ,
       e)
 
@@ -303,17 +303,17 @@ This is a literate `rzk` file:
             (c' : C a b'') ->
               (r : prod-transport a a b b'' refl q' c = c') ->
                 triple-eq (a , (b , c)) (a , (b'' , c'))
-                  ( eq-triple (a , (b , c)) (a , (b'' , c')) (refl, (q' , r))) =
-                  ( refl, (q' , r)) ,
+                  ( eq-triple (a , (b , c)) (a , (b'' , c')) (refl , (q' , r))) =
+                  ( refl , (q' , r)) ,
           \ c' r ->
             idJ (
               C a b ,
               c ,
               \ c'' r' ->
                 triple-eq (a , (b , c)) (a , (b , c''))
-                  ( eq-triple (a , (b , c)) (a , (b , c'')) (refl, (refl, r'))) =
-                  ( refl, (refl, r')) ,
-              refl,
+                  ( eq-triple (a , (b , c)) (a , (b , c'')) (refl , (refl , r'))) =
+                  ( refl , (refl , r')) ,
+              refl ,
               c' ,
               r) ,
           b' ,
@@ -356,7 +356,7 @@ This is a literate `rzk` file:
 
 ## Fubini
 
-Given a family over a pair of independent types, the order of summation is
+Given a family over a pair of independent types , the order of summation is
 unimportant.
 
 ```rzk

@@ -216,6 +216,6 @@ The following type asserts that the fibers of a type family are contractible.
     ( is-equiv (Σ (x : A) , B x) A (total-space-projection A B))
     ( contractible-fibers A B)
   :=
-    ( \ ABprojequiv -> contractible-fibers-is-equiv-projection A B ABprojequiv,
+    ( \ ABprojequiv -> contractible-fibers-is-equiv-projection A B ABprojequiv ,
       \ ABcontrfib -> is-equiv-projection-contractible-fibers A B ABcontrfib)
 ```

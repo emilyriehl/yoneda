@@ -71,9 +71,9 @@ triangle.
 	(gg : dhom A y z g C v w)		-- A lift of the second arrow.
 	(hh : dhom A x z h C u w)		-- A lift of the diagonal arrow.
 	: U
-  	:= <{(t1, t2) : 2 * 2 | Δ² (t1, t2)} -> C (alpha (t1, t2))
-			[t2 === 0_2 |-> ff t1,
-			t1 === 1_2 |-> gg t2,
+  	:= <{(t1 , t2) : 2 * 2 | Δ² (t1 , t2)} -> C (alpha (t1 , t2))
+			[t2 === 0_2 |-> ff t1 ,
+			t1 === 1_2 |-> gg t2 ,
 			t2 === t1 |-> hh t2 ]>
 ```
 
@@ -183,7 +183,7 @@ equivalences.
 											((t === 1_2) /\  Δ¹ s) |-> v s ,
 											(Δ¹ t /\  (s === 0_2)) |-> g t ,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>)
-	:= \ (d , (alpha1, alpha2)) (t , s) -> recOR (t <= s |-> alpha1 (s , t) ,
+	:= \ (d , (alpha1 , alpha2)) (t , s) -> recOR (t <= s |-> alpha1 (s , t) ,
 												s <= t |-> alpha2 (t , s))
 #def Eq-square-hom2-pushout
 	(A : U)
@@ -329,7 +329,7 @@ Now we introduce the hypothesis that A is Segal type.
 Finally, we see that covariant hom families in a Segal type are covariant.
 
 ```rzk
--- [RS, Proposition 8.13(<-)]
+-- [RS17, Proposition 8.13(<-)]
 #def is-segal-representable-isCovFam
 	(A : U)
 	(AisSegal : is-segal A)
@@ -351,7 +351,7 @@ we argue as follows:
 	:= \ x y z f g -> first-is-contr-sigma
 		(Σ (h : hom A x z) , hom2 A x y z f g h)
 		(\ hk -> Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
-		(\ hk -> (first hk, \ (t , s) -> first hk s))
+		(\ hk -> (first hk , \ (t , s) -> first hk s))
 		(is-contr-is-equiv-to-contr
 			(Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
 			(dhomFrom-representable A x y z g f)
@@ -399,7 +399,7 @@ types as follows.
 	(u : hom A a x)				-- A lift of the domain.
 	: Equiv (<{(t , s) : 2 * 2 | ((t === 1_2) /\  (Δ¹ s))} -> A [ ((t === 1_2) /\  (s === 0_2)) |-> a ,  ((t === 1_2) /\  (s === 1_2)) |-> y ]>)
 		(hom A a y)
-	:= (\ v -> (\ r -> v ((1_2, r))) ,
+	:= (\ v -> (\ r -> v ((1_2 , r))) ,
 			((\ v -> \ (t , s) -> v s ,
 				\ v -> refl) ,
 			(\ v -> \ (t , s) -> v s ,
@@ -434,7 +434,7 @@ types as follows.
 						[ ((t === 0_2) /\  Δ¹ s) |-> u s ,
 						(Δ¹ t /\  (s === 0_2)) |-> a ,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>) , (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s ,
-											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2, s)) ,
+											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2 , s)) ,
 											(Δ¹ t /\  (s === 0_2)) |-> a ,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
 		(Σ (v : hom A a y) , (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s ,
@@ -463,7 +463,7 @@ types as follows.
 						[ ((t === 0_2) /\  Δ¹ s) |-> u s ,
 						(Δ¹ t /\  (s === 0_2)) |-> a ,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>) , (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s ,
-											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2, s)) ,
+											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2 , s)) ,
 											(Δ¹ t /\  (s === 0_2)) |-> a ,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
 	:= right-cancel-equiv (dhomFrom-representable A a x y f u)
@@ -471,7 +471,7 @@ types as follows.
 						[ ((t === 0_2) /\  Δ¹ s) |-> u s ,
 						(Δ¹ t /\  (s === 0_2)) |-> a ,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>) , (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s ,
-											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2, s)) ,
+											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2 , s)) ,
 											(Δ¹ t /\  (s === 0_2)) |-> a ,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
 
@@ -494,7 +494,7 @@ types as follows.
 						[ ((t === 0_2) /\  Δ¹ s) |-> u s ,
 						(Δ¹ t /\  (s === 0_2)) |-> a ,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>) , (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s ,
-											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2, s)) ,
+											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2 , s)) ,
 											(Δ¹ t /\  (s === 0_2)) |-> a ,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
 	:= cofibration-composition (2 * 2) Δ¹×Δ¹ ∂□
@@ -521,7 +521,7 @@ types as follows.
 						[ ((t === 0_2) /\  Δ¹ s) |-> u s ,
 						(Δ¹ t /\  (s === 0_2)) |-> a ,
 						(Δ¹ t /\  (s === 1_2)) |-> f t ]>) , (<{(t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\  Δ¹ s) |-> u s ,
-											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2, s)) ,
+											((t === 1_2) /\  Δ¹ s) |-> (sq (1_2 , s)) ,
 											(Δ¹ t /\  (s === 0_2)) |-> a ,
 											(Δ¹ t /\  (s === 1_2)) |-> f t ]>))
 				(representable-dhomFrom-composite-expansion A a x y f u)
@@ -887,7 +887,7 @@ we argue as follows:
 	:= \ x y z f g -> first-is-contr-sigma
 		(Σ (h : hom A x z) , hom2 A x y z f g h)
 		(\ hk -> Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
-		(\ hk -> (first hk, \ (t , s) -> first hk t))
+		(\ hk -> (first hk , \ (t , s) -> first hk t))
 		(is-contr-is-equiv-to-contr
 			(Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
 			(dhomTo-representable A z x y f g)

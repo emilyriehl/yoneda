@@ -58,13 +58,13 @@ Path composition by induction on the second path.
 #def rev-rev
   (p : x = y)       -- A path from x to y in A.
   : (rev A y x (rev A x y p)) = p
-  := idJ (A , x , \ y' p' -> (rev A y' x (rev A x y' p')) = p' , refl, y , p)
+  := idJ (A , x , \ y' p' -> (rev A y' x (rev A x y' p')) = p' , refl , y , p)
 
 -- the coherence we don't have definitionally
 #def refl-concat
   (p : x = y)
   : (concat A x x y refl p) = p
-  := idJ (A , x , \ y' p' -> (concat A x x y' refl p') = p' , refl, y , p)
+  := idJ (A , x , \ y' p' -> (concat A x x y' refl p') = p' , refl , y , p)
 
 -- associativity
 #def concat-assoc
@@ -74,15 +74,15 @@ Path composition by induction on the second path.
   : concat A w y z (concat A w x y p q) r =
     concat A w x z p (concat A x y z q r)
   :=
-    idJ (
-      A ,
-      y ,
-      \ z' r' ->
-        concat A w y z' (concat A w x y p q) r' =
-        concat A w x z' p (concat A x y z' q r') ,
-      refl,
-      z ,
-      r)
+    idJ
+      ( ( A) ,
+        ( y) ,
+        ( \ z' r' ->
+          concat A w y z' (concat A w x y p q) r' =
+          concat A w x z' p (concat A x y z' q r')) ,
+        ( refl) ,
+        ( z) ,
+        ( r))
 
 #def assoc-concat
   (p : w = x)         -- A path from w to x in A.
@@ -97,7 +97,7 @@ Path composition by induction on the second path.
       \ z' r' ->
         concat A w x z' p (concat A x y z' q r') =
         concat A w y z' (concat A w x y p q) r' ,
-      refl,
+      refl ,
       z ,
       r)
 
@@ -108,8 +108,8 @@ Path composition by induction on the second path.
     idJ (
       A ,
       x ,
-      \ y' p' -> concat A x y' x p' (rev A x y' p') = refl,
-      refl,
+      \ y' p' -> concat A x y' x p' (rev A x y' p') = refl ,
+      refl ,
       y ,
       p)
 
@@ -120,8 +120,8 @@ Path composition by induction on the second path.
     idJ (
       A ,
       x ,
-      \ y' p' -> concat A y' x y' (rev A x y' p') p' = refl,
-      refl,
+      \ y' p' -> concat A y' x y' (rev A x y' p') p' = refl ,
+      refl ,
       y ,
       p)
 
@@ -310,7 +310,7 @@ of the path algebra coherences defined above.
   (f : A -> B)
   (p : x = y)
   : (f x = f y)
-  := idJ (A , x , \ y' -> \ p' -> (f x = f y') , refl, y , p)
+  := idJ (A , x , \ y' -> \ p' -> (f x = f y') , refl , y , p)
 
 #def ap-rev
   (A B : U)
@@ -324,7 +324,7 @@ of the path algebra coherences defined above.
       x ,
       \ y' p' ->
         ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p') ,
-      refl,
+      refl ,
       y ,
       p)
 
@@ -343,7 +343,7 @@ of the path algebra coherences defined above.
       \ z' q' ->
         (ap A B x z' f (concat A x y z' p q')) =
         (concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')) ,
-      refl,
+      refl ,
       z ,
       q)
 
@@ -360,7 +360,7 @@ of the path algebra coherences defined above.
       \ y' p' ->
         (rev B (f y') (f x) (ap A B y' x f (rev A x y' p'))) =
         (ap A B x y' f p') ,
-      refl,
+      refl ,
       y ,
       p)
 
@@ -380,8 +380,8 @@ of the path algebra coherences defined above.
         (concat
           ( B) (f y') (f x) (f y')
           ( ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) =
-        refl,
-      refl,
+        refl ,
+      refl ,
       y ,
       p)
 
@@ -390,7 +390,7 @@ of the path algebra coherences defined above.
   (x y : A)
   (p : x = y)
   : (ap A A x y (identity A) p) = p
-    := idJ (A , x , \ y' p' -> (ap A A x y' (\ z -> z) p') = p' , refl, y , p)
+    := idJ (A , x , \ y' p' -> (ap A A x y' (\ z -> z) p') = p' , refl , y , p)
 
 -- application of a function to homotopic paths yields homotopic paths
 #def ap-htpy
@@ -400,7 +400,7 @@ of the path algebra coherences defined above.
   (p q : x = y)
   (H : p = q)
   : (ap A B x y f p) = (ap A B x y f q)
-  := idJ (x = y , p , \ q' H' -> (ap A B x y f p) = (ap A B x y f q') , refl, q , H)
+  := idJ (x = y , p , \ q' H' -> (ap A B x y f p) = (ap A B x y f q') , refl , q , H)
 
 #def ap-comp
   (A B C : U)
@@ -417,7 +417,7 @@ of the path algebra coherences defined above.
       \ y' p' ->
         (ap A C x y' (\ z -> g (f z)) p') =
         (ap B C (f x) (f y') g (ap A B x y' f p')) ,
-      refl,
+      refl ,
       y ,
       p)
 
@@ -464,7 +464,7 @@ of the path algebra coherences defined above.
         A ,
         x ,
         \ y' p' -> (x , u) =_{Σ (z : A) , B z} (y' , transport x y' p' u) ,
-        refl,
+        refl ,
         y ,
         p)
 
@@ -483,7 +483,7 @@ of the path algebra coherences defined above.
       \ z' q' ->
         (transport x z' (concat A x y z' p q') u) =
         (transport y z' q' (transport x y p u)) ,
-      refl,
+      refl ,
       z ,
       q)
 
@@ -501,7 +501,7 @@ of the path algebra coherences defined above.
       \ z' q' ->
         (transport y z' q' (transport x y p u)) =
         (transport x z' (concat A x y z' p q') u) ,
-      refl,
+      refl ,
       z ,
       q)
 
@@ -517,7 +517,7 @@ of the path algebra coherences defined above.
       x = y ,
       p ,
       \ q' H' -> (transport x y p u) = (transport x y q' u) ,
-      refl,
+      refl ,
       q ,
       H)
 
@@ -541,7 +541,7 @@ of the path algebra coherences defined above.
   (f : (z : A) -> B z)
   (p : x = y)
   : ((transport A B x y p (f x)) = f y)
-  := idJ (A , x , \ y' p' -> ((transport A B x y' p' (f x)) = f y') , refl, y , p)
+  := idJ (A , x , \ y' p' -> ((transport A B x y' p' (f x)) = f y') , refl , y , p)
 ```
 
 ## Higher-order concatenation
@@ -658,8 +658,8 @@ of the path algebra coherences defined above.
     idJ (
       A ,
       x ,
-      \ y' p' -> triple-concat A y' x x y' (rev A x y' p') refl p' = refl,
-      refl,
+      \ y' p' -> triple-concat A y' x x y' (rev A x y' p') refl p' = refl ,
+      refl ,
       y ,
       p)
 
@@ -675,8 +675,8 @@ of the path algebra coherences defined above.
       x ,
       \ y' p' ->
         ap A B y' y' f (triple-concat A y' x x y' (rev A x y' p') refl p') =
-        refl,
-      refl,
+        refl ,
+      refl ,
       y ,
       p)
 
@@ -740,7 +740,7 @@ of the path algebra coherences defined above.
       q ,
       \ r' H' ->
         triple-concat A w x y z p q s = triple-concat A w x y z p r' s ,
-      refl,
+      refl ,
       r ,
       H)
 ```
