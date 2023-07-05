@@ -380,7 +380,7 @@ For example, we prove that based path spaces are contractible.
   : is-contr A
   :=
     ( first (first ABisContr) ,
-      \ a -> first-path-sigma A B
+      \ a -> first-path-Σ A B
               ( first ABisContr)
               ( a , b a)
               ( second ABisContr (a , b a)))

@@ -106,7 +106,7 @@ The following type asserts that the fibers of a type family are contractible.
 --    : contractible-fibers A B
 --    :=
 --      \ x -> (second ((first (first ABprojequiv)) x) ,
---      \ u -> second-path-sigma A B ((first (first ABprojequiv)) x) (x , u)
+--      \ u -> second-path-Σ A B ((first (first ABprojequiv)) x) (x , u)
 --             ( (second (first ABprojequiv)) (x , u)) )
 
 #section projection-hae-data
@@ -140,31 +140,31 @@ The following type asserts that the fibers of a type family are contractible.
 
 #def projection-hae-fibered-htpy
   : (transport A B (first ((projection-hae-inverse (first w)))) (first w)
-    ( first-path-sigma A B
+    ( first-path-Σ A B
       ( projection-hae-inverse (first w)) w
       ( projection-hae-total-htpy))
     ( second (projection-hae-inverse (first w)))) =
     ( second w)
-  := second-path-sigma A B (projection-hae-inverse (first w)) w
+  := second-path-Σ A B (projection-hae-inverse (first w)) w
       ( projection-hae-total-htpy)
 
 #def projection-hae-base-coherence
   : ( projection-hae-base-htpy (first w)) =
-    ( first-path-sigma A B (projection-hae-inverse (first w)) w
+    ( first-path-Σ A B (projection-hae-inverse (first w)) w
       ( projection-hae-total-htpy))
   := (second ABprojHAE) w
 
 #def projection-hae-transport-coherence
   : ( projection-hae-section (first w)) =
     ( transport A B (first ((projection-hae-inverse (first w)))) (first w)
-      ( first-path-sigma A B
+      ( first-path-Σ A B
         ( projection-hae-inverse (first w)) w
         ( projection-hae-total-htpy))
       ( second (projection-hae-inverse (first w))))
   :=
     transport2 A B (first (projection-hae-inverse (first w))) (first w)
     ( projection-hae-base-htpy (first w))
-    ( first-path-sigma A B (projection-hae-inverse (first w)) w
+    ( first-path-Σ A B (projection-hae-inverse (first w)) w
       ( projection-hae-total-htpy))
     ( projection-hae-base-coherence)
     ( second (projection-hae-inverse (first w)))
@@ -177,7 +177,7 @@ The following type asserts that the fibers of a type family are contractible.
       ( transport A B
         ( first ((projection-hae-inverse (first w))))
         ( first w)
-        ( first-path-sigma A B (projection-hae-inverse (first w)) w
+        ( first-path-Σ A B (projection-hae-inverse (first w)) w
           ( projection-hae-total-htpy))
         ( second (projection-hae-inverse (first w))))
       ( second w)

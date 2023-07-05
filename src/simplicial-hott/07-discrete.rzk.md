@@ -276,7 +276,7 @@ Discrete types are automatically Segal types.
       ( Σ ( p : x = z) ,
           ( Σ ( q : y = w) ,
               ( prod-transport A A (hom A) x z y w p q f = g)))
-  := Eq-sigma-over-prod-equiv
+  := equiv-Eq-Σ-over-prod
       ( A) (A)
       ( hom A)
       ( fibered-arr-free-arr f)

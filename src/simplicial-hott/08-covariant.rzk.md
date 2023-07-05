@@ -236,7 +236,7 @@ equivalences.
     (Σ (d : hom A a y) , (Σ (v : hom A a y) , prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
     (uncurried-dhomFrom-representable A a x y f u)
     (representable-dhomFrom-uncurry-hom2 A a x y f u)
-    (sigma-fubini (hom A a y) (hom A a y)
+    (fubini-Σ (hom A a y) (hom A a y)
       (\ v d -> prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
 
 #def representable-dhomFrom-hom2-dist
@@ -254,7 +254,7 @@ equivalences.
     (total-equiv-family-equiv (hom A a y)
       (\ d -> (prod (hom2 A a x y u f d) (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
       (\ d -> (Σ (v : hom A a y) , prod (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-      (\ d -> (prod-distribute-sigma (hom2 A a x y u f d) (hom A a y) (\ v -> hom2 A a a y (id-arr A a) v d))))
+      (\ d -> (distributive-prod-Σ (hom2 A a x y u f d) (hom A a y) (\ v -> hom2 A a a y (id-arr A a) v d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.
@@ -362,7 +362,7 @@ we argue as follows:
           (Σ (h : hom A x z) , (prod (hom2 A x y z f g h) (Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v h)))
           (Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
           (representable-dhomFrom-hom2-dist A x y z g f)
-          (assoc-sigma
+          (associative-Σ
             (hom A x z)
             (\ h -> hom2 A x y z f g h)
             (\ h _ -> Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v h))))
@@ -573,7 +573,7 @@ along an arrow f : hom A x y to give a term in C y.
   (u : C x)
   (lift : dhomFrom A x y f C u)
   : (covTrans A x y f C CisCov u) = (first lift)
-  := first-path-sigma
+  := first-path-Σ
     (C y)
     (\ v -> dhom A x y f C u v)
     (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
@@ -767,7 +767,7 @@ a rather lengthy composition of equivalences.
     (Σ (d : hom A x a ) , (Σ (u : hom A x a) , prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
     (uncurried-dhomTo-representable A a x y f v)
     (representable-dhomTo-uncurry-hom2 A a x y f v)
-    (sigma-fubini (hom A x a) (hom A x a)
+    (fubini-Σ (hom A x a) (hom A x a)
       (\ u d -> prod (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
 
 #def representable-dhomTo-hom2-swap
@@ -808,7 +808,7 @@ a rather lengthy composition of equivalences.
       (\ d -> (prod (hom2 A x y a f v d)
       (Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
       (\ d -> (Σ (u : hom A x a) , prod (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
-      (\ d -> (prod-distribute-sigma (hom2 A x y a f v d) (hom A x a) (\ u -> hom2 A x a a u (id-arr A a) d))))
+      (\ d -> (distributive-prod-Σ (hom2 A x y a f v d) (hom A x a) (\ u -> hom2 A x a a u (id-arr A a) d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.
@@ -906,7 +906,7 @@ we argue as follows:
           (Σ (h : hom A x z) , (prod (hom2 A x y z f g h) (Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) h)))
           (Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
           (representable-dhomTo-hom2-dist A z x y f g)
-          (assoc-sigma
+          (associative-Σ
             (hom A x z)
             (\ h -> hom2 A x y z f g h)
             (\ h _ -> Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) h))))
@@ -950,7 +950,7 @@ transported along an arrow f : hom A x y to give a term in C x.
   (v : C y)
   (lift : dhomTo A x y f C v)
   : (contraTrans A x y f C CisContra v) = (first lift)
-  := first-path-sigma
+  := first-path-Σ
     (C x)
     (\ u -> dhom A x y f C u v)
     (contraction-center (dhomTo A x y f C v) (CisContra x y f v))

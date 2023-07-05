@@ -156,7 +156,7 @@ equals h.
   (h : hom A x z)
   (alpha : hom2 A x y z f g h)
   : (Segal-comp A AisSegal x y z f g) = h
-  := first-path-sigma
+  := first-path-Σ
       (hom A x z)
       (\ k -> hom2 A x y z f g k)
       (Segal-comp A AisSegal x y z f g ,
