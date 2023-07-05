@@ -648,7 +648,7 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
                   ( \ y' -> (is-equiv-rev B (e x) (e y')))))
                 ( -- fiber of e at e(x) is contractible
                   (is-contr-map-is-equiv A B e eisequiv) (e x))))) (y))
-                   -- evaluate at y
+                  -- evaluate at y
 
 #def is-emb-is-equiv
   (A B : U)

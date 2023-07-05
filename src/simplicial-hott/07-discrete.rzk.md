@@ -756,9 +756,9 @@ The extension types that appear in the Segal condition are retracts of this type
   := ((\ t -> σ (t , t)) , (\ (t , s) -> σ (s , t)))
 
 #def sigma-triangle-to-sigma-square-retract
-  (A : U)
-  (x y : A)
-  (f : hom A x y)
+  ( A : U)
+  ( x y : A)
+  ( f : hom A x y)
   : is-retract-of
       ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
       ( Σ (g : hom A x y) ,
@@ -803,12 +803,12 @@ case to the one just proven:
 
 ```rzk
 #def is-contr-hom2-is-discrete
-  (extext : ExtExt)
-  (A : U)
-  (Aisdiscrete : is-discrete A)
-  (x y z : A)
-  (f : hom A x y)
-  (g : hom A y z)
+  ( extext : ExtExt)
+  ( A : U)
+  ( Aisdiscrete : is-discrete A)
+  ( x y z : A)
+  ( f : hom A x y)
+  ( g : hom A y z)
   : is-contr (Σ (h : hom A x z) , hom2 A x y z f g h)
   :=
     ind-based-path

@@ -206,7 +206,7 @@ Composition of equivalences in diagrammatic order.
               ( a)
               ( ap B A
                 ( (first (first (second B=C))) ((first B=C) ((first A=B) a)))
-                   -- should be inferred
+                  -- should be inferred
                 ( (first A=B) a) -- should be inferred
                 ( first (first (second A=B)))
                 ( (second (first (second B=C))) ((first A=B) a)))
@@ -468,15 +468,17 @@ equivalences.
   (A : U)
     (y : A)
     : (x : A) -> has-retraction (x = y) (y = x) ((\ p -> ((rev A x y) p)))
-    := \ x ->
-       ((rev A y x) , \ p -> idJ (A , x , \ y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y')) (p') =_{x = y'} p') , refl , y , p))
+    :=
+      \ x ->
+      ((rev A y x) , \ p -> idJ (A , x , \ y' p' -> ((composition (x = y') (y' = x) (x = y') (rev A y' x) (rev A x y')) (p') =_{x = y'} p') , refl , y , p))
 
 #def has-section-rev
     (A : U)
     (y : A)
     : (x : A) -> has-section (x = y) (y = x) ((\ p -> ((rev A x y) p)))
-    := \ x ->
-       ((rev A y x) , \ p -> idJ (A , y , \ x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x')) (p') =_{y = x'} p') , refl , x , p))
+    :=
+      \ x ->
+      ((rev A y x) , \ p -> idJ (A , y , \ x' p' -> ((composition (y = x') (x' = y) (y = x') (rev A x' y) (rev A y x')) (p') =_{y = x'} p') , refl , x , p))
 
 #def is-equiv-rev
     (A : U)
