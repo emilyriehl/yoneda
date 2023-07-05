@@ -18,21 +18,21 @@ This is a literate `rzk` file:
   ( b b' : B)
   ( e_A : a = a')
   ( e_B : b = b')
-  : (a , b) =_{prod A B} (a' , b')
-  := transport A (\ x -> (a , b) =_{prod A B} (x , b')) a a' e_A
-      ( transport B (\ y -> (a , b) =_{prod A B} (a , y)) b b' e_B refl)
+  : (a , b) =_{product A B} (a' , b')
+  := transport A (\ x -> (a , b) =_{product A B} (x , b')) a a' e_A
+      ( transport B (\ y -> (a , b) =_{product A B} (a , y)) b b' e_B refl)
 
 #def first-path-product
-  ( x y : prod A B)
-  ( e : x =_{prod A B} y)
+  ( x y : product A B)
+  ( e : x =_{product A B} y)
   : first x = first y
-  := ap (prod A B) A x y (\ z -> first z) e
+  := ap (product A B) A x y (\ z -> first z) e
 
 #def second-path-product
-  ( x y : prod A B)
-  ( e : x =_{prod A B} y)
+  ( x y : product A B)
+  ( e : x =_{product A B} y)
   : second x = second y
-  := ap (prod A B) B x y (\ z -> second z) e
+  := ap (product A B) B x y (\ z -> second z) e
 
 #end paths-in-products
 ```
@@ -190,12 +190,12 @@ This is a literate `rzk` file:
 ## Identity types of sigma types over a product
 
 ```rzk
-#section paths-in-sigma-over-prod
+#section paths-in-sigma-over-product
 
 #variables A B : U
 #variable C : A -> B -> U
 
-#def prod-transport
+#def product-transport
   ( a a' : A)
   ( b b' : B)
   ( p : a = a')
@@ -211,13 +211,13 @@ This is a literate `rzk` file:
       b' ,
       q)
 
-#def Eq-Σ-over-prod
+#def Eq-Σ-over-product
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))
   : U
   :=
     Σ ( p : (first s) = (first t)) ,
       ( Σ ( q : (first (second s)) = (first (second t))) ,
-          ( prod-transport
+          ( product-transport
             ( first s) (first t)
             ( first (second s)) (first (second t)) p q (second (second s)) =
             ( second (second t))))
@@ -226,18 +226,18 @@ This is a literate `rzk` file:
 #def triple-eq
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))
   ( e : s = t)
-  : Eq-Σ-over-prod s t
+  : Eq-Σ-over-product s t
   :=
     idJ
     ( Σ (a : A) , (Σ (b : B) , C a b) ,
       s ,
-      \ t' e' -> (Eq-Σ-over-prod s t') ,
+      \ t' e' -> (Eq-Σ-over-product s t') ,
       ( refl , (refl , refl)) ,
       t ,
       e)
 
 -- The inverse with explicit arguments.
--- It's surprising this typechecks since we defined prod-transport by a dual
+-- It's surprising this typechecks since we defined product-transport by a dual
 -- path induction over both p and q , rather than by saying that when p is refl
 -- this is ordinary transport
 #def path-of-triples-to-triple-of-paths
@@ -247,7 +247,7 @@ This is a literate `rzk` file:
   ( p : a = a')
   : ( q : u = u') ->
     ( c' : C a' u') ->
-    ( r : prod-transport a a' u u' p q c = c') ->
+    ( r : product-transport a a' u u' p q c = c') ->
     ( (a, (u, c)) =_{(Σ (x : A), (Σ (y : B) , C x y))} (a', (u', c')))
   :=
     idJ
@@ -256,7 +256,7 @@ This is a literate `rzk` file:
       ( \ a'' p' ->
         (q : u = u') ->
         (c' : C a'' u') ->
-        (r : prod-transport a a'' u u' p' q c = c') ->
+        (r : product-transport a a'' u u' p' q c = c') ->
         ( (a, (u, c)) =_{(Σ (x : A) , (Σ (y : B), C x y))} (a'', (u', c')))) ,
       ( \ q c' r ->
         ( sigma-path-fibered-path A (\x -> (Σ (v : B) , C x v)) a
@@ -267,7 +267,7 @@ This is a literate `rzk` file:
 
 #def eq-triple
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))
-  ( e : Eq-Σ-over-prod s t)
+  ( e : Eq-Σ-over-product s t)
   : (s = t)
   :=
     path-of-triples-to-triple-of-paths
@@ -298,7 +298,7 @@ This is a literate `rzk` file:
   ( p : a = a')
   : ( q : b = b') ->
     ( c' : C a' b') ->
-    ( r : prod-transport a a' b b' p q c = c') ->
+    ( r : product-transport a a' b b' p q c = c') ->
     ( triple-eq
       ( a , (b , c)) (a' , (b' , c'))
       ( eq-triple (a , (b , c)) (a' , (b' , c')) (p , (q , r)))) =
@@ -310,7 +310,7 @@ This is a literate `rzk` file:
       ( \ a'' p' ->
         ( q : b = b') ->
         ( c' : C a'' b') ->
-        ( r : prod-transport a a'' b b' p' q c = c') ->
+        ( r : product-transport a a'' b b' p' q c = c') ->
         ( triple-eq
           ( a , (b , c)) (a'' , (b' , c'))
           ( eq-triple (a , (b , c)) (a'' , (b' , c')) (p' , (q , r)))) =
@@ -321,7 +321,7 @@ This is a literate `rzk` file:
           ( b) ,
           ( \ b'' q' ->
             ( c' : C a b'') ->
-            ( r : prod-transport a a b b'' refl q' c = c') ->
+            ( r : product-transport a a b b'' refl q' c = c') ->
             ( triple-eq
               ( a , (b , c)) (a , (b'' , c'))
               ( eq-triple (a , (b , c)) (a , (b'' , c')) (refl , (q' , r)))) =
@@ -347,7 +347,7 @@ This is a literate `rzk` file:
 
 #def triple-eq-eq-triple
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))
-  ( e : Eq-Σ-over-prod s t)
+  ( e : Eq-Σ-over-product s t)
   : (triple-eq s t (eq-triple s t e)) = e
   :=
     triple-eq-eq-triple-split
@@ -357,23 +357,23 @@ This is a literate `rzk` file:
       ( first (second e)) (second (second t))
       ( second (second e))
 
-#def equiv-Eq-Σ-over-prod
+#def equiv-Eq-Σ-over-product
   (s t : Σ (a : A) , (Σ (b : B) , C a b))
-  : Equiv (s = t) (Eq-Σ-over-prod s t)
+  : Equiv (s = t) (Eq-Σ-over-product s t)
   :=
     ( triple-eq s t ,
       ( ( eq-triple s t , eq-triple-triple-eq s t) ,
         ( eq-triple s t , triple-eq-eq-triple s t)))
 
-#end paths-in-sigma-over-prod
+#end paths-in-sigma-over-product
 ```
 
 ## Symmetry of products
 
 ```rzk
-#def sym-prod
+#def sym-product
   (A B : U)
-  : Equiv (prod A B) (prod B A)
+  : Equiv (product A B) (product B A)
   :=
     ( \ (a , b) -> (b , a) ,
       ( ( \ (b , a) -> (a , b) ,\ p -> refl) ,
@@ -401,10 +401,10 @@ unimportant.
 Products distribute inside a sigma type:
 
 ```rzk
-#def distributive-prod-Σ
+#def distributive-product-Σ
   (A B : U)
   (C : B -> U)
-  : Equiv (prod A (Σ (b : B) , C b)) (Σ (b : B) , prod A (C b))
+  : Equiv (product A (Σ (b : B) , C b)) (Σ (b : B) , product A (C b))
   :=
     ( \ (a , (b , c)) -> (b , (a , c)) ,
       ( ( \ (b , (a , c)) -> (a , (b , c)) , \ z -> refl) ,

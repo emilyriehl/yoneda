@@ -270,23 +270,23 @@ Discrete types are automatically Segal types.
       ( f)
       ( g)
 
-#def equiv-sigma-over-prod-arr-eq
+#def equiv-sigma-over-product-arr-eq
   : Equiv
       ( fibered-arr-free-arr f = fibered-arr-free-arr g)
       ( Σ ( p : x = z) ,
           ( Σ ( q : y = w) ,
-              ( prod-transport A A (hom A) x z y w p q f = g)))
-  := equiv-Eq-Σ-over-prod
+              ( product-transport A A (hom A) x z y w p q f = g)))
+  := equiv-Eq-Σ-over-product
       ( A) (A)
       ( hom A)
       ( fibered-arr-free-arr f)
       ( fibered-arr-free-arr g)
 
-#def equiv-square-sigma-over-prod uses (extext Aisdiscrete)
+#def equiv-square-sigma-over-product uses (extext Aisdiscrete)
   : Equiv
       ( Σ ( p : x = z) ,
           ( Σ (q : y = w) ,
-              ( prod-transport A A (hom A) x z y w p q f = g)))
+              ( product-transport A A (hom A) x z y w p q f = g)))
       ( Σ ( h : hom A x z) ,
           ( Σ ( k : hom A y w) ,
               ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
@@ -299,7 +299,7 @@ Discrete types are automatically Segal types.
       ( f =_{Δ¹ -> A} g)
       ( Σ ( p : x = z) ,
           ( Σ ( q : y = w) ,
-              ( prod-transport A A (hom A) x z y w p q f = g)))
+              ( product-transport A A (hom A) x z y w p q f = g)))
       ( Σ ( h : hom A x z) ,
           ( Σ ( k : hom A y w) ,
               ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
@@ -312,9 +312,9 @@ Discrete types are automatically Segal types.
         ( fibered-arr-free-arr f = fibered-arr-free-arr g)
         ( Σ ( p : x = z) ,
             ( Σ ( q : y = w) ,
-                ( prod-transport A A (hom A) x z y w p q f = g)))
+                ( product-transport A A (hom A) x z y w p q f = g)))
         id-Eq-Eq-arr
-        equiv-sigma-over-prod-arr-eq)
+        equiv-sigma-over-product-arr-eq)
       ( comp-equiv
         ( f =_{Δ¹ -> A} g)
         ( hom (arr A) f g)
@@ -331,7 +331,7 @@ Discrete types are automatically Segal types.
 #end discrete-arr-equivalences
 
 -- closing the section so I can use path induction
-#def fibered-map-square-sigma-over-prod
+#def fibered-map-square-sigma-over-product
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
@@ -340,7 +340,7 @@ Discrete types are automatically Segal types.
   ( p : x = z)
   ( q : y = w)
   : ( g : hom A z w) ->
-    ( prod-transport A A (hom A) x z y w p q f = g) ->
+    ( product-transport A A (hom A) x z y w p q f = g) ->
     ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
       [ ((t === 0_2) /\ Δ¹ s) |-> f s ,
         ((t === 1_2) /\ Δ¹ s) |-> g s ,
@@ -352,7 +352,7 @@ Discrete types are automatically Segal types.
       ( x) ,
       ( \ z' p' ->
         ( g : hom A z' w) ->
-        ( prod-transport A A (hom A) x z' y w p' q f = g) ->
+        ( product-transport A A (hom A) x z' y w p' q f = g) ->
         ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
           [ ((t === 0_2) /\ Δ¹ s) |-> f s ,
             ((t === 1_2) /\ Δ¹ s) |-> g s ,
@@ -363,7 +363,7 @@ Discrete types are automatically Segal types.
           ( y) ,
           ( \ w' q' ->
             ( g : hom A x w') ->
-            ( prod-transport A A (hom A) x x y w' refl q' f = g) ->
+            ( product-transport A A (hom A) x x y w' refl q' f = g) ->
             ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
               [ ((t === 0_2) /\ Δ¹ s) |-> f s ,
                 ((t === 1_2) /\ Δ¹ s) |-> g s ,
@@ -387,7 +387,7 @@ Discrete types are automatically Segal types.
       ( z) ,
       ( p))
 
-#def square-sigma-over-prod
+#def square-sigma-over-product
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
@@ -397,7 +397,7 @@ Discrete types are automatically Segal types.
   ( ( p , (q , τ)) :
     ( Σ ( p : x = z) ,
         ( Σ ( q : y = w) ,
-            ( prod-transport A A (hom A) x z y w p q f = g))))
+            ( product-transport A A (hom A) x z y w p q f = g))))
   : Σ ( h : hom A x z) ,
       ( Σ ( k : hom A y w) ,
           ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
@@ -408,7 +408,7 @@ Discrete types are automatically Segal types.
   :=
     ( arr-eq A x z p ,
       ( arr-eq A y w q ,
-        fibered-map-square-sigma-over-prod
+        fibered-map-square-sigma-over-product
           ( extext)
           ( A) (Aisdiscrete)
           ( x) (y) (z) (w)
@@ -418,17 +418,17 @@ Discrete types are automatically Segal types.
           ( g)
           ( τ)))
 
-#def refl-refl-map-equiv-square-sigma-over-prod
+#def refl-refl-map-equiv-square-sigma-over-product
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
   ( x y : A)
   ( f g : hom A x y)
-  ( τ : prod-transport A A (hom A) x x y y refl refl f = g)
+  ( τ : product-transport A A (hom A) x x y y refl refl f = g)
   : ( first
-      ( equiv-square-sigma-over-prod extext A Aisdiscrete x y x y f g)
+      ( equiv-square-sigma-over-product extext A Aisdiscrete x y x y f g)
       (refl , (refl , τ))) =
-    ( square-sigma-over-prod
+    ( square-sigma-over-product
       ( extext)
       ( A) (Aisdiscrete)
       ( x) (y) (x) (y)
@@ -440,9 +440,9 @@ Discrete types are automatically Segal types.
       ( f) ,
       ( \ g' τ' ->
         ( first
-          ( equiv-square-sigma-over-prod extext A Aisdiscrete x y x y f g')
+          ( equiv-square-sigma-over-product extext A Aisdiscrete x y x y f g')
           ( refl , (refl , τ'))) =
-        ( square-sigma-over-prod
+        ( square-sigma-over-product
           ( extext)
           ( A) (Aisdiscrete)
           ( x) (y) (x) (y)
@@ -452,7 +452,7 @@ Discrete types are automatically Segal types.
       ( g) ,
       ( τ))
 
-#def map-equiv-square-sigma-over-prod
+#def map-equiv-square-sigma-over-product
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
@@ -461,35 +461,35 @@ Discrete types are automatically Segal types.
   ( p : x = z)
   ( q : y = w)
   : ( g : hom A z w) ->
-    ( τ : prod-transport A A (hom A) x z y w p q f = g) ->
+    ( τ : product-transport A A (hom A) x z y w p q f = g) ->
     ( first
-      ( equiv-square-sigma-over-prod extext A Aisdiscrete x y z w f g)
+      ( equiv-square-sigma-over-product extext A Aisdiscrete x y z w f g)
       ( p , (q , τ))) =
-    ( square-sigma-over-prod extext A Aisdiscrete x y z w f g (p , (q , τ)))
+    ( square-sigma-over-product extext A Aisdiscrete x y z w f g (p , (q , τ)))
   :=
     idJ
     ( A ,
       y ,
       \ w' q' ->
         (g : hom A z w') ->
-        (τ : prod-transport A A (hom A) x z y w' p q' f = g) ->
-        (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y z w' f g))
+        (τ : product-transport A A (hom A) x z y w' p q' f = g) ->
+        (first (equiv-square-sigma-over-product extext A Aisdiscrete x y z w' f g))
           (p , (q' , τ)) =
-        (square-sigma-over-prod extext A Aisdiscrete x y z w' f g) (p , (q' , τ)) ,
+        (square-sigma-over-product extext A Aisdiscrete x y z w' f g) (p , (q' , τ)) ,
       idJ
       ( ( A) ,
         ( x) ,
         ( \ z' p' ->
           ( g : hom A z' y) ->
           ( τ :
-            prod-transport A A (hom A) x z' y y p' refl f = g) ->
+            product-transport A A (hom A) x z' y y p' refl f = g) ->
           ( first
-            ( equiv-square-sigma-over-prod extext A Aisdiscrete x y z' y f g)
+            ( equiv-square-sigma-over-product extext A Aisdiscrete x y z' y f g)
             ( p' , (refl , τ))) =
-          ( square-sigma-over-prod extext A Aisdiscrete x y z' y f g
+          ( square-sigma-over-product extext A Aisdiscrete x y z' y f g
             ( p' , (refl , τ)))) ,
         ( \ g τ ->
-          refl-refl-map-equiv-square-sigma-over-prod
+          refl-refl-map-equiv-square-sigma-over-product
             ( extext)
             ( A) (Aisdiscrete)
             ( x) (y)
@@ -500,7 +500,7 @@ Discrete types are automatically Segal types.
       ( w) ,
       ( q))
 
-#def is-equiv-square-sigma-over-prod
+#def is-equiv-square-sigma-over-product
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
@@ -510,7 +510,7 @@ Discrete types are automatically Segal types.
   : is-equiv
     ( Σ ( p : x = z) ,
         ( Σ ( q : y = w) ,
-            ( prod-transport A A (hom A) x z y w p q f = g)))
+            ( product-transport A A (hom A) x z y w p q f = g)))
     ( Σ ( h : hom A x z) ,
         ( Σ ( k : hom A y w) ,
             ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
@@ -518,12 +518,12 @@ Discrete types are automatically Segal types.
                 ((t === 1_2) /\ Δ¹ s) |-> g s ,
                 (Δ¹ t /\ (s === 0_2)) |-> h t ,
                 (Δ¹ t /\ (s === 1_2)) |-> k t ])))
-    ( square-sigma-over-prod extext A Aisdiscrete x y z w f g)
+    ( square-sigma-over-product extext A Aisdiscrete x y z w f g)
   :=
     is-equiv-rev-homotopic-is-equiv
       ( Σ ( p : x = z) ,
           ( Σ ( q : y = w) ,
-              ( prod-transport A A (hom A) x z y w p q f = g)))
+              ( product-transport A A (hom A) x z y w p q f = g)))
       ( Σ ( h : hom A x z) ,
           ( Σ ( k : hom A y w) ,
               ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
@@ -531,13 +531,13 @@ Discrete types are automatically Segal types.
                   ((t === 1_2) /\ Δ¹ s) |-> g s ,
                   (Δ¹ t /\ (s === 0_2)) |-> h t ,
                   (Δ¹ t /\ (s === 1_2)) |-> k t ])))
-      ( first (equiv-square-sigma-over-prod extext A Aisdiscrete x y z w f g))
-      ( square-sigma-over-prod extext A Aisdiscrete x y z w f g)
+      ( first (equiv-square-sigma-over-product extext A Aisdiscrete x y z w f g))
+      ( square-sigma-over-product extext A Aisdiscrete x y z w f g)
       ( \ (p , (q , τ)) ->
-        map-equiv-square-sigma-over-prod extext A Aisdiscrete x y z w f p q g τ)
-      ( second (equiv-square-sigma-over-prod extext A Aisdiscrete x y z w f g))
+        map-equiv-square-sigma-over-product extext A Aisdiscrete x y z w f p q g τ)
+      ( second (equiv-square-sigma-over-product extext A Aisdiscrete x y z w f g))
 
-#def is-equiv-fibered-map-square-sigma-over-prod
+#def is-equiv-fibered-map-square-sigma-over-product
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
@@ -547,20 +547,20 @@ Discrete types are automatically Segal types.
   ( p : x = z)
   ( q : y = w)
   : is-equiv
-    ( prod-transport A A (hom A) x z y w p q f = g)
+    ( product-transport A A (hom A) x z y w p q f = g)
     ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
       [ ((t === 0_2) /\ Δ¹ s) |-> f s ,
         ((t === 1_2) /\ Δ¹ s) |-> g s ,
         (Δ¹ t /\ (s === 0_2)) |-> (arr-eq A x z p) t ,
         (Δ¹ t /\ (s === 1_2)) |-> (arr-eq A y w q) t ])
-    ( fibered-map-square-sigma-over-prod extext A Aisdiscrete x y z w f p q g)
+    ( fibered-map-square-sigma-over-product extext A Aisdiscrete x y z w f p q g)
   :=
     fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
       ( x = z)
       ( hom A x z)
       ( y = w)
       ( hom A y w)
-      ( \ p' q' -> (prod-transport A A (hom A) x z y w p' q' f) = g)
+      ( \ p' q' -> (product-transport A A (hom A) x z y w p' q' f) = g)
       ( \ h' k' ->
         ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
           [ ((t === 0_2) /\ Δ¹ s) |-> f s ,
@@ -570,7 +570,7 @@ Discrete types are automatically Segal types.
       ( arr-eq A x z)
       ( arr-eq A y w)
       ( \ p' q' ->
-        fibered-map-square-sigma-over-prod
+        fibered-map-square-sigma-over-product
           ( extext)
           ( A) (Aisdiscrete)
           ( x) (y) (z) (w)
@@ -578,13 +578,13 @@ Discrete types are automatically Segal types.
           ( p')
           ( q')
           ( g))
-      ( is-equiv-square-sigma-over-prod extext A Aisdiscrete x y z w f g)
+      ( is-equiv-square-sigma-over-product extext A Aisdiscrete x y z w f g)
       ( Aisdiscrete x z)
       ( Aisdiscrete y w)
       ( p)
       ( q)
 
-#def is-equiv-fibered-map-square-sigma-over-prod-refl-refl
+#def is-equiv-fibered-map-square-sigma-over-product-refl-refl
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
@@ -598,17 +598,17 @@ Discrete types are automatically Segal types.
         ((t === 1_2) /\ Δ¹ s) |-> g s ,
         (Δ¹ t /\ (s === 0_2)) |-> x ,
         (Δ¹ t /\ (s === 1_2)) |-> y ])
-    ( fibered-map-square-sigma-over-prod
+    ( fibered-map-square-sigma-over-product
       extext A Aisdiscrete x y x y f refl refl g)
   :=
-    is-equiv-fibered-map-square-sigma-over-prod
+    is-equiv-fibered-map-square-sigma-over-product
       extext A Aisdiscrete x y x y f g refl refl
 ```
 
 The previous calculations allow us to establish a family of equivalences:
 
 ```rzk
-#def is-equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
+#def is-equiv-sum-fibered-map-square-sigma-over-product-refl-refl
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
@@ -631,7 +631,7 @@ The previous calculations allow us to establish a family of equivalences:
           ((t === 1_2) /\ Δ¹ s) |-> g s ,
           (Δ¹ t /\ (s === 0_2)) |-> x ,
           (Δ¹ t /\ (s === 1_2)) |-> y ])
-      ( fibered-map-square-sigma-over-prod
+      ( fibered-map-square-sigma-over-product
           extext A Aisdiscrete x y x y f refl refl))
   :=
     family-of-equiv-total-equiv
@@ -643,16 +643,16 @@ The previous calculations allow us to establish a family of equivalences:
           ((t === 1_2) /\ Δ¹ s) |-> g s ,
           (Δ¹ t /\ (s === 0_2)) |-> x ,
           (Δ¹ t /\ (s === 1_2)) |-> y ])
-      ( fibered-map-square-sigma-over-prod
+      ( fibered-map-square-sigma-over-product
           extext A Aisdiscrete x y x y f refl refl)
       ( \ g ->
-        is-equiv-fibered-map-square-sigma-over-prod-refl-refl
+        is-equiv-fibered-map-square-sigma-over-product-refl-refl
           ( extext)
           ( A) (Aisdiscrete)
           ( x) (y)
           ( f) (g))
 
-#def equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
+#def equiv-sum-fibered-map-square-sigma-over-product-refl-refl
   ( extext : ExtExt)
   ( A : U)
   ( Aisdiscrete : is-discrete A)
@@ -676,9 +676,9 @@ The previous calculations allow us to establish a family of equivalences:
               ((t === 1_2) /\ Δ¹ s) |-> g s ,
               (Δ¹ t /\ (s === 0_2)) |-> x ,
               (Δ¹ t /\ (s === 1_2)) |-> y ])
-        ( fibered-map-square-sigma-over-prod
+        ( fibered-map-square-sigma-over-product
             extext A Aisdiscrete x y x y f refl refl)) ,
-    is-equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
+    is-equiv-sum-fibered-map-square-sigma-over-product-refl-refl
       extext A Aisdiscrete x y f)
 ```
 
@@ -707,7 +707,7 @@ spaces, we conclude that the codomain extension type is contractible.
               ((t === 1_2) /\ Δ¹ s) |-> g s ,
               (Δ¹ t /\ (s === 0_2)) |-> x ,
               (Δ¹ t /\ (s === 1_2)) |-> y ]))
-      ( equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
+      ( equiv-sum-fibered-map-square-sigma-over-product-refl-refl
           extext A Aisdiscrete x y f)
       ( is-contr-based-paths (hom A x y) f)
 ```

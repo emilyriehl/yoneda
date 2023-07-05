@@ -352,7 +352,7 @@ For example, we prove that based path spaces are contractible.
   (A B : U)
   (AisContr : is-contr A)
   (BisContr : is-contr B)
-  : is-contr (prod A B)
+  : is-contr (product A B)
   :=
     ( (first AisContr , first BisContr) ,
       \ p -> path-product A B
@@ -363,7 +363,7 @@ For example, we prove that based path spaces are contractible.
 
 #def first-is-contr-product
   (A B : U)
-  (AxBisContr : is-contr (prod A B))
+  (AxBisContr : is-contr (product A B))
   : is-contr A
   :=
     ( first (first AxBisContr) ,

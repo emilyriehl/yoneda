@@ -9,7 +9,7 @@ This is a literate `rzk` file:
 ## products of types
 
 ```rzk
-#def prod
+#def product
   ( A B : U)
   : U
   := Σ (x : A) , B
@@ -21,7 +21,7 @@ The following demonstrates the syntax for constructing terms in sigma types:
 #def diagonal
   ( A : U)
   ( a : A)
-  : prod A A
+  : product A A
   := (a , a)
 ```
 
@@ -31,7 +31,7 @@ The following demonstrates the syntax for constructing terms in sigma types:
 #def iff
   ( A B : U)
   : U
-  := prod (A -> B) (B -> A)
+  := product (A -> B) (B -> A)
 ```
 
 ## Basic function definitions

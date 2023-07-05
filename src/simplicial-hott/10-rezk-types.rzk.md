@@ -50,7 +50,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : U
-    := prod (arrow-Retraction A AisSegal x y f) (arrow-Section A AisSegal x y f)
+    := product (arrow-Retraction A AisSegal x y f) (arrow-Section A AisSegal x y f)
 
 #def Iso
     (A : U)
@@ -65,7 +65,7 @@ This is a literate `rzk` file:
     (x y : A)
     (f : hom A x y)
     : U
-    := Σ (g : hom A y x) , prod (arrow-has-retraction A AisSegal x y f g) (arrow-has-section A AisSegal x y f g)
+    := Σ (g : hom A y x) , product (arrow-has-retraction A AisSegal x y f g) (arrow-has-section A AisSegal x y f g)
 
 #def arrow-inverse-to-iso
     (A : U)

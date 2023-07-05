@@ -27,7 +27,7 @@ This is a literate `rzk` file:
 #def is-equiv
     (f : A -> B)
     : U
-    := prod (has-retraction f) (has-section f)
+    := product (has-retraction f) (has-section f)
 
 #end is-equiv
 ```
@@ -82,7 +82,7 @@ This is a literate `rzk` file:
   (f : A -> B)
   : U
   :=
-    Σ (g : B -> A) , ( prod
+    Σ (g : B -> A) , ( product
                       ( homotopy A A (composition A B A g f) (identity A))
                             -- The retracting homotopy
                       ( homotopy B B (composition B A B f g) (identity B)))

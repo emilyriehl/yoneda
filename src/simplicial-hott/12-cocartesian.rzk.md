@@ -41,13 +41,13 @@ families.
   (B : U)
   (P : B -> U)
   : U
-  := prod (prod (is-segal B) (is-segal (totalType B P))) ((b : B) -> (is-segal (P b)))
+  := product (product (is-segal B) (is-segal (totalType B P))) ((b : B) -> (is-segal (P b)))
 
 #def is-isoInnerFam
   (B : U)
   (P : B -> U)
   : U
-  := prod (prod (is-rezk B) (is-rezk (totalType B P))) ((b : B) -> (is-segal (P b)))
+  := product (product (is-rezk B) (is-rezk (totalType B P))) ((b : B) -> (is-segal (P b)))
 ```
 
 ## Cocartesian arrows
