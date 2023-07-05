@@ -367,7 +367,7 @@ functions or extensions into a family of Segal types is again a Segal type.
   (funext : FunExt)
   (X : U)
   (A : (_ : X) -> U)
-  (fiberwiseAisSegal : (x : X) -> is-local-horn-inclusion (A x))
+  (fiberwise-is-segal-A : (x : X) -> is-local-horn-inclusion (A x))
   : is-local-horn-inclusion ((x : X) -> A x)
   := triple-compose-is-equiv
        ({t : 2 * 2 | Δ² t} -> ((x : X) -> A x) )
@@ -387,7 +387,7 @@ functions or extensions into a family of Segal types is again a Segal type.
               X
               (\ x -> {t : 2 * 2 | Δ² t} -> A x )
               (\ x -> {t : 2 * 2 | Λ t} -> A x )
-              (\ x -> (horn-restriction (A x) , fiberwiseAisSegal x))))
+              (\ x -> (horn-restriction (A x) , fiberwise-is-segal-A x))))
         (\ h -> \{t : 2 * 2 | Λ t} -> \ x -> (h x) t) -- third equivalence
           (second(flip-ext-fun-inv
             (2 * 2)
@@ -425,7 +425,7 @@ functions or extensions into a family of Segal types is again a Segal type.
           (second (fibered-Eq-extension-Equiv extext I ψ
             (\{s : I | ψ s} -> {t : 2 * 2 | Δ² t} -> A s )
             (\{s : I | ψ s} -> {t : 2 * 2 | Λ t} -> A s )
-            (\{s : I | ψ s} -> (horn-restriction (A s) , fiberwiseAisSegal s)) ))
+            (\{s : I | ψ s} -> (horn-restriction (A s) , fiberwise-is-segal-A s)) ))
         (\ h -> \{t : 2 * 2 | Λ t} -> \{s : I | ψ s} -> (h s) t) -- third equivalence
           (second (fubini
             I
