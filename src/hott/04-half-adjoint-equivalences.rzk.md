@@ -15,11 +15,11 @@ This is a literate `rzk` file:
   (f : A -> B)
   : U
   :=
-    Σ (fhasinverse : (has-inverse A B f)) ,
+    Σ (has-inverse-f : (has-inverse A B f)) ,
       (a : A) ->
-        ((second (second fhasinverse)) (f a)) =
-        (ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
-          ( f) (((first (second fhasinverse))) a))
+        ((second (second has-inverse-f)) (f a)) =
+        (ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a
+          ( f) (((first (second has-inverse-f))) a))
 
 -- By function extensionality, the previous definition coincides with the
 -- following one:
@@ -27,15 +27,15 @@ This is a literate `rzk` file:
   (A B : U)
   (f : A -> B)
   : U
-  := Σ (fhasinverse : (has-inverse A B f)) ,
+  := Σ (has-inverse-f : (has-inverse A B f)) ,
       ( homotopy-prewhisker A B B
-        ( has-inverse-section-composite A B f fhasinverse)
+        ( has-inverse-section-composite A B f has-inverse-f)
         ( identity B)
-        ( second (second fhasinverse)) f =
+        ( second (second has-inverse-f)) f =
       ( homotopy-postwhisker A A B
-        ( has-inverse-retraction-composite A B f fhasinverse)
+        ( has-inverse-retraction-composite A B f has-inverse-f)
         ( identity A)
-        ( first (second fhasinverse)) f))
+        ( first (second has-inverse-f)) f))
 ```
 
 ## Coherence data from an invertible map
@@ -47,18 +47,18 @@ and discard the other.
 #def has-inverse-kept-htpy
   (A B : U)
   (f : A -> B)
-  (fhasinverse : has-inverse A B f)
+  (has-inverse-f : has-inverse A B f)
   : homotopy A A
-    ( has-inverse-retraction-composite A B f fhasinverse) (identity A)
-  := (first (second fhasinverse))
+    ( has-inverse-retraction-composite A B f has-inverse-f) (identity A)
+  := (first (second has-inverse-f))
 
 #def has-inverse-discarded-htpy
   (A B : U)
   (f : A -> B)
-  (fhasinverse : has-inverse A B f)
+  (has-inverse-f : has-inverse A B f)
   : homotopy B B
-    ( has-inverse-section-composite A B f fhasinverse) (identity B)
-  := (second (second fhasinverse))
+    ( has-inverse-section-composite A B f has-inverse-f) (identity B)
+  := (second (second has-inverse-f))
 ```
 
 The required coherence will be built by transforming an instance of the
@@ -69,244 +69,244 @@ following naturality square.
 
 #variables A B : U
 #variable f : A -> B
-#variable fhasinverse : has-inverse A B f
+#variable has-inverse-f : has-inverse A B f
 #variable a : A
 
 #def has-inverse-discarded-naturality-square
   : concat B
-    ( has-inverse-quintuple-composite A B f fhasinverse a)
-    ( has-inverse-triple-composite A B f fhasinverse a)
+    ( has-inverse-quintuple-composite A B f has-inverse-f a)
+    ( has-inverse-triple-composite A B f has-inverse-f a)
     ( f a)
-    ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
-      ( has-inverse-triple-composite A B f fhasinverse)
-      ( has-inverse-kept-htpy A B f fhasinverse a))
-    ( has-inverse-discarded-htpy A B f fhasinverse (f a)) =
+    ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a
+      ( has-inverse-triple-composite A B f has-inverse-f)
+      ( has-inverse-kept-htpy A B f has-inverse-f a))
+    ( has-inverse-discarded-htpy A B f has-inverse-f (f a)) =
     concat B
-    ( has-inverse-quintuple-composite A B f fhasinverse a)
-      ( has-inverse-triple-composite A B f fhasinverse a)
+    ( has-inverse-quintuple-composite A B f has-inverse-f a)
+      ( has-inverse-triple-composite A B f has-inverse-f a)
       ( f a)
-      ( has-inverse-discarded-htpy A B f fhasinverse
-        ( has-inverse-triple-composite A B f fhasinverse a))
-      ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
-        f (has-inverse-kept-htpy A B f fhasinverse a))
+      ( has-inverse-discarded-htpy A B f has-inverse-f
+        ( has-inverse-triple-composite A B f has-inverse-f a))
+      ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a
+        f (has-inverse-kept-htpy A B f has-inverse-f a))
   :=
     nat-htpy A B
-    ( has-inverse-triple-composite A B f fhasinverse)
+    ( has-inverse-triple-composite A B f has-inverse-f)
     ( f)
-    ( \ x -> has-inverse-discarded-htpy A B f fhasinverse (f x))
-    ( has-inverse-retraction-composite A B f fhasinverse a)
+    ( \ x -> has-inverse-discarded-htpy A B f has-inverse-f (f x))
+    ( has-inverse-retraction-composite A B f has-inverse-f a)
     ( a)
-    ( has-inverse-kept-htpy A B f fhasinverse a)
+    ( has-inverse-kept-htpy A B f has-inverse-f a)
 
 -- building a path that will be whiskered into the naturality square above
 #def has-inverse-cocone-homotopy-coherence
-  : has-inverse-kept-htpy A B f fhasinverse
-      ( has-inverse-retraction-composite A B f fhasinverse a) =
-    ap A A (has-inverse-retraction-composite A B f fhasinverse a) a
-      ( has-inverse-retraction-composite A B f fhasinverse)
-      ( has-inverse-kept-htpy A B f fhasinverse a)
+  : has-inverse-kept-htpy A B f has-inverse-f
+      ( has-inverse-retraction-composite A B f has-inverse-f a) =
+    ap A A (has-inverse-retraction-composite A B f has-inverse-f a) a
+      ( has-inverse-retraction-composite A B f has-inverse-f)
+      ( has-inverse-kept-htpy A B f has-inverse-f a)
   :=
     cocone-naturality-coherence
       ( A)
-      ( has-inverse-retraction-composite A B f fhasinverse)
-      ( has-inverse-kept-htpy A B f fhasinverse)
+      ( has-inverse-retraction-composite A B f has-inverse-f)
+      ( has-inverse-kept-htpy A B f has-inverse-f)
       ( a)
 
 #def has-inverse-ap-cocone-homotopy-coherence
   : ap A B
-    ( has-inverse-retraction-composite A B f fhasinverse
-      ( has-inverse-retraction-composite A B f fhasinverse a))
-    ( has-inverse-retraction-composite A B f fhasinverse a)
+    ( has-inverse-retraction-composite A B f has-inverse-f
+      ( has-inverse-retraction-composite A B f has-inverse-f a))
+    ( has-inverse-retraction-composite A B f has-inverse-f a)
     ( f)
-    ( has-inverse-kept-htpy A B f fhasinverse
-      ( has-inverse-retraction-composite A B f fhasinverse a)) =
+    ( has-inverse-kept-htpy A B f has-inverse-f
+      ( has-inverse-retraction-composite A B f has-inverse-f a)) =
     ap A B
-    ( has-inverse-retraction-composite A B f fhasinverse
-      ( has-inverse-retraction-composite A B f fhasinverse a))
-    ( has-inverse-retraction-composite A B f fhasinverse a)
+    ( has-inverse-retraction-composite A B f has-inverse-f
+      ( has-inverse-retraction-composite A B f has-inverse-f a))
+    ( has-inverse-retraction-composite A B f has-inverse-f a)
     ( f)
-    ( ap A A (has-inverse-retraction-composite A B f fhasinverse a) a
-      ( has-inverse-retraction-composite A B f fhasinverse)
-      ( has-inverse-kept-htpy A B f fhasinverse a))
+    ( ap A A (has-inverse-retraction-composite A B f has-inverse-f a) a
+      ( has-inverse-retraction-composite A B f has-inverse-f)
+      ( has-inverse-kept-htpy A B f has-inverse-f a))
   :=
     ap-htpy A B
-      ( has-inverse-retraction-composite A B f fhasinverse
-        ( has-inverse-retraction-composite A B f fhasinverse a))
-      ( has-inverse-retraction-composite A B f fhasinverse a)
+      ( has-inverse-retraction-composite A B f has-inverse-f
+        ( has-inverse-retraction-composite A B f has-inverse-f a))
+      ( has-inverse-retraction-composite A B f has-inverse-f a)
       ( f)
-      ( has-inverse-kept-htpy A B f fhasinverse
-        ( has-inverse-retraction-composite A B f fhasinverse a))
-      ( ap A A (has-inverse-retraction-composite A B f fhasinverse a) a
-        ( has-inverse-retraction-composite A B f fhasinverse)
-        ( has-inverse-kept-htpy A B f fhasinverse a))
+      ( has-inverse-kept-htpy A B f has-inverse-f
+        ( has-inverse-retraction-composite A B f has-inverse-f a))
+      ( ap A A (has-inverse-retraction-composite A B f has-inverse-f a) a
+        ( has-inverse-retraction-composite A B f has-inverse-f)
+        ( has-inverse-kept-htpy A B f has-inverse-f a))
       ( has-inverse-cocone-homotopy-coherence)
 
 #def has-inverse-cocone-coherence
   : ap A B
-    ( has-inverse-retraction-composite A B f fhasinverse
-      ( has-inverse-retraction-composite A B f fhasinverse a))
-    ( has-inverse-retraction-composite A B f fhasinverse a)
+    ( has-inverse-retraction-composite A B f has-inverse-f
+      ( has-inverse-retraction-composite A B f has-inverse-f a))
+    ( has-inverse-retraction-composite A B f has-inverse-f a)
     ( f)
-    ( has-inverse-kept-htpy A B f fhasinverse
-      ( has-inverse-retraction-composite A B f fhasinverse a)) =
-    ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
-      ( has-inverse-triple-composite A B f fhasinverse)
-      ( has-inverse-kept-htpy A B f fhasinverse a))
+    ( has-inverse-kept-htpy A B f has-inverse-f
+      ( has-inverse-retraction-composite A B f has-inverse-f a)) =
+    ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a
+      ( has-inverse-triple-composite A B f has-inverse-f)
+      ( has-inverse-kept-htpy A B f has-inverse-f a))
   :=
     concat
-      ( has-inverse-quintuple-composite A B f fhasinverse a =
-        has-inverse-triple-composite A B f fhasinverse a)
+      ( has-inverse-quintuple-composite A B f has-inverse-f a =
+        has-inverse-triple-composite A B f has-inverse-f a)
       ( ap A B
-        ( has-inverse-retraction-composite A B f fhasinverse
-          ( has-inverse-retraction-composite A B f fhasinverse a))
-        ( has-inverse-retraction-composite A B f fhasinverse a)
+        ( has-inverse-retraction-composite A B f has-inverse-f
+          ( has-inverse-retraction-composite A B f has-inverse-f a))
+        ( has-inverse-retraction-composite A B f has-inverse-f a)
         ( f)
-        ( has-inverse-kept-htpy A B f fhasinverse
-          ( has-inverse-retraction-composite A B f fhasinverse a)))
+        ( has-inverse-kept-htpy A B f has-inverse-f
+          ( has-inverse-retraction-composite A B f has-inverse-f a)))
       ( ap A B
-        ( has-inverse-retraction-composite A B f fhasinverse
-          ( has-inverse-retraction-composite A B f fhasinverse a))
-        ( has-inverse-retraction-composite A B f fhasinverse a)
+        ( has-inverse-retraction-composite A B f has-inverse-f
+          ( has-inverse-retraction-composite A B f has-inverse-f a))
+        ( has-inverse-retraction-composite A B f has-inverse-f a)
         ( f)
         ( ap A A
-          ( has-inverse-retraction-composite A B f fhasinverse a) a
-          ( has-inverse-retraction-composite A B f fhasinverse)
-          ( has-inverse-kept-htpy A B f fhasinverse a)))
-      ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
-        ( has-inverse-triple-composite A B f fhasinverse)
-        ( has-inverse-kept-htpy A B f fhasinverse a))
+          ( has-inverse-retraction-composite A B f has-inverse-f a) a
+          ( has-inverse-retraction-composite A B f has-inverse-f)
+          ( has-inverse-kept-htpy A B f has-inverse-f a)))
+      ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a
+        ( has-inverse-triple-composite A B f has-inverse-f)
+        ( has-inverse-kept-htpy A B f has-inverse-f a))
       ( has-inverse-ap-cocone-homotopy-coherence)
       ( rev-ap-comp A A B
-        ( has-inverse-retraction-composite A B f fhasinverse a) a
-        ( has-inverse-retraction-composite A B f fhasinverse)
+        ( has-inverse-retraction-composite A B f has-inverse-f a) a
+        ( has-inverse-retraction-composite A B f has-inverse-f)
         ( f)
-        ( has-inverse-kept-htpy A B f fhasinverse a))
+        ( has-inverse-kept-htpy A B f has-inverse-f a))
 
 -- This morally gives the half adjoint inverse coherence.
 -- It just requires rotation.
 #def has-inverse-replaced-naturality-square
   : concat B
-    ( has-inverse-quintuple-composite A B f fhasinverse a)
-    ( has-inverse-triple-composite A B f fhasinverse a)
+    ( has-inverse-quintuple-composite A B f has-inverse-f a)
+    ( has-inverse-triple-composite A B f has-inverse-f a)
     ( f a)
     ( ap A B
-      ( has-inverse-retraction-composite A B f fhasinverse
-        ( has-inverse-retraction-composite A B f fhasinverse a))
-      ( has-inverse-retraction-composite A B f fhasinverse a)
+      ( has-inverse-retraction-composite A B f has-inverse-f
+        ( has-inverse-retraction-composite A B f has-inverse-f a))
+      ( has-inverse-retraction-composite A B f has-inverse-f a)
       ( f)
-      ( has-inverse-kept-htpy A B f fhasinverse
-        ( has-inverse-retraction-composite A B f fhasinverse a)))
-    ( has-inverse-discarded-htpy A B f fhasinverse (f a)) =
+      ( has-inverse-kept-htpy A B f has-inverse-f
+        ( has-inverse-retraction-composite A B f has-inverse-f a)))
+    ( has-inverse-discarded-htpy A B f has-inverse-f (f a)) =
     concat B
-    ( has-inverse-quintuple-composite A B f fhasinverse a)
-    ( has-inverse-triple-composite A B f fhasinverse a)
+    ( has-inverse-quintuple-composite A B f has-inverse-f a)
+    ( has-inverse-triple-composite A B f has-inverse-f a)
     ( f a)
-    ( has-inverse-discarded-htpy A B f fhasinverse
-      ( has-inverse-triple-composite A B f fhasinverse a))
-    ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a f
-      ( has-inverse-kept-htpy A B f fhasinverse a))
+    ( has-inverse-discarded-htpy A B f has-inverse-f
+      ( has-inverse-triple-composite A B f has-inverse-f a))
+    ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a f
+      ( has-inverse-kept-htpy A B f has-inverse-f a))
   :=
-    concat (has-inverse-quintuple-composite A B f fhasinverse a = f a)
+    concat (has-inverse-quintuple-composite A B f has-inverse-f a = f a)
       ( concat B
-        ( has-inverse-quintuple-composite A B f fhasinverse a)
-        ( has-inverse-triple-composite A B f fhasinverse a)
+        ( has-inverse-quintuple-composite A B f has-inverse-f a)
+        ( has-inverse-triple-composite A B f has-inverse-f a)
         ( f a)
         ( ap A B
-          ( has-inverse-retraction-composite A B f fhasinverse
-            ( has-inverse-retraction-composite A B f fhasinverse a))
-          ( has-inverse-retraction-composite A B f fhasinverse a) f
-          ( has-inverse-kept-htpy A B f fhasinverse
-            ( has-inverse-retraction-composite A B f fhasinverse a)))
-        ( has-inverse-discarded-htpy A B f fhasinverse (f a)))
+          ( has-inverse-retraction-composite A B f has-inverse-f
+            ( has-inverse-retraction-composite A B f has-inverse-f a))
+          ( has-inverse-retraction-composite A B f has-inverse-f a) f
+          ( has-inverse-kept-htpy A B f has-inverse-f
+            ( has-inverse-retraction-composite A B f has-inverse-f a)))
+        ( has-inverse-discarded-htpy A B f has-inverse-f (f a)))
       ( concat B
-        ( has-inverse-quintuple-composite A B f fhasinverse a)
-        ( has-inverse-triple-composite A B f fhasinverse a)
+        ( has-inverse-quintuple-composite A B f has-inverse-f a)
+        ( has-inverse-triple-composite A B f has-inverse-f a)
         ( f a)
-        ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
-          ( has-inverse-triple-composite A B f fhasinverse)
-          ( has-inverse-kept-htpy A B f fhasinverse a))
-        ( has-inverse-discarded-htpy A B f fhasinverse (f a)))
+        ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a
+          ( has-inverse-triple-composite A B f has-inverse-f)
+          ( has-inverse-kept-htpy A B f has-inverse-f a))
+        ( has-inverse-discarded-htpy A B f has-inverse-f (f a)))
       ( concat B
-        ( has-inverse-quintuple-composite A B f fhasinverse a)
-        ( has-inverse-triple-composite A B f fhasinverse a) (f a)
-        ( has-inverse-discarded-htpy A B f fhasinverse
-          ( has-inverse-triple-composite A B f fhasinverse a))
-        ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a f
-          ( has-inverse-kept-htpy A B f fhasinverse a)))
+        ( has-inverse-quintuple-composite A B f has-inverse-f a)
+        ( has-inverse-triple-composite A B f has-inverse-f a) (f a)
+        ( has-inverse-discarded-htpy A B f has-inverse-f
+          ( has-inverse-triple-composite A B f has-inverse-f a))
+        ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a f
+          ( has-inverse-kept-htpy A B f has-inverse-f a)))
       ( homotopy-concat B
-        ( has-inverse-quintuple-composite A B f fhasinverse a)
-        ( has-inverse-triple-composite A B f fhasinverse a)
+        ( has-inverse-quintuple-composite A B f has-inverse-f a)
+        ( has-inverse-triple-composite A B f has-inverse-f a)
         ( f a)
         ( ap A B
-          ( has-inverse-retraction-composite A B f fhasinverse
-            ( has-inverse-retraction-composite A B f fhasinverse a))
-          ( has-inverse-retraction-composite A B f fhasinverse a)
+          ( has-inverse-retraction-composite A B f has-inverse-f
+            ( has-inverse-retraction-composite A B f has-inverse-f a))
+          ( has-inverse-retraction-composite A B f has-inverse-f a)
           ( f)
-          ( has-inverse-kept-htpy A B f fhasinverse
-            ( has-inverse-retraction-composite A B f fhasinverse a)))
-        ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a
-          ( has-inverse-triple-composite A B f fhasinverse)
-          ( has-inverse-kept-htpy A B f fhasinverse a))
+          ( has-inverse-kept-htpy A B f has-inverse-f
+            ( has-inverse-retraction-composite A B f has-inverse-f a)))
+        ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a
+          ( has-inverse-triple-composite A B f has-inverse-f)
+          ( has-inverse-kept-htpy A B f has-inverse-f a))
         ( has-inverse-cocone-coherence)
-        ( has-inverse-discarded-htpy A B f fhasinverse (f a)))
+        ( has-inverse-discarded-htpy A B f has-inverse-f (f a)))
       ( has-inverse-discarded-naturality-square)
 
 -- This will replace the discarded homotopy
 #def has-inverse-corrected-htpy
-  : homotopy B B (has-inverse-section-composite A B f fhasinverse) (\ b -> b)
+  : homotopy B B (has-inverse-section-composite A B f has-inverse-f) (\ b -> b)
   :=
     \ b ->
       concat B
-        ( (has-inverse-section-composite A B f fhasinverse) b)
-        ( (has-inverse-section-composite A B f fhasinverse)
-          ((has-inverse-section-composite A B f fhasinverse) b))
+        ( (has-inverse-section-composite A B f has-inverse-f) b)
+        ( (has-inverse-section-composite A B f has-inverse-f)
+          ((has-inverse-section-composite A B f has-inverse-f) b))
         ( b)
         ( rev B
-          ( (has-inverse-section-composite A B f fhasinverse)
-            ((has-inverse-section-composite A B f fhasinverse) b))
-          ( (has-inverse-section-composite A B f fhasinverse) b)
-          ( has-inverse-discarded-htpy A B f fhasinverse
-            ((has-inverse-section-composite A B f fhasinverse) b)))
+          ( (has-inverse-section-composite A B f has-inverse-f)
+            ((has-inverse-section-composite A B f has-inverse-f) b))
+          ( (has-inverse-section-composite A B f has-inverse-f) b)
+          ( has-inverse-discarded-htpy A B f has-inverse-f
+            ((has-inverse-section-composite A B f has-inverse-f) b)))
         ( concat B
-          ( (has-inverse-section-composite A B f fhasinverse)
-            ((has-inverse-section-composite A B f fhasinverse) b))
-          ( (has-inverse-section-composite A B f fhasinverse) b)
+          ( (has-inverse-section-composite A B f has-inverse-f)
+            ((has-inverse-section-composite A B f has-inverse-f) b))
+          ( (has-inverse-section-composite A B f has-inverse-f) b)
           ( b)
           ( ap A B
-            ( (has-inverse-retraction-composite A B f fhasinverse)
-              (has-inverse-inverse A B f fhasinverse b))
-            ( has-inverse-inverse A B f fhasinverse b) f
-            ( (first (second fhasinverse))
-              (has-inverse-inverse A B f fhasinverse b)))
-          ( (has-inverse-discarded-htpy A B f fhasinverse b)))
+            ( (has-inverse-retraction-composite A B f has-inverse-f)
+              (has-inverse-inverse A B f has-inverse-f b))
+            ( has-inverse-inverse A B f has-inverse-f b) f
+            ( (first (second has-inverse-f))
+              (has-inverse-inverse A B f has-inverse-f b)))
+          ( (has-inverse-discarded-htpy A B f has-inverse-f b)))
 
 -- this is the half adjoint coherence
 #def has-inverse-coherence
   : ( has-inverse-corrected-htpy (f a)) =
-    ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a f
-      ( has-inverse-kept-htpy A B f fhasinverse a))
+    ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a f
+      ( has-inverse-kept-htpy A B f has-inverse-f a))
   :=
     triangle-rotation B
-      ( has-inverse-quintuple-composite A B f fhasinverse a)
-      ( has-inverse-triple-composite A B f fhasinverse a)
+      ( has-inverse-quintuple-composite A B f has-inverse-f a)
+      ( has-inverse-triple-composite A B f has-inverse-f a)
       ( f a)
       ( concat B
-        ( (has-inverse-section-composite A B f fhasinverse)
-          ((has-inverse-section-composite A B f fhasinverse) (f a)))
-        ( (has-inverse-section-composite A B f fhasinverse) (f a))
+        ( (has-inverse-section-composite A B f has-inverse-f)
+          ((has-inverse-section-composite A B f has-inverse-f) (f a)))
+        ( (has-inverse-section-composite A B f has-inverse-f) (f a))
         ( f a)
         ( ap A B
-          ( (has-inverse-retraction-composite A B f fhasinverse)
-            (has-inverse-inverse A B f fhasinverse (f a)))
-          ( has-inverse-inverse A B f fhasinverse (f a))
+          ( (has-inverse-retraction-composite A B f has-inverse-f)
+            (has-inverse-inverse A B f has-inverse-f (f a)))
+          ( has-inverse-inverse A B f has-inverse-f (f a))
             ( f)
-            ( (first (second fhasinverse))
-              (has-inverse-inverse A B f fhasinverse (f a))))
-        ( (has-inverse-discarded-htpy A B f fhasinverse (f a))))
-      ( has-inverse-discarded-htpy A B f fhasinverse
-        ( has-inverse-triple-composite A B f fhasinverse a))
-      ( ap A B (has-inverse-retraction-composite A B f fhasinverse a) a f
-        ( has-inverse-kept-htpy A B f fhasinverse a))
+            ( (first (second has-inverse-f))
+              (has-inverse-inverse A B f has-inverse-f (f a))))
+        ( (has-inverse-discarded-htpy A B f has-inverse-f (f a))))
+      ( has-inverse-discarded-htpy A B f has-inverse-f
+        ( has-inverse-triple-composite A B f has-inverse-f a))
+      ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a f
+        ( has-inverse-kept-htpy A B f has-inverse-f a))
       ( has-inverse-replaced-naturality-square)
 
 #end has-inverse-coherence
@@ -321,22 +321,22 @@ the invertible map by replacing the discarded homotopy with the corrected one.
 #def corrected-has-inverse-has-inverse
   (A B : U)
   (f : A -> B)
-  (fhasinverse : has-inverse A B f)
+  (has-inverse-f : has-inverse A B f)
   : has-inverse A B f
   :=
-    ( has-inverse-inverse A B f fhasinverse ,
-      ( has-inverse-kept-htpy A B f fhasinverse ,
-        has-inverse-corrected-htpy A B f fhasinverse))
+    ( has-inverse-inverse A B f has-inverse-f ,
+      ( has-inverse-kept-htpy A B f has-inverse-f ,
+        has-inverse-corrected-htpy A B f has-inverse-f))
 
 -- Invertible maps are half adjoint equivalences!
 #def is-half-adjoint-equiv-has-inverse
   (A B : U)
   (f : A -> B)
-  (fhasinverse : has-inverse A B f)
+  (has-inverse-f : has-inverse A B f)
   : is-half-adjoint-equiv A B f
   :=
-    ( corrected-has-inverse-has-inverse A B f fhasinverse ,
-      has-inverse-coherence A B f fhasinverse)
+    ( corrected-has-inverse-has-inverse A B f has-inverse-f ,
+      has-inverse-coherence A B f has-inverse-f)
 
 -- Equivalences are half adjoint equivalences!
 #def is-half-adjoint-equiv-is-equiv

@@ -98,11 +98,11 @@ This is a literate `rzk` file:
 #def is-equiv-has-inverse
   ( A B : U)
   ( f : A -> B)
-  ( fhasinverse : has-inverse A B f)
+  ( has-inverse-f : has-inverse A B f)
   : is-equiv A B f
   :=
-    ( ( first fhasinverse , first (second fhasinverse)) ,
-      ( first fhasinverse , second (second fhasinverse)))
+    ( ( first has-inverse-f , first (second has-inverse-f)) ,
+      ( first has-inverse-f , second (second has-inverse-f)))
 
 -- equivalences are invertible
 #def has-inverse-is-equiv
@@ -132,29 +132,29 @@ This is a literate `rzk` file:
 
 #variables A B : U
 #variable f : A -> B
-#variable fhasinverse : has-inverse A B f
+#variable has-inverse-f : has-inverse A B f
 
 -- The inverse of a map with an inverse
 #def has-inverse-inverse uses (f)
   : B -> A
-  := first (fhasinverse)
+  := first (has-inverse-f)
 
 -- Some iterated composites associated to a pair of invertible maps.
-#def has-inverse-retraction-composite uses (B fhasinverse)
+#def has-inverse-retraction-composite uses (B has-inverse-f)
   : A -> A
   := composition A B A has-inverse-inverse f
 
-#def has-inverse-section-composite uses (A fhasinverse)
+#def has-inverse-section-composite uses (A has-inverse-f)
   : B -> B
   := composition B A B f has-inverse-inverse
 
 -- This composite is parallel to f; we won't need the dual notion.
-#def has-inverse-triple-composite uses (fhasinverse)
+#def has-inverse-triple-composite uses (has-inverse-f)
   : A -> B
   := triple-composition A B A B f has-inverse-inverse f
 
 -- This composite is also parallel to f; again we won't need the dual notion.
-#def has-inverse-quintuple-composite uses (fhasinverse)
+#def has-inverse-quintuple-composite uses (has-inverse-f)
   : A -> B
   := \ a -> f (has-inverse-inverse (f (has-inverse-inverse (f a))))
 #end has-inverse-data
