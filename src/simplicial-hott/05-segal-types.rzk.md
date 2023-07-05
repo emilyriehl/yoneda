@@ -268,7 +268,7 @@ Now we prove this definition is equivalent to the original one.
       ( {t : 2 * 2 | Λ t} -> A)
       ( equiv-horn-restriction A)
       ( total-space-projection
-        ( <{t : 2 * 2 | Λ t} -> A >)
+        ( {t : 2 * 2 | Λ t} -> A )
         ( \ k ->
           Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
             ( hom2 A
@@ -317,7 +317,7 @@ Now we prove this definition is equivalent to the original one.
   :=
     \ x y z f g ->
     contractible-fibers-is-equiv-projection
-      ( < {t : 2 * 2 | Λ t} -> A >)
+      (  {t : 2 * 2 | Λ t} -> A )
       ( \ k ->
         Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
           ( hom2 A
@@ -327,18 +327,18 @@ Now we prove this definition is equivalent to the original one.
             ( h)))
       ( second
         ( comp-equiv
-          ( Σ ( k : < {t : 2 * 2 | Λ t} -> A >) ,
+          ( Σ ( k :  {t : 2 * 2 | Λ t} -> A ) ,
             Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
               ( hom2 A
                 ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
                 ( \ t -> k (t , 0_2))
                 ( \ t -> k (1_2 , t))
                 ( h)))
-          ( < {t : 2 * 2 | Δ² t} -> A >)
-          ( < {t : 2 * 2 | Λ t} -> A >)
+          (  {t : 2 * 2 | Δ² t} -> A )
+          (  {t : 2 * 2 | Λ t} -> A )
           ( inv-equiv
-            ( < {t : 2 * 2 | Δ² t} -> A >)
-            ( Σ ( k : < {t : 2 * 2 | Λ t} -> A >) ,
+            (  {t : 2 * 2 | Δ² t} -> A )
+            ( Σ ( k :  {t : 2 * 2 | Λ t} -> A ) ,
               Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
                 ( hom2 A
                   ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
@@ -371,10 +371,10 @@ functions or extensions into a family of Segal types is again a Segal type.
   (fiberwiseAisSegal : (x : X) -> is-local-horn-inclusion (A x))
   : is-local-horn-inclusion ((x : X) -> A x)
   := triple-compose-is-equiv
-       (<{t : 2 * 2 | Δ² t} -> ((x : X) -> A x) >)
-       ((x : X) -> <{t : 2 * 2 | Δ² t} -> A x >)
-       ((x : X) -> <{t : 2 * 2 | Λ t} -> A x >)
-       (<{t : 2 * 2 | Λ t} -> ((x : X) -> A x) >)
+       ({t : 2 * 2 | Δ² t} -> ((x : X) -> A x) )
+       ((x : X) -> {t : 2 * 2 | Δ² t} -> A x )
+       ((x : X) -> {t : 2 * 2 | Λ t} -> A x )
+       ({t : 2 * 2 | Λ t} -> ((x : X) -> A x) )
         (\ g -> \ x -> \{t : 2 * 2 | Δ² t} -> g t x) -- first equivalence
             (second (flip-ext-fun
               (2 * 2)
@@ -386,8 +386,8 @@ functions or extensions into a family of Segal types is again a Segal type.
           (second (function-equiv-fibered-equiv
               funext
               X
-              (\ x -> <{t : 2 * 2 | Δ² t} -> A x >)
-              (\ x -> <{t : 2 * 2 | Λ t} -> A x >)
+              (\ x -> {t : 2 * 2 | Δ² t} -> A x )
+              (\ x -> {t : 2 * 2 | Λ t} -> A x )
               (\ x -> (horn-restriction (A x) , fiberwiseAisSegal x))))
         (\ h -> \{t : 2 * 2 | Λ t} -> \ x -> (h x) t) -- third equivalence
           (second(flip-ext-fun-inv
@@ -403,14 +403,14 @@ functions or extensions into a family of Segal types is again a Segal type.
   (extext : ExtExt)
   (I : CUBE)
   (ψ : (s : I) -> TOPE)
-  (A : <{s : I | ψ s} -> U >)
-  (fiberwiseAisSegal : <{s : I | ψ s} -> is-local-horn-inclusion (A s) >)
-  : is-local-horn-inclusion (<{s : I | ψ s} -> A s >)
+  (A : {s : I | ψ s} -> U )
+  (fiberwiseAisSegal : {s : I | ψ s} -> is-local-horn-inclusion (A s) )
+  : is-local-horn-inclusion ({s : I | ψ s} -> A s )
   := triple-compose-is-equiv
-        (<{t : 2 * 2 | Δ² t} -> <{s : I | ψ s} -> A s > >)
-        (<{s : I | ψ s} -> <{t : 2 * 2 | Δ² t} -> A s > >)
-        (<{s : I | ψ s} -> <{t : 2 * 2 | Λ t} -> A s > >)
-        (<{t : 2 * 2 | Λ t} -> <{s : I | ψ s} -> A s > >)
+        ({t : 2 * 2 | Δ² t} -> {s : I | ψ s} -> A s  )
+        ({s : I | ψ s} -> {t : 2 * 2 | Δ² t} -> A s  )
+        ({s : I | ψ s} -> {t : 2 * 2 | Λ t} -> A s  )
+        ({t : 2 * 2 | Λ t} -> {s : I | ψ s} -> A s  )
         (\ g -> \{s : I | ψ s} -> \{t : 2 * 2 | Δ² t} -> g t s)  -- first equivalence
             (second (fubini
               (2 * 2)
@@ -423,8 +423,8 @@ functions or extensions into a family of Segal types is again a Segal type.
               (\{u : (2 * 2) * I | BOT} -> recBOT)))
         (\ h -> \{s : I | ψ s} -> \{t : 2 * 2 | Λ t} -> h s t) -- second equivalence
           (second (fibered-Eq-extension-Equiv extext I ψ
-            (\{s : I | ψ s} -> <{t : 2 * 2 | Δ² t} -> A s >)
-            (\{s : I | ψ s} -> <{t : 2 * 2 | Λ t} -> A s >)
+            (\{s : I | ψ s} -> {t : 2 * 2 | Δ² t} -> A s )
+            (\{s : I | ψ s} -> {t : 2 * 2 | Λ t} -> A s )
             (\{s : I | ψ s} -> (horn-restriction (A s) , fiberwiseAisSegal s)) ))
         (\ h -> \{t : 2 * 2 | Λ t} -> \{s : I | ψ s} -> (h s) t) -- third equivalence
           (second (fubini

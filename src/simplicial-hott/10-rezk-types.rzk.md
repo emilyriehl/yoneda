@@ -373,6 +373,5 @@ This is a literate `rzk` file:
 
 #def axiom-choice (I : CUBE) (ψ : I -> TOPE) (ϕ : ψ -> TOPE) (X : ψ -> U) (Y :
 (t : ψ) -> (x : X t) -> U) (a : (t : ϕ) -> X t) (b : (t : ϕ) -> Y t (a t)) : Eq
-(<{t : I | ψ t} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ]>) (Σ (f : (<{t
-: I | ψ t} -> X t [ϕ t |-> a t ]>)) , (<{t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t
-]>))
+({t : I | ψ t} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ]) (Σ (f : ({t : I
+| ψ t} -> X t [ϕ t |-> a t ])) , ({t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]))
