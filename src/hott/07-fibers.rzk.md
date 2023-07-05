@@ -62,20 +62,20 @@ Contractible maps are equivalences:
 
 #variables A B : U
 #variable f : A -> B
-#variable fiscontr : is-contr-map A B f
+#variable is-contr-f : is-contr-map A B f
 
 -- The inverse to a contractible map
 #def is-contr-map-inverse
   : B -> A
-  := \ b -> first (contraction-center (fib A B f b) (fiscontr b))
+  := \ b -> first (contraction-center (fib A B f b) (is-contr-f b))
 
 #def has-section-is-contr-map
   : has-section A B f
   :=
     ( is-contr-map-inverse ,
-      \ b -> second (contraction-center (fib A B f b) (fiscontr b)))
+      \ b -> second (contraction-center (fib A B f b) (is-contr-f b)))
 
-#def is-contr-map-data-in-fiber uses (fiscontr)
+#def is-contr-map-data-in-fiber uses (is-contr-f)
   (a : A)
   : fib A B f (f a)
   := (is-contr-map-inverse (f a) , (second has-section-is-contr-map) (f a))
@@ -85,11 +85,11 @@ Contractible maps are equivalences:
   : (is-contr-map-data-in-fiber a) =_{fib A B f (f a)} (a , refl)
   := contractible-connecting-htpy
       ( fib A B f (f a))
-      ( fiscontr (f a))
+      ( is-contr-f (f a))
       ( is-contr-map-data-in-fiber a)
       ( a , refl)
 
-#def is-contr-map-has-retraction uses (fiscontr)
+#def is-contr-map-has-retraction uses (is-contr-f)
   : has-retraction A B f
   :=
     ( is-contr-map-inverse ,
@@ -99,7 +99,7 @@ Contractible maps are equivalences:
                 ( \ u -> first u)
                 ( is-contr-map-path-in-fiber a)))
 
-#def is-equiv-is-contr-map uses (fiscontr)
+#def is-equiv-is-contr-map uses (is-contr-f)
   : is-equiv A B f
   := (is-contr-map-has-retraction , has-section-is-contr-map)
 
@@ -1187,13 +1187,13 @@ Half adjoint equivalences define contractible maps:
 #def is-contr-map-is-equiv
   (A B : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   : is-contr-map A B f
   := \ b ->
         ( is-surj-is-half-adjoint-equiv A B f
-          ( is-half-adjoint-equiv-is-equiv A B f fisequiv) b ,
+          ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) b ,
           \ z -> isHAE-fib-contracting-homotopy A B f
-            ( is-half-adjoint-equiv-is-equiv A B f fisequiv) b z)
+            ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) b z)
 
 #def is-contr-map-iff-is-equiv
   (A B : U)

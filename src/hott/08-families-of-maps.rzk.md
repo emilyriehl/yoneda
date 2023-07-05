@@ -29,7 +29,7 @@ maps.
   :=
     \ (b , p) ->
       ( (first w , b) ,
-        sigma-path-fibered-path A C (first w) (f (first w) b) (second w) p)
+        eq-eq-fiber-Σ A C (first w) (f (first w) b) (second w) p)
 
 #def total-map-from-fiber
   (A : U)
@@ -146,7 +146,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   :=
     ( invertible-family-total-inverse A B C f invfamily ,
       \ (a , b) ->
-        (sigma-path-fibered-path A B a
+        (eq-eq-fiber-Σ A B a
           ( (has-inverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b
           ( (first (second (invfamily a))) b)))
 
@@ -159,7 +159,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   :=
     ( invertible-family-total-inverse A B C f invfamily ,
       \ (a , c) ->
-        ( sigma-path-fibered-path A C a
+        ( eq-eq-fiber-Σ A C a
           ( f a ((has-inverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c
           ( (second (second (invfamily a))) c)))
 
@@ -529,7 +529,7 @@ equivalence of total spaces.
 #def total-equiv-pullback-is-equiv
   (A B : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   (C : B -> U)
   : Equiv (Σ (a : A) , (pullback A B f C) a) (Σ (b : B) , C b)
   :=
@@ -543,7 +543,7 @@ equivalence of total spaces.
             ( pullback-comparison-fiber A B f C z)
             ( fib A B f (first z))
             ( equiv-pullback-comparison-fiber A B f C z)
-            ( is-contr-map-is-equiv A B f fisequiv (first z)))))
+            ( is-contr-map-is-equiv A B f is-equiv-f (first z)))))
 ```
 
 ## Fundamental theorem of identity types
@@ -572,14 +572,14 @@ equivalence of total spaces.
 #def fund-id-sum-over-codomain-contr-implies-fam-of-eqs
   : (is-contr (Σ (x : A) , B x)) -> ((x : A) -> (is-equiv (a = x) (B x) (f x)))
   :=
-    ( \ Biscontr ->
+    ( \ is-contr-B ->
       ( \ x ->
         ( total-equiv-family-of-equiv A
           ( \ x' -> (a = x'))
           B
           f
           ( areContr-is-equiv (Σ (x' : A) , (a = x')) (Σ (x' : A) , (B x'))
-            ( is-contr-based-paths A a) Biscontr
+            ( is-contr-based-paths A a) is-contr-B
             ( total-map-family-of-maps A ( \ x' -> (a = x')) B f))
           x)))
 
@@ -614,7 +614,7 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
 #def emb-is-equiv
   (A B : U)
   (e : A -> B)
-  (eisequiv : is-equiv A B e)
+  (is-equiv-e : is-equiv A B e)
   : (Emb A B)
   :=
     ( e ,
@@ -649,15 +649,15 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
                     ( \ y' -> (rev B (e x) (e y')))))
                   ( \ y' -> (is-equiv-rev B (e x) (e y')))))
                 ( -- fiber of e at e(x) is contractible
-                  (is-contr-map-is-equiv A B e eisequiv) (e x))))) (y))
+                  (is-contr-map-is-equiv A B e is-equiv-e) (e x))))) (y))
                   -- evaluate at y
 
 #def is-emb-is-equiv
   (A B : U)
   (e : A -> B)
-  (eisequiv : is-equiv A B e)
+  (is-equiv-e : is-equiv A B e)
   : is-emb A B e
-  := (second (emb-is-equiv A B e eisequiv))
+  := (second (emb-is-equiv A B e is-equiv-e))
 ```
 
 ## 2-of-3 for equivalences
@@ -669,7 +669,7 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
   (A B C : U)
   (f : A -> B)
   (g : B -> C)
-  (gisequiv : is-equiv B C g)
+  (is-equiv-g : is-equiv B C g)
   (gfisequiv : is-equiv A C (composition A B C g f))
   : is-equiv A B f
   :=
@@ -681,7 +681,7 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
         \ b ->
           inv-ap-is-emb
             B C g
-            ( is-emb-is-equiv B C g gisequiv)
+            ( is-emb-is-equiv B C g is-equiv-g)
             ( f ((is-equiv-section A C (composition A B C g f) gfisequiv) (g b)))
             b
             ( (second (second gfisequiv)) (g b))))
@@ -689,7 +689,7 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
 #def LeftCancel-is-equiv
   (A B C : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   (g : B -> C)
   (gfisequiv : is-equiv A C (composition A B C g f))
   : is-equiv B C g
@@ -701,26 +701,26 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
             ( f ((is-equiv-retraction A C (composition A B C g f) gfisequiv)
               (g b)))
             ( f ((is-equiv-retraction A C (composition A B C g f) gfisequiv)
-              (g (f ((is-equiv-section A B f fisequiv) b)))))
-            ( f ((is-equiv-section A B f fisequiv) b))
+              (g (f ((is-equiv-section A B f is-equiv-f) b)))))
+            ( f ((is-equiv-section A B f is-equiv-f) b))
             ( b)
             ( ap B B
               ( b)
-              ( f ((is-equiv-section A B f fisequiv) b))
+              ( f ((is-equiv-section A B f is-equiv-f) b))
               ( \ b0 ->
                 ( f ((is-equiv-retraction A C
                       ( composition A B C g f) gfisequiv) (g b0))))
-              ( rev B (f ((is-equiv-section A B f fisequiv) b)) b
-                ( (second (second fisequiv)) b)))
+              ( rev B (f ((is-equiv-section A B f is-equiv-f) b)) b
+                ( (second (second is-equiv-f)) b)))
             ( ( homotopy-whisker B A A B
                 ( \ a ->
                   ( is-equiv-retraction A C
                     ( composition A B C g f) gfisequiv) (g (f a)))
                 ( \ a -> a)
                 ( second (first gfisequiv))
-                ( is-equiv-section A B f fisequiv)
+                ( is-equiv-section A B f is-equiv-f)
                 f) b)
-            ( (second (second fisequiv)) b)) ,
+            ( (second (second is-equiv-f)) b)) ,
       ( composition C A B
         ( f)
         ( is-equiv-section A C (composition A B C g f) gfisequiv) ,
@@ -751,7 +751,7 @@ types over a product type.
                     (Σ (a : A) , (Σ (b : B) , C a b))
                     (Σ (a' : A') , (Σ (b' : B') , C' a' b'))
                     total-map-fibered-map-over-product)
-  (fisequiv : is-equiv A A' f)
+  (is-equiv-f : is-equiv A A' f)
   : is-equiv
     ( Σ (a : A) , (Σ (b : B) , C a b))
     ( Σ (a : A) , (Σ (b' : B') , C' (f a) b'))
@@ -767,7 +767,7 @@ types over a product type.
                 A
                 A'
                 f
-                fisequiv
+                is-equiv-f
                 ( \ a' -> (Σ (b' : B') , C' a' b'))))
     ( totalisequiv)
 
@@ -776,8 +776,8 @@ types over a product type.
                     ( Σ (a : A) , (Σ (b : B) , C a b))
                     ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
                     total-map-fibered-map-over-product)
-  (fisequiv : is-equiv A A' f)
-  (gisequiv : is-equiv B B' g)
+  (is-equiv-f : is-equiv A A' f)
+  (is-equiv-g : is-equiv B B' g)
   : is-equiv
     ( Σ (a : A) , (Σ (b : B) , C a b))
     ( Σ (a : A) , (Σ (b : B) , C' (f a) (g b)))
@@ -799,17 +799,17 @@ types over a product type.
               B
               B'
               g
-              gisequiv
+              is-equiv-g
               ( \ b' -> C' (f a) b')))))
-    ( pullback-is-equiv-base-is-equiv-total-is-equiv totalisequiv fisequiv)
+    ( pullback-is-equiv-base-is-equiv-total-is-equiv totalisequiv is-equiv-f)
 
 #def fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
   (totalisequiv : is-equiv
                   ( Σ (a : A) , (Σ (b : B) , C a b))
                   ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
                   total-map-fibered-map-over-product)
-  (fisequiv : is-equiv A A' f)
-  (gisequiv : is-equiv B B' g)
+  (is-equiv-f : is-equiv A A' f)
+  (is-equiv-g : is-equiv B B' g)
   (a0 : A)
   (b0 : B)
   : is-equiv (C a0 b0) (C' (f a0) (g b0)) (h a0 b0)
@@ -824,7 +824,7 @@ types over a product type.
       ( \ a -> (Σ (b : B) , C' (f a) (g b)))
       ( \ a (b , c) -> (b , h a b c))
       ( pullback-is-equiv-bases-are-equiv-total-is-equiv
-          totalisequiv fisequiv gisequiv)
+          totalisequiv is-equiv-f is-equiv-g)
       a0)
     b0
 

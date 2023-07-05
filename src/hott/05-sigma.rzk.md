@@ -37,7 +37,7 @@ This is a literate `rzk` file:
 #end paths-in-products
 ```
 
-## Identity types of sigma types
+## Identity types of Sigma types
 
 ```rzk
 #section paths-in-sigma
@@ -86,7 +86,7 @@ This is a literate `rzk` file:
   := (first-path-Σ s t e , second-path-Σ s t e)
 
 -- A path in a fiber defines a path in the total space
-#def sigma-path-fibered-path
+#def eq-eq-fiber-Σ
   ( x : A)
   ( u v : B x)
   ( p : u = v)
@@ -108,7 +108,7 @@ This is a literate `rzk` file:
       ( \ y' p' -> (u' : B x) -> (v' : B y') ->
         ((transport A B x y' p' u') = v') ->
         (x , u') =_{Σ (z : A) , B z} (y' , v')) ,
-      ( \ u' v' q' -> (sigma-path-fibered-path x u' v' q')) ,
+      ( \ u' v' q' -> (eq-eq-fiber-Σ x u' v' q')) ,
       ( y) ,
       ( p))
 
@@ -189,7 +189,7 @@ This is a literate `rzk` file:
 #end paths-in-sigma
 ```
 
-## Identity types of sigma types over a product
+## Identity types of Sigma types over a product
 
 ```rzk
 #section paths-in-sigma-over-product
@@ -261,7 +261,7 @@ This is a literate `rzk` file:
         (r : product-transport a a'' u u' p' q c = c') ->
         ( (a, (u, c)) =_{(Σ (x : A) , (Σ (y : B), C x y))} (a'', (u', c')))) ,
       ( \ q c' r ->
-        ( sigma-path-fibered-path A (\x -> (Σ (v : B) , C x v)) a
+        ( eq-eq-fiber-Σ A (\x -> (Σ (v : B) , C x v)) a
           ( u, c) ( u', c')
           ( path-of-pairs-pair-of-paths B (\y -> C a y) u u' q c c' r))) ,
       ( a') ,
@@ -400,7 +400,7 @@ unimportant.
           \ t -> refl)))
 ```
 
-Products distribute inside a sigma type:
+Products distribute inside Sigma types:
 
 ```rzk
 #def distributive-product-Σ

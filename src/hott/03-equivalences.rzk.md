@@ -39,15 +39,15 @@ This is a literate `rzk` file:
 
 #variables A B : U
 #variable f : A -> B
-#variable fisequiv : is-equiv A B f
+#variable is-equiv-f : is-equiv A B f
 
 #def is-equiv-section uses (f)
     : B -> A
-    := (first (second fisequiv))
+    := (first (second is-equiv-f))
 
 #def is-equiv-retraction uses (f)
     : B -> A
-    := (first (first fisequiv))
+    := (first (first is-equiv-f))
 
 -- the homotopy between the section and retraction of an equivalence
 #def homotopic-inverses-is-equiv uses (f)
@@ -62,12 +62,12 @@ This is a literate `rzk` file:
         ( homotopy-prewhisker B A A
           ( composition A B A is-equiv-retraction f)
           ( identity A)
-          ( second (first fisequiv))
+          ( second (first is-equiv-f))
           ( is-equiv-section)))
       ( homotopy-postwhisker B B A
         ( composition B A B f is-equiv-section)
         ( identity B)
-        ( second (second fisequiv))
+        ( second (second is-equiv-f))
         ( is-equiv-retraction))
 
 #end equivalence-data
@@ -106,21 +106,21 @@ This is a literate `rzk` file:
 #def has-inverse-is-equiv
   (A B : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   : has-inverse A B f
   :=
-    ( is-equiv-section A B f fisequiv ,
+    ( is-equiv-section A B f is-equiv-f ,
       ( homotopy-composition A A
-        ( composition A B A (is-equiv-section A B f fisequiv) f)
-        ( composition A B A (is-equiv-retraction A B f fisequiv) f)
+        ( composition A B A (is-equiv-section A B f is-equiv-f) f)
+        ( composition A B A (is-equiv-retraction A B f is-equiv-f) f)
         ( identity A)
         ( homotopy-prewhisker A B A
-          ( is-equiv-section A B f fisequiv)
-          ( is-equiv-retraction A B f fisequiv)
-          ( homotopic-inverses-is-equiv A B f fisequiv)
+          ( is-equiv-section A B f is-equiv-f)
+          ( is-equiv-retraction A B f is-equiv-f)
+          ( homotopic-inverses-is-equiv A B f is-equiv-f)
           ( f))
-        ( second (first fisequiv)) ,
-      ( second (second fisequiv))))
+        ( second (first is-equiv-f)) ,
+      ( second (second is-equiv-f))))
 ```
 
 ## Invertible map data
@@ -233,41 +233,41 @@ Composition of equivalences in diagrammatic order.
 #def compose-is-equiv
   (A B C : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   (g : B -> C)
-  (gisequiv : is-equiv B C g)
+  (is-equiv-g : is-equiv B C g)
   : is-equiv A C (composition A B C g f)
   :=
     ( ( composition C B A
-      ( is-equiv-retraction A B f fisequiv)
-      ( is-equiv-retraction B C g gisequiv) ,
+      ( is-equiv-retraction A B f is-equiv-f)
+      ( is-equiv-retraction B C g is-equiv-g) ,
       \ a ->
         concat A
-          ( (is-equiv-retraction A B f fisequiv)
-            ((is-equiv-retraction B C g gisequiv) (g (f a))))
-          ( (is-equiv-retraction A B f fisequiv) (f a))
+          ( (is-equiv-retraction A B f is-equiv-f)
+            ((is-equiv-retraction B C g is-equiv-g) (g (f a))))
+          ( (is-equiv-retraction A B f is-equiv-f) (f a))
           ( a)
           ( ap B A
-            ( (is-equiv-retraction B C g gisequiv) (g (f a))) -- should be inferred
+            ( (is-equiv-retraction B C g is-equiv-g) (g (f a))) -- should be inferred
             ( f a) -- should be inferred
-            ( is-equiv-retraction A B f fisequiv)
-            ( (second (first gisequiv)) (f a)))
-          ( (second (first fisequiv)) a)) ,
+            ( is-equiv-retraction A B f is-equiv-f)
+            ( (second (first is-equiv-g)) (f a)))
+          ( (second (first is-equiv-f)) a)) ,
       ( composition C B A
-        ( is-equiv-section A B f fisequiv)
-        ( is-equiv-section B C g gisequiv) ,
+        ( is-equiv-section A B f is-equiv-f)
+        ( is-equiv-section B C g is-equiv-g) ,
       \ c ->
         concat C
-          ( g (f ((first (second fisequiv)) ((first (second gisequiv)) c))))
-          ( g ((first (second gisequiv)) c))
+          ( g (f ((first (second is-equiv-f)) ((first (second is-equiv-g)) c))))
+          ( g ((first (second is-equiv-g)) c))
           ( c)
           ( ap B C
-            ( f ((first (second fisequiv)) ((first (second gisequiv)) c)))
+            ( f ((first (second is-equiv-f)) ((first (second is-equiv-g)) c)))
                               -- should be inferred
-            ( (first (second gisequiv)) c) -- should be inferred
+            ( (first (second is-equiv-g)) c) -- should be inferred
             ( g)
-            ( (second (second fisequiv)) ((first (second gisequiv)) c)))
-              ((second (second gisequiv)) c)))
+            ( (second (second is-equiv-f)) ((first (second is-equiv-g)) c)))
+              ((second (second is-equiv-g)) c)))
 
 -- Right cancellation of equivalences in diagrammatic order.
 #def right-cancel-equiv
@@ -297,18 +297,18 @@ Composition of equivalences in diagrammatic order.
 #def triple-compose-is-equiv
   (A B C D : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   (g : B -> C)
-  (gisequiv : is-equiv B C g)
+  (is-equiv-g : is-equiv B C g)
   (h : C -> D)
-  (hisequiv : is-equiv C D h)
+  (is-equiv-h : is-equiv C D h)
   : is-equiv A D (triple-composition A B C D h g f)
   :=
     compose-is-equiv A B D
       ( f)
-      ( fisequiv)
+      ( is-equiv-f)
       ( composition B C D h g)
-      ( compose-is-equiv B C D g gisequiv h hisequiv)
+      ( compose-is-equiv B C D g is-equiv-g h is-equiv-h)
 ```
 
 ## Equivalences and homotopy
@@ -320,33 +320,33 @@ If a map is homotopic to an equivalence it is an equivalence.
   (A B : U)
   (f g : A -> B)
   (H : homotopy A B f g)
-  (gisequiv : is-equiv A B g)
+  (is-equiv-g : is-equiv A B g)
   : is-equiv A B f
   :=
-    ( ( first (first gisequiv) ,
+    ( ( first (first is-equiv-g) ,
         \ a ->
           concat A
-            ( (first (first gisequiv)) (f a))
-            ( (first (first gisequiv)) (g a))
+            ( (first (first is-equiv-g)) (f a))
+            ( (first (first is-equiv-g)) (g a))
             ( a)
-            ( ap B A (f a) (g a) (first (first gisequiv)) (H a))
-            ( (second (first gisequiv)) a)) ,
-      ( first (second gisequiv) ,
+            ( ap B A (f a) (g a) (first (first is-equiv-g)) (H a))
+            ( (second (first is-equiv-g)) a)) ,
+      ( first (second is-equiv-g) ,
         \ b ->
           concat B
-            ( f ((first (second gisequiv)) b))
-            ( g ((first (second gisequiv)) b))
+            ( f ((first (second is-equiv-g)) b))
+            ( g ((first (second is-equiv-g)) b))
             ( b)
-            ( H ((first (second gisequiv)) b))
-            ( (second (second gisequiv)) b)))
+            ( H ((first (second is-equiv-g)) b))
+            ( (second (second is-equiv-g)) b)))
 
 #def is-equiv-rev-homotopic-is-equiv
   (A B : U)
   (f g : A -> B)
   (H : homotopy A B f g)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   : is-equiv A B g
-  := is-equiv-homotopic-is-equiv A B g f (homotopy-rev A B f g H) fisequiv
+  := is-equiv-homotopic-is-equiv A B g f (homotopy-rev A B f g H) is-equiv-f
 ```
 
 ## Function extensionality
@@ -454,11 +454,11 @@ equivalences.
 #def inv-ap-is-emb
   (A B : U)
   (f : A -> B)
-  (fisemb : is-emb A B f)
+  (is-emb-f : is-emb A B f)
   (x y : A)
   (p : f x = f y)
   : (x = y)
-  := (first (first (fisemb x y))) p
+  := (first (first (is-emb-f x y))) p
 ```
 
 ## Reversal is an equivalence
@@ -466,7 +466,7 @@ equivalences.
 ```rzk
 #def has-retraction-rev
   (A : U)
-    (y : A)
+  (y : A)
     : (x : A) -> has-retraction (x = y) (y = x) ((\ p -> ((rev A x y) p)))
     :=
       \ x ->

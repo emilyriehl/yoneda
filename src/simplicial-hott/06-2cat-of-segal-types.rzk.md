@@ -71,28 +71,28 @@ Functions between types automatically preserve identity arrows.
 -- Preservation of composition requires the Segal hypothesis.
 #def functors-pres-comp
   (A B : U)
-  (AisSegal : is-segal A)
-  (BisSegal : is-segal B)
+  (is-segal-A : is-segal A)
+  (is-segal-B : is-segal B)
   (F : A -> B)
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
   :
-    ( Segal-comp B BisSegal
+    ( Segal-comp B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g))
     =
-    ( ap-hom A B F x z (Segal-comp A AisSegal x y z f g))
+    ( ap-hom A B F x z (Segal-comp A is-segal-A x y z f g))
   :=
-    Segal-comp-uniqueness B BisSegal
+    Segal-comp-uniqueness B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g)
-      ( ap-hom A B F x z (Segal-comp A AisSegal x y z f g))
+      ( ap-hom A B F x z (Segal-comp A is-segal-A x y z f g))
       ( ap-hom2 A B F x y z f g
-        ( Segal-comp A AisSegal x y z f g)
-        ( Segal-comp-witness A AisSegal x y z f g))
+        ( Segal-comp A is-segal-A x y z f g)
+        ( Segal-comp-witness A is-segal-A x y z f g))
 ```
 
 ## Natural transformations
@@ -201,24 +201,24 @@ Segal types.
 #def vertical-comp-nat-trans-components
   (A : U)
   (B : A -> U)
-  (BisSegal : (x : A) -> is-segal (B x))
+  (is-segal-B : (x : A) -> is-segal (B x))
   (f g h : (x : A) -> (B x))
   (η : nat-trans-components A B f g)
   (η' : nat-trans-components A B g h)
   : nat-trans-components A B f h
-  := \ x -> Segal-comp (B x) (BisSegal x) (f x) (g x) (h x) (η x) (η' x)
+  := \ x -> Segal-comp (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
 
 #def vertical-comp-nat-trans
   (A : U)
   (B : A -> U)
-  (BisSegal : (x : A) -> is-segal (B x))
+  (is-segal-B : (x : A) -> is-segal (B x))
   (f g h : (x : A) -> (B x))
   (η : nat-trans A B f g)
   (η' : nat-trans A B g h)
   : nat-trans A B f h
   :=
     \ t x ->
-    vertical-comp-nat-trans-components A B BisSegal f g h
+    vertical-comp-nat-trans-components A B is-segal-B f g h
       ( \ x' t' -> η t' x')
       ( \ x' t' -> η' t' x')
       ( x)

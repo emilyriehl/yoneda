@@ -6,7 +6,7 @@ This is a literate `rzk` file:
 #lang rzk-1
 ```
 
-In what follows we show that the projection from the total space of a sigma type
+In what follows we show that the projection from the total space of a Sigma type
 is an equivalence if and only if its fibers are contractible.
 
 ```rzk
@@ -60,7 +60,7 @@ The following type asserts that the fibers of a type family are contractible.
   : (z : Σ (x : A) , B x) ->
       (contractible-fibers-actual-section) (first z) = z
   := \ z ->
-      sigma-path-fibered-path A B
+      eq-eq-fiber-Σ A B
         ( first z)
         ( (contractible-fibers-section) (first z))
         ( second z)

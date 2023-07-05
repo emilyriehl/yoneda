@@ -15,7 +15,7 @@ This is a literate `rzk` file:
   := Σ (x : A) , B
 ```
 
-The following demonstrates the syntax for constructing terms in sigma types:
+The following demonstrates the syntax for constructing terms in Sigma types:
 
 ```rzk
 #def diagonal

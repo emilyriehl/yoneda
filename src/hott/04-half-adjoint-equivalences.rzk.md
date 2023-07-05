@@ -342,11 +342,11 @@ the invertible map by replacing the discarded homotopy with the corrected one.
 #def is-half-adjoint-equiv-is-equiv
   (A B : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   : is-half-adjoint-equiv A B f
   :=
     is-half-adjoint-equiv-has-inverse A B f
-      ( has-inverse-is-equiv A B f fisequiv)
+      ( has-inverse-is-equiv A B f is-equiv-f)
 ```
 
 ## Equivalences of identity types
@@ -725,18 +725,18 @@ have equivalent identity types.
 #def is-equiv-ap-is-equiv
   (A B : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   (x y : A)
   : is-equiv (x = y) (f x = f y) (ap A B x y f)
   :=
     is-equiv-ap-is-half-adjoint-equiv A B f
-    ( is-half-adjoint-equiv-is-equiv A B f fisequiv) x y
+    ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) x y
 
 #def Eq-ap-is-equiv
   (A B : U)
   (f : A -> B)
-  (fisequiv : is-equiv A B f)
+  (is-equiv-f : is-equiv A B f)
   (x y : A)
   : Equiv (x = y) (f x = f y)
-  := (ap A B x y f , is-equiv-ap-is-equiv A B f fisequiv x y)
+  := (ap A B x y f , is-equiv-ap-is-equiv A B f is-equiv-f x y)
 ```
