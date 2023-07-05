@@ -1,0 +1,1495 @@
+Checking module from hott/00-common.rzk.md
+[ 1 out of 9 ] Checking #define prod
+[ 2 out of 9 ] Checking #define diagonal
+[ 3 out of 9 ] Checking #define iff
+[ 4 out of 9 ] Checking #assume A B C D
+[ 5 out of 9 ] Checking #define composition
+[ 6 out of 9 ] Checking #define triple-composition
+[ 7 out of 9 ] Checking #define identity
+[ 8 out of 9 ] Checking #define constant
+[ 9 out of 9 ] Checking #define reindex
+Checking module from hott/01-paths.rzk.md
+[ 1 out of 55 ] Checking #assume A
+[ 2 out of 55 ] Checking #assume x y z
+[ 3 out of 55 ] Checking #define rev
+[ 4 out of 55 ] Checking #define concat
+[ 5 out of 55 ] Checking #define concat'
+[ 6 out of 55 ] Checking #assume A
+[ 7 out of 55 ] Checking #assume w x y z
+[ 8 out of 55 ] Checking #define rev-rev
+[ 9 out of 55 ] Checking #define refl-concat
+[ 10 out of 55 ] Checking #define concat-assoc
+[ 11 out of 55 ] Checking #define assoc-concat
+[ 12 out of 55 ] Checking #define right-inverse
+[ 13 out of 55 ] Checking #define left-inverse
+[ 14 out of 55 ] Checking #define zig-zag-concat
+[ 15 out of 55 ] Checking #define zag-zig-concat
+[ 16 out of 55 ] Checking #define concat-right-cancel
+[ 17 out of 55 ] Checking #assume A
+[ 18 out of 55 ] Checking #assume x y z
+[ 19 out of 55 ] Checking #define rev-concat
+[ 20 out of 55 ] Checking #define homotopy-concat
+[ 21 out of 55 ] Checking #define concat-homotopy
+[ 22 out of 55 ] Checking #define concat-concat'
+[ 23 out of 55 ] Checking #define concat'-concat
+[ 24 out of 55 ] Checking #define alt-triangle-rotation
+[ 25 out of 55 ] Checking #define triangle-rotation
+[ 26 out of 55 ] Checking #define ap
+[ 27 out of 55 ] Checking #define ap-rev
+[ 28 out of 55 ] Checking #define ap-concat
+[ 29 out of 55 ] Checking #define rev-ap-rev
+[ 30 out of 55 ] Checking #define concat-ap-rev-ap-id
+[ 31 out of 55 ] Checking #define ap-id
+[ 32 out of 55 ] Checking #define ap-htpy
+[ 33 out of 55 ] Checking #define ap-comp
+[ 34 out of 55 ] Checking #define rev-ap-comp
+[ 35 out of 55 ] Checking #assume A
+[ 36 out of 55 ] Checking #assume B
+[ 37 out of 55 ] Checking #define transport
+[ 38 out of 55 ] Checking #define transport-lift
+[ 39 out of 55 ] Checking #define transport-concat
+[ 40 out of 55 ] Checking #define transport-concat-rev
+[ 41 out of 55 ] Checking #define transport2
+[ 42 out of 55 ] Checking #define transport-loop
+[ 43 out of 55 ] Checking #define apd
+[ 44 out of 55 ] Checking #assume A
+[ 45 out of 55 ] Checking #define triple-concat
+[ 46 out of 55 ] Checking #define quadruple-concat
+[ 47 out of 55 ] Checking #define quintuple-concat
+[ 48 out of 55 ] Checking #define quintuple-concat-alternating
+[ 49 out of 55 ] Checking #define 12ary-concat
+[ 50 out of 55 ] Checking #define 12ary-concat-alternating
+[ 51 out of 55 ] Checking #define rev-refl-id-triple-concat
+[ 52 out of 55 ] Checking #define ap-rev-refl-id-triple-concat
+[ 53 out of 55 ] Checking #define ap-triple-concat
+[ 54 out of 55 ] Checking #define homotopy-triple-concat
+[ 55 out of 55 ] Checking #define triple-homotopy-concat
+Checking module from hott/02-homotopies.rzk.md
+[ 1 out of 18 ] Checking #assume A B
+[ 2 out of 18 ] Checking #define homotopy
+[ 3 out of 18 ] Checking #define homotopy-rev
+[ 4 out of 18 ] Checking #define homotopy-composition
+[ 5 out of 18 ] Checking #assume A B C
+[ 6 out of 18 ] Checking #define homotopy-postwhisker
+[ 7 out of 18 ] Checking #define homotopy-prewhisker
+[ 8 out of 18 ] Checking #define homotopy-whisker
+[ 9 out of 18 ] Checking #define nat-htpy
+[ 10 out of 18 ] Checking #define triple-concat-nat-htpy
+[ 11 out of 18 ] Checking #assume A
+[ 12 out of 18 ] Checking #assume f
+[ 13 out of 18 ] Checking #assume H
+[ 14 out of 18 ] Checking #assume a
+[ 15 out of 18 ] Checking #define cocone-naturality
+[ 16 out of 18 ] Checking #define reduced-cocone-naturality
+[ 17 out of 18 ] Checking #define cocone-naturality-coherence
+[ 18 out of 18 ] Checking #define triple-concat-higher-homotopy
+Checking module from hott/03-equivalences.rzk.md
+[ 1 out of 43 ] Checking #assume A B
+[ 2 out of 43 ] Checking #define has-section
+[ 3 out of 43 ] Checking #define has-retraction
+[ 4 out of 43 ] Checking #define is-equiv
+[ 5 out of 43 ] Checking #assume A B
+[ 6 out of 43 ] Checking #assume f
+[ 7 out of 43 ] Checking #assume fisequiv
+[ 8 out of 43 ] Checking #define is-equiv-section
+[ 9 out of 43 ] Checking #define is-equiv-retraction
+[ 10 out of 43 ] Checking #define homotopic-inverses-is-equiv
+[ 11 out of 43 ] Checking #define has-inverse
+[ 12 out of 43 ] Checking #define is-equiv-has-inverse
+[ 13 out of 43 ] Checking #define has-inverse-is-equiv
+[ 14 out of 43 ] Checking #assume A B
+[ 15 out of 43 ] Checking #assume f
+[ 16 out of 43 ] Checking #assume fhasinverse
+[ 17 out of 43 ] Checking #define has-inverse-inverse
+[ 18 out of 43 ] Checking #define has-inverse-retraction-composite
+[ 19 out of 43 ] Checking #define has-inverse-section-composite
+[ 20 out of 43 ] Checking #define has-inverse-triple-composite
+[ 21 out of 43 ] Checking #define has-inverse-quintuple-composite
+[ 22 out of 43 ] Checking #define Equiv
+[ 23 out of 43 ] Checking #define inv-equiv
+[ 24 out of 43 ] Checking #define comp-equiv
+[ 25 out of 43 ] Checking #define compose-is-equiv
+[ 26 out of 43 ] Checking #define right-cancel-equiv
+[ 27 out of 43 ] Checking #define left-cancel-equiv
+[ 28 out of 43 ] Checking #define triple-comp-equiv
+[ 29 out of 43 ] Checking #define triple-compose-is-equiv
+[ 30 out of 43 ] Checking #define is-equiv-homotopic-is-equiv
+[ 31 out of 43 ] Checking #define is-equiv-rev-homotopic-is-equiv
+[ 32 out of 43 ] Checking #define htpy-eq
+[ 33 out of 43 ] Checking #define FunExt
+[ 34 out of 43 ] Checking #define FunExt-equiv
+[ 35 out of 43 ] Checking #define eq-htpy
+[ 36 out of 43 ] Checking #define function-equiv-fibered-equiv
+[ 37 out of 43 ] Checking #define is-emb
+[ 38 out of 43 ] Checking #define Emb
+[ 39 out of 43 ] Checking #define is-emb-is-inhabited-emb
+[ 40 out of 43 ] Checking #define inv-ap-is-emb
+[ 41 out of 43 ] Checking #define has-retraction-rev
+[ 42 out of 43 ] Checking #define has-section-rev
+[ 43 out of 43 ] Checking #define is-equiv-rev
+Checking module from hott/04-half-adjoint-equivalences.rzk.md
+[ 1 out of 35 ] Checking #define is-half-adjoint-equiv
+[ 2 out of 35 ] Checking #define is-half-adjoint-equiv'
+[ 3 out of 35 ] Checking #define has-inverse-kept-htpy
+[ 4 out of 35 ] Checking #define has-inverse-discarded-htpy
+[ 5 out of 35 ] Checking #assume A B
+[ 6 out of 35 ] Checking #assume f
+[ 7 out of 35 ] Checking #assume fhasinverse
+[ 8 out of 35 ] Checking #assume a
+[ 9 out of 35 ] Checking #define has-inverse-discarded-naturality-square
+[ 10 out of 35 ] Checking #define has-inverse-cocone-homotopy-coherence
+[ 11 out of 35 ] Checking #define has-inverse-ap-cocone-homotopy-coherence
+[ 12 out of 35 ] Checking #define has-inverse-cocone-coherence
+[ 13 out of 35 ] Checking #define has-inverse-replaced-naturality-square
+[ 14 out of 35 ] Checking #define has-inverse-corrected-htpy
+[ 15 out of 35 ] Checking #define has-inverse-coherence
+[ 16 out of 35 ] Checking #define corrected-has-inverse-has-inverse
+[ 17 out of 35 ] Checking #define is-half-adjoint-equiv-has-inverse
+[ 18 out of 35 ] Checking #define is-half-adjoint-equiv-is-equiv
+[ 19 out of 35 ] Checking #assume A B
+[ 20 out of 35 ] Checking #assume f
+[ 21 out of 35 ] Checking #assume fisHAE
+[ 22 out of 35 ] Checking #define iff-ap-is-half-adjoint-equiv
+[ 23 out of 35 ] Checking #define has-retraction-ap-is-half-adjoint-equiv
+[ 24 out of 35 ] Checking #define ap-triple-concat-is-half-adjoint-equiv
+[ 25 out of 35 ] Checking #define ap-rev-homotopy-triple-concat-is-half-adjoint-equiv
+[ 26 out of 35 ] Checking #define ap-ap-homotopy-triple-concat-is-half-adjoint-equiv
+[ 27 out of 35 ] Checking #define triple-concat-higher-homotopy-is-half-adjoint-equiv
+[ 28 out of 35 ] Checking #define triple-concat-nat-htpy-is-half-adjoint-equiv
+[ 29 out of 35 ] Checking #define zag-zig-concat-triple-concat-is-half-adjoint-equiv
+[ 30 out of 35 ] Checking #define triple-concat-reduction-is-half-adjoint-equiv
+[ 31 out of 35 ] Checking #define section-htpy-ap-is-half-adjoint-equiv
+[ 32 out of 35 ] Checking #define has-section-ap-is-half-adjoint-equiv
+[ 33 out of 35 ] Checking #define is-equiv-ap-is-half-adjoint-equiv
+[ 34 out of 35 ] Checking #define is-equiv-ap-is-equiv
+[ 35 out of 35 ] Checking #define Eq-ap-is-equiv
+Checking module from hott/05-sigma.rzk.md
+[ 1 out of 32 ] Checking #assume A B
+[ 2 out of 32 ] Checking #define path-product
+[ 3 out of 32 ] Checking #define first-path-product
+[ 4 out of 32 ] Checking #define second-path-product
+[ 5 out of 32 ] Checking #assume A
+[ 6 out of 32 ] Checking #assume B
+[ 7 out of 32 ] Checking #define first-path-sigma
+[ 8 out of 32 ] Checking #define second-path-sigma
+[ 9 out of 32 ] Checking #define Eq-sigma
+[ 10 out of 32 ] Checking #define pair-eq
+[ 11 out of 32 ] Checking #define sigma-path-fibered-path
+[ 12 out of 32 ] Checking #define path-of-pairs-pair-of-paths
+[ 13 out of 32 ] Checking #define eq-pair
+[ 14 out of 32 ] Checking #define eq-pair-pair-eq
+[ 15 out of 32 ] Checking #define pair-eq-eq-pair-split
+[ 16 out of 32 ] Checking #define pair-eq-eq-pair
+[ 17 out of 32 ] Checking #define Eq-sigma-equiv
+[ 18 out of 32 ] Checking #assume A B
+[ 19 out of 32 ] Checking #assume C
+[ 20 out of 32 ] Checking #define prod-transport
+[ 21 out of 32 ] Checking #define Eq-sigma-over-prod
+[ 22 out of 32 ] Checking #define triple-eq
+[ 23 out of 32 ] Checking #define path-of-triples-to-triple-of-paths
+[ 24 out of 32 ] Checking #define eq-triple
+[ 25 out of 32 ] Checking #define eq-triple-triple-eq
+[ 26 out of 32 ] Checking #define triple-eq-eq-triple-split
+[ 27 out of 32 ] Checking #define triple-eq-eq-triple
+[ 28 out of 32 ] Checking #define Eq-sigma-over-prod-equiv
+[ 29 out of 32 ] Checking #define sym-prod
+[ 30 out of 32 ] Checking #define sigma-fubini
+[ 31 out of 32 ] Checking #define prod-distribute-sigma
+[ 32 out of 32 ] Checking #define assoc-sigma
+Checking module from hott/06-contractible.rzk.md
+[ 1 out of 52 ] Checking #define is-contr
+[ 2 out of 52 ] Checking #assume A
+[ 3 out of 52 ] Checking #assume Aiscontr
+[ 4 out of 52 ] Checking #define contraction-center
+[ 5 out of 52 ] Checking #define contracting-htpy
+[ 6 out of 52 ] Checking #define contracting-htpy-realigned
+[ 7 out of 52 ] Checking #define contracting-htpy-realigned-path
+[ 8 out of 52 ] Checking #define contractible-connecting-htpy
+[ 9 out of 52 ] Checking #define ind-unit
+[ 10 out of 52 ] Checking #define is-prop-unit
+[ 11 out of 52 ] Checking #define terminal-map
+[ 12 out of 52 ] Checking #define terminal-map-of-path-types-of-Unit-has-retr
+[ 13 out of 52 ] Checking #define terminal-map-of-path-types-of-Unit-has-sec
+[ 14 out of 52 ] Checking #define terminal-map-of-path-types-of-Unit-is-equiv
+[ 15 out of 52 ] Checking #define terminal-map-is-equiv
+[ 16 out of 52 ] Checking #define contr-implies-terminal-map-is-equiv-retr
+[ 17 out of 52 ] Checking #define contr-implies-terminal-map-is-equiv-sec
+[ 18 out of 52 ] Checking #define contr-implies-terminal-map-is-equiv
+[ 19 out of 52 ] Checking #define terminal-map-is-equiv-implies-contr
+[ 20 out of 52 ] Checking #define contr-iff-terminal-map-is-equiv
+[ 21 out of 52 ] Checking #define equiv-with-contractible-domain-implies-contractible-codomain
+[ 22 out of 52 ] Checking #define equiv-with-contractible-codomain-implies-contractible-domain
+[ 23 out of 52 ] Checking #define equiv-then-domain-contractible-iff-codomain-contractible
+[ 24 out of 52 ] Checking #define path-types-of-Unit-are-contractible
+[ 25 out of 52 ] Checking #define is-retract-of
+[ 26 out of 52 ] Checking #assume A B
+[ 27 out of 52 ] Checking #assume AretractB
+[ 28 out of 52 ] Checking #define is-retract-of-section
+[ 29 out of 52 ] Checking #define is-retract-of-retraction
+[ 30 out of 52 ] Checking #define is-retract-of-homotopy
+[ 31 out of 52 ] Checking #define is-retract-of-is-contr-isInhabited
+[ 32 out of 52 ] Checking #define is-retract-of-is-contr-hasHtpy
+[ 33 out of 52 ] Checking #define is-retract-of-is-contr-is-contr
+[ 34 out of 52 ] Checking #define areContr-is-equiv
+[ 35 out of 52 ] Checking #define is-contr-is-equiv-to-contr
+[ 36 out of 52 ] Checking #define is-contr-is-equiv-from-contr
+[ 37 out of 52 ] Checking #define concat-as-based-transport
+[ 38 out of 52 ] Checking #define based-paths-center
+[ 39 out of 52 ] Checking #define based-paths-contracting-homotopy
+[ 40 out of 52 ] Checking #define is-contr-based-paths
+[ 41 out of 52 ] Checking #define is-contr-product
+[ 42 out of 52 ] Checking #define first-is-contr-product
+[ 43 out of 52 ] Checking #define first-is-contr-sigma
+[ 44 out of 52 ] Checking #define ev-pt
+[ 45 out of 52 ] Checking #define has-singleton-induction-pointed
+[ 46 out of 52 ] Checking #define has-singleton-induction-pointed-structure
+[ 47 out of 52 ] Checking #define has-singleton-induction
+[ 48 out of 52 ] Checking #define ind-sing
+[ 49 out of 52 ] Checking #define comp-sing
+[ 50 out of 52 ] Checking #define contr-implies-singleton-induction-ind
+[ 51 out of 52 ] Checking #define contr-implies-singleton-induction-pointed
+[ 52 out of 52 ] Checking #define singleton-induction-ind-implies-contr
+Checking module from hott/07-fibers.rzk.md
+[ 1 out of 37 ] Checking #define fib
+[ 2 out of 37 ] Checking #define transport-in-fiber
+[ 3 out of 37 ] Checking #define is-contr-map
+[ 4 out of 37 ] Checking #assume A B
+[ 5 out of 37 ] Checking #assume f
+[ 6 out of 37 ] Checking #assume fiscontr
+[ 7 out of 37 ] Checking #define is-contr-map-inverse
+[ 8 out of 37 ] Checking #define has-section-is-contr-map
+[ 9 out of 37 ] Checking #define is-contr-map-data-in-fiber
+[ 10 out of 37 ] Checking #define is-contr-map-path-in-fiber
+[ 11 out of 37 ] Checking #define is-contr-map-has-retraction
+[ 12 out of 37 ] Checking #define is-equiv-is-contr-map
+[ 13 out of 37 ] Checking #define is-surj-is-half-adjoint-equiv
+[ 14 out of 37 ] Checking #assume A B
+[ 15 out of 37 ] Checking #assume f
+[ 16 out of 37 ] Checking #assume fisHAE
+[ 17 out of 37 ] Checking #assume b
+[ 18 out of 37 ] Checking #assume z
+[ 19 out of 37 ] Checking #define isHAE-fib-base-path
+[ 20 out of 37 ] Checking #define isHAE-fib-base-path-transport
+[ 21 out of 37 ] Checking #define isHAE-fib-base-path-rev-coherence
+[ 22 out of 37 ] Checking #define isHAE-fib-base-path-transport-rev-calculation
+[ 23 out of 37 ] Checking #define isHAE-fib-base-path-transport-ap-calculation
+[ 24 out of 37 ] Checking #define isHAE-fib-base-path-transport-rev-ap-rev-calculation
+[ 25 out of 37 ] Checking #define isHAE-fib-base-path-transport-ap-ap-calculation
+[ 26 out of 37 ] Checking #define isHAE-fib-base-path-transport-assoc-calculation
+[ 27 out of 37 ] Checking #define isHAE-fib-base-path-transport-nat-calculation
+[ 28 out of 37 ] Checking #define isHAE-fib-base-path-transport-ap-id-calculation
+[ 29 out of 37 ] Checking #define isHAE-fib-base-path-transport-reassoc-calculation
+[ 30 out of 37 ] Checking #define isHAE-fib-base-path-transport-HAE-calculation
+[ 31 out of 37 ] Checking #define isHAE-fib-base-path-transport-HAE-reduction
+[ 32 out of 37 ] Checking #define isHAE-fib-base-path-transport-HAE-final-reduction
+[ 33 out of 37 ] Checking #define isHAE-fib-base-path-transport-path
+[ 34 out of 37 ] Checking #define isHAE-fib-contracting-homotopy
+[ 35 out of 37 ] Checking #define is-contr-map-is-half-adjoint-equiv
+[ 36 out of 37 ] Checking #define is-contr-map-is-equiv
+[ 37 out of 37 ] Checking #define is-contr-map-iff-is-equiv
+Checking module from hott/08-families-of-maps.rzk.md
+[ 1 out of 62 ] Checking #define total-map-family-of-maps
+[ 2 out of 62 ] Checking #define total-map-to-fiber
+[ 3 out of 62 ] Checking #define total-map-from-fiber
+[ 4 out of 62 ] Checking #define total-map-to-fiber-retraction
+[ 5 out of 62 ] Checking #define total-map-to-fiber-section
+[ 6 out of 62 ] Checking #define total-map-to-fiber-is-equiv
+[ 7 out of 62 ] Checking #define total-map-fiber-equiv
+[ 8 out of 62 ] Checking #define invertible-family-total-inverse
+[ 9 out of 62 ] Checking #define invertible-family-total-retraction
+[ 10 out of 62 ] Checking #define invertible-family-total-section
+[ 11 out of 62 ] Checking #define invertible-family-total-invertible
+[ 12 out of 62 ] Checking #define family-of-equiv-total-equiv
+[ 13 out of 62 ] Checking #define total-equiv-family-equiv
+[ 14 out of 62 ] Checking #define total-has-inverse-family-equiv
+[ 15 out of 62 ] Checking #define total-contr-map-family-of-contr-maps
+[ 16 out of 62 ] Checking #define total-equiv-family-of-equiv
+[ 17 out of 62 ] Checking #define total-equiv-iff-family-of-equiv
+[ 18 out of 62 ] Checking #define equiv-rev
+[ 19 out of 62 ] Checking #define equiv-based-paths
+[ 20 out of 62 ] Checking #define is-contr-codomain-based-paths
+[ 21 out of 62 ] Checking #define pullback
+[ 22 out of 62 ] Checking #assume A B
+[ 23 out of 62 ] Checking #assume f g
+[ 24 out of 62 ] Checking #assume α
+[ 25 out of 62 ] Checking #assume C
+[ 26 out of 62 ] Checking #assume a
+[ 27 out of 62 ] Checking #define pullback-homotopy
+[ 28 out of 62 ] Checking #define pullback-homotopy-inverse
+[ 29 out of 62 ] Checking #define pullback-homotopy-has-retraction
+[ 30 out of 62 ] Checking #define pullback-homotopy-has-section
+[ 31 out of 62 ] Checking #define is-equiv-pullback-homotopy
+[ 32 out of 62 ] Checking #define pullback-comparison-map
+[ 33 out of 62 ] Checking #define pullback-comparison-fiber
+[ 34 out of 62 ] Checking #define pullback-comparison-fiber-to-fiber
+[ 35 out of 62 ] Checking #define from-base-fiber-to-pullback-comparison-fiber
+[ 36 out of 62 ] Checking #define pullback-comparison-fiber-to-fiber-inv
+[ 37 out of 62 ] Checking #define pullback-comparison-fiber-to-fiber-retracting-homotopy
+[ 38 out of 62 ] Checking #define pullback-comparison-fiber-to-fiber-section-homotopy-map
+[ 39 out of 62 ] Checking #define pullback-comparison-fiber-to-fiber-section-homotopy
+[ 40 out of 62 ] Checking #define equiv-pullback-comparison-fiber
+[ 41 out of 62 ] Checking #define total-equiv-pullback-is-equiv
+[ 42 out of 62 ] Checking #assume A
+[ 43 out of 62 ] Checking #assume a
+[ 44 out of 62 ] Checking #assume B
+[ 45 out of 62 ] Checking #assume f
+[ 46 out of 62 ] Checking #define fund-id-fam-of-eqs-implies-sum-over-codomain-contr
+[ 47 out of 62 ] Checking #define fund-id-sum-over-codomain-contr-implies-fam-of-eqs
+[ 48 out of 62 ] Checking #define ind-based-path
+[ 49 out of 62 ] Checking #define emb-is-equiv
+[ 50 out of 62 ] Checking #define is-emb-is-equiv
+[ 51 out of 62 ] Checking #define RightCancel-is-equiv
+[ 52 out of 62 ] Checking #define LeftCancel-is-equiv
+[ 53 out of 62 ] Checking #assume A A' B B'
+[ 54 out of 62 ] Checking #assume C
+[ 55 out of 62 ] Checking #assume C'
+[ 56 out of 62 ] Checking #assume f
+[ 57 out of 62 ] Checking #assume g
+[ 58 out of 62 ] Checking #assume h
+[ 59 out of 62 ] Checking #define total-map-fibered-map-over-product
+[ 60 out of 62 ] Checking #define pullback-is-equiv-base-is-equiv-total-is-equiv
+[ 61 out of 62 ] Checking #define pullback-is-equiv-bases-are-equiv-total-is-equiv
+[ 62 out of 62 ] Checking #define fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
+Checking module from hott/09-propositions.rzk.md
+[ 1 out of 11 ] Checking #define is-prop
+[ 2 out of 11 ] Checking #define is-prop-Unit
+[ 3 out of 11 ] Checking #define all-elements-equal
+[ 4 out of 11 ] Checking #define is-contr-is-inhabited
+[ 5 out of 11 ] Checking #define is-emb-terminal-map
+[ 6 out of 11 ] Checking #define all-elements-equal-is-prop
+[ 7 out of 11 ] Checking #define is-contr-is-inhabited-all-elements-equal
+[ 8 out of 11 ] Checking #define terminal-map-is-emb-is-inhabited-is-contr-is-inhabited
+[ 9 out of 11 ] Checking #define terminal-map-is-emb-is-contr-is-inhabited
+[ 10 out of 11 ] Checking #define is-prop-is-emb-terminal-map
+[ 11 out of 11 ] Checking #define is-prop-is-contr-is-inhabited
+Checking module from hott/10-trivial-fibrations.rzk.md
+[ 1 out of 29 ] Checking #define total-space-projection
+[ 2 out of 29 ] Checking #define contractible-fibers
+[ 3 out of 29 ] Checking #assume A
+[ 4 out of 29 ] Checking #assume B
+[ 5 out of 29 ] Checking #assume ABcontrfib
+[ 6 out of 29 ] Checking #define contractible-fibers-section
+[ 7 out of 29 ] Checking #define contractible-fibers-actual-section
+[ 8 out of 29 ] Checking #define contractible-fibers-section-htpy
+[ 9 out of 29 ] Checking #define contractible-fibers-section-is-section
+[ 10 out of 29 ] Checking #define contractible-fibers-retraction-htpy
+[ 11 out of 29 ] Checking #define contractible-fibers-retraction
+[ 12 out of 29 ] Checking #define is-equiv-projection-contractible-fibers
+[ 13 out of 29 ] Checking #define equiv-projection-contractible-fibers
+[ 14 out of 29 ] Checking #define inhabited-fibers-is-equiv-projection
+[ 15 out of 29 ] Checking #assume A
+[ 16 out of 29 ] Checking #assume B
+[ 17 out of 29 ] Checking #assume ABprojHAE
+[ 18 out of 29 ] Checking #assume w
+[ 19 out of 29 ] Checking #define projection-hae-inverse
+[ 20 out of 29 ] Checking #define projection-hae-base-htpy
+[ 21 out of 29 ] Checking #define projection-hae-section
+[ 22 out of 29 ] Checking #define projection-hae-total-htpy
+[ 23 out of 29 ] Checking #define projection-hae-fibered-htpy
+[ 24 out of 29 ] Checking #define projection-hae-base-coherence
+[ 25 out of 29 ] Checking #define projection-hae-transport-coherence
+[ 26 out of 29 ] Checking #define projection-hae-fibered-contracting-htpy
+[ 27 out of 29 ] Checking #define contractible-fibers-is-half-adjoint-equiv-projection
+[ 28 out of 29 ] Checking #define contractible-fibers-is-equiv-projection
+[ 29 out of 29 ] Checking #define projection-theorem
+Checking module from simplicial-hott/03-simplicial-type-theory.rzk.md
+[ 1 out of 14 ] Checking #define Δ¹
+[ 2 out of 14 ] Checking #define Δ²
+[ 3 out of 14 ] Checking #define Δ³
+[ 4 out of 14 ] Checking #define ∂Δ¹
+[ 5 out of 14 ] Checking #define ∂Δ²
+[ 6 out of 14 ] Checking #define Λ
+[ 7 out of 14 ] Checking #define shapeprod
+[ 8 out of 14 ] Checking #define Δ¹×Δ¹
+[ 9 out of 14 ] Checking #define ∂□
+[ 10 out of 14 ] Checking #define ∂Δ¹×Δ¹
+[ 11 out of 14 ] Checking #define Δ¹×∂Δ¹
+[ 12 out of 14 ] Checking #define Δ²×Δ¹
+[ 13 out of 14 ] Checking #define shapeIntersection
+[ 14 out of 14 ] Checking #define shapeUnion
+Checking module from simplicial-hott/04-extension-types.rzk.md
+[ 1 out of 14 ] Checking #define flip-ext-fun
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → ({ x : X } -> Y t x) [ϕ t |-> f t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → ({ x : X } -> Y t x) [ϕ t |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → Y t x [ϕ t |-> f t x] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → Y t x [ϕ t |-> f t x]
+
+[ 2 out of 14 ] Checking #define flip-ext-fun-inv
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → Y t x [ϕ t |-> f t x] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → Y t x [ϕ t |-> f t x]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → ({ x : X } -> Y t x) [ϕ t |-> f t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → ({ x : X } -> Y t x) [ϕ t |-> f t]
+
+[ 3 out of 14 ] Checking #define curry-uncurry
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → < { (s : J) | ζ s } -> X t s [χ s |-> f (t, s)] > [ϕ t |-> \ { s : J | ζ s } -> f (t, s)] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → < { (s : J) | ζ s } -> X t s [χ s |-> f (t, s)] > [ϕ t |-> \ { s : J | ζ s } -> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : J) | ζ s } → X t s [χ s |-> f (t, s)] >
+instead consider using the following notation:
+  { (s : J) | ζ s } → X t s [χ s |-> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ψ t /\ ζ s } → X t s [ϕ t /\ ζ s \/ ψ t /\ χ s |-> f (t, s)] >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ψ t /\ ζ s } → X t s [ϕ t /\ ζ s \/ ψ t /\ χ s |-> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s
+
+[ 4 out of 14 ] Checking #define uncurry-opcurry
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ψ t /\ ζ s } → X t s [ϕ t /\ ζ s \/ ψ t /\ χ s |-> f (t, s)] >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ψ t /\ ζ s } → X t s [ϕ t /\ ζ s \/ ψ t /\ χ s |-> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : J) | ζ s } → < { (t : I) | ψ t } -> X t s [ϕ t |-> f (t, s)] > [χ s |-> \ { t : I | ψ t } -> f (t, s)] >
+instead consider using the following notation:
+  { (s : J) | ζ s } → < { (t : I) | ψ t } -> X t s [ϕ t |-> f (t, s)] > [χ s |-> \ { t : I | ψ t } -> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → X t s [ϕ t |-> f (t, s)] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → X t s [ϕ t |-> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s
+
+[ 5 out of 14 ] Checking #define fubini
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → < { (s : J) | ζ s } -> X t s [χ s |-> f (t, s)] > [ϕ t |-> \ { s : J | ζ s } -> f (t, s)] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → < { (s : J) | ζ s } -> X t s [χ s |-> f (t, s)] > [ϕ t |-> \ { s : J | ζ s } -> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : J) | ζ s } → X t s [χ s |-> f (t, s)] >
+instead consider using the following notation:
+  { (s : J) | ζ s } → X t s [χ s |-> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : J) | ζ s } → < { (t : I) | ψ t } -> X t s [ϕ t |-> f (t, s)] > [χ s |-> \ { t : I | ψ t } -> f (t, s)] >
+instead consider using the following notation:
+  { (s : J) | ζ s } → < { (t : I) | ψ t } -> X t s [ϕ t |-> f (t, s)] > [χ s |-> \ { t : I | ψ t } -> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → X t s [ϕ t |-> f (t, s)] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → X t s [ϕ t |-> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ϕ t /\ ζ s \/ ψ t /\ χ s } → X t s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → < { (s : J) | ζ s } -> X t s [χ s |-> f (t, s)] > [ϕ t |-> \ { s : J | ζ s } -> f (t, s)] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → < { (s : J) | ζ s } -> X t s [χ s |-> f (t, s)] > [ϕ t |-> \ { s : J | ζ s } -> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : J) | ζ s } → X t s [χ s |-> f (t, s)] >
+instead consider using the following notation:
+  { (s : J) | ζ s } → X t s [χ s |-> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : I × J) | ψ t /\ ζ s } → X t s [ϕ t /\ ζ s \/ ψ t /\ χ s |-> f (t, s)] >
+instead consider using the following notation:
+  { ((t, s) : I × J) | ψ t /\ ζ s } → X t s [ϕ t /\ ζ s \/ ψ t /\ χ s |-> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : J) | ζ s } → < { (t : I) | ψ t } -> X t s [ϕ t |-> f (t, s)] > [χ s |-> \ { t : I | ψ t } -> f (t, s)] >
+instead consider using the following notation:
+  { (s : J) | ζ s } → < { (t : I) | ψ t } -> X t s [ϕ t |-> f (t, s)] > [χ s |-> \ { t : I | ψ t } -> f (t, s)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → X t s [ϕ t |-> f (t, s)] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → X t s [ϕ t |-> f (t, s)]
+
+[ 6 out of 14 ] Checking #define axiom-choice
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → (Σ (x : X t), Y t x) [ϕ t |-> (a t, b t)] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → (Σ (x : X t), Y t x) [ϕ t |-> (a t, b t)]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → X t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → X t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → Y t (f t) [ϕ t |-> b t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → Y t (f t) [ϕ t |-> b t]
+
+[ 7 out of 14 ] Checking #define cofibration-composition'
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | χ t /\ ψ t /\ ϕ t } → X t >
+instead consider using the following notation:
+  { (t : I) | χ t /\ ψ t /\ ϕ t } → X t
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | χ t } → X t [χ t /\ ψ t /\ ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | χ t } → X t [χ t /\ ψ t /\ ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | χ t /\ ψ t } → X t [χ t /\ ψ t /\ ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | χ t /\ ψ t } → X t [χ t /\ ψ t /\ ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | χ t } → X t [χ t /\ ψ t |-> f t] >
+instead consider using the following notation:
+  { (t : I) | χ t } → X t [χ t /\ ψ t |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | χ t /\ ψ t /\ ϕ t } → X t >
+instead consider using the following notation:
+  { (t : I) | χ t /\ ψ t /\ ϕ t } → X t
+
+[ 8 out of 14 ] Checking #define cofibration-composition
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | χ t } → X t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | χ t } → X t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → X t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → X t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | χ t } → X t [ψ t |-> f t] >
+instead consider using the following notation:
+  { (t : I) | χ t } → X t [ψ t |-> f t]
+
+[ 9 out of 14 ] Checking #define cofibration_union
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ϕ t \/ ψ t } → U >
+instead consider using the following notation:
+  { (t : I) | ϕ t \/ ψ t } → U
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ϕ t \/ ψ t } → X t [ψ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ϕ t \/ ψ t } → X t [ψ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ϕ t } → X t [ϕ t /\ ψ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ϕ t } → X t [ϕ t /\ ψ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ϕ t \/ ψ t } → U >
+instead consider using the following notation:
+  { (t : I) | ϕ t \/ ψ t } → U
+
+[ 10 out of 14 ] Checking #define ext-htpy-eq
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → (f t = g t) [ϕ t |-> refl] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → (f t = g t) [ϕ t |-> refl]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → (f t = g' t) [ϕ t |-> refl] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → (f t = g' t) [ϕ t |-> refl]
+
+[ 11 out of 14 ] Checking #define ExtExt
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → (f t = g t) [ϕ t |-> refl] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → (f t = g t) [ϕ t |-> refl]
+
+[ 12 out of 14 ] Checking #define ExtExtEquiv
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → (f t = g t) [ϕ t |-> refl] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → (f t = g t) [ϕ t |-> refl]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[ 13 out of 14 ] Checking #define eq-ext-htpy
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → (f t = g t) [ϕ t |-> refl] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → (f t = g t) [ϕ t |-> refl]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t [ϕ t |-> a t] >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t [ϕ t |-> a t]
+
+[ 14 out of 14 ] Checking #define fibered-Eq-extension-Equiv
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → A t >
+instead consider using the following notation:
+  { (t : I) | ψ t } → A t
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : I) | ψ t } → B t >
+instead consider using the following notation:
+  { (t : I) | ψ t } → B t
+
+Checking module from simplicial-hott/05-segal-types.rzk.md
+[ 1 out of 61 ] Checking #define hom
+[ 2 out of 61 ] Checking #define hom2
+[ 3 out of 61 ] Checking #define is-segal
+[ 4 out of 61 ] Checking #define Segal-comp
+[ 5 out of 61 ] Checking #define Segal-comp-witness
+[ 6 out of 61 ] Checking #define Segal-comp-uniqueness
+[ 7 out of 61 ] Checking #define horn
+[ 8 out of 61 ] Checking #define horn-restriction
+[ 9 out of 61 ] Checking #define is-local-horn-inclusion
+[ 10 out of 61 ] Checking #define compositions-are-horn-fillings
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A [Λ t |-> horn A x y z f g t] >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A [Λ t |-> horn A x y z f g t]
+
+[ 11 out of 61 ] Checking #define equiv-horn-restriction
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[ 12 out of 61 ] Checking #define Segal-equiv-horn-restriction
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[ 13 out of 61 ] Checking #define Segal-equiv-horn-restriction-test
+[ 14 out of 61 ] Checking #define is-local-horn-inclusion-is-segal
+[ 15 out of 61 ] Checking #define is-segal-is-local-horn-inclusion
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A
+
+[ 16 out of 61 ] Checking #define is-segal-iff-is-local-horn-inclusion
+[ 17 out of 61 ] Checking #define Segal-function-types
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → { x : X } -> A x >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → { x : X } -> A x
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A x >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A x
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A x >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A x
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → { x : X } -> A x >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → { x : X } -> A x
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A x >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A x
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A x >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A x
+
+[ 18 out of 61 ] Checking #define Segal-extension-types
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → U >
+instead consider using the following notation:
+  { (s : I) | ψ s } → U
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → is-local-horn-inclusion (A s) >
+instead consider using the following notation:
+  { (s : I) | ψ s } → is-local-horn-inclusion (A s)
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → A s >
+instead consider using the following notation:
+  { (s : I) | ψ s } → A s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → U >
+instead consider using the following notation:
+  { (s : I) | ψ s } → U
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → is-local-horn-inclusion (A s) >
+instead consider using the following notation:
+  { (s : I) | ψ s } → is-local-horn-inclusion (A s)
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → < { (s : I) | ψ s } -> A s > >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → < { (s : I) | ψ s } -> A s >
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → A s >
+instead consider using the following notation:
+  { (s : I) | ψ s } → A s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → < { (t : 2 × 2) | Δ² t } -> A s > >
+instead consider using the following notation:
+  { (s : I) | ψ s } → < { (t : 2 × 2) | Δ² t } -> A s >
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A s >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → < { (t : 2 × 2) | Λ t } -> A s > >
+instead consider using the following notation:
+  { (s : I) | ψ s } → < { (t : 2 × 2) | Λ t } -> A s >
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A s >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → < { (s : I) | ψ s } -> A s > >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → < { (s : I) | ψ s } -> A s >
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (s : I) | ψ s } → A s >
+instead consider using the following notation:
+  { (s : I) | ψ s } → A s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Δ² t } → A s >
+instead consider using the following notation:
+  { (t : 2 × 2) | Δ² t } → A s
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2 × 2) | Λ t } → A s >
+instead consider using the following notation:
+  { (t : 2 × 2) | Λ t } → A s
+
+[ 19 out of 61 ] Checking #define arr
+[ 20 out of 61 ] Checking #define Eq-arr
+[ 21 out of 61 ] Checking #define Segal'-arrow-types
+[ 22 out of 61 ] Checking #define Segal-arrow-types
+[ 23 out of 61 ] Checking #define id-arr
+[ 24 out of 61 ] Checking #define comp-id-witness
+[ 25 out of 61 ] Checking #define id-comp-witness
+[ 26 out of 61 ] Checking #define Segal-comp-id
+[ 27 out of 61 ] Checking #define Segal-id-comp
+[ 28 out of 61 ] Checking #define unfolding-square
+[ 29 out of 61 ] Checking #define Segal-comp-witness-square
+[ 30 out of 61 ] Checking #define Segal-arr-in-arr
+[ 31 out of 61 ] Checking #define Segal-associativity-witness
+[ 32 out of 61 ] Checking #define Segal-associativity-tetrahedron
+[ 33 out of 61 ] Checking #define Segal-triple-composite
+[ 34 out of 61 ] Checking #define Segal-left-associativity-witness
+[ 35 out of 61 ] Checking #define Segal-right-associativity-witness
+[ 36 out of 61 ] Checking #define Segal-left-associativity
+[ 37 out of 61 ] Checking #define Segal-right-associativity
+[ 38 out of 61 ] Checking #define Segal-associativity
+[ 39 out of 61 ] Checking #define Segal-postcomp
+[ 40 out of 61 ] Checking #define Segal-precomp
+[ 41 out of 61 ] Checking #define homotopy-to-hom2
+[ 42 out of 61 ] Checking #define homotopy-to-hom2-total-map
+[ 43 out of 61 ] Checking #define Segal-homotopy-to-hom2-total-map-is-equiv
+[ 44 out of 61 ] Checking #define Eq-Segal-homotopy-hom2
+[ 45 out of 61 ] Checking #define homotopy-to-hom2'
+[ 46 out of 61 ] Checking #define homotopy-to-hom2'-total-map
+[ 47 out of 61 ] Checking #define Segal-homotopy-to-hom2'-total-map-is-equiv
+[ 48 out of 61 ] Checking #define Eq-Segal-homotopy-hom2'
+[ 49 out of 61 ] Checking #define Segal-eq-to-hom2
+[ 50 out of 61 ] Checking #define Segal-eq-to-hom2-total-map
+[ 51 out of 61 ] Checking #define Segal-eq-to-hom2-total-map-is-equiv
+[ 52 out of 61 ] Checking #define Eq-Segal-eq-hom2
+Warning: h shadows an existing definition:  h (<stdin>:1078:9)
+previous top-level definitions found at
+  h (<stdin>:1074:4)
+
+Warning: h shadows an existing definition:  h (<stdin>:1079:9)
+previous top-level definitions found at
+  h (<stdin>:1074:4)
+
+[ 53 out of 61 ] Checking #define Segal-homotopy-congruence
+[ 54 out of 61 ] Checking #define Segal-homotopy-postwhisker
+[ 55 out of 61 ] Checking #define Segal-homotopy-prewhisker
+[ 56 out of 61 ] Checking #define Segal-homotopy-postwhisker-is-ap
+[ 57 out of 61 ] Checking #define Segal-homotopy-prewhisker-is-ap
+[ 58 out of 61 ] Checking #assume extext
+[ 59 out of 61 ] Checking #define iscontr-Unit
+[ 60 out of 61 ] Checking #define is-contr-Δ²→Unit
+[ 61 out of 61 ] Checking #define is-segal-Unit
+Checking module from simplicial-hott/06-2cat-of-segal-types.rzk.md
+[ 1 out of 15 ] Checking #define ap-hom
+[ 2 out of 15 ] Checking #define ap-hom2
+[ 3 out of 15 ] Checking #define functors-pres-id
+[ 4 out of 15 ] Checking #define functors-pres-comp
+[ 5 out of 15 ] Checking #define nat-trans
+[ 6 out of 15 ] Checking #define nat-trans-components
+[ 7 out of 15 ] Checking #define ev-components-nat-trans
+[ 8 out of 15 ] Checking #define nat-trans-nat-trans-components
+[ 9 out of 15 ] Checking #define is-equiv-ev-components-nat-trans
+[ 10 out of 15 ] Checking #define equiv-components-nat-trans
+[ 11 out of 15 ] Checking #define horizontal-comp-nat-trans
+[ 12 out of 15 ] Checking #define horizontal-comp-nat-trans-components
+[ 13 out of 15 ] Checking #define vertical-comp-nat-trans-components
+[ 14 out of 15 ] Checking #define vertical-comp-nat-trans
+[ 15 out of 15 ] Checking #define id-arr-components-id-nat-trans
+Checking module from simplicial-hott/07-discrete.rzk.md
+[ 1 out of 40 ] Checking #define arr-eq
+[ 2 out of 40 ] Checking #define is-discrete
+[ 3 out of 40 ] Checking #define equiv-discrete-family
+[ 4 out of 40 ] Checking #define equiv-discrete-family-map
+[ 5 out of 40 ] Checking #define is-discrete-dependent-function-discrete-family
+[ 6 out of 40 ] Checking #define Eq-discrete-extension
+[ 7 out of 40 ] Checking #define Eq-discrete-extension-map
+[ 8 out of 40 ] Checking #define is-discrete-extension-family
+[ 9 out of 40 ] Checking #define is-discrete-arr-is-discrete
+[ 10 out of 40 ] Checking #assume extext
+[ 11 out of 40 ] Checking #assume A
+[ 12 out of 40 ] Checking #assume Aisdiscrete
+[ 13 out of 40 ] Checking #assume x y z w
+[ 14 out of 40 ] Checking #assume f
+[ 15 out of 40 ] Checking #assume g
+[ 16 out of 40 ] Checking #define is-equiv-arr-eq-discrete
+[ 17 out of 40 ] Checking #define equiv-arr-eq-discrete
+[ 18 out of 40 ] Checking #define equiv-square-hom-arr
+[ 19 out of 40 ] Checking #define fibered-arr-free-arr
+[ 20 out of 40 ] Checking #define id-equiv-Eq-arr
+[ 21 out of 40 ] Checking #define id-Eq-Eq-arr
+[ 22 out of 40 ] Checking #define equiv-sigma-over-prod-arr-eq
+[ 23 out of 40 ] Checking #define equiv-square-sigma-over-prod
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t]
+
+[ 24 out of 40 ] Checking #define fibered-map-square-sigma-over-prod
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> arr-eq A x z p t, Δ¹ t /\ s === 1_2 |-> arr-eq A y w q t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> arr-eq A x z p t, Δ¹ t /\ s === 1_2 |-> arr-eq A y w q t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> arr-eq A x z' p' t, Δ¹ t /\ s === 1_2 |-> arr-eq A y w q t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> arr-eq A x z' p' t, Δ¹ t /\ s === 1_2 |-> arr-eq A y w q t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> arr-eq A y w' q' t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> arr-eq A y w' q' t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g' s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g' s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 25 out of 40 ] Checking #define square-sigma-over-prod
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t]
+
+[ 26 out of 40 ] Checking #define refl-refl-map-equiv-square-sigma-over-prod
+[ 27 out of 40 ] Checking #define map-equiv-square-sigma-over-prod
+[ 28 out of 40 ] Checking #define is-equiv-square-sigma-over-prod
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h t, Δ¹ t /\ s === 1_2 |-> k t]
+
+[ 29 out of 40 ] Checking #define is-equiv-fibered-map-square-sigma-over-prod
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> arr-eq A x z p t, Δ¹ t /\ s === 1_2 |-> arr-eq A y w q t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> arr-eq A x z p t, Δ¹ t /\ s === 1_2 |-> arr-eq A y w q t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h' t, Δ¹ t /\ s === 1_2 |-> k' t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> h' t, Δ¹ t /\ s === 1_2 |-> k' t]
+
+[ 30 out of 40 ] Checking #define is-equiv-fibered-map-square-sigma-over-prod-refl-refl
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 31 out of 40 ] Checking #define is-equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 32 out of 40 ] Checking #define equiv-sum-fibered-map-square-sigma-over-prod-refl-refl
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 33 out of 40 ] Checking #define is-contr-horn-refl-refl-extension-type
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 34 out of 40 ] Checking #define triangle-to-square-section
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 35 out of 40 ] Checking #define sigma-triangle-to-sigma-square-section
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 36 out of 40 ] Checking #define sigma-square-to-sigma-triangle-retraction
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 37 out of 40 ] Checking #define sigma-triangle-to-sigma-square-retract
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 38 out of 40 ] Checking #define is-contr-hom2-with-id-is-discrete
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> f s, t === 1_2 /\ Δ¹ s |-> g s, Δ¹ t /\ s === 0_2 |-> x, Δ¹ t /\ s === 1_2 |-> y]
+
+[ 39 out of 40 ] Checking #define is-contr-hom2-is-discrete
+[ 40 out of 40 ] Checking #define is-segal-is-discrete
+Checking module from simplicial-hott/08-covariant.rzk.md
+[ 1 out of 57 ] Checking #define dhom
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { (t : 2) | Δ¹ t } → C (f t) [t === 0_2 |-> u, t === 1_2 |-> v] >
+instead consider using the following notation:
+  { (t : 2) | Δ¹ t } → C (f t) [t === 0_2 |-> u, t === 1_2 |-> v]
+
+[ 2 out of 57 ] Checking #define dhomFrom
+[ 3 out of 57 ] Checking #define dhom2
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t1, t2) : 2 × 2) | Δ² (t1, t2) } → C (alpha (t1, t2)) [t2 === 0_2 |-> ff t1, t1 === 1_2 |-> gg t2, t2 === t1 |-> hh t2] >
+instead consider using the following notation:
+  { ((t1, t2) : 2 × 2) | Δ² (t1, t2) } → C (alpha (t1, t2)) [t2 === 0_2 |-> ff t1, t1 === 1_2 |-> gg t2, t2 === t1 |-> hh t2]
+
+[ 4 out of 57 ] Checking #define isCovFam
+[ 5 out of 57 ] Checking #define covFam
+[ 6 out of 57 ] Checking #define dhom-representable
+[ 7 out of 57 ] Checking #define uncurried-dhom-representable
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 8 out of 57 ] Checking #define dhomFrom-representable
+[ 9 out of 57 ] Checking #define uncurried-dhomFrom-representable
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 10 out of 57 ] Checking #define square-to-hom2-pushout
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> g t, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> g t, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 11 out of 57 ] Checking #define hom2-pushout-to-square
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> g t, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> g t, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 12 out of 57 ] Checking #define Eq-square-hom2-pushout
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> g t, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> g t, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 13 out of 57 ] Checking #define representable-dhomFrom-uncurry-hom2
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 14 out of 57 ] Checking #define representable-dhomFrom-hom2
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 15 out of 57 ] Checking #define representable-dhomFrom-hom2-dist
+[ 16 out of 57 ] Checking #define Segal-representable-dhomFrom-path-space
+[ 17 out of 57 ] Checking #define codomain-based-paths-contraction
+[ 18 out of 57 ] Checking #define is-segal-representable-dhomFrom-hom2
+[ 19 out of 57 ] Checking #define is-segal-representable-dhomFrom-contractible
+[ 20 out of 57 ] Checking #define is-segal-representable-isCovFam
+[ 21 out of 57 ] Checking #define representable-isCovFam-is-segal
+[ 22 out of 57 ] Checking #define cofibration-union-test
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | t === 1_2 /\ Δ¹ s } → A [t === 1_2 /\ s === 0_2 |-> a, t === 1_2 /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | t === 1_2 /\ Δ¹ s } → A [t === 1_2 /\ s === 0_2 |-> a, t === 1_2 /\ s === 1_2 |-> y]
+
+[ 23 out of 57 ] Checking #define base-hom-rewriting
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | t === 1_2 /\ Δ¹ s } → A [t === 1_2 /\ s === 0_2 |-> a, t === 1_2 /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | t === 1_2 /\ Δ¹ s } → A [t === 1_2 /\ s === 0_2 |-> a, t === 1_2 /\ s === 1_2 |-> y]
+
+[ 24 out of 57 ] Checking #define base-hom-expansion
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | t === 1_2 /\ Δ¹ s } → A [t === 1_2 /\ s === 0_2 |-> a, t === 1_2 /\ s === 1_2 |-> y] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | t === 1_2 /\ Δ¹ s } → A [t === 1_2 /\ s === 0_2 |-> a, t === 1_2 /\ s === 1_2 |-> y]
+
+[ 25 out of 57 ] Checking #define representable-dhomFrom-expansion
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 26 out of 57 ] Checking #define representable-dhomFrom-composite-expansion
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 27 out of 57 ] Checking #define representable-dhomFrom-cofibration-composition
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 28 out of 57 ] Checking #define representable-dhomFrom-as-extension-type
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | ∂□ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> sq (1_2, s), Δ¹ t /\ s === 0_2 |-> a, Δ¹ t /\ s === 1_2 |-> f t]
+
+[ 29 out of 57 ] Checking #define covTrans
+[ 30 out of 57 ] Checking #define covLift
+[ 31 out of 57 ] Checking #define covUniqueness
+[ 32 out of 57 ] Checking #define d-id-arr
+[ 33 out of 57 ] Checking #define covPresId
+[ 34 out of 57 ] Checking #define covariant-fiberwise-transformation-application
+[ 35 out of 57 ] Checking #define naturality-covariant-fiberwise-transformation
+[ 36 out of 57 ] Checking #define dhomTo
+[ 37 out of 57 ] Checking #define isContraFam
+[ 38 out of 57 ] Checking #define contraFam
+[ 39 out of 57 ] Checking #define dhom-contra-representable
+[ 40 out of 57 ] Checking #define uncurried-dhom-contra-representable
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a]
+
+[ 41 out of 57 ] Checking #define dhomTo-representable
+[ 42 out of 57 ] Checking #define uncurried-dhomTo-representable
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a]
+
+[ 43 out of 57 ] Checking #define representable-dhomTo-uncurry-hom2
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a]
+
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a]
+
+[ 44 out of 57 ] Checking #define representable-dhomTo-hom2
+[DEPRECATED]: the following notation is deprecated and will be removed from future version of rzk:
+  < { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a] >
+instead consider using the following notation:
+  { ((t, s) : 2 × 2) | Δ¹×Δ¹ (t, s) } → A [t === 0_2 /\ Δ¹ s |-> u s, t === 1_2 /\ Δ¹ s |-> v s, Δ¹ t /\ s === 0_2 |-> f t, Δ¹ t /\ s === 1_2 |-> a]
+
+[ 45 out of 57 ] Checking #define representable-dhomTo-hom2-swap
+[ 46 out of 57 ] Checking #define representable-dhomTo-hom2-dist
+[ 47 out of 57 ] Checking #define Segal-representable-dhomTo-path-space
+[ 48 out of 57 ] Checking #define is-segal-representable-dhomTo-hom2
+[ 49 out of 57 ] Checking #define is-segal-representable-dhomTo-contractible
+[ 50 out of 57 ] Checking #define is-segal-representable-isContraFam
+[ 51 out of 57 ] Checking #define representable-isContraFam-is-segal
+[ 52 out of 57 ] Checking #define contraTrans
+[ 53 out of 57 ] Checking #define contraLift
+[ 54 out of 57 ] Checking #define contraUniqueness
+[ 55 out of 57 ] Checking #define contraPresId
+[ 56 out of 57 ] Checking #define contravariant-fiberwise-transformation-application
+[ 57 out of 57 ] Checking #define naturality-contravariant-fiberwise-transformation
+Checking module from simplicial-hott/09-yoneda.rzk.md
+[ 1 out of 26 ] Checking #define naturality-covariant-fiberwise-representable-transformation
+[ 2 out of 26 ] Checking #define evid
+[ 3 out of 26 ] Checking #define yon
+[ 4 out of 26 ] Checking #define evid-yon
+[ 5 out of 26 ] Checking #assume A
+[ 6 out of 26 ] Checking #assume AisSegal
+[ 7 out of 26 ] Checking #assume a
+[ 8 out of 26 ] Checking #assume C
+[ 9 out of 26 ] Checking #assume CisCov
+[ 10 out of 26 ] Checking #define yon-evid-twice-pointwise
+[ 11 out of 26 ] Checking #define yon-evid-once-pointwise
+[ 12 out of 26 ] Checking #define yon-evid
+[ 13 out of 26 ] Checking #define Yoneda-lemma
+[ 14 out of 26 ] Checking #define naturality-contravariant-fiberwise-representable-transformation
+[ 15 out of 26 ] Checking #define contra-evid
+[ 16 out of 26 ] Checking #define contra-yon
+[ 17 out of 26 ] Checking #define contra-evid-yon
+[ 18 out of 26 ] Checking #assume A
+[ 19 out of 26 ] Checking #assume AisSegal
+[ 20 out of 26 ] Checking #assume a
+[ 21 out of 26 ] Checking #assume C
+[ 22 out of 26 ] Checking #assume CisContra
+[ 23 out of 26 ] Checking #define contra-yon-evid-twice-pointwise
+[ 24 out of 26 ] Checking #define contra-yon-evid-once-pointwise
+[ 25 out of 26 ] Checking #define contra-yon-evid
+[ 26 out of 26 ] Checking #define contra-Yoneda-lemma
+Checking module from simplicial-hott/10-rezk-types.rzk.md
+[ 1 out of 23 ] Checking #define arrow-has-retraction
+[ 2 out of 23 ] Checking #define arrow-Retraction
+[ 3 out of 23 ] Checking #define arrow-has-section
+[ 4 out of 23 ] Checking #define arrow-Section
+[ 5 out of 23 ] Checking #define arrow-is-iso
+[ 6 out of 23 ] Checking #define Iso
+[ 7 out of 23 ] Checking #define arrow-has-inverse
+[ 8 out of 23 ] Checking #define arrow-inverse-to-iso
+[ 9 out of 23 ] Checking #define arrow-iso-to-inverse
+[ 10 out of 23 ] Checking #define arrow-inverse-iff-iso
+[ 11 out of 23 ] Checking #define if-iso-then-postcomp-has-retraction
+[ 12 out of 23 ] Checking #define if-iso-then-postcomp-has-section
+[ 13 out of 23 ] Checking #define if-iso-then-postcomp-is-equiv
+[ 14 out of 23 ] Checking #define if-iso-then-precomp-has-retraction
+[ 15 out of 23 ] Checking #define if-iso-then-precomp-has-section
+[ 16 out of 23 ] Checking #define if-iso-then-precomp-is-equiv
+[ 17 out of 23 ] Checking #define iso-inhabited-implies-hasRetr-contr
+[ 18 out of 23 ] Checking #define iso-inhabited-implies-hasSec-contr
+[ 19 out of 23 ] Checking #define iso-inhabited-implies-iso-contr
+[ 20 out of 23 ] Checking #define iso-is-prop
+[ 21 out of 23 ] Checking #define id-iso
+[ 22 out of 23 ] Checking #define idtoiso
+[ 23 out of 23 ] Checking #define is-rezk
+Checking module from simplicial-hott/12-cocartesian.rzk.md
+[ 1 out of 9 ] Checking #define totalType
+[ 2 out of 9 ] Checking #define isInnerFam
+[ 3 out of 9 ] Checking #define is-isoInnerFam
+[ 4 out of 9 ] Checking #define isCocartArr
+[ 5 out of 9 ] Checking #define CocartLift
+[ 6 out of 9 ] Checking #define is-initial
+[ 7 out of 9 ] Checking #define initial-iso
+[ 8 out of 9 ] Checking #define is-final
+[ 9 out of 9 ] Checking #define final-iso
