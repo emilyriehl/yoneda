@@ -1699,15 +1699,15 @@ arrow.</p>
 </span><span id="__span-24-37"><a id="__codelineno-24-37" name="__codelineno-24-37" href="#__codelineno-24-37"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-24-38"><a id="__codelineno-24-38" name="__codelineno-24-38" href="#__codelineno-24-38"></a><span class="err">  </span><span class="p">(</span><span class="nv">AisSegal </span><span class="p">:</span><span class="err"> is-segal A)</span>
 </span><span id="__span-24-39"><a id="__codelineno-24-39" name="__codelineno-24-39" href="#__codelineno-24-39"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-24-40"><a id="__codelineno-24-40" name="__codelineno-24-40" href="#__codelineno-24-40"></a><span class="err">  </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-24-41"><a id="__codelineno-24-41" name="__codelineno-24-41" href="#__codelineno-24-41"></a><span class="err">  : Equiv (f = g) (hom2 A x x y (id-arr A x) f g)</span>
-</span><span id="__span-24-42"><a id="__codelineno-24-42" name="__codelineno-24-42" href="#__codelineno-24-42"></a><span class="err">  := (homotopy-to-hom2 A x y f g,</span>
+</span><span id="__span-24-40"><a id="__codelineno-24-40" name="__codelineno-24-40" href="#__codelineno-24-40"></a><span class="err">  </span><span class="p">(</span><span class="nv">f h </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-24-41"><a id="__codelineno-24-41" name="__codelineno-24-41" href="#__codelineno-24-41"></a><span class="err">  : Equiv (f = h) (hom2 A x x y (id-arr A x) f h)</span>
+</span><span id="__span-24-42"><a id="__codelineno-24-42" name="__codelineno-24-42" href="#__codelineno-24-42"></a><span class="err">  := (homotopy-to-hom2 A x y f h,</span>
 </span><span id="__span-24-43"><a id="__codelineno-24-43" name="__codelineno-24-43" href="#__codelineno-24-43"></a><span class="err">    total-equiv-family-of-equiv (hom A x y)</span>
-</span><span id="__span-24-44"><a id="__codelineno-24-44" name="__codelineno-24-44" href="#__codelineno-24-44"></a><span class="err">      (</span><span class="p">\</span><span class="nv">g </span><span class="err">-&gt; (f = g))</span>
-</span><span id="__span-24-45"><a id="__codelineno-24-45" name="__codelineno-24-45" href="#__codelineno-24-45"></a><span class="err">      (</span><span class="p">\</span><span class="nv">g </span><span class="err">-&gt; (hom2 A x x y (id-arr A x) f g))</span>
+</span><span id="__span-24-44"><a id="__codelineno-24-44" name="__codelineno-24-44" href="#__codelineno-24-44"></a><span class="err">      (</span><span class="p">\</span><span class="nv">k </span><span class="err">-&gt; (f = k))</span>
+</span><span id="__span-24-45"><a id="__codelineno-24-45" name="__codelineno-24-45" href="#__codelineno-24-45"></a><span class="err">      (</span><span class="p">\</span><span class="nv">k </span><span class="err">-&gt; (hom2 A x x y (id-arr A x) f k))</span>
 </span><span id="__span-24-46"><a id="__codelineno-24-46" name="__codelineno-24-46" href="#__codelineno-24-46"></a><span class="err">      (homotopy-to-hom2 A x y f)</span>
 </span><span id="__span-24-47"><a id="__codelineno-24-47" name="__codelineno-24-47" href="#__codelineno-24-47"></a><span class="err">      (Segal-homotopy-to-hom2-total-map-is-equiv A AisSegal x y f)</span>
-</span><span id="__span-24-48"><a id="__codelineno-24-48" name="__codelineno-24-48" href="#__codelineno-24-48"></a><span class="err">      g)</span>
+</span><span id="__span-24-48"><a id="__codelineno-24-48" name="__codelineno-24-48" href="#__codelineno-24-48"></a><span class="err">      h)</span>
 </span></code></pre></div>
 <p>A dual notion of homotopy can be defined similarly.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">homotopy-to-hom2&#39;</span>
@@ -1749,15 +1749,15 @@ arrow.</p>
 </span><span id="__span-25-37"><a id="__codelineno-25-37" name="__codelineno-25-37" href="#__codelineno-25-37"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-25-38"><a id="__codelineno-25-38" name="__codelineno-25-38" href="#__codelineno-25-38"></a><span class="err">  </span><span class="p">(</span><span class="nv">AisSegal </span><span class="p">:</span><span class="err"> is-segal A)</span>
 </span><span id="__span-25-39"><a id="__codelineno-25-39" name="__codelineno-25-39" href="#__codelineno-25-39"></a><span class="err">  </span><span class="p">(</span><span class="nv">x y </span><span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-25-40"><a id="__codelineno-25-40" name="__codelineno-25-40" href="#__codelineno-25-40"></a><span class="err">  </span><span class="p">(</span><span class="nv">f g </span><span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-25-41"><a id="__codelineno-25-41" name="__codelineno-25-41" href="#__codelineno-25-41"></a><span class="err">  : Equiv (f = g) (hom2 A x y y f (id-arr A y) g)</span>
-</span><span id="__span-25-42"><a id="__codelineno-25-42" name="__codelineno-25-42" href="#__codelineno-25-42"></a><span class="err">  := (homotopy-to-hom2&#39; A x y f g,</span>
+</span><span id="__span-25-40"><a id="__codelineno-25-40" name="__codelineno-25-40" href="#__codelineno-25-40"></a><span class="err">  </span><span class="p">(</span><span class="nv">f h </span><span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-25-41"><a id="__codelineno-25-41" name="__codelineno-25-41" href="#__codelineno-25-41"></a><span class="err">  : Equiv (f = h) (hom2 A x y y f (id-arr A y) h)</span>
+</span><span id="__span-25-42"><a id="__codelineno-25-42" name="__codelineno-25-42" href="#__codelineno-25-42"></a><span class="err">  := (homotopy-to-hom2&#39; A x y f h,</span>
 </span><span id="__span-25-43"><a id="__codelineno-25-43" name="__codelineno-25-43" href="#__codelineno-25-43"></a><span class="err">    total-equiv-family-of-equiv (hom A x y)</span>
-</span><span id="__span-25-44"><a id="__codelineno-25-44" name="__codelineno-25-44" href="#__codelineno-25-44"></a><span class="err">      (</span><span class="p">\</span><span class="nv">g </span><span class="err">-&gt; (f = g))</span>
-</span><span id="__span-25-45"><a id="__codelineno-25-45" name="__codelineno-25-45" href="#__codelineno-25-45"></a><span class="err">      (</span><span class="p">\</span><span class="nv">g </span><span class="err">-&gt; (hom2 A x y y f (id-arr A y) g))</span>
+</span><span id="__span-25-44"><a id="__codelineno-25-44" name="__codelineno-25-44" href="#__codelineno-25-44"></a><span class="err">      (</span><span class="p">\</span><span class="nv">k </span><span class="err">-&gt; (f = k))</span>
+</span><span id="__span-25-45"><a id="__codelineno-25-45" name="__codelineno-25-45" href="#__codelineno-25-45"></a><span class="err">      (</span><span class="p">\</span><span class="nv">k </span><span class="err">-&gt; (hom2 A x y y f (id-arr A y) k))</span>
 </span><span id="__span-25-46"><a id="__codelineno-25-46" name="__codelineno-25-46" href="#__codelineno-25-46"></a><span class="err">      (homotopy-to-hom2&#39; A x y f)</span>
 </span><span id="__span-25-47"><a id="__codelineno-25-47" name="__codelineno-25-47" href="#__codelineno-25-47"></a><span class="err">      (Segal-homotopy-to-hom2&#39;-total-map-is-equiv A AisSegal x y f)</span>
-</span><span id="__span-25-48"><a id="__codelineno-25-48" name="__codelineno-25-48" href="#__codelineno-25-48"></a><span class="err">      g)</span>
+</span><span id="__span-25-48"><a id="__codelineno-25-48" name="__codelineno-25-48" href="#__codelineno-25-48"></a><span class="err">      h)</span>
 </span></code></pre></div>
 <p>More generally, a homotopy between a composite and another map is equivalent to
 the data provided by a commutative triangle with that boundary.</p>
