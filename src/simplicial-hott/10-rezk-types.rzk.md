@@ -7,7 +7,6 @@ This is a literate `rzk` file:
 ```
 
 ```rzk
-
 #section isomorphisms
 
 #def arrow-has-retraction

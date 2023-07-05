@@ -16,8 +16,7 @@ This is a literate `rzk` file:
 
 ## Commutation of arguments and currying
 
-```rzk
--- [RS17, Theorem 4.1]
+```rzk title="RS17, Theorem 4.1"
 #def flip-ext-fun
   ( I : CUBE)
   ( ψ : I -> TOPE)
@@ -51,8 +50,9 @@ This is a literate `rzk` file:
           \ h -> refl) , -- the retracting homotopy
         ( \ g x t -> g t x , -- the section
           \ g -> refl)))
+```
 
--- [RS17, Theorem 4.2]
+```rzk title="RS17, Theorem 4.2"
 #def curry-uncurry
   ( I J : CUBE)
   ( ψ : I -> TOPE)
@@ -111,8 +111,7 @@ This is a literate `rzk` file:
 
 ## Extending into Σ-types (the non-axiom of choice)
 
-```rzk
--- [RS17, Theorem 4.3]
+```rzk title="RS17, Theorem 4.3"
 #def axiom-choice
   ( I : CUBE)
   ( ψ : I -> TOPE)
@@ -135,8 +134,7 @@ This is a literate `rzk` file:
 
 ## Composites and unions of cofibrations
 
-```rzk
--- [RS17, Theorem 4.4]
+```rzk title="RS17, Theorem 4.4"
 -- Reformulated via tope disjunction instead of inclusion.
 -- See https://github.com/fizruk/rzk/issues/8
 #def cofibration-composition'
@@ -152,8 +150,9 @@ This is a literate `rzk` file:
     ( \ h -> (\ t -> h t , \ t -> h t) ,
       ( ( \ fg t -> (second fg) t , \ h -> refl) ,
         ( \ fg t -> (second fg) t , \ h -> refl)))
+```
 
--- [RS17, Theorem 4.4]
+```rzk title="RS17, Theorem 4.4"
 -- original form
 #def cofibration-composition
   ( I : CUBE)
@@ -170,8 +169,9 @@ This is a literate `rzk` file:
     ( \ h -> (\ t -> h t , \ t -> h t) ,
       ( ( \ fg t -> (second fg) t , \ h -> refl) ,
         ( ( \ fg t -> (second fg) t , \ h -> refl))))
+```
 
--- [RS17, Theorem 4.5]
+```rzk title="RS17, Theorem 4.5"
 #def cofibration_union
   ( I : CUBE)
   ( ϕ ψ : I -> TOPE)
@@ -208,8 +208,9 @@ axiom. Here we state the one that will be most useful and derive an application.
       ( \ t -> refl) ,
       ( g) ,
       ( p))
+```
 
--- [RS17, Proposition 4.8(ii)]
+```rzk title="RS17, Proposition 4.8(ii)"
 -- as suggested by footnote 8, we assert this as an "extension extensionality" axiom
 -- The type that encodes the extension extensionality axiom.
 #def ExtExt

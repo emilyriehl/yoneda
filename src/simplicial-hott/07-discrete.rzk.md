@@ -22,8 +22,7 @@ This is a literate `rzk` file:
 Discrete types are types in which the hom-types are canonically equivalent to
 identity types.
 
-```rzk
--- [RS17, Definition 7.1]
+```rzk title="RS17, Definition 7.1"
 #def arr-eq
   (A : U)             -- A type.
   (x y : A)           -- Two points of type A.
@@ -87,8 +86,9 @@ of discrete types is discrete.
       ( refl) ,
       ( g) ,
       ( h))
+```
 
--- [RS17, Proposition 7.2]
+```rzk title="RS17, Proposition 7.2"
 #def is-discrete-dependent-function-discrete-family
   ( funext : FunExt)
   ( X : U)
@@ -163,8 +163,9 @@ only, extending from BOT, that's all we prove here for now.
       ( refl) ,
       ( g) ,
       ( h))
+```
 
--- [RS17, Proposition 7.2, for extension types]
+```rzk title="RS17, Proposition 7.2, for extension types"
 #def is-discrete-extension-family
   ( extext : ExtExt)
   ( I : CUBE)
@@ -826,8 +827,7 @@ case to the one just proven:
 
 Finally, we conclude:
 
-```rzk
--- [RS17, Proposition 7.3]
+```rzk title="RS17, Proposition 7.3"
 #def is-segal-is-discrete
   ( extext : ExtExt)
   ( A : U)

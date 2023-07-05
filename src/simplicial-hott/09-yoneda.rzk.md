@@ -78,7 +78,6 @@ map makes use of the covariant transport operation.
   (CisCov : isCovFam A C)        -- A covariant family.
     : C a -> ((z : A) -> hom A a z -> C z)
     := \ u z f -> covTrans A a z f C CisCov u
-
 ```
 
 ## The Yoneda composites

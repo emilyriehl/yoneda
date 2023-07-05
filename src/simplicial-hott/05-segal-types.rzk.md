@@ -30,8 +30,7 @@ Extension types are used ∂to define the type of arrows between fixed terms:
   <text x="170" y="30">y</text>
 </svg>
 
-```rzk
--- [RS17, Definition 5.1]
+```rzk title="RS17, Definition 5.1"
 -- The type of arrows in A from x to y.
 #def hom
   (A : U)
@@ -58,8 +57,7 @@ Extension types are also used to define the type of commutative triangles:
   <text x="90" y="110">h</text>
 </svg>
 
-```rzk
--- [RS17, Definition 5.2]
+```rzk title="RS17, Definition 5.2"
 -- the type of commutative triangles in A
 #def hom2
   (A : U)
@@ -81,8 +79,7 @@ A type is Segal if every composable pair of arrows has a unique composite. Note
 this is a considerable simplification of the usual Segal condition, which also
 requires homotopical uniqueness of higher-order composites.
 
-```rzk
--- [RS17, Definition 5.3]
+```rzk title="RS17, Definition 5.3"
 #def is-segal
   (A : U)
   : U
@@ -250,8 +247,9 @@ Now we prove this definition is equivalent to the original one.
           \ k -> refl_{k}) ,
         ( \ khh -> \{t : 2 * 2 | Δ² t} -> (second (second khh)) t ,
           \ k -> refl_{k})))
+```
 
--- [RS17, Theorem 5.5], the hard direction:
+```rzk title="RS17, Theorem 5.5", the hard direction:
 #def Segal-equiv-horn-restriction
   (A : U)
   (AisSegal : is-segal A)
@@ -348,8 +346,9 @@ Now we prove this definition is equivalent to the original one.
             ( equiv-horn-restriction A))
           ( horn-restriction A , is-local-horn-inclusion-A)))
     ( horn A x y z f g)
+```
 
--- [RS17, Theorem 5.5] proves that both notions of Segal types are logically equivalent.
+```rzk title="RS17, Theorem 5.5" proves that both notions of Segal types are logically equivalent.
 #def is-segal-iff-is-local-horn-inclusion
   (A : U)
   : iff (is-segal A) (is-local-horn-inclusion A)
@@ -361,8 +360,8 @@ Now we prove this definition is equivalent to the original one.
 Using the new characterization of Segal types, we can show that the type of
 functions or extensions into a family of Segal types is again a Segal type.
 
-```rzk
--- [RS17, Corollary 5.6(i)] : if X is a type and A : X -> U is such that
+```rzk title="RS17, Corollary 5.6(i)"
+-- If X is a type and A : X -> U is such that
 -- A(x) is a Segal type for all x then (x : X) -> A x is a Segal type
 #def Segal-function-types
   (funext : FunExt)
@@ -396,8 +395,9 @@ functions or extensions into a family of Segal types is again a Segal type.
             X
             (\{t : 2 * 2 | Λ t} -> A)
             (\{t : 2 * 2 | BOT} -> recBOT)))
+```
 
--- [RS17, Corollary 5.6(ii)] : if X is a shape and A : X -> U is such that
+```rzk title="RS17, Corollary 5.6(ii)" : if X is a shape and A : X -> U is such that
 -- A(x) is a Segal type for all x then (x : X) -> A x is a Segal type
 #def Segal-extension-types
   (extext : ExtExt)
@@ -494,8 +494,7 @@ All types have identity arrows and witnesses to the identity composition law.
   <text x="100" y="15" fill="red">x</text>
 </svg>
 
-```rzk
--- [RS17, Definition 5.7]
+```rzk title="RS17, Definition 5.7"
 -- all types have identity arrows
 #def id-arr
   (A : U)
@@ -520,8 +519,7 @@ Witness for the right identity law:
   <text x="125" y="75" stroke="red" fill="red">f</text>
 </svg>
 
-```rzk
--- [RS17, Proposition 5.8a]
+```rzk title="RS17, Proposition 5.8a"
 -- the right unit law for identity
 #def comp-id-witness
   (A : U)
@@ -547,8 +545,7 @@ Witness for the left identity law:
   <text x="125" y="75" stroke="red" fill="red">f</text>
 </svg>
 
-```rzk
--- [RS17, Proposition 5.8b]
+```rzk title="RS17, Proposition 5.8b"
 -- the left unit law for identity
 #def id-comp-witness
   (A : U)
@@ -978,8 +975,9 @@ arrow.
         (is-contr-based-paths (hom A x y) f)
         (AisSegal x x y (id-arr A x) f)
         (homotopy-to-hom2-total-map A x y f)
+```
 
--- [RS17, Proposition 5.10]
+```rzk title="RS17, Proposition 5.10"
 #def Eq-Segal-homotopy-hom2
   (A : U)
   (AisSegal : is-segal A)
@@ -1033,8 +1031,9 @@ A dual notion of homotopy can be defined similarly.
         (is-contr-based-paths (hom A x y) f)
         (AisSegal x y y f (id-arr A y))
         (homotopy-to-hom2'-total-map A x y f)
+```
 
--- [RS17, Proposition 5.10]
+```rzk title="RS17, Proposition 5.10"
 #def Eq-Segal-homotopy-hom2'
   (A : U)
   (AisSegal : is-segal A)
@@ -1095,8 +1094,9 @@ the data provided by a commutative triangle with that boundary.
         (is-contr-based-paths (hom A x z) (Segal-comp A AisSegal x y z f g) )
         (AisSegal x y z f g)
         (Segal-eq-to-hom2-total-map A AisSegal x y z f g)
+```
 
--- [RS17, Proposition 5.12]
+```rzk title="RS17, Proposition 5.12"
 #def Eq-Segal-eq-hom2
   (A : U)
   (AisSegal : is-segal A)
@@ -1117,8 +1117,7 @@ the data provided by a commutative triangle with that boundary.
 Homotopies form a congruence, meaning that homotopies are respected by
 composition:
 
-```rzk
--- [RS17, Proposition 5.13]
+```rzk title="RS17, Proposition 5.13"
 #def Segal-homotopy-congruence
   (A : U)
   (AisSegal : is-segal A)
@@ -1153,8 +1152,9 @@ composition:
   (p : f = g)
   : (Segal-comp A AisSegal w x y k f) = (Segal-comp A AisSegal w x y k g)
   := Segal-homotopy-congruence A AisSegal w x y k k f g refl p
+```
 
--- [RS17, Proposition 5.14(a)]
+```rzk title="RS17, Proposition 5.14(a)"
 #def Segal-homotopy-postwhisker-is-ap
   (A : U)
   (AisSegal : is-segal A)
@@ -1166,8 +1166,9 @@ composition:
     ap (hom A x y) (hom A x z) f g (\ k -> Segal-comp A AisSegal x y z k h) p
   := idJ (hom A x y , f , \ g' p' -> (Segal-homotopy-postwhisker A AisSegal x y z f g' h p') =
     ap (hom A x y) (hom A x z) f g' (\ k -> Segal-comp A AisSegal x y z k h) p' , refl , g , p)
+```
 
--- [RS17, Proposition 5.14(b)]
+```rzk title="RS17, Proposition 5.14(b)"
 #def Segal-homotopy-prewhisker-is-ap
   (A : U)
   (AisSegal : is-segal A)

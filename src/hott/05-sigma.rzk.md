@@ -67,16 +67,18 @@ This is a literate `rzk` file:
       ( refl) ,
       ( t) ,
       ( e))
+```
 
--- [Rijke 22, Definition 9.3.1]
+```rzk title="Rijke 22, Definition 9.3.1"
 #def Eq-Σ
   ( s t : Σ (a : A) , B a)
   : U
   :=
     Σ ( p : (first s) = (first t)) ,
       ( transport A B (first s) (first t) p (second s)) = (second t)
+```
 
--- [Rijke 22, Definition 9.3.3]
+```rzk title="Rijke 22, Definition 9.3.3"
 #def pair-eq
   ( s t : Σ (a : A) , B a)
   ( e : s = t)

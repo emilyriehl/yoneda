@@ -109,7 +109,6 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
 A type is contractible if and only if its terminal map is an equivalence.
 
 ```rzk
-
 #def terminal-map-is-equiv
   (A : U)
   : U

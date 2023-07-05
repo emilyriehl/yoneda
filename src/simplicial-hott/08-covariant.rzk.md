@@ -22,8 +22,7 @@ This is a literate `rzk` file:
 In a type family over a base type, there is a dependent hom type of arrows that
 live over a specified arrow in the base type.
 
-```rzk
--- [RS17, Section 8 Prelim]
+```rzk title="RS17, Section 8 Prelim"
 -- The type of dependent arrows in C over f from u to v
 #def dhom
   (A : U)            -- The base type.
@@ -82,8 +81,7 @@ triangle.
 A family of types over a base type is covariant if every arrow in the base has a
 unique lift with specified domain.
 
-```rzk
--- [RS17, Definition 8.2]
+```rzk title="RS17, Definition 8.2"
 #def isCovFam
   (A : U)
   (C : A -> U)
@@ -328,8 +326,7 @@ Now we introduce the hypothesis that A is Segal type.
 
 Finally, we see that covariant hom families in a Segal type are covariant.
 
-```rzk
--- [RS17, Proposition 8.13(<-)]
+```rzk title="RS17, Proposition 8.13(<-)"
 #def is-segal-representable-isCovFam
   (A : U)
   (AisSegal : is-segal A)
@@ -342,8 +339,7 @@ The proof of the claimed converse result given in the original source is
 circular - using Proposition 5.10, which holds only for Segal types - so instead
 we argue as follows:
 
-```rzk
--- [RS17, Proposition 8.13(->)]
+```rzk title="RS17, Proposition 8.13(->)"
 #def representable-isCovFam-is-segal
   (A : U)
   (repiscovfam : (a : A) -> isCovFam A (\ x -> hom A a x))
@@ -541,8 +537,7 @@ types as follows.
 In a covariant family C over a base type A , a term u : C x may be transported
 along an arrow f : hom A x y to give a term in C y.
 
-```rzk
--- [RS17, covariant transport from beginning of Section 8.2]
+```rzk title="RS17, covariant transport from beginning of Section 8.2"
 #def covTrans
   (A : U)
   (x y : A)
@@ -552,8 +547,9 @@ along an arrow f : hom A x y to give a term in C y.
   (u : C x)
    : C y
    := first (contraction-center (dhomFrom A x y f C u) (CisCov x y f u))
+```
 
--- [RS17, covariant lift from beginning of Section 8.2]
+```rzk title="RS17, covariant lift from beginning of Section 8.2"
 #def covLift
   (A : U)
   (x y : A)
@@ -595,8 +591,9 @@ transport law.
   (u : C x)
   : dhom A x x (id-arr A x) C u u
   := \ t -> u
+```
 
--- [RS17, Proposition 8.16, Part 2]
+```rzk title="RS17, Proposition 8.16, Part 2"
 -- Covariant families preserve identities
 #def covPresId
    (A : U)
@@ -613,8 +610,7 @@ transport law.
 A fiberwise map between covariant families is automatically "natural" commuting
 with the covariant lifts.
 
-```rzk
--- [RS17, Proposition 8.17]
+```rzk title="RS17, Proposition 8.17"
 -- Covariant naturality
 #def covariant-fiberwise-transformation-application
   (A : U)
@@ -656,9 +652,9 @@ has a unique lift with specified codomain.
   (v : C y)          -- A lift of the domain.
   : U
      := (Σ (u : C x) , dhom A x y f C u v)
+```
 
-
--- [RS17, Definition 8.2, dual form]
+```rzk title="RS17, Definition 8.2, dual form"
 #def isContraFam
   (A : U)
   (C : A -> U)
@@ -872,8 +868,7 @@ Now we introduce the hypothesis that A is Segal type.
 Finally, we see that contravariant hom families in a Segal type are
 contravariant.
 
-```rzk
--- [RS17, Proposition 8.13(<-), dual]
+```rzk title="RS17, Proposition 8.13(<-), dual"
 #def is-segal-representable-isContraFam
   (A : U)
   (AisSegal : is-segal A)
@@ -886,8 +881,7 @@ The proof of the claimed converse result given in the original source is
 circular - using Proposition 5.10, which holds only for Segal types - so instead
 we argue as follows:
 
-```rzk
--- [RS17, Proposition 8.13(->), dual]
+```rzk title="RS17, Proposition 8.13(->), dual"
 #def representable-isContraFam-is-segal
   (A : U)
   (repiscontrafam : (a : A) -> isContraFam A (\ x -> hom A x a))
@@ -918,8 +912,7 @@ we argue as follows:
 In a contravariant family C over a base type A, a term v : C y may be
 transported along an arrow f : hom A x y to give a term in C x.
 
-```rzk
--- [RS17, contravariant transport from beginning of Section 8.2]
+```rzk title="RS17, contravariant transport from beginning of Section 8.2"
 #def contraTrans
   (A : U)
   (x y : A)
@@ -929,8 +922,9 @@ transported along an arrow f : hom A x y to give a term in C x.
   (v : C y)
    : C x
    := first (contraction-center (dhomTo A x y f C v) (CisContra x y f v))
+```
 
--- [RS17, contravariant lift from beginning of Section 8.2]
+```rzk title="RS17, contravariant lift from beginning of Section 8.2"
 #def contraLift
   (A : U)
   (x y : A)
@@ -964,8 +958,7 @@ The contravariant transport operation defines a comtravariantly functorial
 action of arrows in the base on terms in the fibers. In particular, there is an
 identity transport law.
 
-```rzk
--- [RS17, Proposition 8.16, Part 2, dual]
+```rzk title="RS17, Proposition 8.16, Part 2, dual"
 -- Comtravariant families preserve identities
 #def contraPresId
    (A : U)
@@ -982,8 +975,7 @@ identity transport law.
 A fiberwise map between contrvariant families is automatically "natural"
 commuting with the contravariant lifts.
 
-```rzk
--- [RS17, Proposition 8.17, dual]
+```rzk title="RS17, Proposition 8.17, dual"
 -- Contravariant naturality
 #def contravariant-fiberwise-transformation-application
   (A : U)

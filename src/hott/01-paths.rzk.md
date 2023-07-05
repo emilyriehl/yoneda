@@ -9,12 +9,10 @@ This is a literate `rzk` file:
 ## Some basic path algebra
 
 ```rzk
-
 #section path-algebra
 
 #variable A : U
 #variables x y z : A
-
 ```
 
 ### Path reversal

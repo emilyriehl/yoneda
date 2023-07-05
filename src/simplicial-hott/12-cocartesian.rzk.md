@@ -56,8 +56,7 @@ Here we define the proposition that a dependent arrow in a family is
 cocartesian. This is an alternative version using unpacked extension types, as
 this is preferred for usage.
 
-```rzk
--- [BW23, Definition 5.1.1]
+```rzk title="BW23, Definition 5.1.1"
 #def isCocartArr
   (B : U)
   (b b' : B)
@@ -76,7 +75,6 @@ this is preferred for usage.
   -> is-contr
       ( Σ ( g : dhom B b' b'' v P e' e'') ,
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
-
 ```
 
 ## Cocartesian lifts
@@ -84,8 +82,7 @@ this is preferred for usage.
 The following is the type of cocartesian lifts of a fixed arrow in the base with
 a given starting point in the fiber.
 
-```rzk
--- [BW23, Definition 5.1.2]
+```rzk title="BW23, Definition 5.1.2"
 #def CocartLift
     (B : U)
     (b b' : B)
@@ -94,7 +91,6 @@ a given starting point in the fiber.
     (e : P b)
     : U
     := Σ (e' : P b') , Σ (f : dhom B b b' u P e e') , isCocartArr B b b' u P e e' f
-
 ```
 
 #def cocart-is-prop (B : U) (Bis-rezk : is-rezk B) (b b' : B) (u : hom B b b')

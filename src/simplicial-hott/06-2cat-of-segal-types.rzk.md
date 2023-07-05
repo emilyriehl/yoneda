@@ -20,8 +20,7 @@ This is a literate `rzk` file:
 Functions between types induce an action on hom types , preserving sources and
 targets.
 
-```rzk
--- [RS17, Section 6.1]
+```rzk title="RS17, Section 6.1"
 -- Action of maps on homs. Called "ap-hom" to avoid conflicting with "ap".
 #def ap-hom
   (A B : U)
@@ -46,8 +45,7 @@ targets.
 
 Functions between types automatically preserve identity arrows.
 
-```rzk
--- [RS17, Proposition 6.1.a]
+```rzk title="RS17, Proposition 6.1.a"
 -- Preservation of identities follows from extension extensionality because these arrows are pointwise equal.
 #def functors-pres-id
   (extext : ExtExt)
@@ -67,8 +65,9 @@ Functions between types automatically preserve identity arrows.
       (ap-hom A B F x x (id-arr A x))
       (id-arr B (F x))
       (\ t -> refl)
+```
 
--- [RS17, Proposition 6.1.b]
+```rzk title="RS17, Proposition 6.1.b"
 -- Preservation of composition requires the Segal hypothesis.
 #def functors-pres-comp
   (A B : U)
@@ -144,8 +143,7 @@ Equivalently , natural transformations can be determined by their **components**
 
 ### Natural transformation extensionality
 
-```rzk
--- [RS17, Proposition 6.3]
+```rzk title="RS17, Proposition 6.3"
 #def is-equiv-ev-components-nat-trans
   (A : U)
   (B : A -> U)
@@ -229,8 +227,7 @@ Segal types.
 
 The identity natural transformation is identity arrows on components
 
-```rzk
--- [RS17, Proposition 6.5(ii)]
+```rzk title="RS17, Proposition 6.5(ii)"
 #def id-arr-components-id-nat-trans
   (A : U)
   (B : A -> U)
