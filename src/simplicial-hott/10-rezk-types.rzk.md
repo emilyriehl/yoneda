@@ -96,10 +96,10 @@ This is a literate `rzk` file:
 
                 (Segal-comp A AisSegal y y x (Segal-comp A AisSegal y x y h f) g) -- a2 = g o (f o h)
                 (Segal-homotopy-postwhisker A AisSegal y y x                      -- p2 = postwhiskering
-				(id-arr A y)
-				(Segal-comp A AisSegal y x y h f)
-				g
-				(rev (hom A y y) (Segal-comp A AisSegal y x y h f) (id-arr A y) q)
+        (id-arr A y)
+        (Segal-comp A AisSegal y x y h f)
+        g
+        (rev (hom A y y) (Segal-comp A AisSegal y x y h f) (id-arr A y) q)
                 )
 
                 (Segal-comp A AisSegal y x x h (Segal-comp A AisSegal x y x f g)) -- a3 = (g o f) o h

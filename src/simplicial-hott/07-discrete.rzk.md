@@ -355,9 +355,9 @@ Discrete types are automatically Segal types.
         ( prod-transport A A (hom A) x z' y w p' q f = g) ->
         ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
           [ ((t === 0_2) /\ Δ¹ s) |-> f s ,
-						((t === 1_2) /\ Δ¹ s) |-> g s ,
-						(Δ¹ t /\ (s === 0_2)) |-> (arr-eq A x z' p') t ,
-						(Δ¹ t /\ (s === 1_2)) |-> (arr-eq A y w q) t ])) ,
+            ((t === 1_2) /\ Δ¹ s) |-> g s ,
+            (Δ¹ t /\ (s === 0_2)) |-> (arr-eq A x z' p') t ,
+            (Δ¹ t /\ (s === 1_2)) |-> (arr-eq A y w q) t ])) ,
       ( idJ
         ( ( A) ,
           ( y) ,
