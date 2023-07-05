@@ -127,7 +127,7 @@ A type is contractible if and only if its terminal map is an equivalence.
   (A : U)
   (AisContr : is-contr A)
   : has-section A Unit (terminal-map A)
-  :=  (constant Unit A (contraction-center A AisContr) , \ z -> refl)
+  := (constant Unit A (contraction-center A AisContr) , \ z -> refl)
 
 #def contr-implies-terminal-map-is-equiv
   (A : U)
@@ -467,5 +467,5 @@ A type is contractible if and only if it has singleton induction.
   (a : A)
   (f : has-singleton-induction-pointed-structure A a)
   : (is-contr A)
-  := (  a , (first (f (  \ x -> a = x))) (refl_{a}))
+  := ( \ x -> a = x))) (refl_{a}))
 ```

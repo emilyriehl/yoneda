@@ -182,17 +182,17 @@ This is a literate `rzk` file:
 
 -- Cancelling the path (H a) on the right and reversing yields a path we need:
 #def cocone-naturality-coherence
-  : (H (f a)) = (ap A A (f a) a  f (H a))
+  : (H (f a)) = (ap A A (f a) a f (H a))
   :=
     rev
       ( f (f a) = f a)
-      ( ap A A (f a) a  f (H a)) (H (f a))
+      ( ap A A (f a) a f (H a)) (H (f a))
       ( concat-right-cancel
         ( A)
         ( f (f a))
         ( f a)
         ( a)
-        ( ap A A (f a) a  f (H a))
+        ( ap A A (f a) a f (H a))
         ( H (f a))
         ( H a)
         ( reduced-cocone-naturality))

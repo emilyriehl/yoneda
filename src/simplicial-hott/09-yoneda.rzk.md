@@ -73,7 +73,7 @@ map makes use of the covariant transport operation.
 #def yon
     (A : U)                 			-- The ambient type.
     (AisSegal : is-segal A)  			-- A proof that A is Segal.
-    (a  : A)               				-- The representing object.
+    (a : A)               				-- The representing object.
 	(C : A -> U)						-- A type family.
 	(CisCov : isCovFam A C)				-- A covariant family.
     : C a -> ((z : A) -> hom A a z -> C z)
@@ -90,7 +90,7 @@ It remains to show that the Yoneda maps are inverses.
 #def evid-yon
     (A : U)                 			-- The ambient type.
     (AisSegal : is-segal A)  			-- A proof that A is Segal.
-    (a  : A)               				-- The representing object.
+    (a : A)               				-- The representing object.
 	(C : A -> U)						-- A type family.
 	(CisCov : isCovFam A C)				-- A covariant family.
 	(u : C a)
@@ -166,7 +166,7 @@ The Yoneda lemma says that evaluation at the identity defines an equivalence.
     (funext : FunExt)
     (A : U)                 				-- The ambient type.
     (AisSegal : is-segal A)  				-- A proof that A is Segal.
-    (a  : A)               					-- The representing object.
+    (a : A)               					-- The representing object.
 	(C : A -> U)							-- A type family.
 	(CisCov : isCovFam A C)					-- A covariant family.
     : is-equiv ((z : A) -> hom A a z -> C z) (C a) (evid A a C)
@@ -240,7 +240,7 @@ It remains to show that the Yoneda maps are inverses.
 #def contra-evid-yon
     (A : U)                 			-- The ambient type.
     (AisSegal : is-segal A)  			-- A proof that A is Segal.
-    (a  : A)               				-- The representing object.
+    (a : A)               				-- The representing object.
 	  (C : A -> U)						-- A type family.
 	  (CisContra : isContraFam A C)				-- A contravariant family.
 	  (v : C a)
@@ -317,7 +317,7 @@ equivalence.
     (funext : FunExt)
     (A : U)                 				-- The ambient type.
     (AisSegal : is-segal A)  				-- A proof that A is Segal.
-    (a  : A)               					-- The representing object.
+    (a : A)               					-- The representing object.
 	  (C : A -> U)							      -- A type family.
 	  (CisContra : isContraFam A C)		-- A contravariant family.
     : is-equiv ((z : A) -> hom A z a -> C z) (C a) (contra-evid A a C)

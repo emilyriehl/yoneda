@@ -472,7 +472,7 @@ this homotopy is straightforward.
             ( has-inverse-inverse A B f (first fisHAE))
             ( second z))
           ( rev-ap-rev B A (f (first z)) b
-            ( has-inverse-inverse A B f (first fisHAE))  (second z))))
+            ( has-inverse-inverse A B f (first fisHAE)) (second z))))
       ( (second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-ap-ap-calculation
@@ -1068,7 +1068,7 @@ this homotopy is straightforward.
         ( f ((has-inverse-inverse A B f (first fisHAE)) b))
         ( b)
         ( ap B B
-          ( f (first z)) (  b)
+          ( f (first z)) ( b)
           ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
           ( second z))
         ( (second (second (first fisHAE))) b)))

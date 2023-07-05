@@ -60,13 +60,13 @@ Functions between types automatically preserve identity arrows.
       2
       Δ¹
       ∂Δ¹
-      (\  t -> B)
-      (\  t -> recOR
+      (\ t -> B)
+      (\ t -> recOR
       ( t === 0_2 |-> F x ,
         t === 1_2 |-> F x))
       (ap-hom A B F x x (id-arr A x))
       (id-arr B (F x))
-      (\  t -> refl)
+      (\ t -> refl)
 
 -- [RS17, Proposition 6.1.b]
 -- Preservation of composition requires the Segal hypothesis.

@@ -325,7 +325,7 @@ This is a literate `rzk` file:
    : (is-prop (arrow-is-iso A AisSegal x y f))
   := (is-prop-is-contr-is-inhabited (arrow-is-iso A AisSegal x y f)
       (\ is-isof -> (iso-inhabited-implies-iso-contr extext A AisSegal x y f (first (first is-isof)) (second (first is-isof))
-        (first (second is-isof))  (second (second is-isof))))
+        (first (second is-isof)) (second (second is-isof))))
     )
 
 #def id-iso

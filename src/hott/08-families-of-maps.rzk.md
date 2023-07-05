@@ -742,7 +742,7 @@ types over a product type.
 
 #def total-map-fibered-map-over-product
   : (Σ (a : A) , (Σ (b : B) , C a b)) -> (Σ (a' : A') , (Σ (b' : B') , C' a' b'))
-  := \  (a , (b , c)) -> (f a , (g b , h a b c))
+  := \ (a , (b , c)) -> (f a , (g b , h a b c))
 
 #def pullback-is-equiv-base-is-equiv-total-is-equiv
   (totalisequiv : is-equiv

@@ -120,7 +120,7 @@ This is a literate `rzk` file:
           ( homotopic-inverses-is-equiv A B f fisequiv)
           ( f))
         ( second (first fisequiv)) ,
-      ( second (second  fisequiv))))
+      ( second (second fisequiv))))
 ```
 
 ## Invertible map data
@@ -166,7 +166,7 @@ The type of equivalences between types uses is-equiv rather than has-inverse.
 #def Equiv
   (A B : U)
   : U
-  :=  Σ (f : A -> B) , ((is-equiv A) B) f
+  := Σ (f : A -> B) , ((is-equiv A) B) f
 ```
 
 The data of an equivalence is not symmetric so we promote an equivalence to an

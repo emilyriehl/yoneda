@@ -71,7 +71,7 @@ Extension types are also used to define the type of commutative triangles:
   := { (t1 , t2) : Δ² } -> A [   -- in A where
     t2 === 0_2 |-> f t1 ,        -- * the top edge is exactly f,
     t1 === 1_2 |-> g t2 ,        -- * the right edge is exactly g, and
-    t2 === t1  |-> h t2         -- * the diagonal is exactly h
+    t2 === t1 |-> h t2         -- * the diagonal is exactly h
   ]
 ```
 
@@ -202,7 +202,7 @@ map, defined below, is an equivalence.
 -- The underlying horn of a simplex
 #def horn-restriction (A : U)
   : (Δ² -> A) -> (Λ -> A)
-  :=  \ f t -> f t
+  := \ f t -> f t
 
 -- An alternate definition of Segal types.
 #def is-local-horn-inclusion (A : U) : U
@@ -398,7 +398,7 @@ functions or extensions into a family of Segal types is again a Segal type.
           (second (fibered-Eq-extension-Equiv extext I ψ
             (\{s : I | ψ s} -> <{t : 2 * 2 | Δ² t} -> A s >)
             (\{s : I | ψ s} -> <{t : 2 * 2 | Λ t} -> A s >)
-            (\{s : I | ψ s} -> (horn-restriction (A s) , fiberwiseAisSegal s))     ))
+            (\{s : I | ψ s} -> (horn-restriction (A s) , fiberwiseAisSegal s)) ))
         (\ h -> \{t : 2 * 2 | Λ t} -> \{s : I | ψ s} -> (h s) t) -- third equivalence
           (second (fubini
             I
