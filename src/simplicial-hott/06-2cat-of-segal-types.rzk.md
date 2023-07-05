@@ -1,6 +1,6 @@
 # The 2-category of Segal types
 
-These formalisations correspond to Section 6 of RS17 paper.
+These formalisations correspond to Section 6 of the RS17 paper.
 
 This is a literate `rzk` file:
 
@@ -17,11 +17,10 @@ This is a literate `rzk` file:
 
 ## Functors
 
-Functions between types induce an action on hom types, preserving sources and
+Functions between types induce an action on hom types , preserving sources and
 targets.
 
-```rzk
--- [RS17, Section 6.1]
+```rzk title="RS17, Section 6.1"
 -- Action of maps on homs. Called "ap-hom" to avoid conflicting with "ap".
 #def ap-hom
   (A B : U)
@@ -46,8 +45,7 @@ targets.
 
 Functions between types automatically preserve identity arrows.
 
-```rzk
--- [RS17, Proposition 6.1.a]
+```rzk title="RS17, Proposition 6.1.a"
 -- Preservation of identities follows from extension extensionality because these arrows are pointwise equal.
 #def functors-pres-id
   (extext : ExtExt)
@@ -60,47 +58,48 @@ Functions between types automatically preserve identity arrows.
       2
       Δ¹
       ∂Δ¹
-      (\  t -> B)
-      (\  t -> recOR(
-        t === 0_2 |-> F x,
+      (\ t -> B)
+      (\ t -> recOR
+      ( t === 0_2 |-> F x ,
         t === 1_2 |-> F x))
       (ap-hom A B F x x (id-arr A x))
       (id-arr B (F x))
-      (\  t -> refl)
+      (\ t -> refl)
+```
 
--- [RS17, Proposition 6.1.b]
+```rzk title="RS17, Proposition 6.1.b"
 -- Preservation of composition requires the Segal hypothesis.
 #def functors-pres-comp
   (A B : U)
-  (AisSegal : is-segal A)
-  (BisSegal : is-segal B)
+  (is-segal-A : is-segal A)
+  (is-segal-B : is-segal B)
   (F : A -> B)
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
   :
-    ( Segal-comp B BisSegal
+    ( Segal-comp B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g))
     =
-    ( ap-hom A B F x z (Segal-comp A AisSegal x y z f g))
+    ( ap-hom A B F x z (Segal-comp A is-segal-A x y z f g))
   :=
-    Segal-comp-uniqueness B BisSegal
+    Segal-comp-uniqueness B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g)
-      ( ap-hom A B F x z (Segal-comp A AisSegal x y z f g))
+      ( ap-hom A B F x z (Segal-comp A is-segal-A x y z f g))
       ( ap-hom2 A B F x y z f g
-        ( Segal-comp A AisSegal x y z f g)
-        ( Segal-comp-witness A AisSegal x y z f g))
+        ( Segal-comp A is-segal-A x y z f g)
+        ( Segal-comp-witness A is-segal-A x y z f g))
 ```
 
 ## Natural transformations
 
 This corresponds to Section 6.2 in [RS17].
 
-Given two simplicial maps `f g : (x : A) -> B x`, a **natural transformation**
+Given two simplicial maps `f g : (x : A) -> B x` , a **natural transformation**
 from `f` to `g` is an arrow `η : hom ((x : A) -> B x) f g` between them.
 
 ```rzk
@@ -112,8 +111,8 @@ from `f` to `g` is an arrow `η : hom ((x : A) -> B x) f g` between them.
   := hom ((x : A) -> (B x)) f g
 ```
 
-Equivalently, natural transformations can be determined by their **components**,
-i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
+Equivalently , natural transformations can be determined by their **components**
+, i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
 
 ```rzk
 #def nat-trans-components
@@ -144,8 +143,7 @@ i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
 
 ### Natural transformation extensionality
 
-```rzk
--- [RS17, Proposition 6.3]
+```rzk title="RS17, Proposition 6.3"
 #def is-equiv-ev-components-nat-trans
   (A : U)
   (B : A -> U)
@@ -171,7 +169,7 @@ i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
 ### Horizontal composition
 
 Horizontal composition of natural transformations makes sense over any type. In
-particular, contrary to what is written in [RS17] we do not need `C` to be
+particular , contrary to what is written in [RS17] we do not need `C` to be
 Segal.
 
 ```rzk
@@ -203,24 +201,24 @@ Segal types.
 #def vertical-comp-nat-trans-components
   (A : U)
   (B : A -> U)
-  (BisSegal : (x : A) -> is-segal (B x))
+  (is-segal-B : (x : A) -> is-segal (B x))
   (f g h : (x : A) -> (B x))
   (η : nat-trans-components A B f g)
   (η' : nat-trans-components A B g h)
   : nat-trans-components A B f h
-  := \ x -> Segal-comp (B x) (BisSegal x) (f x) (g x) (h x) (η x) (η' x)
+  := \ x -> Segal-comp (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
 
 #def vertical-comp-nat-trans
   (A : U)
   (B : A -> U)
-  (BisSegal : (x : A) -> is-segal (B x))
+  (is-segal-B : (x : A) -> is-segal (B x))
   (f g h : (x : A) -> (B x))
   (η : nat-trans A B f g)
   (η' : nat-trans A B g h)
   : nat-trans A B f h
   :=
     \ t x ->
-    vertical-comp-nat-trans-components A B BisSegal f g h
+    vertical-comp-nat-trans-components A B is-segal-B f g h
       ( \ x' t' -> η t' x')
       ( \ x' t' -> η' t' x')
       ( x)
@@ -229,8 +227,7 @@ Segal types.
 
 The identity natural transformation is identity arrows on components
 
-```rzk
--- [RS17, Proposition 6.5(ii)]
+```rzk title="RS17, Proposition 6.5(ii)"
 #def id-arr-components-id-nat-trans
   (A : U)
   (B : A -> U)

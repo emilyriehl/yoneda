@@ -9,16 +9,19 @@ This is a literate `rzk` file:
 ## products of types
 
 ```rzk
-#def prod
-  (A B : U)
+#def product
+  ( A B : U)
   : U
-  := ∑ (x : A), B
+  := Σ (x : A) , B
+```
 
--- defined to illustrate the syntax for terms in sigma types
+The following demonstrates the syntax for constructing terms in Sigma types:
+
+```rzk
 #def diagonal
-  (A : U)
-  (a : A)
-  : prod A A
+  ( A : U)
+  ( a : A)
+  : product A A
   := (a , a)
 ```
 
@@ -26,9 +29,9 @@ This is a literate `rzk` file:
 
 ```rzk
 #def iff
-  (A B : U)
+  ( A B : U)
   : U
-  := prod (A -> B) (B -> A)
+  := product (A -> B) (B -> A)
 ```
 
 ## Basic function definitions
@@ -39,15 +42,15 @@ This is a literate `rzk` file:
 #variables A B C D : U
 
 #def composition
-  (g : B -> C)    -- The second function.
-  (f : A -> B)    -- The first function.
-  : A -> C        -- The composite function.
+  ( g : B -> C)
+  ( f : A -> B)
+  : A -> C
   := \ z -> g (f z)
 
 #def triple-composition
-  (h : C -> D)
-  (g : B -> C)
-  (f : A -> B)
+  ( h : C -> D)
+  ( g : B -> C)
+  ( f : A -> B)
   : A -> D
   := \ z -> h (g (f z))
 
@@ -56,20 +59,22 @@ This is a literate `rzk` file:
   := \ a -> a
 
 #def constant
-  (b : B)         -- The constant output value.
+  ( b : B)
   : A -> B
   := \ a -> b
+
 #end basic-functions
 ```
 
 ## Substitution
 
+### Reindexing a type family along a function into the base type
+
 ```rzk
--- Reindexing a type family along a function into the base type.
 #def reindex
-  (A B : U)
-  (f : B -> A)
-  (C : A -> U)
-  : (B -> U)
+  ( A B : U)
+  ( f : B -> A)
+  ( C : A -> U)
+  : B -> U
   := \ b -> C (f b)
 ```

@@ -1,6 +1,6 @@
 # 3. Simplicial Type Theory
 
-These formalisations correspond in part to Section 3 of RS17 paper.
+These formalisations correspond in part to Section 3 of the RS17 paper.
 
 This is a literate `rzk` file:
 
@@ -19,11 +19,11 @@ This is a literate `rzk` file:
 
 -- the 2-simplex
 #def Δ² : (2 * 2) -> TOPE
-  := \ (t, s) -> s <= t
+  := \ (t , s) -> s <= t
 
 -- the 3-simplex
 #def Δ³ : (2 * 2 * 2) -> TOPE
-  := \ ((t1, t2), t3) -> t3 <= t2 /\ t2 <= t1
+  := \ ((t1 , t2) , t3) -> t3 <= t2 /\ t2 <= t1
 ```
 
 ### Boundaries of simplices
@@ -41,13 +41,14 @@ This is a literate `rzk` file:
 
 ### Horns
 
+#### The $(2,1)$-horn
+
 ```rzk
--- the (2,1)-horn
 #def Λ : (2 * 2) -> TOPE
-  := \ (t, s) -> (s === 0_2 \/ t === 1_2)
+  := \ (t , s) -> (s === 0_2 \/ t === 1_2)
 ```
 
-### products
+### Products
 
 The product of topes defines the product of shapes.
 
@@ -57,7 +58,7 @@ The product of topes defines the product of shapes.
   (ψ : I -> TOPE)
   (χ : J -> TOPE)
   : (I * J) -> TOPE
-  := \ (t, s) -> ψ t /\ χ s
+  := \ (t , s) -> ψ t /\ χ s
 
 -- the square as a product
 #def Δ¹×Δ¹ : (2 * 2) -> TOPE
