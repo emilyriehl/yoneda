@@ -40,7 +40,7 @@ non-univalent 1-categories in HoTT.
 
 ## Checking the Formalisations Locally
 
-Install [`rzk`](https://github.com/fizruk/rzk) proof assistant. Then run the
+Install the [`rzk`](https://github.com/fizruk/rzk) proof assistant. Then run the
 following command from the root of this repository:
 
 ```sh
