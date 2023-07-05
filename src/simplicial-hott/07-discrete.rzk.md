@@ -84,7 +84,7 @@ of discrete types is discrete.
       \ g' h' ->
         arr-eq ((x : X) -> A x) f g' h' =
         (first (equiv-discrete-family funext X A Aisdiscrete f g')) h' ,
-      refl,
+      refl ,
       g ,
       h)
 
@@ -159,7 +159,7 @@ only, extending from BOT, that's all we prove here for now.
       \ g' h' ->
         arr-eq ((t : ψ) -> A t) f g' h' =
         (first (Eq-discrete-extension extext I ψ A Aisdiscrete f g')) h' ,
-      refl,
+      refl ,
       g ,
       h)
 
@@ -225,7 +225,7 @@ Discrete types are automatically Segal types.
 										(Δ¹ t /\  (s === 0_2)) |-> h t ,
 										(Δ¹ t /\  (s === 1_2)) |-> k t ]>)))
   :=
-    ( \ α -> (\ t -> α t 0_2, (\ t -> α t 1_2, \ (t , s) -> α t s)) ,
+    ( \ α -> (\ t -> α t 0_2 , (\ t -> α t 1_2 , \ (t , s) -> α t s)) ,
       ( ( \ σ -> \ t -> \ s -> (second (second σ)) (t , s) ,
         \ α -> refl ) ,
         ( \ σ -> \ t -> \ s -> (second (second σ)) (t , s) ,
@@ -234,7 +234,7 @@ Discrete types are automatically Segal types.
 -- The equivalence underlying Eq-arr.
 #def fibered-arr-free-arr
   : (arr A) -> (Σ (x : A) , (Σ (y : A) , hom A x y))
-  := \ k -> (k 0_2, (k 1_2, k))
+  := \ k -> (k 0_2 , (k 1_2 , k))
 
 #def id-equiv-Eq-arr uses (w x y z)
   : is-equiv
@@ -419,18 +419,18 @@ Discrete types are automatically Segal types.
   (f g : hom A x y)
   (τ : prod-transport A A (\ a b -> hom A a b) x x y y refl refl f = g)
   : (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y x y f g))
-          (refl, (refl, τ)) =
-    (square-sigma-over-prod extext A Aisdiscrete x y x y f g) (refl, (refl, τ))
+          (refl , (refl , τ)) =
+    (square-sigma-over-prod extext A Aisdiscrete x y x y f g) (refl , (refl , τ))
   :=
     idJ (
       hom A x y ,
       f ,
       \ g' τ' ->
         (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y x y f g'))
-          (refl, (refl, τ')) =
+          (refl , (refl , τ')) =
         (square-sigma-over-prod extext A Aisdiscrete x y x y f g')
-          (refl, (refl, τ')) ,
-      refl,
+          (refl , (refl , τ')) ,
+      refl ,
       g ,
       τ)
 
@@ -464,9 +464,9 @@ Discrete types are automatically Segal types.
           (g : hom A z' y) ->
           (τ : prod-transport A A (\ a b -> hom A a b) x z' y y p' refl f = g) ->
           (first (equiv-square-sigma-over-prod extext A Aisdiscrete x y z' y f g))
-            (p' , (refl, τ)) =
+            (p' , (refl , τ)) =
           (square-sigma-over-prod extext A Aisdiscrete x y z' y f g)
-            (p' , (refl, τ)) ,
+            (p' , (refl , τ)) ,
         \ g τ ->
           refl-refl-map-equiv-square-sigma-over-prod
             extext
