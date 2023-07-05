@@ -1102,7 +1102,7 @@ map, defined below, is an equivalence.</p>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>  (funext : FunExt)
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>  (X : U)
 </span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>  (A : (_ : X) -&gt; U)
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>  (fiberwiseAisSegal : (x : X) -&gt; is-local-horn-inclusion (A x))
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>  (fiberwise-is-segal-A : (x : X) -&gt; is-local-horn-inclusion (A x))
 </span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>  : is-local-horn-inclusion ((x : X) -&gt; A x)
 </span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>  := triple-compose-is-equiv
 </span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>       ({t : 2 * 2 | Δ² t} -&gt; ((x : X) -&gt; A x) )
@@ -1122,7 +1122,7 @@ map, defined below, is an equivalence.</p>
 </span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>              X
 </span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>              (\ x -&gt; {t : 2 * 2 | Δ² t} -&gt; A x )
 </span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>              (\ x -&gt; {t : 2 * 2 | Λ t} -&gt; A x )
-</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>              (\ x -&gt; (horn-restriction (A x) , fiberwiseAisSegal x))))
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>              (\ x -&gt; (horn-restriction (A x) , fiberwise-is-segal-A x))))
 </span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>        (\ h -&gt; \{t : 2 * 2 | Λ t} -&gt; \ x -&gt; (h x) t) -- third equivalence
 </span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a>          (second(flip-ext-fun-inv
 </span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>            (2 * 2)
@@ -1159,7 +1159,7 @@ map, defined below, is an equivalence.</p>
           (second (fibered-Eq-extension-Equiv extext I ψ
             ({s : I | ψ s} -&gt; {t : 2 * 2 | Δ² t} -&gt; A s )
             ({s : I | ψ s} -&gt; {t : 2 * 2 | Λ t} -&gt; A s )
-            ({s : I | ψ s} -&gt; (horn-restriction (A s) , fiberwiseAisSegal s)) ))
+            ({s : I | ψ s} -&gt; (horn-restriction (A s) , fiberwise-is-segal-A s)) ))
         (\ h -&gt; {t : 2 * 2 | Λ t} -&gt; {s : I | ψ s} -&gt; (h s) t) -- third equivalence
           (second (fubini
             I
