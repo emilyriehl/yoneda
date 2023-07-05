@@ -590,18 +590,20 @@ equivalence of total spaces.
   (familyequiv : (z : A) -> (is-equiv (a = z) (B z) (f z)))
   (P : (z : A) -> B z -> U)
   (p0 : P a (f a refl))
-  (x : A)
-  (p : B x)
-  : P x p
+  (u : A)
+  (p : B u)
+  : P u p
   :=
-    ( ind-sing
-      ( Σ (x : A) , B x)
+    ind-sing
+      ( Σ (v : A) , B v)
       ( a , f a refl)
-      ( \ (x' , p') -> P x' p')
+      ( \ (u' , p') -> P u' p')
       ( contr-implies-singleton-induction-pointed
-        ( Σ (x : A) , B x)
+        ( Σ (z : A) , B z)
         ( fund-id-fam-of-eqs-implies-sum-over-codomain-contr familyequiv)
-        ( \ (x' , p') -> P x' p'))) p0 (x , p)
+        ( \ (x', p') -> P x' p'))
+      ( p0)
+      (u , p)
 
 #end fundamental-thm-id-types
 ```

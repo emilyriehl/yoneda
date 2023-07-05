@@ -984,15 +984,17 @@ arrow.
   (A : U)
   (AisSegal : is-segal A)
   (x y : A)
-  (f g : hom A x y)
-  : Equiv (f = g) (hom2 A x x y (id-arr A x) f g)
-  := (homotopy-to-hom2 A x y f g ,
-    total-equiv-family-of-equiv (hom A x y)
-      (\ g -> (f = g))
-      (\ g -> (hom2 A x x y (id-arr A x) f g))
-      (homotopy-to-hom2 A x y f)
-      (Segal-homotopy-to-hom2-total-map-is-equiv A AisSegal x y f)
-      g)
+  (f h : hom A x y)
+  : Equiv (f = h) (hom2 A x x y (id-arr A x) f h)
+  :=
+    ( ( homotopy-to-hom2 A x y f h) ,
+      ( total-equiv-family-of-equiv
+        ( hom A x y)
+        ( \k -> (f = k))
+        ( \k -> (hom2 A x x y (id-arr A x) f k))
+        ( homotopy-to-hom2 A x y f)
+        ( Segal-homotopy-to-hom2-total-map-is-equiv A AisSegal x y f)
+        ( h)))
 ```
 
 A dual notion of homotopy can be defined similarly.
@@ -1037,15 +1039,17 @@ A dual notion of homotopy can be defined similarly.
   (A : U)
   (AisSegal : is-segal A)
   (x y : A)
-  (f g : hom A x y)
-  : Equiv (f = g) (hom2 A x y y f (id-arr A y) g)
-  := (homotopy-to-hom2' A x y f g ,
-    total-equiv-family-of-equiv (hom A x y)
-      (\ g -> (f = g))
-      (\ g -> (hom2 A x y y f (id-arr A y) g))
-      (homotopy-to-hom2' A x y f)
-      (Segal-homotopy-to-hom2'-total-map-is-equiv A AisSegal x y f)
-      g)
+  (f h : hom A x y)
+  : Equiv (f = h) (hom2 A x y y f (id-arr A y) h)
+  :=
+    ( ( homotopy-to-hom2' A x y f h) ,
+      ( total-equiv-family-of-equiv
+        ( hom A x y)
+        ( \k -> (f = k))
+        ( \k -> (hom2 A x y y f (id-arr A y) k))
+        ( homotopy-to-hom2' A x y f)
+        ( Segal-homotopy-to-hom2'-total-map-is-equiv A AisSegal x y f)
+        ( h)))
 ```
 
 More generally, a homotopy between a composite and another map is equivalent to
