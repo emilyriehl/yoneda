@@ -467,5 +467,5 @@ A type is contractible if and only if it has singleton induction.
   (a : A)
   (f : has-singleton-induction-pointed-structure A a)
   : (is-contr A)
-  := ( \ x -> a = x))) (refl_{a}))
+  := ( a , (first (f ( \ x -> a = x))) (refl_{a}))
 ```
