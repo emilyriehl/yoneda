@@ -249,7 +249,7 @@ Now we prove this definition is equivalent to the original one.
           \ k -> refl_{k})))
 ```
 
-```rzk title="RS17, Theorem 5.5", the hard direction:
+```rzk title="RS17, Theorem 5.5 (the hard direction)"
 #def Segal-equiv-horn-restriction
   (A : U)
   (is-segal-A : is-segal A)
@@ -438,24 +438,30 @@ functions or extensions into a family of Segal types is again a Segal type.
             (\{u : I * (2 * 2) | BOT} -> recBOT)))
 ```
 
-In particular, the arrow type of a Segal type is Segal.
+In particular, the arrow type of a Segal type is Segal. First, we define the
+arrow type:
 
 ```rzk
--- The type of arrows in a type.
 #def arr
   (A : U)
   : U
   := (t : Δ¹) -> A
+```
 
--- For later use, an equivalent characterization of the arrow type.
+For later use, an equivalent characterization of the arrow type.
+
+```rzk
 #def Eq-arr
   (A : U)
   : Equiv (arr A) (Σ (x : A) , (Σ (y : A) , hom A x y))
-  := (\ f -> (f 0_2 , (f 1_2 , f)) ,
-      ((\ (x , (y , f)) -> f , \ f -> refl) ,
-       (\ (x , (y , f)) -> f , \ xyf -> refl)))
+  :=
+    ( \ f -> (f 0_2 , (f 1_2 , f)) ,
+      ( ( \ (x , (y , f)) -> f , \ f -> refl) ,
+        ( \ (x , (y , f)) -> f , \ xyf -> refl)))
+```
 
--- A special case of [RS17, Corollary 5.6(ii)], using is-Segal'.
+```rzk title="RS17, Corollary 5.6(ii)"
+-- special case using `is-local-horn-inclusion`
 #def Segal'-arrow-types
   (extext : ExtExt)
   (A : U)
@@ -468,7 +474,7 @@ In particular, the arrow type of a Segal type is Segal.
         (\{t : 2 | Δ¹ t} -> A)
         (\{t : 2 | Δ¹ t} -> is-segal-A)
 
--- A special case of [RS17, Corollary 5.6(ii)], using is-Segal.
+-- special case using `is-segal`
 #def Segal-arrow-types
   (extext : ExtExt)
   (A : U)
