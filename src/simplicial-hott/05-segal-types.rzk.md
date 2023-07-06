@@ -1010,8 +1010,8 @@ arrow.
     ( ( homotopy-to-hom2 A x y f h) ,
       ( total-equiv-family-of-equiv
         ( hom A x y)
-        ( ̨ -> (f = k))
-        ( ̨ -> (hom2 A x x y (id-arr A x) f k))
+        ( \ k -> (f = k))
+        ( \ k -> (hom2 A x x y (id-arr A x) f k))
         ( homotopy-to-hom2 A x y f)
         ( Segal-homotopy-to-hom2-total-map-is-equiv A is-segal-A x y f)
         ( h)))
@@ -1066,8 +1066,8 @@ A dual notion of homotopy can be defined similarly.
     ( ( homotopy-to-hom2' A x y f h) ,
       ( total-equiv-family-of-equiv
         ( hom A x y)
-        ( ̨ -> (f = k))
-        ( ̨ -> (hom2 A x y y f (id-arr A y) k))
+        ( \ k -> (f = k))
+        ( \ k -> (hom2 A x y y f (id-arr A y) k))
         ( homotopy-to-hom2' A x y f)
         ( Segal-homotopy-to-hom2'-total-map-is-equiv A is-segal-A x y f)
         ( h)))
