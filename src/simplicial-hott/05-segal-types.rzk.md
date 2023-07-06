@@ -165,7 +165,7 @@ equals h.
         (h , alpha))
 ```
 
-### Characterizing Segal types
+## Characterizing Segal types
 
 Our aim is to prove that a type is Segal if and only if the horn-restriction
 map, defined below, is an equivalence.
@@ -253,7 +253,7 @@ Now we prove this definition is equivalent to the original one.
 #def Segal-equiv-horn-restriction
   (A : U)
   (is-segal-A : is-segal A)
-  : Equiv ({t : 2 * 2 | Δ² t} -> A) ({t : 2 * 2 | Λ t} -> A) -- (horn-restriction A)
+  : Equiv ({t : 2 * 2 | Δ² t} -> A) ({t : 2 * 2 | Λ t} -> A)
   :=
     comp-equiv
       ( { t : 2 * 2 | Δ² t} -> A)
@@ -295,7 +295,7 @@ Now we prove this definition is equivalent to the original one.
   := refl
 ```
 
-### Segal types are types that are local at the $(2,1)$-horn inclusion
+Segal types are types that are local at the horn inclusion
 
 ```rzk
 #def is-local-horn-inclusion-is-segal
@@ -305,7 +305,7 @@ Now we prove this definition is equivalent to the original one.
   := second (Segal-equiv-horn-restriction A is-segal-A)
 ```
 
-### Types that are local at the $(2,1)$-horn inclusion are Segal types
+Types that are local at the horn inclusion are Segal types
 
 ```rzk
 #def is-segal-is-local-horn-inclusion
@@ -348,7 +348,9 @@ Now we prove this definition is equivalent to the original one.
     ( horn A x y z f g)
 ```
 
-```rzk title="RS17, Theorem 5.5" proves that both notions of Segal types are logically equivalent.
+We have now proven that both notions of Segal types are logically equivalent.
+
+```rzk title="RS17, Theorem 5.5"
 #def is-segal-iff-is-local-horn-inclusion
   (A : U)
   : iff (is-segal A) (is-local-horn-inclusion A)
@@ -358,11 +360,11 @@ Now we prove this definition is equivalent to the original one.
 ## Segal function and extension types
 
 Using the new characterization of Segal types, we can show that the type of
-functions or extensions into a family of Segal types is again a Segal type.
+functions or extensions into a family of Segal types is again a Segal type. For
+instance if X is a type and A : X -> U is such that A(x) is a Segal type for all
+x then (x : X) -> A x is a Segal type.
 
 ```rzk title="RS17, Corollary 5.6(i)"
--- If X is a type and A : X -> U is such that
--- A(x) is a Segal type for all x then (x : X) -> A x is a Segal type
 #def Segal-function-types
   (funext : FunExt)
   (X : U)
@@ -397,8 +399,10 @@ functions or extensions into a family of Segal types is again a Segal type.
             (\{t : 2 * 2 | BOT} -> recBOT)))
 ```
 
-```rzk title="RS17, Corollary 5.6(ii)" : if X is a shape and A : X -> U is such that
--- A(x) is a Segal type for all x then (x : X) -> A x is a Segal type
+If X is a shape and A : X -> U is such that A(x) is a Segal type for all x then
+(x : X) -> A x is a Segal type.
+
+```rzk title="RS17, Corollary 5.6(ii)"
 #def Segal-extension-types
   (extext : ExtExt)
   (I : CUBE)
