@@ -365,8 +365,8 @@ We have now proven that both notions of Segal types are logically equivalent.
 
 Using the new characterization of Segal types, we can show that the type of
 functions or extensions into a family of Segal types is again a Segal type. For
-instance if $X$ is a type and $A : X → U$ is such that $A(x)$ is a Segal type
-for all $x$ then $(x : X) → A x$ is a Segal type.
+instance if $X$ is a type and $A : X → U$ is such that $A x$ is a Segal type for
+all $x$ then $(x : X) → A x$ is a Segal type.
 
 ```rzk title="RS17, Corollary 5.6(i)"
 #def Segal-function-types
@@ -403,8 +403,8 @@ for all $x$ then $(x : X) → A x$ is a Segal type.
             (\{t : 2 * 2 | BOT} -> recBOT)))
 ```
 
-If $X$ is a shape and $A : X → U$ is such that $A(x)$ is a Segal type for all
-$x$ then $(x : X) → A x$ is a Segal type.
+If $X$ is a shape and $A : X → U$ is such that $A x$ is a Segal type for all $x$
+then $(x : X) → A x$ is a Segal type.
 
 ```rzk title="RS17, Corollary 5.6(ii)"
 #def Segal-extension-types
