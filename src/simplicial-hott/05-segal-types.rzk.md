@@ -89,10 +89,10 @@ requires homotopical uniqueness of higher-order composites.
 ```
 
 Segal types have a composition functor and witnesses to the composition
-relation:
+relation. Composition is written in diagrammatic order to match the order of
+arguments in `is-segal`.
 
 ```rzk
--- Composition is written in diagrammatic order to match the order of arguments in is-segal.
 #def Segal-comp
   (A : U)
   (is-segal-A : is-segal A)
@@ -102,7 +102,6 @@ relation:
   : hom A x z
   := first (first (is-segal-A x y z f g))
 
--- Segal types have composition witnesses
 #def Segal-comp-witness
   (A : U)
   (is-segal-A : is-segal A)
@@ -114,8 +113,8 @@ relation:
 ```
 
 Composition in a Segal type is unique in the following sense. If there is a
-witness that an arrow h is a composite of f and g , then the specified composite
-equals h.
+witness that an arrow $h$ is a composite of $f$ and $g$, then the specified
+composite equals $h$.
 
 <svg style="float: right" viewBox="0 0 200 380" width="125">
   <path style="fill: rgb(175,175,175,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
@@ -165,9 +164,9 @@ equals h.
         (h , alpha))
 ```
 
-### Characterizing Segal types
+## Characterizing Segal types
 
-Our aim is to prove that a type is Segal if and only if the horn-restriction
+Our aim is to prove that a type is Segal if and only if the `horn-restriction`
 map, defined below, is an equivalence.
 
 <svg style="float: right" viewBox="0 0 200 180" width="150" height="150">
@@ -180,8 +179,9 @@ map, defined below, is an equivalence.
   <text x="185" y="100">g</text>
 </svg>
 
+A pair of composable arrows form a horn.
+
 ```rzk
--- A pair of composable arrows form a horn.
 #def horn
   (A : U)
   (x y z : A)
@@ -195,24 +195,28 @@ map, defined below, is an equivalence.
       t === 1_2 |-> g s)
 ```
 
+The underlying horn of a simplex:
+
 ```rzk
--- The underlying horn of a simplex
 #def horn-restriction (A : U)
   : (Δ² -> A) -> (Λ -> A)
   := \ f t -> f t
+```
 
--- An alternate definition of Segal types.
+This provides an alternate definition of Segal types.
+
+```rzk
 #def is-local-horn-inclusion (A : U) : U
   := is-equiv (Δ² -> A) (Λ -> A) (horn-restriction A)
 ```
 
-Now we prove this definition is equivalent to the original one.
+Now we prove this definition is equivalent to the original one. Here, we prove
+the equivalence used in [RS17, Theorem 5.5]. However, we do this by constructing
+the equivalence directly, instead of using a composition of equivalences, as it
+is easier to write down and it computes better (we can use refl for the
+witnesses of the equivalence).
 
 ```rzk
--- Here, we prove the equivalence used in [RS17, Theorem 5.5].
--- However, we do this by constructing the equivalence directly,
--- instead of using a composition of equivalences, as it is easier to write down
--- and it computes better (we can use refl for the witnesses of the equivalence).
 #def compositions-are-horn-fillings
   (A : U)
   (x y z : A)
@@ -253,7 +257,7 @@ Now we prove this definition is equivalent to the original one.
 #def Segal-equiv-horn-restriction
   (A : U)
   (is-segal-A : is-segal A)
-  : Equiv ({t : 2 * 2 | Δ² t} -> A) ({t : 2 * 2 | Λ t} -> A) -- (horn-restriction A)
+  : Equiv ({t : 2 * 2 | Δ² t} -> A) ({t : 2 * 2 | Λ t} -> A)
   :=
     comp-equiv
       ( { t : 2 * 2 | Δ² t} -> A)
@@ -295,7 +299,7 @@ Now we prove this definition is equivalent to the original one.
   := refl
 ```
 
-### Segal types are types that are local at the $(2,1)$-horn inclusion
+Segal types are types that are local at the horn inclusion:
 
 ```rzk
 #def is-local-horn-inclusion-is-segal
@@ -305,7 +309,7 @@ Now we prove this definition is equivalent to the original one.
   := second (Segal-equiv-horn-restriction A is-segal-A)
 ```
 
-### Types that are local at the $(2,1)$-horn inclusion are Segal types
+Types that are local at the horn inclusion are Segal types:
 
 ```rzk
 #def is-segal-is-local-horn-inclusion
@@ -348,7 +352,9 @@ Now we prove this definition is equivalent to the original one.
     ( horn A x y z f g)
 ```
 
-```rzk title="RS17, Theorem 5.5" proves that both notions of Segal types are logically equivalent.
+We have now proven that both notions of Segal types are logically equivalent.
+
+```rzk title="RS17, Theorem 5.5"
 #def is-segal-iff-is-local-horn-inclusion
   (A : U)
   : iff (is-segal A) (is-local-horn-inclusion A)
@@ -358,11 +364,11 @@ Now we prove this definition is equivalent to the original one.
 ## Segal function and extension types
 
 Using the new characterization of Segal types, we can show that the type of
-functions or extensions into a family of Segal types is again a Segal type.
+functions or extensions into a family of Segal types is again a Segal type. For
+instance if $X$ is a type and $A : X → U$ is such that $A x$ is a Segal type for
+all $x$ then $(x : X) → A x$ is a Segal type.
 
 ```rzk title="RS17, Corollary 5.6(i)"
--- If X is a type and A : X -> U is such that
--- A(x) is a Segal type for all x then (x : X) -> A x is a Segal type
 #def Segal-function-types
   (funext : FunExt)
   (X : U)
@@ -397,8 +403,10 @@ functions or extensions into a family of Segal types is again a Segal type.
             (\{t : 2 * 2 | BOT} -> recBOT)))
 ```
 
-```rzk title="RS17, Corollary 5.6(ii)" : if X is a shape and A : X -> U is such that
--- A(x) is a Segal type for all x then (x : X) -> A x is a Segal type
+If $X$ is a shape and $A : X → U$ is such that $A x$ is a Segal type for all $x$
+then $(x : X) → A x$ is a Segal type.
+
+```rzk title="RS17, Corollary 5.6(ii)"
 #def Segal-extension-types
   (extext : ExtExt)
   (I : CUBE)
@@ -750,9 +758,11 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
   <text x="140" y="205">h</text>
 </svg>
 
+The `Segal-associativity-witness` curries to define a diagram $Δ²×Δ¹ → A$. The
+`Segal-associativity-tetrahedron` is extracted via the middle-simplex map
+$((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
+
 ```rzk
--- The Segal-associativity-witness curries to define a diagram Δ²×Δ¹ -> A.
--- The Segal-associativity-tetrahedron is extracted via the middle-simplex map `\ ((t , s) , r) -> ((t , r) , s)` from Δ³ to Δ²×Δ¹
 #def Segal-associativity-tetrahedron
   (extext : ExtExt)
   (A : U)
@@ -784,8 +794,10 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
   <text x="140" y="205">h</text>
 </svg>
 
+The diagonal composite of three arrows extracted from the
+`Segal-associativity-tetrahedron`.
+
 ```rzk
--- the diagonal composite of three arrows extracted from the Segal-associativity-tetrahedron
 #def Segal-triple-composite
   (extext : ExtExt)
   (A : U)
@@ -795,8 +807,10 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
   (g : hom A x y)
   (h : hom A y z)
   : hom A w z
-  := \ t ->
-    (Segal-associativity-tetrahedron extext A is-segal-A w x y z f g h) ((t , t) , t)
+  :=
+    \ t ->
+    ( Segal-associativity-tetrahedron extext A is-segal-A w x y z f g h)
+      ( (t , t) , t)
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -871,8 +885,10 @@ The front face:
     f
     (Segal-comp A is-segal-A x y z g h)
     (Segal-triple-composite extext A is-segal-A w x y z f g h)
-  := \ (t , s) ->
-    (Segal-associativity-tetrahedron extext A is-segal-A w x y z f g h) ((t , s) , s)
+  :=
+    \ (t , s) ->
+    ( Segal-associativity-tetrahedron extext A is-segal-A w x y z f g h)
+      ((t , s) , s)
 ```
 
 ```rzk
@@ -994,8 +1010,8 @@ arrow.
     ( ( homotopy-to-hom2 A x y f h) ,
       ( total-equiv-family-of-equiv
         ( hom A x y)
-        ( \k -> (f = k))
-        ( \k -> (hom2 A x x y (id-arr A x) f k))
+        ( \ k -> (f = k))
+        ( \ k -> (hom2 A x x y (id-arr A x) f k))
         ( homotopy-to-hom2 A x y f)
         ( Segal-homotopy-to-hom2-total-map-is-equiv A is-segal-A x y f)
         ( h)))
@@ -1050,8 +1066,8 @@ A dual notion of homotopy can be defined similarly.
     ( ( homotopy-to-hom2' A x y f h) ,
       ( total-equiv-family-of-equiv
         ( hom A x y)
-        ( \k -> (f = k))
-        ( \k -> (hom2 A x y y f (id-arr A y) k))
+        ( \ k -> (f = k))
+        ( \ k -> (hom2 A x y y f (id-arr A y) k))
         ( homotopy-to-hom2' A x y f)
         ( Segal-homotopy-to-hom2'-total-map-is-equiv A is-segal-A x y f)
         ( h)))
@@ -1133,9 +1149,24 @@ composition:
   (p : f = g)
   (q : h = k)
   : (Segal-comp A is-segal-A x y z f h) = (Segal-comp A is-segal-A x y z g k)
-  := idJ (hom A y z , h , \ k' q' -> (Segal-comp A is-segal-A x y z f h) = (Segal-comp A is-segal-A x y z g k') ,
-    idJ (hom A x y , f , \ g' p' -> (Segal-comp A is-segal-A x y z f h) = (Segal-comp A is-segal-A x y z g' h) , refl , g , p)
-    , k , q)
+  :=
+    idJ
+      ( ( hom A y z),
+        ( h),
+        ( \ k' q' ->
+          (Segal-comp A is-segal-A x y z f h) =
+          (Segal-comp A is-segal-A x y z g k')),
+        ( idJ
+          ( ( hom A x y ),
+            ( f),
+            ( \ g' p' ->
+              (Segal-comp A is-segal-A x y z f h) =
+              (Segal-comp A is-segal-A x y z g' h)),
+            ( refl),
+            ( g),
+            (p))),
+        ( k),
+        ( q))
 
 -- As a special case of the above:
 #def Segal-homotopy-postwhisker
