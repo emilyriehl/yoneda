@@ -11,15 +11,15 @@ This is a literate `rzk` file:
 ```rzk
 -- We'll require a more coherent notion of equivalence
 #def is-half-adjoint-equiv
-  (A B : U)
-  (f : A -> B)
+  ( A B : U)
+  ( f : A -> B)
   : U
   :=
-    Σ (has-inverse-f : (has-inverse A B f)) ,
-      (a : A) ->
-        ((second (second has-inverse-f)) (f a)) =
-        (ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a
-          ( f) (((first (second has-inverse-f))) a))
+    Σ ( has-inverse-f : (has-inverse A B f)) ,
+      ( a : A) ->
+        ( ( second ( second has-inverse-f)) (f a)) =
+        ( ap A B ( has-inverse-retraction-composite A B f has-inverse-f a) a
+          ( f) ( ( ( first ( second has-inverse-f))) a))
 
 -- By function extensionality, the previous definition coincides with the
 -- following one:
@@ -45,17 +45,17 @@ and discard the other.
 
 ```rzk
 #def has-inverse-kept-htpy
-  (A B : U)
-  (f : A -> B)
-  (has-inverse-f : has-inverse A B f)
+  ( A B : U)
+  ( f : A -> B)
+  ( has-inverse-f : has-inverse A B f)
   : homotopy A A
     ( has-inverse-retraction-composite A B f has-inverse-f) (identity A)
-  := (first (second has-inverse-f))
+  := ( first (second has-inverse-f))
 
 #def has-inverse-discarded-htpy
-  (A B : U)
-  (f : A -> B)
-  (has-inverse-f : has-inverse A B f)
+  ( A B : U)
+  ( f : A -> B)
+  ( has-inverse-f : has-inverse A B f)
   : homotopy B B
     ( has-inverse-section-composite A B f has-inverse-f) (identity B)
   := (second (second has-inverse-f))
@@ -319,9 +319,9 @@ the invertible map by replacing the discarded homotopy with the corrected one.
 
 ```rzk
 #def corrected-has-inverse-has-inverse
-  (A B : U)
-  (f : A -> B)
-  (has-inverse-f : has-inverse A B f)
+  ( A B : U)
+  ( f : A -> B)
+  ( has-inverse-f : has-inverse A B f)
   : has-inverse A B f
   :=
     ( has-inverse-inverse A B f has-inverse-f ,
@@ -330,9 +330,9 @@ the invertible map by replacing the discarded homotopy with the corrected one.
 
 -- Invertible maps are half adjoint equivalences!
 #def is-half-adjoint-equiv-has-inverse
-  (A B : U)
-  (f : A -> B)
-  (has-inverse-f : has-inverse A B f)
+  ( A B : U)
+  ( f : A -> B)
+  ( has-inverse-f : has-inverse A B f)
   : is-half-adjoint-equiv A B f
   :=
     ( corrected-has-inverse-has-inverse A B f has-inverse-f ,
@@ -340,9 +340,9 @@ the invertible map by replacing the discarded homotopy with the corrected one.
 
 -- Equivalences are half adjoint equivalences!
 #def is-half-adjoint-equiv-is-equiv
-  (A B : U)
-  (f : A -> B)
-  (is-equiv-f : is-equiv A B f)
+  ( A B : U)
+  ( f : A -> B)
+  ( is-equiv-f : is-equiv A B f)
   : is-half-adjoint-equiv A B f
   :=
     is-half-adjoint-equiv-has-inverse A B f
@@ -362,7 +362,7 @@ have equivalent identity types.
 #variable fisHAE : is-half-adjoint-equiv A B f
 
 #def iff-ap-is-half-adjoint-equiv
-  (x y : A)
+  ( x y : A)
   : iff (x = y) (f x = f y)
   :=
     (ap A B x y f ,
@@ -396,8 +396,8 @@ have equivalent identity types.
             p))
 
 #def ap-triple-concat-is-half-adjoint-equiv
-  (x y : A)
-  (q : f x = f y)
+  ( x y : A)
+  ( q : f x = f y)
   : ap A B x y f ((second (iff-ap-is-half-adjoint-equiv x y)) q) =
     (triple-concat B
       ( f x)
@@ -427,8 +427,8 @@ have equivalent identity types.
       ( (first (second (first fisHAE))) y)
 
 #def ap-rev-homotopy-triple-concat-is-half-adjoint-equiv
-  (x y : A)
-  (q : f x = f y)
+  ( x y : A)
+  ( q : f x = f y)
   : triple-concat B
     ( f x)
     ( f ((has-inverse-inverse A B f (first fisHAE)) (f x)))
@@ -486,8 +486,8 @@ have equivalent identity types.
       ( (first (second (first fisHAE))) x))
 
 #def ap-ap-homotopy-triple-concat-is-half-adjoint-equiv
-  (x y : A)
-  (q : f x = f y)
+  ( x y : A)
+  ( q : f x = f y)
   : (triple-concat B
       ( f x)
       ( f ((has-inverse-inverse A B f (first fisHAE)) (f x)))
@@ -541,8 +541,8 @@ have equivalent identity types.
 
 -- This needs to be reversed later.
 #def triple-concat-higher-homotopy-is-half-adjoint-equiv
-  (x y : A)
-  (q : f x = f y)
+  ( x y : A)
+  ( q : f x = f y)
   : triple-concat B
       ( f x)
       ( f ((has-inverse-inverse A B f (first fisHAE)) (f x)))
@@ -576,8 +576,8 @@ have equivalent identity types.
         ( has-inverse-section-composite A B f (first fisHAE)) q)
 
 #def triple-concat-nat-htpy-is-half-adjoint-equiv
-  (x y : A)
-  (q : f x = f y)
+  ( x y : A)
+  ( q : f x = f y)
   : triple-concat B
     ( f x)
     ( f ((has-inverse-inverse A B f (first fisHAE)) (f x)))
@@ -598,8 +598,8 @@ have equivalent identity types.
       q
 
 #def zag-zig-concat-triple-concat-is-half-adjoint-equiv
-  (x y : A)
-  (q : f x = f y)
+  ( x y : A)
+  ( q : f x = f y)
   : triple-concat B
     ( f x)
     ( f ((has-inverse-inverse A B f (first fisHAE)) (f x)))
@@ -644,14 +644,14 @@ have equivalent identity types.
       ( triple-concat-nat-htpy-is-half-adjoint-equiv x y q)
 
 #def triple-concat-reduction-is-half-adjoint-equiv
-  (x y : A)
-  (q : f x = f y)
+  ( x y : A)
+  ( q : f x = f y)
   : ap B B (f x) (f y) (identity B) q = q
   := ap-id B (f x) (f y) q
 
 #def section-htpy-ap-is-half-adjoint-equiv
-  (x y : A)
-  (q : f x = f y)
+  ( x y : A)
+  ( q : f x = f y)
   : ap A B x y f ((second (iff-ap-is-half-adjoint-equiv x y)) q) = q
   :=
     alternating-quintuple-concat (f x = f y)
@@ -708,14 +708,14 @@ have equivalent identity types.
       ( triple-concat-reduction-is-half-adjoint-equiv x y q)
 
 #def has-section-ap-is-half-adjoint-equiv uses (fisHAE)
-  (x y : A)
+  ( x y : A)
   : has-section (x = y) (f x = f y) (ap A B x y f)
   :=
     ( second (iff-ap-is-half-adjoint-equiv x y) ,
       section-htpy-ap-is-half-adjoint-equiv x y)
 
 #def is-equiv-ap-is-half-adjoint-equiv uses (fisHAE)
-  (x y : A)
+  ( x y : A)
   : is-equiv (x = y) (f x = f y) (ap A B x y f)
   :=
     ( has-retraction-ap-is-half-adjoint-equiv x y ,
@@ -723,20 +723,20 @@ have equivalent identity types.
 #end equiv-identity-types-equiv
 
 #def is-equiv-ap-is-equiv
-  (A B : U)
-  (f : A -> B)
-  (is-equiv-f : is-equiv A B f)
-  (x y : A)
+  ( A B : U)
+  ( f : A -> B)
+  ( is-equiv-f : is-equiv A B f)
+  ( x y : A)
   : is-equiv (x = y) (f x = f y) (ap A B x y f)
   :=
     is-equiv-ap-is-half-adjoint-equiv A B f
     ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) x y
 
 #def Eq-ap-is-equiv
-  (A B : U)
-  (f : A -> B)
-  (is-equiv-f : is-equiv A B f)
-  (x y : A)
+  ( A B : U)
+  ( f : A -> B)
+  ( is-equiv-f : is-equiv A B f)
+  ( x y : A)
   : Equiv (x = y) (f x = f y)
   := (ap A B x y f , is-equiv-ap-is-equiv A B f is-equiv-f x y)
 ```

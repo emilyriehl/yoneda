@@ -1125,15 +1125,15 @@ the data provided by a commutative triangle with that boundary.
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
-  (h : hom A x z)
-  : Equiv ((Segal-comp A is-segal-A x y z f g) = h) (hom2 A x y z f g h)
-  := (Segal-eq-to-hom2 A is-segal-A x y z f g h ,
+  (k : hom A x z)
+  : Equiv ((Segal-comp A is-segal-A x y z f g) = k) (hom2 A x y z f g k)
+  := (Segal-eq-to-hom2 A is-segal-A x y z f g k ,
     total-equiv-family-of-equiv (hom A x z)
-      (\ h -> (Segal-comp A is-segal-A x y z f g) = h)
-      (\ h -> hom2 A x y z f g h)
+      (\ m -> (Segal-comp A is-segal-A x y z f g) = m)
+      (\ m -> hom2 A x y z f g m)
       (Segal-eq-to-hom2 A is-segal-A x y z f g)
       (Segal-eq-to-hom2-total-map-is-equiv A is-segal-A x y z f g)
-      h)
+      k)
 ```
 
 Homotopies form a congruence, meaning that homotopies are respected by
