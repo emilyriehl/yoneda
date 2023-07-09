@@ -99,14 +99,14 @@ is-rezk (P b)) (e : P b) (e' : P b') (f : dhom B b b' u P e e') (fiscocart :
 isCocartArr B b b' u P e e' f) : is-contr (CocartLift B b b' u P e) := ( (e' , f
 , fiscocart) , \ d -> \ g ->
 
-## Initial objects
+## Final objects
 
 ```rzk
-#def is-initial
-    (A : U)
-    (a : A)
-    : U
-    := (x : A) -> is-contr (hom A a x)
+#def is-final
+  (A : U)
+  (a : A)
+  : U
+  := (x : A) -> is-contr (hom A x a)
 ```
 
 In a Segal type, initial objects are isomorphic.
@@ -137,16 +137,6 @@ In a Segal type, initial objects are isomorphic.
               ( first (binitial a))
               ( first (ainitial b)))
             ( id-arr A b))))
-```
-
-## Final objects
-
-```rzk
-#def is-final
-  (A : U)
-  (a : A)
-  : U
-  := (x : A) -> is-contr (hom A x a)
 ```
 
 In a Segal type, final objects are isomorphic.
