@@ -235,8 +235,8 @@ witnesses of the equivalence).
 #def equiv-horn-restriction
   (A : U)
   : Equiv
-    ( {t : 2 * 2 | Δ² t} -> A)
-    ( Σ ( k : {t : 2 * 2 | Λ t} -> A) ,
+    ( Δ² -> A)
+    ( Σ ( k : Λ -> A) ,
         ( Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
             ( hom2 A
               ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
@@ -244,12 +244,12 @@ witnesses of the equivalence).
               ( h))))
   :=
     ( \ k ->
-      ( \{t : 2 * 2 | Λ t} -> k t ,
+      ( \ {t : 2 * 2 | Λ t} -> k t ,
         ( \ (t : 2) -> k (t , t) ,
-          \{t : 2 * 2 | Δ² t} -> k t)) ,
-      ( ( \ khh -> \{t : 2 * 2 | Δ² t} -> (second (second khh)) t ,
+          \ {t : 2 * 2 | Δ² t} -> k t)) ,
+      ( ( \ khh -> \  {t : 2 * 2 | Δ² t} -> (second (second khh)) t ,
           \ k -> refl_{k}) ,
-        ( \ khh -> \{t : 2 * 2 | Δ² t} -> (second (second khh)) t ,
+        ( \ khh -> \  {t : 2 * 2 | Δ² t} -> (second (second khh)) t ,
           \ k -> refl_{k})))
 ```
 
@@ -257,20 +257,20 @@ witnesses of the equivalence).
 #def Segal-equiv-horn-restriction
   (A : U)
   (is-segal-A : is-segal A)
-  : Equiv ({t : 2 * 2 | Δ² t} -> A) ({t : 2 * 2 | Λ t} -> A)
+  : Equiv (Δ² -> A) (Λ -> A)
   :=
     comp-equiv
-      ( { t : 2 * 2 | Δ² t} -> A)
-      ( Σ ( k : {t : 2 * 2 | Λ t} -> A) ,
+      ( Δ² -> A)
+      ( Σ ( k : Λ -> A) ,
           ( Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
               ( hom2 A
                 ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
                 ( \ t -> k (t , 0_2)) (\ t -> k (1_2 , t))
                 ( h))))
-      ( {t : 2 * 2 | Λ t} -> A)
+      ( Λ -> A)
       ( equiv-horn-restriction A)
       ( total-space-projection
-        ( {t : 2 * 2 | Λ t} -> A )
+        ( Λ -> A )
         ( \ k ->
           Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
             ( hom2 A
@@ -278,7 +278,7 @@ witnesses of the equivalence).
               ( \ t -> k (t , 0_2)) (\ t -> k (1_2 , t))
               ( h))) ,
       ( is-equiv-projection-contractible-fibers
-          ( {t : 2 * 2 | Λ t} -> A)
+          ( Λ -> A)
           ( \ k ->
             Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
               ( hom2 A
@@ -319,7 +319,7 @@ Types that are local at the horn inclusion are Segal types:
   :=
     \ x y z f g ->
     contractible-fibers-is-equiv-projection
-      (  {t : 2 * 2 | Λ t} -> A )
+      (  Λ -> A )
       ( \ k ->
         Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
           ( hom2 A
@@ -329,7 +329,7 @@ Types that are local at the horn inclusion are Segal types:
             ( h)))
       ( second
         ( comp-equiv
-          ( Σ ( k :  {t : 2 * 2 | Λ t} -> A ) ,
+          ( Σ ( k : Λ -> A ) ,
             Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
               ( hom2 A
                 ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
@@ -376,18 +376,18 @@ all $x$ then $(x : X) → A x$ is a Segal type.
   (fiberwise-is-segal-A : (x : X) -> is-local-horn-inclusion (A x))
   : is-local-horn-inclusion ((x : X) -> A x)
   := triple-compose-is-equiv
-       ({t : 2 * 2 | Δ² t} -> ((x : X) -> A x) )
-       ((x : X) -> {t : 2 * 2 | Δ² t} -> A x )
-       ((x : X) -> {t : 2 * 2 | Λ t} -> A x )
-       ({t : 2 * 2 | Λ t} -> ((x : X) -> A x) )
-        (\ g -> \ x -> \{t : 2 * 2 | Δ² t} -> g t x) -- first equivalence
+       (Δ² -> ((x : X) -> A x) )
+       ((x : X) -> Δ² -> A x )
+       ((x : X) -> Λ -> A x )
+       (Λ -> ((x : X) -> A x) )
+        (\ g -> \ x -> \ {t : 2 * 2 | Δ² t} -> g t x) -- first equivalence
             (second (flip-ext-fun
               (2 * 2)
               Δ² (\{t : 2 * 2 | Δ² t} -> BOT)
               X
-              (\{t : 2 * 2 | Δ² t} -> A)
-              (\{t : 2 * 2 | BOT} -> recBOT)))
-        (\ h -> \ x -> \{t : 2 * 2 | Λ t} -> h x t) -- second equivalence
+              (\ {t : 2 * 2 | Δ² t} -> A)
+              (\ {t : 2 * 2 | BOT} -> recBOT)))
+        (\ h -> \ x -> \ {t : 2 * 2 | Λ t} -> h x t) -- second equivalence
           (second (function-equiv-fibered-equiv
               funext
               X
@@ -397,10 +397,10 @@ all $x$ then $(x : X) → A x$ is a Segal type.
         (\ h -> \{t : 2 * 2 | Λ t} -> \ x -> (h x) t) -- third equivalence
           (second(flip-ext-fun-inv
             (2 * 2)
-            Λ (\{t : 2 * 2 | Λ t} -> BOT)
+            Λ (\ {t : 2 * 2 | Λ t} -> BOT)
             X
-            (\{t : 2 * 2 | Λ t} -> A)
-            (\{t : 2 * 2 | BOT} -> recBOT)))
+            (\ {t : 2 * 2 | Λ t} -> A)
+            (\ {t : 2 * 2 | BOT} -> recBOT)))
 ```
 
 If $X$ is a shape and $A : X → U$ is such that $A x$ is a Segal type for all $x$

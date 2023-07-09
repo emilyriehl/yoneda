@@ -40,11 +40,11 @@ naturality-covariant-fiberwise-transformation naturality is automatic.
   (f : hom A a x)
   (g : hom A x y)
   (C : A -> U)
-  (CisCov : isCovFam A C)
+  (CisCov : is-covariant A C)
   (ϕ : (z : A) -> hom A a z -> C z)
-  : (covTrans A x y g C CisCov (ϕ x f)) = (ϕ y (Segal-comp A is-segal-A a x y f g))
+  : (covariant-transport A x y g C CisCov (ϕ x f)) = (ϕ y (Segal-comp A is-segal-A a x y f g))
   := naturality-covariant-fiberwise-transformation A x y g (\ z -> hom A a z) C
-        (is-segal-representable-isCovFam A is-segal-A a)
+        (is-segal-representable-is-covariant A is-segal-A a)
         CisCov
         ϕ f
 ```
@@ -75,9 +75,9 @@ map makes use of the covariant transport operation.
     (is-segal-A : is-segal A)        -- A proof that A is Segal.
     (a : A)                       -- The representing object.
   (C : A -> U)            -- A type family.
-  (CisCov : isCovFam A C)        -- A covariant family.
+  (CisCov : is-covariant A C)        -- A covariant family.
     : C a -> ((z : A) -> hom A a z -> C z)
-    := \ u z f -> covTrans A a z f C CisCov u
+    := \ u z f -> covariant-transport A a z f C CisCov u
 ```
 
 ## The Yoneda composites
@@ -91,10 +91,10 @@ It remains to show that the Yoneda maps are inverses.
     (is-segal-A : is-segal A)        -- A proof that A is Segal.
     (a : A)                       -- The representing object.
   (C : A -> U)            -- A type family.
-  (CisCov : isCovFam A C)        -- A covariant family.
+  (CisCov : is-covariant A C)        -- A covariant family.
   (u : C a)
     : (evid A a C) ((yon A is-segal-A a C CisCov) u) = u
-    := covPresId A a C CisCov u
+    := id-arr-covariant-transport A a C CisCov u
 ```
 
 The other composite carries ϕ to an a priori distinct natural transformation. We
@@ -108,7 +108,7 @@ steps.
 #variable is-segal-A : is-segal A    -- A proof that A is Segal.
 #variable a : A                 -- The representing object.
 #variable C : A -> U        -- A type family.
-#variable CisCov : isCovFam A C    -- A covariant family.
+#variable CisCov : is-covariant A C    -- A covariant family.
 
 -- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A a x.
 #def yon-evid-twice-pointwise
@@ -167,7 +167,7 @@ The Yoneda lemma says that evaluation at the identity defines an equivalence.
     (is-segal-A : is-segal A)          -- A proof that A is Segal.
     (a : A)                         -- The representing object.
   (C : A -> U)              -- A type family.
-  (CisCov : isCovFam A C)          -- A covariant family.
+  (CisCov : is-covariant A C)          -- A covariant family.
     : is-equiv ((z : A) -> hom A a z -> C z) (C a) (evid A a C)
     := ((yon A is-segal-A a C CisCov ,
             yon-evid A is-segal-A a C CisCov funext) ,
@@ -325,3 +325,202 @@ equivalence.
         (contra-yon A is-segal-A a C CisContra ,
             contra-evid-yon A is-segal-A a C CisContra))
 ```
+
+From a type-theoretic perspective, the Yoneda lemma is a “directed” version of
+the “transport” operation for identity types. This suggests a “dependently
+typed” generalization of the Yoneda lemma, analogous to the full induction
+principle for identity types. We prove this as a special case of a result about
+covariant families over a type with an initial object.
+
+## Initial objects
+
+A term $a$ in a type $A$ is initial if all of its mapping-out hom types are
+contractible.
+
+```rzk title="RS17, Definition 9.6"
+#def is-initial
+  (A : U)
+  (a : A)
+  : U
+  := (x : A) -> is-contr (hom A a x)
+```
+
+```rzk
+#section initial-evaluation-equivalence
+
+#variable A : U
+#variable a : A
+#variable a-is-initial : is-initial A a
+#variable C : A -> U
+#variable C-is-covariant : is-covariant A C
+
+#def arrows-from-initial
+  (x : A)
+  : hom A a x
+  := contraction-center (hom A a x) (a-is-initial x)
+
+#def identity-component-arrows-from-initial
+  : arrows-from-initial a = id-arr A a
+  := contracting-htpy (hom A a a) (a-is-initial a) (id-arr A a)
+
+#def ind-initial uses (a-is-initial)
+  (u : C a)
+  : (x : A) -> C x
+  :=
+    \ x -> covariant-transport A a x (arrows-from-initial x) C C-is-covariant u
+
+#def has-section-ev-pt uses (a-is-initial)
+  : has-section ((x : A) -> C x) (C a) (ev-pt A a C)
+  :=
+    ( ( ind-initial),
+      ( \ u ->
+        concat
+          ( C a)
+          ( covariant-transport A a a
+            ( arrows-from-initial a) C C-is-covariant u)
+          ( covariant-transport A a a
+            ( id-arr A a) C C-is-covariant u)
+          ( u)
+          ( ap
+            ( hom A a a)
+            ( C a)
+            ( arrows-from-initial a)
+            ( id-arr A a)
+            ( \ f ->
+              covariant-transport A a a f C C-is-covariant u)
+            ( identity-component-arrows-from-initial))
+          ( id-arr-covariant-transport A a C C-is-covariant u)))
+
+#def ind-initial-ev-pt-pointwise uses (a-is-initial)
+  (s : (x : A) -> C x)
+  (b : A)
+  : ind-initial (ev-pt A a C s) b = s b
+  :=
+    covariant-uniqueness
+      ( A)
+      ( a)
+      ( b)
+      ( arrows-from-initial b)
+      ( C)
+      ( C-is-covariant)
+      ( ev-pt A a C s)
+      ( ( s b, \ t -> s (arrows-from-initial b t)))
+
+#end initial-evaluation-equivalence
+```
+
+We now prove that induction from an initial element in the base of a covariant
+family defines an inverse equivalence to evaluation at the element.
+
+```rzk title="RS17, Theorem 9.7"
+#def is-equiv-covariant-ev-initial
+  (funext : FunExt)
+  (A : U)
+  (a : A)
+  (a-is-initial : is-initial A a)
+  (C : A -> U)
+  (C-is-covariant : is-covariant A C)
+  : is-equiv ((x : A) -> C x) (C a) (ev-pt A a C)
+  :=
+    ( ( ( ind-initial A a a-is-initial C C-is-covariant ),
+        ( \ s -> eq-htpy
+                  funext
+                    ( A)
+                    ( C)
+                    ( ind-initial
+                        A a a-is-initial C C-is-covariant (ev-pt A a C s))
+                    ( s)
+                    ( ind-initial-ev-pt-pointwise
+                        A a a-is-initial C C-is-covariant s))),
+      ( has-section-ev-pt A a a-is-initial C C-is-covariant))
+```
+
+## Initial objects in slice categories
+
+We now show that the type of arrows in a Segal type $A$ with domain $a$ has an
+initial object given by the identity arrow at $a$. This makes use of the
+following equivalence.
+
+```rzk
+#def equiv-hom-in-slice
+  (A : U)
+  (a x : A)
+  (f : hom A a x)
+  : Equiv
+    ( hom (Σ (z : A), hom A a z) (a, id-arr A a) (x, f))
+    ( {t : 2 | Δ¹ t} -> hom A a (f t) [t === 0_2 |-> id-arr A a])
+  :=
+    ( \ h t s -> (second (h s)) t,
+      (( \ k s -> ( k 1_2 s, \ t -> k t s),
+        \ h -> refl),
+      ( \ k s -> ( k 1_2 s, \ t -> k t s),
+        \ k -> refl)))
+```
+
+Since $hom A a$ is covariant when $A$ is Segal, this latter type is
+contractible.
+
+```rzk
+#def is-contr-is-segal-hom-in-slice
+  (A : U)
+  (A-is-segal : is-segal A)
+  (a x : A)
+  (f : hom A a x)
+  : is-contr ( {t : 2 | Δ¹ t} -> hom A a (f t) [t === 0_2 |-> id-arr A a])
+  :=
+    ( second (has-unique-lifts-with-fixed-domain-iff-is-covariant
+                A (\ z -> hom A a z)))
+      ( is-segal-representable-is-covariant A A-is-segal a)
+      a x f (id-arr A a)
+```
+
+This proves the initiality of identity arrows in the slice of a Segal type.
+
+```rzk title="RS17, Lemma 9.8"
+#def is-initial-id-arr-is-segal
+  (A : U)
+  (A-is-segal : is-segal A)
+  (a : A)
+  : is-initial (Σ (z : A), hom A a z) (a, id-arr A a)
+  :=
+    \ (x, f) ->
+    is-contr-is-equiv-to-contr
+      ( hom (Σ (z : A), hom A a z) (a, id-arr A a) (x, f))
+      ( {t : 2 | Δ¹ t} -> hom A a (f t) [t === 0_2 |-> id-arr A a])
+      ( equiv-hom-in-slice A a x f)
+      ( is-contr-is-segal-hom-in-slice A A-is-segal a x f)
+```
+
+## Dependent Yoneda lemma
+
+The dependent Yoneda lemma now follows by specializing these results.
+
+````rzk
+#def dependent-ev-id
+  (A : U)
+  (a : A)
+  (C : (Σ (z : A), hom A a z) -> U)
+  : (((x, f) : Σ (z : A), hom A a z) -> C (x, f)) -> C (a, id-arr A a)
+  := \ s -> s (a, id-arr A a)
+
+```rzk title="RS17, Theorem 9.5"
+#def dependent-yoneda-lemma
+  (funext : FunExt)
+  (A : U)
+  (A-is-segal : is-segal A)
+  (C : (Σ (z : A), hom A a z) -> U)
+  (C-is-covariant : is-covariant (Σ (z : A), hom A a z) C)
+  : is-equiv
+      ( ((x, f) : Σ (z : A), hom A a z) -> C (x, f))
+      ( C (a, id-arr A a))
+      ( dependent-ev-id A a C)
+  :=
+    is-equiv-covariant-ev-initial
+      ( funext)
+      ( Σ (z : A), hom A a z)
+      ( (a, id-arr A a))
+      ( is-initial-id-arr-is-segal A A-is-segal a)
+      ( C)
+      ( C-is-covariant)
+```
+````
