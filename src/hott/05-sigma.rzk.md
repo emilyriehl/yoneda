@@ -18,7 +18,7 @@ This is a literate `rzk` file:
   ( b b' : B)
   ( e_A : a = a')
   ( e_B : b = b')
-  : (a , b) =_{product A B} (a' , b')
+  : ( a , b) =_{product A B} (a' , b')
   := transport A (\ x -> (a , b) =_{product A B} (x , b')) a a' e_A
       ( transport B (\ y -> (a , b) =_{product A B} (a , y)) b b' e_B refl)
 
@@ -360,7 +360,7 @@ This is a literate `rzk` file:
       ( second (second e))
 
 #def equiv-Eq-Σ-over-product
-  (s t : Σ (a : A) , (Σ (b : B) , C a b))
+  ( s t : Σ (a : A) , (Σ (b : B) , C a b))
   : Equiv (s = t) (Eq-Σ-over-product s t)
   :=
     ( triple-eq s t ,
@@ -374,7 +374,7 @@ This is a literate `rzk` file:
 
 ```rzk
 #def sym-product
-  (A B : U)
+  ( A B : U)
   : Equiv (product A B) (product B A)
   :=
     ( \ (a , b) -> (b , a) ,
@@ -389,9 +389,9 @@ unimportant.
 
 ```rzk
 #def fubini-Σ
-  (A B : U)
-  (C : A -> B -> U)
-  : Equiv (Σ (x : A) , Σ (y : B) , C x y) (Σ (y : B) , Σ (x : A) , C x y)
+  ( A B : U)
+  ( C : A -> B -> U)
+  : Equiv ( Σ (x : A) , Σ (y : B) , C x y) (Σ (y : B) , Σ (x : A) , C x y)
   :=
     ( \ t -> (first (second t) , (first t , second (second t))) ,
       ( ( \ t -> (first (second t) , (first t , second (second t))) ,
@@ -404,8 +404,8 @@ Products distribute inside Sigma types:
 
 ```rzk
 #def distributive-product-Σ
-  (A B : U)
-  (C : B -> U)
+  ( A B : U)
+  ( C : B -> U)
   : Equiv (product A (Σ (b : B) , C b)) (Σ (b : B) , product A (C b))
   :=
     ( \ (a , (b , c)) -> (b , (a , c)) ,
@@ -417,9 +417,9 @@ Products distribute inside Sigma types:
 
 ```rzk
 #def associative-Σ
-  (A : U)
-  (B : A -> U)
-  (C : (a : A) -> B a -> U)
+  ( A : U)
+  ( B : A -> U)
+  ( C : (a : A) -> B a -> U)
   : Equiv
       ( Σ (a : A) , Σ (b : B a) , C a b)
       ( Σ (ab : Σ (a : A) , B a) , C (first ab) (second ab))
