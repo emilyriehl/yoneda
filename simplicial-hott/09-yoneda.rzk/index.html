@@ -662,6 +662,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#initial-objects" class="md-nav__link">
+    Initial objects
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-objects-in-slice-categories" class="md-nav__link">
+    Initial objects in slice categories
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependent-yoneda-lemma" class="md-nav__link">
+    Dependent Yoneda lemma
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -773,6 +794,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#initial-objects" class="md-nav__link">
+    Initial objects
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-objects-in-slice-categories" class="md-nav__link">
+    Initial objects in slice categories
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependent-yoneda-lemma" class="md-nav__link">
+    Dependent Yoneda lemma
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -824,11 +866,11 @@ naturality-covariant-fiberwise-transformation naturality is automatic.</p>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A a x)</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="err">  </span><span class="p">(</span><span class="nv">g </span><span class="p">:</span><span class="err"> hom A x y)</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">  </span><span class="p">(</span><span class="nv">CisCov </span><span class="p">:</span><span class="err"> isCovFam A C)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">  </span><span class="p">(</span><span class="nv">CisCov </span><span class="p">:</span><span class="err"> is-covariant A C)</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="err">  </span><span class="p">(</span><span class="nv">ϕ </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">z </span><span class="p">:</span><span class="err"> A) -&gt; hom A a z -&gt; C z)</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">  : (covTrans A x y g C CisCov (ϕ x f)) = (ϕ y (Segal-comp A is-segal-A a x y f g))</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">  : (covariant-transport A x y g C CisCov (ϕ x f)) = (ϕ y (Segal-comp A is-segal-A a x y f g))</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">  := naturality-covariant-fiberwise-transformation A x y g (</span><span class="p">\ </span><span class="nv">z </span><span class="err">-&gt; hom A a z) C</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="err">        (is-segal-representable-isCovFam A is-segal-A a)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="err">        (is-segal-representable-is-covariant A is-segal-A a)</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="err">        CisCov</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="err">        ϕ f</span>
 </span></code></pre></div>
@@ -854,9 +896,9 @@ map makes use of the covariant transport operation.</p>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">    </span><span class="p">(</span><span class="nv">is-segal-A </span><span class="p">:</span><span class="err"> is-segal A)        </span><span class="c">-- A proof that A is Segal.</span>
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="err">    </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A)                       </span><span class="c">-- The representing object.</span>
 </span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)            </span><span class="c">-- A type family.</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="err">  </span><span class="p">(</span><span class="nv">CisCov </span><span class="p">:</span><span class="err"> isCovFam A C)        </span><span class="c">-- A covariant family.</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="err">  </span><span class="p">(</span><span class="nv">CisCov </span><span class="p">:</span><span class="err"> is-covariant A C)        </span><span class="c">-- A covariant family.</span>
 </span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="err">    : C a -&gt; </span><span class="p">(</span><span class="nv">(z </span><span class="p">:</span><span class="err"> A) -&gt; hom A a z -&gt; C z)</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="err">    := </span><span class="p">\ </span><span class="nv">u z f </span><span class="err">-&gt; covTrans A a z f C CisCov u</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="err">    := </span><span class="p">\ </span><span class="nv">u z f </span><span class="err">-&gt; covariant-transport A a z f C CisCov u</span>
 </span></code></pre></div>
 <h2 id="the-yoneda-composites">The Yoneda composites<a class="headerlink" href="#the-yoneda-composites" title="Permanent link">&para;</a></h2>
 <p>It remains to show that the Yoneda maps are inverses.</p>
@@ -866,10 +908,10 @@ map makes use of the covariant transport operation.</p>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">    </span><span class="p">(</span><span class="nv">is-segal-A </span><span class="p">:</span><span class="err"> is-segal A)        </span><span class="c">-- A proof that A is Segal.</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">    </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A)                       </span><span class="c">-- The representing object.</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)            </span><span class="c">-- A type family.</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">CisCov </span><span class="p">:</span><span class="err"> isCovFam A C)        </span><span class="c">-- A covariant family.</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">CisCov </span><span class="p">:</span><span class="err"> is-covariant A C)        </span><span class="c">-- A covariant family.</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">  </span><span class="p">(</span><span class="nv">u </span><span class="p">:</span><span class="err"> C a)</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">    : (evid A a C) ((yon A is-segal-A a C CisCov) u) = u</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">    := covPresId A a C CisCov u</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">    := id-arr-covariant-transport A a C CisCov u</span>
 </span></code></pre></div>
 <p>The other composite carries ϕ to an a priori distinct natural transformation. We
 first show that these are pointwise equal at all x : A and f : hom A a x in two
@@ -880,7 +922,7 @@ steps.</p>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">is-segal-A</span><span class="err"> : is-segal A    </span><span class="c">-- A proof that A is Segal.</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">a</span><span class="err"> : A                 </span><span class="c">-- The representing object.</span>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">C</span><span class="err"> : A -&gt; </span><span class="kt">U</span><span class="err">        </span><span class="c">-- A type family.</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">CisCov</span><span class="err"> : isCovFam A C    </span><span class="c">-- A covariant family.</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">CisCov</span><span class="err"> : is-covariant A C    </span><span class="c">-- A covariant family.</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c">-- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A a x.</span>
 </span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">yon-evid-twice-pointwise</span>
@@ -935,7 +977,7 @@ steps.</p>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="err">    </span><span class="p">(</span><span class="nv">is-segal-A </span><span class="p">:</span><span class="err"> is-segal A)          </span><span class="c">-- A proof that A is Segal.</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="err">    </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A)                         </span><span class="c">-- The representing object.</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)              </span><span class="c">-- A type family.</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">CisCov </span><span class="p">:</span><span class="err"> isCovFam A C)          </span><span class="c">-- A covariant family.</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">CisCov </span><span class="p">:</span><span class="err"> is-covariant A C)          </span><span class="c">-- A covariant family.</span>
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="err">    : is-equiv </span><span class="p">(</span><span class="nv">(z </span><span class="p">:</span><span class="err"> A) -&gt; hom A a z -&gt; C z) (C a) (evid A a C)</span>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">    := ((yon A is-segal-A a C CisCov ,</span>
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">            yon-evid A is-segal-A a C CisCov funext) ,</span>
@@ -1074,6 +1116,181 @@ equivalence.</p>
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="err">            contra-yon-evid A is-segal-A a C CisContra funext) ,</span>
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="err">        (contra-yon A is-segal-A a C CisContra ,</span>
 </span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="err">            contra-evid-yon A is-segal-A a C CisContra))</span>
+</span></code></pre></div>
+<p>From a type-theoretic perspective, the Yoneda lemma is a “directed” version of
+the “transport” operation for identity types. This suggests a “dependently
+typed” generalization of the Yoneda lemma, analogous to the full induction
+principle for identity types. We prove this as a special case of a result about
+covariant families over a type with an initial object.</p>
+<h2 id="initial-objects">Initial objects<a class="headerlink" href="#initial-objects" title="Permanent link">&para;</a></h2>
+<p>A term <span class="arithmatex">\(a\)</span> in a type <span class="arithmatex">\(A\)</span> is initial if all of its mapping-out hom types are
+contractible.</p>
+<div class="language-rzk highlight"><span class="filename">RS17, Definition 9.6</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-initial</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="err">  : </span><span class="kt">U</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="err">  := </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> A) -&gt; is-contr (hom A a x)</span>
+</span></code></pre></div>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nd">#section</span><span class="ni"> initial-evaluation-equivalence</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">A</span><span class="err"> : </span><span class="kt">U</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">a</span><span class="err"> : A</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">a-is-initial</span><span class="err"> : is-initial A a</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">C</span><span class="err"> : A -&gt; </span><span class="kt">U</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="kd">#variable</span><span class="p"> </span><span class="nv">C-is-covariant</span><span class="err"> : is-covariant A C</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">arrows-from-initial</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="err">  </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="err">  : hom A a x</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="err">  := contraction-center (hom A a x) (a-is-initial x)</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">identity-component-arrows-from-initial</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="err">  : arrows-from-initial a = id-arr A a</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="err">  := contracting-htpy (hom A a a) (a-is-initial a) (id-arr A a)</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">ind-initial</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">a-is-initial</span><span class="p">)</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="err">  </span><span class="p">(</span><span class="nv">u </span><span class="p">:</span><span class="err"> C a)</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="err">  : </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> A) -&gt; C x</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="err">  :=</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="err">    </span><span class="p">\ </span><span class="nv">x </span><span class="err">-&gt; covariant-transport A a x (arrows-from-initial x) C C-is-covariant u</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">has-section-ev-pt</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">a-is-initial</span><span class="p">)</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="err">  : has-section </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> A) -&gt; C x) (C a) (ev-pt A a C)</span>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="err">  :=</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="err">    ( ( ind-initial),</span>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a><span class="err">      ( </span><span class="p">\ </span><span class="nv">u </span><span class="err">-&gt;</span>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="err">        concat</span>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="err">          ( C a)</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="err">          ( covariant-transport A a a</span>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a><span class="err">            ( arrows-from-initial a) C C-is-covariant u)</span>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a><span class="err">          ( covariant-transport A a a</span>
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="err">            ( id-arr A a) C C-is-covariant u)</span>
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a><span class="err">          ( u)</span>
+</span><span id="__span-12-36"><a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="err">          ( ap</span>
+</span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a><span class="err">            ( hom A a a)</span>
+</span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a><span class="err">            ( C a)</span>
+</span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a><span class="err">            ( arrows-from-initial a)</span>
+</span><span id="__span-12-40"><a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a><span class="err">            ( id-arr A a)</span>
+</span><span id="__span-12-41"><a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a><span class="err">            ( </span><span class="p">\ </span><span class="nv">f </span><span class="err">-&gt;</span>
+</span><span id="__span-12-42"><a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a><span class="err">              covariant-transport A a a f C C-is-covariant u)</span>
+</span><span id="__span-12-43"><a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a><span class="err">            ( identity-component-arrows-from-initial))</span>
+</span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a><span class="err">          ( id-arr-covariant-transport A a C C-is-covariant u)))</span>
+</span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a>
+</span><span id="__span-12-46"><a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">ind-initial-ev-pt-pointwise</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span><span class="nv">a-is-initial</span><span class="p">)</span>
+</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a><span class="err">  </span><span class="p">(</span><span class="nv">s </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">x </span><span class="p">:</span><span class="err"> A) -&gt; C x)</span>
+</span><span id="__span-12-48"><a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a><span class="err">  </span><span class="p">(</span><span class="nv">b </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-12-49"><a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a><span class="err">  : ind-initial (ev-pt A a C s) b = s b</span>
+</span><span id="__span-12-50"><a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a><span class="err">  :=</span>
+</span><span id="__span-12-51"><a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a><span class="err">    covariant-uniqueness</span>
+</span><span id="__span-12-52"><a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a><span class="err">      ( A)</span>
+</span><span id="__span-12-53"><a id="__codelineno-12-53" name="__codelineno-12-53" href="#__codelineno-12-53"></a><span class="err">      ( a)</span>
+</span><span id="__span-12-54"><a id="__codelineno-12-54" name="__codelineno-12-54" href="#__codelineno-12-54"></a><span class="err">      ( b)</span>
+</span><span id="__span-12-55"><a id="__codelineno-12-55" name="__codelineno-12-55" href="#__codelineno-12-55"></a><span class="err">      ( arrows-from-initial b)</span>
+</span><span id="__span-12-56"><a id="__codelineno-12-56" name="__codelineno-12-56" href="#__codelineno-12-56"></a><span class="err">      ( C)</span>
+</span><span id="__span-12-57"><a id="__codelineno-12-57" name="__codelineno-12-57" href="#__codelineno-12-57"></a><span class="err">      ( C-is-covariant)</span>
+</span><span id="__span-12-58"><a id="__codelineno-12-58" name="__codelineno-12-58" href="#__codelineno-12-58"></a><span class="err">      ( ev-pt A a C s)</span>
+</span><span id="__span-12-59"><a id="__codelineno-12-59" name="__codelineno-12-59" href="#__codelineno-12-59"></a><span class="err">      ( ( s b, </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; s (arrows-from-initial b t)))</span>
+</span><span id="__span-12-60"><a id="__codelineno-12-60" name="__codelineno-12-60" href="#__codelineno-12-60"></a>
+</span><span id="__span-12-61"><a id="__codelineno-12-61" name="__codelineno-12-61" href="#__codelineno-12-61"></a><span class="nd">#end</span><span class="ni"> initial-evaluation-equivalence</span>
+</span></code></pre></div>
+<p>We now prove that induction from an initial element in the base of a covariant
+family defines an inverse equivalence to evaluation at the element.</p>
+<div class="language-rzk highlight"><span class="filename">RS17, Theorem 9.7</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-equiv-covariant-ev-initial</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">funext </span><span class="p">:</span><span class="err"> FunExt)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="err">  </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="err">  </span><span class="p">(</span><span class="nv">a-is-initial </span><span class="p">:</span><span class="err"> is-initial A a)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="err">  </span><span class="p">(</span><span class="nv">C-is-covariant </span><span class="p">:</span><span class="err"> is-covariant A C)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="err">  : is-equiv </span><span class="p">(</span><span class="nv">(x </span><span class="p">:</span><span class="err"> A) -&gt; C x) (C a) (ev-pt A a C)</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="err">  :=</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="err">    ( ( ( ind-initial A a a-is-initial C C-is-covariant ),</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="err">        ( </span><span class="p">\ </span><span class="nv">s </span><span class="err">-&gt; eq-htpy</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="err">                  funext</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="err">                    ( A)</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="err">                    ( C)</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="err">                    ( ind-initial</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="err">                        A a a-is-initial C C-is-covariant (ev-pt A a C s))</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="err">                    ( s)</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="err">                    ( ind-initial-ev-pt-pointwise</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="err">                        A a a-is-initial C C-is-covariant s))),</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="err">      ( has-section-ev-pt A a a-is-initial C C-is-covariant))</span>
+</span></code></pre></div>
+<h2 id="initial-objects-in-slice-categories">Initial objects in slice categories<a class="headerlink" href="#initial-objects-in-slice-categories" title="Permanent link">&para;</a></h2>
+<p>We now show that the type of arrows in a Segal type <span class="arithmatex">\(A\)</span> with domain <span class="arithmatex">\(a\)</span> has an
+initial object given by the identity arrow at <span class="arithmatex">\(a\)</span>. This makes use of the
+following equivalence.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">equiv-hom-in-slice</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">a x </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A a x)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="err">  : Equiv</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="err">    </span><span class="p">( </span><span class="nv">hom (Σ (z </span><span class="p">:</span><span class="err"> A), hom A a z) (a, id-arr A a) (x, f))</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="err">    ( {t : </span><span class="kt">2</span><span class="err"> | Δ¹ t} -&gt; hom A a (f t) [t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; id-arr A a])</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="err">  :=</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="err">    ( </span><span class="p">\ </span><span class="nv">h t s </span><span class="err">-&gt; (</span><span class="no">second</span><span class="err"> (h s)) t,</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="err">      (( </span><span class="p">\ </span><span class="nv">k s </span><span class="err">-&gt; ( k </span><span class="no">1_2</span><span class="err"> s, </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; k t s),</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="err">        </span><span class="p">\ </span><span class="nv">h </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">),</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="err">      ( </span><span class="p">\ </span><span class="nv">k s </span><span class="err">-&gt; ( k </span><span class="no">1_2</span><span class="err"> s, </span><span class="p">\ </span><span class="nv">t </span><span class="err">-&gt; k t s),</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="err">        </span><span class="p">\ </span><span class="nv">k </span><span class="err">-&gt; </span><span class="no">refl</span><span class="err">)))</span>
+</span></code></pre></div>
+<p>Since <span class="arithmatex">\(hom A a\)</span> is covariant when <span class="arithmatex">\(A\)</span> is Segal, this latter type is
+contractible.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-contr-is-segal-hom-in-slice</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">A-is-segal </span><span class="p">:</span><span class="err"> is-segal A)</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="err">  </span><span class="p">(</span><span class="nv">a x </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="err">  </span><span class="p">(</span><span class="nv">f </span><span class="p">:</span><span class="err"> hom A a x)</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="err">  : is-contr ( {t : </span><span class="kt">2</span><span class="err"> | Δ¹ t} -&gt; hom A a (f t) [t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; id-arr A a])</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="err">  :=</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="err">    ( </span><span class="no">second</span><span class="err"> (has-unique-lifts-with-fixed-domain-iff-is-covariant</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="err">                A (</span><span class="p">\ </span><span class="nv">z </span><span class="err">-&gt; hom A a z)))</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="err">      ( is-segal-representable-is-covariant A A-is-segal a)</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="err">      a x f (id-arr A a)</span>
+</span></code></pre></div>
+<p>This proves the initiality of identity arrows in the slice of a Segal type.</p>
+<div class="language-rzk highlight"><span class="filename">RS17, Lemma 9.8</span><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">is-initial-id-arr-is-segal</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">A-is-segal </span><span class="p">:</span><span class="err"> is-segal A)</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="err">  </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="err">  : is-initial </span><span class="p">(</span><span class="nv">Σ (z </span><span class="p">:</span><span class="err"> A), hom A a z) (a, id-arr A a)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="err">  :=</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="err">    \ (x, f) -&gt;</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="err">    is-contr-is-equiv-to-contr</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="err">      </span><span class="p">( </span><span class="nv">hom (Σ (z </span><span class="p">:</span><span class="err"> A), hom A a z) (a, id-arr A a) (x, f))</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="err">      ( {t : </span><span class="kt">2</span><span class="err"> | Δ¹ t} -&gt; hom A a (f t) [t </span><span class="o">===</span><span class="err"> </span><span class="no">0_2</span><span class="err"> |-&gt; id-arr A a])</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="err">      ( equiv-hom-in-slice A a x f)</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="err">      ( is-contr-is-segal-hom-in-slice A A-is-segal a x f)</span>
+</span></code></pre></div>
+<h2 id="dependent-yoneda-lemma">Dependent Yoneda lemma<a class="headerlink" href="#dependent-yoneda-lemma" title="Permanent link">&para;</a></h2>
+<p>The dependent Yoneda lemma now follows by specializing these results.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">dependent-ev-id</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="err">  </span><span class="p">(</span><span class="nv">a </span><span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">Σ (z </span><span class="p">:</span><span class="err"> A), hom A a z) -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="err">  : (((x, f) : </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span><span class="nv">z </span><span class="p">:</span><span class="err"> A), hom A a z) -&gt; C (x, f)) -&gt; C (a, id-arr A a)</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="err">  := </span><span class="p">\ </span><span class="nv">s </span><span class="err">-&gt; s (a, id-arr A a)</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="err">```rzk title=</span><span class="s">&quot;RS17, Theorem 9.5&quot;</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="kd">#def</span><span class="p"> </span><span class="nf">dependent-yoneda-lemma</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="err">  </span><span class="p">(</span><span class="nv">funext </span><span class="p">:</span><span class="err"> FunExt)</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="err">  </span><span class="p">(</span><span class="nv">A </span><span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="err">  </span><span class="p">(</span><span class="nv">A-is-segal </span><span class="p">:</span><span class="err"> is-segal A)</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="err">  </span><span class="p">(</span><span class="nv">C </span><span class="p">:</span><span class="err"> </span><span class="p">(</span><span class="nv">Σ (z </span><span class="p">:</span><span class="err"> A), hom A a z) -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="err">  </span><span class="p">(</span><span class="nv">C-is-covariant </span><span class="p">:</span><span class="err"> is-covariant </span><span class="p">(</span><span class="nv">Σ (z </span><span class="p">:</span><span class="err"> A), hom A a z) C)</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="err">  : is-equiv</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="err">      ( ((x, f) : </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span><span class="nv">z </span><span class="p">:</span><span class="err"> A), hom A a z) -&gt; C (x, f))</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="err">      ( C (a, id-arr A a))</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="err">      ( dependent-ev-id A a C)</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="err">  :=</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="err">    is-equiv-covariant-ev-initial</span>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="err">      ( funext)</span>
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="err">      </span><span class="p">( </span><span class="nv">Σ (z </span><span class="p">:</span><span class="err"> A), hom A a z)</span>
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="err">      ( (a, id-arr A a))</span>
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="err">      ( is-initial-id-arr-is-segal A A-is-segal a)</span>
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a><span class="err">      ( C)</span>
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a><span class="err">      ( C-is-covariant)</span>
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a><span class="err">```</span>
 </span></code></pre></div>
 
 
