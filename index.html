@@ -744,10 +744,11 @@ the aim of proving the Yoneda lemma for ∞-categories following the paper
 [1]. This formalization project could be regarded as a companion to the article
 "<a href="https://www.ams.org/journals/notices/202305/noti2692/noti2692.html">Could ∞-category theory be taught to undergraduates?</a>"
 [2].</p>
-<p>The formalizations are implemented using <a href="https://github.com/fizruk/rzk"><code>rzk</code></a>,
-an experimental proof assistant for a variant of type theory with shapes
-developed by <a href="https://fizruk.github.io/">Nikolai Kudasov</a>. Formalizations were
-contributed by <a href="https://github.com/fredrik-bakke">Fredrik Bakke</a>,
+<p>The formalizations are implemented using
+<a href="https://github.com/rzk-lang/rzk"><code>rzk</code></a>, an experimental proof assistant for a
+variant of type theory with shapes developed by
+<a href="https://fizruk.github.io/">Nikolai Kudasov</a>. Formalizations were contributed by
+<a href="https://github.com/fredrik-bakke">Fredrik Bakke</a>,
 <a href="https://fizruk.github.io/">Nikolai Kudasov</a>,
 <a href="https://emilyriehl.github.io/">Emily Riehl</a>, and
 <a href="https://sites.google.com/view/jonathanweinberger">Jonathan Weinberger</a>. Our
@@ -768,10 +769,11 @@ prove the Yoneda lemma for pre-∞-categories, since the univalence/completeness
 condition is not required for this result. By analogy, precategories are the
 non-univalent 1-categories in HoTT.</p>
 <h2 id="checking-the-formalisations-locally">Checking the Formalisations Locally<a class="headerlink" href="#checking-the-formalisations-locally" title="Permanent link">&para;</a></h2>
-<p>Install the <a href="https://github.com/fizruk/rzk"><code>rzk</code></a> proof assistant. Then run the
-following command from the root of
-<a href="https://github.com/emilyriehl/">our repository</a>:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>stack<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rzk<span class="w"> </span>typecheck<span class="w"> </span>src/hott/*<span class="w"> </span>src/simplicial-hott/*
+<p>Install the
+<a href="https://rzk-lang.github.io/rzk/latest/getting-started/install/"><code>rzk</code></a> proof
+assistant. Then run the following command from the root of
+<a href="https://github.com/emilyriehl/yoneda">our repository</a>:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>rzk<span class="w"> </span>typecheck<span class="w"> </span>src/hott/*<span class="w"> </span>src/simplicial-hott/*
 </span></code></pre></div>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ol>
