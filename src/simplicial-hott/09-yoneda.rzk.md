@@ -350,26 +350,26 @@ contractible.
 
 #variable A : U
 #variable a : A
-#variable a-is-initial : is-initial A a
+#variable is-initial-a : is-initial A a
 #variable C : A -> U
-#variable C-is-covariant : is-covariant A C
+#variable is-covariant-C : is-covariant A C
 
 #def arrows-from-initial
   (x : A)
   : hom A a x
-  := contraction-center (hom A a x) (a-is-initial x)
+  := contraction-center (hom A a x) (is-initial-a x)
 
 #def identity-component-arrows-from-initial
   : arrows-from-initial a = id-arr A a
-  := contracting-htpy (hom A a a) (a-is-initial a) (id-arr A a)
+  := contracting-htpy (hom A a a) (is-initial-a a) (id-arr A a)
 
-#def ind-initial uses (a-is-initial)
+#def ind-initial uses (is-initial-a)
   (u : C a)
   : (x : A) -> C x
   :=
-    \ x -> covariant-transport A a x (arrows-from-initial x) C C-is-covariant u
+    \ x -> covariant-transport A a x (arrows-from-initial x) C is-covariant-C u
 
-#def has-section-ev-pt uses (a-is-initial)
+#def has-section-ev-pt uses (is-initial-a)
   : has-section ((x : A) -> C x) (C a) (ev-pt A a C)
   :=
     ( ( ind-initial),
@@ -377,9 +377,9 @@ contractible.
         concat
           ( C a)
           ( covariant-transport A a a
-            ( arrows-from-initial a) C C-is-covariant u)
+            ( arrows-from-initial a) C is-covariant-C u)
           ( covariant-transport A a a
-            ( id-arr A a) C C-is-covariant u)
+            ( id-arr A a) C is-covariant-C u)
           ( u)
           ( ap
             ( hom A a a)
@@ -387,11 +387,11 @@ contractible.
             ( arrows-from-initial a)
             ( id-arr A a)
             ( \ f ->
-              covariant-transport A a a f C C-is-covariant u)
+              covariant-transport A a a f C is-covariant-C u)
             ( identity-component-arrows-from-initial))
-          ( id-arr-covariant-transport A a C C-is-covariant u)))
+          ( id-arr-covariant-transport A a C is-covariant-C u)))
 
-#def ind-initial-ev-pt-pointwise uses (a-is-initial)
+#def ind-initial-ev-pt-pointwise uses (is-initial-a)
   (s : (x : A) -> C x)
   (b : A)
   : ind-initial (ev-pt A a C s) b = s b
@@ -402,7 +402,7 @@ contractible.
       ( b)
       ( arrows-from-initial b)
       ( C)
-      ( C-is-covariant)
+      ( is-covariant-C)
       ( ev-pt A a C s)
       ( ( s b, \ t -> s (arrows-from-initial b t)))
 
@@ -417,22 +417,22 @@ family defines an inverse equivalence to evaluation at the element.
   (funext : FunExt)
   (A : U)
   (a : A)
-  (a-is-initial : is-initial A a)
+  (is-initial-a : is-initial A a)
   (C : A -> U)
-  (C-is-covariant : is-covariant A C)
+  (is-covariant-C : is-covariant A C)
   : is-equiv ((x : A) -> C x) (C a) (ev-pt A a C)
   :=
-    ( ( ( ind-initial A a a-is-initial C C-is-covariant ),
+    ( ( ( ind-initial A a is-initial-a C is-covariant-C ),
         ( \ s -> eq-htpy
                   funext
                     ( A)
                     ( C)
                     ( ind-initial
-                        A a a-is-initial C C-is-covariant (ev-pt A a C s))
+                        A a is-initial-a C is-covariant-C (ev-pt A a C s))
                     ( s)
                     ( ind-initial-ev-pt-pointwise
-                        A a a-is-initial C C-is-covariant s))),
-      ( has-section-ev-pt A a a-is-initial C C-is-covariant))
+                        A a is-initial-a C is-covariant-C s))),
+      ( has-section-ev-pt A a is-initial-a C is-covariant-C))
 ```
 
 ## Initial objects in slice categories
@@ -463,14 +463,14 @@ contractible.
 ```rzk
 #def is-contr-is-segal-hom-in-slice
   (A : U)
-  (A-is-segal : is-segal A)
+  (is-segal-A : is-segal A)
   (a x : A)
   (f : hom A a x)
   : is-contr ( {t : 2 | Δ¹ t} -> hom A a (f t) [t === 0_2 |-> id-arr A a])
   :=
     ( second (has-unique-lifts-with-fixed-domain-iff-is-covariant
                 A (\ z -> hom A a z)))
-      ( is-segal-representable-is-covariant A A-is-segal a)
+      ( is-segal-representable-is-covariant A is-segal-A a)
       a x f (id-arr A a)
 ```
 
@@ -479,7 +479,7 @@ This proves the initiality of identity arrows in the slice of a Segal type.
 ```rzk title="RS17, Lemma 9.8"
 #def is-initial-id-arr-is-segal
   (A : U)
-  (A-is-segal : is-segal A)
+  (is-segal-A : is-segal A)
   (a : A)
   : is-initial (Σ (z : A), hom A a z) (a, id-arr A a)
   :=
@@ -488,30 +488,30 @@ This proves the initiality of identity arrows in the slice of a Segal type.
       ( hom (Σ (z : A), hom A a z) (a, id-arr A a) (x, f))
       ( {t : 2 | Δ¹ t} -> hom A a (f t) [t === 0_2 |-> id-arr A a])
       ( equiv-hom-in-slice A a x f)
-      ( is-contr-is-segal-hom-in-slice A A-is-segal a x f)
+      ( is-contr-is-segal-hom-in-slice A is-segal-A a x f)
 ```
 
 ## Dependent Yoneda lemma
 
 The dependent Yoneda lemma now follows by specializing these results.
 
-````rzk
+```rzk
 #def dependent-ev-id
   (A : U)
   (a : A)
   (C : (Σ (z : A), hom A a z) -> U)
-  : (((x, f) : Σ (z : A), hom A a z) -> C (x, f)) -> C (a, id-arr A a)
+  : ((p : Σ (z : A), hom A a z) -> C p) -> C (a, id-arr A a)
   := \ s -> s (a, id-arr A a)
 
-```rzk title="RS17, Theorem 9.5"
-#def dependent-yoneda-lemma
+#def dependent-yoneda-lemma'
   (funext : FunExt)
   (A : U)
-  (A-is-segal : is-segal A)
+  (is-segal-A : is-segal A)
+  (a : A)
   (C : (Σ (z : A), hom A a z) -> U)
-  (C-is-covariant : is-covariant (Σ (z : A), hom A a z) C)
+  (is-covariant-C : is-covariant (Σ (z : A), hom A a z) C)
   : is-equiv
-      ( ((x, f) : Σ (z : A), hom A a z) -> C (x, f))
+      ( (p : Σ (z : A), hom A a z) -> C p)
       ( C (a, id-arr A a))
       ( dependent-ev-id A a C)
   :=
@@ -519,8 +519,43 @@ The dependent Yoneda lemma now follows by specializing these results.
       ( funext)
       ( Σ (z : A), hom A a z)
       ( (a, id-arr A a))
-      ( is-initial-id-arr-is-segal A A-is-segal a)
+      ( is-initial-id-arr-is-segal A is-segal-A a)
       ( C)
-      ( C-is-covariant)
+      ( is-covariant-C)
 ```
-````
+
+The actual dependent Yoneda is equivalent to the result just proven, just with
+an equivalent type in the domain of the evaluation map.
+
+```rzk title="RS17, Theorem 9.5"
+#def dependent-yoneda-lemma
+  (funext : FunExt)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : (Σ (z : A), hom A a z) -> U)
+  (is-covariant-C : is-covariant (Σ (z : A), hom A a z) C)
+  : is-equiv
+      ( (x : A) -> (f : hom A a x) -> C (x, f))
+      ( C (a, id-arr A a))
+      ( \ s -> s a (id-arr A a))
+  :=
+    LeftCancel-is-equiv
+      ( (p : Σ (z : A), hom A a z) -> C p)
+      ( (x : A) -> (f : hom A a x) -> C (x, f))
+      ( C (a, id-arr A a))
+      ( first (equiv-dependent-curry A (\ z -> hom A a z)(\ x f -> C (x, f))))
+      ( second (equiv-dependent-curry A (\ z -> hom A a z)(\ x f -> C (x, f))))
+      ( \ s -> s a (id-arr A a))
+      ( dependent-yoneda-lemma' funext A is-segal-A a C is-covariant-C)
+```
+
+## Final objects
+
+```rzk
+#def is-final
+  (A : U)
+  (a : A)
+  : U
+  := (x : A) -> is-contr (hom A x a)
+```
