@@ -21,13 +21,13 @@ This is a literate `rzk` file:
 
 ## Natural transformations involving a representable functor
 
-Fix a Segal type A and a term a : A. The Yoneda lemma characterizes natural
-transformations from the representable type family hom A a : A -> U to a
-covariant type family C : A -> U.
+Fix a Segal type $A$ and a term $a : A$. The Yoneda lemma characterizes natural
+transformations from the representable type family `hom A a : A → U` to a
+covariant type family `C : A → U`.
 
 Ordinary, such a natural transformation would involve a family of maps
 
-ϕ : (z : A) -> hom A a z -> C z
+`ϕ : (z : A) → hom A a z → C z`
 
 together with a proof of naturality of these components, but by
 naturality-covariant-fiberwise-transformation naturality is automatic.
@@ -35,26 +35,31 @@ naturality-covariant-fiberwise-transformation naturality is automatic.
 ```rzk
 #def naturality-covariant-fiberwise-representable-transformation
   (A : U)
-    (is-segal-A : is-segal A)
+  (is-segal-A : is-segal A)
   (a x y : A)
   (f : hom A a x)
   (g : hom A x y)
   (C : A -> U)
-  (CisCov : is-covariant A C)
+  (is-covariant-C : is-covariant A C)
   (ϕ : (z : A) -> hom A a z -> C z)
-  : (covariant-transport A x y g C CisCov (ϕ x f)) = (ϕ y (Segal-comp A is-segal-A a x y f g))
-  := naturality-covariant-fiberwise-transformation A x y g (\ z -> hom A a z) C
-        (is-segal-representable-is-covariant A is-segal-A a)
-        CisCov
-        ϕ f
+  : (covariant-transport A x y g C is-covariant-C (ϕ x f)) =
+    (ϕ y (Segal-comp A is-segal-A a x y f g))
+  :=
+    naturality-covariant-fiberwise-transformation A x y g
+      (\ z -> hom A a z)
+      ( C)
+      ( is-segal-representable-is-covariant A is-segal-A a)
+      ( is-covariant-C)
+      ( ϕ)
+      ( f)
 ```
 
 ## The Yoneda maps
 
-For any Segal type A and term a : A, the Yoneda lemma provides an equivalence
-between the type (z : A) -> hom A a z -> C z of natural transformations out of
-the functor (hom A a) and valued in an arbitrary covariant family C and the type
-(C a).
+For any Segal type $A$ and term $a : A$, the Yoneda lemma provides an
+equivalence between the type `(z : A) → hom A a z → C z` of natural
+transformations out of the functor `hom A a` and valued in an arbitrary
+covariant family $C$ and the type $C a$.
 
 One of the maps in this equivalence is evaluation at the identity. The inverse
 map makes use of the covariant transport operation.
@@ -63,95 +68,100 @@ map makes use of the covariant transport operation.
 -- The map evid evaluates a natural transformation
 -- out of a representable functor at the identity arrow.
 #def evid
-    (A : U)                   -- The ambient type.
-    (a : A)                   -- The representing object.
-  (C : A -> U)            -- A type family.
-    : ((z : A) -> hom A a z -> C z) -> C a
-    := \ ϕ -> ϕ a (id-arr A a)
+  (A : U)
+  (a : A)
+  (C : A -> U)
+  : ((z : A) -> hom A a z -> C z) -> C a
+  := \ ϕ -> ϕ a (id-arr A a)
 
 -- The inverse map only exists for Segal types.
 #def yon
-    (A : U)                       -- The ambient type.
-    (is-segal-A : is-segal A)        -- A proof that A is Segal.
-    (a : A)                       -- The representing object.
-  (C : A -> U)            -- A type family.
-  (CisCov : is-covariant A C)        -- A covariant family.
-    : C a -> ((z : A) -> hom A a z -> C z)
-    := \ u z f -> covariant-transport A a z f C CisCov u
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : A -> U)
+  (is-covariant-C : is-covariant A C)
+  : C a -> ((z : A) -> hom A a z -> C z)
+  := \ u z f -> covariant-transport A a z f C is-covariant-C u
 ```
 
 ## The Yoneda composites
 
-It remains to show that the Yoneda maps are inverses.
+It remains to show that the Yoneda maps are inverses. One retraction is
+straightforward:
 
 ```rzk
--- One retraction is straightforward:
 #def evid-yon
-    (A : U)                       -- The ambient type.
-    (is-segal-A : is-segal A)        -- A proof that A is Segal.
-    (a : A)                       -- The representing object.
-  (C : A -> U)            -- A type family.
-  (CisCov : is-covariant A C)        -- A covariant family.
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : A -> U)
+  (is-covariant-C : is-covariant A C)
   (u : C a)
-    : (evid A a C) ((yon A is-segal-A a C CisCov) u) = u
-    := id-arr-covariant-transport A a C CisCov u
+  : (evid A a C) ((yon A is-segal-A a C is-covariant-C) u) = u
+  := id-arr-covariant-transport A a C is-covariant-C u
 ```
 
-The other composite carries ϕ to an a priori distinct natural transformation. We
-first show that these are pointwise equal at all x : A and f : hom A a x in two
-steps.
+The other composite carries $ϕ$ to an a priori distinct natural transformation.
+We first show that these are pointwise equal at all `x : A` and `f : hom A a x`
+in two steps.
 
 ```rzk
 #section yon-evid
 
-#variable A : U                     -- The ambient type.
-#variable is-segal-A : is-segal A    -- A proof that A is Segal.
-#variable a : A                 -- The representing object.
-#variable C : A -> U        -- A type family.
-#variable CisCov : is-covariant A C    -- A covariant family.
+#variable A : U
+#variable is-segal-A : is-segal A
+#variable a : A
+#variable C : A -> U
+#variable is-covariant-C : is-covariant A C
 
 -- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A a x.
 #def yon-evid-twice-pointwise
-    (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
-    (x : A)
-    (f : hom A a x)
-  : ((yon A is-segal-A a C CisCov) ((evid A a C) ϕ )) x f = ϕ x f
-    := concat (C x)
-        (((yon A is-segal-A a C CisCov) ((evid A a C) ϕ )) x f)
-        (ϕ x (Segal-comp A is-segal-A a a x (id-arr A a) f))
-        (ϕ x f)
-        (naturality-covariant-fiberwise-representable-transformation
-            A is-segal-A a a x (id-arr A a) f C CisCov ϕ )
-        (ap (hom A a x) (C x)
-            (Segal-comp A is-segal-A a a x (id-arr A a) f)
-            f
-            (ϕ x)
-            (Segal-id-comp A is-segal-A a x f))
+  (ϕ : (z : A) -> hom A a z -> C z)
+  (x : A)
+  (f : hom A a x)
+  : ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f = ϕ x f
+  :=
+    concat
+      ( C x)
+      ( ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
+      ( ϕ x (Segal-comp A is-segal-A a a x (id-arr A a) f))
+      ( ϕ x f)
+      ( naturality-covariant-fiberwise-representable-transformation
+        A is-segal-A a a x (id-arr A a) f C is-covariant-C ϕ )
+      ( ap
+        ( hom A a x)
+        ( C x)
+        ( Segal-comp A is-segal-A a a x (id-arr A a) f)
+        ( f)
+        ( ϕ x)
+        ( Segal-id-comp A is-segal-A a x f))
 
 -- By funext, these are equals as functions of f pointwise in x.
 #def yon-evid-once-pointwise
-    (funext : FunExt)
-    (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
-    (x : A)
-  : ((yon A is-segal-A a C CisCov) ((evid A a C) ϕ )) x = ϕ x
-    := eq-htpy funext
-        (hom A a x)
-        (\ f -> C x)
-        (\ f -> ((yon A is-segal-A a C CisCov) ((evid A a C) ϕ )) x f)
-        (\ f -> (ϕ x f))
-        (\ f -> yon-evid-twice-pointwise ϕ x f)
+  (funext : FunExt)
+  (ϕ : (z : A) -> hom A a z -> C z)
+  (x : A)
+  : ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x = ϕ x
+  :=
+    eq-htpy funext
+      ( hom A a x)
+      ( \ f -> C x)
+      ( \ f -> ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
+      ( \ f -> (ϕ x f))
+      ( \ f -> yon-evid-twice-pointwise ϕ x f)
 
 -- By funext again, these are equal as functions of x and f.
 #def yon-evid
-    (funext : FunExt)
-    (ϕ : (z : A) -> hom A a z -> C z)     -- A natural transformation.
-    : ((yon A is-segal-A a C CisCov) ((evid A a C) ϕ )) = ϕ
-    := eq-htpy funext
-        A
-        (\ x -> (hom A a x -> C x))
-        (\ x -> ((yon A is-segal-A a C CisCov) ((evid A a C) ϕ )) x)
-        (\ x -> (ϕ x))
-        (\ x -> yon-evid-once-pointwise funext ϕ x)
+  (funext : FunExt)
+  (ϕ : (z : A) -> hom A a z -> C z)
+  : ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) = ϕ
+  := eq-htpy funext
+      ( A)
+      ( \ x -> (hom A a x -> C x))
+      ( \ x -> ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x)
+      ( \ x -> (ϕ x))
+      ( \ x -> yon-evid-once-pointwise funext ϕ x)
 
 #end yon-evid
 ```
@@ -162,26 +172,27 @@ The Yoneda lemma says that evaluation at the identity defines an equivalence.
 
 ```rzk
 #def Yoneda-lemma
-    (funext : FunExt)
-    (A : U)                         -- The ambient type.
-    (is-segal-A : is-segal A)          -- A proof that A is Segal.
-    (a : A)                         -- The representing object.
-  (C : A -> U)              -- A type family.
-  (CisCov : is-covariant A C)          -- A covariant family.
-    : is-equiv ((z : A) -> hom A a z -> C z) (C a) (evid A a C)
-    := ((yon A is-segal-A a C CisCov ,
-            yon-evid A is-segal-A a C CisCov funext) ,
-        (yon A is-segal-A a C CisCov ,
-            evid-yon A is-segal-A a C CisCov))
+  (funext : FunExt)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : A -> U)
+  (is-covariant-C : is-covariant A C)
+  : is-equiv ((z : A) -> hom A a z -> C z) (C a) (evid A a C)
+  :=
+    ( ( ( yon A is-segal-A a C is-covariant-C),
+        ( yon-evid A is-segal-A a C is-covariant-C funext)),
+      ( ( yon A is-segal-A a C is-covariant-C),
+        ( evid-yon A is-segal-A a C is-covariant-C)))
 ```
 
 ## Yoneda for contravariant families
 
 Dually, the Yoneda lemma for contravariant type families characterizes natural
-transformations from the contravariant family represented by a term a : A in a
-Segal type to a contravariant type family C : A -> U.
+transformations from the contravariant family represented by a term $a : A$ in a
+Segal type to a contravariant type family $C : A → U$.
 
-By naturality-contravariant-fiberwise-transformation naturality is again
+By `naturality-contravariant-fiberwise-transformation` naturality is again
 automatic.
 
 ```rzk
@@ -192,21 +203,23 @@ automatic.
   (f : hom A y a)
   (g : hom A x y)
   (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (ϕ : (z : A) -> hom A z a -> C z)
-  : (contraTrans A x y g C CisContra (ϕ y f)) =
-        (ϕ x (Segal-comp A is-segal-A x y a g f))
-  := naturality-contravariant-fiberwise-transformation A x y g
-        (\ z -> hom A z a) C
-        (is-segal-representable-isContraFam A is-segal-A a)
-        CisContra
-        ϕ f
+  : (contravariant-transport A x y g C is-contravariant-C (ϕ y f)) =
+    (ϕ x (Segal-comp A is-segal-A x y a g f))
+  :=
+    naturality-contravariant-fiberwise-transformation A x y g
+      ( \ z -> hom A z a) C
+      ( is-segal-representable-is-contravariant A is-segal-A a)
+      ( is-contravariant-C)
+      ( ϕ)
+      ( f)
 ```
 
-For any Segal type `A` and term `a : A`, the contravariant Yoneda lemma provides
-an equivalence between the type `(z : A) -> hom A z a -> C z` of natural
-transformations out of the functor `(\ x -> hom A x a)` and valued in an
-arbitrary contravariant family `C` and the type `(C a)`.
+For any Segal type $A$ and term $a : A$, the contravariant Yoneda lemma provides
+an equivalence between the type `(z : A) → hom A z a → C z` of natural
+transformations out of the functor `\ z → hom A z a` and valued in an arbitrary
+contravariant family $C$ and the type $C a$.
 
 One of the maps in this equivalence is evaluation at the identity. The inverse
 map makes use of the contravariant transport operation.
@@ -215,95 +228,106 @@ map makes use of the contravariant transport operation.
 -- The map evid evaluates a natural transformation
 -- out of a representable functor at the identity arrow.
 #def contra-evid
-    (A : U)                   -- The ambient type.
-    (a : A)                   -- The representing object.
-    (C : A -> U)            -- A type family.
-    : ((z : A) -> hom A z a -> C z) -> C a
-    := \ ϕ -> ϕ a (id-arr A a)
+  (A : U)
+  (a : A)
+  (C : A -> U)
+  : ( (z : A) -> hom A z a -> C z) -> C a
+  := \ ϕ -> ϕ a (id-arr A a)
 
 -- The inverse map only exists for Segal types and contravariant families.
 #def contra-yon
-    (A : U)                             -- The ambient type.
-    (is-segal-A : is-segal A)               -- A proof that A is Segal.
-    (a : A)                             -- The representing object.
-    (C : A -> U)                        -- A type family.
-    (CisContra : isContraFam A C)        -- A contrariant family.
-    : C a -> ((z : A) -> hom A z a -> C z)
-    := \ v z f -> contraTrans A z a f C CisContra v
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : A -> U)
+  (is-contravariant-C : is-contravariant A C)
+  : C a -> ((z : A) -> hom A z a -> C z)
+  := \ v z f -> contravariant-transport A z a f C is-contravariant-C v
 ```
 
-It remains to show that the Yoneda maps are inverses.
+It remains to show that the Yoneda maps are inverses. One retraction is
+straightforward:
 
 ```rzk
--- One retraction is straightforward:
 #def contra-evid-yon
-    (A : U)                       -- The ambient type.
-    (is-segal-A : is-segal A)        -- A proof that A is Segal.
-    (a : A)                       -- The representing object.
-    (C : A -> U)            -- A type family.
-    (CisContra : isContraFam A C)        -- A contravariant family.
-    (v : C a)
-    : (contra-evid A a C) ((contra-yon A is-segal-A a C CisContra) v) = v
-    := contraPresId A a C CisContra v
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : A -> U)
+  (is-contravariant-C : is-contravariant A C)
+  (v : C a)
+  : contra-evid A a C ((contra-yon A is-segal-A a C is-contravariant-C) v) = v
+  := id-arr-contravariant-transport A a C is-contravariant-C v
 ```
 
-The other composite carries ϕ to an a priori distinct natural transformation. We
-first show that these are pointwise equal at all x : A and f : hom A x a in two
-steps.
+The other composite carries $ϕ$ to an a priori distinct natural transformation.
+We first show that these are pointwise equal at all `x : A` and `f : hom A x a`
+in two steps.
 
 ```rzk
 #section contra-yon-evid
 
-#variable A : U                          -- The ambient type.
-#variable is-segal-A : is-segal A          -- A proof that A is Segal.
-#variable a : A                         -- The representing object.
-#variable C : A -> U                    -- A type family.
-#variable CisContra : isContraFam A C    -- A contravariant family.
+#variable A : U
+#variable is-segal-A : is-segal A
+#variable a : A
+#variable C : A -> U
+#variable is-contravariant-C : is-contravariant A C
 
 -- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A x a.
 #def contra-yon-evid-twice-pointwise
-    (ϕ : (z : A) -> hom A z a -> C z)     -- A natural transformation.
-    (x : A)
-    (f : hom A x a)
-  : ((contra-yon A is-segal-A a C CisContra) ((contra-evid A a C) ϕ )) x f = ϕ x f
-    := concat (C x)
-        (((contra-yon A is-segal-A a C CisContra) ((contra-evid A a C) ϕ )) x f)
-        (ϕ x (Segal-comp A is-segal-A x a a f (id-arr A a)))
-        (ϕ x f)
-        (naturality-contravariant-fiberwise-representable-transformation
-            A is-segal-A a x a (id-arr A a) f C CisContra ϕ )
-        (ap (hom A x a) (C x)
-            (Segal-comp A is-segal-A x a a f (id-arr A a))
-            f
-            (ϕ x)
-            (Segal-comp-id A is-segal-A x a f))
+  (ϕ : (z : A) -> hom A z a -> C z)
+  (x : A)
+  (f : hom A x a)
+  : ((contra-yon A is-segal-A a C is-contravariant-C)
+        ((contra-evid A a C) ϕ)) x f = ϕ x f
+  :=
+    concat
+      ( C x)
+      ( ((contra-yon A is-segal-A a C is-contravariant-C)
+            ((contra-evid A a C) ϕ )) x f)
+      ( ϕ x (Segal-comp A is-segal-A x a a f (id-arr A a)))
+      ( ϕ x f)
+      ( naturality-contravariant-fiberwise-representable-transformation
+          A is-segal-A a x a (id-arr A a) f C is-contravariant-C ϕ )
+      ( ap
+        ( hom A x a)
+        ( C x)
+        ( Segal-comp A is-segal-A x a a f (id-arr A a))
+        ( f)
+        ( ϕ x)
+        ( Segal-comp-id A is-segal-A x a f))
 
 -- By funext, these are equals as functions of f pointwise in x.
 #def contra-yon-evid-once-pointwise
-    (funext : FunExt)
-    (ϕ : (z : A) -> hom A z a -> C z)     -- A natural transformation.
-    (x : A)
-  : ((contra-yon A is-segal-A a C CisContra) ((contra-evid A a C) ϕ )) x = ϕ x
-    := eq-htpy funext
-        (hom A x a)
-        (\ f -> C x)
-        (\ f ->
-          ((contra-yon A is-segal-A a C CisContra) ((contra-evid A a C) ϕ )) x f)
-        (\ f -> (ϕ x f))
-        (\ f -> contra-yon-evid-twice-pointwise ϕ x f)
+  (funext : FunExt)
+  (ϕ : (z : A) -> hom A z a -> C z)
+  (x : A)
+  : ((contra-yon A is-segal-A a C is-contravariant-C)
+        ((contra-evid A a C) ϕ )) x = ϕ x
+  :=
+    eq-htpy funext
+      ( hom A x a)
+      ( \ f -> C x)
+      ( \ f ->
+        ( (contra-yon A is-segal-A a C is-contravariant-C)
+          ( (contra-evid A a C) ϕ )) x f)
+      ( \ f -> (ϕ x f))
+      ( \ f -> contra-yon-evid-twice-pointwise ϕ x f)
 
 -- By funext again, these are equal as functions of x and f.
 #def contra-yon-evid
-    (funext : FunExt)
-    (ϕ : (z : A) -> hom A z a -> C z)     -- A natural transformation.
-    : ((contra-yon A is-segal-A a C CisContra) ((contra-evid A a C) ϕ )) = ϕ
-    := eq-htpy funext
-        A
-        (\ x -> (hom A x a -> C x))
-        (\ x ->
-          ((contra-yon A is-segal-A a C CisContra) ((contra-evid A a C) ϕ )) x)
-        (\ x -> (ϕ x))
-        (\ x -> contra-yon-evid-once-pointwise funext ϕ x)
+  (funext : FunExt)
+  (ϕ : (z : A) -> hom A z a -> C z)
+  : (contra-yon A is-segal-A a C is-contravariant-C)((contra-evid A a C) ϕ) = ϕ
+  :=
+    eq-htpy funext
+      ( A)
+      ( \ x -> (hom A x a -> C x))
+      ( \ x ->
+        ( (contra-yon A is-segal-A a C is-contravariant-C)
+              ((contra-evid A a C) ϕ )) x)
+      ( \ x -> (ϕ x))
+      ( \ x -> contra-yon-evid-once-pointwise funext ϕ x)
 
 #end contra-yon-evid
 ```
@@ -313,17 +337,18 @@ equivalence.
 
 ```rzk
 #def contra-Yoneda-lemma
-    (funext : FunExt)
-    (A : U)                         -- The ambient type.
-    (is-segal-A : is-segal A)          -- A proof that A is Segal.
-    (a : A)                         -- The representing object.
-    (C : A -> U)                    -- A type family.
-    (CisContra : isContraFam A C)    -- A contravariant family.
-    : is-equiv ((z : A) -> hom A z a -> C z) (C a) (contra-evid A a C)
-    := ((contra-yon A is-segal-A a C CisContra ,
-            contra-yon-evid A is-segal-A a C CisContra funext) ,
-        (contra-yon A is-segal-A a C CisContra ,
-            contra-evid-yon A is-segal-A a C CisContra))
+  (funext : FunExt)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : A -> U)
+  (is-contravariant-C : is-contravariant A C)
+  : is-equiv ((z : A) -> hom A z a -> C z) (C a) (contra-evid A a C)
+  :=
+    ( ( ( contra-yon A is-segal-A a C is-contravariant-C),
+        ( contra-yon-evid A is-segal-A a C is-contravariant-C funext)),
+      ( ( contra-yon A is-segal-A a C is-contravariant-C),
+        ( contra-evid-yon A is-segal-A a C is-contravariant-C)))
 ```
 
 From a type-theoretic perspective, the Yoneda lemma is a “directed” version of
@@ -344,6 +369,8 @@ contractible.
   : U
   := (x : A) -> is-contr (hom A a x)
 ```
+
+Initial objects satisfy an induction principle relative to covariant families.
 
 ```rzk
 #section initial-evaluation-equivalence
@@ -369,7 +396,7 @@ contractible.
   :=
     \ x -> covariant-transport A a x (arrows-from-initial x) C is-covariant-C u
 
-#def has-section-ev-pt uses (is-initial-a)
+#def has-cov-section-ev-pt uses (is-initial-a)
   : has-section ((x : A) -> C x) (C a) (ev-pt A a C)
   :=
     ( ( ind-initial),
@@ -432,22 +459,31 @@ family defines an inverse equivalence to evaluation at the element.
                     ( s)
                     ( ind-initial-ev-pt-pointwise
                         A a is-initial-a C is-covariant-C s))),
-      ( has-section-ev-pt A a is-initial-a C is-covariant-C))
+      ( has-cov-section-ev-pt A a is-initial-a C is-covariant-C))
 ```
 
 ## Initial objects in slice categories
 
-We now show that the type of arrows in a Segal type $A$ with domain $a$ has an
-initial object given by the identity arrow at $a$. This makes use of the
-following equivalence.
+The type `coslice A a` is the type of arrows in $A$ with domain $a$.
 
 ```rzk
-#def equiv-hom-in-slice
+#def coslice
+  (A : U)
+  (a : A)
+  : U
+  := Σ (z : A) , (hom A a z)
+```
+
+We now show that the coslice under $a$ in a Segal type $A$ has an initial object
+given by the identity arrow at $a$. This makes use of the following equivalence.
+
+```rzk
+#def equiv-hom-in-coslice
   (A : U)
   (a x : A)
   (f : hom A a x)
   : Equiv
-    ( hom (Σ (z : A), hom A a z) (a, id-arr A a) (x, f))
+    ( hom (coslice A a) (a, id-arr A a) (x, f))
     ( {t : 2 | Δ¹ t} -> hom A a (f t) [t === 0_2 |-> id-arr A a])
   :=
     ( \ h t s -> (second (h s)) t,
@@ -461,7 +497,7 @@ Since $hom A a$ is covariant when $A$ is Segal, this latter type is
 contractible.
 
 ```rzk
-#def is-contr-is-segal-hom-in-slice
+#def is-contr-is-segal-hom-in-coslice
   (A : U)
   (is-segal-A : is-segal A)
   (a x : A)
@@ -471,24 +507,27 @@ contractible.
     ( second (has-unique-lifts-with-fixed-domain-iff-is-covariant
                 A (\ z -> hom A a z)))
       ( is-segal-representable-is-covariant A is-segal-A a)
-      a x f (id-arr A a)
+      ( a)
+      ( x)
+      ( f)
+      ( id-arr A a)
 ```
 
-This proves the initiality of identity arrows in the slice of a Segal type.
+This proves the initiality of identity arrows in the coslice of a Segal type.
 
 ```rzk title="RS17, Lemma 9.8"
 #def is-initial-id-arr-is-segal
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
-  : is-initial (Σ (z : A), hom A a z) (a, id-arr A a)
+  : is-initial (coslice A a) (a, id-arr A a)
   :=
     \ (x, f) ->
     is-contr-is-equiv-to-contr
-      ( hom (Σ (z : A), hom A a z) (a, id-arr A a) (x, f))
+      ( hom (coslice A a) (a, id-arr A a) (x, f))
       ( {t : 2 | Δ¹ t} -> hom A a (f t) [t === 0_2 |-> id-arr A a])
-      ( equiv-hom-in-slice A a x f)
-      ( is-contr-is-segal-hom-in-slice A is-segal-A a x f)
+      ( equiv-hom-in-coslice A a x f)
+      ( is-contr-is-segal-hom-in-coslice A is-segal-A a x f)
 ```
 
 ## Dependent Yoneda lemma
@@ -499,8 +538,8 @@ The dependent Yoneda lemma now follows by specializing these results.
 #def dependent-ev-id
   (A : U)
   (a : A)
-  (C : (Σ (z : A), hom A a z) -> U)
-  : ((p : Σ (z : A), hom A a z) -> C p) -> C (a, id-arr A a)
+  (C : (coslice A a) -> U)
+  : ((p : coslice A a) -> C p) -> C (a, id-arr A a)
   := \ s -> s (a, id-arr A a)
 
 #def dependent-yoneda-lemma'
@@ -508,16 +547,16 @@ The dependent Yoneda lemma now follows by specializing these results.
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
-  (C : (Σ (z : A), hom A a z) -> U)
-  (is-covariant-C : is-covariant (Σ (z : A), hom A a z) C)
+  (C : (coslice A a) -> U)
+  (is-covariant-C : is-covariant (coslice A a) C)
   : is-equiv
-      ( (p : Σ (z : A), hom A a z) -> C p)
+      ( (p : coslice A a) -> C p)
       ( C (a, id-arr A a))
       ( dependent-ev-id A a C)
   :=
     is-equiv-covariant-ev-initial
       ( funext)
-      ( Σ (z : A), hom A a z)
+      ( coslice A a)
       ( (a, id-arr A a))
       ( is-initial-id-arr-is-segal A is-segal-A a)
       ( C)
@@ -533,15 +572,15 @@ an equivalent type in the domain of the evaluation map.
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
-  (C : (Σ (z : A), hom A a z) -> U)
-  (is-covariant-C : is-covariant (Σ (z : A), hom A a z) C)
+  (C : (coslice A a) -> U)
+  (is-covariant-C : is-covariant (coslice A a) C)
   : is-equiv
       ( (x : A) -> (f : hom A a x) -> C (x, f))
       ( C (a, id-arr A a))
       ( \ s -> s a (id-arr A a))
   :=
     LeftCancel-is-equiv
-      ( (p : Σ (z : A), hom A a z) -> C p)
+      ( (p : coslice A a) -> C p)
       ( (x : A) -> (f : hom A a x) -> C (x, f))
       ( C (a, id-arr A a))
       ( first (equiv-dependent-curry A (\ z -> hom A a z)(\ x f -> C (x, f))))
@@ -552,10 +591,235 @@ an equivalent type in the domain of the evaluation map.
 
 ## Final objects
 
+A term $a$ in a type $A$ is initial if all of its mapping-out hom types are
+contractible.
+
 ```rzk
 #def is-final
   (A : U)
   (a : A)
   : U
   := (x : A) -> is-contr (hom A x a)
+```
+
+Final objects satisfy an induction principle relative to contravariant families.
+
+```rzk
+#section final-evaluation-equivalence
+
+#variable A : U
+#variable a : A
+#variable is-final-a : is-final A a
+#variable C : A -> U
+#variable is-contravariant-C : is-contravariant A C
+
+#def arrows-to-final
+  (x : A)
+  : hom A x a
+  := contraction-center (hom A x a) (is-final-a x)
+
+#def identity-component-arrows-to-final
+  : arrows-to-final a = id-arr A a
+  := contracting-htpy (hom A a a) (is-final-a a) (id-arr A a)
+
+#def ind-final uses (is-final-a)
+  (u : C a)
+  : (x : A) -> C x
+  :=
+    \ x ->
+    contravariant-transport A x a (arrows-to-final x) C is-contravariant-C u
+
+#def has-contra-section-ev-pt uses (is-final-a)
+  : has-section ((x : A) -> C x) (C a) (ev-pt A a C)
+  :=
+    ( ( ind-final),
+      ( \ u ->
+        concat
+          ( C a)
+          ( contravariant-transport A a a
+            ( arrows-to-final a) C is-contravariant-C u)
+          ( contravariant-transport A a a
+            ( id-arr A a) C is-contravariant-C u)
+          ( u)
+          ( ap
+            ( hom A a a)
+            ( C a)
+            ( arrows-to-final a)
+            ( id-arr A a)
+            ( \ f ->
+              contravariant-transport A a a f C is-contravariant-C u)
+            ( identity-component-arrows-to-final))
+          ( id-arr-contravariant-transport A a C is-contravariant-C u)))
+
+#def ind-final-ev-pt-pointwise uses (is-final-a)
+  (s : (x : A) -> C x)
+  (b : A)
+  : ind-final (ev-pt A a C s) b = s b
+  :=
+    contravariant-uniqueness
+      ( A)
+      ( b)
+      ( a)
+      ( arrows-to-final b)
+      ( C)
+      ( is-contravariant-C)
+      ( ev-pt A a C s)
+      ( ( s b, \ t -> s (arrows-to-final b t)))
+
+#end final-evaluation-equivalence
+```
+
+We now prove that induction from a final element in the base of a contravariant
+family defines an inverse equivalence to evaluation at the element.
+
+```rzk title="RS17, Theorem 9.7, dual"
+#def is-equiv-contravariant-ev-final
+  (funext : FunExt)
+  (A : U)
+  (a : A)
+  (is-final-a : is-final A a)
+  (C : A -> U)
+  (is-contravariant-C : is-contravariant A C)
+  : is-equiv ((x : A) -> C x) (C a) (ev-pt A a C)
+  :=
+    ( ( ( ind-final A a is-final-a C is-contravariant-C ),
+        ( \ s -> eq-htpy
+                  funext
+                    ( A)
+                    ( C)
+                    ( ind-final
+                        A a is-final-a C is-contravariant-C (ev-pt A a C s))
+                    ( s)
+                    ( ind-final-ev-pt-pointwise
+                        A a is-final-a C is-contravariant-C s))),
+      ( has-contra-section-ev-pt A a is-final-a C is-contravariant-C))
+```
+
+## Final objects in slice categories
+
+The type `slice A a` is the type of arrows in $A$ with codomain $a$.
+
+```rzk
+#def slice
+  (A : U)
+  (a : A)
+  : U
+  := Σ (z : A) , (hom A z a)
+```
+
+We now show that the slice over $a$ in a Segal type $A$ has a final object given
+by the identity arrow at $a$. This makes use of the following equivalence.
+
+```rzk
+#def equiv-hom-in-slice
+  (A : U)
+  (a x : A)
+  (f : hom A x a)
+  : Equiv
+    ( hom (slice A a) (x, f) (a, id-arr A a))
+    ( {t : 2 | Δ¹ t} -> hom A (f t) a [t === 1_2 |-> id-arr A a])
+  :=
+    ( \ h t s -> (second (h s)) t,
+      (( \ k s -> ( k 0_2 s, \ t -> k t s),
+        \ h -> refl),
+      ( \ k s -> ( k 0_2 s, \ t -> k t s),
+        \ k -> refl)))
+```
+
+Since $\ z → hom A z a$ is contravariant when $A$ is Segal, this latter type is
+contractible.
+
+```rzk
+#def is-contr-is-segal-hom-in-slice
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a x : A)
+  (f : hom A x a)
+  : is-contr ( {t : 2 | Δ¹ t} -> hom A (f t) a [t === 1_2 |-> id-arr A a])
+  :=
+    ( second (has-unique-lifts-with-fixed-codomain-iff-is-contravariant
+                A (\ z -> hom A z a)))
+      ( is-segal-representable-is-contravariant A is-segal-A a)
+      ( x)
+      ( a)
+      ( f)
+      ( id-arr A a)
+```
+
+This proves the finality of identity arrows in the slice of a Segal type.
+
+```rzk title="RS17, Lemma 9.8, dual"
+#def is-final-id-arr-is-segal
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  : is-final (slice A a) (a, id-arr A a)
+  :=
+    \ (x, f) ->
+    is-contr-is-equiv-to-contr
+      ( hom (slice A a) (x, f) (a, id-arr A a))
+      ( {t : 2 | Δ¹ t} -> hom A (f t) a [t === 1_2 |-> id-arr A a])
+      ( equiv-hom-in-slice A a x f)
+      ( is-contr-is-segal-hom-in-slice A is-segal-A a x f)
+```
+
+## Contravariant Dependent Yoneda lemma
+
+The contravariant version of the dependent Yoneda lemma now follows by
+specializing these results.
+
+```rzk
+#def contra-dependent-ev-id
+  (A : U)
+  (a : A)
+  (C : (slice A a) -> U)
+  : ((p : slice A a) -> C p) -> C (a, id-arr A a)
+  := \ s -> s (a, id-arr A a)
+
+#def contra-dependent-yoneda-lemma'
+  (funext : FunExt)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : (slice A a) -> U)
+  (is-contravariant-C : is-contravariant (slice A a) C)
+  : is-equiv
+      ( (p : slice A a) -> C p)
+      ( C (a, id-arr A a))
+      ( contra-dependent-ev-id A a C)
+  :=
+    is-equiv-contravariant-ev-final
+      ( funext)
+      ( slice A a)
+      ( (a, id-arr A a))
+      ( is-final-id-arr-is-segal A is-segal-A a)
+      ( C)
+      ( is-contravariant-C)
+```
+
+The actual contravariant dependent Yoneda is equivalent to the result just
+proven, just with an equivalent type in the domain of the evaluation map.
+
+```rzk title="RS17, Theorem 9.5, dual"
+#def contra-dependent-yoneda-lemma
+  (funext : FunExt)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C : (slice A a) -> U)
+  (is-contravariant-C : is-contravariant (slice A a) C)
+  : is-equiv
+      ( (x : A) -> (f : hom A x a) -> C (x, f))
+      ( C (a, id-arr A a))
+      ( \ s -> s a (id-arr A a))
+  :=
+    LeftCancel-is-equiv
+      ( (p : slice A a) -> C p)
+      ( (x : A) -> (f : hom A x a) -> C (x, f))
+      ( C (a, id-arr A a))
+      ( first (equiv-dependent-curry A (\ z -> hom A z a)(\ x f -> C (x, f))))
+      ( second (equiv-dependent-curry A (\ z -> hom A z a)(\ x f -> C (x, f))))
+      ( \ s -> s a (id-arr A a))
+      ( contra-dependent-yoneda-lemma'
+          funext A is-segal-A a C is-contravariant-C)
 ```

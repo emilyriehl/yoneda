@@ -90,7 +90,7 @@ unique lift with specified domain.
     -> is-contr (dhom-from A x y f C u)
 
 -- Type of covariant families over a fixed type
-#def covFam (A : U) : U
+#def covariant-family (A : U) : U
   := (Σ (C : ((a : A) -> U)) , is-covariant A C)
 ```
 
@@ -109,7 +109,7 @@ contractibility of the type of extensions along the domain inclusion into the
 
 These two notions of covariance are equivalent because the two types of lifts of
 a base arrow with fixed domain are equivalent. Note that this is not quite an
-instance of Theorem 4.4 but it's proof, with a very small modification, works
+instance of Theorem 4.4 but its proof, with a very small modification, works
 here.
 
 ```rzk
@@ -714,7 +714,7 @@ has a unique lift with specified codomain.
 ```
 
 ```rzk title="RS17, Definition 8.2, dual form"
-#def isContraFam
+#def is-contravariant
   (A : U)
   (C : A -> U)
   : U
@@ -722,8 +722,67 @@ has a unique lift with specified codomain.
     -> is-contr (dhom-to A x y f C v)
 
 -- Type of contravariant families over a fixed type
-#def contraFam (A : U) : U
-  := (Σ (C : A -> U) , isContraFam A C)
+#def contravariant-family (A : U) : U
+  := (Σ (C : A -> U) , is-contravariant A C)
+```
+
+The notion of having a unique lift with a fixed codomain may also be expressed
+by contractibility of the type of extensions along the codomain inclusion into
+the 1-simplex.
+
+```rzk
+#def has-unique-lifts-with-fixed-codomain
+  (A : U)
+  (C : A -> U)
+  : U
+  := (x : A) -> (y : A) -> (f : hom A x y) -> (v : C y)
+    -> is-contr ({t : 2 | Δ¹ t} -> C (f t) [ t === 1_2 |-> v ])
+```
+
+These two notions of covariance are equivalent because the two types of lifts of
+a base arrow with fixed codomain are equivalent. Note that this is not quite an
+instance of Theorem 4.4 but its proof, with a very small modification, works
+here.
+
+```rzk
+#def equiv-lifts-with-fixed-codomain
+  (A : U)
+  (C : A -> U)
+  (x y : A)
+  (f : hom A x y)
+  (v : C y)
+  : Equiv
+      ({t : 2 | Δ¹ t} -> C (f t) [ t === 1_2 |-> v ])
+      (dhom-to A x y f C v)
+  :=
+    ( \ h -> (h 0_2 , \ t -> h t) ,
+      ( ( \ fg t -> (second fg) t , \ h -> refl) ,
+        ( ( \ fg t -> (second fg) t , \ h -> refl))))
+```
+
+By the equivalence-invariance of contractibility, this proves the desired
+logical equivalence
+
+```rzk title="RS17, Proposition 8.4"
+#def has-unique-lifts-with-fixed-codomain-iff-is-contravariant
+  (A : U)
+  (C : A -> U)
+  : iff
+      (has-unique-lifts-with-fixed-codomain A C)
+      (is-contravariant A C)
+  :=
+    ( \ C-has-unique-lifts x y f v ->
+      is-contr-is-equiv-from-contr
+        ( {t : 2 | Δ¹ t} -> C (f t) [ t === 1_2 |-> v ])
+        ( dhom-to A x y f C v)
+        ( equiv-lifts-with-fixed-codomain A C x y f v)
+        ( C-has-unique-lifts x y f v),
+      \ is-contravariant-C x y f v ->
+      is-contr-is-equiv-to-contr
+        ( {t : 2 | Δ¹ t} -> C (f t) [ t === 1_2 |-> v ])
+        ( dhom-to A x y f C v)
+        ( equiv-lifts-with-fixed-codomain A C x y f v)
+        ( is-contravariant-C x y f v))
 ```
 
 ## Representable contravariant families
@@ -928,11 +987,11 @@ Finally, we see that contravariant hom families in a Segal type are
 contravariant.
 
 ```rzk title="RS17, Proposition 8.13(<-), dual"
-#def is-segal-representable-isContraFam
+#def is-segal-representable-is-contravariant
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
-  : isContraFam A (\ x -> hom A x a)
+  : is-contravariant A (\ x -> hom A x a)
   := \ x y f v -> is-segal-representable-dhom-to-contractible A is-segal-A a x y f v
 ```
 
@@ -941,9 +1000,9 @@ circular - using Proposition 5.10, which holds only for Segal types - so instead
 we argue as follows:
 
 ```rzk title="RS17, Proposition 8.13(->), dual"
-#def representable-isContraFam-is-segal
+#def representable-is-contravariant-is-segal
   (A : U)
-  (repiscontrafam : (a : A) -> isContraFam A (\ x -> hom A x a))
+  (repiscontrafam : (a : A) -> is-contravariant A (\ x -> hom A x a))
   : is-segal A
   := \ x y z f g -> is-contr-base-is-contr-Σ
     (Σ (h : hom A x z) , hom2 A x y z f g h)
@@ -972,43 +1031,45 @@ In a contravariant family C over a base type A, a term v : C y may be
 transported along an arrow f : hom A x y to give a term in C x.
 
 ```rzk title="RS17, contravariant transport from beginning of Section 8.2"
-#def contraTrans
+#def contravariant-transport
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (v : C y)
    : C x
-   := first (contraction-center (dhom-to A x y f C v) (CisContra x y f v))
+   := first (contraction-center (dhom-to A x y f C v) (is-contravariant-C x y f v))
 ```
 
 ```rzk title="RS17, contravariant lift from beginning of Section 8.2"
-#def contraLift
+#def contravariant-lift
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (v : C y)
-  : (dhom A x y f C (contraTrans A x y f C CisContra v) v)
-   := second (contraction-center (dhom-to A x y f C v) (CisContra x y f v))
+  : (dhom A x y f C (contravariant-transport A x y f C is-contravariant-C v) v)
+  :=
+    second
+      (contraction-center (dhom-to A x y f C v) (is-contravariant-C x y f v))
 
-#def contraUniqueness
+#def contravariant-uniqueness
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (v : C y)
   (lift : dhom-to A x y f C v)
-  : (contraTrans A x y f C CisContra v) = (first lift)
+  : (contravariant-transport A x y f C is-contravariant-C v) = (first lift)
   := first-path-Σ
     (C x)
     (\ u -> dhom A x y f C u v)
-    (contraction-center (dhom-to A x y f C v) (CisContra x y f v))
+    (contraction-center (dhom-to A x y f C v) (is-contravariant-C x y f v))
     lift
-    (contracting-htpy (dhom-to A x y f C v) (CisContra x y f v) lift)
+    (contracting-htpy (dhom-to A x y f C v) (is-contravariant-C x y f v) lift)
 ```
 
 ## Contravariant functoriality
@@ -1019,14 +1080,14 @@ identity transport law.
 
 ```rzk title="RS17, Proposition 8.16, Part 2, dual"
 -- Comtravariant families preserve identities
-#def contraPresId
+#def id-arr-contravariant-transport
    (A : U)
   (x : A)
    (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (u : C x)
-  : (contraTrans A x x (id-arr A x) C CisContra u) = u
-  := contraUniqueness A x x (id-arr A x) C CisContra u (u , d-id-arr A x C u)
+  : (contravariant-transport A x x (id-arr A x) C is-contravariant-C u) = u
+  := contravariant-uniqueness A x x (id-arr A x) C is-contravariant-C u (u , d-id-arr A x C u)
 ```
 
 ## Contravariant natural transformations
@@ -1041,24 +1102,24 @@ commuting with the contravariant lifts.
   (x y : A)
   (f : hom A x y)
   (C D : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (ϕ : (z : A) -> C z -> D z)
   (v : C y)
   : dhom-to A x y f D (ϕ y v)
-  := (ϕ x (contraTrans A x y f C CisContra v) ,
-  \ t -> ϕ (f t) (contraLift A x y f C CisContra v t))
+  := (ϕ x (contravariant-transport A x y f C is-contravariant-C v) ,
+  \ t -> ϕ (f t) (contravariant-lift A x y f C is-contravariant-C v t))
 
 #def naturality-contravariant-fiberwise-transformation
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C D : A -> U)
-  (CisContra : isContraFam A C)
-  (DisContra : isContraFam A D)
+  (is-contravariant-C : is-contravariant A C)
+  (DisContra : is-contravariant A D)
   (ϕ : (z : A) -> C z -> D z)
   (v : C y)
-  : (contraTrans A x y f D DisContra (ϕ y v)) =
-      (ϕ x (contraTrans A x y f C CisContra v))
-  := contraUniqueness A x y f D DisContra (ϕ y v)
-    (contravariant-fiberwise-transformation-application A x y f C D CisContra ϕ v)
+  : (contravariant-transport A x y f D DisContra (ϕ y v)) =
+      (ϕ x (contravariant-transport A x y f C is-contravariant-C v))
+  := contravariant-uniqueness A x y f D DisContra (ϕ y v)
+    (contravariant-fiberwise-transformation-application A x y f C D is-contravariant-C ϕ v)
 ```

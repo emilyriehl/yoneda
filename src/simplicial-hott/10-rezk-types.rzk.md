@@ -421,9 +421,3 @@ In a Segal type, final objects are isomorphic.
               ( first (bfinal a)))
             ( id-arr A b))))
 ```
-
-```rzk
-#def coslice (B : U) (b : B) : U := (Σ (x : B) , (hom B b x))
-
-#def slice (B : U) (b : B) : U := (Σ (x : B) , (hom B x b))
-```
