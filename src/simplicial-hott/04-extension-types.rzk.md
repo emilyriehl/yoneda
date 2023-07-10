@@ -62,8 +62,10 @@ This is a literate `rzk` file:
   ( X : ψ -> ζ -> U)
   ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s )
   : Equiv
-    ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ]) [ ϕ t |-> \{s : J | ζ s} -> f (t , s)])
-    ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
+    ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
+      [ ϕ t |-> \{s : J | ζ s} -> f (t , s)])
+    ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s
+      [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
   :=
     ( \ g (t , s) -> (g t) s , -- the one way map
       ( ( \ h t s -> h (t , s) , -- its retraction
@@ -80,14 +82,16 @@ This is a literate `rzk` file:
   ( X : ψ -> ζ -> U)
   ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s )
   : Equiv
-    ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
-    ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ]) [ χ s |-> \{t : I | ψ t} -> f (t , s) ])
+    ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s
+      [ (ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
+    ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
+      [ χ s |-> \ {t : I | ψ t} -> f (t , s) ])
   :=
-    ( \ h s t -> h (t , s) , -- the one way map
-      ( ( \ g (t , s) -> (g s) t , -- its retraction
-          \ h -> refl) , -- the retracting homotopy
-        ( \ g (t , s) -> (g s) t , -- its section
-          \ g -> refl))) -- the section homotopy
+    ( \ h s t -> h (t , s) ,
+      ( ( \ g (t , s) -> (g s) t ,
+          \ h -> refl) ,
+        ( \ g (t , s) -> (g s) t ,
+          \ g -> refl)))
 
 #def fubini
   ( I J : CUBE)
@@ -98,13 +102,18 @@ This is a literate `rzk` file:
   ( X : ψ -> ζ -> U)
   ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s )
   : Equiv
-    ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ]) [ ϕ t |-> \{s : J | ζ s} -> f (t , s) ])
-    ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ]) [ χ s |-> \{t : I | ψ t} -> f (t , s) ])
+    ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
+        [ ϕ t |-> \{s : J | ζ s} -> f (t , s) ])
+    ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
+        [ χ s |-> \{t : I | ψ t} -> f (t , s) ])
   :=
     comp-equiv
-      ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ]) [ ϕ t |-> \{s : J | ζ s} -> f (t , s) ])
-      ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
-      ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ]) [ χ s |-> \{t : I | ψ t} -> f (t , s) ])
+      ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
+        [ ϕ t |-> \{s : J | ζ s} -> f (t , s) ])
+      ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s
+        [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
+      ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
+        [ χ s |-> \{t : I | ψ t} -> f (t , s) ])
       ( curry-uncurry I J ψ ϕ ζ χ X f)
       ( uncurry-opcurry I J ψ ϕ ζ χ X f)
 ```
@@ -125,11 +134,11 @@ This is a literate `rzk` file:
     ( Σ ( f : ({t : I | ψ t} -> X t [ϕ t |-> a t ])) ,
         ( {t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]))
     :=
-      ( \ g -> (\ t -> (first (g t)) , \ t -> second (g t)) , -- the one way map
-        ( ( \ h t -> ((first h) t , (second h) t) , -- its retraction
-            \ g -> refl) , -- the retracting homotopy
-          ( \ h t -> ((first h) t , (second h) t) , -- its section
-            \ h -> refl))) -- the section homotopy
+      ( \ g -> (\ t -> (first (g t)) , \ t -> second (g t)) ,
+        ( ( \ h t -> ((first h) t , (second h) t) ,
+            \ g -> refl) ,
+          ( \ h t -> ((first h) t , (second h) t) ,
+            \ h -> refl)))
 ```
 
 ## Composites and unions of cofibrations
@@ -210,9 +219,11 @@ axiom. Here we state the one that will be most useful and derive an application.
       ( p))
 ```
 
+The type that encodes the extension extensionality axiom. As suggested by
+footnote 8, we assert this as an "extension extensionality" axiom
+
 ```rzk title="RS17, Proposition 4.8(ii)"
--- as suggested by footnote 8, we assert this as an "extension extensionality" axiom
--- The type that encodes the extension extensionality axiom.
+
 #def ExtExt
   : U
   :=
@@ -239,8 +250,13 @@ axiom. Here we state the one that will be most useful and derive an application.
   ( f g : {t : I | ψ t} -> A t [ ϕ t |-> a t ])
   : Equiv (f = g) ({t : I | ψ t} -> (f t = g t) [ ϕ t |-> refl ])
   := (ext-htpy-eq I ψ ϕ A a f g , extext I ψ ϕ A a f g)
+```
 
--- In particular, extension extensionality implies that homotopies give rise to identifications. This definition defines eq-ext-htpy to be the retraction to ext-htpy-eq.
+In particular, extension extensionality implies that homotopies give rise to
+identifications. This definition defines `eq-ext-htpy` to be the retraction to
+`ext-htpy-eq`.
+
+```rzk
 #def eq-ext-htpy
   ( extext : ExtExt)
   ( I : CUBE)
@@ -257,7 +273,8 @@ By extension extensionality, fiberwise equivalences of extension types define
 equivalences of extension types.
 
 ```rzk
--- A fiberwise equivalence defines an equivalence of extension types, for simplicity extending from BOT
+-- A fiberwise equivalence defines an equivalence of extension types, for
+-- simplicity extending from BOT
 #def fibered-Eq-extension-Equiv
   ( extext : ExtExt)
   ( I : CUBE)
