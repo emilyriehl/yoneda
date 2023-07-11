@@ -135,10 +135,10 @@ This is a literate `rzk` file:
         ( {t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]))
     :=
       ( \ g -> (\ t -> (first (g t)) , \ t -> second (g t)) ,
-        ( ( \ h t -> ((first h) t , (second h) t) ,
-            \ g -> refl) ,
-          ( \ h t -> ((first h) t , (second h) t) ,
-            \ h -> refl)))
+        ( ( \ (f, h) t -> (f t , h t) ,
+            \ _ -> refl) ,
+          ( \ (f, h) t -> (f t , h t) ,
+            \ _ -> refl)))
 ```
 
 ## Composites and unions of cofibrations
