@@ -113,7 +113,7 @@ This is a literate `rzk` file:
       ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s
         [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
       ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
-        [ χ s |-> \{t : I | ψ t} -> f (t , s) ])
+        [ χ s |-> \ t -> f (t , s) ])
       ( curry-uncurry I J ψ ϕ ζ χ X f)
       ( uncurry-opcurry I J ψ ϕ ζ χ X f)
 ```
