@@ -131,8 +131,8 @@ This is a literate `rzk` file:
   ( b : (t : ϕ) -> Y t (a t))
   : Equiv
     ( {t : I | ψ t} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ])
-    ( Σ ( f : ({t : I | ψ t} -> X t [ϕ t |-> a t ])) ,
-        ( {t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]))
+    ( Σ ( f : ((t : ψ) -> X t [ ϕ t |-> a t ])) ,
+        ( (t : ψ) -> Y t (f t) [ ϕ t |-> b t ]))
     :=
       ( \ g -> (\ t -> (first (g t)) , \ t -> second (g t)) ,
         ( ( \ (f, h) t -> (f t , h t) ,
