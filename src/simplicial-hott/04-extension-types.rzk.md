@@ -136,7 +136,7 @@ This is a literate `rzk` file:
 
 ```rzk title="RS17, Theorem 4.4"
 -- Reformulated via tope disjunction instead of inclusion.
--- See https://github.com/fizruk/rzk/issues/8
+-- See https://github.com/rzk-lang/rzk/issues/8
 #def cofibration-composition'
   ( I : CUBE)
   ( χ ψ ϕ : I -> TOPE)
