@@ -90,7 +90,7 @@ unique lift with specified domain.
     -> is-contr (dhom-from A x y f C u)
 
 -- Type of covariant families over a fixed type
-#def covFam (A : U) : U
+#def covariant-family (A : U) : U
   := (Σ (C : ((a : A) -> U)) , is-covariant A C)
 ```
 
@@ -104,12 +104,12 @@ contractibility of the type of extensions along the domain inclusion into the
   (C : A -> U)
   : U
   := (x : A) -> (y : A) -> (f : hom A x y) -> (u : C x)
-    -> is-contr ({t : 2 | Δ¹ t} -> C (f t) [ t === 0_2 |-> u ])
+    -> is-contr ((t : Δ¹) -> C (f t) [ t === 0_2 |-> u ])
 ```
 
 These two notions of covariance are equivalent because the two types of lifts of
 a base arrow with fixed domain are equivalent. Note that this is not quite an
-instance of Theorem 4.4 but it's proof, with a very small modification, works
+instance of Theorem 4.4 but its proof, with a very small modification, works
 here.
 
 ```rzk
@@ -120,7 +120,7 @@ here.
   (f : hom A x y)
   (u : C x)
   : Equiv
-      ({t : 2 | Δ¹ t} -> C (f t) [ t === 0_2 |-> u ])
+      ((t : Δ¹) -> C (f t) [ t === 0_2 |-> u ])
       (dhom-from A x y f C u)
   :=
     ( \ h -> (h 1_2 , \ t -> h t) ,
@@ -141,13 +141,13 @@ logical equivalence
   :=
     ( \ C-has-unique-lifts x y f u ->
       is-contr-is-equiv-from-contr
-        ( {t : 2 | Δ¹ t} -> C (f t) [ t === 0_2 |-> u ])
+        ( (t : Δ¹) -> C (f t) [ t === 0_2 |-> u ])
         ( dhom-from A x y f C u)
         ( equiv-lifts-with-fixed-domain A C x y f u)
         ( C-has-unique-lifts x y f u),
       \ C-is-covariant x y f u ->
       is-contr-is-equiv-to-contr
-        ( {t : 2 | Δ¹ t} -> C (f t) [ t === 0_2 |-> u ])
+        ( (t : Δ¹) -> C (f t) [ t === 0_2 |-> u ])
         ( dhom-from A x y f C u)
         ( equiv-lifts-with-fixed-domain A C x y f u)
         ( C-is-covariant x y f u))
@@ -443,29 +443,33 @@ types as follows.
       [ ((t === 1_2) /\ (s === 0_2)) |-> a ,
         ((t === 1_2) /\ (s === 1_2)) |-> y ])
   :=
-    cofibration_union (2 * 2)
-      ( \ (t , s) -> (t === 1_2) /\ Δ¹ s)
-      ( \ (t , s) ->
-        ((t === 0_2) /\ Δ¹ s) \/ (Δ¹ t /\ (s === 0_2)) \/ (Δ¹ t /\ (s === 1_2)))
-      ( \ (t , s) -> A)
-      ( \ (t , s) ->
-        recOR
-          ( ((t === 0_2) /\ Δ¹ s) |-> u s ,
-            (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t))
+    cofibration-union (2 * 2)
+    ( \ (t , s) -> (t === 1_2) /\ Δ¹ s)
+    ( \ (t , s) ->
+      ((t === 0_2) /\ Δ¹ s) \/ (Δ¹ t /\ (s === 0_2)) \/ (Δ¹ t /\ (s === 1_2)))
+    ( \ (t , s) -> A)
+    ( \ (t , s) ->
+      recOR
+        ( ((t === 0_2) /\ Δ¹ s) |-> u s ,
+          (Δ¹ t /\ (s === 0_2)) |-> a ,
+          (Δ¹ t /\ (s === 1_2)) |-> f t))
 
 #def base-hom-rewriting
   (A : U)            -- The ambient type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv ({ (t , s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} -> A [ ((t === 1_2) /\ (s === 0_2)) |-> a , ((t === 1_2) /\ (s === 1_2)) |-> y ])
+  : Equiv
+    ({ (t , s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} -> A
+      [ ((t === 1_2) /\ (s === 0_2)) |-> a ,
+        ((t === 1_2) /\ (s === 1_2)) |-> y ])
     (hom A a y)
-  := (\ v -> (\ r -> v ((1_2 , r))) ,
-      ((\ v -> \ (t , s) -> v s ,
-        \ v -> refl) ,
-      (\ v -> \ (t , s) -> v s ,
-        \ v -> refl)))
+  :=
+    ( \ v -> (\ r -> v ((1_2 , r))) ,
+      ( ( \ v -> \ (t , s) -> v s ,
+          \ v -> refl) ,
+        ( \ v -> \ (t , s) -> v s ,
+          \ v -> refl)))
 
 #def base-hom-expansion
   (A : U)            -- The ambient type.
@@ -478,43 +482,55 @@ types as follows.
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t])
     (hom A a y)
-  := comp-equiv
-    ({ (t , s) : 2 * 2 | ∂□ (t , s)} -> A
-      [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
-            (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t ] )
-    ({ (t , s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} -> A [ ((t === 1_2) /\ (s === 0_2)) |-> a , ((t === 1_2) /\ (s === 1_2)) |-> y ])
-    (hom A a y)
-    (cofibration-union-test A a x y f u)
-    (base-hom-rewriting A a x y f u)
+  :=
+    comp-equiv
+    ( { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+        [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+          (Δ¹ t /\ (s === 0_2)) |-> a ,
+          (Δ¹ t /\ (s === 1_2)) |-> f t ] )
+    ( { (t , s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} -> A
+      [ ((t === 1_2) /\ (s === 0_2)) |-> a ,
+        ((t === 1_2) /\ (s === 1_2)) |-> y ])
+    ( hom A a y)
+    ( cofibration-union-test A a x y f u)
+    ( base-hom-rewriting A a x y f u)
 
 #def representable-dhom-from-expansion
   (A : U)            -- The ambient type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
-            [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+  : Equiv
+    (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+        [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+          (Δ¹ t /\ (s === 0_2)) |-> a ,
+          (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
+        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+          [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+            ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t ]) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
-    (Σ (v : hom A a y) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> v s ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
-  := total-equiv-pullback-is-equiv (  { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+            (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+    (Σ (v : hom A a y) ,
+      ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+          [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+            ((t === 1_2) /\ Δ¹ s) |-> v s ,
+            (Δ¹ t /\ (s === 0_2)) |-> a ,
+            (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+  :=
+    total-equiv-pullback-is-equiv
+    (  { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
       [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t ] )
             (hom A a y)
             (first (base-hom-expansion A a x y f u))
             (second (base-hom-expansion A a x y f u))
-      (\ v -> ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> v s ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+    ( \ v ->
+      ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+          [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+            ((t === 1_2) /\ Δ¹ s) |-> v s ,
+            (Δ¹ t /\ (s === 0_2)) |-> a ,
+            (Δ¹ t /\ (s === 1_2)) |-> f t ]))
 
 #def representable-dhom-from-composite-expansion
   (A : U)            -- The ambient type.
@@ -524,71 +540,91 @@ types as follows.
   : Equiv (dhom-from-representable A a x y f u)
       (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
-            (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t ]) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
-  := right-cancel-equiv (dhom-from-representable A a x y f u)
-        (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+              (Δ¹ t /\ (s === 0_2)) |-> a ,
+              (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
+        ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
-            (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t ]) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
-
-    (Σ (v : hom A a y) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> v s ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
-       (uncurried-dhom-from-representable A a x y f u)
-       (representable-dhom-from-expansion A a x y f u)
+              ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
+              (Δ¹ t /\ (s === 0_2)) |-> a ,
+              (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+  :=
+    right-cancel-equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+            [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+              (Δ¹ t /\ (s === 0_2)) |-> a ,
+              (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
+        ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+            [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+              ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
+              (Δ¹ t /\ (s === 0_2)) |-> a ,
+              (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+    ( Σ (v : hom A a y) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+          ((t === 1_2) /\ Δ¹ s) |-> v s ,
+          (Δ¹ t /\ (s === 0_2)) |-> a ,
+          (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+    ( uncurried-dhom-from-representable A a x y f u)
+    ( representable-dhom-from-expansion A a x y f u)
 
 #def representable-dhom-from-cofibration-composition
   (A : U)            -- The ambient type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
-            (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t] )
+  : Equiv
+    ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+          (Δ¹ t /\ (s === 0_2)) |-> a ,
+          (Δ¹ t /\ (s === 1_2)) |-> f t] )
     (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
-            [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+        [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t ]) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
-  := cofibration-composition (2 * 2) Δ¹×Δ¹ ∂□
-      (\ (t , s) -> ((t === 0_2) /\ Δ¹ s) \/ (Δ¹ t /\ (s === 0_2)) \/ (Δ¹ t /\ (s === 1_2)))
-      (\ ts -> A)
-      (\ (t , s) -> recOR ( ((t === 0_2) /\ Δ¹ s) |-> u s ,
+            (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
+        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+          [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+            ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t))
+            (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+  :=
+    cofibration-composition (2 * 2) Δ¹×Δ¹ ∂□
+    ( \ (t , s) ->
+      ((t === 0_2) /\ Δ¹ s) \/ (Δ¹ t /\ (s === 0_2)) \/ (Δ¹ t /\ (s === 1_2)))
+    ( \ ts -> A)
+    ( \ (t , s) ->
+      recOR ( ((t === 0_2) /\ Δ¹ s) |-> u s ,
+              (Δ¹ t /\ (s === 0_2)) |-> a ,
+              (Δ¹ t /\ (s === 1_2)) |-> f t))
 
 #def representable-dhom-from-as-extension-type
   (A : U)            -- The ambient type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (dhom-from-representable A a x y f u)
-    ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
-                        (Δ¹ t /\ (s === 0_2)) |-> a ,
-                        (Δ¹ t /\ (s === 1_2)) |-> f t] )
-  := right-cancel-equiv (dhom-from-representable A a x y f u)
-        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
-                        (Δ¹ t /\ (s === 0_2)) |-> a ,
-                        (Δ¹ t /\ (s === 1_2)) |-> f t] )
-        (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+  : Equiv
+      (dhom-from-representable A a x y f u)
+      ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+              [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+                (Δ¹ t /\ (s === 0_2)) |-> a ,
+                (Δ¹ t /\ (s === 1_2)) |-> f t] )
+  :=
+    right-cancel-equiv
+    ( dhom-from-representable A a x y f u)
+    ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+          (Δ¹ t /\ (s === 0_2)) |-> a ,
+          (Δ¹ t /\ (s === 1_2)) |-> f t] )
+    ( Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t ]) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
-        (representable-dhom-from-composite-expansion A a x y f u)
-        (representable-dhom-from-cofibration-composition A a x y f u)
+            (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
+        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+            [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+              ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
+              (Δ¹ t /\ (s === 0_2)) |-> a ,
+              (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+    ( representable-dhom-from-composite-expansion A a x y f u)
+    ( representable-dhom-from-cofibration-composition A a x y f u)
 ```
 
 ## Covariant lifts, transport, and uniqueness
@@ -602,10 +638,10 @@ along an arrow f : hom A x y to give a term in C y.
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisCov : is-covariant A C)
+  (is-covariant-C : is-covariant A C)
   (u : C x)
    : C y
-   := first (contraction-center (dhom-from A x y f C u) (CisCov x y f u))
+   := first (contraction-center (dhom-from A x y f C u) (is-covariant-C x y f u))
 ```
 
 ```rzk title="RS17, covariant lift from beginning of Section 8.2"
@@ -614,26 +650,27 @@ along an arrow f : hom A x y to give a term in C y.
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisCov : is-covariant A C)
+  (is-covariant-C : is-covariant A C)
   (u : C x)
-  : (dhom A x y f C u (covariant-transport A x y f C CisCov u))
-   := second (contraction-center (dhom-from A x y f C u) (CisCov x y f u))
+  : (dhom A x y f C u (covariant-transport A x y f C is-covariant-C u))
+   := second (contraction-center (dhom-from A x y f C u) (is-covariant-C x y f u))
 
 #def covariant-uniqueness
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisCov : is-covariant A C)
+  (is-covariant-C : is-covariant A C)
   (u : C x)
   (lift : dhom-from A x y f C u)
-  : (covariant-transport A x y f C CisCov u) = (first lift)
-  := first-path-Σ
-    (C y)
-    (\ v -> dhom A x y f C u v)
-    (contraction-center (dhom-from A x y f C u) (CisCov x y f u))
-    lift
-    (contracting-htpy (dhom-from A x y f C u) (CisCov x y f u) lift)
+  : (covariant-transport A x y f C is-covariant-C u) = (first lift)
+  :=
+    first-path-Σ
+    ( C y)
+    ( \ v -> dhom A x y f C u v)
+    ( contraction-center (dhom-from A x y f C u) (is-covariant-C x y f u))
+    ( lift)
+    ( contracting-htpy (dhom-from A x y f C u) (is-covariant-C x y f u) lift)
 ```
 
 ## Covariant functoriality
@@ -655,13 +692,15 @@ transport law.
 ```rzk title="RS17, Proposition 8.16, Part 2"
 -- Covariant families preserve identities
 #def id-arr-covariant-transport
-   (A : U)
+  (A : U)
   (x : A)
-   (C : A -> U)
-  (CisCov : is-covariant A C)
+  (C : A -> U)
+  (is-covariant-C : is-covariant A C)
   (u : C x)
-  : (covariant-transport A x x (id-arr A x) C CisCov u) = u
-  := covariant-uniqueness A x x (id-arr A x) C CisCov u (u , d-id-arr A x C u)
+  : (covariant-transport A x x (id-arr A x) C is-covariant-C u) = u
+  :=
+    covariant-uniqueness
+      A x x (id-arr A x) C is-covariant-C u (u , d-id-arr A x C u)
 ```
 
 ## Natural transformations
@@ -676,25 +715,28 @@ with the covariant lifts.
   (x y : A)
   (f : hom A x y)
   (C D : A -> U)
-  (CisCov : is-covariant A C)
+  (is-covariant-C : is-covariant A C)
   (ϕ : (z : A) -> C z -> D z)
   (u : C x)
   : dhom-from A x y f D (ϕ x u)
-  := (ϕ y (covariant-transport A x y f C CisCov u) ,
-  \ t -> ϕ (f t) (covariant-lift A x y f C CisCov u t))
+  := (ϕ y (covariant-transport A x y f C is-covariant-C u) ,
+  \ t -> ϕ (f t) (covariant-lift A x y f C is-covariant-C u t))
 
 #def naturality-covariant-fiberwise-transformation
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C D : A -> U)
-  (CisCov : is-covariant A C)
+  (is-covariant-C : is-covariant A C)
   (DisCov : is-covariant A D)
   (ϕ : (z : A) -> C z -> D z)
   (u : C x)
-  : (covariant-transport A x y f D DisCov (ϕ x u)) = (ϕ y (covariant-transport A x y f C CisCov u))
-  := covariant-uniqueness A x y f D DisCov (ϕ x u)
-    (covariant-fiberwise-transformation-application A x y f C D CisCov ϕ u)
+  : (covariant-transport A x y f D DisCov (ϕ x u)) =
+    (ϕ y (covariant-transport A x y f C is-covariant-C u))
+  :=
+    covariant-uniqueness A x y f D DisCov (ϕ x u)
+      ( covariant-fiberwise-transformation-application
+          A x y f C D is-covariant-C ϕ u)
 ```
 
 ## Contravariant families
@@ -714,7 +756,7 @@ has a unique lift with specified codomain.
 ```
 
 ```rzk title="RS17, Definition 8.2, dual form"
-#def isContraFam
+#def is-contravariant
   (A : U)
   (C : A -> U)
   : U
@@ -722,8 +764,67 @@ has a unique lift with specified codomain.
     -> is-contr (dhom-to A x y f C v)
 
 -- Type of contravariant families over a fixed type
-#def contraFam (A : U) : U
-  := (Σ (C : A -> U) , isContraFam A C)
+#def contravariant-family (A : U) : U
+  := (Σ (C : A -> U) , is-contravariant A C)
+```
+
+The notion of having a unique lift with a fixed codomain may also be expressed
+by contractibility of the type of extensions along the codomain inclusion into
+the 1-simplex.
+
+```rzk
+#def has-unique-lifts-with-fixed-codomain
+  (A : U)
+  (C : A -> U)
+  : U
+  := (x : A) -> (y : A) -> (f : hom A x y) -> (v : C y)
+    -> is-contr ((t : Δ¹) -> C (f t) [ t === 1_2 |-> v ])
+```
+
+These two notions of covariance are equivalent because the two types of lifts of
+a base arrow with fixed codomain are equivalent. Note that this is not quite an
+instance of Theorem 4.4 but its proof, with a very small modification, works
+here.
+
+```rzk
+#def equiv-lifts-with-fixed-codomain
+  (A : U)
+  (C : A -> U)
+  (x y : A)
+  (f : hom A x y)
+  (v : C y)
+  : Equiv
+      ((t : Δ¹) -> C (f t) [ t === 1_2 |-> v ])
+      (dhom-to A x y f C v)
+  :=
+    ( \ h -> (h 0_2 , \ t -> h t) ,
+      ( ( \ fg t -> (second fg) t , \ h -> refl) ,
+        ( ( \ fg t -> (second fg) t , \ h -> refl))))
+```
+
+By the equivalence-invariance of contractibility, this proves the desired
+logical equivalence
+
+```rzk title="RS17, Proposition 8.4"
+#def has-unique-lifts-with-fixed-codomain-iff-is-contravariant
+  (A : U)
+  (C : A -> U)
+  : iff
+      (has-unique-lifts-with-fixed-codomain A C)
+      (is-contravariant A C)
+  :=
+    ( \ C-has-unique-lifts x y f v ->
+      is-contr-is-equiv-from-contr
+        ( (t : Δ¹) -> C (f t) [ t === 1_2 |-> v ])
+        ( dhom-to A x y f C v)
+        ( equiv-lifts-with-fixed-codomain A C x y f v)
+        ( C-has-unique-lifts x y f v),
+      \ is-contravariant-C x y f v ->
+      is-contr-is-equiv-to-contr
+        ( (t : Δ¹) -> C (f t) [ t === 1_2 |-> v ])
+        ( dhom-to A x y f C v)
+        ( equiv-lifts-with-fixed-codomain A C x y f v)
+        ( is-contravariant-C x y f v))
 ```
 
 ## Representable contravariant families
@@ -776,53 +877,79 @@ a rather lengthy composition of equivalences.
   (f : hom A x y)    -- An arrow in the base.
   (v : hom A y a)    -- A lift of the codomain.
   : Equiv (dhom-to-representable A a x y f v)
-    (Σ (u : hom A x a) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+    (Σ (u : hom A x a) ,
+        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                    [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> f t ,
                       (Δ¹ t /\ (s === 1_2)) |-> a ]))
-  := total-equiv-family-equiv (hom A x a) (\ u -> dhom-contra-representable A a x y f u v)
-    (\ u -> ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> v s ,
-                      (Δ¹ t /\ (s === 0_2)) |-> f t ,
-                      (Δ¹ t /\ (s === 1_2)) |-> a ]))
-    (\ u -> uncurried-dhom-contra-representable A a x y f u v)
+  :=
+    total-equiv-family-equiv
+    ( hom A x a)
+    ( \ u -> dhom-contra-representable A a x y f u v)
+    ( \ u ->
+      ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+          [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+            ((t === 1_2) /\ Δ¹ s) |-> v s ,
+            (Δ¹ t /\ (s === 0_2)) |-> f t ,
+            (Δ¹ t /\ (s === 1_2)) |-> a ]))
+    ( \ u -> uncurried-dhom-contra-representable A a x y f u v)
 
 #def representable-dhom-to-uncurry-hom2
   (A : U)            -- The ambient type.
   (a x y : A)        -- The representing object and two points in the base.
   (f : hom A x y)    -- An arrow in the base.
   (v : hom A y a)    -- A lift of the codomain.
-  : Equiv (Σ (u : hom A x a) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+  : Equiv
+    (Σ (u : hom A x a) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                    [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> f t ,
                       (Δ¹ t /\ (s === 1_2)) |-> a ]))
-    (Σ (u : hom A x a) , (Σ (d : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-  := total-equiv-family-equiv (hom A x a)
-    (\ u -> ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+    (Σ (u : hom A x a) ,
+      (Σ (d : hom A x a) ,
+        product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
+  :=
+    total-equiv-family-equiv (hom A x a)
+    ( \ u ->
+      ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+                    [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> f t ,
                       (Δ¹ t /\ (s === 1_2)) |-> a ]))
-    (\ u -> (Σ (d : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-    (\ u -> Eq-square-hom2-pushout A x a y a u (id-arr A a) f v)
+    ( \ u ->
+      (Σ (d : hom A x a) ,
+          product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
+    ( \ u -> Eq-square-hom2-pushout A x a y a u (id-arr A a) f v)
 
 #def representable-dhom-to-hom2
   (A : U)          -- The ambient type.
   (a x y : A)      -- The representing object and two points in the base.
   (f : hom A x y)  -- An arrow in the base.
   (v : hom A y a)  -- A lift of the codomain.
-  : Equiv (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-  := triple-comp-equiv
+  : Equiv
     (dhom-to-representable A a x y f v)
-    (Σ (u : hom A x a) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> v s ,
-                      (Δ¹ t /\ (s === 0_2)) |-> f t ,
-                      (Δ¹ t /\ (s === 1_2)) |-> a ]))
-    (Σ (u : hom A x a ) , (Σ (d : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
-    (Σ (d : hom A x a ) , (Σ (u : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
-    (uncurried-dhom-to-representable A a x y f v)
-    (representable-dhom-to-uncurry-hom2 A a x y f v)
-    (fubini-Σ (hom A x a) (hom A x a)
+    (Σ (d : hom A x a) ,
+      (Σ (u : hom A x a) ,
+        product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
+  :=
+    triple-comp-equiv
+    ( dhom-to-representable A a x y f v)
+    ( Σ (u : hom A x a) ,
+        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+            [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+              ((t === 1_2) /\ Δ¹ s) |-> v s ,
+              (Δ¹ t /\ (s === 0_2)) |-> f t ,
+              (Δ¹ t /\ (s === 1_2)) |-> a ]))
+    ( Σ (u : hom A x a ) ,
+      (Σ (d : hom A x a) ,
+        product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
+    ( Σ (d : hom A x a ) ,
+      (Σ (u : hom A x a) ,
+        product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
+    ( uncurried-dhom-to-representable A a x y f v)
+    ( representable-dhom-to-uncurry-hom2 A a x y f v)
+    ( fubini-Σ (hom A x a) (hom A x a)
       (\ u d -> product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
 
 #def representable-dhom-to-hom2-swap
@@ -830,8 +957,9 @@ a rather lengthy composition of equivalences.
   (a x y : A)      -- The representing object and two points in the base.
   (f : hom A x y)  -- An arrow in the base.
   (v : hom A y a)  -- A lift of the codomain.
-  : Equiv (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
+  : Equiv
+    ( dhom-to-representable A a x y f v)
+    ( Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
   := comp-equiv
       (dhom-to-representable A a x y f v)
       (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
@@ -928,11 +1056,11 @@ Finally, we see that contravariant hom families in a Segal type are
 contravariant.
 
 ```rzk title="RS17, Proposition 8.13(<-), dual"
-#def is-segal-representable-isContraFam
+#def is-segal-representable-is-contravariant
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
-  : isContraFam A (\ x -> hom A x a)
+  : is-contravariant A (\ x -> hom A x a)
   := \ x y f v -> is-segal-representable-dhom-to-contractible A is-segal-A a x y f v
 ```
 
@@ -941,9 +1069,9 @@ circular - using Proposition 5.10, which holds only for Segal types - so instead
 we argue as follows:
 
 ```rzk title="RS17, Proposition 8.13(->), dual"
-#def representable-isContraFam-is-segal
+#def representable-is-contravariant-is-segal
   (A : U)
-  (repiscontrafam : (a : A) -> isContraFam A (\ x -> hom A x a))
+  (repiscontrafam : (a : A) -> is-contravariant A (\ x -> hom A x a))
   : is-segal A
   := \ x y z f g -> is-contr-base-is-contr-Σ
     (Σ (h : hom A x z) , hom2 A x y z f g h)
@@ -972,43 +1100,45 @@ In a contravariant family C over a base type A, a term v : C y may be
 transported along an arrow f : hom A x y to give a term in C x.
 
 ```rzk title="RS17, contravariant transport from beginning of Section 8.2"
-#def contraTrans
+#def contravariant-transport
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (v : C y)
    : C x
-   := first (contraction-center (dhom-to A x y f C v) (CisContra x y f v))
+   := first (contraction-center (dhom-to A x y f C v) (is-contravariant-C x y f v))
 ```
 
 ```rzk title="RS17, contravariant lift from beginning of Section 8.2"
-#def contraLift
+#def contravariant-lift
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (v : C y)
-  : (dhom A x y f C (contraTrans A x y f C CisContra v) v)
-   := second (contraction-center (dhom-to A x y f C v) (CisContra x y f v))
+  : (dhom A x y f C (contravariant-transport A x y f C is-contravariant-C v) v)
+  :=
+    second
+      (contraction-center (dhom-to A x y f C v) (is-contravariant-C x y f v))
 
-#def contraUniqueness
+#def contravariant-uniqueness
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (v : C y)
   (lift : dhom-to A x y f C v)
-  : (contraTrans A x y f C CisContra v) = (first lift)
+  : (contravariant-transport A x y f C is-contravariant-C v) = (first lift)
   := first-path-Σ
     (C x)
     (\ u -> dhom A x y f C u v)
-    (contraction-center (dhom-to A x y f C v) (CisContra x y f v))
+    (contraction-center (dhom-to A x y f C v) (is-contravariant-C x y f v))
     lift
-    (contracting-htpy (dhom-to A x y f C v) (CisContra x y f v) lift)
+    (contracting-htpy (dhom-to A x y f C v) (is-contravariant-C x y f v) lift)
 ```
 
 ## Contravariant functoriality
@@ -1019,14 +1149,14 @@ identity transport law.
 
 ```rzk title="RS17, Proposition 8.16, Part 2, dual"
 -- Comtravariant families preserve identities
-#def contraPresId
+#def id-arr-contravariant-transport
    (A : U)
   (x : A)
    (C : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (u : C x)
-  : (contraTrans A x x (id-arr A x) C CisContra u) = u
-  := contraUniqueness A x x (id-arr A x) C CisContra u (u , d-id-arr A x C u)
+  : (contravariant-transport A x x (id-arr A x) C is-contravariant-C u) = u
+  := contravariant-uniqueness A x x (id-arr A x) C is-contravariant-C u (u , d-id-arr A x C u)
 ```
 
 ## Contravariant natural transformations
@@ -1041,24 +1171,24 @@ commuting with the contravariant lifts.
   (x y : A)
   (f : hom A x y)
   (C D : A -> U)
-  (CisContra : isContraFam A C)
+  (is-contravariant-C : is-contravariant A C)
   (ϕ : (z : A) -> C z -> D z)
   (v : C y)
   : dhom-to A x y f D (ϕ y v)
-  := (ϕ x (contraTrans A x y f C CisContra v) ,
-  \ t -> ϕ (f t) (contraLift A x y f C CisContra v t))
+  := (ϕ x (contravariant-transport A x y f C is-contravariant-C v) ,
+  \ t -> ϕ (f t) (contravariant-lift A x y f C is-contravariant-C v t))
 
 #def naturality-contravariant-fiberwise-transformation
   (A : U)
   (x y : A)
   (f : hom A x y)
   (C D : A -> U)
-  (CisContra : isContraFam A C)
-  (DisContra : isContraFam A D)
+  (is-contravariant-C : is-contravariant A C)
+  (DisContra : is-contravariant A D)
   (ϕ : (z : A) -> C z -> D z)
   (v : C y)
-  : (contraTrans A x y f D DisContra (ϕ y v)) =
-      (ϕ x (contraTrans A x y f C CisContra v))
-  := contraUniqueness A x y f D DisContra (ϕ y v)
-    (contravariant-fiberwise-transformation-application A x y f C D CisContra ϕ v)
+  : (contravariant-transport A x y f D DisContra (ϕ y v)) =
+      (ϕ x (contravariant-transport A x y f C is-contravariant-C v))
+  := contravariant-uniqueness A x y f D DisContra (ϕ y v)
+    (contravariant-fiberwise-transformation-application A x y f C D is-contravariant-C ϕ v)
 ```

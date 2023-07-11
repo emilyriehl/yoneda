@@ -35,13 +35,12 @@ This is a literate `rzk` file:
 
 -- the boundary of a 2-simplex
 #def ∂Δ² : Δ² -> TOPE
-  := \ ts ->
-        ((second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
+  :=
+    \ (t, s) ->
+    ( s === 0_2 \/ t === 1_2 \/ s === t)
 ```
 
-### Horns
-
-#### The $(2,1)$-horn
+### The inner horn
 
 ```rzk
 #def Λ : (2 * 2) -> TOPE
@@ -53,7 +52,7 @@ This is a literate `rzk` file:
 The product of topes defines the product of shapes.
 
 ```rzk
-#def shapeprod
+#def shape-prod
   (I J : CUBE)
   (ψ : I -> TOPE)
   (χ : J -> TOPE)
@@ -62,7 +61,7 @@ The product of topes defines the product of shapes.
 
 -- the square as a product
 #def Δ¹×Δ¹ : (2 * 2) -> TOPE
-  := shapeprod 2 2 Δ¹ Δ¹
+  := shape-prod 2 2 Δ¹ Δ¹
 
 -- the total boundary of the square
 #def ∂□ : (2 * 2) -> TOPE
@@ -70,15 +69,15 @@ The product of topes defines the product of shapes.
 
 -- the vertical boundary of the square
 #def ∂Δ¹×Δ¹ : (2 * 2) -> TOPE
-  := shapeprod 2 2 ∂Δ¹ Δ¹
+  := shape-prod 2 2 ∂Δ¹ Δ¹
 
 -- the horizontal boundary of the square
 #def Δ¹×∂Δ¹ : (2 * 2) -> TOPE
-  := shapeprod 2 2 Δ¹ ∂Δ¹
+  := shape-prod 2 2 Δ¹ ∂Δ¹
 
 -- the prism from a 2-simplex in an arrow type
 #def Δ²×Δ¹ : (2 * 2 * 2) -> TOPE
-  := shapeprod (2 * 2) 2 Δ² Δ¹
+  := shape-prod (2 * 2) 2 Δ² Δ¹
 ```
 
 ### Intersections
@@ -86,7 +85,7 @@ The product of topes defines the product of shapes.
 The intersection of shapes is defined by conjunction on topes:
 
 ```rzk
-#def shapeIntersection
+#def shape-intersection
   (I : CUBE) (ψ χ : I -> TOPE) : I -> TOPE
   := \ t -> ψ t /\ χ t
 ```

@@ -257,7 +257,7 @@ A retract of contractible types is contractible.
 A function between contractible types is an equivalence
 
 ```rzk
-#def areContr-is-equiv
+#def is-equiv-are-contr
   ( A B : U)
   ( is-contr-A : is-contr A)
   ( is-contr-B : is-contr B)

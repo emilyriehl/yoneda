@@ -358,19 +358,66 @@ This is a literate `rzk` file:
   (A : U)
   : U
   := Σ (is-segal-A : is-segal A) , (x : A) -> (y : A) -> is-equiv (x = y) (Iso A is-segal-A x y) (idtoiso A is-segal-A x y)
-
-
-
 #end isomorphisms
 ```
 
-#def cocomma (B : U) (b : B) : U := (Σ (x : B) , (hom B b x))
+In a Segal type, initial objects are isomorphic.
 
-#def comma (B : U) (b : B) : U := (Σ (x : B) , (hom B x b))
+```rzk
+#def initial-iso
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a b : A)
+  (ainitial : is-initial A a)
+  (binitial : is-initial A b)
+  : Iso A is-segal-A a b
+  :=
+    ( first (ainitial b) ,
+      ( ( first (binitial a) ,
+          contractible-connecting-htpy
+            ( hom A a a)
+            ( ainitial a)
+            ( Segal-comp A is-segal-A a b a
+              ( first (ainitial b))
+              ( first (binitial a)))
+            ( id-arr A a)) ,
+        ( first (binitial a) ,
+          contractible-connecting-htpy
+            ( hom A b b)
+            ( binitial b)
+            ( Segal-comp A is-segal-A b a b
+              ( first (binitial a))
+              ( first (ainitial b)))
+            ( id-arr A b))))
+```
 
-#def hom-cocomma (B : U) (b : B) : U := axiom-choice 2 Δ¹ ∂Δ¹ (\ t ->
+In a Segal type, final objects are isomorphic.
 
-#def axiom-choice (I : CUBE) (ψ : I -> TOPE) (ϕ : ψ -> TOPE) (X : ψ -> U) (Y :
-(t : ψ) -> (x : X t) -> U) (a : (t : ϕ) -> X t) (b : (t : ϕ) -> Y t (a t)) : Eq
-({t : I | ψ t} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ]) (Σ (f : ({t : I
-| ψ t} -> X t [ϕ t |-> a t ])) , ({t : I | ψ t} -> Y t (f t) [ ϕ t |-> b t ]))
+```rzk
+#def final-iso
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a b : A)
+  (afinal : is-final A a)
+  (bfinal : is-final A b)
+  (iso : Iso A is-segal-A a b)
+  : Iso A is-segal-A a b
+  :=
+    ( first (bfinal a) ,
+      ( ( first (afinal b) ,
+          contractible-connecting-htpy
+            ( hom A a a)
+            ( afinal a)
+            ( Segal-comp A is-segal-A a b a
+              ( first (bfinal a))
+              ( first (afinal b)))
+            ( id-arr A a)) ,
+        ( first (afinal b) ,
+          contractible-connecting-htpy
+            ( hom A b b)
+            ( bfinal b)
+            ( Segal-comp A is-segal-A b a b
+              ( first (afinal b))
+              ( first (bfinal a)))
+            ( id-arr A b))))
+```
