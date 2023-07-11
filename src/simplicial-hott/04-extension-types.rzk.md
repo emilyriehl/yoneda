@@ -102,17 +102,17 @@ This is a literate `rzk` file:
   ( X : ψ -> ζ -> U)
   ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s )
   : Equiv
-    ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
+    ( {t : ψ} -> ({s : ζ} -> X t s [ χ s |-> f (t , s) ])
         [ ϕ t |-> \ s -> f (t , s) ])
-    ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
+    ( {s : ζ} -> ({t : ψ} -> X t s [ ϕ t |-> f (t , s) ])
         [ χ s |-> \ t -> f (t , s) ])
   :=
     comp-equiv
-      ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
+      ( {t : ψ} -> ({s : ζ} -> X t s [ χ s |-> f (t , s) ])
         [ ϕ t |-> \ s -> f (t , s) ])
       ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s
         [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
-      ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
+      ( {s : ζ} -> ({t : ψ} -> X t s [ ϕ t |-> f (t , s) ])
         [ χ s |-> \ t -> f (t , s) ])
       ( curry-uncurry I J ψ ϕ ζ χ X f)
       ( uncurry-opcurry I J ψ ϕ ζ χ X f)
@@ -130,7 +130,7 @@ This is a literate `rzk` file:
   ( a : (t : ϕ) -> X t)
   ( b : (t : ϕ) -> Y t (a t))
   : Equiv
-    ( {t : I | ψ t} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ])
+    ( {t : ψ} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ])
     ( Σ ( f : ((t : ψ) -> X t [ ϕ t |-> a t ])) ,
         ( (t : ψ) -> Y t (f t) [ ϕ t |-> b t ]))
     :=
@@ -157,8 +157,8 @@ This is a literate `rzk` file:
           ( (t : χ) -> X t [ χ t /\ ψ t |-> f t ]))
   :=
     ( \ h -> (\ t -> h t , \ t -> h t) ,
-      ( ( \ fg t -> (second fg) t , \ h -> refl) ,
-        ( \ fg t -> (second fg) t , \ h -> refl)))
+      ( ( \ (_f, g) t -> g t , \ h -> refl) ,
+        ( \ (_f, g) t -> g t , \ h -> refl)))
 ```
 
 ```rzk title="RS17, Theorem 4.4"
@@ -176,8 +176,8 @@ This is a literate `rzk` file:
         ( (t : χ) -> X t [ ψ t |-> f t ]))
   :=
     ( \ h -> (\ t -> h t , \ t -> h t) ,
-      ( ( \ fg t -> (second fg) t , \ h -> refl) ,
-        ( ( \ fg t -> (second fg) t , \ h -> refl))))
+      ( ( \ (_f, g) t -> g t , \ h -> refl) ,
+        ( ( \ (_f, g) t -> g t , \ h -> refl))))
 ```
 
 ```rzk title="RS17, Theorem 4.5"
