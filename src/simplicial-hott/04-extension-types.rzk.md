@@ -103,7 +103,7 @@ This is a literate `rzk` file:
   ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s )
   : Equiv
     ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
-        [ ϕ t |-> \{s : J | ζ s} -> f (t , s) ])
+        [ ϕ t |-> \ s -> f (t , s) ])
     ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
         [ χ s |-> \{t : I | ψ t} -> f (t , s) ])
   :=
