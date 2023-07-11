@@ -393,8 +393,8 @@ all $x$ then $(x : X) → A x$ is a Segal type.
       ( second (equiv-function-equiv-fibered
         ( funext)
         ( X)
-        ( \ x -> Δ² -> A x )
-        ( \ x -> Λ -> A x )
+        ( \ x -> (Δ² -> A x) )
+        ( \ x -> (Λ -> A x) )
         ( \ x -> (horn-restriction (A x) , fiberwise-is-segal-A x))))
       ( \ h t x -> (h x) t) -- third equivalence
       ( second (flip-ext-fun-inv
