@@ -1130,9 +1130,9 @@ the data provided by a commutative triangle with that boundary.
   := (Segal-eq-to-hom2 A is-segal-A x y z f g k ,
     total-equiv-family-of-equiv (hom A x z)
       (\ m -> (Segal-comp A is-segal-A x y z f g) = m)
-      (\ m -> hom2 A x y z f g m)
-      (Segal-eq-to-hom2 A is-segal-A x y z f g)
-      (Segal-eq-to-hom2-total-map-is-equiv A is-segal-A x y z f g)
+      ( hom2 A x y z f g)
+      ( Segal-eq-to-hom2 A is-segal-A x y z f g)
+      ( Segal-eq-to-hom2-total-map-is-equiv A is-segal-A x y z f g)
       k)
 ```
 

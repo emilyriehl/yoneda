@@ -16,10 +16,10 @@ This is a literate `rzk` file:
   : U
   :=
     Σ ( has-inverse-f : (has-inverse A B f)) ,
-      ( a : A) ->
-        ( ( second ( second has-inverse-f)) (f a)) =
+      ( ( a : A) ->
+        ( second (second has-inverse-f) (f a)) =
         ( ap A B ( has-inverse-retraction-composite A B f has-inverse-f a) a
-          ( f) ( ( ( first ( second has-inverse-f))) a))
+          ( f) ( ( ( first ( second has-inverse-f))) a)))
 
 -- By function extensionality, the previous definition coincides with the
 -- following one:
@@ -27,15 +27,14 @@ This is a literate `rzk` file:
   (A B : U)
   (f : A -> B)
   : U
-  := Σ (has-inverse-f : (has-inverse A B f)) ,
-      ( homotopy-prewhisker A B B
-        ( has-inverse-section-composite A B f has-inverse-f)
-        ( identity B)
-        ( second (second has-inverse-f)) f =
-      ( homotopy-postwhisker A A B
-        ( has-inverse-retraction-composite A B f has-inverse-f)
-        ( identity A)
-        ( first (second has-inverse-f)) f))
+  := Σ ( has-inverse-f : (has-inverse A B f)) ,
+       ( ( a : A) ->
+         ( second (second has-inverse-f) (f a)) =
+           ( ap A B
+            ( has-inverse-retraction-composite A B f has-inverse-f a)
+            ( a)
+            ( f)
+            ( first (second has-inverse-f) a)))
 ```
 
 ## Coherence data from an invertible map
