@@ -458,6 +458,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#currying" class="md-nav__link">
+    Currying
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -769,6 +776,13 @@
         <li class="md-nav__item">
   <a href="#associativity" class="md-nav__link">
     Associativity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#currying" class="md-nav__link">
+    Currying
   </a>
   
 </li>
@@ -1183,9 +1197,9 @@ unimportant.</p>
 </span></code></pre></div>
 <h2 id="associativity">Associativity<a class="headerlink" href="#associativity" title="Permanent link">&para;</a></h2>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">associative-Σ</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="err">  </span><span class="p">( </span>C <span class="p">:</span><span class="err"> </span><span class="p">(</span>a <span class="p">:</span><span class="err"> A) -&gt; B a -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="err">  </span><span class="p">(</span>C <span class="p">:</span><span class="err"> </span><span class="p">(</span>a <span class="p">:</span><span class="err"> A) -&gt; B a -&gt; </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="err">  : Equiv</span>
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="err">      </span><span class="p">( </span>Σ (a <span class="p">:</span><span class="err"> A) , </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>b <span class="p">:</span><span class="err"> B a) , C a b)</span>
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="err">      </span><span class="p">( </span>Σ (ab <span class="p">:</span><span class="err"> </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>a <span class="p">:</span><span class="err"> A) , B a) , C (</span><span class="s">first</span><span class="err"> ab) (</span><span class="s">second</span><span class="err"> ab))</span>
@@ -1193,6 +1207,22 @@ unimportant.</p>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="err">    ( \ (a , (b , c)) -&gt; ((a , b) , c) ,</span>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="err">      ( ( \ ((a , b) , c) -&gt; (a , (b , c)) , </span><span class="p">\ </span>_ <span class="err">-&gt; </span><span class="s">refl</span><span class="err">) ,</span>
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="err">        ( \ ((a , b) , c) -&gt; (a , (b , c)) , </span><span class="p">\ </span>_ <span class="err">-&gt; </span><span class="s">refl</span><span class="err">)))</span>
+</span></code></pre></div>
+<h2 id="currying">Currying<a class="headerlink" href="#currying" title="Permanent link">&para;</a></h2>
+<p>This is the dependent version of the currying equivalence.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">equiv-dependent-curry</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> A -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="err">  </span><span class="p">(</span>C <span class="p">:</span><span class="err"> </span><span class="p">(</span>a <span class="p">:</span><span class="err"> A) -&gt; B a -&gt; </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="err">  : Equiv</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="err">      </span><span class="p">(</span>(p <span class="p">:</span><span class="err"> </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>a <span class="p">:</span><span class="err"> A), B a) -&gt; C (</span><span class="s">first</span><span class="err"> p) (</span><span class="s">second</span><span class="err"> p))</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="err">      </span><span class="p">(</span>(a <span class="p">:</span><span class="err"> A) -&gt; </span><span class="p">(</span>b <span class="p">:</span><span class="err"> B a) -&gt; C a b)</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="err">  :=</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="err">    ( ( </span><span class="p">\ </span>s a b <span class="err">-&gt; s (a, b)),</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="err">      ( ( ( </span><span class="p">\ </span>f <span class="err">(a, b) -&gt; f a b,</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="err">            </span><span class="p">\ </span>f <span class="err">-&gt; </span><span class="s">refl</span><span class="err"> ),</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="err">          ( </span><span class="p">\ </span>f <span class="err">(a, b) -&gt; f a b,</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="err">            </span><span class="p">\ </span>s <span class="err">-&gt; </span><span class="s">refl</span><span class="err"> ))))</span>
 </span></code></pre></div>
 
 
