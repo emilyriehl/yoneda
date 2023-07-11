@@ -384,10 +384,22 @@ equivalences.
     ( f : (x : X) -> A x) ->
     ( g : (x : X) -> A x) ->
     is-equiv (f = g) ((x : X) -> f x = g x) (htpy-eq X A f g)
+```
 
+In the formalisations below, some definitions will assume function
+extensionality:
+
+```rzk
+#assume funext : FunExt
+```
+
+Whenever a definition (implicitly) uses function extensionality, we write
+`uses (funext)`. In particular, the following definitions rely on function
+extensionality:
+
+```rzk
 -- The equivalence provided by function extensionality.
-#def FunExt-equiv
-  ( funext : FunExt)
+#def FunExt-equiv uses (funext)
   ( X : U)
   ( A : X -> U)
   ( f g : (x : X) -> A x)
@@ -395,8 +407,7 @@ equivalences.
   := (htpy-eq X A f g , funext X A f g)
 
 -- In particular, function extensionality implies that homotopies give rise to identifications. This defines eq-htpy to be the retraction to htpy-eq.
-#def eq-htpy
-  ( funext : FunExt)
+#def eq-htpy uses (funext)
   ( X : U)
   ( A : X -> U)
   ( f g : (x : X) -> A x)
@@ -404,8 +415,7 @@ equivalences.
   := first (first (funext X A f g))
 
 -- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
-#def equiv-function-equiv-fibered
-  ( funext : FunExt)
+#def equiv-function-equiv-fibered uses (funext)
   ( X : U)
   ( A B : X -> U)
   ( fibequiv : (x : X) -> Equiv (A x) (B x))
@@ -415,7 +425,7 @@ equivalences.
       ( ( ( \ b x -> (first (first (second (fibequiv x)))) (b x)) ,
           ( \ a ->
             eq-htpy
-              funext X A
+              X A
               ( \ x ->
                 (first (first (second (fibequiv x))))
                   ((first (fibequiv x)) (a x)))
@@ -424,7 +434,7 @@ equivalences.
         ( ( \ b x -> (first (second (second (fibequiv x)))) (b x)) ,
           ( \ b ->
             eq-htpy
-              funext X B
+              X B
               ( \ x ->
                 (first (fibequiv x))
                   ((first (second (second (fibequiv x)))) (b x)))

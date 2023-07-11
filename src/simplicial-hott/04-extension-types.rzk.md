@@ -239,9 +239,10 @@ footnote 8, we assert this as an "extension extensionality" axiom
       ( (t : ψ) -> (f t = g t) [ ϕ t |-> refl ])
       ( ext-htpy-eq I ψ ϕ A a f g)
 
+#assume extext : ExtExt
+
 -- The equivalence provided by extension extensionality.
-#def equiv-ExtExt
-  ( extext : ExtExt)
+#def equiv-ExtExt uses (extext)
   ( I : CUBE)
   ( ψ : I -> TOPE)
   ( ϕ : ψ -> TOPE)
@@ -257,8 +258,7 @@ identifications. This definition defines `eq-ext-htpy` to be the retraction to
 `ext-htpy-eq`.
 
 ```rzk
-#def eq-ext-htpy
-  ( extext : ExtExt)
+#def eq-ext-htpy uses (extext)
   ( I : CUBE)
   ( ψ : I -> TOPE)
   ( ϕ : ψ -> TOPE)
@@ -275,8 +275,7 @@ equivalences of extension types.
 ```rzk
 -- A fiberwise equivalence defines an equivalence of extension types, for
 -- simplicity extending from BOT
-#def equiv-extension-equiv-fibered
-  ( extext : ExtExt)
+#def equiv-extension-equiv-fibered uses (extext)
   ( I : CUBE)
   ( ψ : I -> TOPE)
   ( A B : ψ -> U)
@@ -287,7 +286,6 @@ equivalences of extension types.
       ( ( ( \ b t -> (first (first (second (fibequiv t)))) (b t)) ,
           ( \ a ->
             eq-ext-htpy
-              ( extext)
               ( I)
               ( ψ)
               ( \ t -> BOT)
@@ -300,7 +298,6 @@ equivalences of extension types.
         ( ( \ b t -> first (second (second (fibequiv t))) (b t)) ,
           ( \ b ->
             eq-ext-htpy
-              ( extext)
               ( I)
               ( ψ)
               ( \ t -> BOT)
