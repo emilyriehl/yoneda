@@ -419,7 +419,7 @@ then $(x : X) → A x$ is a Segal type.
   : is-local-horn-inclusion ((s : ψ) -> A s )
   :=
     triple-compose-is-equiv
-    ( (t : Δ²) -> (s : ψ) -> A s  )
+    ( Δ² -> (s : ψ) -> A s  )
     ( (s : ψ) -> Δ² -> A s  )
     ( (s : ψ) -> Λ -> A s  )
     ( Λ -> (s : ψ) -> A s  )
