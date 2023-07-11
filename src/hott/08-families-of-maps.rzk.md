@@ -578,7 +578,7 @@ equivalence of total spaces.
           ( \ x' -> (a = x'))
           B
           f
-          ( areContr-is-equiv (Σ (x' : A) , (a = x')) (Σ (x' : A) , (B x'))
+          ( is-equiv-are-contr (Σ (x' : A) , (a = x')) (Σ (x' : A) , (B x'))
             ( is-contr-based-paths A a) is-contr-B
             ( total-map-family-of-maps A ( \ x' -> (a = x')) B f))
           x)))

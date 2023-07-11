@@ -404,7 +404,7 @@ equivalences.
   := first (first (funext X A f g))
 
 -- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
-#def function-equiv-fibered-equiv
+#def equiv-function-equiv-fibered
   ( funext : FunExt)
   ( X : U)
   ( A B : X -> U)
