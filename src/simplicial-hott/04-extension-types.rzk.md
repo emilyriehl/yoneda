@@ -105,7 +105,7 @@ This is a literate `rzk` file:
     ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
         [ ϕ t |-> \ s -> f (t , s) ])
     ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
-        [ χ s |-> \{t : I | ψ t} -> f (t , s) ])
+        [ χ s |-> \ t -> f (t , s) ])
   :=
     comp-equiv
       ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
