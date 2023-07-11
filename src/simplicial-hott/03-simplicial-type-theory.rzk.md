@@ -36,8 +36,8 @@ This is a literate `rzk` file:
 -- the boundary of a 2-simplex
 #def ∂Δ² : Δ² -> TOPE
   :=
-    \ ts ->
-    ( (second ts) === 0_2 \/ (first ts) === 1_2 \/ (second ts) === (first ts))
+    \ (t, s) ->
+    ( s === 0_2 \/ t === 1_2 \/ s === t)
 ```
 
 ### The inner horn
