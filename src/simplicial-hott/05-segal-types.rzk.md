@@ -336,8 +336,8 @@ Types that are local at the horn inclusion are Segal types:
                 ( \ t -> k (t , 0_2))
                 ( \ t -> k (1_2 , t))
                 ( h)))
-          (  {t : 2 * 2 | Δ² t} -> A )
-          (  {t : 2 * 2 | Λ t} -> A )
+          ( Δ² -> A )
+          ( Λ  -> A )
           ( inv-equiv
             ( Δ² -> A )
             ( Σ ( k : Λ -> A ) ,
