@@ -443,8 +443,8 @@ This is the dependent version of the currying equivalence.
       ((a : A) -> (b : B a) -> C a b)
   :=
     ( ( \ s a b -> s (a, b)),
-      ( ( ( \ f p -> f (first p) (second p),
+      ( ( ( \ f (a, b) -> f a b,
             \ f -> refl ),
-          ( \ f p -> f (first p) (second p),
+          ( \ f (a, b) -> f a b,
             \ s -> refl ))))
 ```
