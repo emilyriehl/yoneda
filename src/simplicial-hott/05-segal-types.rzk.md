@@ -20,6 +20,14 @@ This is a literate `rzk` file:
 - `4-extension-types.md` — We use the fubini theorem and extension
   extensionality.
 
+Some of the definitions in this file rely on function extensionality and
+extension extensionality:
+
+```rzk
+#assume funext : FunExt
+#assume extext : ExtExt
+```
+
 ## Hom types
 
 Extension types are used ∂to define the type of arrows between fixed terms:
@@ -369,8 +377,7 @@ instance if $X$ is a type and $A : X → U$ is such that $A x$ is a Segal type f
 all $x$ then $(x : X) → A x$ is a Segal type.
 
 ```rzk title="RS17, Corollary 5.6(i)"
-#def Segal-function-types
-  (funext : FunExt)
+#def Segal-function-types uses (funext)
   (X : U)
   (A : (_ : X) -> U)
   (fiberwise-is-segal-A : (x : X) -> is-local-horn-inclusion (A x))
@@ -410,8 +417,7 @@ If $X$ is a shape and $A : X → U$ is such that $A x$ is a Segal type for all $
 then $(x : X) → A x$ is a Segal type.
 
 ```rzk title="RS17, Corollary 5.6(ii)"
-#def Segal-extension-types
-  (extext : ExtExt)
+#def Segal-extension-types uses (extext)
   (I : CUBE)
   (ψ : (s : I) -> TOPE)
   (A : (s : ψ) -> U )
@@ -474,29 +480,25 @@ For later use, an equivalent characterization of the arrow type.
 
 ```rzk title="RS17, Corollary 5.6(ii)"
 -- special case using `is-local-horn-inclusion`
-#def Segal'-arrow-types
-  (extext : ExtExt)
+#def Segal'-arrow-types uses (extext)
   (A : U)
   (is-segal-A : is-local-horn-inclusion A)
   : is-local-horn-inclusion (arr A)
   :=
     Segal-extension-types
-      ( extext)
       ( 2)
       ( Δ¹)
       ( \ t -> A)
       ( \ t -> is-segal-A)
 
 -- special case using `is-segal`
-#def Segal-arrow-types
-  (extext : ExtExt)
+#def Segal-arrow-types uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   : is-segal (arr A)
   :=
     is-segal-is-local-horn-inclusion (arr A)
       ( Segal-extension-types
-          ( extext)
           ( 2)
           ( Δ¹)
           ( \ t -> A)
@@ -728,8 +730,7 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
 </svg>
 
 ```rzk
-#def Segal-associativity-witness
-  (extext : ExtExt)
+#def Segal-associativity-witness uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (w x y z : A)
@@ -739,14 +740,14 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
   : hom2 (arr A) f g h
       (Segal-arr-in-arr A is-segal-A w x y f g)
       (Segal-arr-in-arr A is-segal-A x y z g h)
-      (Segal-comp (arr A) (Segal-arrow-types extext A is-segal-A)
+      (Segal-comp (arr A) (Segal-arrow-types A is-segal-A)
       f g h
       (Segal-arr-in-arr A is-segal-A w x y f g)
       (Segal-arr-in-arr A is-segal-A x y z g h))
   :=
     Segal-comp-witness
       ( arr A)
-      ( Segal-arrow-types extext A is-segal-A)
+      ( Segal-arrow-types A is-segal-A)
       f g h
       ( Segal-arr-in-arr A is-segal-A w x y f g)
       ( Segal-arr-in-arr A is-segal-A x y z g h)
@@ -775,8 +776,7 @@ The `Segal-associativity-witness` curries to define a diagram $Δ²×Δ¹ → A$
 $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
 
 ```rzk
-#def Segal-associativity-tetrahedron
-  (extext : ExtExt)
+#def Segal-associativity-tetrahedron uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (w x y z : A)
@@ -786,7 +786,7 @@ $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
   : Δ³ -> A
   :=
     \ ((t , s) , r) ->
-    (Segal-associativity-witness extext A is-segal-A w x y z f g h) (t , r) s
+    (Segal-associativity-witness A is-segal-A w x y z f g h) (t , r) s
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -811,8 +811,7 @@ The diagonal composite of three arrows extracted from the
 `Segal-associativity-tetrahedron`.
 
 ```rzk
-#def Segal-triple-composite
-  (extext : ExtExt)
+#def Segal-triple-composite uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (w x y z : A)
@@ -822,7 +821,7 @@ The diagonal composite of three arrows extracted from the
   : hom A w z
   :=
     \ t ->
-    ( Segal-associativity-tetrahedron extext A is-segal-A w x y z f g h)
+    ( Segal-associativity-tetrahedron A is-segal-A w x y z f g h)
       ( (t , t) , t)
 ```
 
@@ -847,8 +846,7 @@ The diagonal composite of three arrows extracted from the
 </svg>
 
 ```rzk
-#def Segal-left-associativity-witness
-  (extext : ExtExt)
+#def Segal-left-associativity-witness uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (w x y z : A)
@@ -858,10 +856,10 @@ The diagonal composite of three arrows extracted from the
   : hom2 A w y z
     (Segal-comp A is-segal-A w x y f g)
     h
-    (Segal-triple-composite extext A is-segal-A w x y z f g h)
+    (Segal-triple-composite A is-segal-A w x y z f g h)
   :=
     \ (t , s) ->
-    ( Segal-associativity-tetrahedron extext A is-segal-A w x y z f g h)
+    ( Segal-associativity-tetrahedron A is-segal-A w x y z f g h)
       ( (t , t) , s)
 ```
 
@@ -888,8 +886,7 @@ The front face:
 </svg>
 
 ```rzk
-#def Segal-right-associativity-witness
-  (extext : ExtExt)
+#def Segal-right-associativity-witness uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (w x y z : A)
@@ -899,16 +896,15 @@ The front face:
   : hom2 A w x z
     f
     (Segal-comp A is-segal-A x y z g h)
-    (Segal-triple-composite extext A is-segal-A w x y z f g h)
+    (Segal-triple-composite A is-segal-A w x y z f g h)
   :=
     \ (t , s) ->
-    ( Segal-associativity-tetrahedron extext A is-segal-A w x y z f g h)
+    ( Segal-associativity-tetrahedron A is-segal-A w x y z f g h)
       ((t , s) , s)
 ```
 
 ```rzk
-#def Segal-left-associativity
-  (extext : ExtExt)
+#def Segal-left-associativity uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (w x y z : A)
@@ -916,15 +912,14 @@ The front face:
   (g : hom A x y)
   (h : hom A y z)
   : (Segal-comp A is-segal-A w y z (Segal-comp A is-segal-A w x y f g) h) =
-    (Segal-triple-composite extext A is-segal-A w x y z f g h)
+    (Segal-triple-composite A is-segal-A w x y z f g h)
   :=
     Segal-comp-uniqueness
       A is-segal-A w y z (Segal-comp A is-segal-A w x y f g) h
-      ( Segal-triple-composite extext A is-segal-A w x y z f g h)
-      ( Segal-left-associativity-witness extext A is-segal-A w x y z f g h)
+      ( Segal-triple-composite A is-segal-A w x y z f g h)
+      ( Segal-left-associativity-witness A is-segal-A w x y z f g h)
 
-#def Segal-right-associativity
-  (extext : ExtExt)
+#def Segal-right-associativity uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (w x y z : A)
@@ -932,14 +927,13 @@ The front face:
   (g : hom A x y)
   (h : hom A y z)
   : (Segal-comp A is-segal-A w x z f (Segal-comp A is-segal-A x y z g h)) =
-      (Segal-triple-composite extext A is-segal-A w x y z f g h)
+      (Segal-triple-composite A is-segal-A w x y z f g h)
   := Segal-comp-uniqueness
         A is-segal-A w x z f (Segal-comp A is-segal-A x y z g h)
-      ( Segal-triple-composite extext A is-segal-A w x y z f g h)
-      ( Segal-right-associativity-witness extext A is-segal-A w x y z f g h)
+      ( Segal-triple-composite A is-segal-A w x y z f g h)
+      ( Segal-right-associativity-witness A is-segal-A w x y z f g h)
 
-#def Segal-associativity
-  (extext : ExtExt)
+#def Segal-associativity uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (w x y z : A)
@@ -952,10 +946,10 @@ The front face:
     zig-zag-concat
     ( hom A w z)
     ( Segal-comp A is-segal-A w y z (Segal-comp A is-segal-A w x y f g) h)
-    ( Segal-triple-composite extext A is-segal-A w x y z f g h)
+    ( Segal-triple-composite A is-segal-A w x y z f g h)
     ( Segal-comp A is-segal-A w x z f (Segal-comp A is-segal-A x y z g h))
-    ( Segal-left-associativity extext A is-segal-A w x y z f g h)
-    ( Segal-right-associativity extext A is-segal-A w x y z f g h)
+    ( Segal-left-associativity A is-segal-A w x y z f g h)
+    ( Segal-right-associativity A is-segal-A w x y z f g h)
 
 
 #def Segal-postcomp
@@ -1260,8 +1254,6 @@ composition:
       p)
 
 #section is-segal-Unit
-
-#variable extext : ExtExt
 
 #def iscontr-Unit : is-contr Unit := (unit , \ _ -> refl)
 

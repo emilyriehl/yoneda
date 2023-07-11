@@ -15,6 +15,12 @@ This is a literate `rzk` file:
 - `4-extension-types.md` — We use extension extensionality.
 - `5-segal-types.md` - We use the notion of hom types.
 
+Some of the definitions in this file rely on extension extensionality:
+
+```rzk
+#assume extext : ExtExt
+```
+
 ## Functors
 
 Functions between types induce an action on hom types , preserving sources and
@@ -47,8 +53,7 @@ Functions between types automatically preserve identity arrows.
 
 ```rzk title="RS17, Proposition 6.1.a"
 -- Preservation of identities follows from extension extensionality because these arrows are pointwise equal.
-#def functors-pres-id
-  (extext : ExtExt)
+#def functors-pres-id uses (extext)
   (A B : U)
   (F : A -> B)
   (x : A)

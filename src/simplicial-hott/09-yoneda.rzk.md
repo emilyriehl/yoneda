@@ -19,6 +19,12 @@ This is a literate `rzk` file:
 - `5-segal-types.md` - We make heavy use of the notion of Segal types
 - `8-covariant.md` - We use covariant type families.
 
+Some of the definitions in this file rely on function extensionality:
+
+```rzk
+#assume funext : FunExt
+```
+
 ## Natural transformations involving a representable functor
 
 Fix a Segal type $A$ and a term $a : A$. The Yoneda lemma characterizes natural
@@ -138,8 +144,7 @@ in two steps.
         ( Segal-id-comp A is-segal-A a x f))
 
 -- By funext, these are equals as functions of f pointwise in x.
-#def yon-evid-once-pointwise
-  (funext : FunExt)
+#def yon-evid-once-pointwise uses (funext)
   (ϕ : (z : A) -> hom A a z -> C z)
   (x : A)
   : ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x = ϕ x
@@ -152,8 +157,7 @@ in two steps.
       ( \ f -> yon-evid-twice-pointwise ϕ x f)
 
 -- By funext again, these are equal as functions of x and f.
-#def yon-evid
-  (funext : FunExt)
+#def yon-evid uses (funext)
   (ϕ : (z : A) -> hom A a z -> C z)
   : ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) = ϕ
   := eq-htpy funext
@@ -161,7 +165,7 @@ in two steps.
       ( \ x -> (hom A a x -> C x))
       ( \ x -> ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x)
       ( \ x -> (ϕ x))
-      ( \ x -> yon-evid-once-pointwise funext ϕ x)
+      ( \ x -> yon-evid-once-pointwise ϕ x)
 
 #end yon-evid
 ```
@@ -171,8 +175,7 @@ in two steps.
 The Yoneda lemma says that evaluation at the identity defines an equivalence.
 
 ```rzk
-#def Yoneda-lemma
-  (funext : FunExt)
+#def Yoneda-lemma uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -181,7 +184,7 @@ The Yoneda lemma says that evaluation at the identity defines an equivalence.
   : is-equiv ((z : A) -> hom A a z -> C z) (C a) (evid A a C)
   :=
     ( ( ( yon A is-segal-A a C is-covariant-C),
-        ( yon-evid A is-segal-A a C is-covariant-C funext)),
+        ( yon-evid A is-segal-A a C is-covariant-C)),
       ( ( yon A is-segal-A a C is-covariant-C),
         ( evid-yon A is-segal-A a C is-covariant-C)))
 ```
@@ -298,8 +301,7 @@ in two steps.
         ( Segal-comp-id A is-segal-A x a f))
 
 -- By funext, these are equals as functions of f pointwise in x.
-#def contra-yon-evid-once-pointwise
-  (funext : FunExt)
+#def contra-yon-evid-once-pointwise uses (funext)
   (ϕ : (z : A) -> hom A z a -> C z)
   (x : A)
   : ((contra-yon A is-segal-A a C is-contravariant-C)
@@ -315,8 +317,7 @@ in two steps.
       ( \ f -> contra-yon-evid-twice-pointwise ϕ x f)
 
 -- By funext again, these are equal as functions of x and f.
-#def contra-yon-evid
-  (funext : FunExt)
+#def contra-yon-evid uses (funext)
   (ϕ : (z : A) -> hom A z a -> C z)
   : (contra-yon A is-segal-A a C is-contravariant-C)((contra-evid A a C) ϕ) = ϕ
   :=
@@ -327,7 +328,7 @@ in two steps.
         ( (contra-yon A is-segal-A a C is-contravariant-C)
               ((contra-evid A a C) ϕ )) x)
       ( \ x -> (ϕ x))
-      ( \ x -> contra-yon-evid-once-pointwise funext ϕ x)
+      ( \ x -> contra-yon-evid-once-pointwise ϕ x)
 
 #end contra-yon-evid
 ```
@@ -336,8 +337,7 @@ The contravariant Yoneda lemma says that evaluation at the identity defines an
 equivalence.
 
 ```rzk
-#def contra-Yoneda-lemma
-  (funext : FunExt)
+#def contra-Yoneda-lemma uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -346,7 +346,7 @@ equivalence.
   : is-equiv ((z : A) -> hom A z a -> C z) (C a) (contra-evid A a C)
   :=
     ( ( ( contra-yon A is-segal-A a C is-contravariant-C),
-        ( contra-yon-evid A is-segal-A a C is-contravariant-C funext)),
+        ( contra-yon-evid A is-segal-A a C is-contravariant-C)),
       ( ( contra-yon A is-segal-A a C is-contravariant-C),
         ( contra-evid-yon A is-segal-A a C is-contravariant-C)))
 ```
@@ -440,8 +440,7 @@ We now prove that induction from an initial element in the base of a covariant
 family defines an inverse equivalence to evaluation at the element.
 
 ```rzk title="RS17, Theorem 9.7"
-#def is-equiv-covariant-ev-initial
-  (funext : FunExt)
+#def is-equiv-covariant-ev-initial uses (funext)
   (A : U)
   (a : A)
   (is-initial-a : is-initial A a)
@@ -542,8 +541,7 @@ The dependent Yoneda lemma now follows by specializing these results.
   : ((p : coslice A a) -> C p) -> C (a, id-arr A a)
   := \ s -> s (a, id-arr A a)
 
-#def dependent-yoneda-lemma'
-  (funext : FunExt)
+#def dependent-yoneda-lemma' uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -555,7 +553,6 @@ The dependent Yoneda lemma now follows by specializing these results.
       ( dependent-ev-id A a C)
   :=
     is-equiv-covariant-ev-initial
-      ( funext)
       ( coslice A a)
       ( (a, id-arr A a))
       ( is-initial-id-arr-is-segal A is-segal-A a)
@@ -567,8 +564,7 @@ The actual dependent Yoneda is equivalent to the result just proven, just with
 an equivalent type in the domain of the evaluation map.
 
 ```rzk title="RS17, Theorem 9.5"
-#def dependent-yoneda-lemma
-  (funext : FunExt)
+#def dependent-yoneda-lemma uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -586,7 +582,7 @@ an equivalent type in the domain of the evaluation map.
       ( first (equiv-dependent-curry A (\ z -> hom A a z)(\ x f -> C (x, f))))
       ( second (equiv-dependent-curry A (\ z -> hom A a z)(\ x f -> C (x, f))))
       ( \ s -> s a (id-arr A a))
-      ( dependent-yoneda-lemma' funext A is-segal-A a C is-covariant-C)
+      ( dependent-yoneda-lemma' A is-segal-A a C is-covariant-C)
 ```
 
 ## Final objects
@@ -673,8 +669,7 @@ We now prove that induction from a final element in the base of a contravariant
 family defines an inverse equivalence to evaluation at the element.
 
 ```rzk title="RS17, Theorem 9.7, dual"
-#def is-equiv-contravariant-ev-final
-  (funext : FunExt)
+#def is-equiv-contravariant-ev-final uses (funext)
   (A : U)
   (a : A)
   (is-final-a : is-final A a)
@@ -776,8 +771,7 @@ specializing these results.
   : ((p : slice A a) -> C p) -> C (a, id-arr A a)
   := \ s -> s (a, id-arr A a)
 
-#def contra-dependent-yoneda-lemma'
-  (funext : FunExt)
+#def contra-dependent-yoneda-lemma' uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -789,7 +783,6 @@ specializing these results.
       ( contra-dependent-ev-id A a C)
   :=
     is-equiv-contravariant-ev-final
-      ( funext)
       ( slice A a)
       ( (a, id-arr A a))
       ( is-final-id-arr-is-segal A is-segal-A a)
@@ -801,8 +794,7 @@ The actual contravariant dependent Yoneda is equivalent to the result just
 proven, just with an equivalent type in the domain of the evaluation map.
 
 ```rzk title="RS17, Theorem 9.5, dual"
-#def contra-dependent-yoneda-lemma
-  (funext : FunExt)
+#def contra-dependent-yoneda-lemma uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -821,5 +813,5 @@ proven, just with an equivalent type in the domain of the evaluation map.
       ( second (equiv-dependent-curry A (\ z -> hom A z a)(\ x f -> C (x, f))))
       ( \ s -> s a (id-arr A a))
       ( contra-dependent-yoneda-lemma'
-          funext A is-segal-A a C is-contravariant-C)
+          A is-segal-A a C is-contravariant-C)
 ```

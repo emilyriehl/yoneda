@@ -32,9 +32,9 @@ live over a specified arrow in the base type.
   (u : C x)          -- A lift of the domain.
   (v : C y)          -- A lift of the codomain.
   : U
-    := {t : 2 | Δ¹ t } -> C (f t)
-      [t === 0_2 |-> u ,
-      t === 1_2 |-> v ]
+    := {t : Δ¹ } -> C (f t)
+      [ t === 0_2 |-> u ,
+        t === 1_2 |-> v ]
 ```
 
 It will be convenient to collect together dependent hom types with fixed domain
@@ -70,10 +70,10 @@ triangle.
   (gg : dhom A y z g C v w)    -- A lift of the second arrow.
   (hh : dhom A x z h C u w)    -- A lift of the diagonal arrow.
   : U
-    := { (t1 , t2) : 2 * 2 | Δ² (t1 , t2)} -> C (alpha (t1 , t2))
-      [t2 === 0_2 |-> ff t1 ,
-      t1 === 1_2 |-> gg t2 ,
-      t2 === t1 |-> hh t2 ]
+    := { (t1 , t2) : Δ² } -> C (alpha (t1 , t2))
+      [ t2 === 0_2 |-> ff t1 ,
+        t1 === 1_2 |-> gg t2 ,
+        t2 === t1  |-> hh t2 ]
 ```
 
 ## Covariant families
@@ -178,15 +178,17 @@ equivalences.
   (u : hom A a x)        -- A lift of the domain.
   (v : hom A a y)        -- A lift of the codomain.
   : Equiv (dhom-representable A a x y f u v)
-  ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> v s ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ])
+  ({ (t , s) : Δ¹×Δ¹ } -> A
+    [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+      ((t === 1_2) /\ Δ¹ s) |-> v s ,
+      (Δ¹ t /\ (s === 0_2)) |-> a ,
+      (Δ¹ t /\ (s === 1_2)) |-> f t ])
   := curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s -> A)
-    (\ (t , s) -> recOR (((t === 0_2) /\ Δ¹ s) |-> u s ,
-            ((t === 1_2) /\ Δ¹ s) |-> v s ,
-            (Δ¹ t /\ (s === 0_2)) |-> a ,
-            (Δ¹ t /\ (s === 1_2)) |-> f t ))
+    (\ (t , s) -> recOR
+      ( ((t === 0_2) /\ Δ¹ s) |-> u s ,
+        ((t === 1_2) /\ Δ¹ s) |-> v s ,
+        (Δ¹ t /\ (s === 0_2)) |-> a ,
+        (Δ¹ t /\ (s === 1_2)) |-> f t ))
 
 #def dhom-from-representable
   (A : U)            -- The ambient type.
@@ -203,15 +205,17 @@ equivalences.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv (dhom-from-representable A a x y f u)
-    (Σ (v : hom A a y) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> v s ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+    (Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } -> A
+      [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+        ((t === 1_2) /\ Δ¹ s) |-> v s ,
+        (Δ¹ t /\ (s === 0_2)) |-> a ,
+        (Δ¹ t /\ (s === 1_2)) |-> f t ]))
   := total-equiv-family-equiv (hom A a y) (\ v -> dhom-representable A a x y f u v)
-    (\ v -> ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
-                      ((t === 1_2) /\ Δ¹ s) |-> v s ,
-                      (Δ¹ t /\ (s === 0_2)) |-> a ,
-                      (Δ¹ t /\ (s === 1_2)) |-> f t ]))
+    (\ v -> ({ (t , s) : Δ¹×Δ¹ } -> A
+      [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
+        ((t === 1_2) /\ Δ¹ s) |-> v s ,
+        (Δ¹ t /\ (s === 0_2)) |-> a ,
+        (Δ¹ t /\ (s === 1_2)) |-> f t ]))
     (\ v -> uncurried-dhom-representable A a x y f u v)
 
 #def square-to-hom2-pushout
@@ -221,7 +225,7 @@ equivalences.
   (f : hom A x z)
   (g : hom A w y)
   (v : hom A y z)
-  : ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+  : ({ (t , s) : Δ¹×Δ¹ } -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> g t ,
                       (Δ¹ t /\ (s === 1_2)) |-> f t ])
@@ -236,7 +240,7 @@ equivalences.
   (g : hom A w y)
   (v : hom A y z)
   : (Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
-  -> ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+  -> ({ (t , s) : Δ¹×Δ¹ } -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> g t ,
                       (Δ¹ t /\ (s === 1_2)) |-> f t ])
@@ -249,7 +253,7 @@ equivalences.
   (f : hom A x z)
   (g : hom A w y)
   (v : hom A y z)
-  : Equiv ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+  : Equiv ({ (t , s) : Δ¹×Δ¹ } -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> g t ,
                       (Δ¹ t /\ (s === 1_2)) |-> f t ])
@@ -263,13 +267,13 @@ equivalences.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (Σ (v : hom A a y) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+  : Equiv (Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> a ,
                       (Δ¹ t /\ (s === 1_2)) |-> f t ]))
     (Σ (v : hom A a y) , (Σ (d : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
   := total-equiv-family-equiv (hom A a y)
-    (\ v -> ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+    (\ v -> ({ (t , s) : Δ¹×Δ¹ } -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> a ,
                       (Δ¹ t /\ (s === 1_2)) |-> f t ]))
@@ -285,7 +289,7 @@ equivalences.
     (Σ (d : hom A a y) , (Σ (v : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
   := triple-comp-equiv
     (dhom-from-representable A a x y f u)
-    (Σ (v : hom A a y) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+    (Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> a ,
                       (Δ¹ t /\ (s === 1_2)) |-> f t ]))
@@ -435,7 +439,7 @@ types as follows.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
-    ( { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+    ( { (t , s) : ∂□ } -> A
       [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t ])
@@ -477,14 +481,14 @@ types as follows.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
-    ( { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+    ( { (t , s) : ∂□ } -> A
       [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t])
     (hom A a y)
   :=
     comp-equiv
-    ( { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+    ( { (t , s) : ∂□ } -> A
         [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
           (Δ¹ t /\ (s === 0_2)) |-> a ,
           (Δ¹ t /\ (s === 1_2)) |-> f t ] )
@@ -501,24 +505,24 @@ types as follows.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
-    (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+    (Σ (sq : { (t , s) : ∂□ } -> A
         [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
           (Δ¹ t /\ (s === 0_2)) |-> a ,
           (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
-        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        ({ (t , s) : Δ¹×Δ¹ } -> A
           [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t ]))
     (Σ (v : hom A a y) ,
-      ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+      ({ (t , s) : Δ¹×Δ¹ } -> A
           [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             ((t === 1_2) /\ Δ¹ s) |-> v s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t ]))
   :=
     total-equiv-pullback-is-equiv
-    (  { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+    (  { (t , s) : ∂□ } -> A
       [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t ] )
@@ -526,7 +530,7 @@ types as follows.
             (first (base-hom-expansion A a x y f u))
             (second (base-hom-expansion A a x y f u))
     ( \ v ->
-      ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+      ( { (t , s) : Δ¹×Δ¹ } -> A
           [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             ((t === 1_2) /\ Δ¹ s) |-> v s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
@@ -538,11 +542,11 @@ types as follows.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv (dhom-from-representable A a x y f u)
-      (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+      (Σ (sq : { (t , s) : ∂□ } -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
               (Δ¹ t /\ (s === 0_2)) |-> a ,
               (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
-        ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        ( { (t , s) : Δ¹×Δ¹ } -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
               ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
               (Δ¹ t /\ (s === 0_2)) |-> a ,
@@ -550,16 +554,16 @@ types as follows.
   :=
     right-cancel-equiv
     ( dhom-from-representable A a x y f u)
-    ( Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+    ( Σ (sq : { (t , s) : ∂□ } -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
               (Δ¹ t /\ (s === 0_2)) |-> a ,
               (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
-        ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        ( { (t , s) : Δ¹×Δ¹ } -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
               ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
               (Δ¹ t /\ (s === 0_2)) |-> a ,
               (Δ¹ t /\ (s === 1_2)) |-> f t ]))
-    ( Σ (v : hom A a y) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+    ( Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } -> A
         [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
           ((t === 1_2) /\ Δ¹ s) |-> v s ,
           (Δ¹ t /\ (s === 0_2)) |-> a ,
@@ -573,15 +577,15 @@ types as follows.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
-    ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+    ({ (t , s) : Δ¹×Δ¹ } -> A
         [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
           (Δ¹ t /\ (s === 0_2)) |-> a ,
           (Δ¹ t /\ (s === 1_2)) |-> f t] )
-    (Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+    (Σ (sq : { (t , s) : ∂□ } -> A
         [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
-        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        ({ (t , s) : Δ¹×Δ¹ } -> A
           [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
@@ -603,22 +607,22 @@ types as follows.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
       (dhom-from-representable A a x y f u)
-      ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+      ({ (t , s) : Δ¹×Δ¹ } -> A
               [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
                 (Δ¹ t /\ (s === 0_2)) |-> a ,
                 (Δ¹ t /\ (s === 1_2)) |-> f t] )
   :=
     right-cancel-equiv
     ( dhom-from-representable A a x y f u)
-    ( { (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+    ( { (t , s) : Δ¹×Δ¹ } -> A
         [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
           (Δ¹ t /\ (s === 0_2)) |-> a ,
           (Δ¹ t /\ (s === 1_2)) |-> f t] )
-    ( Σ (sq : { (t , s) : 2 * 2 | ∂□ (t , s)} -> A
+    ( Σ (sq : { (t , s) : ∂□ } -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             (Δ¹ t /\ (s === 0_2)) |-> a ,
             (Δ¹ t /\ (s === 1_2)) |-> f t ]) ,
-        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        ({ (t , s) : Δ¹×Δ¹ } -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
               ((t === 1_2) /\ Δ¹ s) |-> (sq (1_2 , s)) ,
               (Δ¹ t /\ (s === 0_2)) |-> a ,
@@ -852,7 +856,7 @@ a rather lengthy composition of equivalences.
   (u : hom A x a)        -- A lift of the domain.
   (v : hom A y a)        -- A lift of the codomain.
   : Equiv (dhom-contra-representable A a x y f u v)
-  ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
+  ({ (t , s) : Δ¹×Δ¹ } -> A [((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> f t ,
                       (Δ¹ t /\ (s === 1_2)) |-> a ])
@@ -878,7 +882,7 @@ a rather lengthy composition of equivalences.
   (v : hom A y a)    -- A lift of the codomain.
   : Equiv (dhom-to-representable A a x y f v)
     (Σ (u : hom A x a) ,
-        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        ({ (t , s) : Δ¹×Δ¹ } -> A
                     [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> f t ,
@@ -888,7 +892,7 @@ a rather lengthy composition of equivalences.
     ( hom A x a)
     ( \ u -> dhom-contra-representable A a x y f u v)
     ( \ u ->
-      ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+      ({ (t , s) : Δ¹×Δ¹ } -> A
           [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
             ((t === 1_2) /\ Δ¹ s) |-> v s ,
             (Δ¹ t /\ (s === 0_2)) |-> f t ,
@@ -901,7 +905,7 @@ a rather lengthy composition of equivalences.
   (f : hom A x y)    -- An arrow in the base.
   (v : hom A y a)    -- A lift of the codomain.
   : Equiv
-    (Σ (u : hom A x a) , ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+    (Σ (u : hom A x a) , ({ (t , s) : Δ¹×Δ¹ } -> A
                     [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> f t ,
@@ -912,7 +916,7 @@ a rather lengthy composition of equivalences.
   :=
     total-equiv-family-equiv (hom A x a)
     ( \ u ->
-      ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+      ({ (t , s) : Δ¹×Δ¹ } -> A
                     [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
                       ((t === 1_2) /\ Δ¹ s) |-> v s ,
                       (Δ¹ t /\ (s === 0_2)) |-> f t ,
@@ -936,7 +940,7 @@ a rather lengthy composition of equivalences.
     triple-comp-equiv
     ( dhom-to-representable A a x y f v)
     ( Σ (u : hom A x a) ,
-        ({ (t , s) : 2 * 2 | Δ¹×Δ¹ (t , s)} -> A
+        ({ (t , s) : Δ¹×Δ¹ } -> A
             [ ((t === 0_2) /\ Δ¹ s) |-> u s ,
               ((t === 1_2) /\ Δ¹ s) |-> v s ,
               (Δ¹ t /\ (s === 0_2)) |-> f t ,
