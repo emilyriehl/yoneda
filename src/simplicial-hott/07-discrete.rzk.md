@@ -534,7 +534,7 @@ Discrete types are automatically Segal types.
               [ ((t === 0_2) /\ Δ¹ s) |-> f s ,
                 ((t === 1_2) /\ Δ¹ s) |-> g s ,
                 (Δ¹ t /\ (s === 0_2)) |-> h t ,
-                 (Δ¹ t /\ (s === 1_2)) |-> k t ])))
+                (Δ¹ t /\ (s === 1_2)) |-> k t ])))
     ( first
       ( equiv-square-sigma-over-product extext A is-discrete-A x y z w f g))
     ( square-sigma-over-product extext A is-discrete-A x y z w f g)
