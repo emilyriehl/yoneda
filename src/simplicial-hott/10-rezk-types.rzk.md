@@ -6,6 +6,12 @@ This is a literate `rzk` file:
 #lang rzk-1
 ```
 
+Some of the definitions in this file rely on extension extensionality:
+
+```rzk
+#assume extext : ExtExt
+```
+
 ```rzk
 #section isomorphisms
 
@@ -74,8 +80,7 @@ This is a literate `rzk` file:
     : (arrow-has-inverse A is-segal-A x y f) -> (arrow-is-iso A is-segal-A x y f)
     := (\ (g , (p , q)) -> ((g , p) , (g , q)))
 
-#def arrow-iso-to-inverse
-    (extext : ExtExt) -- This proof uses extension extensionality.
+#def arrow-iso-to-inverse uses (extext)
     (A : U)
     (is-segal-A : is-segal A)
     (x y : A)
@@ -119,17 +124,15 @@ This is a literate `rzk` file:
     )
  )
 
-#def arrow-inverse-iff-iso
-    (extext : ExtExt) -- This proof uses extension extensionality.
+#def arrow-inverse-iff-iso uses (extext)
     (A : U)
     (is-segal-A : is-segal A)
     (x y : A)
     (f : hom A x y)
     : iff (arrow-has-inverse A is-segal-A x y f) (arrow-is-iso A is-segal-A x y f)
-    := (arrow-inverse-to-iso A is-segal-A x y f , arrow-iso-to-inverse extext A is-segal-A x y f)
+    := (arrow-inverse-to-iso A is-segal-A x y f , arrow-iso-to-inverse A is-segal-A x y f)
 
-#def if-iso-then-postcomp-has-retraction
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def if-iso-then-postcomp-has-retraction uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -153,8 +156,7 @@ This is a literate `rzk` file:
        )
   )
 
-#def if-iso-then-postcomp-has-section
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def if-iso-then-postcomp-has-section uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -178,8 +180,7 @@ This is a literate `rzk` file:
        )
   )
 
-#def if-iso-then-postcomp-is-equiv
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def if-iso-then-postcomp-is-equiv uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -191,11 +192,10 @@ This is a literate `rzk` file:
   : (z : A) -> is-equiv (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
   :=
     \ z ->
-    ( (if-iso-then-postcomp-has-retraction extext A is-segal-A x y f g gg z) ,
-      (if-iso-then-postcomp-has-section extext A is-segal-A x y f h hh z))
+    ( (if-iso-then-postcomp-has-retraction A is-segal-A x y f g gg z) ,
+      (if-iso-then-postcomp-has-section A is-segal-A x y f h hh z))
 
-#def if-iso-then-precomp-has-retraction
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def if-iso-then-precomp-has-retraction uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -224,8 +224,7 @@ This is a literate `rzk` file:
        )
   )
 
-#def if-iso-then-precomp-has-section
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def if-iso-then-precomp-has-section uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -253,8 +252,7 @@ This is a literate `rzk` file:
        )
   )
 
-#def if-iso-then-precomp-is-equiv
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def if-iso-then-precomp-is-equiv uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -266,11 +264,10 @@ This is a literate `rzk` file:
   : (z : A) -> is-equiv (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
   :=
     \ z ->
-    ( (if-iso-then-precomp-has-retraction extext A is-segal-A x y f h hh z) ,
-    (if-iso-then-precomp-has-section extext A is-segal-A x y f g gg z))
+    ( (if-iso-then-precomp-has-retraction A is-segal-A x y f h hh z) ,
+    (if-iso-then-precomp-has-section A is-segal-A x y f g gg z))
 
-#def iso-inhabited-implies-hasRetr-contr
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def iso-inhabited-implies-hasRetr-contr uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -281,11 +278,10 @@ This is a literate `rzk` file:
   (hh : arrow-has-section A is-segal-A x y f h)
   : is-contr (arrow-Retraction A is-segal-A x y f)
   := (is-contr-map-is-equiv (hom A y x) (hom A x x) (Segal-precomp A is-segal-A x y f x)
-                          (if-iso-then-precomp-is-equiv extext A is-segal-A x y f g gg h hh x))
+                          (if-iso-then-precomp-is-equiv A is-segal-A x y f g gg h hh x))
       (id-arr A x)
 
-#def iso-inhabited-implies-hasSec-contr
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def iso-inhabited-implies-hasSec-contr uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -296,11 +292,10 @@ This is a literate `rzk` file:
   (hh : arrow-has-section A is-segal-A x y f h)
   : is-contr (arrow-Section A is-segal-A x y f)
   := (is-contr-map-is-equiv (hom A y x) (hom A y y) (Segal-postcomp A is-segal-A x y f y)
-                          (if-iso-then-postcomp-is-equiv extext A is-segal-A x y f g gg h hh y))
+                          (if-iso-then-postcomp-is-equiv A is-segal-A x y f g gg h hh y))
       (id-arr A y)
 
-#def iso-inhabited-implies-iso-contr
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def iso-inhabited-implies-iso-contr uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
@@ -311,19 +306,18 @@ This is a literate `rzk` file:
   (hh : arrow-has-section A is-segal-A x y f h)
   : is-contr (arrow-is-iso A is-segal-A x y f)
   := (is-contr-product (arrow-Retraction A is-segal-A x y f) (arrow-Section A is-segal-A x y f)
-      (iso-inhabited-implies-hasRetr-contr extext A is-segal-A x y f g gg h hh)
-      (iso-inhabited-implies-hasSec-contr extext A is-segal-A x y f g gg h hh)
+      (iso-inhabited-implies-hasRetr-contr A is-segal-A x y f g gg h hh)
+      (iso-inhabited-implies-hasSec-contr A is-segal-A x y f g gg h hh)
     )
 
-#def iso-is-prop
-  (extext : ExtExt) -- This proof uses extension extensionality.
+#def iso-is-prop uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
   (f : hom A x y)
    : (is-prop (arrow-is-iso A is-segal-A x y f))
   := (is-prop-is-contr-is-inhabited (arrow-is-iso A is-segal-A x y f)
-      (\ is-isof -> (iso-inhabited-implies-iso-contr extext A is-segal-A x y f (first (first is-isof)) (second (first is-isof))
+      (\ is-isof -> (iso-inhabited-implies-iso-contr A is-segal-A x y f (first (first is-isof)) (second (first is-isof))
         (first (second is-isof)) (second (second is-isof))))
     )
 

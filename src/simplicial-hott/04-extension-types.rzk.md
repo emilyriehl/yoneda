@@ -102,17 +102,17 @@ This is a literate `rzk` file:
   ( X : ψ -> ζ -> U)
   ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} -> X t s )
   : Equiv
-    ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
+    ( {t : ψ} -> ({s : ζ} -> X t s [ χ s |-> f (t , s) ])
         [ ϕ t |-> \ s -> f (t , s) ])
-    ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
+    ( {s : ζ} -> ({t : ψ} -> X t s [ ϕ t |-> f (t , s) ])
         [ χ s |-> \ t -> f (t , s) ])
   :=
     comp-equiv
-      ( {t : I | ψ t} -> ({ s : J | ζ s} -> X t s [ χ s |-> f (t , s) ])
+      ( {t : ψ} -> ({s : ζ} -> X t s [ χ s |-> f (t , s) ])
         [ ϕ t |-> \ s -> f (t , s) ])
       ( { (t , s) : I * J | ψ t /\ ζ s} -> X t s
         [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) |-> f (t , s)])
-      ( {s : J | ζ s} -> ({ t : I | ψ t} -> X t s [ ϕ t |-> f (t , s) ])
+      ( {s : ζ} -> ({t : ψ} -> X t s [ ϕ t |-> f (t , s) ])
         [ χ s |-> \ t -> f (t , s) ])
       ( curry-uncurry I J ψ ϕ ζ χ X f)
       ( uncurry-opcurry I J ψ ϕ ζ χ X f)
@@ -130,7 +130,7 @@ This is a literate `rzk` file:
   ( a : (t : ϕ) -> X t)
   ( b : (t : ϕ) -> Y t (a t))
   : Equiv
-    ( {t : I | ψ t} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ])
+    ( {t : ψ} -> (Σ (x : X t) , Y t x) [ ϕ t |-> (a t , b t) ])
     ( Σ ( f : ((t : ψ) -> X t [ ϕ t |-> a t ])) ,
         ( (t : ψ) -> Y t (f t) [ ϕ t |-> b t ]))
     :=
@@ -157,8 +157,8 @@ This is a literate `rzk` file:
           ( (t : χ) -> X t [ χ t /\ ψ t |-> f t ]))
   :=
     ( \ h -> (\ t -> h t , \ t -> h t) ,
-      ( ( \ fg t -> (second fg) t , \ h -> refl) ,
-        ( \ fg t -> (second fg) t , \ h -> refl)))
+      ( ( \ (_f, g) t -> g t , \ h -> refl) ,
+        ( \ (_f, g) t -> g t , \ h -> refl)))
 ```
 
 ```rzk title="RS17, Theorem 4.4"
@@ -176,8 +176,8 @@ This is a literate `rzk` file:
         ( (t : χ) -> X t [ ψ t |-> f t ]))
   :=
     ( \ h -> (\ t -> h t , \ t -> h t) ,
-      ( ( \ fg t -> (second fg) t , \ h -> refl) ,
-        ( ( \ fg t -> (second fg) t , \ h -> refl))))
+      ( ( \ (_f, g) t -> g t , \ h -> refl) ,
+        ( ( \ (_f, g) t -> g t , \ h -> refl))))
 ```
 
 ```rzk title="RS17, Theorem 4.5"
@@ -239,9 +239,10 @@ footnote 8, we assert this as an "extension extensionality" axiom
       ( (t : ψ) -> (f t = g t) [ ϕ t |-> refl ])
       ( ext-htpy-eq I ψ ϕ A a f g)
 
+#assume extext : ExtExt
+
 -- The equivalence provided by extension extensionality.
-#def equiv-ExtExt
-  ( extext : ExtExt)
+#def equiv-ExtExt uses (extext)
   ( I : CUBE)
   ( ψ : I -> TOPE)
   ( ϕ : ψ -> TOPE)
@@ -257,8 +258,7 @@ identifications. This definition defines `eq-ext-htpy` to be the retraction to
 `ext-htpy-eq`.
 
 ```rzk
-#def eq-ext-htpy
-  ( extext : ExtExt)
+#def eq-ext-htpy uses (extext)
   ( I : CUBE)
   ( ψ : I -> TOPE)
   ( ϕ : ψ -> TOPE)
@@ -275,8 +275,7 @@ equivalences of extension types.
 ```rzk
 -- A fiberwise equivalence defines an equivalence of extension types, for
 -- simplicity extending from BOT
-#def equiv-extension-equiv-fibered
-  ( extext : ExtExt)
+#def equiv-extension-equiv-fibered uses (extext)
   ( I : CUBE)
   ( ψ : I -> TOPE)
   ( A B : ψ -> U)
@@ -287,7 +286,6 @@ equivalences of extension types.
       ( ( ( \ b t -> (first (first (second (fibequiv t)))) (b t)) ,
           ( \ a ->
             eq-ext-htpy
-              ( extext)
               ( I)
               ( ψ)
               ( \ t -> BOT)
@@ -300,7 +298,6 @@ equivalences of extension types.
         ( ( \ b t -> first (second (second (fibequiv t))) (b t)) ,
           ( \ b ->
             eq-ext-htpy
-              ( extext)
               ( I)
               ( ψ)
               ( \ t -> BOT)
