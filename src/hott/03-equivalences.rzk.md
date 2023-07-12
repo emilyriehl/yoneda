@@ -14,18 +14,18 @@ This is a literate `rzk` file:
 #variables A B : U
 
 #def has-section
-  ( f : A -> B)
+  ( f : A → B)
   : U
-  := Σ (s : B -> A) , (homotopy B B (composition B A B f s) (identity B))
+  := Σ (s : B → A) , (homotopy B B (composition B A B f s) (identity B))
 
 #def has-retraction
-  ( f : A -> B)
+  ( f : A → B)
   : U
-  := Σ (r : B -> A) , (homotopy A A (composition A B A r f) (identity A))
+  := Σ (r : B → A) , (homotopy A A (composition A B A r f) (identity A))
 
 -- equivalences are bi-invertible maps
 #def is-equiv
-  ( f : A -> B)
+  ( f : A → B)
   : U
   := product (has-retraction f) (has-section f)
 
@@ -38,15 +38,15 @@ This is a literate `rzk` file:
 #section equivalence-data
 
 #variables A B : U
-#variable f : A -> B
+#variable f : A → B
 #variable is-equiv-f : is-equiv A B f
 
 #def is-equiv-section uses (f)
-  : B -> A
+  : B → A
   := first (second is-equiv-f)
 
 #def is-equiv-retraction uses (f)
-  : B -> A
+  : B → A
   := first (first is-equiv-f)
 
 -- the homotopy between the section and retraction of an equivalence
@@ -80,10 +80,10 @@ This is a literate `rzk` file:
 -- the following type of more coherent equivalences is not a proposition
 #def has-inverse
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   : U
   :=
-    Σ ( g : B -> A) ,
+    Σ ( g : B → A) ,
       ( product
         ( homotopy A A (composition A B A g f) (identity A))
         -- The retracting homotopy
@@ -97,7 +97,7 @@ This is a literate `rzk` file:
 -- invertible maps are equivalences
 #def is-equiv-has-inverse
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( has-inverse-f : has-inverse A B f)
   : is-equiv A B f
   :=
@@ -107,7 +107,7 @@ This is a literate `rzk` file:
 -- equivalences are invertible
 #def has-inverse-is-equiv
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
   : has-inverse A B f
   :=
@@ -131,32 +131,32 @@ This is a literate `rzk` file:
 #section has-inverse-data
 
 #variables A B : U
-#variable f : A -> B
+#variable f : A → B
 #variable has-inverse-f : has-inverse A B f
 
 -- The inverse of a map with an inverse
 #def has-inverse-inverse uses (f)
-  : B -> A
+  : B → A
   := first (has-inverse-f)
 
 -- Some iterated composites associated to a pair of invertible maps.
 #def has-inverse-retraction-composite uses (B has-inverse-f)
-  : A -> A
+  : A → A
   := composition A B A has-inverse-inverse f
 
 #def has-inverse-section-composite uses (A has-inverse-f)
-  : B -> B
+  : B → B
   := composition B A B f has-inverse-inverse
 
 -- This composite is parallel to f; we won't need the dual notion.
 #def has-inverse-triple-composite uses (has-inverse-f)
-  : A -> B
+  : A → B
   := triple-composition A B A B f has-inverse-inverse f
 
 -- This composite is also parallel to f; again we won't need the dual notion.
 #def has-inverse-quintuple-composite uses (has-inverse-f)
-  : A -> B
-  := \ a -> f (has-inverse-inverse (f (has-inverse-inverse (f a))))
+  : A → B
+  := \ a → f (has-inverse-inverse (f (has-inverse-inverse (f a))))
 #end has-inverse-data
 ```
 
@@ -168,7 +168,7 @@ The type of equivalences between types uses is-equiv rather than has-inverse.
 #def Equiv
   ( A B : U)
   : U
-  := Σ (f : A -> B) , (is-equiv A B f)
+  := Σ (f : A → B) , (is-equiv A B f)
 ```
 
 The data of an equivalence is not symmetric so we promote an equivalence to an
@@ -196,10 +196,10 @@ Composition of equivalences in diagrammatic order.
   ( B≃C : Equiv B C)
   : Equiv A C
   :=
-    ( \ a -> (first B≃C) ((first A≃B) a) , -- the composite equivalence
-      ( ( \ c ->
+    ( \ a → (first B≃C) ((first A≃B) a) , -- the composite equivalence
+      ( ( \ c →
           ( first (first (second A≃B))) ((first (first (second (B≃C)))) c) ,
-          ( \ a ->
+          ( \ a →
             concat A
               ( (first (first (second A≃B)))
                 ((first (first (second B≃C)))
@@ -213,10 +213,10 @@ Composition of equivalences in diagrammatic order.
                 ( first (first (second A≃B)))
                 ( (second (first (second B≃C))) ((first A≃B) a)))
               ( (second (first (second A≃B))) a))) ,
-                ( \ c ->
+                ( \ c →
                   ( first (second (second A≃B)))
                   ( (first (second (second (B≃C)))) c) ,
-          ( \ c ->
+          ( \ c →
             concat C
               ( (first B≃C) ((first A≃B) ((first (second (second A≃B)))
                 ((first (second (second B≃C))) c))))
@@ -234,16 +234,16 @@ Composition of equivalences in diagrammatic order.
 -- now we compose the functions that are equivalences
 #def compose-is-equiv
   ( A B C : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
-  ( g : B -> C)
+  ( g : B → C)
   ( is-equiv-g : is-equiv B C g)
   : is-equiv A C (composition A B C g f)
   :=
     ( ( composition C B A
       ( is-equiv-retraction A B f is-equiv-f)
       ( is-equiv-retraction B C g is-equiv-g) ,
-      ( \ a ->
+      ( \ a →
         concat A
           ( (is-equiv-retraction A B f is-equiv-f)
             ((is-equiv-retraction B C g is-equiv-g) (g (f a))))
@@ -258,7 +258,7 @@ Composition of equivalences in diagrammatic order.
       ( composition C B A
         ( is-equiv-section A B f is-equiv-f)
         ( is-equiv-section B C g is-equiv-g) ,
-        ( \ c ->
+        ( \ c →
           concat C
             ( g (f ((first (second is-equiv-f)) ((first (second is-equiv-g)) c))))
             ( g ((first (second is-equiv-g)) c))
@@ -298,11 +298,11 @@ Composition of equivalences in diagrammatic order.
 
 #def triple-compose-is-equiv
   ( A B C D : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
-  ( g : B -> C)
+  ( g : B → C)
   ( is-equiv-g : is-equiv B C g)
-  ( h : C -> D)
+  ( h : C → D)
   ( is-equiv-h : is-equiv C D h)
   : is-equiv A D (triple-composition A B C D h g f)
   :=
@@ -320,13 +320,13 @@ If a map is homotopic to an equivalence it is an equivalence.
 ```rzk
 #def is-equiv-homotopic-is-equiv
   ( A B : U)
-  ( f g : A -> B)
+  ( f g : A → B)
   ( H : homotopy A B f g)
   ( is-equiv-g : is-equiv A B g)
   : is-equiv A B f
   :=
     ( ( ( first (first is-equiv-g)) ,
-        ( \ a ->
+        ( \ a →
           concat A
             ( (first (first is-equiv-g)) (f a))
             ( (first (first is-equiv-g)) (g a))
@@ -334,7 +334,7 @@ If a map is homotopic to an equivalence it is an equivalence.
             ( ap B A (f a) (g a) (first (first is-equiv-g)) (H a))
             ( (second (first is-equiv-g)) a))) ,
       ( ( first (second is-equiv-g)) ,
-        ( \ b ->
+        ( \ b →
           concat B
             ( f ((first (second is-equiv-g)) b))
             ( g ((first (second is-equiv-g)) b))
@@ -344,7 +344,7 @@ If a map is homotopic to an equivalence it is an equivalence.
 
 #def is-equiv-rev-homotopic-is-equiv
   ( A B : U)
-  ( f g : A -> B)
+  ( f g : A → B)
   ( H : homotopy A B f g)
   ( is-equiv-f : is-equiv A B f)
   : is-equiv A B g
@@ -358,16 +358,16 @@ By path induction, an identification between functions defines a homotopy
 ```rzk
 #def htpy-eq
   ( X : U)
-  ( A : X -> U)
-  ( f g : (x : X) -> A x)
+  ( A : X → U)
+  ( f g : (x : X) → A x)
   ( p : f = g)
-  : (x : X) -> (f x = g x)
+  : (x : X) → (f x = g x)
   :=
     idJ
-    ( ( (x : X) -> A x) ,
+    ( ( (x : X) → A x) ,
       ( f) ,
-      ( \ g' p' -> (x : X) -> (f x = g' x)) ,
-      ( \ x -> refl) ,
+      ( \ g' p' → (x : X) → (f x = g' x)) ,
+      ( \ x → refl) ,
       ( g) ,
       ( p))
 ```
@@ -379,11 +379,11 @@ equivalences.
 -- The type that encodes the function extensionality axiom.
 #def FunExt : U
   :=
-    ( X : U) ->
-    ( A : X -> U) ->
-    ( f : (x : X) -> A x) ->
-    ( g : (x : X) -> A x) ->
-    is-equiv (f = g) ((x : X) -> f x = g x) (htpy-eq X A f g)
+    ( X : U) →
+    ( A : X → U) →
+    ( f : (x : X) → A x) →
+    ( g : (x : X) → A x) →
+    is-equiv (f = g) ((x : X) → f x = g x) (htpy-eq X A f g)
 ```
 
 In the formalisations below, some definitions will assume function
@@ -401,45 +401,45 @@ extensionality:
 -- The equivalence provided by function extensionality.
 #def FunExt-equiv uses (funext)
   ( X : U)
-  ( A : X -> U)
-  ( f g : (x : X) -> A x)
-  : Equiv (f = g) ((x : X) -> f x = g x)
+  ( A : X → U)
+  ( f g : (x : X) → A x)
+  : Equiv (f = g) ((x : X) → f x = g x)
   := (htpy-eq X A f g , funext X A f g)
 
 -- In particular, function extensionality implies that homotopies give rise to identifications. This defines eq-htpy to be the retraction to htpy-eq.
 #def eq-htpy uses (funext)
   ( X : U)
-  ( A : X -> U)
-  ( f g : (x : X) -> A x)
-  : ((x : X) -> f x = g x) -> (f = g)
+  ( A : X → U)
+  ( f g : (x : X) → A x)
+  : ((x : X) → f x = g x) → (f = g)
   := first (first (funext X A f g))
 
 -- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
 #def equiv-function-equiv-fibered uses (funext)
   ( X : U)
-  ( A B : X -> U)
-  ( fibequiv : (x : X) -> Equiv (A x) (B x))
-  : Equiv ((x : X) -> A x) ((x : X) -> B x)
+  ( A B : X → U)
+  ( fibequiv : (x : X) → Equiv (A x) (B x))
+  : Equiv ((x : X) → A x) ((x : X) → B x)
   :=
-    ( ( \ a x -> (first (fibequiv x)) (a x)) ,
-      ( ( ( \ b x -> (first (first (second (fibequiv x)))) (b x)) ,
-          ( \ a ->
+    ( ( \ a x → (first (fibequiv x)) (a x)) ,
+      ( ( ( \ b x → (first (first (second (fibequiv x)))) (b x)) ,
+          ( \ a →
             eq-htpy
               X A
-              ( \ x ->
+              ( \ x →
                 (first (first (second (fibequiv x))))
                   ((first (fibequiv x)) (a x)))
               ( a)
-              ( \ x -> (second (first (second (fibequiv x)))) (a x)))) ,
-        ( ( \ b x -> (first (second (second (fibequiv x)))) (b x)) ,
-          ( \ b ->
+              ( \ x → (second (first (second (fibequiv x)))) (a x)))) ,
+        ( ( \ b x → (first (second (second (fibequiv x)))) (b x)) ,
+          ( \ b →
             eq-htpy
               X B
-              ( \ x ->
+              ( \ x →
                 (first (fibequiv x))
                   ((first (second (second (fibequiv x)))) (b x)))
               ( b)
-              ( \ x -> (second (second (second (fibequiv x)))) (b x))))))
+              ( \ x → (second (second (second (fibequiv x)))) (b x))))))
 ```
 
 ## Embeddings
@@ -447,25 +447,25 @@ extensionality:
 ```rzk
 #def is-emb
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   : U
-  := (x : A) -> (y : A) -> is-equiv (x = y) (f x = f y) (ap A B x y f)
+  := (x : A) → (y : A) → is-equiv (x = y) (f x = f y) (ap A B x y f)
 
 #def Emb
   ( A B : U)
   : U
-  := (Σ (f : A -> B) , is-emb A B f)
+  := (Σ (f : A → B) , is-emb A B f)
 
 #def is-emb-is-inhabited-emb
   ( A B : U)
-  ( f : A -> B)
-  ( e : A -> is-emb A B f)
+  ( f : A → B)
+  ( e : A → is-emb A B f)
   : is-emb A B f
-  := \ x y -> e x x y
+  := \ x y → e x x y
 
 #def inv-ap-is-emb
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( is-emb-f : is-emb A B f)
   ( x y : A)
   ( p : f x = f y)
@@ -479,15 +479,15 @@ extensionality:
 #def has-retraction-rev
   ( A : U)
   ( y : A)
-  : (x : A) -> has-retraction (x = y) (y = x) ((\ p -> ((rev A x y) p)))
+  : (x : A) → has-retraction (x = y) (y = x) ((\ p → ((rev A x y) p)))
   :=
-    \ x ->
+    \ x →
     ( ( rev A y x) ,
-      ( \ p ->
+      ( \ p →
         idJ
         ( A ,
           x ,
-          ( \ y' p' ->
+          ( \ y' p' →
             ( composition
               ( x = y') (y' = x) (x = y') (rev A y' x) (rev A x y') (p'))
             =_{x = y'}
@@ -499,15 +499,15 @@ extensionality:
 #def has-section-rev
   ( A : U)
   ( y : A)
-  : (x : A) -> has-section (x = y) (y = x) ((\ p -> ((rev A x y) p)))
+  : (x : A) → has-section (x = y) (y = x) ((\ p → ((rev A x y) p)))
   :=
-    \ x ->
+    \ x →
     ( ( rev A y x) ,
-      ( \ p ->
+      ( \ p →
         idJ
         ( A ,
           y ,
-          ( \ x' p' ->
+          ( \ x' p' →
             ( composition
               ( y = x') (x' = y) (y = x') (rev A x' y) (rev A y x') (p'))
             =_{y = x'}

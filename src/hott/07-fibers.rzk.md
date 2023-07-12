@@ -14,7 +14,7 @@ The homotopy fiber of a map is the following type:
 -- The fiber of a map
 #def fib
   (A B : U)
-  (f : A -> B)
+  (f : A → B)
   (b : B)
   : U
   := Σ (a : A) , (f a) = b
@@ -22,19 +22,19 @@ The homotopy fiber of a map is the following type:
 -- We calculate the transport of (a , q) : fib b along p : a = a'
 #def transport-in-fiber
   (A B : U)
-  (f : A -> B)
+  (f : A → B)
   (b : B)
   (a a' : A)
   (u : (f a) = b)
   (p : a = a')
-  : (transport A ( \ x -> (f x) = b) a a' p u) =
+  : (transport A ( \ x → (f x) = b) a a' p u) =
     (concat B (f a') (f a) b (ap A B a' a f (rev A a a' p)) u)
   :=
     idJ
     ( A ,
       a ,
-      \ a'' p' ->
-        (transport A (\ x -> (f x) = b) a a'' p' u) =
+      \ a'' p' →
+        (transport A (\ x → (f x) = b) a a'' p' u) =
         (concat B (f a'') (f a) b (ap A B a'' a f (rev A a a'' p')) u) ,
       ( rev ((f a) = b) (concat B (f a) (f a) b refl u) u
         ( left-unit-concat B (f a) b u)) ,
@@ -50,9 +50,9 @@ A map is contractible just when its fibers are contractible.
 -- Contractible maps
 #def is-contr-map
   (A B : U)
-  (f : A -> B)
+  (f : A → B)
   : U
-  := (b : B) -> is-contr (fib A B f b)
+  := (b : B) → is-contr (fib A B f b)
 ```
 
 Contractible maps are equivalences:
@@ -61,19 +61,19 @@ Contractible maps are equivalences:
 #section is-contr-map-is-equiv
 
 #variables A B : U
-#variable f : A -> B
+#variable f : A → B
 #variable is-contr-f : is-contr-map A B f
 
 -- The inverse to a contractible map
 #def is-contr-map-inverse
-  : B -> A
-  := \ b -> first (contraction-center (fib A B f b) (is-contr-f b))
+  : B → A
+  := \ b → first (contraction-center (fib A B f b) (is-contr-f b))
 
 #def has-section-is-contr-map
   : has-section A B f
   :=
     ( is-contr-map-inverse ,
-      \ b -> second (contraction-center (fib A B f b) (is-contr-f b)))
+      \ b → second (contraction-center (fib A B f b) (is-contr-f b)))
 
 #def is-contr-map-data-in-fiber uses (is-contr-f)
   (a : A)
@@ -93,10 +93,10 @@ Contractible maps are equivalences:
   : has-retraction A B f
   :=
     ( is-contr-map-inverse ,
-      \ a -> ( ap (fib A B f (f a)) A
+      \ a → ( ap (fib A B f (f a)) A
                 ( is-contr-map-data-in-fiber a)
                 ( (a , refl))
-                ( \ u -> first u)
+                ( \ u → first u)
                 ( is-contr-map-path-in-fiber a)))
 
 #def is-equiv-is-contr-map uses (is-contr-f)
@@ -114,7 +114,7 @@ We now show that half adjoint equivalences are contractible maps.
 -- If f is a half adjoint equivalence, its fibers are inhabited.
 #def is-surj-is-half-adjoint-equiv
   (A B : U)
-  (f : A -> B)
+  (f : A → B)
   (fisHAE : is-half-adjoint-equiv A B f) -- first fisHAE : has-inverse A B f
   (b : B)
   : fib A B f b
@@ -130,7 +130,7 @@ this homotopy is straightforward.
 #section half-adjoint-equivalence-fiber-data
 
 #variables A B : U
-#variable f : A -> B
+#variable f : A → B
 #variable fisHAE : is-half-adjoint-equiv A B f
 #variable b : B
 #variable z : fib A B f b
@@ -148,7 +148,7 @@ this homotopy is straightforward.
 
 -- Specializing the above to isHAE-fib-base-path
 #def isHAE-fib-base-path-transport
-  : transport A (\ x -> (f x) = b)
+  : transport A (\ x → (f x) = b)
       ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)
       ( isHAE-fib-base-path )
       ( (second (second (first fisHAE))) b) =
@@ -950,13 +950,13 @@ this homotopy is straightforward.
   := left-unit-concat B (f (first z)) b (second z)
 
 #def isHAE-fib-base-path-transport-path
-  : transport A ( \ x -> (f x) = b)
+  : transport A ( \ x → (f x) = b)
     ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)
     ( isHAE-fib-base-path )
     ( (second (second (first fisHAE))) b) = second z
   :=
     alternating-12ary-concat ( (f (first z)) = b)
-    ( transport A ( \ x -> (f x) = b)
+    ( transport A ( \ x → (f x) = b)
       ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)
       ( isHAE-fib-base-path )
       ( (second (second (first fisHAE))) b))
@@ -1157,7 +1157,7 @@ Finally, we may define the contracting homotopy:
   : (is-surj-is-half-adjoint-equiv A B f fisHAE b) = z
   :=
     path-of-pairs-pair-of-paths A
-    ( \ x -> (f x) = b)
+    ( \ x → (f x) = b)
     ( (has-inverse-inverse A B f (first fisHAE)) b)
     ( first z)
     ( isHAE-fib-base-path)
@@ -1173,12 +1173,12 @@ Half adjoint equivalences define contractible maps:
 ```rzk
 #def is-contr-map-is-half-adjoint-equiv
   (A B : U)
-  (f : A -> B)
+  (f : A → B)
   (fisHAE : is-half-adjoint-equiv A B f)
   : is-contr-map A B f
-  := \ b ->
+  := \ b →
         ( is-surj-is-half-adjoint-equiv A B f fisHAE b ,
-          \ z -> isHAE-fib-contracting-homotopy A B f fisHAE b z)
+          \ z → isHAE-fib-contracting-homotopy A B f fisHAE b z)
 ```
 
 ## Equivalences are contractible maps
@@ -1186,18 +1186,18 @@ Half adjoint equivalences define contractible maps:
 ```rzk
 #def is-contr-map-is-equiv
   (A B : U)
-  (f : A -> B)
+  (f : A → B)
   (is-equiv-f : is-equiv A B f)
   : is-contr-map A B f
-  := \ b ->
+  := \ b →
         ( is-surj-is-half-adjoint-equiv A B f
           ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) b ,
-          \ z -> isHAE-fib-contracting-homotopy A B f
+          \ z → isHAE-fib-contracting-homotopy A B f
             ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) b z)
 
 #def is-contr-map-iff-is-equiv
   (A B : U)
-  (f : A -> B)
+  (f : A → B)
   : iff (is-contr-map A B f) (is-equiv A B f)
   := (is-equiv-is-contr-map A B f , is-contr-map-is-equiv A B f)
 ```

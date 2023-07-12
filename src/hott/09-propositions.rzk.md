@@ -14,11 +14,11 @@ A type is a proposition when its identity types are contractible.
 #def is-prop
   (A : U)
   : U
-  := (a : A) -> (b : A) -> is-contr (a = b)
+  := (a : A) → (b : A) → is-contr (a = b)
 
 #def is-prop-Unit
   : is-prop Unit
-  := \ x y -> (path-types-of-Unit-are-contractible x y)
+  := \ x y → (path-types-of-Unit-are-contractible x y)
 ```
 
 ## Alternative characterizations: definitions
@@ -27,12 +27,12 @@ A type is a proposition when its identity types are contractible.
 #def all-elements-equal
   (A : U)
   : U
-  := (a : A) -> (b : A) -> (a = b)
+  := (a : A) → (b : A) → (a = b)
 
 #def is-contr-is-inhabited
   (A : U)
   : U
-  := A -> is-contr A
+  := A → is-contr A
 
 #def is-emb-terminal-map
   (A : U)
@@ -47,20 +47,20 @@ A type is a proposition when its identity types are contractible.
   (A : U)
   (AisProp : is-prop A)
   : all-elements-equal A
-  := \ a b -> (first (AisProp a b))
+  := \ a b → (first (AisProp a b))
 
 #def is-contr-is-inhabited-all-elements-equal
   (A : U)
   (AhasAllEltsEqual : all-elements-equal A)
   : is-contr-is-inhabited A
-  := \ a -> (a , AhasAllEltsEqual a)
+  := \ a → (a , AhasAllEltsEqual a)
 
 #def terminal-map-is-emb-is-inhabited-is-contr-is-inhabited
   (A : U)
   (c : is-contr-is-inhabited A)
-  : A -> (is-emb-terminal-map A)
+  : A → (is-emb-terminal-map A)
   :=
-    \ x ->
+    \ x →
       ( is-emb-is-equiv A Unit (terminal-map A)
         ( contr-implies-terminal-map-is-equiv A (c x)))
 
@@ -77,7 +77,7 @@ A type is a proposition when its identity types are contractible.
   (f : is-emb-terminal-map A)
   : is-prop A
   :=
-    \ x y ->
+    \ x y →
       ( is-contr-is-equiv-to-contr (x = y) (unit = unit)
         ( (ap A Unit x y (terminal-map A)) , (f x y))
         ( path-types-of-Unit-are-contractible unit unit))

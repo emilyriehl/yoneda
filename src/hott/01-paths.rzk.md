@@ -21,7 +21,7 @@ This is a literate `rzk` file:
 #def rev
   ( p : x = y)
   : y = x
-  := idJ (A , x , (\ y' p' -> y' = x) , refl , y , p)
+  := idJ (A , x , (\ y' p' → y' = x) , refl , y , p)
 ```
 
 ### Path concatenation
@@ -34,7 +34,7 @@ our main definition.
   ( p : x = y)
   ( q : y = z)
   : (x = z)
-  := idJ (A , y , \ z' q' -> (x = z') , p , z , q)
+  := idJ (A , y , \ z' q' → (x = z') , p , z , q)
 ```
 
 We also introduce a version defined by induction on the first path variable, for
@@ -43,8 +43,8 @@ situations where it is easier to induct on the first path.
 ```rzk
 #def concat'
   ( p : x = y)
-  : (y = z) -> (x = z)
-  := idJ (A , x , \ y' p' -> (y' = z) -> (x = z) , \ q' -> q' , y , p)
+  : (y = z) → (x = z)
+  := idJ (A , x , \ y' p' → (y' = z) → (x = z) , \ q' → q' , y , p)
 
 #end path-algebra
 ```
@@ -60,7 +60,7 @@ situations where it is easier to induct on the first path.
 #def rev-rev
   ( p : x = y)
   : (rev A y x (rev A x y p)) = p
-  := idJ (A , x , \ y' p' -> (rev A y' x (rev A x y' p')) = p' , refl , y , p)
+  := idJ (A , x , \ y' p' → (rev A y' x (rev A x y' p')) = p' , refl , y , p)
 ```
 
 ### Left unit law for path concatenation
@@ -72,7 +72,7 @@ choice of definition.
 #def left-unit-concat
   ( p : x = y)
   : (concat A x x y refl p) = p
-  := idJ (A , x , \ y' p' -> (concat A x x y' refl p') = p' , refl , y , p)
+  := idJ (A , x , \ y' p' → (concat A x x y' refl p') = p' , refl , y , p)
 ```
 
 ### Associativity of path concatenation
@@ -88,7 +88,7 @@ choice of definition.
     idJ
     ( ( A) ,
       ( y) ,
-      ( \ z' r' ->
+      ( \ z' r' →
         concat A w y z' (concat A w x y p q) r' =
         concat A w x z' p (concat A x y z' q r')) ,
       ( refl) ,
@@ -105,7 +105,7 @@ choice of definition.
     idJ
     ( A ,
       y ,
-      \ z' r' ->
+      \ z' r' →
         concat A w x z' p (concat A x y z' q r') =
         concat A w y z' (concat A w x y p q) r' ,
       refl ,
@@ -119,7 +119,7 @@ choice of definition.
     idJ
     ( A ,
       x ,
-      \ y' p' -> concat A x y' x p' (rev A x y' p') = refl ,
+      \ y' p' → concat A x y' x p' (rev A x y' p') = refl ,
       refl ,
       y ,
       p)
@@ -131,7 +131,7 @@ choice of definition.
     idJ
     ( A ,
       x ,
-      \ y' p' -> concat A y' x y' (rev A x y' p') p' = refl ,
+      \ y' p' → concat A y' x y' (rev A x y' p') p' = refl ,
       refl ,
       y ,
       p)
@@ -164,13 +164,13 @@ Concatenation of two paths with common domain; defined using `concat` and `rev`.
 #def right-cancel-concat
   ( p q : x = y)
   ( r : y = z)
-  : ((concat A x y z p r) = (concat A x y z q r)) -> (p = q)
+  : ((concat A x y z p r) = (concat A x y z q r)) → (p = q)
   :=
     idJ
     ( A ,
       y ,
-      \ z' r' -> ((concat A x y z' p r') = (concat A x y z' q r')) -> (p = q) ,
-      \ H -> H ,
+      \ z' r' → ((concat A x y z' p r') = (concat A x y z' q r')) → (p = q) ,
+      \ H → H ,
       z ,
       r)
 
@@ -196,7 +196,7 @@ of the path algebra coherences defined above.
     idJ
     ( A ,
       y ,
-      \ z' q' ->
+      \ z' q' →
         (rev A x z' (concat A x y z' p q')) =
         (concat A z' y x (rev A y z' q') (rev A x y p)) ,
       rev
@@ -220,7 +220,7 @@ of the path algebra coherences defined above.
     idJ
     ( A ,
       y ,
-      \ z' r' -> (concat A x y z' p r') = (concat A x y z' q r') ,
+      \ z' r' → (concat A x y z' p r') = (concat A x y z' q r') ,
       H ,
       z ,
       r)
@@ -233,20 +233,20 @@ Prewhiskering paths of paths is much harder.
 ```rzk
 #def concat-homotopy
   ( p : x = y)
-  : ( q : y = z) ->
-    ( r : y = z) ->
-    ( H : q = r) ->
+  : ( q : y = z) →
+    ( r : y = z) →
+    ( H : q = r) →
     ( concat A x y z p q) = (concat A x y z p r)
   :=
     idJ
     ( A ,
       x ,
-      \ y' p' ->
-      (q : y' = z) ->
-      (r : y' = z) ->
-      (H : q = r) ->
+      \ y' p' →
+      (q : y' = z) →
+      (r : y' = z) →
+      (H : q = r) →
       (concat A x y' z p' q) = (concat A x y' z p' r) ,
-      \ q r H ->
+      \ q r H →
         concat
           ( x = z)
           ( concat A x x z refl q)
@@ -263,16 +263,16 @@ Prewhiskering paths of paths is much harder.
 ```rzk
 #def concat-concat'
   ( p : x = y)
-  : ( q : y = z) ->
+  : ( q : y = z) →
     ( concat A x y z p q) = (concat' A x y z p q)
   :=
     idJ
     ( A ,
       x ,
-      \ y' p' ->
-        (q' : y' =_{A} z) ->
+      \ y' p' →
+        (q' : y' =_{A} z) →
         (concat A x y' z p' q') =_{x =_{A} z} concat' A x y' z p' q' ,
-      \ q' -> left-unit-concat A x z q' ,
+      \ q' → left-unit-concat A x z q' ,
       y ,
       p)
 
@@ -291,18 +291,18 @@ Prewhiskering paths of paths is much harder.
 #def alt-triangle-rotation
   ( p : x = z)
   ( q : x = y)
-  : ( r : y = z) ->
-    ( H : p = concat' A x y z q r) ->
+  : ( r : y = z) →
+    ( H : p = concat' A x y z q r) →
     ( concat' A y x z (rev A x y q) p) = r
   :=
     idJ
     ( A ,
       x ,
-      \ y' q' ->
-        (r' : y' =_{A} z) ->
-        (H' : p = concat' A x y' z q' r') ->
+      \ y' q' →
+        (r' : y' =_{A} z) →
+        (H' : p = concat' A x y' z q' r') →
         (concat' A y' x z (rev A x y' q') p) = r' ,
-      \ r' H' -> H' ,
+      \ r' H' → H' ,
       y ,
       q)
 ```
@@ -345,22 +345,22 @@ The following needs to be outside the previous section because of the usage of
 #def ap
   ( A B : U)
   ( x y : A)
-  ( f : A -> B)
+  ( f : A → B)
   ( p : x = y)
   : (f x = f y)
-  := idJ (A , x , \ y' -> \ p' -> (f x = f y') , refl , y , p)
+  := idJ (A , x , \ y' → \ p' → (f x = f y') , refl , y , p)
 
 #def ap-rev
   ( A B : U)
   ( x y : A)
-  ( f : A -> B)
+  ( f : A → B)
   ( p : x = y)
   : (ap A B y x f (rev A x y p)) = (rev B (f x) (f y) (ap A B x y f p))
   :=
     idJ
     ( A ,
       x ,
-      \ y' p' ->
+      \ y' p' →
         ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p') ,
       refl ,
       y ,
@@ -369,7 +369,7 @@ The following needs to be outside the previous section because of the usage of
 #def ap-concat
   ( A B : U)
   ( x y z : A)
-  ( f : A -> B)
+  ( f : A → B)
   ( p : x = y)
   ( q : y = z)
   : ( ap A B x z f (concat A x y z p q)) =
@@ -378,7 +378,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( A ,
       y ,
-      \ z' q' ->
+      \ z' q' →
         (ap A B x z' f (concat A x y z' p q')) =
         (concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')) ,
       refl ,
@@ -388,14 +388,14 @@ The following needs to be outside the previous section because of the usage of
 #def rev-ap-rev
   ( A B : U)
   ( x y : A)
-  ( f : A -> B)
+  ( f : A → B)
   ( p : x = y)
   : (rev B (f y) (f x) (ap A B y x f (rev A x y p))) = (ap A B x y f p)
   :=
     idJ
     ( A ,
       x ,
-      \ y' p' ->
+      \ y' p' →
         (rev B (f y') (f x) (ap A B y' x f (rev A x y' p'))) =
         (ap A B x y' f p') ,
       refl ,
@@ -406,7 +406,7 @@ The following needs to be outside the previous section because of the usage of
 #def concat-ap-rev-ap-id
   ( A B : U)
   ( x y : A)
-  ( f : A -> B)
+  ( f : A → B)
   ( p : x = y)
   : ( concat
       ( B) (f y) (f x) (f y)
@@ -417,7 +417,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( A ,
       x ,
-      \ y' p' ->
+      \ y' p' →
       ( concat
         ( B) (f y') (f x) (f y')
         ( ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) =
@@ -431,13 +431,13 @@ The following needs to be outside the previous section because of the usage of
   ( x y : A)
   ( p : x = y)
   : (ap A A x y (identity A) p) = p
-    := idJ (A , x , \ y' p' -> (ap A A x y' (\ z -> z) p') = p' , refl , y , p)
+    := idJ (A , x , \ y' p' → (ap A A x y' (\ z → z) p') = p' , refl , y , p)
 
 -- application of a function to homotopic paths yields homotopic paths
 #def ap-htpy
   ( A B : U)
   ( x y : A)
-  ( f : A -> B)
+  ( f : A → B)
   ( p q : x = y)
   ( H : p = q)
   : (ap A B x y f p) = (ap A B x y f q)
@@ -445,7 +445,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( x = y ,
       p ,
-      \ q' H' -> (ap A B x y f p) = (ap A B x y f q') ,
+      \ q' H' → (ap A B x y f p) = (ap A B x y f q') ,
       refl ,
       q ,
       H)
@@ -453,8 +453,8 @@ The following needs to be outside the previous section because of the usage of
 #def ap-comp
   ( A B C : U)
   ( x y : A)
-  ( f : A -> B)
-  ( g : B -> C)
+  ( f : A → B)
+  ( g : B → C)
   ( p : x = y)
   : ( ap A C x y (composition A B C g f) p) =
     ( ap B C (f x) (f y) g (ap A B x y f p))
@@ -462,8 +462,8 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( A ,
       x ,
-      \ y' p' ->
-      ( ap A C x y' (\ z -> g (f z)) p') =
+      \ y' p' →
+      ( ap A C x y' (\ z → g (f z)) p') =
       ( ap B C (f x) (f y') g (ap A B x y' f p')) ,
       refl ,
       y ,
@@ -472,15 +472,15 @@ The following needs to be outside the previous section because of the usage of
 #def rev-ap-comp
   ( A B C : U)
   ( x y : A)
-  ( f : A -> B)
-  ( g : B -> C)
+  ( f : A → B)
+  ( g : B → C)
   ( p : x = y)
   : ( ap B C (f x) (f y) g (ap A B x y f p)) =
     ( ap A C x y (composition A B C g f) p)
   :=
     rev
       ( g (f x) = g (f y))
-      ( ap A C x y (\ z -> g (f z)) p)
+      ( ap A C x y (\ z → g (f z)) p)
       ( ap B C (f x) (f y) g (ap A B x y f p))
       ( ap-comp A B C x y f g p)
 ```
@@ -491,7 +491,7 @@ The following needs to be outside the previous section because of the usage of
 #section transport
 
 #variable A : U
-#variable B : A -> U
+#variable B : A → U
 
 -- transport in a type family along a path in the base
 #def transport
@@ -499,7 +499,7 @@ The following needs to be outside the previous section because of the usage of
   ( p : x = y)
   ( u : B x)
   : B y
-  := idJ (A , x , \ y' p' -> B y' , u , y , p)
+  := idJ (A , x , \ y' p' → B y' , u , y , p)
 
 -- The lift of a base path to a path from a term in the total space to its transport.
 #def transport-lift
@@ -511,7 +511,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( A ,
       x ,
-      \ y' p' -> (x , u) =_{Σ (z : A) , B z} (y' , transport x y' p' u) ,
+      \ y' p' → (x , u) =_{Σ (z : A) , B z} (y' , transport x y' p' u) ,
       refl ,
       y ,
       p)
@@ -528,7 +528,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( A ,
       y ,
-      \ z' q' ->
+      \ z' q' →
       ( transport x z' (concat A x y z' p q') u) =
       ( transport y z' q' (transport x y p u)) ,
       refl ,
@@ -546,7 +546,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( A ,
       y ,
-      \ z' q' ->
+      \ z' q' →
       ( transport y z' q' (transport x y p u)) =
       ( transport x z' (concat A x y z' p q') u) ,
       refl ,
@@ -564,7 +564,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( x = y ,
       p ,
-      \ q' H' -> (transport x y p u) = (transport x y q' u) ,
+      \ q' H' → (transport x y p u) = (transport x y q' u) ,
       refl ,
       q ,
       H)
@@ -572,8 +572,8 @@ The following needs to be outside the previous section because of the usage of
 #def transport-loop
   ( a : A)
   ( b : B a)
-  : (a = a) -> B a
-  := \ p -> (transport a a p b)
+  : (a = a) → B a
+  := \ p → (transport a a p b)
 
 #end transport
 ```
@@ -583,16 +583,16 @@ The following needs to be outside the previous section because of the usage of
 ```rzk
 #def apd
   ( A : U)
-  ( B : A -> U)
+  ( B : A → U)
   ( x y : A)
-  ( f : (z : A) -> B z)
+  ( f : (z : A) → B z)
   ( p : x = y)
   : (transport A B x y p (f x)) = f y
   :=
     idJ
     ( A ,
       x ,
-      (\ y' p' -> (transport A B x y' p' (f x)) = f y') ,
+      (\ y' p' → (transport A B x y' p' (f x)) = f y') ,
       refl ,
       y ,
       p)
@@ -703,7 +703,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( A ,
       x ,
-      \ y' p' -> triple-concat A y' x x y' (rev A x y' p') refl p' = refl ,
+      \ y' p' → triple-concat A y' x x y' (rev A x y' p') refl p' = refl ,
       refl ,
       y ,
       p)
@@ -711,14 +711,14 @@ The following needs to be outside the previous section because of the usage of
 #def ap-rev-refl-id-triple-concat
   ( A B : U)
   ( x y : A)
-  ( f : A -> B)
+  ( f : A → B)
   ( p : x = y)
   : (ap A B y y f (triple-concat A y x x y (rev A x y p) refl p)) = refl
   :=
     idJ
     ( A ,
       x ,
-      \ y' p' ->
+      \ y' p' →
         ap A B y' y' f (triple-concat A y' x x y' (rev A x y' p') refl p') =
         refl ,
       refl ,
@@ -728,7 +728,7 @@ The following needs to be outside the previous section because of the usage of
 #def ap-triple-concat
   ( A B : U)
   ( w x y z : A)
-  ( f : A -> B)
+  ( f : A → B)
   ( p : w = x)
   ( q : x = y)
   ( r : y = z)
@@ -746,7 +746,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( A ,
       y ,
-      \ z' r' ->
+      \ z' r' →
       ap A B w z' f (triple-concat A w x y z' p q r') =
       triple-concat
         B
@@ -783,7 +783,7 @@ The following needs to be outside the previous section because of the usage of
     idJ
     ( x = y ,
       q ,
-      \ r' H' ->
+      \ r' H' →
       triple-concat A w x y z p q s = triple-concat A w x y z p r' s ,
       refl ,
       r ,

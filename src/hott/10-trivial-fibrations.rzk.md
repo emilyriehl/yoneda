@@ -12,9 +12,9 @@ is an equivalence if and only if its fibers are contractible.
 ```rzk
 #def total-space-projection
   (A : U)
-  (B : A -> U)
-  : (Σ (x : A) , B x) -> A
-  := \ z -> first z
+  (B : A → U)
+  : (Σ (x : A) , B x) → A
+  := \ z → first z
 ```
 
 ## Contractible fibers
@@ -24,32 +24,32 @@ The following type asserts that the fibers of a type family are contractible.
 ```rzk
 #def contractible-fibers
   (A : U)
-  (B : A -> U)
+  (B : A → U)
   : U
-  := ((x : A) -> is-contr (B x))
+  := ((x : A) → is-contr (B x))
 
 #section contractible-fibers-data
 
 #variable A : U
-#variable B : A -> U
+#variable B : A → U
 #variable ABcontrfib : contractible-fibers A B
 
 -- The center of contraction in a contractible fibers
 #def contractible-fibers-section
-  : (x : A) -> B x
-  := \ x -> contraction-center (B x) (ABcontrfib x)
+  : (x : A) → B x
+  := \ x → contraction-center (B x) (ABcontrfib x)
 
 -- The section of the total space projection built from the contraction centers
 #def contractible-fibers-actual-section uses (ABcontrfib)
-  : (a : A) -> Σ (x : A) , B x
-  := \ a -> (a , contractible-fibers-section a)
+  : (a : A) → Σ (x : A) , B x
+  := \ a → (a , contractible-fibers-section a)
 
 #def contractible-fibers-section-htpy uses (ABcontrfib)
   : homotopy A A
     ( composition A (Σ (x : A) , B x) A
       ( total-space-projection A B) (contractible-fibers-actual-section))
     ( identity A)
-  := \ x -> refl
+  := \ x → refl
 
 #def contractible-fibers-section-is-section uses (ABcontrfib)
   : has-section (Σ (x : A) , B x) A (total-space-projection A B)
@@ -57,9 +57,9 @@ The following type asserts that the fibers of a type family are contractible.
 
 -- This can be used to define the retraction homotopy for the total space projection, called "first" here
 #def contractible-fibers-retraction-htpy
-  : (z : Σ (x : A) , B x) ->
+  : (z : Σ (x : A) , B x) →
       (contractible-fibers-actual-section) (first z) = z
-  := \ z ->
+  := \ z →
       eq-eq-fiber-Σ A B
         ( first z)
         ( (contractible-fibers-section) (first z))
@@ -88,7 +88,7 @@ The following type asserts that the fibers of a type family are contractible.
 -- From a projection equivalence, it's not hard to inhabit fibers
 #def inhabited-fibers-is-equiv-projection
   (A : U)
-  (B : A -> U)
+  (B : A → U)
   (ABprojequiv : is-equiv (Σ (x : A) , B x) A (total-space-projection A B))
   (a : A)
   : B a
@@ -101,17 +101,17 @@ The following type asserts that the fibers of a type family are contractible.
 -- are contractible; the following proof fails
 -- #def is-equiv-projection-implies-contractible-fibers
 --    (A : U)
---    (B : A -> U)
+--    (B : A → U)
 --    (ABprojequiv : is-equiv (Σ (x : A) , B x) A (total-space-projection A B))
 --    : contractible-fibers A B
 --    :=
---      \ x -> (second ((first (first ABprojequiv)) x) ,
---      \ u -> second-path-Σ A B ((first (first ABprojequiv)) x) (x , u)
+--      \ x → (second ((first (first ABprojequiv)) x) ,
+--      \ u → second-path-Σ A B ((first (first ABprojequiv)) x) (x , u)
 --             ( (second (first ABprojequiv)) (x , u)) )
 
 #section projection-hae-data
 #variable A : U
-#variable B : A -> U
+#variable B : A → U
 #variable ABprojHAE :
   is-half-adjoint-equiv (Σ (x : A) , B x) A (total-space-projection A B)
 #variable w : (Σ (x : A) , B x)
@@ -189,18 +189,18 @@ The following type asserts that the fibers of a type family are contractible.
 -- Finally we have
 #def contractible-fibers-is-half-adjoint-equiv-projection
   (A : U)
-  (B : A -> U)
+  (B : A → U)
   (ABprojHAE : is-half-adjoint-equiv (Σ (x : A) , B x) A (total-space-projection A B))
   : contractible-fibers A B
   :=
-    \ x ->
+    \ x →
       ( (projection-hae-section A B ABprojHAE x) ,
-        \ u -> (projection-hae-fibered-contracting-htpy A B ABprojHAE (x , u)))
+        \ u → (projection-hae-fibered-contracting-htpy A B ABprojHAE (x , u)))
 
 -- The converse to our first result
 #def contractible-fibers-is-equiv-projection
   (A : U)
-  (B : A -> U)
+  (B : A → U)
   (ABprojequiv : is-equiv (Σ (x : A) , B x) A (total-space-projection A B))
   : contractible-fibers A B
   :=
@@ -211,11 +211,11 @@ The following type asserts that the fibers of a type family are contractible.
 -- The main theorem
 #def projection-theorem
   (A : U)
-  (B : (a : A) -> U)
+  (B : (a : A) → U)
   : iff
     ( is-equiv (Σ (x : A) , B x) A (total-space-projection A B))
     ( contractible-fibers A B)
   :=
-    ( \ ABprojequiv -> contractible-fibers-is-equiv-projection A B ABprojequiv ,
-      \ ABcontrfib -> is-equiv-projection-contractible-fibers A B ABcontrfib)
+    ( \ ABprojequiv → contractible-fibers-is-equiv-projection A B ABprojequiv ,
+      \ ABcontrfib → is-equiv-projection-contractible-fibers A B ABcontrfib)
 ```

@@ -12,11 +12,11 @@ This is a literate `rzk` file:
 -- We'll require a more coherent notion of equivalence
 #def is-half-adjoint-equiv
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   : U
   :=
     Σ ( has-inverse-f : (has-inverse A B f)) ,
-      ( ( a : A) ->
+      ( ( a : A) →
         ( second (second has-inverse-f) (f a)) =
         ( ap A B ( has-inverse-retraction-composite A B f has-inverse-f a) a
           ( f) ( ( ( first ( second has-inverse-f))) a)))
@@ -25,10 +25,10 @@ This is a literate `rzk` file:
 -- following one:
 #def is-half-adjoint-equiv'
   (A B : U)
-  (f : A -> B)
+  (f : A → B)
   : U
   := Σ ( has-inverse-f : (has-inverse A B f)) ,
-       ( ( a : A) ->
+       ( ( a : A) →
          ( second (second has-inverse-f) (f a)) =
            ( ap A B
             ( has-inverse-retraction-composite A B f has-inverse-f a)
@@ -45,7 +45,7 @@ and discard the other.
 ```rzk
 #def has-inverse-kept-htpy
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( has-inverse-f : has-inverse A B f)
   : homotopy A A
     ( has-inverse-retraction-composite A B f has-inverse-f) (identity A)
@@ -53,7 +53,7 @@ and discard the other.
 
 #def has-inverse-discarded-htpy
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( has-inverse-f : has-inverse A B f)
   : homotopy B B
     ( has-inverse-section-composite A B f has-inverse-f) (identity B)
@@ -67,7 +67,7 @@ following naturality square.
 #section has-inverse-coherence
 
 #variables A B : U
-#variable f : A -> B
+#variable f : A → B
 #variable has-inverse-f : has-inverse A B f
 #variable a : A
 
@@ -92,7 +92,7 @@ following naturality square.
     nat-htpy A B
     ( has-inverse-triple-composite A B f has-inverse-f)
     ( f)
-    ( \ x -> has-inverse-discarded-htpy A B f has-inverse-f (f x))
+    ( \ x → has-inverse-discarded-htpy A B f has-inverse-f (f x))
     ( has-inverse-retraction-composite A B f has-inverse-f a)
     ( a)
     ( has-inverse-kept-htpy A B f has-inverse-f a)
@@ -252,9 +252,9 @@ following naturality square.
 
 -- This will replace the discarded homotopy
 #def has-inverse-corrected-htpy
-  : homotopy B B (has-inverse-section-composite A B f has-inverse-f) (\ b -> b)
+  : homotopy B B (has-inverse-section-composite A B f has-inverse-f) (\ b → b)
   :=
-    \ b ->
+    \ b →
       concat B
         ( (has-inverse-section-composite A B f has-inverse-f) b)
         ( (has-inverse-section-composite A B f has-inverse-f)
@@ -319,7 +319,7 @@ the invertible map by replacing the discarded homotopy with the corrected one.
 ```rzk
 #def corrected-has-inverse-has-inverse
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( has-inverse-f : has-inverse A B f)
   : has-inverse A B f
   :=
@@ -330,7 +330,7 @@ the invertible map by replacing the discarded homotopy with the corrected one.
 -- Invertible maps are half adjoint equivalences!
 #def is-half-adjoint-equiv-has-inverse
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( has-inverse-f : has-inverse A B f)
   : is-half-adjoint-equiv A B f
   :=
@@ -340,7 +340,7 @@ the invertible map by replacing the discarded homotopy with the corrected one.
 -- Equivalences are half adjoint equivalences!
 #def is-half-adjoint-equiv-is-equiv
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
   : is-half-adjoint-equiv A B f
   :=
@@ -357,7 +357,7 @@ have equivalent identity types.
 #section equiv-identity-types-equiv
 
 #variables A B : U
-#variable f : A -> B
+#variable f : A → B
 #variable fisHAE : is-half-adjoint-equiv A B f
 
 #def iff-ap-is-half-adjoint-equiv
@@ -365,7 +365,7 @@ have equivalent identity types.
   : iff (x = y) (f x = f y)
   :=
     (ap A B x y f ,
-      \ q ->
+      \ q →
         triple-concat A
           ( x)
           ( (has-inverse-inverse A B f (first fisHAE)) (f x))
@@ -381,11 +381,11 @@ have equivalent identity types.
   : has-retraction (x = y) (f x = f y) (ap A B x y f)
   :=
     ( second (iff-ap-is-half-adjoint-equiv x y) ,
-      \ p ->
+      \ p →
           idJ
           ( A ,
             x ,
-            \ y' p' ->
+            \ y' p' →
               ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
               p' ,
             ( rev-refl-id-triple-concat A
@@ -564,8 +564,8 @@ have equivalent identity types.
   :=
     triple-concat-higher-homotopy A B
       ( has-inverse-triple-composite A B f (first fisHAE)) f
-      ( \ a -> (((second (second (first fisHAE)))) (f a)))
-      ( \ a ->
+      ( \ a → (((second (second (first fisHAE)))) (f a)))
+      ( \ a →
         ( ap A B (has-inverse-retraction-composite A B f (first fisHAE) a) a f
           ( ((first (second (first fisHAE)))) a)))
       ( second fisHAE)
@@ -723,7 +723,7 @@ have equivalent identity types.
 
 #def is-equiv-ap-is-equiv
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
   ( x y : A)
   : is-equiv (x = y) (f x = f y) (ap A B x y f)
@@ -733,7 +733,7 @@ have equivalent identity types.
 
 #def Eq-ap-is-equiv
   ( A B : U)
-  ( f : A -> B)
+  ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
   ( x y : A)
   : Equiv (x = y) (f x = f y)

@@ -31,7 +31,7 @@ The following demonstrates the syntax for constructing terms in Sigma types:
 #def iff
   ( A B : U)
   : U
-  := product (A -> B) (B -> A)
+  := product (A → B) (B → A)
 ```
 
 ## Basic function definitions
@@ -42,26 +42,26 @@ The following demonstrates the syntax for constructing terms in Sigma types:
 #variables A B C D : U
 
 #def composition
-  ( g : B -> C)
-  ( f : A -> B)
-  : A -> C
-  := \ z -> g (f z)
+  ( g : B → C)
+  ( f : A → B)
+  : A → C
+  := \ z → g (f z)
 
 #def triple-composition
-  ( h : C -> D)
-  ( g : B -> C)
-  ( f : A -> B)
-  : A -> D
-  := \ z -> h (g (f z))
+  ( h : C → D)
+  ( g : B → C)
+  ( f : A → B)
+  : A → D
+  := \ z → h (g (f z))
 
 #def identity
-  : A -> A
-  := \ a -> a
+  : A → A
+  := \ a → a
 
 #def constant
   ( b : B)
-  : A -> B
-  := \ a -> b
+  : A → B
+  := \ a → b
 
 #end basic-functions
 ```
@@ -73,8 +73,8 @@ The following demonstrates the syntax for constructing terms in Sigma types:
 ```rzk
 #def reindex
   ( A B : U)
-  ( f : B -> A)
-  ( C : A -> U)
-  : B -> U
-  := \ b -> C (f b)
+  ( f : B → A)
+  ( C : A → U)
+  : B → U
+  := \ b → C (f b)
 ```
