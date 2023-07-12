@@ -1277,7 +1277,7 @@ composition:
 #end is-segal-Unit
 ```
 
-<!-- Definitions for the SVG images above -→
+<!-- Definitions for the SVG images above -->
 <svg width="0" height="0">
   <defs>
     <style data-bx-fonts="Noto Serif">@import url(https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap);</style>
