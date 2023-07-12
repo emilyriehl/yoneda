@@ -45,8 +45,8 @@ Extension types are used ∂to define the type of arrows between fixed terms:
   (x y : A)
   : U
   := (t : Δ¹) → A [
-    t ≡ 0_2 ↦ x ,    -- * the left endpoint is exactly x
-    t ≡ 1_2 ↦ y     -- * the right endpoint is exactly y
+    t ≡ 0₂ ↦ x ,    -- * the left endpoint is exactly x
+    t ≡ 1₂ ↦ y     -- * the right endpoint is exactly y
   ]
 ```
 
@@ -75,8 +75,8 @@ Extension types are also used to define the type of commutative triangles:
   (h : hom A x z)
   : U
   := { (t1 , t2) : Δ² } → A [
-    t2 ≡ 0_2 ↦ f t1 ,        -- * the top edge is exactly `f`,
-    t1 ≡ 1_2 ↦ g t2 ,        -- * the right edge is exactly `g`, and
+    t2 ≡ 0₂ ↦ f t1 ,        -- * the top edge is exactly `f`,
+    t1 ≡ 1₂ ↦ g t2 ,        -- * the right edge is exactly `g`, and
     t2 ≡ t1 ↦ h t2         -- * the diagonal is exactly `h`
   ]
 ```
@@ -199,8 +199,8 @@ A pair of composable arrows form a horn.
   :=
     \ (t , s) →
     recOR
-    ( s ≡ 0_2 ↦ f t ,
-      t ≡ 1_2 ↦ g s)
+    ( s ≡ 0₂ ↦ f t ,
+      t ≡ 1₂ ↦ g s)
 ```
 
 The underlying horn of a simplex:
@@ -245,10 +245,10 @@ witnesses of the equivalence).
   : Equiv
     ( Δ² → A)
     ( Σ ( k : Λ → A) ,
-        ( Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+        ( Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
             ( hom2 A
-              ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-              ( \ t → k (t , 0_2)) (\ t → k (1_2 , t))
+              ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+              ( \ t → k (t , 0₂)) (\ t → k (1₂ , t))
               ( h))))
   :=
     ( \ k →
@@ -270,33 +270,33 @@ witnesses of the equivalence).
     comp-equiv
       ( Δ² → A)
       ( Σ ( k : Λ → A) ,
-          ( Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+          ( Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
               ( hom2 A
-                ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-                ( \ t → k (t , 0_2)) (\ t → k (1_2 , t))
+                ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+                ( \ t → k (t , 0₂)) (\ t → k (1₂ , t))
                 ( h))))
       ( Λ → A)
       ( equiv-horn-restriction A)
       ( total-space-projection
         ( Λ → A )
         ( \ k →
-          Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+          Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
             ( hom2 A
-              ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-              ( \ t → k (t , 0_2)) (\ t → k (1_2 , t))
+              ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+              ( \ t → k (t , 0₂)) (\ t → k (1₂ , t))
               ( h))) ,
       ( is-equiv-projection-contractible-fibers
           ( Λ → A)
           ( \ k →
-            Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+            Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
               ( hom2 A
-                ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-                ( \ t → k (t , 0_2)) (\ t → k (1_2 , t))
+                ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+                ( \ t → k (t , 0₂)) (\ t → k (1₂ , t))
                 ( h)))
           ( \ k →
             is-segal-A
-              ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-              ( \ t → k (t , 0_2)) (\ t → k (1_2 , t)))))
+              ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+              ( \ t → k (t , 0₂)) (\ t → k (1₂ , t)))))
 
 -- Verify that the mapping in (Segal-equiv-horn-restriction A is-segal-A)
 -- is exactly (horn-restriction A)
@@ -329,31 +329,31 @@ Types that are local at the horn inclusion are Segal types:
     contractible-fibers-is-equiv-projection
       (  Λ → A )
       ( \ k →
-        Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+        Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
           ( hom2 A
-            ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-            ( \ t → k (t , 0_2))
-            ( \ t → k (1_2 , t))
+            ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+            ( \ t → k (t , 0₂))
+            ( \ t → k (1₂ , t))
             ( h)))
       ( second
         ( comp-equiv
           ( Σ ( k : Λ → A ) ,
-            Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+            Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
               ( hom2 A
-                ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-                ( \ t → k (t , 0_2))
-                ( \ t → k (1_2 , t))
+                ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+                ( \ t → k (t , 0₂))
+                ( \ t → k (1₂ , t))
                 ( h)))
           ( Δ² → A )
           ( Λ  → A )
           ( inv-equiv
             ( Δ² → A )
             ( Σ ( k : Λ → A ) ,
-              Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+              Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
                 ( hom2 A
-                  ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-                  ( \ t → k (t , 0_2))
-                  ( \ t → k (1_2 , t))
+                  ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+                  ( \ t → k (t , 0₂))
+                  ( \ t → k (1₂ , t))
                   ( h)))
             ( equiv-horn-restriction A))
           ( horn-restriction A , is-local-horn-inclusion-A)))
@@ -473,7 +473,7 @@ For later use, an equivalent characterization of the arrow type.
   (A : U)
   : Equiv (arr A) (Σ (x : A) , (Σ (y : A) , hom A x y))
   :=
-    ( \ f → (f 0_2 , (f 1_2 , f)) ,
+    ( \ f → (f 0₂ , (f 1₂ , f)) ,
       ( ( \ (x , (y , f)) → f , \ f → refl) ,
         ( \ (x , (y , f)) → f , \ xyf → refl)))
 ```

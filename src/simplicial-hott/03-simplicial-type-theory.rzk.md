@@ -31,20 +31,20 @@ This is a literate `rzk` file:
 ```rzk
 -- the boundary of a 1-simplex
 #def ∂Δ¹ : Δ¹ → TOPE
-  := \ t → (t ≡ 0_2 ∨ t ≡ 1_2)
+  := \ t → (t ≡ 0₂ ∨ t ≡ 1₂)
 
 -- the boundary of a 2-simplex
 #def ∂Δ² : Δ² → TOPE
   :=
     \ (t, s) →
-    ( s ≡ 0_2 ∨ t ≡ 1_2 ∨ s ≡ t)
+    ( s ≡ 0₂ ∨ t ≡ 1₂ ∨ s ≡ t)
 ```
 
 ### The inner horn
 
 ```rzk
 #def Λ : (2 * 2) → TOPE
-  := \ (t , s) → (s ≡ 0_2 ∨ t ≡ 1_2)
+  := \ (t , s) → (s ≡ 0₂ ∨ t ≡ 1₂)
 ```
 
 ### Products
