@@ -773,11 +773,11 @@
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c">-- We&#39;ll require a more coherent notion of equivalence</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">is-half-adjoint-equiv</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="err">  </span><span class="p">( </span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="err">  : </span><span class="kt">U</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="err">  :=</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">    </span><span class="kt">Σ</span><span class="err"> </span><span class="p">( </span>has-inverse-f <span class="p">:</span><span class="err"> (has-inverse A B f)) ,</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">      </span><span class="p">( </span>( a <span class="p">:</span><span class="err"> A) -&gt;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">      </span><span class="p">( </span>( a <span class="p">:</span><span class="err"> A) →</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="err">        ( </span><span class="s">second</span><span class="err"> (</span><span class="s">second</span><span class="err"> has-inverse-f) (f a)) =</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">        ( ap A B ( has-inverse-retraction-composite A B f has-inverse-f a) a</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">          ( f) ( ( ( </span><span class="s">first</span><span class="err"> ( </span><span class="s">second</span><span class="err"> has-inverse-f))) a)))</span>
@@ -786,10 +786,10 @@
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="c">-- following one:</span>
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">is-half-adjoint-equiv&#39;</span>
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="err">  </span><span class="p">(</span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="err">  : </span><span class="kt">U</span>
 </span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="err">  := </span><span class="kt">Σ</span><span class="err"> </span><span class="p">( </span>has-inverse-f <span class="p">:</span><span class="err"> (has-inverse A B f)) ,</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="err">       </span><span class="p">( </span>( a <span class="p">:</span><span class="err"> A) -&gt;</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="err">       </span><span class="p">( </span>( a <span class="p">:</span><span class="err"> A) →</span>
 </span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="err">         ( </span><span class="s">second</span><span class="err"> (</span><span class="s">second</span><span class="err"> has-inverse-f) (f a)) =</span>
 </span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="err">           ( ap A B</span>
 </span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="err">            ( has-inverse-retraction-composite A B f has-inverse-f a)</span>
@@ -802,7 +802,7 @@
 and discard the other.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">has-inverse-kept-htpy</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="err">  </span><span class="p">( </span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">  </span><span class="p">( </span>has-inverse-f <span class="p">:</span><span class="err"> has-inverse A B f)</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">  : homotopy A A</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="err">    ( has-inverse-retraction-composite A B f has-inverse-f) (identity A)</span>
@@ -810,7 +810,7 @@ and discard the other.</p>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">has-inverse-discarded-htpy</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">  </span><span class="p">( </span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="err">  </span><span class="p">( </span>has-inverse-f <span class="p">:</span><span class="err"> has-inverse A B f)</span>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">  : homotopy B B</span>
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="err">    ( has-inverse-section-composite A B f has-inverse-f) (identity B)</span>
@@ -821,7 +821,7 @@ following naturality square.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">#section</span><span class="n"> has-inverse-coherence</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kr">#variables</span><span class="p"> </span>A B<span class="err"> : </span><span class="kt">U</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kr">#variable</span><span class="p"> </span>f<span class="err"> : A -&gt; B</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kr">#variable</span><span class="p"> </span>f<span class="err"> : A → B</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kr">#variable</span><span class="p"> </span>has-inverse-f<span class="err"> : has-inverse A B f</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="kr">#variable</span><span class="p"> </span>a<span class="err"> : A</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
@@ -846,7 +846,7 @@ following naturality square.</p>
 </span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="err">    nat-htpy A B</span>
 </span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="err">    ( has-inverse-triple-composite A B f has-inverse-f)</span>
 </span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="err">    ( f)</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="err">    ( </span><span class="p">\ </span>x <span class="err">-&gt; has-inverse-discarded-htpy A B f has-inverse-f (f x))</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="err">    ( </span><span class="p">\ </span>x <span class="err">→ has-inverse-discarded-htpy A B f has-inverse-f (f x))</span>
 </span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="err">    ( has-inverse-retraction-composite A B f has-inverse-f a)</span>
 </span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="err">    ( a)</span>
 </span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="err">    ( has-inverse-kept-htpy A B f has-inverse-f a)</span>
@@ -1006,9 +1006,9 @@ following naturality square.</p>
 </span><span id="__span-3-186"><a id="__codelineno-3-186" name="__codelineno-3-186" href="#__codelineno-3-186"></a>
 </span><span id="__span-3-187"><a id="__codelineno-3-187" name="__codelineno-3-187" href="#__codelineno-3-187"></a><span class="c">-- This will replace the discarded homotopy</span>
 </span><span id="__span-3-188"><a id="__codelineno-3-188" name="__codelineno-3-188" href="#__codelineno-3-188"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">has-inverse-corrected-htpy</span>
-</span><span id="__span-3-189"><a id="__codelineno-3-189" name="__codelineno-3-189" href="#__codelineno-3-189"></a><span class="err">  : homotopy B B (has-inverse-section-composite A B f has-inverse-f) (</span><span class="p">\ </span>b <span class="err">-&gt; b)</span>
+</span><span id="__span-3-189"><a id="__codelineno-3-189" name="__codelineno-3-189" href="#__codelineno-3-189"></a><span class="err">  : homotopy B B (has-inverse-section-composite A B f has-inverse-f) (</span><span class="p">\ </span>b <span class="err">→ b)</span>
 </span><span id="__span-3-190"><a id="__codelineno-3-190" name="__codelineno-3-190" href="#__codelineno-3-190"></a><span class="err">  :=</span>
-</span><span id="__span-3-191"><a id="__codelineno-3-191" name="__codelineno-3-191" href="#__codelineno-3-191"></a><span class="err">    </span><span class="p">\ </span>b <span class="err">-&gt;</span>
+</span><span id="__span-3-191"><a id="__codelineno-3-191" name="__codelineno-3-191" href="#__codelineno-3-191"></a><span class="err">    </span><span class="p">\ </span>b <span class="err">→</span>
 </span><span id="__span-3-192"><a id="__codelineno-3-192" name="__codelineno-3-192" href="#__codelineno-3-192"></a><span class="err">      concat B</span>
 </span><span id="__span-3-193"><a id="__codelineno-3-193" name="__codelineno-3-193" href="#__codelineno-3-193"></a><span class="err">        ( (has-inverse-section-composite A B f has-inverse-f) b)</span>
 </span><span id="__span-3-194"><a id="__codelineno-3-194" name="__codelineno-3-194" href="#__codelineno-3-194"></a><span class="err">        ( (has-inverse-section-composite A B f has-inverse-f)</span>
@@ -1069,7 +1069,7 @@ following naturality square.</p>
 the invertible map by replacing the discarded homotopy with the corrected one.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">corrected-has-inverse-has-inverse</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">  </span><span class="p">( </span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">  </span><span class="p">( </span>has-inverse-f <span class="p">:</span><span class="err"> has-inverse A B f)</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">  : has-inverse A B f</span>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">  :=</span>
@@ -1080,7 +1080,7 @@ the invertible map by replacing the discarded homotopy with the corrected one.</
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c">-- Invertible maps are half adjoint equivalences!</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">is-half-adjoint-equiv-has-inverse</span>
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">  </span><span class="p">( </span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">  </span><span class="p">( </span>has-inverse-f <span class="p">:</span><span class="err"> has-inverse A B f)</span>
 </span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="err">  : is-half-adjoint-equiv A B f</span>
 </span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="err">  :=</span>
@@ -1090,7 +1090,7 @@ the invertible map by replacing the discarded homotopy with the corrected one.</
 </span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="c">-- Equivalences are half adjoint equivalences!</span>
 </span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">is-half-adjoint-equiv-is-equiv</span>
 </span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="err">  </span><span class="p">( </span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="err">  </span><span class="p">( </span>is-equiv-f <span class="p">:</span><span class="err"> is-equiv A B f)</span>
 </span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="err">  : is-half-adjoint-equiv A B f</span>
 </span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="err">  :=</span>
@@ -1103,7 +1103,7 @@ have equivalent identity types.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nd">#section</span><span class="n"> equiv-identity-types-equiv</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kr">#variables</span><span class="p"> </span>A B<span class="err"> : </span><span class="kt">U</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kr">#variable</span><span class="p"> </span>f<span class="err"> : A -&gt; B</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kr">#variable</span><span class="p"> </span>f<span class="err"> : A → B</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kr">#variable</span><span class="p"> </span>fisHAE<span class="err"> : is-half-adjoint-equiv A B f</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">iff-ap-is-half-adjoint-equiv</span>
@@ -1111,7 +1111,7 @@ have equivalent identity types.</p>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">  : iff (x = y) (f x = f y)</span>
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">  :=</span>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">    (ap A B x y f ,</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">      </span><span class="p">\ </span>q <span class="err">-&gt;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">      </span><span class="p">\ </span>q <span class="err">→</span>
 </span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="err">        triple-concat A</span>
 </span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="err">          ( x)</span>
 </span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="err">          ( (has-inverse-inverse A B f (</span><span class="s">first</span><span class="err"> fisHAE)) (f x))</span>
@@ -1127,11 +1127,11 @@ have equivalent identity types.</p>
 </span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="err">  : has-retraction (x = y) (f x = f y) (ap A B x y f)</span>
 </span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="err">  :=</span>
 </span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="err">    ( </span><span class="s">second</span><span class="err"> (iff-ap-is-half-adjoint-equiv x y) ,</span>
-</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="err">      </span><span class="p">\ </span>p <span class="err">-&gt;</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="err">      </span><span class="p">\ </span>p <span class="err">→</span>
 </span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="err">          </span><span class="s">idJ</span>
 </span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="err">          ( A ,</span>
 </span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="err">            x ,</span>
-</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="err">            </span><span class="p">\ </span>y&#39; p&#39; <span class="err">-&gt;</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="err">            </span><span class="p">\ </span>y&#39; p&#39; <span class="err">→</span>
 </span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="err">              ( </span><span class="s">second</span><span class="err"> (iff-ap-is-half-adjoint-equiv x y&#39;)) (ap A B x y&#39; f p&#39;) =</span>
 </span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="err">              p&#39; ,</span>
 </span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="err">            ( rev-refl-id-triple-concat A</span>
@@ -1310,8 +1310,8 @@ have equivalent identity types.</p>
 </span><span id="__span-5-208"><a id="__codelineno-5-208" name="__codelineno-5-208" href="#__codelineno-5-208"></a><span class="err">  :=</span>
 </span><span id="__span-5-209"><a id="__codelineno-5-209" name="__codelineno-5-209" href="#__codelineno-5-209"></a><span class="err">    triple-concat-higher-homotopy A B</span>
 </span><span id="__span-5-210"><a id="__codelineno-5-210" name="__codelineno-5-210" href="#__codelineno-5-210"></a><span class="err">      ( has-inverse-triple-composite A B f (</span><span class="s">first</span><span class="err"> fisHAE)) f</span>
-</span><span id="__span-5-211"><a id="__codelineno-5-211" name="__codelineno-5-211" href="#__codelineno-5-211"></a><span class="err">      ( </span><span class="p">\ </span>a <span class="err">-&gt; (((</span><span class="s">second</span><span class="err"> (</span><span class="s">second</span><span class="err"> (</span><span class="s">first</span><span class="err"> fisHAE)))) (f a)))</span>
-</span><span id="__span-5-212"><a id="__codelineno-5-212" name="__codelineno-5-212" href="#__codelineno-5-212"></a><span class="err">      ( </span><span class="p">\ </span>a <span class="err">-&gt;</span>
+</span><span id="__span-5-211"><a id="__codelineno-5-211" name="__codelineno-5-211" href="#__codelineno-5-211"></a><span class="err">      ( </span><span class="p">\ </span>a <span class="err">→ (((</span><span class="s">second</span><span class="err"> (</span><span class="s">second</span><span class="err"> (</span><span class="s">first</span><span class="err"> fisHAE)))) (f a)))</span>
+</span><span id="__span-5-212"><a id="__codelineno-5-212" name="__codelineno-5-212" href="#__codelineno-5-212"></a><span class="err">      ( </span><span class="p">\ </span>a <span class="err">→</span>
 </span><span id="__span-5-213"><a id="__codelineno-5-213" name="__codelineno-5-213" href="#__codelineno-5-213"></a><span class="err">        ( ap A B (has-inverse-retraction-composite A B f (</span><span class="s">first</span><span class="err"> fisHAE) a) a f</span>
 </span><span id="__span-5-214"><a id="__codelineno-5-214" name="__codelineno-5-214" href="#__codelineno-5-214"></a><span class="err">          ( ((</span><span class="s">first</span><span class="err"> (</span><span class="s">second</span><span class="err"> (</span><span class="s">first</span><span class="err"> fisHAE)))) a)))</span>
 </span><span id="__span-5-215"><a id="__codelineno-5-215" name="__codelineno-5-215" href="#__codelineno-5-215"></a><span class="err">      ( </span><span class="s">second</span><span class="err"> fisHAE)</span>
@@ -1469,7 +1469,7 @@ have equivalent identity types.</p>
 </span><span id="__span-5-367"><a id="__codelineno-5-367" name="__codelineno-5-367" href="#__codelineno-5-367"></a>
 </span><span id="__span-5-368"><a id="__codelineno-5-368" name="__codelineno-5-368" href="#__codelineno-5-368"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">is-equiv-ap-is-equiv</span>
 </span><span id="__span-5-369"><a id="__codelineno-5-369" name="__codelineno-5-369" href="#__codelineno-5-369"></a><span class="err">  </span><span class="p">( </span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-5-370"><a id="__codelineno-5-370" name="__codelineno-5-370" href="#__codelineno-5-370"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-5-370"><a id="__codelineno-5-370" name="__codelineno-5-370" href="#__codelineno-5-370"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-5-371"><a id="__codelineno-5-371" name="__codelineno-5-371" href="#__codelineno-5-371"></a><span class="err">  </span><span class="p">( </span>is-equiv-f <span class="p">:</span><span class="err"> is-equiv A B f)</span>
 </span><span id="__span-5-372"><a id="__codelineno-5-372" name="__codelineno-5-372" href="#__codelineno-5-372"></a><span class="err">  </span><span class="p">( </span>x y <span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-5-373"><a id="__codelineno-5-373" name="__codelineno-5-373" href="#__codelineno-5-373"></a><span class="err">  : is-equiv (x = y) (f x = f y) (ap A B x y f)</span>
@@ -1479,7 +1479,7 @@ have equivalent identity types.</p>
 </span><span id="__span-5-377"><a id="__codelineno-5-377" name="__codelineno-5-377" href="#__codelineno-5-377"></a>
 </span><span id="__span-5-378"><a id="__codelineno-5-378" name="__codelineno-5-378" href="#__codelineno-5-378"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Eq-ap-is-equiv</span>
 </span><span id="__span-5-379"><a id="__codelineno-5-379" name="__codelineno-5-379" href="#__codelineno-5-379"></a><span class="err">  </span><span class="p">( </span>A B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-5-380"><a id="__codelineno-5-380" name="__codelineno-5-380" href="#__codelineno-5-380"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A -&gt; B)</span>
+</span><span id="__span-5-380"><a id="__codelineno-5-380" name="__codelineno-5-380" href="#__codelineno-5-380"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-5-381"><a id="__codelineno-5-381" name="__codelineno-5-381" href="#__codelineno-5-381"></a><span class="err">  </span><span class="p">( </span>is-equiv-f <span class="p">:</span><span class="err"> is-equiv A B f)</span>
 </span><span id="__span-5-382"><a id="__codelineno-5-382" name="__codelineno-5-382" href="#__codelineno-5-382"></a><span class="err">  </span><span class="p">( </span>x y <span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-5-383"><a id="__codelineno-5-383" name="__codelineno-5-383" href="#__codelineno-5-383"></a><span class="err">  : Equiv (x = y) (f x = f y)</span>
