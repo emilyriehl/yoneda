@@ -74,7 +74,7 @@ Extension types are also used to define the type of commutative triangles:
   (g : hom A y z)
   (h : hom A x z)
   : U
-  := { (t1 , t2) : Δ² } → A [
+  := ((t1 , t2) : Δ²) → A [
     t2 ≡ 0₂ ↦ f t1 ,  -- the top edge is exactly `f`,
     t1 ≡ 1₂ ↦ g t2 ,  -- the right edge is exactly `g`, and
     t2 ≡ t1 ↦ h t2    -- the diagonal is exactly `h`
@@ -1277,7 +1277,7 @@ composition:
 #end is-segal-Unit
 ```
 
-<!-- Definitions for the SVG images above -→
+<!-- Definitions for the SVG images above -->
 <svg width="0" height="0">
   <defs>
     <style data-bx-fonts="Noto Serif">@import url(https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap);</style>
