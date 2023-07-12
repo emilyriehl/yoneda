@@ -17,7 +17,7 @@ The general format of a definition is as follows:
   ( p : x = y)
   ( q : y = z)
   : (x = z)
-  := idJ (A , y , \ z' q' -> (x = z') , p , z , q)
+  := idJ (A , y , \ z' q' → (x = z') , p , z , q)
 ```
 
 - We start with the name, and place every assumption on a new line.
@@ -46,35 +46,35 @@ example about Segal types:
   ( is-local-horn-inclusion-A : is-local-horn-inclusion A)
   : isSegal A
   :=
-    \ x y z f g ->
+    \ x y z f g →
     projection-equiv-contractible-fibers
-      ( < {t : 2 * 2 | Λ t} -> A >)
-      ( \ k ->
-        Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+      ( Λ → A)
+      ( \ k →
+        Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
           ( hom2 A
-            ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-            ( \ t -> k (t , 0_2))
-            ( \ t -> k (1_2 , t))
+            ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+            ( \ t → k (t , 0₂))
+            ( \ t → k (1₂ , t))
             ( h)))
       ( second
         ( comp-equiv
-          ( Σ ( k : < {t : 2 * 2 | Λ t} -> A >) ,
-            Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+          ( Σ ( k : Λ → A ) ,
+            Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
               ( hom2 A
-                ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-                ( \ t -> k (t , 0_2))
-                ( \ t -> k (1_2 , t))
+                ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+                ( \ t → k (t , 0₂))
+                ( \ t → k (1₂ , t))
                 ( h)))
-          ( < {t : 2 * 2 | Δ² t} -> A >)
-          ( < {t : 2 * 2 | Λ t} -> A >)
+          ( Δ² → A)
+          ( Λ  → A)
           ( inv-equiv
-            ( < {t : 2 * 2 | Δ² t} -> A >)
-            ( Σ ( k : < {t : 2 * 2 | Λ t} -> A >) ,
-              Σ ( h : hom A (k (0_2 , 0_2)) (k (1_2 , 1_2))) ,
+            ( Δ² → A)
+            ( Σ ( k : Λ → A) ,
+              Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
                 ( hom2 A
-                  ( k (0_2 , 0_2)) (k (1_2 , 0_2)) (k (1_2 , 1_2))
-                  ( \ t -> k (t , 0_2))
-                  ( \ t -> k (1_2 , t))
+                  ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
+                  ( \ t → k (t , 0₂))
+                  ( \ t → k (1₂ , t))
                   ( h)))
             ( equiv-horn-restriction A))
           ( horn-restriction A , is-local-horn-inclusion-A)))
@@ -84,7 +84,7 @@ example about Segal types:
 The root here is the function `projection-equiv-contractible-fibers`. It takes
 four arguments, each starting on a fresh line and is indented an extra level
 from the root. The first argument fits neatly on one line, but the second one is
-too large. In these cases, we add a line break right after the `->`-symbol
+too large. In these cases, we add a line break right after the `→`-symbol
 following the lambda-abstraction, which is the earliest branching point in this
 case. The next node is again `Σ`, with two arguments. The first one fits on a
 line, but the second does not, so we add a line break between them. This process
