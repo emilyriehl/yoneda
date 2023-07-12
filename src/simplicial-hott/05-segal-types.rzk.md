@@ -45,8 +45,8 @@ Extension types are used ∂to define the type of arrows between fixed terms:
   (x y : A)
   : U
   := (t : Δ¹) → A [
-    t ≡ 0₂ ↦ x ,    -- × the left endpoint is exactly x
-    t ≡ 1₂ ↦ y     -- × the right endpoint is exactly y
+    t ≡ 0₂ ↦ x ,  -- the left endpoint is exactly x
+    t ≡ 1₂ ↦ y    -- the right endpoint is exactly y
   ]
 ```
 
@@ -75,9 +75,9 @@ Extension types are also used to define the type of commutative triangles:
   (h : hom A x z)
   : U
   := { (t1 , t2) : Δ² } → A [
-    t2 ≡ 0₂ ↦ f t1 ,        -- × the top edge is exactly `f`,
-    t1 ≡ 1₂ ↦ g t2 ,        -- × the right edge is exactly `g`, and
-    t2 ≡ t1 ↦ h t2         -- × the diagonal is exactly `h`
+    t2 ≡ 0₂ ↦ f t1 ,  -- the top edge is exactly `f`,
+    t1 ≡ 1₂ ↦ g t2 ,  -- the right edge is exactly `g`, and
+    t2 ≡ t1 ↦ h t2    -- the diagonal is exactly `h`
   ]
 ```
 
