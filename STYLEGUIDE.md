@@ -133,6 +133,32 @@ two-space indentation level increases.
   that if you find yourself appealing to this convention frequently, that is a
   sign that your code should be refactored.
 
+- We use Unicode symbols sparingly and only when they align with established
+  mathematical practice.
+
+## Use of Unicode characters
+
+In the defined names we use Unicode symbols sparingly and only when they align
+with established mathematical practice.
+
+For the builtin syntactic features of `rzk` we use the following Unicode
+symbols:
+
+- `->` should be always replaced with `→` (`\to`)
+- `|->` should be always replaced with `↦` (`\mapsto`)
+- `===` should be always replaced with `≡` (`\equiv`)
+- `<=` should be always replaced with `≤` (`\<=`)
+- `/\` should be always replaced with `∧` (`\and`)
+- `\/` should be always replaced with `∨` (`\or`)
+- `0_2` should be always replaced with `0₂` (`0\2`)
+- `1_2` should be always replaced with `1₂` (`1\2`)
+- `I * J` should be always replaced with `I × J` (`\x` or `\times`)
+
+We use ASCII versions for `TOP` and `BOT` since `⊤` and `⊥` do not read better
+in the code. Same for `first` and `second` (`π₁` and `π₂` are not very
+readable). For the latter a lot of uses for projections should go away by using
+pattern matching (and `let`/`where` in the future).
+
 ## Use of Comments
 
 > We do not explicitly ban code comments, but our other conventions should
