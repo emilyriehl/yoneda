@@ -45,8 +45,8 @@ Extension types are used ∂to define the type of arrows between fixed terms:
   (x y : A)
   : U
   := (t : Δ¹) → A [
-    t ≡ 0₂ ↦ x ,    -- * the left endpoint is exactly x
-    t ≡ 1₂ ↦ y     -- * the right endpoint is exactly y
+    t ≡ 0₂ ↦ x ,    -- × the left endpoint is exactly x
+    t ≡ 1₂ ↦ y     -- × the right endpoint is exactly y
   ]
 ```
 
@@ -75,9 +75,9 @@ Extension types are also used to define the type of commutative triangles:
   (h : hom A x z)
   : U
   := { (t1 , t2) : Δ² } → A [
-    t2 ≡ 0₂ ↦ f t1 ,        -- * the top edge is exactly `f`,
-    t1 ≡ 1₂ ↦ g t2 ,        -- * the right edge is exactly `g`, and
-    t2 ≡ t1 ↦ h t2         -- * the diagonal is exactly `h`
+    t2 ≡ 0₂ ↦ f t1 ,        -- × the top edge is exactly `f`,
+    t1 ≡ 1₂ ↦ g t2 ,        -- × the right edge is exactly `g`, and
+    t2 ≡ t1 ↦ h t2         -- × the diagonal is exactly `h`
   ]
 ```
 
@@ -390,7 +390,7 @@ all $x$ then $(x : X) → A x$ is a Segal type.
       ( Λ → ((x : X) → A x) )
       ( \ g x t → g t x) -- first equivalence
       ( second (flip-ext-fun
-        ( 2 * 2)
+        ( 2 × 2)
         ( Δ²)
         ( \ t → BOT)
         ( X)
@@ -405,7 +405,7 @@ all $x$ then $(x : X) → A x$ is a Segal type.
         ( \ x → (horn-restriction (A x) , fiberwise-is-segal-A x))))
       ( \ h t x → (h x) t) -- third equivalence
       ( second (flip-ext-fun-inv
-        ( 2 * 2)
+        ( 2 × 2)
         ( Λ)
         ( \ t → BOT)
         ( X)
@@ -431,7 +431,7 @@ then $(x : X) → A x$ is a Segal type.
     ( Λ → (s : ψ) → A s  )
     ( \ g s t → g t s)  -- first equivalence
     ( second (fubini
-      ( 2 * 2)
+      ( 2 × 2)
       ( I)
       ( Δ²)
       ( \ t → BOT)
@@ -447,7 +447,7 @@ then $(x : X) → A x$ is a Segal type.
     ( \ h t s → (h s) t) -- third equivalence
     ( second (fubini
       ( I)
-      ( 2 * 2)
+      ( 2 × 2)
       ( ψ)
       ( \ s → BOT)
       ( Λ)
@@ -1260,7 +1260,7 @@ composition:
 #def is-contr-Δ²→Unit uses (extext)
   : is-contr (Δ² → Unit)
   := (\ _ → unit , \ k → eq-ext-htpy extext
-    (2 * 2) Δ² (\ _ → BOT)
+    (2 × 2) Δ² (\ _ → BOT)
     (\ _ → Unit) (\ _ → recBOT)
     (\ _ → unit) k
     (\ _ → refl)

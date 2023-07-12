@@ -443,11 +443,11 @@ types as follows.
       [ ((t ≡ 0₂) ∧ Δ¹ s) ↦ u s ,
             (Δ¹ t ∧ (s ≡ 0₂)) ↦ a ,
             (Δ¹ t ∧ (s ≡ 1₂)) ↦ f t ])
-    ( { (t , s) : 2 * 2 | ((t ≡ 1₂) ∧ (Δ¹ s))} → A
+    ( { (t , s) : 2 × 2 | ((t ≡ 1₂) ∧ (Δ¹ s))} → A
       [ ((t ≡ 1₂) ∧ (s ≡ 0₂)) ↦ a ,
         ((t ≡ 1₂) ∧ (s ≡ 1₂)) ↦ y ])
   :=
-    cofibration-union (2 * 2)
+    cofibration-union (2 × 2)
     ( \ (t , s) → (t ≡ 1₂) ∧ Δ¹ s)
     ( \ (t , s) →
       ((t ≡ 0₂) ∧ Δ¹ s) ∨ (Δ¹ t ∧ (s ≡ 0₂)) ∨ (Δ¹ t ∧ (s ≡ 1₂)))
@@ -464,7 +464,7 @@ types as follows.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
-    ({ (t , s) : 2 * 2 | ((t ≡ 1₂) ∧ (Δ¹ s))} → A
+    ({ (t , s) : 2 × 2 | ((t ≡ 1₂) ∧ (Δ¹ s))} → A
       [ ((t ≡ 1₂) ∧ (s ≡ 0₂)) ↦ a ,
         ((t ≡ 1₂) ∧ (s ≡ 1₂)) ↦ y ])
     (hom A a y)
@@ -492,7 +492,7 @@ types as follows.
         [ ((t ≡ 0₂) ∧ Δ¹ s) ↦ u s ,
           (Δ¹ t ∧ (s ≡ 0₂)) ↦ a ,
           (Δ¹ t ∧ (s ≡ 1₂)) ↦ f t ] )
-    ( { (t , s) : 2 * 2 | ((t ≡ 1₂) ∧ (Δ¹ s))} → A
+    ( { (t , s) : 2 × 2 | ((t ≡ 1₂) ∧ (Δ¹ s))} → A
       [ ((t ≡ 1₂) ∧ (s ≡ 0₂)) ↦ a ,
         ((t ≡ 1₂) ∧ (s ≡ 1₂)) ↦ y ])
     ( hom A a y)
@@ -591,7 +591,7 @@ types as follows.
             (Δ¹ t ∧ (s ≡ 0₂)) ↦ a ,
             (Δ¹ t ∧ (s ≡ 1₂)) ↦ f t ]))
   :=
-    cofibration-composition (2 * 2) Δ¹×Δ¹ ∂□
+    cofibration-composition (2 × 2) Δ¹×Δ¹ ∂□
     ( \ (t , s) →
       ((t ≡ 0₂) ∧ Δ¹ s) ∨ (Δ¹ t ∧ (s ≡ 0₂)) ∨ (Δ¹ t ∧ (s ≡ 1₂)))
     ( \ ts → A)

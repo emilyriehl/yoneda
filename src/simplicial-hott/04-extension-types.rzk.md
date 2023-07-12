@@ -60,11 +60,11 @@ This is a literate `rzk` file:
   ( ζ : J → TOPE)
   ( χ : ζ → TOPE)
   ( X : ψ → ζ → U)
-  ( f : { (t , s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
+  ( f : { (t , s) : I × J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
   : Equiv
     ( (t : ψ) → ((s : ζ) → X t s [ χ s ↦ f (t , s) ])
       [ ϕ t ↦ \ s → f (t , s)])
-    ( { (t , s) : I * J | ψ t ∧ ζ s} → X t s
+    ( { (t , s) : I × J | ψ t ∧ ζ s} → X t s
       [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
   :=
     ( \ g (t , s) → (g t) s , -- the one way map
@@ -80,9 +80,9 @@ This is a literate `rzk` file:
   ( ζ : J → TOPE)
   ( χ : ζ → TOPE)
   ( X : ψ → ζ → U)
-  ( f : { (t , s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
+  ( f : { (t , s) : I × J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
   : Equiv
-    ( { (t , s) : I * J | ψ t ∧ ζ s} → X t s
+    ( { (t , s) : I × J | ψ t ∧ ζ s} → X t s
       [ (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
     ( (s : ζ) → ((t : ψ) → X t s [ ϕ t ↦ f (t , s) ])
       [ χ s ↦ \ t → f (t , s) ])
@@ -100,7 +100,7 @@ This is a literate `rzk` file:
   ( ζ : J → TOPE)
   ( χ : ζ → TOPE)
   ( X : ψ → ζ → U)
-  ( f : { (t , s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
+  ( f : { (t , s) : I × J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
   : Equiv
     ( {t : ψ} → ({s : ζ} → X t s [ χ s ↦ f (t , s) ])
         [ ϕ t ↦ \ s → f (t , s) ])
@@ -110,7 +110,7 @@ This is a literate `rzk` file:
     comp-equiv
       ( {t : ψ} → ({s : ζ} → X t s [ χ s ↦ f (t , s) ])
         [ ϕ t ↦ \ s → f (t , s) ])
-      ( { (t , s) : I * J | ψ t ∧ ζ s} → X t s
+      ( { (t , s) : I × J | ψ t ∧ ζ s} → X t s
         [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
       ( {s : ζ} → ({t : ψ} → X t s [ ϕ t ↦ f (t , s) ])
         [ χ s ↦ \ t → f (t , s) ])
