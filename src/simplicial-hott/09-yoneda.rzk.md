@@ -483,7 +483,7 @@ given by the identity arrow at $a$. This makes use of the following equivalence.
   (f : hom A a x)
   : Equiv
     ( hom (coslice A a) (a, id-arr A a) (x, f))
-    ( (t : Δ¹) → hom A a (f t) [t === 0_2 ↦ id-arr A a])
+    ( (t : Δ¹) → hom A a (f t) [t ≡ 0_2 ↦ id-arr A a])
   :=
     ( \ h t s → (second (h s)) t,
       (( \ k s → ( k 1_2 s, \ t → k t s),
@@ -501,7 +501,7 @@ contractible.
   (is-segal-A : is-segal A)
   (a x : A)
   (f : hom A a x)
-  : is-contr ( (t : Δ¹) → hom A a (f t) [t === 0_2 ↦ id-arr A a])
+  : is-contr ( (t : Δ¹) → hom A a (f t) [t ≡ 0_2 ↦ id-arr A a])
   :=
     ( second (has-unique-lifts-with-fixed-domain-iff-is-covariant
                 A (\ z → hom A a z)))
@@ -524,7 +524,7 @@ This proves the initiality of identity arrows in the coslice of a Segal type.
     \ (x, f) →
     is-contr-is-equiv-to-contr
       ( hom (coslice A a) (a, id-arr A a) (x, f))
-      ( (t : Δ¹) → hom A a (f t) [t === 0_2 ↦ id-arr A a])
+      ( (t : Δ¹) → hom A a (f t) [t ≡ 0_2 ↦ id-arr A a])
       ( equiv-hom-in-coslice A a x f)
       ( is-contr-is-segal-hom-in-coslice A is-segal-A a x f)
 ```
@@ -712,7 +712,7 @@ by the identity arrow at $a$. This makes use of the following equivalence.
   (f : hom A x a)
   : Equiv
     ( hom (slice A a) (x, f) (a, id-arr A a))
-    ( (t : Δ¹) → hom A (f t) a [t === 1_2 ↦ id-arr A a])
+    ( (t : Δ¹) → hom A (f t) a [t ≡ 1_2 ↦ id-arr A a])
   :=
     ( \ h t s → (second (h s)) t,
       (( \ k s → ( k 0_2 s, \ t → k t s),
@@ -730,7 +730,7 @@ contractible.
   (is-segal-A : is-segal A)
   (a x : A)
   (f : hom A x a)
-  : is-contr ( (t : Δ¹) → hom A (f t) a [t === 1_2 ↦ id-arr A a])
+  : is-contr ( (t : Δ¹) → hom A (f t) a [t ≡ 1_2 ↦ id-arr A a])
   :=
     ( second (has-unique-lifts-with-fixed-codomain-iff-is-contravariant
                 A (\ z → hom A z a)))
@@ -753,7 +753,7 @@ This proves the finality of identity arrows in the slice of a Segal type.
     \ (x, f) →
     is-contr-is-equiv-to-contr
       ( hom (slice A a) (x, f) (a, id-arr A a))
-      ( (t : Δ¹) → hom A (f t) a [t === 1_2 ↦ id-arr A a])
+      ( (t : Δ¹) → hom A (f t) a [t ≡ 1_2 ↦ id-arr A a])
       ( equiv-hom-in-slice A a x f)
       ( is-contr-is-segal-hom-in-slice A is-segal-A a x f)
 ```

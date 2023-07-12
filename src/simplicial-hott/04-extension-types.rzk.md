@@ -60,12 +60,12 @@ This is a literate `rzk` file:
   ( ζ : J → TOPE)
   ( χ : ζ → TOPE)
   ( X : ψ → ζ → U)
-  ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} → X t s )
+  ( f : { (t , s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
   : Equiv
     ( (t : ψ) → ((s : ζ) → X t s [ χ s ↦ f (t , s) ])
       [ ϕ t ↦ \ s → f (t , s)])
-    ( { (t , s) : I * J | ψ t /\ ζ s} → X t s
-      [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) ↦ f (t , s)])
+    ( { (t , s) : I * J | ψ t ∧ ζ s} → X t s
+      [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
   :=
     ( \ g (t , s) → (g t) s , -- the one way map
       ( ( \ h t s → h (t , s) , -- its retraction
@@ -80,10 +80,10 @@ This is a literate `rzk` file:
   ( ζ : J → TOPE)
   ( χ : ζ → TOPE)
   ( X : ψ → ζ → U)
-  ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} → X t s )
+  ( f : { (t , s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
   : Equiv
-    ( { (t , s) : I * J | ψ t /\ ζ s} → X t s
-      [ (ϕ t /\ ζ s) \/ (ψ t /\ χ s) ↦ f (t , s)])
+    ( { (t , s) : I * J | ψ t ∧ ζ s} → X t s
+      [ (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
     ( (s : ζ) → ((t : ψ) → X t s [ ϕ t ↦ f (t , s) ])
       [ χ s ↦ \ t → f (t , s) ])
   :=
@@ -100,7 +100,7 @@ This is a literate `rzk` file:
   ( ζ : J → TOPE)
   ( χ : ζ → TOPE)
   ( X : ψ → ζ → U)
-  ( f : { (t , s) : I * J | (ϕ t /\ ζ s) \/ (ψ t /\ χ s)} → X t s )
+  ( f : { (t , s) : I * J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)} → X t s )
   : Equiv
     ( {t : ψ} → ({s : ζ} → X t s [ χ s ↦ f (t , s) ])
         [ ϕ t ↦ \ s → f (t , s) ])
@@ -110,8 +110,8 @@ This is a literate `rzk` file:
     comp-equiv
       ( {t : ψ} → ({s : ζ} → X t s [ χ s ↦ f (t , s) ])
         [ ϕ t ↦ \ s → f (t , s) ])
-      ( { (t , s) : I * J | ψ t /\ ζ s} → X t s
-        [(ϕ t /\ ζ s) \/ (ψ t /\ χ s) ↦ f (t , s)])
+      ( { (t , s) : I * J | ψ t ∧ ζ s} → X t s
+        [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
       ( {s : ζ} → ({t : ψ} → X t s [ ϕ t ↦ f (t , s) ])
         [ χ s ↦ \ t → f (t , s) ])
       ( curry-uncurry I J ψ ϕ ζ χ X f)
@@ -150,11 +150,11 @@ This is a literate `rzk` file:
   ( I : CUBE)
   ( χ ψ ϕ : I → TOPE)
   ( X : χ → U)
-  ( a : {t : I | χ t /\ ψ t /\ ϕ t} → X t )
+  ( a : {t : I | χ t ∧ ψ t ∧ ϕ t} → X t )
   : Equiv
-      ( (t : χ) → X t [ χ t /\ ψ t /\ ϕ t ↦ a t ])
-      ( Σ ( f : {t : I | χ t /\ ψ t} → X t [ χ t /\ ψ t /\ ϕ t ↦ a t ]) ,
-          ( (t : χ) → X t [ χ t /\ ψ t ↦ f t ]))
+      ( (t : χ) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ])
+      ( Σ ( f : {t : I | χ t ∧ ψ t} → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ]) ,
+          ( (t : χ) → X t [ χ t ∧ ψ t ↦ f t ]))
   :=
     ( \ h → (\ t → h t , \ t → h t) ,
       ( ( \ (_f, g) t → g t , \ h → refl) ,
@@ -184,11 +184,11 @@ This is a literate `rzk` file:
 #def cofibration-union
   ( I : CUBE)
   ( ϕ ψ : I → TOPE)
-  ( X : {t : I | ϕ t \/ ψ t} → U )
+  ( X : {t : I | ϕ t ∨ ψ t} → U )
   ( a : (t : ψ) → X t)
   : Equiv
-      ( {t : I | ϕ t \/ ψ t} → X t [ ψ t ↦ a t ])
-      ( (t : ϕ) → X t [ ϕ t /\ ψ t ↦ a t ])
+      ( {t : I | ϕ t ∨ ψ t} → X t [ ψ t ↦ a t ])
+      ( (t : ϕ) → X t [ ϕ t ∧ ψ t ↦ a t ])
   :=
     (\ h → \ t → h t ,
       ( ( \ g → \ t → recOR (ϕ t ↦ g t , ψ t ↦ a t) , \ h → refl) ,

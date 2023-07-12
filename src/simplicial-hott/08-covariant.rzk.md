@@ -33,8 +33,8 @@ live over a specified arrow in the base type.
   (v : C y)          -- A lift of the codomain.
   : U
     := {t : Δ¹ } → C (f t)
-      [ t === 0_2 ↦ u ,
-        t === 1_2 ↦ v ]
+      [ t ≡ 0_2 ↦ u ,
+        t ≡ 1_2 ↦ v ]
 ```
 
 It will be convenient to collect together dependent hom types with fixed domain
@@ -71,9 +71,9 @@ triangle.
   (hh : dhom A x z h C u w)    -- A lift of the diagonal arrow.
   : U
     := { (t1 , t2) : Δ² } → C (alpha (t1 , t2))
-      [ t2 === 0_2 ↦ ff t1 ,
-        t1 === 1_2 ↦ gg t2 ,
-        t2 === t1  ↦ hh t2 ]
+      [ t2 ≡ 0_2 ↦ ff t1 ,
+        t1 ≡ 1_2 ↦ gg t2 ,
+        t2 ≡ t1  ↦ hh t2 ]
 ```
 
 ## Covariant families
@@ -104,7 +104,7 @@ contractibility of the type of extensions along the domain inclusion into the
   (C : A → U)
   : U
   := (x : A) → (y : A) → (f : hom A x y) → (u : C x)
-    → is-contr ((t : Δ¹) → C (f t) [ t === 0_2 ↦ u ])
+    → is-contr ((t : Δ¹) → C (f t) [ t ≡ 0_2 ↦ u ])
 ```
 
 These two notions of covariance are equivalent because the two types of lifts of
@@ -120,7 +120,7 @@ here.
   (f : hom A x y)
   (u : C x)
   : Equiv
-      ((t : Δ¹) → C (f t) [ t === 0_2 ↦ u ])
+      ((t : Δ¹) → C (f t) [ t ≡ 0_2 ↦ u ])
       (dhom-from A x y f C u)
   :=
     ( \ h → (h 1_2 , \ t → h t) ,
@@ -141,13 +141,13 @@ logical equivalence
   :=
     ( \ C-has-unique-lifts x y f u →
       is-contr-is-equiv-from-contr
-        ( (t : Δ¹) → C (f t) [ t === 0_2 ↦ u ])
+        ( (t : Δ¹) → C (f t) [ t ≡ 0_2 ↦ u ])
         ( dhom-from A x y f C u)
         ( equiv-lifts-with-fixed-domain A C x y f u)
         ( C-has-unique-lifts x y f u),
       \ C-is-covariant x y f u →
       is-contr-is-equiv-to-contr
-        ( (t : Δ¹) → C (f t) [ t === 0_2 ↦ u ])
+        ( (t : Δ¹) → C (f t) [ t ≡ 0_2 ↦ u ])
         ( dhom-from A x y f C u)
         ( equiv-lifts-with-fixed-domain A C x y f u)
         ( C-is-covariant x y f u))
@@ -179,16 +179,16 @@ equivalences.
   (v : hom A a y)        -- A lift of the codomain.
   : Equiv (dhom-representable A a x y f u v)
   ({ (t , s) : Δ¹×Δ¹ } → A
-    [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-      (Δ¹ t /\ (s === 0_2)) ↦ a ,
-      (Δ¹ t /\ (s === 1_2)) ↦ f t ])
+    [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+      (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+      (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ])
   := curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s → A)
     (\ (t , s) → recOR
-      ( ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-        ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-        (Δ¹ t /\ (s === 0_2)) ↦ a ,
-        (Δ¹ t /\ (s === 1_2)) ↦ f t ))
+      ( ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+        ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+        (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+        (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ))
 
 #def dhom-from-representable
   (A : U)            -- The ambient type.
@@ -206,16 +206,16 @@ equivalences.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv (dhom-from-representable A a x y f u)
     (Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } → A
-      [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-        ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-        (Δ¹ t /\ (s === 0_2)) ↦ a ,
-        (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+      [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+        ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+        (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+        (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
   := total-equiv-family-equiv (hom A a y) (\ v → dhom-representable A a x y f u v)
     (\ v → ({ (t , s) : Δ¹×Δ¹ } → A
-      [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-        ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-        (Δ¹ t /\ (s === 0_2)) ↦ a ,
-        (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+      [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+        ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+        (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+        (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
     (\ v → uncurried-dhom-representable A a x y f u v)
 
 #def square-to-hom2-pushout
@@ -225,10 +225,10 @@ equivalences.
   (f : hom A x z)
   (g : hom A w y)
   (v : hom A y z)
-  : ({ (t , s) : Δ¹×Δ¹ } → A [((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ g t ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ f t ])
+  : ({ (t , s) : Δ¹×Δ¹ } → A [((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ g t ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ])
   → (Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
   := \ sq → ((\ t → sq (t , t)) , (\ (t , s) → sq (s , t) , \ (t , s) → sq (t , s)))
 
@@ -240,12 +240,12 @@ equivalences.
   (g : hom A w y)
   (v : hom A y z)
   : (Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
-  → ({ (t , s) : Δ¹×Δ¹ } → A [((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ g t ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ f t ])
-  := \ (d , (alpha1 , alpha2)) (t , s) → recOR (t <= s ↦ alpha1 (s , t) ,
-                        s <= t ↦ alpha2 (t , s))
+  → ({ (t , s) : Δ¹×Δ¹ } → A [((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ g t ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ])
+  := \ (d , (alpha1 , alpha2)) (t , s) → recOR (t ≤ s ↦ alpha1 (s , t) ,
+                        s ≤ t ↦ alpha2 (t , s))
 #def Eq-square-hom2-pushout
   (A : U)
   (w x y z : A)
@@ -253,10 +253,10 @@ equivalences.
   (f : hom A x z)
   (g : hom A w y)
   (v : hom A y z)
-  : Equiv ({ (t , s) : Δ¹×Δ¹ } → A [((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ g t ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ f t ])
+  : Equiv ({ (t , s) : Δ¹×Δ¹ } → A [((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ g t ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ])
     (Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
   := (square-to-hom2-pushout A w x y z u f g v ,
     ((hom2-pushout-to-square A w x y z u f g v , \ sq → refl) ,
@@ -267,16 +267,16 @@ equivalences.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } → A [((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ a ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+  : Equiv (Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } → A [((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
     (Σ (v : hom A a y) , (Σ (d : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
   := total-equiv-family-equiv (hom A a y)
-    (\ v → ({ (t , s) : Δ¹×Δ¹ } → A [((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ a ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+    (\ v → ({ (t , s) : Δ¹×Δ¹ } → A [((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
     (\ v → (Σ (d : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
     (\ v → Eq-square-hom2-pushout A a x a y u f (id-arr A a) v)
 
@@ -289,10 +289,10 @@ equivalences.
     (Σ (d : hom A a y) , (Σ (v : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
   := triple-comp-equiv
     (dhom-from-representable A a x y f u)
-    (Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } → A [((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ a ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+    (Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } → A [((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
     (Σ (v : hom A a y) , (Σ (d : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
     (Σ (d : hom A a y) , (Σ (v : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
     (uncurried-dhom-from-representable A a x y f u)
@@ -440,23 +440,23 @@ types as follows.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
     ( { (t , s) : ∂□ } → A
-      [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t ])
-    ( { (t , s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} → A
-      [ ((t === 1_2) /\ (s === 0_2)) ↦ a ,
-        ((t === 1_2) /\ (s === 1_2)) ↦ y ])
+      [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ])
+    ( { (t , s) : 2 * 2 | ((t ≡ 1_2) ∧ (Δ¹ s))} → A
+      [ ((t ≡ 1_2) ∧ (s ≡ 0_2)) ↦ a ,
+        ((t ≡ 1_2) ∧ (s ≡ 1_2)) ↦ y ])
   :=
     cofibration-union (2 * 2)
-    ( \ (t , s) → (t === 1_2) /\ Δ¹ s)
+    ( \ (t , s) → (t ≡ 1_2) ∧ Δ¹ s)
     ( \ (t , s) →
-      ((t === 0_2) /\ Δ¹ s) \/ (Δ¹ t /\ (s === 0_2)) \/ (Δ¹ t /\ (s === 1_2)))
+      ((t ≡ 0_2) ∧ Δ¹ s) ∨ (Δ¹ t ∧ (s ≡ 0_2)) ∨ (Δ¹ t ∧ (s ≡ 1_2)))
     ( \ (t , s) → A)
     ( \ (t , s) →
       recOR
-        ( ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-          (Δ¹ t /\ (s === 0_2)) ↦ a ,
-          (Δ¹ t /\ (s === 1_2)) ↦ f t))
+        ( ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+          (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+          (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t))
 
 #def base-hom-rewriting
   (A : U)            -- The ambient type.
@@ -464,9 +464,9 @@ types as follows.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
-    ({ (t , s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} → A
-      [ ((t === 1_2) /\ (s === 0_2)) ↦ a ,
-        ((t === 1_2) /\ (s === 1_2)) ↦ y ])
+    ({ (t , s) : 2 * 2 | ((t ≡ 1_2) ∧ (Δ¹ s))} → A
+      [ ((t ≡ 1_2) ∧ (s ≡ 0_2)) ↦ a ,
+        ((t ≡ 1_2) ∧ (s ≡ 1_2)) ↦ y ])
     (hom A a y)
   :=
     ( \ v → (\ r → v ((1_2 , r))) ,
@@ -482,19 +482,19 @@ types as follows.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
     ( { (t , s) : ∂□ } → A
-      [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t])
+      [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t])
     (hom A a y)
   :=
     comp-equiv
     ( { (t , s) : ∂□ } → A
-        [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-          (Δ¹ t /\ (s === 0_2)) ↦ a ,
-          (Δ¹ t /\ (s === 1_2)) ↦ f t ] )
-    ( { (t , s) : 2 * 2 | ((t === 1_2) /\ (Δ¹ s))} → A
-      [ ((t === 1_2) /\ (s === 0_2)) ↦ a ,
-        ((t === 1_2) /\ (s === 1_2)) ↦ y ])
+        [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+          (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+          (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ] )
+    ( { (t , s) : 2 * 2 | ((t ≡ 1_2) ∧ (Δ¹ s))} → A
+      [ ((t ≡ 1_2) ∧ (s ≡ 0_2)) ↦ a ,
+        ((t ≡ 1_2) ∧ (s ≡ 1_2)) ↦ y ])
     ( hom A a y)
     ( cofibration-union-test A a x y f u)
     ( base-hom-rewriting A a x y f u)
@@ -506,35 +506,35 @@ types as follows.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
     (Σ (sq : { (t , s) : ∂□ } → A
-        [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-          (Δ¹ t /\ (s === 0_2)) ↦ a ,
-          (Δ¹ t /\ (s === 1_2)) ↦ f t ]) ,
+        [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+          (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+          (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]) ,
         ({ (t , s) : Δ¹×Δ¹ } → A
-          [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            ((t === 1_2) /\ Δ¹ s) ↦ (sq (1_2 , s)) ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+          [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            ((t ≡ 1_2) ∧ Δ¹ s) ↦ (sq (1_2 , s)) ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
     (Σ (v : hom A a y) ,
       ({ (t , s) : Δ¹×Δ¹ } → A
-          [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+          [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
   :=
     total-equiv-pullback-is-equiv
     (  { (t , s) : ∂□ } → A
-      [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t ] )
+      [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ] )
             (hom A a y)
             (first (base-hom-expansion A a x y f u))
             (second (base-hom-expansion A a x y f u))
     ( \ v →
       ( { (t , s) : Δ¹×Δ¹ } → A
-          [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+          [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
 
 #def representable-dhom-from-composite-expansion
   (A : U)            -- The ambient type.
@@ -543,31 +543,31 @@ types as follows.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv (dhom-from-representable A a x y f u)
       (Σ (sq : { (t , s) : ∂□ } → A
-            [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-              (Δ¹ t /\ (s === 0_2)) ↦ a ,
-              (Δ¹ t /\ (s === 1_2)) ↦ f t ]) ,
+            [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+              (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+              (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]) ,
         ( { (t , s) : Δ¹×Δ¹ } → A
-            [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-              ((t === 1_2) /\ Δ¹ s) ↦ (sq (1_2 , s)) ,
-              (Δ¹ t /\ (s === 0_2)) ↦ a ,
-              (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+            [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+              ((t ≡ 1_2) ∧ Δ¹ s) ↦ (sq (1_2 , s)) ,
+              (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+              (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
   :=
     right-cancel-equiv
     ( dhom-from-representable A a x y f u)
     ( Σ (sq : { (t , s) : ∂□ } → A
-            [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-              (Δ¹ t /\ (s === 0_2)) ↦ a ,
-              (Δ¹ t /\ (s === 1_2)) ↦ f t ]) ,
+            [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+              (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+              (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]) ,
         ( { (t , s) : Δ¹×Δ¹ } → A
-            [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-              ((t === 1_2) /\ Δ¹ s) ↦ (sq (1_2 , s)) ,
-              (Δ¹ t /\ (s === 0_2)) ↦ a ,
-              (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+            [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+              ((t ≡ 1_2) ∧ Δ¹ s) ↦ (sq (1_2 , s)) ,
+              (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+              (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
     ( Σ (v : hom A a y) , ({ (t , s) : Δ¹×Δ¹ } → A
-        [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-          ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-          (Δ¹ t /\ (s === 0_2)) ↦ a ,
-          (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+        [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+          ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+          (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+          (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
     ( uncurried-dhom-from-representable A a x y f u)
     ( representable-dhom-from-expansion A a x y f u)
 
@@ -578,27 +578,27 @@ types as follows.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv
     ({ (t , s) : Δ¹×Δ¹ } → A
-        [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-          (Δ¹ t /\ (s === 0_2)) ↦ a ,
-          (Δ¹ t /\ (s === 1_2)) ↦ f t] )
+        [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+          (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+          (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t] )
     (Σ (sq : { (t , s) : ∂□ } → A
-        [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t ]) ,
+        [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]) ,
         ({ (t , s) : Δ¹×Δ¹ } → A
-          [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            ((t === 1_2) /\ Δ¹ s) ↦ (sq (1_2 , s)) ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+          [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            ((t ≡ 1_2) ∧ Δ¹ s) ↦ (sq (1_2 , s)) ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
   :=
     cofibration-composition (2 * 2) Δ¹×Δ¹ ∂□
     ( \ (t , s) →
-      ((t === 0_2) /\ Δ¹ s) \/ (Δ¹ t /\ (s === 0_2)) \/ (Δ¹ t /\ (s === 1_2)))
+      ((t ≡ 0_2) ∧ Δ¹ s) ∨ (Δ¹ t ∧ (s ≡ 0_2)) ∨ (Δ¹ t ∧ (s ≡ 1_2)))
     ( \ ts → A)
     ( \ (t , s) →
-      recOR ( ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-              (Δ¹ t /\ (s === 0_2)) ↦ a ,
-              (Δ¹ t /\ (s === 1_2)) ↦ f t))
+      recOR ( ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+              (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+              (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t))
 
 #def representable-dhom-from-as-extension-type
   (A : U)            -- The ambient type.
@@ -608,25 +608,25 @@ types as follows.
   : Equiv
       (dhom-from-representable A a x y f u)
       ({ (t , s) : Δ¹×Δ¹ } → A
-              [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                (Δ¹ t /\ (s === 0_2)) ↦ a ,
-                (Δ¹ t /\ (s === 1_2)) ↦ f t] )
+              [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+                (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t] )
   :=
     right-cancel-equiv
     ( dhom-from-representable A a x y f u)
     ( { (t , s) : Δ¹×Δ¹ } → A
-        [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-          (Δ¹ t /\ (s === 0_2)) ↦ a ,
-          (Δ¹ t /\ (s === 1_2)) ↦ f t] )
+        [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+          (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+          (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t] )
     ( Σ (sq : { (t , s) : ∂□ } → A
-            [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ a ,
-            (Δ¹ t /\ (s === 1_2)) ↦ f t ]) ,
+            [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]) ,
         ({ (t , s) : Δ¹×Δ¹ } → A
-            [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-              ((t === 1_2) /\ Δ¹ s) ↦ (sq (1_2 , s)) ,
-              (Δ¹ t /\ (s === 0_2)) ↦ a ,
-              (Δ¹ t /\ (s === 1_2)) ↦ f t ]))
+            [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+              ((t ≡ 1_2) ∧ Δ¹ s) ↦ (sq (1_2 , s)) ,
+              (Δ¹ t ∧ (s ≡ 0_2)) ↦ a ,
+              (Δ¹ t ∧ (s ≡ 1_2)) ↦ f t ]))
     ( representable-dhom-from-composite-expansion A a x y f u)
     ( representable-dhom-from-cofibration-composition A a x y f u)
 ```
@@ -782,7 +782,7 @@ the 1-simplex.
   (C : A → U)
   : U
   := (x : A) → (y : A) → (f : hom A x y) → (v : C y)
-    → is-contr ((t : Δ¹) → C (f t) [ t === 1_2 ↦ v ])
+    → is-contr ((t : Δ¹) → C (f t) [ t ≡ 1_2 ↦ v ])
 ```
 
 These two notions of covariance are equivalent because the two types of lifts of
@@ -798,7 +798,7 @@ here.
   (f : hom A x y)
   (v : C y)
   : Equiv
-      ((t : Δ¹) → C (f t) [ t === 1_2 ↦ v ])
+      ((t : Δ¹) → C (f t) [ t ≡ 1_2 ↦ v ])
       (dhom-to A x y f C v)
   :=
     ( \ h → (h 0_2 , \ t → h t) ,
@@ -819,13 +819,13 @@ logical equivalence
   :=
     ( \ C-has-unique-lifts x y f v →
       is-contr-is-equiv-from-contr
-        ( (t : Δ¹) → C (f t) [ t === 1_2 ↦ v ])
+        ( (t : Δ¹) → C (f t) [ t ≡ 1_2 ↦ v ])
         ( dhom-to A x y f C v)
         ( equiv-lifts-with-fixed-codomain A C x y f v)
         ( C-has-unique-lifts x y f v),
       \ is-contravariant-C x y f v →
       is-contr-is-equiv-to-contr
-        ( (t : Δ¹) → C (f t) [ t === 1_2 ↦ v ])
+        ( (t : Δ¹) → C (f t) [ t ≡ 1_2 ↦ v ])
         ( dhom-to A x y f C v)
         ( equiv-lifts-with-fixed-codomain A C x y f v)
         ( is-contravariant-C x y f v))
@@ -856,15 +856,15 @@ a rather lengthy composition of equivalences.
   (u : hom A x a)        -- A lift of the domain.
   (v : hom A y a)        -- A lift of the codomain.
   : Equiv (dhom-contra-representable A a x y f u v)
-  ({ (t , s) : Δ¹×Δ¹ } → A [((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ f t ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ a ])
+  ({ (t , s) : Δ¹×Δ¹ } → A [((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ f t ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ a ])
   := curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s → A)
-    (\ (t , s) → recOR (((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ f t ,
-            (Δ¹ t /\ (s === 1_2)) ↦ a ))
+    (\ (t , s) → recOR (((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ f t ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ a ))
 
 #def dhom-to-representable
   (A : U)            -- The ambient type.
@@ -883,20 +883,20 @@ a rather lengthy composition of equivalences.
   : Equiv (dhom-to-representable A a x y f v)
     (Σ (u : hom A x a) ,
         ({ (t , s) : Δ¹×Δ¹ } → A
-                    [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ f t ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ a ]))
+                    [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ f t ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ a ]))
   :=
     total-equiv-family-equiv
     ( hom A x a)
     ( \ u → dhom-contra-representable A a x y f u v)
     ( \ u →
       ({ (t , s) : Δ¹×Δ¹ } → A
-          [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-            ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-            (Δ¹ t /\ (s === 0_2)) ↦ f t ,
-            (Δ¹ t /\ (s === 1_2)) ↦ a ]))
+          [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+            ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+            (Δ¹ t ∧ (s ≡ 0_2)) ↦ f t ,
+            (Δ¹ t ∧ (s ≡ 1_2)) ↦ a ]))
     ( \ u → uncurried-dhom-contra-representable A a x y f u v)
 
 #def representable-dhom-to-uncurry-hom2
@@ -906,10 +906,10 @@ a rather lengthy composition of equivalences.
   (v : hom A y a)    -- A lift of the codomain.
   : Equiv
     (Σ (u : hom A x a) , ({ (t , s) : Δ¹×Δ¹ } → A
-                    [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ f t ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ a ]))
+                    [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ f t ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ a ]))
     (Σ (u : hom A x a) ,
       (Σ (d : hom A x a) ,
         product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
@@ -917,10 +917,10 @@ a rather lengthy composition of equivalences.
     total-equiv-family-equiv (hom A x a)
     ( \ u →
       ({ (t , s) : Δ¹×Δ¹ } → A
-                    [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-                      ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-                      (Δ¹ t /\ (s === 0_2)) ↦ f t ,
-                      (Δ¹ t /\ (s === 1_2)) ↦ a ]))
+                    [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+                      ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+                      (Δ¹ t ∧ (s ≡ 0_2)) ↦ f t ,
+                      (Δ¹ t ∧ (s ≡ 1_2)) ↦ a ]))
     ( \ u →
       (Σ (d : hom A x a) ,
           product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
@@ -941,10 +941,10 @@ a rather lengthy composition of equivalences.
     ( dhom-to-representable A a x y f v)
     ( Σ (u : hom A x a) ,
         ({ (t , s) : Δ¹×Δ¹ } → A
-            [ ((t === 0_2) /\ Δ¹ s) ↦ u s ,
-              ((t === 1_2) /\ Δ¹ s) ↦ v s ,
-              (Δ¹ t /\ (s === 0_2)) ↦ f t ,
-              (Δ¹ t /\ (s === 1_2)) ↦ a ]))
+            [ ((t ≡ 0_2) ∧ Δ¹ s) ↦ u s ,
+              ((t ≡ 1_2) ∧ Δ¹ s) ↦ v s ,
+              (Δ¹ t ∧ (s ≡ 0_2)) ↦ f t ,
+              (Δ¹ t ∧ (s ≡ 1_2)) ↦ a ]))
     ( Σ (u : hom A x a ) ,
       (Σ (d : hom A x a) ,
         product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
