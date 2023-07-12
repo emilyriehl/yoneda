@@ -30,15 +30,15 @@ targets.
 -- Action of maps on homs. Called "ap-hom" to avoid conflicting with "ap".
 #def ap-hom
   (A B : U)
-  (F : A -> B)
+  (F : A → B)
   (x y : A)
   (f : hom A x y)
   : hom B (F x) (F y)
-  := \ t -> F (f t)
+  := \ t → F (f t)
 
 #def ap-hom2
   (A B : U)
-  (F : A -> B)
+  (F : A → B)
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
@@ -46,7 +46,7 @@ targets.
   (alpha : hom2 A x y z f g h)
   : hom2 B (F x) (F y) (F z)
     ( ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z h)
-  := \ t -> F (alpha t)
+  := \ t → F (alpha t)
 ```
 
 Functions between types automatically preserve identity arrows.
@@ -55,7 +55,7 @@ Functions between types automatically preserve identity arrows.
 -- Preservation of identities follows from extension extensionality because these arrows are pointwise equal.
 #def functors-pres-id uses (extext)
   (A B : U)
-  (F : A -> B)
+  (F : A → B)
   (x : A)
   : (ap-hom A B F x x (id-arr A x)) = (id-arr B (F x))
   := eq-ext-htpy
@@ -63,13 +63,13 @@ Functions between types automatically preserve identity arrows.
       2
       Δ¹
       ∂Δ¹
-      (\ t -> B)
-      (\ t -> recOR
-      ( t === 0_2 |-> F x ,
-        t === 1_2 |-> F x))
+      (\ t → B)
+      (\ t → recOR
+      ( t ≡ 0₂ ↦ F x ,
+        t ≡ 1₂ ↦ F x))
       (ap-hom A B F x x (id-arr A x))
       (id-arr B (F x))
-      (\ t -> refl)
+      (\ t → refl)
 ```
 
 ```rzk title="RS17, Proposition 6.1.b"
@@ -78,7 +78,7 @@ Functions between types automatically preserve identity arrows.
   (A B : U)
   (is-segal-A : is-segal A)
   (is-segal-B : is-segal B)
-  (F : A -> B)
+  (F : A → B)
   (x y z : A)
   (f : hom A x y)
   (g : hom A y z)
@@ -104,16 +104,16 @@ Functions between types automatically preserve identity arrows.
 
 This corresponds to Section 6.2 in [RS17].
 
-Given two simplicial maps `f g : (x : A) -> B x` , a **natural transformation**
-from `f` to `g` is an arrow `η : hom ((x : A) -> B x) f g` between them.
+Given two simplicial maps `f g : (x : A) → B x` , a **natural transformation**
+from `f` to `g` is an arrow `η : hom ((x : A) → B x) f g` between them.
 
 ```rzk
 #def nat-trans
   (A : U)
-  (B : A -> U)
-  (f g : (x : A) -> (B x))
+  (B : A → U)
+  (f g : (x : A) → (B x))
   : U
-  := hom ((x : A) -> (B x)) f g
+  := hom ((x : A) → (B x)) f g
 ```
 
 Equivalently , natural transformations can be determined by their **components**
@@ -122,28 +122,28 @@ Equivalently , natural transformations can be determined by their **components**
 ```rzk
 #def nat-trans-components
   (A : U)
-  (B : A -> U)
-  (f g : (x : A) -> (B x))
+  (B : A → U)
+  (f g : (x : A) → (B x))
   : U
-  := (x : A) -> hom (B x) (f x) (g x)
+  := (x : A) → hom (B x) (f x) (g x)
 ```
 
 ```rzk
 #def ev-components-nat-trans
   (A : U)
-  (B : A -> U)
-  (f g : (x : A) -> (B x))
+  (B : A → U)
+  (f g : (x : A) → (B x))
   (η : nat-trans A B f g)
   : nat-trans-components A B f g
-  := \ x t -> η t x
+  := \ x t → η t x
 
 #def nat-trans-nat-trans-components
   (A : U)
-  (B : A -> U)
-  (f g : (x : A) -> (B x))
+  (B : A → U)
+  (f g : (x : A) → (B x))
   (η : nat-trans-components A B f g)
   : nat-trans A B f g
-  := \ t x -> η x t
+  := \ t x → η x t
 ```
 
 ### Natural transformation extensionality
@@ -151,20 +151,20 @@ Equivalently , natural transformations can be determined by their **components**
 ```rzk title="RS17, Proposition 6.3"
 #def is-equiv-ev-components-nat-trans
   (A : U)
-  (B : A -> U)
-  (f g : (x : A) -> (B x))
+  (B : A → U)
+  (f g : (x : A) → (B x))
   : is-equiv
       ( nat-trans A B f g)
       ( nat-trans-components A B f g)
       ( ev-components-nat-trans A B f g)
   :=
-    ( ( \ η t x -> η x t , \ _ -> refl) ,
-      ( \ η t x -> η x t , \ _ -> refl))
+    ( ( \ η t x → η x t , \ _ → refl) ,
+      ( \ η t x → η x t , \ _ → refl))
 
 #def equiv-components-nat-trans
   (A : U)
-  (B : A -> U)
-  (f g : (x : A) -> (B x))
+  (B : A → U)
+  (f g : (x : A) → (B x))
   : Equiv (nat-trans A B f g) (nat-trans-components A B f g)
   :=
     ( ev-components-nat-trans A B f g ,
@@ -180,21 +180,21 @@ Segal.
 ```rzk
 #def horizontal-comp-nat-trans
   (A B C : U)
-  (f g : A -> B)
-  (f' g' : B -> C)
-  (η : nat-trans A (\ _ -> B) f g)
-  (η' : nat-trans B (\ _ -> C) f' g')
-  : nat-trans A (\ _ -> C) (\ x -> f' (f x)) (\ x -> g' (g x))
-  := \ t x -> η' t (η t x)
+  (f g : A → B)
+  (f' g' : B → C)
+  (η : nat-trans A (\ _ → B) f g)
+  (η' : nat-trans B (\ _ → C) f' g')
+  : nat-trans A (\ _ → C) (\ x → f' (f x)) (\ x → g' (g x))
+  := \ t x → η' t (η t x)
 
 #def horizontal-comp-nat-trans-components
   (A B C : U)
-  (f g : A -> B)
-  (f' g' : B -> C)
-  (η : nat-trans-components A (\ _ -> B) f g)
-  (η' : nat-trans-components B (\ _ -> C) f' g')
-  : nat-trans-components A (\ _ -> C) (\ x -> f' (f x)) (\ x -> g' (g x))
-  := \ x t -> η' (η x t) t
+  (f g : A → B)
+  (f' g' : B → C)
+  (η : nat-trans-components A (\ _ → B) f g)
+  (η' : nat-trans-components B (\ _ → C) f' g')
+  : nat-trans-components A (\ _ → C) (\ x → f' (f x)) (\ x → g' (g x))
+  := \ x t → η' (η x t) t
 ```
 
 ### Vertical composition
@@ -205,27 +205,27 @@ Segal types.
 ```rzk
 #def vertical-comp-nat-trans-components
   (A : U)
-  (B : A -> U)
-  (is-segal-B : (x : A) -> is-segal (B x))
-  (f g h : (x : A) -> (B x))
+  (B : A → U)
+  (is-segal-B : (x : A) → is-segal (B x))
+  (f g h : (x : A) → (B x))
   (η : nat-trans-components A B f g)
   (η' : nat-trans-components A B g h)
   : nat-trans-components A B f h
-  := \ x -> Segal-comp (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
+  := \ x → Segal-comp (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
 
 #def vertical-comp-nat-trans
   (A : U)
-  (B : A -> U)
-  (is-segal-B : (x : A) -> is-segal (B x))
-  (f g h : (x : A) -> (B x))
+  (B : A → U)
+  (is-segal-B : (x : A) → is-segal (B x))
+  (f g h : (x : A) → (B x))
   (η : nat-trans A B f g)
   (η' : nat-trans A B g h)
   : nat-trans A B f h
   :=
-    \ t x ->
+    \ t x →
     vertical-comp-nat-trans-components A B is-segal-B f g h
-      ( \ x' t' -> η t' x')
-      ( \ x' t' -> η' t' x')
+      ( \ x' t' → η t' x')
+      ( \ x' t' → η' t' x')
       ( x)
       ( t)
 ```
@@ -235,9 +235,9 @@ The identity natural transformation is identity arrows on components
 ```rzk title="RS17, Proposition 6.5(ii)"
 #def id-arr-components-id-nat-trans
   (A : U)
-  (B : A -> U)
-  (f : (x : A) -> (B x))
+  (B : A → U)
+  (f : (x : A) → (B x))
   (a : A)
-  : (\ t -> id-arr ((x : A) -> B x) f t a) =_{Δ¹ -> B a} id-arr (B a) (f a)
+  : (\ t → id-arr ((x : A) → B x) f t a) =_{Δ¹ → B a} id-arr (B a) (f a)
   := refl
 ```

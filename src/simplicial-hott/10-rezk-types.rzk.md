@@ -77,17 +77,17 @@ Some of the definitions in this file rely on extension extensionality:
     (is-segal-A : is-segal A)
     (x y : A)
     (f : hom A x y)
-    : (arrow-has-inverse A is-segal-A x y f) -> (arrow-is-iso A is-segal-A x y f)
-    := (\ (g , (p , q)) -> ((g , p) , (g , q)))
+    : (arrow-has-inverse A is-segal-A x y f) → (arrow-is-iso A is-segal-A x y f)
+    := (\ (g , (p , q)) → ((g , p) , (g , q)))
 
 #def arrow-iso-to-inverse uses (extext)
     (A : U)
     (is-segal-A : is-segal A)
     (x y : A)
     (f : hom A x y)
-    : (arrow-is-iso A is-segal-A x y f) -> (arrow-has-inverse A is-segal-A x y f)
+    : (arrow-is-iso A is-segal-A x y f) → (arrow-has-inverse A is-segal-A x y f)
     := (\ ((g , p) , (h , q))
-        -> (g , (p ,
+        → (g , (p ,
             (concat
             (hom A y y)
             (Segal-comp A is-segal-A y x y g f)
@@ -139,13 +139,13 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
   (g : hom A y x)
   (gg : arrow-has-retraction A is-segal-A x y f g)
-  : (z : A) -> has-retraction (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
+  : (z : A) → has-retraction (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
   :=
-    \ z ->
+    \ z →
     ( (Segal-postcomp A is-segal-A y x g z) ,
-        \ k ->
+        \ k →
       (triple-concat
-        (hom A z x) -- k is an arrow z -> x
+        (hom A z x) -- k is an arrow z → x
         (Segal-comp A is-segal-A z y x (Segal-comp A is-segal-A z x y k f) g) -- g(fk)
         (Segal-comp A is-segal-A z x x k (Segal-comp A is-segal-A x y x f g)) -- (gf)k
         (Segal-comp A is-segal-A z x x k (id-arr A x)) -- id_x k
@@ -163,11 +163,11 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
-  : (z : A) -> has-section (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
+  : (z : A) → has-section (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
   :=
-    \ z ->
+    \ z →
     ( (Segal-postcomp A is-segal-A y x h z) ,
-        \ k ->
+        \ k →
       (triple-concat
         (hom A z y) -- k is an arrow z to y
         (Segal-comp A is-segal-A z x y (Segal-comp A is-segal-A z y x k h) f) -- f(hk)
@@ -189,9 +189,9 @@ Some of the definitions in this file rely on extension extensionality:
   (gg : arrow-has-retraction A is-segal-A x y f g)
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
-  : (z : A) -> is-equiv (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
+  : (z : A) → is-equiv (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
   :=
-    \ z ->
+    \ z →
     ( (if-iso-then-postcomp-has-retraction A is-segal-A x y f g gg z) ,
       (if-iso-then-postcomp-has-section A is-segal-A x y f h hh z))
 
@@ -202,13 +202,13 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
-  : (z : A) -> has-retraction (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
+  : (z : A) → has-retraction (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
   :=
-    \ z ->
+    \ z →
     ( (Segal-precomp A is-segal-A y x h z) ,
-        \ k ->
+        \ k →
       (triple-concat
-        (hom A y z) -- k is an arrow y -> z
+        (hom A y z) -- k is an arrow y → z
         (Segal-comp A is-segal-A y x z h (Segal-comp A is-segal-A x y z f k)) -- (kf)h
         (Segal-comp A is-segal-A y y z (Segal-comp A is-segal-A y x y h f) k) -- k(fh)
         (Segal-comp A is-segal-A y y z (id-arr A y) k) -- k id_y
@@ -231,13 +231,13 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
   (g : hom A y x)
   (gg : arrow-has-retraction A is-segal-A x y f g)
-  : (z : A) -> has-section (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
+  : (z : A) → has-section (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
   :=
-    \ z ->
+    \ z →
     ( (Segal-precomp A is-segal-A y x g z) ,
-        \ k ->
+        \ k →
       (triple-concat
-        (hom A x z) -- k is an arrow x -> z
+        (hom A x z) -- k is an arrow x → z
         (Segal-comp A is-segal-A x y z f (Segal-comp A is-segal-A y x z g k)) -- (kg)f
         (Segal-comp A is-segal-A x x z (Segal-comp A is-segal-A x y x f g) k) -- k(gf)
         (Segal-comp A is-segal-A x x z (id-arr A x) k) -- k id_x
@@ -261,9 +261,9 @@ Some of the definitions in this file rely on extension extensionality:
   (gg : arrow-has-retraction A is-segal-A x y f g)
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
-  : (z : A) -> is-equiv (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
+  : (z : A) → is-equiv (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
   :=
-    \ z ->
+    \ z →
     ( (if-iso-then-precomp-has-retraction A is-segal-A x y f h hh z) ,
     (if-iso-then-precomp-has-section A is-segal-A x y f g gg z))
 
@@ -317,16 +317,16 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
    : (is-prop (arrow-is-iso A is-segal-A x y f))
   := (is-prop-is-contr-is-inhabited (arrow-is-iso A is-segal-A x y f)
-      (\ is-isof -> (iso-inhabited-implies-iso-contr A is-segal-A x y f (first (first is-isof)) (second (first is-isof))
+      (\ is-isof → (iso-inhabited-implies-iso-contr A is-segal-A x y f (first (first is-isof)) (second (first is-isof))
         (first (second is-isof)) (second (second is-isof))))
     )
 
 #def id-iso
   (A : U)
   (is-segal-A : is-segal A)
-  : (x : A) -> Iso A is-segal-A x x
+  : (x : A) → Iso A is-segal-A x x
   :=
-    \ x ->
+    \ x →
     (
     (id-arr A x) ,
     (
@@ -345,13 +345,13 @@ Some of the definitions in this file rely on extension extensionality:
   (A : U)
   (is-segal-A : is-segal A)
   (x y : A)
-  : (x = y) -> Iso A is-segal-A x y
-  := \ p -> idJ (A , x , \ y' p' -> Iso A is-segal-A x y' , (id-iso A is-segal-A x) , y , p)
+  : (x = y) → Iso A is-segal-A x y
+  := \ p → idJ (A , x , \ y' p' → Iso A is-segal-A x y' , (id-iso A is-segal-A x) , y , p)
 
 #def is-rezk
   (A : U)
   : U
-  := Σ (is-segal-A : is-segal A) , (x : A) -> (y : A) -> is-equiv (x = y) (Iso A is-segal-A x y) (idtoiso A is-segal-A x y)
+  := Σ (is-segal-A : is-segal A) , (x : A) → (y : A) → is-equiv (x = y) (Iso A is-segal-A x y) (idtoiso A is-segal-A x y)
 #end isomorphisms
 ```
 

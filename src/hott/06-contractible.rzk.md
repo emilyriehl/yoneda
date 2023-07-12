@@ -11,7 +11,7 @@ This is a literate `rzk` file:
 ```rzk
 -- contractible types
 #def is-contr (A : U) : U
-  := Σ (x : A) , ((y : A) -> x = y)
+  := Σ (x : A) , ((y : A) → x = y)
 ```
 
 ## Contractible type data
@@ -28,13 +28,13 @@ This is a literate `rzk` file:
 
 -- The path from the contraction center to any point.
 #def contracting-htpy
-  : ( z : A) -> contraction-center = z
+  : ( z : A) → contraction-center = z
   := second is-contr-A
 
 #def contracting-htpy-realigned uses (is-contr-A)
-  : ( z : A) -> contraction-center = z
+  : ( z : A) → contraction-center = z
   :=
-    \ z ->
+    \ z →
       ( concat A contraction-center contraction-center z
           (rev A contraction-center contraction-center
             ( contracting-htpy contraction-center))
@@ -63,7 +63,7 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
 
 ```rzk
 #def ind-unit
-  ( C : Unit -> U)
+  ( C : Unit → U)
   ( C-unit : C unit)
   ( x : Unit)
   : C x
@@ -77,7 +77,7 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
 -- Terminal projection as a constant map
 #def terminal-map
   ( A : U)
-  : A -> Unit
+  : A → Unit
   := constant A Unit unit
 ```
 
@@ -88,13 +88,13 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
   ( x y : Unit)
   : has-retraction (x = y) Unit (terminal-map (x = y))
   :=
-    ( \ a -> refl ,
-      \ p -> idJ (Unit , x , \ y' p' -> refl =_{x = y'} p' , refl , y , p))
+    ( \ a → refl ,
+      \ p → idJ (Unit , x , \ y' p' → refl =_{x = y'} p' , refl , y , p))
 
 #def terminal-map-of-path-types-of-Unit-has-sec
   ( x y : Unit)
   : has-section (x = y) Unit (terminal-map (x = y))
-  := ( \ a -> refl , \ a -> refl)
+  := ( \ a → refl , \ a → refl)
 
 #def terminal-map-of-path-types-of-Unit-is-equiv
   ( x y : Unit)
@@ -120,13 +120,13 @@ A type is contractible if and only if its terminal map is an equivalence.
   : has-retraction A Unit (terminal-map A)
   :=
     ( constant Unit A (contraction-center A is-contr-A) ,
-      \ y -> (contracting-htpy A is-contr-A) y)
+      \ y → (contracting-htpy A is-contr-A) y)
 
 #def contr-implies-terminal-map-is-equiv-sec
   ( A : U)
   ( is-contr-A : is-contr A)
   : has-section A Unit (terminal-map A)
-  := ( constant Unit A (contraction-center A is-contr-A) , \ z -> refl)
+  := ( constant Unit A (contraction-center A is-contr-A) , \ z → refl)
 
 #def contr-implies-terminal-map-is-equiv
   ( A : U)
@@ -176,10 +176,10 @@ A type is contractible if and only if its terminal map is an equivalence.
   ( f : Equiv A B)
   : ( iff (is-contr A) (is-contr B))
   :=
-    ( \ is-contr-A ->
+    ( \ is-contr-A →
       ( equiv-with-contractible-domain-implies-contractible-codomain
         A B f is-contr-A) ,
-      \ is-contr-B ->
+      \ is-contr-B →
       ( equiv-with-contractible-codomain-implies-contractible-domain
         A B f is-contr-B))
 
@@ -201,7 +201,7 @@ A retract of contractible types is contractible.
 #def is-retract-of
   ( A B : U)
   : U
-  := Σ ( s : A -> B) , has-retraction A B s
+  := Σ ( s : A → B) , has-retraction A B s
 
 #section retraction-data
 
@@ -209,11 +209,11 @@ A retract of contractible types is contractible.
 #variable AretractB : is-retract-of A B
 
 #def is-retract-of-section
-  : A -> B
+  : A → B
   := first AretractB
 
 #def is-retract-of-retraction
-  : B -> A
+  : B → A
   := first (second AretractB)
 
 #def is-retract-of-homotopy
@@ -261,13 +261,13 @@ A function between contractible types is an equivalence
   ( A B : U)
   ( is-contr-A : is-contr A)
   ( is-contr-B : is-contr B)
-  ( f : A -> B)
+  ( f : A → B)
   : is-equiv A B f
   :=
-    ( ( \ b -> contraction-center A is-contr-A ,
-        \ a -> contracting-htpy A is-contr-A a) ,
-      ( \ b -> contraction-center A is-contr-A ,
-        \ b -> contractible-connecting-htpy B is-contr-B
+    ( ( \ b → contraction-center A is-contr-A ,
+        \ a → contracting-htpy A is-contr-A a) ,
+      ( \ b → contraction-center A is-contr-A ,
+        \ b → contractible-connecting-htpy B is-contr-B
                 (f (contraction-center A is-contr-A)) b))
 ```
 
@@ -303,13 +303,13 @@ For example, we prove that based path spaces are contractible.
   ( a x y : A)         -- The basepoint and two other points.
   ( p : a = x)         -- An element of the based path space.
   ( q : x = y)         -- A path in the base.
-  : ( transport A (\ z -> (a = z)) x y q p) = (concat A a x y p q)
+  : ( transport A (\ z → (a = z)) x y q p) = (concat A a x y p q)
   :=
     idJ
     ( A ,
       x ,
-      \ y' q' ->
-        ( transport A (\ z -> (a = z)) x y' q' p) = (concat A a x y' p q') ,
+      \ y' q' →
+        ( transport A (\ z → (a = z)) x y' q' p) = (concat A a x y' p q') ,
       refl ,
       y ,
       q)
@@ -329,10 +329,10 @@ For example, we prove that based path spaces are contractible.
   : (based-paths-center A a) = p
   :=
     path-of-pairs-pair-of-paths
-      A ( \ z -> a = z) a (first p) (second p) (refl) (second p)
+      A ( \ z → a = z) a (first p) (second p) (refl) (second p)
         (concat
           ( a = (first p))
-          ( transport A (\ z -> (a = z)) a (first p) (second p) (refl))
+          ( transport A (\ z → (a = z)) a (first p) (second p) (refl))
           ( concat A a a (first p) (refl) (second p))
           ( second p)
           ( concat-as-based-transport A a a (first p) (refl) (second p))
@@ -356,7 +356,7 @@ For example, we prove that based path spaces are contractible.
   : is-contr (product A B)
   :=
     ( (first is-contr-A , first is-contr-B) ,
-      \ p -> path-product A B
+      \ p → path-product A B
               ( first is-contr-A) (first p)
               ( first is-contr-B) (second p)
               ( second is-contr-A (first p))
@@ -368,20 +368,20 @@ For example, we prove that based path spaces are contractible.
   : is-contr A
   :=
     ( first (first AxB-is-contr) ,
-      \ a -> first-path-product A B
+      \ a → first-path-product A B
               ( first AxB-is-contr)
               ( a , second (first AxB-is-contr))
               ( second AxB-is-contr (a , second (first AxB-is-contr))))
 
 #def is-contr-base-is-contr-Σ
   ( A : U)
-  ( B : A -> U)
-  ( b : (a : A) -> B a)
+  ( B : A → U)
+  ( b : (a : A) → B a)
   ( is-contr-AB : is-contr (Σ (a : A) , B a))
   : is-contr A
   :=
     ( first (first is-contr-AB) ,
-      \ a -> first-path-Σ A B
+      \ a → first-path-Σ A B
               ( first is-contr-AB)
               ( a , b a)
               ( second is-contr-AB (a , b a)))
@@ -395,42 +395,42 @@ A type is contractible if and only if it has singleton induction.
 #def ev-pt
   ( A : U)
   ( a : A)
-  ( B : A -> U)
-  : ((x : A) -> B x) -> B a
-  := \ f -> f a
+  ( B : A → U)
+  : ((x : A) → B x) → B a
+  := \ f → f a
 
 #def has-singleton-induction-pointed
   ( A : U)
   ( a : A)
-  ( B : A -> U)
+  ( B : A → U)
   : U
-  := has-section ((x : A) -> B x) (B a) (ev-pt A a B)
+  := has-section ((x : A) → B x) (B a) (ev-pt A a B)
 
 #def has-singleton-induction-pointed-structure
   ( A : U)
   ( a : A)
   : U
-  := ( B : A -> U) -> has-section ((x : A) -> B x) (B a) (ev-pt A a B)
+  := ( B : A → U) → has-section ((x : A) → B x) (B a) (ev-pt A a B)
 
 #def has-singleton-induction
   ( A : U)
   : U
-  := Σ ( a : A) , (B : A -> U) -> (has-singleton-induction-pointed A a B)
+  := Σ ( a : A) , (B : A → U) → (has-singleton-induction-pointed A a B)
 
 #def ind-sing
   ( A : U)
   ( a : A)
-  ( B : A -> U)
+  ( B : A → U)
   (singleton-ind-A : has-singleton-induction-pointed A a B)
-  : (B a) -> ((x : A) -> B x)
+  : (B a) → ((x : A) → B x)
   := ( first singleton-ind-A)
 
 #def comp-sing
   ( A : U)
   ( a : A)
-  ( B : A -> U)
+  ( B : A → U)
   ( singleton-ind-A : has-singleton-induction-pointed A a B)
-  : ( homotopy (B a) (B a) (composition (B a) ((x : A) -> B x) (B a) (ev-pt A a B) (ind-sing A a B singleton-ind-A)) (identity (B a)))
+  : ( homotopy (B a) (B a) (composition (B a) ((x : A) → B x) (B a) (ev-pt A a B) (ind-sing A a B singleton-ind-A)) (identity (B a)))
   := (second singleton-ind-A)
 
 #def contr-implies-singleton-induction-ind
@@ -439,12 +439,12 @@ A type is contractible if and only if it has singleton induction.
   : (has-singleton-induction A)
   :=
     ( ( contraction-center A is-contr-A) ,
-      \ B ->
-        ( ( \ b x ->
+      \ B →
+        ( ( \ b x →
                 ( transport A B
                   ( contraction-center A is-contr-A) x
                   ( contracting-htpy-realigned A is-contr-A x) b)) ,
-          ( \ b ->
+          ( \ b →
                 ( ap
                   ( (contraction-center A is-contr-A) =
                     (contraction-center A is-contr-A))
@@ -452,14 +452,14 @@ A type is contractible if and only if it has singleton induction.
                   ( contracting-htpy-realigned A is-contr-A
                     ( contraction-center A is-contr-A))
                   refl_{(contraction-center A is-contr-A)}
-                  ( \ p ->
+                  ( \ p →
                     ( transport-loop A B (contraction-center A is-contr-A) b p))
                   ( contracting-htpy-realigned-path A is-contr-A)))))
 
 #def contr-implies-singleton-induction-pointed
   ( A : U)
   ( is-contr-A : is-contr A)
-  ( B : A -> U)
+  ( B : A → U)
   : has-singleton-induction-pointed A (contraction-center A is-contr-A) B
   := ( second (contr-implies-singleton-induction-ind A is-contr-A)) B
 
@@ -468,5 +468,5 @@ A type is contractible if and only if it has singleton induction.
   ( a : A)
   ( f : has-singleton-induction-pointed-structure A a)
   : ( is-contr A)
-  := ( a , (first (f ( \ x -> a = x))) (refl_{a}))
+  := ( a , (first (f ( \ x → a = x))) (refl_{a}))
 ```

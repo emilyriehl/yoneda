@@ -15,24 +15,24 @@ This is a literate `rzk` file:
 
 -- The type of homotopies between parallel functions.
 #def homotopy
-  (f g : A -> B)
+  (f g : A → B)
   : U
-  := (a : A) -> (f a = g a)
+  := (a : A) → (f a = g a)
 
 -- The reversal of a homotopy
 #def homotopy-rev
-  (f g : A -> B)
+  (f g : A → B)
   (H : homotopy f g)
   : homotopy g f
-  := \ a -> rev B (f a) (g a) (H a)
+  := \ a → rev B (f a) (g a) (H a)
 
 -- Homotopy composition is defined in diagrammatic order like concat but unlike composition.
 #def homotopy-composition
-  (f g h : A -> B)
+  (f g h : A → B)
   (H : homotopy f g)
   (K : homotopy g h)
   : homotopy f h
-  := \ a -> concat B (f a) (g a) (h a) (H a) (K a)
+  := \ a → concat B (f a) (g a) (h a) (H a) (K a)
 
 #end homotopies
 ```
@@ -45,27 +45,27 @@ This is a literate `rzk` file:
 #variables A B C : U
 
 #def homotopy-postwhisker
-  (f g : A -> B)
+  (f g : A → B)
   (H : homotopy A B f g)
-  (h : B -> C)
+  (h : B → C)
   : homotopy A C (composition A B C h f) (composition A B C h g)
-  := \ a -> ap B C (f a) (g a) h (H a)
+  := \ a → ap B C (f a) (g a) h (H a)
 
 #def homotopy-prewhisker
-  (f g : B -> C)
+  (f g : B → C)
   (H : homotopy B C f g)
-  (h : A -> B)
+  (h : A → B)
   : homotopy A C (composition A B C f h) (composition A B C g h)
-  := \ a -> H (h a)
+  := \ a → H (h a)
 
 #end homotopy-whiskering
 
 #def homotopy-whisker
   (A B C D : U)
-  (h k : B -> C)
+  (h k : B → C)
   (H : homotopy B C h k)
-  (f : A -> B)
-  (g : C -> D)
+  (f : A → B)
+  (g : C → D)
   : homotopy
       A
       D
@@ -88,7 +88,7 @@ This is a literate `rzk` file:
 -- The naturality square associated to a homotopy and a path.
 #def nat-htpy
   (A B : U)
-  (f g : A -> B)
+  (f g : A → B)
   (H : homotopy A B f g)
   (x y : A)
   (p : x = y)
@@ -98,7 +98,7 @@ This is a literate `rzk` file:
     idJ
     ( A ,
       x ,
-      \ y' p' ->
+      \ y' p' →
         (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
         (concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')) ,
       left-unit-concat B (f x) (g x) (H x) ,
@@ -108,7 +108,7 @@ This is a literate `rzk` file:
 -- Naturality in another form
 #def triple-concat-nat-htpy
   (A B : U)
-  (f g : A -> B)
+  (f g : A → B)
   (H : homotopy A B f g)
   (x y : A)
   (p : x = y)
@@ -120,7 +120,7 @@ This is a literate `rzk` file:
     idJ
     ( A ,
       x ,
-      \ y' p' ->
+      \ y' p' →
         triple-concat
           ( B)
           ( g x)
@@ -142,7 +142,7 @@ This is a literate `rzk` file:
 #section cocone-naturality
 
 #variable A : U
-#variable f : A -> A
+#variable f : A → A
 #variable H : homotopy A A f (identity A)
 #variable a : A
 
@@ -206,9 +206,9 @@ This is a literate `rzk` file:
 -- Conjugation between higher homotopies
 #def triple-concat-higher-homotopy
   (A B : U)
-  (f g : A -> B)
+  (f g : A → B)
   (H K : homotopy A B f g)
-  (α : (a : A) -> H a = K a)
+  (α : (a : A) → H a = K a)
   (x y : A)
   (p : f x = f y)
   : triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (H x)) p (H y) =
@@ -217,7 +217,7 @@ This is a literate `rzk` file:
     idJ
     ( f y = g y ,
       H y ,
-      \ Ky α' ->
+      \ Ky α' →
         triple-concat
           ( B) (g x) (f x) (f y) (g y)
           ( rev B (f x) (g x) (H x)) (p) (H y) =
@@ -239,7 +239,7 @@ This is a literate `rzk` file:
           ( g x = f x)
           ( H x)
           ( K x)
-          ( \ G -> rev B (f x) (g x) G) (α x)) ,
+          ( \ G → rev B (f x) (g x) G) (α x)) ,
       K y ,
       α y)
 ```
