@@ -31,7 +31,7 @@ Fix a Segal type $A$ and a term $a : A$. The Yoneda lemma characterizes natural
 transformations from the representable type family `hom A a : A → U` to a
 covariant type family `C : A → U`.
 
-Ordinary, such a natural transformation would involve a family of maps
+Ordinarily, such a natural transformation would involve a family of maps
 
 `ϕ : (z : A) → hom A a z → C z`
 
@@ -172,7 +172,7 @@ in two steps.
 
 ## The Yoneda lemma
 
-The Yoneda lemma says that evaluation at the identity defines an equivalence.
+The Yoneda lemma says that evaluation at the identity defines an equivalence. This is proven combining the previous steps.
 
 ```rzk
 #def Yoneda-lemma uses (funext)
