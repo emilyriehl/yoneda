@@ -900,7 +900,7 @@
 <p>Fix a Segal type <span class="arithmatex">\(A\)</span> and a term <span class="arithmatex">\(a : A\)</span>. The Yoneda lemma characterizes natural
 transformations from the representable type family <code>hom A a : A → U</code> to a
 covariant type family <code>C : A → U</code>.</p>
-<p>Ordinary, such a natural transformation would involve a family of maps</p>
+<p>Ordinarily, such a natural transformation would involve a family of maps</p>
 <p><code>ϕ : (z : A) → hom A a z → C z</code></p>
 <p>together with a proof of naturality of these components, but by
 naturality-covariant-fiberwise-transformation naturality is automatic.</p>
@@ -1023,7 +1023,7 @@ in two steps.</p>
 </span><span id="__span-5-55"><a id="__codelineno-5-55" name="__codelineno-5-55" href="#__codelineno-5-55"></a><span class="nd">#end</span><span class="n"> yon-evid</span>
 </span></code></pre></div>
 <h2 id="the-yoneda-lemma_1">The Yoneda lemma<a class="headerlink" href="#the-yoneda-lemma_1" title="Permanent link">&para;</a></h2>
-<p>The Yoneda lemma says that evaluation at the identity defines an equivalence.</p>
+<p>The Yoneda lemma says that evaluation at the identity defines an equivalence. This is proven combining the previous steps.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Yoneda-lemma</span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
