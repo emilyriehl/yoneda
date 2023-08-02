@@ -194,6 +194,13 @@ This is proven combining the previous steps.
 
 The equivalence of the Yoneda lemma is natural in both $a : A$ and $C : A → U$.
 
+Naturality in $a$ follows from the fact that the maps `evid` and `yon` are
+fiberwise equivalences between covariant families over $A$, though it requires
+some work, which has not yet been formalized, to prove that the domain is
+covariant.
+
+Naturality in $C$ is not automatic but can be proven easily:
+
 ```rzk title="RS17, Lemma 9.2(i)"
 #def is-natural-evid-twice-pointwise
   (A : U)
