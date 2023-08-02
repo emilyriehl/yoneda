@@ -207,10 +207,10 @@ Naturality in $C$ is not automatic but can be proven easily:
   (a : A)
   (C D : A → U)
   (ψ : (z : A) → C z → D z)
-  (φ : (z : A) -> hom A a z -> C z)
+  (φ : (z : A) → hom A a z → C z)
   : (composition ((z : A) → hom A a z → C z) (C a) (D a) (ψ a) (evid A a C)) φ =
     (composition ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z) (D a)
-    (evid A a D) ( \ α z g -> ψ z (α z g))) φ
+    (evid A a D) ( \ α z g → ψ z (α z g))) φ
   := refl
 ```
 
@@ -229,7 +229,7 @@ Naturality in $C$ is not automatic but can be proven easily:
   : (composition (C a) (D a) ((z : A) → hom A a z → D z)
       (yon A is-segal-A a D is-covariant-D) (ψ a)) u x f =
     (composition (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
-      (\ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f
+      (\ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f
   := naturality-covariant-fiberwise-transformation
       A a x f C D is-covariant-C is-covariant-D ψ u
 
@@ -246,18 +246,18 @@ Naturality in $C$ is not automatic but can be proven easily:
   : (composition (C a) (D a) ((z : A) → hom A a z → D z)
       (yon A is-segal-A a D is-covariant-D) (ψ a)) u x =
     (composition (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
-      (\ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x
+      (\ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x
   :=
     eq-htpy funext
       ( hom A a x)
-      ( \ f -> D x)
-      ( \ f ->
+      ( \ f → D x)
+      ( \ f →
         ( composition (C a) (D a) ((z : A) → hom A a z → D z)
           ( yon A is-segal-A a D is-covariant-D) (ψ a)) u x f)
-      ( \ f ->
+      ( \ f →
         ( composition (C a)((z : A) → hom A a z → C z)((z : A) → hom A a z → D z)
-        ( \ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f)
-      ( \ f ->
+        ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f)
+      ( \ f →
         is-natural-yon-twice-pointwise
           A is-segal-A a C D is-covariant-C is-covariant-D ψ u x f)
 
@@ -273,18 +273,18 @@ Naturality in $C$ is not automatic but can be proven easily:
   : (composition (C a) (D a) ((z : A) → hom A a z → D z)
       (yon A is-segal-A a D is-covariant-D) (ψ a)) u =
     (composition (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
-      (\ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u
+      (\ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u
   :=
     eq-htpy funext
       ( A )
-      ( \ x -> hom A a x → D x)
-      ( \ x ->
+      ( \ x → hom A a x → D x)
+      ( \ x →
         ( composition (C a) (D a) ((z : A) → hom A a z → D z)
           ( yon A is-segal-A a D is-covariant-D) (ψ a)) u x)
-      ( \ x ->
+      ( \ x →
         ( composition (C a)((z : A) → hom A a z → C z)((z : A) → hom A a z → D z)
-        ( \ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x)
-      ( \ x ->
+        ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x)
+      ( \ x →
         is-natural-yon-once-pointwise
           A is-segal-A a C D is-covariant-C is-covariant-D ψ u x)
 ```
@@ -468,11 +468,11 @@ Naturality in $C$ is not automatic but can be proven easily:
   (a : A)
   (C D : A → U)
   (ψ : (z : A) → C z → D z)
-  (φ : (z : A) -> hom A z a -> C z)
+  (φ : (z : A) → hom A z a → C z)
   : (composition ((z : A) → hom A z a → C z) (C a) (D a)
       (ψ a) (contra-evid A a C)) φ =
     (composition ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z) (D a)
-      (contra-evid A a D) ( \ α z g -> ψ z (α z g))) φ
+      (contra-evid A a D) ( \ α z g → ψ z (α z g))) φ
   := refl
 ```
 
@@ -491,7 +491,7 @@ Naturality in $C$ is not automatic but can be proven easily:
   : (composition (C a) (D a) ((z : A) → hom A z a → D z)
       (contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x f =
     (composition (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
-      (\ α z g -> ψ z (α z g))
+      (\ α z g → ψ z (α z g))
       (contra-yon A is-segal-A a C is-contravariant-C)) u x f
   := naturality-contravariant-fiberwise-transformation
       A x a f C D is-contravariant-C is-contravariant-D ψ u
@@ -509,20 +509,20 @@ Naturality in $C$ is not automatic but can be proven easily:
   : (composition (C a) (D a) ((z : A) → hom A z a → D z)
       (contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x =
     (composition (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
-      (\ α z g -> ψ z (α z g))
+      (\ α z g → ψ z (α z g))
       (contra-yon A is-segal-A a C is-contravariant-C)) u x
   :=
     eq-htpy funext
       ( hom A x a)
-      ( \ f -> D x)
-      ( \ f ->
+      ( \ f → D x)
+      ( \ f →
         ( composition (C a) (D a) ((z : A) → hom A z a → D z)
           ( contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x f)
-      ( \ f ->
+      ( \ f →
         ( composition (C a)((z : A) → hom A z a → C z)((z : A) → hom A z a → D z)
-        ( \ α z g -> ψ z (α z g))
+        ( \ α z g → ψ z (α z g))
         ( contra-yon A is-segal-A a C is-contravariant-C)) u x f)
-      ( \ f ->
+      ( \ f →
         is-natural-contra-yon-twice-pointwise
           A is-segal-A a C D is-contravariant-C is-contravariant-D ψ u x f)
 
@@ -538,20 +538,20 @@ Naturality in $C$ is not automatic but can be proven easily:
   : (composition (C a) (D a) ((z : A) → hom A z a → D z)
       (contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u =
     (composition (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
-      (\ α z g -> ψ z (α z g))
+      (\ α z g → ψ z (α z g))
       (contra-yon A is-segal-A a C is-contravariant-C)) u
   :=
     eq-htpy funext
       ( A )
-      ( \ x -> hom A x a → D x)
-      ( \ x ->
+      ( \ x → hom A x a → D x)
+      ( \ x →
         ( composition (C a) (D a) ((z : A) → hom A z a → D z)
           ( contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x)
-      ( \ x ->
+      ( \ x →
         ( composition (C a)((z : A) → hom A z a → C z)((z : A) → hom A z a → D z)
-        ( \ α z g -> ψ z (α z g))
+        ( \ α z g → ψ z (α z g))
         ( contra-yon A is-segal-A a C is-contravariant-C)) u x)
-      ( \ x ->
+      ( \ x →
         is-natural-contra-yon-once-pointwise
           A is-segal-A a C D is-contravariant-C is-contravariant-D ψ u x)
 ```
