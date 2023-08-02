@@ -202,13 +202,10 @@ covariant.
 Naturality in $C$ is not automatic but can be proven easily:
 
 ```rzk title="RS17, Lemma 9.2(i)"
-#def is-natural-evid-twice-pointwise
+#def is-natural-evid
   (A : U)
-  (is-segal-A : is-segal A)
   (a : A)
   (C D : A → U)
-  (is-covariant-C : is-covariant A C)
-  (is-covariant-D : is-covariant A D)
   (ψ : (z : A) → C z → D z)
   (φ : (z : A) -> hom A a z -> C z)
   : (composition ((z : A) → hom A a z → C z) (C a) (D a) (ψ a) (evid A a C)) φ =
@@ -452,6 +449,111 @@ equivalence.
         ( contra-yon-evid A is-segal-A a C is-contravariant-C)),
       ( ( contra-yon A is-segal-A a C is-contravariant-C),
         ( contra-evid-yon A is-segal-A a C is-contravariant-C)))
+```
+
+## Contravariant Naturality
+
+The equivalence of the Yoneda lemma is natural in both $a : A$ and $C : A → U$.
+
+Naturality in $a$ follows from the fact that the maps `evid` and `yon` are
+fiberwise equivalences between contravariant families over $A$, though it
+requires some work, which has not yet been formalized, to prove that the domain
+is contravariant.
+
+Naturality in $C$ is not automatic but can be proven easily:
+
+```rzk title="RS17, Lemma 9.2(i), dual"
+#def is-natural-contra-evid
+  (A : U)
+  (a : A)
+  (C D : A → U)
+  (ψ : (z : A) → C z → D z)
+  (φ : (z : A) -> hom A z a -> C z)
+  : (composition ((z : A) → hom A z a → C z) (C a) (D a)
+      (ψ a) (contra-evid A a C)) φ =
+    (composition ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z) (D a)
+      (contra-evid A a D) ( \ α z g -> ψ z (α z g))) φ
+  := refl
+```
+
+```rzk title="RS17, Lemma 9.2(ii), dual"
+#def is-natural-contra-yon-twice-pointwise
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C D : A → U)
+  (is-contravariant-C : is-contravariant A C)
+  (is-contravariant-D : is-contravariant A D)
+  (ψ : (z : A) → C z → D z)
+  (u : C a)
+  (x : A)
+  (f : hom A x a)
+  : (composition (C a) (D a) ((z : A) → hom A z a → D z)
+      (contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x f =
+    (composition (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
+      (\ α z g -> ψ z (α z g))
+      (contra-yon A is-segal-A a C is-contravariant-C)) u x f
+  := naturality-contravariant-fiberwise-transformation
+      A x a f C D is-contravariant-C is-contravariant-D ψ u
+
+#def is-natural-contra-yon-once-pointwise uses (funext)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C D : A → U)
+  (is-contravariant-C : is-contravariant A C)
+  (is-contravariant-D : is-contravariant A D)
+  (ψ : (z : A) → C z → D z)
+  (u : C a)
+  (x : A)
+  : (composition (C a) (D a) ((z : A) → hom A z a → D z)
+      (contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x =
+    (composition (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
+      (\ α z g -> ψ z (α z g))
+      (contra-yon A is-segal-A a C is-contravariant-C)) u x
+  :=
+    eq-htpy funext
+      ( hom A x a)
+      ( \ f -> D x)
+      ( \ f ->
+        ( composition (C a) (D a) ((z : A) → hom A z a → D z)
+          ( contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x f)
+      ( \ f ->
+        ( composition (C a)((z : A) → hom A z a → C z)((z : A) → hom A z a → D z)
+        ( \ α z g -> ψ z (α z g))
+        ( contra-yon A is-segal-A a C is-contravariant-C)) u x f)
+      ( \ f ->
+        is-natural-contra-yon-twice-pointwise
+          A is-segal-A a C D is-contravariant-C is-contravariant-D ψ u x f)
+
+#def is-natural-contra-yon uses (funext)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C D : A → U)
+  (is-contravariant-C : is-contravariant A C)
+  (is-contravariant-D : is-contravariant A D)
+  (ψ : (z : A) → C z → D z)
+  (u : C a)
+  : (composition (C a) (D a) ((z : A) → hom A z a → D z)
+      (contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u =
+    (composition (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
+      (\ α z g -> ψ z (α z g))
+      (contra-yon A is-segal-A a C is-contravariant-C)) u
+  :=
+    eq-htpy funext
+      ( A )
+      ( \ x -> hom A x a → D x)
+      ( \ x ->
+        ( composition (C a) (D a) ((z : A) → hom A z a → D z)
+          ( contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x)
+      ( \ x ->
+        ( composition (C a)((z : A) → hom A z a → C z)((z : A) → hom A z a → D z)
+        ( \ α z g -> ψ z (α z g))
+        ( contra-yon A is-segal-A a C is-contravariant-C)) u x)
+      ( \ x ->
+        is-natural-contra-yon-once-pointwise
+          A is-segal-A a C D is-contravariant-C is-contravariant-D ψ u x)
 ```
 
 From a type-theoretic perspective, the Yoneda lemma is a “directed” version of
