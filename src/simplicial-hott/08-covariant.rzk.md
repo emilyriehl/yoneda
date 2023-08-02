@@ -734,13 +734,13 @@ with the covariant lifts.
   (f : hom A x y)
   (C D : A → U)
   (is-covariant-C : is-covariant A C)
-  (DisCov : is-covariant A D)
+  (is-covariant-D : is-covariant A D)
   (ϕ : (z : A) → C z → D z)
   (u : C x)
-  : (covariant-transport A x y f D DisCov (ϕ x u)) =
+  : (covariant-transport A x y f D is-covariant-D (ϕ x u)) =
     (ϕ y (covariant-transport A x y f C is-covariant-C u))
   :=
-    covariant-uniqueness A x y f D DisCov (ϕ x u)
+    covariant-uniqueness A x y f D is-covariant-D (ϕ x u)
       ( covariant-fiberwise-transformation-application
           A x y f C D is-covariant-C ϕ u)
 ```
@@ -984,20 +984,38 @@ a rather lengthy composition of equivalences.
   (a x y : A)        -- The representing object and two points in the base.
   (f : hom A x y)    -- An arrow in the base.
   (v : hom A y a)    -- A lift of the codomain.
-  : Equiv (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a ) , (product (hom2 A x y a f v d)
-      (Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
-  := right-cancel-equiv
-    (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a ) , (product (hom2 A x y a f v d)
-      (Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
-    (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d)))
-    (representable-dhom-to-hom2-swap A a x y f v)
-    (total-equiv-family-equiv (hom A x a)
-      (\ d → (product (hom2 A x y a f v d)
-      (Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
-      (\ d → (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
-      (\ d → (distributive-product-Σ (hom2 A x y a f v d) (hom A x a) (\ u → hom2 A x a a u (id-arr A a) d))))
+  : Equiv
+      (dhom-to-representable A a x y f v)
+      (Σ (d : hom A x a ) ,
+        ( product
+          ( hom2 A x y a f v d)
+          ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+  :=
+    right-cancel-equiv
+    ( dhom-to-representable A a x y f v)
+    ( Σ (d : hom A x a ) ,
+      ( product
+        ( hom2 A x y a f v d)
+        ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+    ( Σ (d : hom A x a) ,
+      ( Σ (u : hom A x a) ,
+        product
+        ( hom2 A x y a f v d)
+        ( hom2 A x a a u (id-arr A a) d)))
+    ( representable-dhom-to-hom2-swap A a x y f v)
+    ( total-equiv-family-equiv (hom A x a)
+      ( \ d →
+        ( product
+          ( hom2 A x y a f v d)
+          ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+      ( \ d →
+        ( Σ (u : hom A x a) ,
+          product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
+      ( \ d →
+        ( distributive-product-Σ
+          ( hom2 A x y a f v d)
+          ( hom A x a)
+          ( \ u → hom2 A x a a u (id-arr A a) d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.

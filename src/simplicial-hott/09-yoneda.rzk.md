@@ -88,7 +88,7 @@ map makes use of the covariant transport operation.
   (C : A → U)
   (is-covariant-C : is-covariant A C)
   : C a → ((z : A) → hom A a z → C z)
-  := \ u z f → covariant-transport A a z f C is-covariant-C u
+  := \ u x f → covariant-transport A a x f C is-covariant-C u
 ```
 
 ## The Yoneda composites
@@ -172,9 +172,10 @@ in two steps.
 
 ## The Yoneda lemma
 
-The Yoneda lemma says that evaluation at the identity defines an equivalence. This is proven combining the previous steps.
+The Yoneda lemma says that evaluation at the identity defines an equivalence.
+This is proven combining the previous steps.
 
-```rzk
+```rzk title="RS17, Theorem 9.1"
 #def Yoneda-lemma uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
@@ -187,6 +188,101 @@ The Yoneda lemma says that evaluation at the identity defines an equivalence. Th
         ( yon-evid A is-segal-A a C is-covariant-C)),
       ( ( yon A is-segal-A a C is-covariant-C),
         ( evid-yon A is-segal-A a C is-covariant-C)))
+```
+
+## Naturality
+
+The equivalence of the Yoneda lemma is natural in both $a : A$ and $C : A → U$.
+
+```rzk title="RS17, Lemma 9.2(i)"
+#def is-natural-evid-twice-pointwise
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C D : A → U)
+  (is-covariant-C : is-covariant A C)
+  (is-covariant-D : is-covariant A D)
+  (ψ : (z : A) → C z → D z)
+  (φ : (z : A) -> hom A a z -> C z)
+  : (composition ((z : A) → hom A a z → C z) (C a) (D a) (ψ a) (evid A a C)) φ =
+    (composition ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z) (D a)
+    (evid A a D) ( \ α z g -> ψ z (α z g))) φ
+  := refl
+```
+
+```rzk title="RS17, Lemma 9.2(ii)"
+#def is-natural-yon-twice-pointwise
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C D : A → U)
+  (is-covariant-C : is-covariant A C)
+  (is-covariant-D : is-covariant A D)
+  (ψ : (z : A) → C z → D z)
+  (u : C a)
+  (x : A)
+  (f : hom A a x)
+  : (composition (C a) (D a) ((z : A) → hom A a z → D z)
+      (yon A is-segal-A a D is-covariant-D) (ψ a)) u x f =
+    (composition (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
+      (\ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f
+  := naturality-covariant-fiberwise-transformation
+      A a x f C D is-covariant-C is-covariant-D ψ u
+
+#def is-natural-yon-once-pointwise uses (funext)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C D : A → U)
+  (is-covariant-C : is-covariant A C)
+  (is-covariant-D : is-covariant A D)
+  (ψ : (z : A) → C z → D z)
+  (u : C a)
+  (x : A)
+  : (composition (C a) (D a) ((z : A) → hom A a z → D z)
+      (yon A is-segal-A a D is-covariant-D) (ψ a)) u x =
+    (composition (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
+      (\ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x
+  :=
+    eq-htpy funext
+      ( hom A a x)
+      ( \ f -> D x)
+      ( \ f ->
+        ( composition (C a) (D a) ((z : A) → hom A a z → D z)
+          ( yon A is-segal-A a D is-covariant-D) (ψ a)) u x f)
+      ( \ f ->
+        ( composition (C a)((z : A) → hom A a z → C z)((z : A) → hom A a z → D z)
+        ( \ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f)
+      ( \ f ->
+        is-natural-yon-twice-pointwise
+          A is-segal-A a C D is-covariant-C is-covariant-D ψ u x f)
+
+#def is-natural-yon uses (funext)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a : A)
+  (C D : A → U)
+  (is-covariant-C : is-covariant A C)
+  (is-covariant-D : is-covariant A D)
+  (ψ : (z : A) → C z → D z)
+  (u : C a)
+  : (composition (C a) (D a) ((z : A) → hom A a z → D z)
+      (yon A is-segal-A a D is-covariant-D) (ψ a)) u =
+    (composition (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
+      (\ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u
+  :=
+    eq-htpy funext
+      ( A )
+      ( \ x -> hom A a x → D x)
+      ( \ x ->
+        ( composition (C a) (D a) ((z : A) → hom A a z → D z)
+          ( yon A is-segal-A a D is-covariant-D) (ψ a)) u x)
+      ( \ x ->
+        ( composition (C a)((z : A) → hom A a z → C z)((z : A) → hom A a z → D z)
+        ( \ α z g -> ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x)
+      ( \ x ->
+        is-natural-yon-once-pointwise
+          A is-segal-A a C D is-covariant-C is-covariant-D ψ u x)
 ```
 
 ## Yoneda for contravariant families
