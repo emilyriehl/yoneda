@@ -49,7 +49,7 @@ but varying codomain.
   (C : A → U)        -- A type family.
   (u : C x)          -- A lift of the domain.
   : U
-     := (Σ (v : C y) , dhom A x y f C u v)
+  := (Σ (v : C y) , dhom A x y f C u v)
 ```
 
 There is also a type of dependent commutative triangles over a base commutative
@@ -71,7 +71,8 @@ triangle.
   (gg : dhom A y z g C v w)    -- A lift of the second arrow.
   (hh : dhom A x z h C u w)    -- A lift of the diagonal arrow.
   : U
-  := ((t1 , t2) : Δ²) → C (alpha (t1 , t2)) [
+  :=
+    ( (t1 , t2) : Δ²) → C (alpha (t1 , t2)) [
         t2 ≡ 0₂ ↦ ff t1 ,
         t1 ≡ 1₂ ↦ gg t2 ,
         t2 ≡ t1 ↦ hh t2
@@ -88,8 +89,9 @@ unique lift with specified domain.
   (A : U)
   (C : A → U)
   : U
-  := (x : A) → (y : A) → (f : hom A x y) → (u : C x)
-    → is-contr (dhom-from A x y f C u)
+  :=
+    (x : A) → (y : A) → (f : hom A x y) → (u : C x) →
+      is-contr (dhom-from A x y f C u)
 
 -- Type of covariant families over a fixed type
 #def covariant-family (A : U) : U
@@ -105,8 +107,9 @@ contractibility of the type of extensions along the domain inclusion into the
   (A : U)
   (C : A → U)
   : U
-  := (x : A) → (y : A) → (f : hom A x y) → (u : C x)
-    → is-contr ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u ])
+  :=
+    (x : A) → (y : A) → (f : hom A x y) → (u : C x) →
+      is-contr ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u ])
 ```
 
 These two notions of covariance are equivalent because the two types of lifts of
@@ -179,18 +182,21 @@ equivalences.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   (v : hom A a y)        -- A lift of the codomain.
-  : Equiv (dhom-representable A a x y f u v)
-  (((t , s) : Δ¹×Δ¹) → A
-    [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-      (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-      (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-      (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ])
-  := curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s → A)
-    (\ (t , s) → recOR
-      ( (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+  : Equiv
+    ( dhom-representable A a x y f u v)
+    ( ((t , s) : Δ¹×Δ¹) → A
+      [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
         (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
         (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-        (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ))
+        (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ])
+  :=
+    curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s → A)
+    ( \ (t , s) →
+      recOR
+        ( (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+          (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
+          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
+          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ))
 
 #def dhom-from-representable
   (A : U)            -- The ambient type.
@@ -206,19 +212,24 @@ equivalences.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (dhom-from-representable A a x y f u)
-    (Σ (v : hom A a y) , (((t , s) : Δ¹×Δ¹) → A
+  : Equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (v : hom A a y) , (((t , s) : Δ¹×Δ¹) → A
       [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
         (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
         (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
         (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
-  := total-equiv-family-equiv (hom A a y) (\ v → dhom-representable A a x y f u v)
-    (\ v → (((t , s) : Δ¹×Δ¹) → A
-      [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-        (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-        (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-        (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
-    (\ v → uncurried-dhom-representable A a x y f u v)
+  :=
+    total-equiv-family-equiv
+    ( hom A a y)
+    ( \ v → dhom-representable A a x y f u v)
+    ( \ v →
+      (((t , s) : Δ¹×Δ¹) → A
+        [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+          (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
+          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
+          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
+    ( \ v → uncurried-dhom-representable A a x y f u v)
 
 #def square-to-hom2-pushout
   (A : U)
@@ -230,9 +241,11 @@ equivalences.
   : (((t , s) : Δ¹×Δ¹) → A [(t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
                       (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
                       (Δ¹ t) ∧ (s ≡ 0₂) ↦ g t ,
-                      (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ])
-  → (Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
-  := \ sq → ((\ t → sq (t , t)) , (\ (t , s) → sq (s , t) , \ (t , s) → sq (t , s)))
+                      (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]) →
+      ( Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
+  :=
+    \ sq →
+    ( ( \ t → sq (t , t)) , (\ (t , s) → sq (s , t) , \ (t , s) → sq (t , s)))
 
 #def hom2-pushout-to-square
   (A : U)
@@ -241,13 +254,17 @@ equivalences.
   (f : hom A x z)
   (g : hom A w y)
   (v : hom A y z)
-  : (Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
-  → (((t , s) : Δ¹×Δ¹) → A [(t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+  : (Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d)) →
+      ( ((t , s) : Δ¹×Δ¹) → A [
+                      (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
                       (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
                       (Δ¹ t) ∧ (s ≡ 0₂) ↦ g t ,
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ])
-  := \ (d , (alpha1 , alpha2)) (t , s) → recOR (t ≤ s ↦ alpha1 (s , t) ,
-                        s ≤ t ↦ alpha2 (t , s))
+  :=
+    \ (d , (alpha1 , alpha2)) (t , s) →
+      recOR (t ≤ s ↦ alpha1 (s , t) ,
+             s ≤ t ↦ alpha2 (t , s))
+
 #def Eq-square-hom2-pushout
   (A : U)
   (w x y z : A)
@@ -255,69 +272,110 @@ equivalences.
   (f : hom A x z)
   (g : hom A w y)
   (v : hom A y z)
-  : Equiv (((t , s) : Δ¹×Δ¹) → A [(t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+  : Equiv
+    ( ((t , s) : Δ¹×Δ¹) → A [(t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
                       (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
                       (Δ¹ t) ∧ (s ≡ 0₂) ↦ g t ,
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ])
-    (Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
-  := (square-to-hom2-pushout A w x y z u f g v ,
-    ((hom2-pushout-to-square A w x y z u f g v , \ sq → refl) ,
-    (hom2-pushout-to-square A w x y z u f g v , \ alphas → refl)))
+    ( Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
+  :=
+    ( square-to-hom2-pushout A w x y z u f g v ,
+      ( ( hom2-pushout-to-square A w x y z u f g v , \ sq → refl) ,
+        ( hom2-pushout-to-square A w x y z u f g v , \ alphas → refl)))
 
 #def representable-dhom-from-uncurry-hom2
   (A : U)            -- The ambient type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (Σ (v : hom A a y) , (((t , s) : Δ¹×Δ¹) → A [(t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+  : Equiv
+    ( Σ (v : hom A a y) ,
+      ( ((t , s) : Δ¹×Δ¹) → A [
+                      (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
                       (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
                       (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
-    (Σ (v : hom A a y) , (Σ (d : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-  := total-equiv-family-equiv (hom A a y)
-    (\ v → (((t , s) : Δ¹×Δ¹) → A [(t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+    ( Σ (v : hom A a y) ,
+      ( Σ (d : hom A a y) ,
+        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+  :=
+    total-equiv-family-equiv
+    ( hom A a y)
+    ( \ v →
+      ( ((t , s) : Δ¹×Δ¹) → A [
+                      (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
                       (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
                       (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
-    (\ v → (Σ (d : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-    (\ v → Eq-square-hom2-pushout A a x a y u f (id-arr A a) v)
+    ( \ v →
+      ( Σ (d : hom A a y) ,
+        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+    ( \ v → Eq-square-hom2-pushout A a x a y u f (id-arr A a) v)
 
 #def representable-dhom-from-hom2
   (A : U)            -- The ambient type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (dhom-from-representable A a x y f u)
-    (Σ (d : hom A a y) , (Σ (v : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-  := triple-comp-equiv
-    (dhom-from-representable A a x y f u)
-    (Σ (v : hom A a y) , (((t , s) : Δ¹×Δ¹) → A [(t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+  : Equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (d : hom A a y) ,
+      ( Σ (v : hom A a y) ,
+        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+  :=
+    triple-comp-equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (v : hom A a y) ,
+      ( ((t , s) : Δ¹×Δ¹) → A [
+                      (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
                       (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
                       (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
-    (Σ (v : hom A a y) , (Σ (d : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-    (Σ (d : hom A a y) , (Σ (v : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-    (uncurried-dhom-from-representable A a x y f u)
-    (representable-dhom-from-uncurry-hom2 A a x y f u)
-    (fubini-Σ (hom A a y) (hom A a y)
-      (\ v d → product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+    ( Σ (v : hom A a y) ,
+      ( Σ (d : hom A a y) ,
+        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+    ( Σ (d : hom A a y) ,
+      ( Σ (v : hom A a y) ,
+      product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+    ( uncurried-dhom-from-representable A a x y f u)
+    ( representable-dhom-from-uncurry-hom2 A a x y f u)
+    ( fubini-Σ (hom A a y) (hom A a y)
+      ( \ v d → product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
 
 #def representable-dhom-from-hom2-dist
   (A : U)            -- The ambient type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (dhom-from-representable A a x y f u)
-    (Σ (d : hom A a y) , (product (hom2 A a x y u f d) (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
-  := right-cancel-equiv
-    (dhom-from-representable A a x y f u)
-    (Σ (d : hom A a y) , (product (hom2 A a x y u f d) (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
-    (Σ (d : hom A a y) , (Σ (v : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-    (representable-dhom-from-hom2 A a x y f u)
-    (total-equiv-family-equiv (hom A a y)
-      (\ d → (product (hom2 A a x y u f d) (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
-      (\ d → (Σ (v : hom A a y) , product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-      (\ d → (distributive-product-Σ (hom2 A a x y u f d) (hom A a y) (\ v → hom2 A a a y (id-arr A a) v d))))
+  : Equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (d : hom A a y) ,
+      ( product
+        ( hom2 A a x y u f d)
+        ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+  :=
+    right-cancel-equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (d : hom A a y) ,
+      ( product
+        ( hom2 A a x y u f d)
+        ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+    ( Σ (d : hom A a y) ,
+      ( Σ (v : hom A a y) ,
+        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+    ( representable-dhom-from-hom2 A a x y f u)
+    ( total-equiv-family-equiv
+      ( hom A a y)
+      ( \ d →
+        ( product
+          ( hom2 A a x y u f d)
+          ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+      ( \ d →
+        ( Σ (v : hom A a y) ,
+          product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+      ( \ d →
+        ( distributive-product-Σ (hom2 A a x y u f d) (hom A a y)
+          ( \ v → hom2 A a a y (id-arr A a) v d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.
@@ -329,23 +387,38 @@ Now we introduce the hypothesis that A is Segal type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
-  : Equiv (dhom-from-representable A a x y f u)
-    (Σ (d : hom A a y) , (product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
-  := right-cancel-equiv
-    (dhom-from-representable A a x y f u)
-    (Σ (d : hom A a y) , (product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
-    (Σ (d : hom A a y) , (product (hom2 A a x y u f d) (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
-    (representable-dhom-from-hom2-dist A a x y f u)
-    (total-equiv-family-equiv (hom A a y)
-      (\ d → (product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
-      (\ d → (product (hom2 A a x y u f d) (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
-      (\ d → (total-equiv-family-equiv (hom2 A a x y u f d)
-        (\ alpha → (Σ (v : hom A a y) , (v = d)))
-        (\ alpha → (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d))
-        (\ alpha → (total-equiv-family-equiv (hom A a y)
-          (\ v → (v = d))
-          (\ v → hom2 A a a y (id-arr A a) v d)
-          (\ v → (Eq-Segal-homotopy-hom2 A is-segal-A a y v d)))))))
+  : Equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (d : hom A a y) ,
+      ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
+  :=
+    right-cancel-equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (d : hom A a y) ,
+      ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
+    ( Σ (d : hom A a y) ,
+      ( product
+        ( hom2 A a x y u f d)
+        ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+    ( representable-dhom-from-hom2-dist A a x y f u)
+    ( total-equiv-family-equiv
+      ( hom A a y)
+      ( \ d → (product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
+      ( \ d →
+        ( product
+          ( hom2 A a x y u f d)
+          ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+      ( \ d →
+        ( total-equiv-family-equiv
+          ( hom2 A a x y u f d)
+          ( \ alpha → (Σ (v : hom A a y) , (v = d)))
+          ( \ alpha → (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d))
+          ( \ alpha →
+            ( total-equiv-family-equiv
+              ( hom A a y)
+              ( \ v → (v = d))
+              ( \ v → hom2 A a a y (id-arr A a) v d)
+              ( \ v → (Eq-Segal-homotopy-hom2 A is-segal-A a y v d)))))))
 
 
 #def codomain-based-paths-contraction
@@ -354,9 +427,14 @@ Now we introduce the hypothesis that A is Segal type.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   (d : hom A a y)
-  : Equiv (product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))) (hom2 A a x y u f d)
-  := equiv-projection-contractible-fibers (hom2 A a x y u f d) (\ alpha → (Σ (v : hom A a y) , (v = d)))
-    (\ alpha → is-contr-codomain-based-paths (hom A a y) d)
+  : Equiv
+    ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d)))
+    ( hom2 A a x y u f d)
+  :=
+    equiv-projection-contractible-fibers
+      ( hom2 A a x y u f d)
+      ( \ alpha → (Σ (v : hom A a y) , (v = d)))
+      ( \ alpha → is-contr-codomain-based-paths (hom A a y) d)
 
 #def is-segal-representable-dhom-from-hom2
   (A : U)            -- The ambient type.
@@ -366,15 +444,18 @@ Now we introduce the hypothesis that A is Segal type.
   (u : hom A a x)        -- A lift of the domain.
   : Equiv (dhom-from-representable A a x y f u)
     (Σ (d : hom A a y) , (hom2 A a x y u f d))
-  := comp-equiv
-    (dhom-from-representable A a x y f u)
-    (Σ (d : hom A a y) , (product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
-    (Σ (d : hom A a y) , (hom2 A a x y u f d))
-    (Segal-representable-dhom-from-path-space A is-segal-A a x y f u)
-    (total-equiv-family-equiv (hom A a y)
-      (\ d → product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d)))
-      (\ d → hom2 A a x y u f d)
-      (\ d → codomain-based-paths-contraction A a x y f u d))
+  :=
+    comp-equiv
+    ( dhom-from-representable A a x y f u)
+    ( Σ (d : hom A a y) ,
+      ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
+    ( Σ (d : hom A a y) , (hom2 A a x y u f d))
+    ( Segal-representable-dhom-from-path-space A is-segal-A a x y f u)
+    ( total-equiv-family-equiv
+      ( hom A a y)
+      ( \ d → product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d)))
+      ( \ d → hom2 A a x y u f d)
+      ( \ d → codomain-based-paths-contraction A a x y f u d))
 
 #def is-segal-representable-dhom-from-contractible
   (A : U)            -- The ambient type.
@@ -383,10 +464,12 @@ Now we introduce the hypothesis that A is Segal type.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A a x)        -- A lift of the domain.
   : is-contr (dhom-from-representable A a x y f u)
-  := is-contr-is-equiv-to-contr (dhom-from-representable A a x y f u)
-        (Σ (d : hom A a y) , (hom2 A a x y u f d))
-        (is-segal-representable-dhom-from-hom2 A is-segal-A a x y f u)
-        (is-segal-A a x y u f)
+  :=
+    is-contr-is-equiv-to-contr
+      ( dhom-from-representable A a x y f u)
+      ( Σ (d : hom A a y) , (hom2 A a x y u f d))
+      ( is-segal-representable-dhom-from-hom2 A is-segal-A a x y f u)
+      ( is-segal-A a x y u f)
 ```
 
 Finally, we see that covariant hom families in a Segal type are covariant.
@@ -397,7 +480,9 @@ Finally, we see that covariant hom families in a Segal type are covariant.
   (is-segal-A : is-segal A)
   (a : A)
   : is-covariant A (\ x → hom A a x)
-  := \ x y f u → is-segal-representable-dhom-from-contractible A is-segal-A a x y f u
+  :=
+    \ x y f u →
+    is-segal-representable-dhom-from-contractible A is-segal-A a x y f u
 ```
 
 The proof of the claimed converse result given in the original source is
@@ -409,25 +494,34 @@ we argue as follows:
   (A : U)
   (repiscovfam : (a : A) → is-covariant A (\ x → hom A a x))
   : is-segal A
-  := \ x y z f g → is-contr-base-is-contr-Σ
-    (Σ (h : hom A x z) , hom2 A x y z f g h)
-    (\ hk → Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
-    (\ hk → (first hk , \ (t , s) → first hk s))
-    (is-contr-is-equiv-to-contr
-      (Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
-      (dhom-from-representable A x y z g f)
-      (inv-equiv (dhom-from-representable A x y z g f)
-        (Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
-        (comp-equiv
-          (dhom-from-representable A x y z g f)
-          (Σ (h : hom A x z) , (product (hom2 A x y z f g h) (Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v h)))
-          (Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
-          (representable-dhom-from-hom2-dist A x y z g f)
-          (associative-Σ
-            (hom A x z)
-            (\ h → hom2 A x y z f g h)
-            (\ h _ → Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v h))))
-      (repiscovfam x y z g f))
+  :=
+    \ x y z f g →
+    is-contr-base-is-contr-Σ
+    ( Σ (h : hom A x z) , hom2 A x y z f g h)
+    ( \ hk → Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
+    ( \ hk → (first hk , \ (t , s) → first hk s))
+    ( is-contr-is-equiv-to-contr
+      ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
+        Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
+      ( dhom-from-representable A x y z g f)
+      ( inv-equiv
+        ( dhom-from-representable A x y z g f)
+        ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
+          Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
+        ( comp-equiv
+          ( dhom-from-representable A x y z g f)
+          ( Σ (h : hom A x z) ,
+            ( product
+              ( hom2 A x y z f g h)
+              ( Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v h)))
+          ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
+            Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
+          ( representable-dhom-from-hom2-dist A x y z g f)
+          ( associative-Σ
+            ( hom A x z)
+            ( \ h → hom2 A x y z f g h)
+            ( \ h _ → Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v h))))
+      ( repiscovfam x y z g f))
 ```
 
 While not needed to prove Proposition 8.13, it is interesting to observe that
@@ -524,15 +618,15 @@ types as follows.
             (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
   :=
     total-equiv-pullback-is-equiv
-      ( ((t , s) : ∂□) → A
+    ( ((t , s) : ∂□) → A
         [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
           (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
           (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ] )
-      (hom A a y)
-      (first (base-hom-expansion A a x y f u))
-      (second (base-hom-expansion A a x y f u))
-      ( \ v →
-        ( ((t , s) : Δ¹×Δ¹) → A
+    ( hom A a y)
+    ( first (base-hom-expansion A a x y f u))
+    ( second (base-hom-expansion A a x y f u))
+    ( \ v →
+      ( ((t , s) : Δ¹×Δ¹) → A
             [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
               (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
               (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
@@ -647,7 +741,8 @@ along an arrow f : hom A x y to give a term in C y.
   (is-covariant-C : is-covariant A C)
   (u : C x)
    : C y
-   := first (contraction-center (dhom-from A x y f C u) (is-covariant-C x y f u))
+   :=
+    first (contraction-center (dhom-from A x y f C u) (is-covariant-C x y f u))
 ```
 
 ```rzk title="RS17, covariant lift from beginning of Section 8.2"
@@ -659,7 +754,8 @@ along an arrow f : hom A x y to give a term in C y.
   (is-covariant-C : is-covariant A C)
   (u : C x)
   : (dhom A x y f C u (covariant-transport A x y f C is-covariant-C u))
-   := second (contraction-center (dhom-from A x y f C u) (is-covariant-C x y f u))
+  :=
+    second (contraction-center (dhom-from A x y f C u) (is-covariant-C x y f u))
 
 #def covariant-uniqueness
   (A : U)
@@ -725,8 +821,9 @@ with the covariant lifts.
   (ϕ : (z : A) → C z → D z)
   (u : C x)
   : dhom-from A x y f D (ϕ x u)
-  := (ϕ y (covariant-transport A x y f C is-covariant-C u) ,
-  \ t → ϕ (f t) (covariant-lift A x y f C is-covariant-C u t))
+  :=
+    ( ϕ y (covariant-transport A x y f C is-covariant-C u) ,
+      \ t → ϕ (f t) (covariant-lift A x y f C is-covariant-C u t))
 
 #def naturality-covariant-fiberwise-transformation
   (A : U)
@@ -734,13 +831,13 @@ with the covariant lifts.
   (f : hom A x y)
   (C D : A → U)
   (is-covariant-C : is-covariant A C)
-  (DisCov : is-covariant A D)
+  (is-covariant-D : is-covariant A D)
   (ϕ : (z : A) → C z → D z)
   (u : C x)
-  : (covariant-transport A x y f D DisCov (ϕ x u)) =
+  : (covariant-transport A x y f D is-covariant-D (ϕ x u)) =
     (ϕ y (covariant-transport A x y f C is-covariant-C u))
   :=
-    covariant-uniqueness A x y f D DisCov (ϕ x u)
+    covariant-uniqueness A x y f D is-covariant-D (ϕ x u)
       ( covariant-fiberwise-transformation-application
           A x y f C D is-covariant-C ϕ u)
 ```
@@ -758,7 +855,7 @@ has a unique lift with specified codomain.
   (C : A → U)        -- A type family.
   (v : C y)          -- A lift of the domain.
   : U
-     := (Σ (u : C x) , dhom A x y f C u v)
+  := (Σ (u : C x) , dhom A x y f C u v)
 ```
 
 ```rzk title="RS17, Definition 8.2, dual form"
@@ -766,8 +863,9 @@ has a unique lift with specified codomain.
   (A : U)
   (C : A → U)
   : U
-  := (x : A) → (y : A) → (f : hom A x y) → (v : C y)
-    → is-contr (dhom-to A x y f C v)
+  :=
+    (x : A) → (y : A) → (f : hom A x y) → (v : C y) →
+      is-contr (dhom-to A x y f C v)
 
 -- Type of contravariant families over a fixed type
 #def contravariant-family (A : U) : U
@@ -783,8 +881,9 @@ the 1-simplex.
   (A : U)
   (C : A → U)
   : U
-  := (x : A) → (y : A) → (f : hom A x y) → (v : C y)
-    → is-contr ((t : Δ¹) → C (f t) [ t ≡ 1₂ ↦ v ])
+  :=
+    (x : A) → (y : A) → (f : hom A x y) → (v : C y) →
+      is-contr ((t : Δ¹) → C (f t) [ t ≡ 1₂ ↦ v ])
 ```
 
 These two notions of covariance are equivalent because the two types of lifts of
@@ -857,8 +956,10 @@ a rather lengthy composition of equivalences.
   (f : hom A x y)        -- An arrow in the base.
   (u : hom A x a)        -- A lift of the domain.
   (v : hom A y a)        -- A lift of the codomain.
-  : Equiv (dhom-contra-representable A a x y f u v)
-  (((t , s) : Δ¹×Δ¹) → A [(t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
+  : Equiv
+    (dhom-contra-representable A a x y f u v)
+    (((t , s) : Δ¹×Δ¹) → A [
+                      (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
                       (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
                       (Δ¹ t) ∧ (s ≡ 0₂) ↦ f t ,
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ a ])
@@ -882,7 +983,8 @@ a rather lengthy composition of equivalences.
   (a x y : A)        -- The representing object and two points in the base.
   (f : hom A x y)    -- An arrow in the base.
   (v : hom A y a)    -- A lift of the codomain.
-  : Equiv (dhom-to-representable A a x y f v)
+  : Equiv
+    (dhom-to-representable A a x y f v)
     (Σ (u : hom A x a) ,
         (((t , s) : Δ¹×Δ¹) → A
                     [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
@@ -984,20 +1086,38 @@ a rather lengthy composition of equivalences.
   (a x y : A)        -- The representing object and two points in the base.
   (f : hom A x y)    -- An arrow in the base.
   (v : hom A y a)    -- A lift of the codomain.
-  : Equiv (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a ) , (product (hom2 A x y a f v d)
-      (Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
-  := right-cancel-equiv
-    (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a ) , (product (hom2 A x y a f v d)
-      (Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
-    (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d)))
-    (representable-dhom-to-hom2-swap A a x y f v)
-    (total-equiv-family-equiv (hom A x a)
-      (\ d → (product (hom2 A x y a f v d)
-      (Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
-      (\ d → (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
-      (\ d → (distributive-product-Σ (hom2 A x y a f v d) (hom A x a) (\ u → hom2 A x a a u (id-arr A a) d))))
+  : Equiv
+      (dhom-to-representable A a x y f v)
+      (Σ (d : hom A x a ) ,
+        ( product
+          ( hom2 A x y a f v d)
+          ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+  :=
+    right-cancel-equiv
+    ( dhom-to-representable A a x y f v)
+    ( Σ (d : hom A x a ) ,
+      ( product
+        ( hom2 A x y a f v d)
+        ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+    ( Σ (d : hom A x a) ,
+      ( Σ (u : hom A x a) ,
+        product
+        ( hom2 A x y a f v d)
+        ( hom2 A x a a u (id-arr A a) d)))
+    ( representable-dhom-to-hom2-swap A a x y f v)
+    ( total-equiv-family-equiv (hom A x a)
+      ( \ d →
+        ( product
+          ( hom2 A x y a f v d)
+          ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+      ( \ d →
+        ( Σ (u : hom A x a) ,
+          product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
+      ( \ d →
+        ( distributive-product-Σ
+          ( hom2 A x y a f v d)
+          ( hom A x a)
+          ( \ u → hom2 A x a a u (id-arr A a) d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.
@@ -1009,23 +1129,37 @@ Now we introduce the hypothesis that A is Segal type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (v : hom A y a)        -- A lift of the codomain.
-  : Equiv (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a) , (product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
-  := right-cancel-equiv
-    (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a) , (product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
-    (Σ (d : hom A x a) , (product (hom2 A x y a f v d) (Σ (u : hom A x a) , (hom2 A x a a u (id-arr A a) d))))
-    (representable-dhom-to-hom2-dist A a x y f v)
-    (total-equiv-family-equiv (hom A x a)
-      (\ d → (product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
-      (\ d → (product (hom2 A x y a f v d) (Σ (u : hom A x a) , hom2 A x a a u (id-arr A a) d)))
-      (\ d → (total-equiv-family-equiv (hom2 A x y a f v d)
-        (\ α → (Σ (u : hom A x a) , (u = d)))
-        (\ α → (Σ (u : hom A x a) , hom2 A x a a u (id-arr A a) d))
-        (\ α → (total-equiv-family-equiv (hom A x a)
-          (\ u → (u = d))
-          (\ u → hom2 A x a a u (id-arr A a) d)
-          (\ u → (Eq-Segal-homotopy-hom2' A is-segal-A x a u d)))))))
+  : Equiv
+    ( dhom-to-representable A a x y f v)
+    ( Σ (d : hom A x a) ,
+      ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
+  :=
+    right-cancel-equiv
+    ( dhom-to-representable A a x y f v)
+    ( Σ (d : hom A x a) ,
+      ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
+    ( Σ (d : hom A x a) ,
+      ( product
+        ( hom2 A x y a f v d)
+        ( Σ (u : hom A x a) , (hom2 A x a a u (id-arr A a) d))))
+    ( representable-dhom-to-hom2-dist A a x y f v)
+    ( total-equiv-family-equiv (hom A x a)
+      ( \ d → (product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
+      ( \ d →
+        ( product
+          ( hom2 A x y a f v d)
+          ( Σ (u : hom A x a) , hom2 A x a a u (id-arr A a) d)))
+      ( \ d →
+        ( total-equiv-family-equiv
+          ( hom2 A x y a f v d)
+          ( \ α → (Σ (u : hom A x a) , (u = d)))
+          ( \ α → (Σ (u : hom A x a) , hom2 A x a a u (id-arr A a) d))
+          ( \ α →
+          ( total-equiv-family-equiv
+            ( hom A x a)
+            ( \ u → (u = d))
+            ( \ u → hom2 A x a a u (id-arr A a) d)
+            ( \ u → (Eq-Segal-homotopy-hom2' A is-segal-A x a u d)))))))
 
 #def is-segal-representable-dhom-to-hom2
   (A : U)            -- The ambient type.
@@ -1033,17 +1167,22 @@ Now we introduce the hypothesis that A is Segal type.
   (a x y : A)          -- The representing object and two points in the base.
   (f : hom A x y)        -- An arrow in the base.
   (v : hom A y a)        -- A lift of the codomain.
-  : Equiv (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a) , (hom2 A x y a f v d))
-  := comp-equiv
-    (dhom-to-representable A a x y f v)
-    (Σ (d : hom A x a) , (product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
-    (Σ (d : hom A x a) , (hom2 A x y a f v d))
-    (Segal-representable-dhom-to-path-space A is-segal-A a x y f v)
-    (total-equiv-family-equiv (hom A x a)
-      (\ d → product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d)))
-      (\ d → hom2 A x y a f v d)
-      (\ d → codomain-based-paths-contraction A x y a v f d))
+  : Equiv
+    ( dhom-to-representable A a x y f v)
+    ( Σ (d : hom A x a) , (hom2 A x y a f v d))
+  :=
+    comp-equiv
+    ( dhom-to-representable A a x y f v)
+    ( Σ (d : hom A x a) ,
+      ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
+    ( Σ (d : hom A x a) ,
+      ( hom2 A x y a f v d))
+    ( Segal-representable-dhom-to-path-space A is-segal-A a x y f v)
+    ( total-equiv-family-equiv
+      ( hom A x a)
+      ( \ d → product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d)))
+      ( \ d → hom2 A x y a f v d)
+      ( \ d → codomain-based-paths-contraction A x y a v f d))
 
 #def is-segal-representable-dhom-to-contractible
   (A : U)                -- The ambient type.
@@ -1052,10 +1191,12 @@ Now we introduce the hypothesis that A is Segal type.
   (f : hom A x y)        -- An arrow in the base.
   (v : hom A y a)        -- A lift of the codomain.
   : is-contr (dhom-to-representable A a x y f v)
-  := is-contr-is-equiv-to-contr (dhom-to-representable A a x y f v)
-        (Σ (d : hom A x a) , (hom2 A x y a f v d))
-        (is-segal-representable-dhom-to-hom2 A is-segal-A a x y f v)
-        (is-segal-A x y a f v)
+  :=
+    is-contr-is-equiv-to-contr
+      ( dhom-to-representable A a x y f v)
+      ( Σ (d : hom A x a) , (hom2 A x y a f v d))
+      ( is-segal-representable-dhom-to-hom2 A is-segal-A a x y f v)
+      ( is-segal-A x y a f v)
 ```
 
 Finally, we see that contravariant hom families in a Segal type are
@@ -1067,7 +1208,9 @@ contravariant.
   (is-segal-A : is-segal A)
   (a : A)
   : is-contravariant A (\ x → hom A x a)
-  := \ x y f v → is-segal-representable-dhom-to-contractible A is-segal-A a x y f v
+  :=
+    \ x y f v →
+      is-segal-representable-dhom-to-contractible A is-segal-A a x y f v
 ```
 
 The proof of the claimed converse result given in the original source is
@@ -1079,25 +1222,34 @@ we argue as follows:
   (A : U)
   (repiscontrafam : (a : A) → is-contravariant A (\ x → hom A x a))
   : is-segal A
-  := \ x y z f g → is-contr-base-is-contr-Σ
-    (Σ (h : hom A x z) , hom2 A x y z f g h)
-    (\ hk → Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
-    (\ hk → (first hk , \ (t , s) → first hk t))
-    (is-contr-is-equiv-to-contr
-      (Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
-      (dhom-to-representable A z x y f g)
-      (inv-equiv (dhom-to-representable A z x y f g)
-        (Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
-        (comp-equiv
-          (dhom-to-representable A z x y f g)
-          (Σ (h : hom A x z) , (product (hom2 A x y z f g h) (Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) h)))
-          (Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) , Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
-          (representable-dhom-to-hom2-dist A z x y f g)
-          (associative-Σ
-            (hom A x z)
-            (\ h → hom2 A x y z f g h)
-            (\ h _ → Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) h))))
-      (repiscontrafam z x y f g))
+  :=
+    \ x y z f g →
+      is-contr-base-is-contr-Σ
+      ( Σ (h : hom A x z) , hom2 A x y z f g h)
+      ( \ hk → Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
+      ( \ hk → (first hk , \ (t , s) → first hk t))
+      ( is-contr-is-equiv-to-contr
+        ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
+          Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
+        ( dhom-to-representable A z x y f g)
+        ( inv-equiv
+          ( dhom-to-representable A z x y f g)
+          ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
+            Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
+          ( comp-equiv
+            ( dhom-to-representable A z x y f g)
+            ( Σ (h : hom A x z) ,
+              ( product
+                ( hom2 A x y z f g h)
+                ( Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) h)))
+            ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
+              Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
+            ( representable-dhom-to-hom2-dist A z x y f g)
+            ( associative-Σ
+              ( hom A x z)
+              ( \ h → hom2 A x y z f g h)
+              ( \ h _ → Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) h))))
+              ( repiscontrafam z x y f g))
 ```
 
 ## Contravariant lifts, transport, and uniqueness
@@ -1139,12 +1291,15 @@ transported along an arrow f : hom A x y to give a term in C x.
   (v : C y)
   (lift : dhom-to A x y f C v)
   : (contravariant-transport A x y f C is-contravariant-C v) = (first lift)
-  := first-path-Σ
-    (C x)
-    (\ u → dhom A x y f C u v)
-    (contraction-center (dhom-to A x y f C v) (is-contravariant-C x y f v))
-    lift
-    (contracting-htpy (dhom-to A x y f C v) (is-contravariant-C x y f v) lift)
+  :=
+    first-path-Σ
+    ( C x)
+    ( \ u → dhom A x y f C u v)
+    ( contraction-center
+      ( dhom-to A x y f C v)
+      ( is-contravariant-C x y f v))
+    ( lift)
+    ( contracting-htpy (dhom-to A x y f C v) (is-contravariant-C x y f v) lift)
 ```
 
 ## Contravariant functoriality
@@ -1156,13 +1311,15 @@ identity transport law.
 ```rzk title="RS17, Proposition 8.16, Part 2, dual"
 -- Comtravariant families preserve identities
 #def id-arr-contravariant-transport
-   (A : U)
+  (A : U)
   (x : A)
-   (C : A → U)
+  (C : A → U)
   (is-contravariant-C : is-contravariant A C)
   (u : C x)
   : (contravariant-transport A x x (id-arr A x) C is-contravariant-C u) = u
-  := contravariant-uniqueness A x x (id-arr A x) C is-contravariant-C u (u , d-id-arr A x C u)
+  :=
+    contravariant-uniqueness A x x (id-arr A x) C is-contravariant-C u
+      (u , d-id-arr A x C u)
 ```
 
 ## Contravariant natural transformations
@@ -1181,8 +1338,9 @@ commuting with the contravariant lifts.
   (ϕ : (z : A) → C z → D z)
   (v : C y)
   : dhom-to A x y f D (ϕ y v)
-  := (ϕ x (contravariant-transport A x y f C is-contravariant-C v) ,
-  \ t → ϕ (f t) (contravariant-lift A x y f C is-contravariant-C v t))
+  :=
+    ( ϕ x (contravariant-transport A x y f C is-contravariant-C v) ,
+      \ t → ϕ (f t) (contravariant-lift A x y f C is-contravariant-C v t))
 
 #def naturality-contravariant-fiberwise-transformation
   (A : U)
@@ -1194,7 +1352,9 @@ commuting with the contravariant lifts.
   (ϕ : (z : A) → C z → D z)
   (v : C y)
   : (contravariant-transport A x y f D DisContra (ϕ y v)) =
-      (ϕ x (contravariant-transport A x y f C is-contravariant-C v))
-  := contravariant-uniqueness A x y f D DisContra (ϕ y v)
-    (contravariant-fiberwise-transformation-application A x y f C D is-contravariant-C ϕ v)
+    (ϕ x (contravariant-transport A x y f C is-contravariant-C v))
+  :=
+    contravariant-uniqueness A x y f D DisContra (ϕ y v)
+    ( contravariant-fiberwise-transformation-application
+      A x y f C D is-contravariant-C ϕ v)
 ```
