@@ -239,7 +239,33 @@ some work, to prove that the domain is covariant.
     ( \ x -> evid A x C)
     ( ϕ)
 
-
+#def is-natural-in-object-yon uses (funext extext)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a b : A)
+  (f : hom A a b)
+  (C : A -> U)
+  (is-covariant-C : is-covariant A C)
+  (u : C a)
+  : ( covariant-transport
+      A a b f
+      ( \ x -> (z : A) → hom A x z → C z)
+      ( is-covariant-yoneda-domain A is-segal-A C is-covariant-C)
+      ( yon A is-segal-A a C is-covariant-C u)) =
+    ( yon A is-segal-A b C is-covariant-C
+      ( covariant-transport A a b f C is-covariant-C u))
+  :=
+    naturality-covariant-fiberwise-transformation
+    ( A)
+    ( a)
+    ( b)
+    ( f)
+    ( C)
+    ( \ x -> (z : A) → hom A x z → C z)
+    ( is-covariant-C)
+    ( is-covariant-yoneda-domain A is-segal-A C is-covariant-C)
+    ( \ x -> yon A is-segal-A x C is-covariant-C)
+    ( u)
 ```
 
 Naturality in $C$ is not automatic but can be proven easily:
