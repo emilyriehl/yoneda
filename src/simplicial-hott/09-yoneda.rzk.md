@@ -19,10 +19,12 @@ This is a literate `rzk` file:
 - `5-segal-types.md` - We make heavy use of the notion of Segal types
 - `8-covariant.md` - We use covariant type families.
 
-Some of the definitions in this file rely on function extensionality:
+Some of the definitions in this file rely on function extensionality and
+extension extensionality:
 
 ```rzk
 #assume funext : FunExt
+#assume extext : ExtExt
 ```
 
 ## Natural transformations involving a representable functor
@@ -196,13 +198,54 @@ The equivalence of the Yoneda lemma is natural in both $a : A$ and $C : A → U$
 
 Naturality in $a$ follows from the fact that the maps `evid` and `yon` are
 fiberwise equivalences between covariant families over $A$, though it requires
-some work, which has not yet been formalized, to prove that the domain is
-covariant.
+some work, to prove that the domain is covariant.
+
+```rzk
+#def is-covariant-yoneda-domain uses (funext)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (C : A → U)
+  (is-covariant-C : is-covariant A C)
+  : is-covariant A (\ a → (z : A) → hom A a z → C z)
+  :=
+    equiv-is-covariant
+    ( extext)
+    ( A)
+    ( \ a -> (z : A) → hom A a z → C z)
+    ( C)
+    ( \ a -> (evid A a C, Yoneda-lemma A is-segal-A a C is-covariant-C))
+    ( is-covariant-C)
+
+#def is-natural-in-object-evid uses (funext extext)
+  (A : U)
+  (is-segal-A : is-segal A)
+  (a b : A)
+  (f : hom A a b)
+  (C : A -> U)
+  (is-covariant-C : is-covariant A C)
+  (ϕ : (z : A) → hom A a z → C z)
+  : (covariant-transport A a b f C is-covariant-C (evid A a C ϕ)) =
+    (evid A b C (covariant-transport A a b f ( \ x -> (z : A) → hom A x z → C z)     (is-covariant-yoneda-domain A is-segal-A C is-covariant-C) ϕ))
+  :=
+    naturality-covariant-fiberwise-transformation
+    ( A)
+    ( a)
+    ( b)
+    ( f)
+    ( \ x -> (z : A) → hom A x z → C z)
+    ( C)
+    ( is-covariant-yoneda-domain A is-segal-A C is-covariant-C)
+    ( is-covariant-C)
+    ( \ x -> evid A x C)
+    ( ϕ)
+
+
+```
 
 Naturality in $C$ is not automatic but can be proven easily:
 
 ```rzk title="RS17, Lemma 9.2(i)"
-#def is-natural-evid
+#def is-natural-in-family-evid
   (A : U)
   (a : A)
   (C D : A → U)
@@ -215,7 +258,7 @@ Naturality in $C$ is not automatic but can be proven easily:
 ```
 
 ```rzk title="RS17, Lemma 9.2(ii)"
-#def is-natural-yon-twice-pointwise
+#def is-natural-in-family-yon-twice-pointwise
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -233,7 +276,7 @@ Naturality in $C$ is not automatic but can be proven easily:
   := naturality-covariant-fiberwise-transformation
       A a x f C D is-covariant-C is-covariant-D ψ u
 
-#def is-natural-yon-once-pointwise uses (funext)
+#def is-natural-in-family-yon-once-pointwise uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -258,10 +301,10 @@ Naturality in $C$ is not automatic but can be proven easily:
         ( composition (C a)((z : A) → hom A a z → C z)((z : A) → hom A a z → D z)
         ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f)
       ( \ f →
-        is-natural-yon-twice-pointwise
+        is-natural-in-family-yon-twice-pointwise
           A is-segal-A a C D is-covariant-C is-covariant-D ψ u x f)
 
-#def is-natural-yon uses (funext)
+#def is-natural-in-family-yon uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -285,7 +328,7 @@ Naturality in $C$ is not automatic but can be proven easily:
         ( composition (C a)((z : A) → hom A a z → C z)((z : A) → hom A a z → D z)
         ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x)
       ( \ x →
-        is-natural-yon-once-pointwise
+        is-natural-in-family-yon-once-pointwise
           A is-segal-A a C D is-covariant-C is-covariant-D ψ u x)
 ```
 
@@ -463,7 +506,7 @@ is contravariant.
 Naturality in $C$ is not automatic but can be proven easily:
 
 ```rzk title="RS17, Lemma 9.2(i), dual"
-#def is-natural-contra-evid
+#def is-natural-in-family-contra-evid
   (A : U)
   (a : A)
   (C D : A → U)
@@ -477,7 +520,7 @@ Naturality in $C$ is not automatic but can be proven easily:
 ```
 
 ```rzk title="RS17, Lemma 9.2(ii), dual"
-#def is-natural-contra-yon-twice-pointwise
+#def is-natural-in-family-contra-yon-twice-pointwise
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -496,7 +539,7 @@ Naturality in $C$ is not automatic but can be proven easily:
   := naturality-contravariant-fiberwise-transformation
       A x a f C D is-contravariant-C is-contravariant-D ψ u
 
-#def is-natural-contra-yon-once-pointwise uses (funext)
+#def is-natural-in-family-contra-yon-once-pointwise uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -523,10 +566,10 @@ Naturality in $C$ is not automatic but can be proven easily:
         ( \ α z g → ψ z (α z g))
         ( contra-yon A is-segal-A a C is-contravariant-C)) u x f)
       ( \ f →
-        is-natural-contra-yon-twice-pointwise
+        is-natural-in-family-contra-yon-twice-pointwise
           A is-segal-A a C D is-contravariant-C is-contravariant-D ψ u x f)
 
-#def is-natural-contra-yon uses (funext)
+#def is-natural-in-family-contra-yon uses (funext)
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -552,7 +595,7 @@ Naturality in $C$ is not automatic but can be proven easily:
         ( \ α z g → ψ z (α z g))
         ( contra-yon A is-segal-A a C is-contravariant-C)) u x)
       ( \ x →
-        is-natural-contra-yon-once-pointwise
+        is-natural-in-family-contra-yon-once-pointwise
           A is-segal-A a C D is-contravariant-C is-contravariant-D ψ u x)
 ```
 
@@ -708,7 +751,7 @@ contractible.
   (f : hom A a x)
   : is-contr ( (t : Δ¹) → hom A a (f t) [t ≡ 0₂ ↦ id-arr A a])
   :=
-    ( second (has-unique-lifts-with-fixed-domain-iff-is-covariant
+    ( second (has-unique-fixed-domain-lifts-iff-is-covariant
                 A (\ z → hom A a z)))
       ( is-segal-representable-is-covariant A is-segal-A a)
       ( a)
@@ -780,7 +823,7 @@ an equivalent type in the domain of the evaluation map.
       ( C (a, id-arr A a))
       ( \ s → s a (id-arr A a))
   :=
-    LeftCancel-is-equiv
+    left-cancel-is-equiv
       ( (p : coslice A a) → C p)
       ( (x : A) → (f : hom A a x) → C (x, f))
       ( C (a, id-arr A a))
@@ -937,7 +980,7 @@ contractible.
   (f : hom A x a)
   : is-contr ( (t : Δ¹) → hom A (f t) a [t ≡ 1₂ ↦ id-arr A a])
   :=
-    ( second (has-unique-lifts-with-fixed-codomain-iff-is-contravariant
+    ( second (has-unique-fixed-codomain-lifts-iff-is-contravariant
                 A (\ z → hom A z a)))
       ( is-segal-representable-is-contravariant A is-segal-A a)
       ( x)
@@ -1010,7 +1053,7 @@ proven, just with an equivalent type in the domain of the evaluation map.
       ( C (a, id-arr A a))
       ( \ s → s a (id-arr A a))
   :=
-    LeftCancel-is-equiv
+    left-cancel-is-equiv
       ( (p : slice A a) → C p)
       ( (x : A) → (f : hom A x a) → C (x, f))
       ( C (a, id-arr A a))
