@@ -6,14 +6,8 @@
     {
       "label": "typecheck",
       "type": "shell",
-      "command": "stack",
-      "args": [
-        "exec",
-        "rzk",
-        "typecheck",
-        "src/hott/*",
-        "src/simplicial-hott/*"
-      ],
+      "command": "rzk",
+      "args": ["typecheck", "src/hott/*", "src/simplicial-hott/*"],
       "problemMatcher": [],
       "group": {
         "kind": "build",
