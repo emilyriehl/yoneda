@@ -775,7 +775,7 @@ the second arrow is an identity.
   ( f : hom A x y)
   : is-contr ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
   :=
-    is-retract-of-is-contr-is-contr
+    is-contr-is-retract-of-is-contr
       ( Σ ( d : hom A x y) , (hom2 A x y y f (id-arr A y) d))
       ( Σ ( g : hom A x y) ,
           ( ((t , s) : Δ¹×Δ¹) → A

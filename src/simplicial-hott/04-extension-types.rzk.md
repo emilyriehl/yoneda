@@ -45,10 +45,10 @@ This is a literate `rzk` file:
     ( (x : X) → (t : ψ) → Y t x [ ϕ t ↦ f t x])
     ( (t : ψ) → ((x : X) → Y t x) [ ϕ t ↦ f t ])
   :=
-    ( \ h t x → (h x) t , -- the one-way map
-      ( ( \ g x t → g t x , -- the retraction
-          \ h → refl) , -- the retracting homotopy
-        ( \ g x t → g t x , -- the section
+    ( \ h t x → (h x) t ,
+      ( ( \ g x t → g t x ,
+          \ h → refl) ,
+        ( \ g x t → g t x ,
           \ g → refl)))
 ```
 
@@ -67,11 +67,11 @@ This is a literate `rzk` file:
     ( ((t , s) : I × J | ψ t ∧ ζ s) → X t s
       [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
   :=
-    ( \ g (t , s) → (g t) s , -- the one way map
-      ( ( \ h t s → h (t , s) , -- its retraction
-          \ g → refl) , -- the retracting homotopy
-        ( \ h t s → h (t , s) , -- its section
-          \ h → refl)))  -- the section homotopy
+    ( \ g (t , s) → (g t) s ,
+      ( ( \ h t s → h (t , s) ,
+          \ g → refl) ,
+        ( \ h t s → h (t , s) ,
+          \ h → refl)))
 
 #def uncurry-opcurry
   ( I J : CUBE)
@@ -143,26 +143,9 @@ This is a literate `rzk` file:
 
 ## Composites and unions of cofibrations
 
-```rzk title="RS17, Theorem 4.4"
--- Reformulated via tope disjunction instead of inclusion.
--- See https://github.com/rzk-lang/rzk/issues/8
-#def cofibration-composition'
-  ( I : CUBE)
-  ( χ ψ ϕ : I → TOPE)
-  ( X : χ → U)
-  ( a : (t : I | χ t ∧ ψ t ∧ ϕ t) → X t )
-  : Equiv
-      ( (t : χ) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ])
-      ( Σ ( f : (t : I | χ t ∧ ψ t) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ]) ,
-          ( (t : χ) → X t [ χ t ∧ ψ t ↦ f t ]))
-  :=
-    ( \ h → (\ t → h t , \ t → h t) ,
-      ( ( \ (_f, g) t → g t , \ h → refl) ,
-        ( \ (_f, g) t → g t , \ h → refl)))
-```
+The original form.
 
 ```rzk title="RS17, Theorem 4.4"
--- original form
 #def cofibration-composition
   ( I : CUBE)
   ( χ : I → TOPE)
@@ -178,6 +161,25 @@ This is a literate `rzk` file:
     ( \ h → (\ t → h t , \ t → h t) ,
       ( ( \ (_f, g) t → g t , \ h → refl) ,
         ( ( \ (_f, g) t → g t , \ h → refl))))
+```
+
+A reformulated version via tope disjunction instead of inclusion (see
+<https://github.com/rzk-lang/rzk/issues/8>).
+
+```rzk title="RS17, Theorem 4.4"
+#def cofibration-composition'
+  ( I : CUBE)
+  ( χ ψ ϕ : I → TOPE)
+  ( X : χ → U)
+  ( a : (t : I | χ t ∧ ψ t ∧ ϕ t) → X t )
+  : Equiv
+      ( (t : χ) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ])
+      ( Σ ( f : (t : I | χ t ∧ ψ t) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ]) ,
+          ( (t : χ) → X t [ χ t ∧ ψ t ↦ f t ]))
+  :=
+    ( \ h → (\ t → h t , \ t → h t) ,
+      ( ( \ (_f, g) t → g t , \ h → refl) ,
+        ( \ (_f, g) t → g t , \ h → refl)))
 ```
 
 ```rzk title="RS17, Theorem 4.5"

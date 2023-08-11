@@ -84,16 +84,22 @@ This is a literate `rzk` file:
   ( e : s = t)
   : Eq-Σ s t
   := (first-path-Σ s t e , second-path-Σ s t e)
+```
 
--- A path in a fiber defines a path in the total space
+A path in a fiber defines a path in the total space.
+
+```rzk
 #def eq-eq-fiber-Σ
   ( x : A)
   ( u v : B x)
   ( p : u = v)
   : (x , u) =_{Σ (a : A) , B a} (x , v)
   := idJ (B x , u , \ v' p' → (x , u) = (x , v') , refl , v , p)
+```
 
--- Essentially eq-pair but with explicit arguments.
+The following is essentially `eq-pair` but with explicit arguments.
+
+```rzk
 #def path-of-pairs-pair-of-paths
   ( x y : A)
   ( p : x = y)
@@ -111,8 +117,9 @@ This is a literate `rzk` file:
       ( \ u' v' q' → (eq-eq-fiber-Σ x u' v' q')) ,
       ( y) ,
       ( p))
+```
 
--- The inverse to `pair-eq`.
+```rzk title="The inverse to pair-eq"
 #def eq-pair
   ( s t : Σ (a : A) , B a)
   ( e : Eq-Σ s t)
@@ -134,9 +141,12 @@ This is a literate `rzk` file:
       refl ,
       t ,
       e)
+```
 
--- Here we've decomposed e : Eq-Σ s t as (e0, e1) and decomposed s and t
--- similarly for induction purposes
+Here we've decomposed `e : Eq-Σ s t` as `(e0, e1)` and decomposed `s` and `t`
+similarly for induction purposes.
+
+```rzk
 #def pair-eq-eq-pair-split
   ( s0 : A)
   ( s1 : B s0)
@@ -223,8 +233,12 @@ This is a literate `rzk` file:
             ( first s) (first t)
             ( first (second s)) (first (second t)) p q (second (second s)) =
             ( second (second t))))
+```
 
--- ! This is the lazy definition with bad computational properties.
+**Warning:** The following is the lazy definition with bad computational
+properties.
+
+```rzk
 #def triple-eq
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))
   ( e : s = t)
@@ -237,11 +251,13 @@ This is a literate `rzk` file:
       ( refl , (refl , refl)) ,
       t ,
       e)
+```
 
--- The inverse with explicit arguments.
--- It's surprising this typechecks since we defined product-transport by a dual
--- path induction over both p and q , rather than by saying that when p is refl
--- this is ordinary transport
+It's surprising that the following typechecks since we defined product-transport
+by a dual path induction over both `p` and `q`, rather than by saying that when
+`p` is `refl` this is ordinary transport.
+
+```rzk title="The inverse with explicit arguments"
 #def path-of-triples-to-triple-of-paths
   ( a a' : A)
   ( u u' : B)
@@ -291,8 +307,11 @@ This is a literate `rzk` file:
       ( refl) ,
       ( t) ,
       ( e))
+```
 
--- Here we've decomposed s t e for induction purposes
+Here we've decomposed `s`, `t` and `e` for induction purposes:
+
+```rzk
 #def triple-eq-eq-triple-split
   ( a a' : A)
   ( b b' : B)
@@ -384,7 +403,7 @@ This is a literate `rzk` file:
 
 ## Fubini
 
-Given a family over a pair of independent types , the order of summation is
+Given a family over a pair of independent types, the order of summation is
 unimportant.
 
 ```rzk
@@ -400,9 +419,7 @@ unimportant.
           \ t → refl)))
 ```
 
-Products distribute inside Sigma types:
-
-```rzk
+```rzk title="Products distribute inside Sigma types"
 #def distributive-product-Σ
   ( A B : U)
   ( C : B → U)
@@ -442,9 +459,9 @@ This is the dependent version of the currying equivalence.
       ((p : Σ (a : A), B a) → C (first p) (second p))
       ((a : A) → (b : B a) → C a b)
   :=
-    ( ( \ s a b → s (a, b)),
-      ( ( ( \ f (a, b) → f a b,
-            \ f → refl ),
-          ( \ f (a, b) → f a b,
+    ( ( \ s a b → s (a , b)) ,
+      ( ( ( \ f (a , b) → f a b ,
+            \ f → refl ) ,
+          ( \ f (a , b) → f a b ,
             \ s → refl ))))
 ```

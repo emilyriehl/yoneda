@@ -1268,7 +1268,7 @@ composition:
 
 #def is-segal-Unit uses (extext)
   : is-segal Unit
-  := \ x y z f g → is-retract-of-is-contr-is-contr
+  := \ x y z f g → is-contr-is-retract-of-is-contr
     (Σ (h : hom Unit x z) , hom2 Unit x y z f g h)
     (Δ² → Unit)
     (\ (_ , k) → k , (\ k → (\ t → k (t , t) , k) , \ _ → refl))

@@ -36,8 +36,7 @@ This is a literate `rzk` file:
 -- the boundary of a 2-simplex
 #def ∂Δ² : Δ² → TOPE
   :=
-    \ (t, s) →
-    ( s ≡ 0₂ ∨ t ≡ 1₂ ∨ s ≡ t)
+    \ (t, s) → (s ≡ 0₂ ∨ t ≡ 1₂ ∨ s ≡ t)
 ```
 
 ### The inner horn
@@ -53,9 +52,9 @@ The product of topes defines the product of shapes.
 
 ```rzk
 #def shape-prod
-  (I J : CUBE)
-  (ψ : I → TOPE)
-  (χ : J → TOPE)
+  ( I J : CUBE)
+  ( ψ : I → TOPE)
+  ( χ : J → TOPE)
   : (I × J) → TOPE
   := \ (t , s) → ψ t ∧ χ s
 
