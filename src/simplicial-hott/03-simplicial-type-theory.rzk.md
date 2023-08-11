@@ -12,28 +12,29 @@ This is a literate `rzk` file:
 
 ### Simplices
 
-```rzk
--- the 1-simplex
+```rzk title="The 1-simplex"
 #def Δ¹ : 2 → TOPE
   := \ t → TOP
+```
 
--- the 2-simplex
+```rzk title="The 2-simplex"
 #def Δ² : (2 × 2) → TOPE
   := \ (t , s) → s ≤ t
+```
 
--- the 3-simplex
+```rzk title="The 3-simplex"
 #def Δ³ : (2 × 2 × 2) → TOPE
   := \ ((t1 , t2) , t3) → t3 ≤ t2 ∧ t2 ≤ t1
 ```
 
 ### Boundaries of simplices
 
-```rzk
--- the boundary of a 1-simplex
+```rzk title="The boundary of a 1-simplex"
 #def ∂Δ¹ : Δ¹ → TOPE
   := \ t → (t ≡ 0₂ ∨ t ≡ 1₂)
+```
 
--- the boundary of a 2-simplex
+```rzk title="The boundary of a 2-simplex"
 #def ∂Δ² : Δ² → TOPE
   :=
     \ (t, s) → (s ≡ 0₂ ∨ t ≡ 1₂ ∨ s ≡ t)
@@ -57,31 +58,36 @@ The product of topes defines the product of shapes.
   ( χ : J → TOPE)
   : (I × J) → TOPE
   := \ (t , s) → ψ t ∧ χ s
+```
 
--- the square as a product
+```rzk title="The square as a product"
 #def Δ¹×Δ¹ : (2 × 2) → TOPE
   := shape-prod 2 2 Δ¹ Δ¹
+```
 
--- the total boundary of the square
+```rzk title="The total boundary of the square"
 #def ∂□ : (2 × 2) → TOPE
   := \ (t ,s) → ((∂Δ¹ t) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (∂Δ¹ s))
+```
 
--- the vertical boundary of the square
+```rzk title="The vertical boundary of the square"
 #def ∂Δ¹×Δ¹ : (2 × 2) → TOPE
   := shape-prod 2 2 ∂Δ¹ Δ¹
+```
 
--- the horizontal boundary of the square
+```rzk title="The horizontal boundary of the square"
 #def Δ¹×∂Δ¹ : (2 × 2) → TOPE
   := shape-prod 2 2 Δ¹ ∂Δ¹
+```
 
--- the prism from a 2-simplex in an arrow type
+```rzk title="The prism from a 2-simplex in an arrow type"
 #def Δ²×Δ¹ : (2 × 2 × 2) → TOPE
   := shape-prod (2 × 2) 2 Δ² Δ¹
 ```
 
 ### Intersections
 
-The intersection of shapes is defined by conjunction on topes:
+The intersection of shapes is defined by conjunction on topes.
 
 ```rzk
 #def shape-intersection
@@ -91,7 +97,7 @@ The intersection of shapes is defined by conjunction on topes:
 
 ### Unions
 
-The union of shapes is defined by disjunction on topes:
+The union of shapes is defined by disjunction on topes.
 
 ```rzk
 #def shapeUnion

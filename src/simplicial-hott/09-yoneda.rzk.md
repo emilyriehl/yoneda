@@ -64,23 +64,27 @@ naturality-covariant-fiberwise-transformation naturality is automatic.
 
 For any Segal type $A$ and term $a : A$, the Yoneda lemma provides an
 equivalence between the type `(z : A) → hom A a z → C z` of natural
-transformations out of the functor `hom A a` and valued in an arbitrary
+transformations out of the functor `hom A a` and values in an arbitrary
 covariant family $C$ and the type $C a$.
 
 One of the maps in this equivalence is evaluation at the identity. The inverse
 map makes use of the covariant transport operation.
 
+The following map, `evid`, evaluates a natural transformation out of a
+representable functor at the identity arrow.
+
 ```rzk
--- The map evid evaluates a natural transformation
--- out of a representable functor at the identity arrow.
 #def evid
   (A : U)
   (a : A)
   (C : A → U)
   : ((z : A) → hom A a z → C z) → C a
   := \ ϕ → ϕ a (id-arr A a)
+```
 
--- The inverse map only exists for Segal types.
+The inverse map only exists for Segal types.
+
+```rzk
 #def yon
   (A : U)
   (is-segal-A : is-segal A)
@@ -120,8 +124,11 @@ in two steps.
 #variable a : A
 #variable C : A → U
 #variable is-covariant-C : is-covariant A C
+```
 
--- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A a x.
+The composite `yon-evid` of `ϕ` equals `ϕ` at all `x : A` and `f : hom A a x`.
+
+```rzk
 #def yon-evid-twice-pointwise
   (ϕ : (z : A) → hom A a z → C z)
   (x : A)
@@ -142,8 +149,11 @@ in two steps.
         ( f)
         ( ϕ x)
         ( Segal-id-comp A is-segal-A a x f))
+```
 
--- By funext, these are equals as functions of f pointwise in x.
+By `funext`, these are equals as functions of `f` pointwise in `x`.
+
+```rzk
 #def yon-evid-once-pointwise uses (funext)
   (ϕ : (z : A) → hom A a z → C z)
   (x : A)
@@ -155,12 +165,16 @@ in two steps.
       ( \ f → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
       ( \ f → (ϕ x f))
       ( \ f → yon-evid-twice-pointwise ϕ x f)
+```
 
--- By funext again, these are equal as functions of x and f.
+By `funext` again, these are equal as functions of `x` and `f`.
+
+```rzk
 #def yon-evid uses (funext)
   (ϕ : (z : A) → hom A a z → C z)
   : ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) = ϕ
-  := eq-htpy funext
+  :=
+    eq-htpy funext
       ( A)
       ( \ x → (hom A a x → C x))
       ( \ x → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x)
@@ -327,17 +341,21 @@ contravariant family $C$ and the type $C a$.
 One of the maps in this equivalence is evaluation at the identity. The inverse
 map makes use of the contravariant transport operation.
 
+The following map, `contra-evid` evaluates a natural transformation out of a
+representable functor at the identity arrow.
+
 ```rzk
--- The map evid evaluates a natural transformation
--- out of a representable functor at the identity arrow.
 #def contra-evid
   (A : U)
   (a : A)
   (C : A → U)
   : ( (z : A) → hom A z a → C z) → C a
   := \ ϕ → ϕ a (id-arr A a)
+```
 
--- The inverse map only exists for Segal types and contravariant families.
+The inverse map only exists for Segal types and contravariant families.
+
+```rzk
 #def contra-yon
   (A : U)
   (is-segal-A : is-segal A)
@@ -375,8 +393,12 @@ in two steps.
 #variable a : A
 #variable C : A → U
 #variable is-contravariant-C : is-contravariant A C
+```
 
--- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A x a.
+The composite `contra-yon-evid` of `ϕ` equals `ϕ` at all `x : A` and
+`f : hom A x a`.
+
+```rzk
 #def contra-yon-evid-twice-pointwise
   (ϕ : (z : A) → hom A z a → C z)
   (x : A)
@@ -399,8 +421,11 @@ in two steps.
         ( f)
         ( ϕ x)
         ( Segal-comp-id A is-segal-A x a f))
+```
 
--- By funext, these are equals as functions of f pointwise in x.
+By `funext`, these are equals as functions of `f` pointwise in `x`.
+
+```rzk
 #def contra-yon-evid-once-pointwise uses (funext)
   (ϕ : (z : A) → hom A z a → C z)
   (x : A)
@@ -415,8 +440,11 @@ in two steps.
           ( (contra-evid A a C) ϕ )) x f)
       ( \ f → (ϕ x f))
       ( \ f → contra-yon-evid-twice-pointwise ϕ x f)
+```
 
--- By funext again, these are equal as functions of x and f.
+By `funext` again, these are equal as functions of `x` and `f`.
+
+```rzk
 #def contra-yon-evid uses (funext)
   (ϕ : (z : A) → hom A z a → C z)
   : (contra-yon A is-segal-A a C is-contravariant-C)((contra-evid A a C) ϕ) = ϕ

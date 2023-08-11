@@ -242,8 +242,9 @@ footnote 8, we assert this as an "extension extensionality" axiom
       ( ext-htpy-eq I ψ ϕ A a f g)
 
 #assume extext : ExtExt
+```
 
--- The equivalence provided by extension extensionality.
+```rzk title="The equivalence provided by extension extensionality"
 #def equiv-ExtExt uses (extext)
   ( I : CUBE)
   ( ψ : I → TOPE)
@@ -272,11 +273,9 @@ identifications. This definition defines `eq-ext-htpy` to be the retraction to
 ```
 
 By extension extensionality, fiberwise equivalences of extension types define
-equivalences of extension types.
+equivalences of extension types. For simplicity, we extend from `BOT`.
 
 ```rzk
--- A fiberwise equivalence defines an equivalence of extension types, for
--- simplicity extending from BOT
 #def equiv-extension-equiv-fibered uses (extext)
   ( I : CUBE)
   ( ψ : I → TOPE)

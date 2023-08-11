@@ -30,7 +30,7 @@ extension extensionality:
 
 ## Hom types
 
-Extension types are used ∂to define the type of arrows between fixed terms:
+Extension types are used to define the type of arrows between fixed terms:
 
 <svg style="float: right" viewBox="0 0 200 60" width="150" height="60">
   <polyline points="40,30 160,30" stroke="blue" stroke-width="3" marker-end="url(#arrow-blue)"></polyline>
@@ -39,7 +39,6 @@ Extension types are used ∂to define the type of arrows between fixed terms:
 </svg>
 
 ```rzk title="RS17, Definition 5.1"
--- The type of arrows in A from x to y.
 #def hom
   (A : U)
   (x y : A)
@@ -66,7 +65,6 @@ Extension types are also used to define the type of commutative triangles:
 </svg>
 
 ```rzk title="RS17, Definition 5.2"
--- the type of commutative triangles in A
 #def hom2
   (A : U)
   (x y z : A)
@@ -83,9 +81,9 @@ Extension types are also used to define the type of commutative triangles:
 
 ## The Segal condition
 
-A type is Segal if every composable pair of arrows has a unique composite. Note
-this is a considerable simplification of the usual Segal condition, which also
-requires homotopical uniqueness of higher-order composites.
+A type is **Segal** if every composable pair of arrows has a unique composite.
+Note this is a considerable simplification of the usual Segal condition, which
+also requires homotopical uniqueness of higher-order composites.
 
 ```rzk title="RS17, Definition 5.3"
 #def is-segal
@@ -297,19 +295,20 @@ witnesses of the equivalence).
             is-segal-A
               ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
               ( \ t → k (t , 0₂)) (\ t → k (1₂ , t)))))
+```
 
--- Verify that the mapping in (Segal-equiv-horn-restriction A is-segal-A)
--- is exactly (horn-restriction A)
-#def Segal-equiv-horn-restriction-test
+We verify that the mapping in `Segal-equiv-horn-restriction A is-segal-A` is
+exactly `horn-restriction A`.
+
+```rzk
+#def test-Segal-equiv-horn-restriction
   ( A : U)
   ( is-segal-A : is-segal A)
   : (first (Segal-equiv-horn-restriction A is-segal-A)) = (horn-restriction A)
   := refl
 ```
 
-Segal types are types that are local at the horn inclusion:
-
-```rzk
+```rzk title="Segal types are types that are local at the horn inclusion"
 #def is-local-horn-inclusion-is-segal
   ( A : U)
   ( is-segal-A : is-segal A)
@@ -317,9 +316,7 @@ Segal types are types that are local at the horn inclusion:
   := second (Segal-equiv-horn-restriction A is-segal-A)
 ```
 
-Types that are local at the horn inclusion are Segal types:
-
-```rzk
+```rzk title="Types that are local at the horn inclusion are Segal types"
 #def is-segal-is-local-horn-inclusion
   ( A : U)
   ( is-local-horn-inclusion-A : is-local-horn-inclusion A)
@@ -478,8 +475,7 @@ For later use, an equivalent characterization of the arrow type.
         ( \ (x , (y , f)) → f , \ xyf → refl)))
 ```
 
-```rzk title="RS17, Corollary 5.6(ii)"
--- special case using `is-local-horn-inclusion`
+```rzk title="RS17, Corollary 5.6(ii), special case for locality at the horn inclusion"
 #def Segal'-arrow-types uses (extext)
   (A : U)
   (is-segal-A : is-local-horn-inclusion A)
@@ -490,8 +486,9 @@ For later use, an equivalent characterization of the arrow type.
       ( Δ¹)
       ( \ t → A)
       ( \ t → is-segal-A)
+```
 
--- special case using `is-segal`
+```rzk title="RS17, Corollary 5.6(ii), special case for the Segal condition"
 #def Segal-arrow-types uses (extext)
   (A : U)
   (is-segal-A : is-segal A)
@@ -517,7 +514,6 @@ All types have identity arrows and witnesses to the identity composition law.
 </svg>
 
 ```rzk title="RS17, Definition 5.7"
--- all types have identity arrows
 #def id-arr
   (A : U)
   (x : A)
@@ -542,7 +538,6 @@ Witness for the right identity law:
 </svg>
 
 ```rzk title="RS17, Proposition 5.8a"
--- the right unit law for identity
 #def comp-id-witness
   (A : U)
   (x y : A)
@@ -568,7 +563,6 @@ Witness for the left identity law:
 </svg>
 
 ```rzk title="RS17, Proposition 5.8b"
--- the left unit law for identity
 #def id-comp-witness
   (A : U)
   (x y : A)
@@ -581,8 +575,7 @@ In a Segal type, where composition is unique, it follows that composition with
 an identity arrow recovers the original arrow. Thus, an identity axiom was not
 needed in the definition of Segal types.
 
-```rzk
--- If A is Segal then the right unit law holds
+```rzk title="If $A$ is Segal then the right unit law holds"
 #def Segal-comp-id
   (A : U)
   (is-segal-A : is-segal A)
@@ -598,8 +591,9 @@ needed in the definition of Segal types.
       ( id-arr A y)
       ( f)
       ( comp-id-witness A x y f)
+```
 
--- If A is Segal then the left unit law holds
+```rzk title="If $A$ is Segal then the left unit law holds"
 #def Segal-id-comp
   (A : U)
   (is-segal-A : is-segal A)
@@ -1184,8 +1178,11 @@ composition:
             (p))),
         ( k),
         ( q))
+```
 
--- As a special case of the above:
+As a special case of the above:
+
+```rzk
 #def Segal-homotopy-postwhisker
   (A : U)
   (is-segal-A : is-segal A)
@@ -1195,8 +1192,11 @@ composition:
   (p : f = g)
   : (Segal-comp A is-segal-A x y z f h) = (Segal-comp A is-segal-A x y z g h)
   := Segal-homotopy-congruence A is-segal-A x y z f g h h p refl
+```
 
--- As a special case of the above:
+As a special case of the above:
+
+```rzk
 #def Segal-homotopy-prewhisker
   (A : U)
   (is-segal-A : is-segal A)

@@ -32,14 +32,14 @@ identity types.
 
 ```rzk title="RS17, Definition 7.1"
 #def arr-eq
-  (A : U)             -- A type.
-  (x y : A)           -- Two points of type A.
-  (p : x = y)         -- A path p from x to y in A.
-  : hom A x y         -- An arrow p from x to y in A.
+  (A : U)
+  (x y : A)
+  (p : x = y)
+  : hom A x y
   := idJ (A , x , \ y' → \ p' → hom A x y' , (id-arr A x) , y , p)
 
 #def is-discrete
-  (A : U)             -- A type.
+  (A : U)
   : U
   := (x : A) → (y : A) → is-equiv (x =_{A} y) (hom A x y) (arr-eq A x y)
 ```
@@ -236,8 +236,11 @@ Discrete types are automatically Segal types.
           ( \ α → refl)) ,
         ( ( \ σ → \ t → \ s → (second (second σ)) (t , s)) ,
           ( \ σ → refl))))
+```
 
--- The equivalence underlying Eq-arr.
+The equivalence underlying `Eq-arr`:
+
+```rzk
 #def fibered-arr-free-arr
   : (arr A) → (Σ (u : A) , (Σ (v : A) , hom A u v))
   := \ k → (k 0₂ , (k 1₂ , k))
@@ -328,10 +331,15 @@ Discrete types are automatically Segal types.
                     (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
         ( equiv-arr-eq-discrete)
         ( equiv-square-hom-arr))
+```
 
+We close the section so we can use path induction.
+
+```rzk
 #end discrete-arr-equivalences
+```
 
--- closing the section so I can use path induction
+```rzk
 #def fibered-map-square-sigma-over-product
   ( A : U)
   ( is-discrete-A : is-discrete A)
