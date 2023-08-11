@@ -203,7 +203,7 @@ By uncurrying (RS 4.2) we have an equivalence:
 
 #def dhom-from-representable
   (A : U)
-  (a x y : A)        .
+  (a x y : A)
   (f : hom A x y)
   (u : hom A a x)
   : U
