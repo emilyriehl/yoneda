@@ -49,7 +49,7 @@ naturality-covariant-fiberwise-transformation naturality is automatic.
   (is-covariant-C : is-covariant A C)
   (ϕ : (z : A) → hom A a z → C z)
   : (covariant-transport A x y g C is-covariant-C (ϕ x f)) =
-    (ϕ y (Segal-comp A is-segal-A a x y f g))
+    (ϕ y (comp-Segal A is-segal-A a x y f g))
   :=
     naturality-covariant-fiberwise-transformation A x y g
       (\ z → hom A a z)
@@ -138,17 +138,17 @@ The composite `yon-evid` of `ϕ` equals `ϕ` at all `x : A` and `f : hom A a x`.
     concat
       ( C x)
       ( ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
-      ( ϕ x (Segal-comp A is-segal-A a a x (id-arr A a) f))
+      ( ϕ x (comp-Segal A is-segal-A a a x (id-arr A a) f))
       ( ϕ x f)
       ( naturality-covariant-fiberwise-representable-transformation
         A is-segal-A a a x (id-arr A a) f C is-covariant-C ϕ )
       ( ap
         ( hom A a x)
         ( C x)
-        ( Segal-comp A is-segal-A a a x (id-arr A a) f)
+        ( comp-Segal A is-segal-A a a x (id-arr A a) f)
         ( f)
         ( ϕ x)
-        ( Segal-id-comp A is-segal-A a x f))
+        ( id-comp-Segal A is-segal-A a x f))
 ```
 
 By `funext`, these are equals as functions of `f` pointwise in `x`.
@@ -323,7 +323,7 @@ automatic.
   (is-contravariant-C : is-contravariant A C)
   (ϕ : (z : A) → hom A z a → C z)
   : (contravariant-transport A x y g C is-contravariant-C (ϕ y f)) =
-    (ϕ x (Segal-comp A is-segal-A x y a g f))
+    (ϕ x (comp-Segal A is-segal-A x y a g f))
   :=
     naturality-contravariant-fiberwise-transformation A x y g
       ( \ z → hom A z a) C
@@ -410,17 +410,17 @@ The composite `contra-yon-evid` of `ϕ` equals `ϕ` at all `x : A` and
       ( C x)
       ( ((contra-yon A is-segal-A a C is-contravariant-C)
             ((contra-evid A a C) ϕ )) x f)
-      ( ϕ x (Segal-comp A is-segal-A x a a f (id-arr A a)))
+      ( ϕ x (comp-Segal A is-segal-A x a a f (id-arr A a)))
       ( ϕ x f)
       ( naturality-contravariant-fiberwise-representable-transformation
           A is-segal-A a x a (id-arr A a) f C is-contravariant-C ϕ )
       ( ap
         ( hom A x a)
         ( C x)
-        ( Segal-comp A is-segal-A x a a f (id-arr A a))
+        ( comp-Segal A is-segal-A x a a f (id-arr A a))
         ( f)
         ( ϕ x)
-        ( Segal-comp-id A is-segal-A x a f))
+        ( comp-id-Segal A is-segal-A x a f))
 ```
 
 By `funext`, these are equals as functions of `f` pointwise in `x`.

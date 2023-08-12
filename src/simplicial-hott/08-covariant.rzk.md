@@ -387,7 +387,7 @@ By uncurrying (RS 4.2) we have an equivalence:
 Now we introduce the hypothesis that A is Segal type.
 
 ```rzk
-#def Segal-representable-dhom-from-path-space
+#def representable-dhom-from-path-space-Segal
   (A : U)
   (is-segal-A : is-segal A)
   (a x y : A)
@@ -456,7 +456,7 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ (d : hom A a y) ,
       ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
     ( Σ (d : hom A a y) , (hom2 A a x y u f d))
-    ( Segal-representable-dhom-from-path-space A is-segal-A a x y f u)
+    ( representable-dhom-from-path-space-Segal A is-segal-A a x y f u)
     ( total-equiv-family-equiv
       ( hom A a y)
       ( \ d → product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d)))
@@ -1134,7 +1134,7 @@ By uncurrying (RS 4.2) we have an equivalence:
 Now we introduce the hypothesis that A is Segal type.
 
 ```rzk
-#def Segal-representable-dhom-to-path-space
+#def representable-dhom-to-path-space-Segal
   (A : U)
   (is-segal-A : is-segal A)
   (a x y : A)
@@ -1188,7 +1188,7 @@ Now we introduce the hypothesis that A is Segal type.
       ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
     ( Σ (d : hom A x a) ,
       ( hom2 A x y a f v d))
-    ( Segal-representable-dhom-to-path-space A is-segal-A a x y f v)
+    ( representable-dhom-to-path-space-Segal A is-segal-A a x y f v)
     ( total-equiv-family-equiv
       ( hom A x a)
       ( \ d → product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d)))

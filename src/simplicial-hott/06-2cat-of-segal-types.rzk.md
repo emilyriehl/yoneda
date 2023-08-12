@@ -84,21 +84,21 @@ Preservation of composition requires the Segal hypothesis.
   (f : hom A x y)
   (g : hom A y z)
   :
-    ( Segal-comp B is-segal-B
+    ( comp-Segal B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g))
     =
-    ( ap-hom A B F x z (Segal-comp A is-segal-A x y z f g))
+    ( ap-hom A B F x z (comp-Segal A is-segal-A x y z f g))
   :=
-    Segal-comp-uniqueness B is-segal-B
+    comp-uniqueness-Segal B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g)
-      ( ap-hom A B F x z (Segal-comp A is-segal-A x y z f g))
+      ( ap-hom A B F x z (comp-Segal A is-segal-A x y z f g))
       ( ap-hom2 A B F x y z f g
-        ( Segal-comp A is-segal-A x y z f g)
-        ( Segal-comp-witness A is-segal-A x y z f g))
+        ( comp-Segal A is-segal-A x y z f g)
+        ( comp-witness-Segal A is-segal-A x y z f g))
 ```
 
 ## Natural transformations
@@ -212,7 +212,7 @@ Segal types.
   (η : nat-trans-components A B f g)
   (η' : nat-trans-components A B g h)
   : nat-trans-components A B f h
-  := \ x → Segal-comp (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
+  := \ x → comp-Segal (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
 
 #def vertical-comp-nat-trans
   (A : U)

@@ -22,7 +22,7 @@ Some of the definitions in this file rely on extension extensionality:
     (f : hom A x y)
     (g : hom A y x)
     : U
-    := (Segal-comp A is-segal-A x y x f g) =_{hom A x x} (id-arr A x)
+    := (comp-Segal A is-segal-A x y x f g) =_{hom A x x} (id-arr A x)
 
 #def arrow-Retraction
     (A : U)
@@ -39,7 +39,7 @@ Some of the definitions in this file rely on extension extensionality:
     (f : hom A x y)
     (h : hom A y x)
     : U
-    := (Segal-comp A is-segal-A y x y h f) =_{hom A y y} (id-arr A y)
+    := (comp-Segal A is-segal-A y x y h f) =_{hom A y y} (id-arr A y)
 
 #def arrow-Section
     (A : U)
@@ -90,32 +90,32 @@ Some of the definitions in this file rely on extension extensionality:
         → (g , (p ,
             (concat
             (hom A y y)
-            (Segal-comp A is-segal-A y x y g f)
-            (Segal-comp A is-segal-A y x y h f)
+            (comp-Segal A is-segal-A y x y g f)
+            (comp-Segal A is-segal-A y x y h f)
             (id-arr A y)
-            (Segal-homotopy-postwhisker A is-segal-A y x y g h f
+            (homotopy-postwhisker-Segal A is-segal-A y x y g h f
                 (alternating-quintuple-concat (hom A y x)
-                g (Segal-comp A is-segal-A y y x (id-arr A y) g) -- a0 = g and a1 = g o id_y
-                (rev (hom A y x) (Segal-comp A is-segal-A y y x (id-arr A y) g) g (Segal-id-comp A is-segal-A y x g)) -- p1 = identity law
+                g (comp-Segal A is-segal-A y y x (id-arr A y) g) -- a0 = g and a1 = g o id_y
+                (rev (hom A y x) (comp-Segal A is-segal-A y y x (id-arr A y) g) g (id-comp-Segal A is-segal-A y x g)) -- p1 = identity law
 
-                (Segal-comp A is-segal-A y y x (Segal-comp A is-segal-A y x y h f) g) -- a2 = g o (f o h)
-                (Segal-homotopy-postwhisker A is-segal-A y y x                      -- p2 = postwhiskering
+                (comp-Segal A is-segal-A y y x (comp-Segal A is-segal-A y x y h f) g) -- a2 = g o (f o h)
+                (homotopy-postwhisker-Segal A is-segal-A y y x                      -- p2 = postwhiskering
         (id-arr A y)
-        (Segal-comp A is-segal-A y x y h f)
+        (comp-Segal A is-segal-A y x y h f)
         g
-        (rev (hom A y y) (Segal-comp A is-segal-A y x y h f) (id-arr A y) q)
+        (rev (hom A y y) (comp-Segal A is-segal-A y x y h f) (id-arr A y) q)
                 )
 
-                (Segal-comp A is-segal-A y x x h (Segal-comp A is-segal-A x y x f g)) -- a3 = (g o f) o h
-                (Segal-associativity extext A is-segal-A y x y x h f g)             -- p3 = associativity
+                (comp-Segal A is-segal-A y x x h (comp-Segal A is-segal-A x y x f g)) -- a3 = (g o f) o h
+                (associativity-Segal extext A is-segal-A y x y x h f g)             -- p3 = associativity
 
-                (Segal-comp A is-segal-A y x x h (id-arr A x)) -- a4 = id_x o h
-                (Segal-homotopy-prewhisker A is-segal-A y x x h -- p4 = prewhiskering
-                (Segal-comp A is-segal-A x y x f g)
+                (comp-Segal A is-segal-A y x x h (id-arr A x)) -- a4 = id_x o h
+                (homotopy-prewhisker-Segal A is-segal-A y x x h -- p4 = prewhiskering
+                (comp-Segal A is-segal-A x y x f g)
                 (id-arr A x)
                 p)
                 h -- a5 = h
-                (Segal-comp-id A is-segal-A y x h) -- p5 = connect through identity law
+                (comp-id-Segal A is-segal-A y x h) -- p5 = connect through identity law
                 )
                 )
             q
@@ -139,20 +139,20 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
   (g : hom A y x)
   (gg : arrow-has-retraction A is-segal-A x y f g)
-  : (z : A) → has-retraction (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
+  : (z : A) → has-retraction (hom A z x) (hom A z y) (postcomp-Segal A is-segal-A x y f z)
   :=
     \ z →
-    ( (Segal-postcomp A is-segal-A y x g z) ,
+    ( (postcomp-Segal A is-segal-A y x g z) ,
         \ k →
       (triple-concat
         (hom A z x) -- k is an arrow z → x
-        (Segal-comp A is-segal-A z y x (Segal-comp A is-segal-A z x y k f) g) -- g(fk)
-        (Segal-comp A is-segal-A z x x k (Segal-comp A is-segal-A x y x f g)) -- (gf)k
-        (Segal-comp A is-segal-A z x x k (id-arr A x)) -- id_x k
+        (comp-Segal A is-segal-A z y x (comp-Segal A is-segal-A z x y k f) g) -- g(fk)
+        (comp-Segal A is-segal-A z x x k (comp-Segal A is-segal-A x y x f g)) -- (gf)k
+        (comp-Segal A is-segal-A z x x k (id-arr A x)) -- id_x k
         k --k
-      (Segal-associativity extext A is-segal-A z x y x k f g) -- g(fk) = (gf)k
-      (Segal-homotopy-prewhisker A is-segal-A z x x k (Segal-comp A is-segal-A x y x f g) (id-arr A x) gg)  -- (gf)k = id_x k from (gf) = id_x
-      (Segal-comp-id A is-segal-A z x k) -- id_x k = k
+      (associativity-Segal extext A is-segal-A z x y x k f g) -- g(fk) = (gf)k
+      (homotopy-prewhisker-Segal A is-segal-A z x x k (comp-Segal A is-segal-A x y x f g) (id-arr A x) gg)  -- (gf)k = id_x k from (gf) = id_x
+      (comp-id-Segal A is-segal-A z x k) -- id_x k = k
       )
   )
 
@@ -163,20 +163,20 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
-  : (z : A) → has-section (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
+  : (z : A) → has-section (hom A z x) (hom A z y) (postcomp-Segal A is-segal-A x y f z)
   :=
     \ z →
-    ( (Segal-postcomp A is-segal-A y x h z) ,
+    ( (postcomp-Segal A is-segal-A y x h z) ,
         \ k →
       (triple-concat
         (hom A z y) -- k is an arrow z to y
-        (Segal-comp A is-segal-A z x y (Segal-comp A is-segal-A z y x k h) f) -- f(hk)
-        (Segal-comp A is-segal-A z y y k (Segal-comp A is-segal-A y x y h f)) -- (fh)k
-        (Segal-comp A is-segal-A z y y k (id-arr A y)) -- id_y k
+        (comp-Segal A is-segal-A z x y (comp-Segal A is-segal-A z y x k h) f) -- f(hk)
+        (comp-Segal A is-segal-A z y y k (comp-Segal A is-segal-A y x y h f)) -- (fh)k
+        (comp-Segal A is-segal-A z y y k (id-arr A y)) -- id_y k
         k --k
-      (Segal-associativity extext A is-segal-A z y x y k h f) -- f(hk) = (fh)k
-      (Segal-homotopy-prewhisker A is-segal-A z y y k (Segal-comp A is-segal-A y x y h f) (id-arr A y) hh)  -- (fh)k = id_y k from (fh) = id_y
-      (Segal-comp-id A is-segal-A z y k) -- id_y k = k
+      (associativity-Segal extext A is-segal-A z y x y k h f) -- f(hk) = (fh)k
+      (homotopy-prewhisker-Segal A is-segal-A z y y k (comp-Segal A is-segal-A y x y h f) (id-arr A y) hh)  -- (fh)k = id_y k from (fh) = id_y
+      (comp-id-Segal A is-segal-A z y k) -- id_y k = k
       )
   )
 
@@ -189,7 +189,7 @@ Some of the definitions in this file rely on extension extensionality:
   (gg : arrow-has-retraction A is-segal-A x y f g)
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
-  : (z : A) → is-equiv (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)
+  : (z : A) → is-equiv (hom A z x) (hom A z y) (postcomp-Segal A is-segal-A x y f z)
   :=
     \ z →
     ( (if-iso-then-postcomp-has-retraction A is-segal-A x y f g gg z) ,
@@ -202,25 +202,25 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
-  : (z : A) → has-retraction (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
+  : (z : A) → has-retraction (hom A y z) (hom A x z) (precomp-Segal A is-segal-A x y f z)
   :=
     \ z →
-    ( (Segal-precomp A is-segal-A y x h z) ,
+    ( (precomp-Segal A is-segal-A y x h z) ,
         \ k →
       (triple-concat
         (hom A y z) -- k is an arrow y → z
-        (Segal-comp A is-segal-A y x z h (Segal-comp A is-segal-A x y z f k)) -- (kf)h
-        (Segal-comp A is-segal-A y y z (Segal-comp A is-segal-A y x y h f) k) -- k(fh)
-        (Segal-comp A is-segal-A y y z (id-arr A y) k) -- k id_y
+        (comp-Segal A is-segal-A y x z h (comp-Segal A is-segal-A x y z f k)) -- (kf)h
+        (comp-Segal A is-segal-A y y z (comp-Segal A is-segal-A y x y h f) k) -- k(fh)
+        (comp-Segal A is-segal-A y y z (id-arr A y) k) -- k id_y
         k --k
       (rev (hom A y z)
-          (Segal-comp A is-segal-A y y z (Segal-comp A is-segal-A y x y h f) k)
-          (Segal-comp A is-segal-A y x z h (Segal-comp A is-segal-A x y z f k))
-          (Segal-associativity extext A is-segal-A y x y z h f k)
+          (comp-Segal A is-segal-A y y z (comp-Segal A is-segal-A y x y h f) k)
+          (comp-Segal A is-segal-A y x z h (comp-Segal A is-segal-A x y z f k))
+          (associativity-Segal extext A is-segal-A y x y z h f k)
       ) -- (kf)h = k(fh)
 
-      (Segal-homotopy-postwhisker A is-segal-A y y z (Segal-comp A is-segal-A y x y h f) (id-arr A y) k hh)  -- k(fh) = k id_y from (fh) = id_y
-      (Segal-id-comp A is-segal-A y z k) -- k id_y = k
+      (homotopy-postwhisker-Segal A is-segal-A y y z (comp-Segal A is-segal-A y x y h f) (id-arr A y) k hh)  -- k(fh) = k id_y from (fh) = id_y
+      (id-comp-Segal A is-segal-A y z k) -- k id_y = k
       )
   )
 
@@ -231,24 +231,24 @@ Some of the definitions in this file rely on extension extensionality:
   (f : hom A x y)
   (g : hom A y x)
   (gg : arrow-has-retraction A is-segal-A x y f g)
-  : (z : A) → has-section (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
+  : (z : A) → has-section (hom A y z) (hom A x z) (precomp-Segal A is-segal-A x y f z)
   :=
     \ z →
-    ( (Segal-precomp A is-segal-A y x g z) ,
+    ( (precomp-Segal A is-segal-A y x g z) ,
         \ k →
       (triple-concat
         (hom A x z) -- k is an arrow x → z
-        (Segal-comp A is-segal-A x y z f (Segal-comp A is-segal-A y x z g k)) -- (kg)f
-        (Segal-comp A is-segal-A x x z (Segal-comp A is-segal-A x y x f g) k) -- k(gf)
-        (Segal-comp A is-segal-A x x z (id-arr A x) k) -- k id_x
+        (comp-Segal A is-segal-A x y z f (comp-Segal A is-segal-A y x z g k)) -- (kg)f
+        (comp-Segal A is-segal-A x x z (comp-Segal A is-segal-A x y x f g) k) -- k(gf)
+        (comp-Segal A is-segal-A x x z (id-arr A x) k) -- k id_x
         k --k
       (rev (hom A x z)
-          (Segal-comp A is-segal-A x x z (Segal-comp A is-segal-A x y x f g) k)
-          (Segal-comp A is-segal-A x y z f (Segal-comp A is-segal-A y x z g k))
-          (Segal-associativity extext A is-segal-A x y x z f g k)
+          (comp-Segal A is-segal-A x x z (comp-Segal A is-segal-A x y x f g) k)
+          (comp-Segal A is-segal-A x y z f (comp-Segal A is-segal-A y x z g k))
+          (associativity-Segal extext A is-segal-A x y x z f g k)
       ) -- (kg)f = k(gf)
-      (Segal-homotopy-postwhisker A is-segal-A x x z (Segal-comp A is-segal-A x y x f g) (id-arr A x) k gg)  -- k(gf) = k id_x from (gf) = id_x
-      (Segal-id-comp A is-segal-A x z k) -- k id_x = k
+      (homotopy-postwhisker-Segal A is-segal-A x x z (comp-Segal A is-segal-A x y x f g) (id-arr A x) k gg)  -- k(gf) = k id_x from (gf) = id_x
+      (id-comp-Segal A is-segal-A x z k) -- k id_x = k
       )
   )
 
@@ -261,7 +261,7 @@ Some of the definitions in this file rely on extension extensionality:
   (gg : arrow-has-retraction A is-segal-A x y f g)
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
-  : (z : A) → is-equiv (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)
+  : (z : A) → is-equiv (hom A y z) (hom A x z) (precomp-Segal A is-segal-A x y f z)
   :=
     \ z →
     ( (if-iso-then-precomp-has-retraction A is-segal-A x y f h hh z) ,
@@ -277,7 +277,7 @@ Some of the definitions in this file rely on extension extensionality:
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
   : is-contr (arrow-Retraction A is-segal-A x y f)
-  := (is-contr-map-is-equiv (hom A y x) (hom A x x) (Segal-precomp A is-segal-A x y f x)
+  := (is-contr-map-is-equiv (hom A y x) (hom A x x) (precomp-Segal A is-segal-A x y f x)
                           (if-iso-then-precomp-is-equiv A is-segal-A x y f g gg h hh x))
       (id-arr A x)
 
@@ -291,7 +291,7 @@ Some of the definitions in this file rely on extension extensionality:
   (h : hom A y x)
   (hh : arrow-has-section A is-segal-A x y f h)
   : is-contr (arrow-Section A is-segal-A x y f)
-  := (is-contr-map-is-equiv (hom A y x) (hom A y y) (Segal-postcomp A is-segal-A x y f y)
+  := (is-contr-map-is-equiv (hom A y x) (hom A y y) (postcomp-Segal A is-segal-A x y f y)
                           (if-iso-then-postcomp-is-equiv A is-segal-A x y f g gg h hh y))
       (id-arr A y)
 
@@ -332,11 +332,11 @@ Some of the definitions in this file rely on extension extensionality:
     (
     (
       (id-arr A x) ,
-      (Segal-id-comp A is-segal-A x x (id-arr A x))
+      (id-comp-Segal A is-segal-A x x (id-arr A x))
     ) ,
     (
       (id-arr A x) ,
-      (Segal-id-comp A is-segal-A x x (id-arr A x))
+      (id-comp-Segal A is-segal-A x x (id-arr A x))
     )
       )
   )
@@ -371,7 +371,7 @@ In a Segal type, initial objects are isomorphic.
           contractible-connecting-htpy
             ( hom A a a)
             ( ainitial a)
-            ( Segal-comp A is-segal-A a b a
+            ( comp-Segal A is-segal-A a b a
               ( first (ainitial b))
               ( first (binitial a)))
             ( id-arr A a)) ,
@@ -379,7 +379,7 @@ In a Segal type, initial objects are isomorphic.
           contractible-connecting-htpy
             ( hom A b b)
             ( binitial b)
-            ( Segal-comp A is-segal-A b a b
+            ( comp-Segal A is-segal-A b a b
               ( first (binitial a))
               ( first (ainitial b)))
             ( id-arr A b))))
@@ -402,7 +402,7 @@ In a Segal type, final objects are isomorphic.
           contractible-connecting-htpy
             ( hom A a a)
             ( afinal a)
-            ( Segal-comp A is-segal-A a b a
+            ( comp-Segal A is-segal-A a b a
               ( first (bfinal a))
               ( first (afinal b)))
             ( id-arr A a)) ,
@@ -410,7 +410,7 @@ In a Segal type, final objects are isomorphic.
           contractible-connecting-htpy
             ( hom A b b)
             ( bfinal b)
-            ( Segal-comp A is-segal-A b a b
+            ( comp-Segal A is-segal-A b a b
               ( first (afinal b))
               ( first (bfinal a)))
             ( id-arr A b))))
