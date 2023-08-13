@@ -30,7 +30,7 @@ This is a literate `rzk` file:
 ```
 
 ```rzk
-#def homotopy-composition
+#def comp-homotopy
   (f g h : A → B)
   (H : homotopy f g)
   (K : homotopy g h)
