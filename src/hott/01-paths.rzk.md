@@ -6,6 +6,23 @@ This is a literate `rzk` file:
 #lang rzk-1
 ```
 
+## Path induction
+
+We define path induction in terms of the built-in J rule, so that we can apply
+it like any other function.
+
+```rzk
+#define ind-path
+  ( A : U)
+  ( a : A)
+  ( C : (x : A) -> (a = x) -> U)
+  ( d : C a refl)
+  ( x : A)
+  ( p : a = x)
+  : C x p
+  := idJ (A , a , C , d , x , p)
+```
+
 ## Some basic path algebra
 
 ```rzk
