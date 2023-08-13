@@ -687,15 +687,15 @@ equivalence.
   : is-equiv A B f
   :=
     ( ( composition B C A
-        (is-equiv-retraction A C (composition A B C g f) gfisequiv) g ,
+        (retraction-is-equiv A C (composition A B C g f) gfisequiv) g ,
         (second (first gfisequiv))) ,
       ( composition B C A
-        (is-equiv-section A C (composition A B C g f) gfisequiv) g ,
+        (section-is-equiv A C (composition A B C g f) gfisequiv) g ,
         \ b →
           inv-ap-is-emb
             B C g
             ( is-emb-is-equiv B C g is-equiv-g)
-            ( f ((is-equiv-section A C (composition A B C g f) gfisequiv) (g b)))
+            ( f ((section-is-equiv A C (composition A B C g f) gfisequiv) (g b)))
             b
             ( (second (second gfisequiv)) (g b))))
 
@@ -708,35 +708,35 @@ equivalence.
   : is-equiv B C g
   :=
     ( ( composition C A B
-          f (is-equiv-retraction A C (composition A B C g f) gfisequiv) ,
+          f (retraction-is-equiv A C (composition A B C g f) gfisequiv) ,
         \ b →
           triple-concat B
-            ( f ((is-equiv-retraction A C (composition A B C g f) gfisequiv)
+            ( f ((retraction-is-equiv A C (composition A B C g f) gfisequiv)
               (g b)))
-            ( f ((is-equiv-retraction A C (composition A B C g f) gfisequiv)
-              (g (f ((is-equiv-section A B f is-equiv-f) b)))))
-            ( f ((is-equiv-section A B f is-equiv-f) b))
+            ( f ((retraction-is-equiv A C (composition A B C g f) gfisequiv)
+              (g (f ((section-is-equiv A B f is-equiv-f) b)))))
+            ( f ((section-is-equiv A B f is-equiv-f) b))
             ( b)
             ( ap B B
               ( b)
-              ( f ((is-equiv-section A B f is-equiv-f) b))
+              ( f ((section-is-equiv A B f is-equiv-f) b))
               ( \ b0 →
-                ( f ((is-equiv-retraction A C
+                ( f ((retraction-is-equiv A C
                       ( composition A B C g f) gfisequiv) (g b0))))
-              ( rev B (f ((is-equiv-section A B f is-equiv-f) b)) b
+              ( rev B (f ((section-is-equiv A B f is-equiv-f) b)) b
                 ( (second (second is-equiv-f)) b)))
             ( ( homotopy-whisker B A A B
                 ( \ a →
-                  ( is-equiv-retraction A C
+                  ( retraction-is-equiv A C
                     ( composition A B C g f) gfisequiv) (g (f a)))
                 ( \ a → a)
                 ( second (first gfisequiv))
-                ( is-equiv-section A B f is-equiv-f)
+                ( section-is-equiv A B f is-equiv-f)
                 f) b)
             ( (second (second is-equiv-f)) b)) ,
       ( composition C A B
         ( f)
-        ( is-equiv-section A C (composition A B C g f) gfisequiv) ,
+        ( section-is-equiv A C (composition A B C g f) gfisequiv) ,
         ( second (second gfisequiv))))
 ```
 

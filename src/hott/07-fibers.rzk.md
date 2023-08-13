@@ -853,7 +853,7 @@ Specializing the above to `isHAE-fib-base-path`:
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( has-inverse-retraction-composite A B f (first fisHAE) (first z))
+          ( retraction-composite-has-inverse A B f (first fisHAE) (first z))
           ( first z) f
           ( ((first (second (first fisHAE)))) (first z))))
       ( second z)
@@ -883,7 +883,7 @@ Specializing the above to `isHAE-fib-base-path`:
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
-        ( has-inverse-retraction-composite A B f (first fisHAE) (first z))
+        ( retraction-composite-has-inverse A B f (first fisHAE) (first z))
         ( first z)
         ( f)
         ( (first (second (first fisHAE))) (first z))))
@@ -900,7 +900,7 @@ Specializing the above to `isHAE-fib-base-path`:
             ( (first (second (first fisHAE))) (first z))))
         ( (second (second (first fisHAE))) (f (first z)))
         ( ap A B
-          ( has-inverse-retraction-composite A B f (first fisHAE) (first z))
+          ( retraction-composite-has-inverse A B f (first fisHAE) (first z))
           ( first z) f
           ( ((first (second (first fisHAE)))) (first z)))
         ( (second fisHAE) (first z)))
@@ -919,7 +919,7 @@ Specializing the above to `isHAE-fib-base-path`:
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
-        ( has-inverse-retraction-composite A B f (first fisHAE) (first z))
+        ( retraction-composite-has-inverse A B f (first fisHAE) (first z))
         ( first z) f
         ( ((first (second (first fisHAE)))) (first z))))
     ( second z) =
@@ -938,12 +938,12 @@ Specializing the above to `isHAE-fib-base-path`:
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
-        ( has-inverse-retraction-composite A B f (first fisHAE) (first z))
+        ( retraction-composite-has-inverse A B f (first fisHAE) (first z))
         ( first z) f
         ( ((first (second (first fisHAE)))) (first z))))
     ( refl)
     ( concat-ap-rev-ap-id A B
-      ( has-inverse-retraction-composite A B f (first fisHAE) (first z))
+      ( retraction-composite-has-inverse A B f (first fisHAE) (first z))
       ( first z)
       ( f)
       ( ((first (second (first fisHAE)))) (first z)))
@@ -1143,7 +1143,7 @@ Specializing the above to `isHAE-fib-base-path`:
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( has-inverse-retraction-composite A B f (first fisHAE) (first z))
+          ( retraction-composite-has-inverse A B f (first fisHAE) (first z))
           ( first z) f
           ( (first (second (first fisHAE))) (first z))))
       ( second z))

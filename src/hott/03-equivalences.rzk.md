@@ -44,36 +44,36 @@ We define equivalences to be bi-invertible maps.
 #variable f : A → B
 #variable is-equiv-f : is-equiv A B f
 
-#def is-equiv-section uses (f)
+#def section-is-equiv uses (f)
   : B → A
   := first (second is-equiv-f)
 
-#def is-equiv-retraction uses (f)
+#def retraction-is-equiv uses (f)
   : B → A
   := first (first is-equiv-f)
 ```
 
 ```rzk title="The homotopy between the section and retraction of an equivalence"
 #def homotopy-inverses-is-equiv uses (f)
-  : homotopy B A is-equiv-section is-equiv-retraction
+  : homotopy B A section-is-equiv retraction-is-equiv
   :=
     homotopy-composition B A
-      ( is-equiv-section)
-      ( triple-composition B A B A is-equiv-retraction f is-equiv-section)
-      ( is-equiv-retraction)
+      ( section-is-equiv)
+      ( triple-composition B A B A retraction-is-equiv f section-is-equiv)
+      ( retraction-is-equiv)
       ( homotopy-rev B A
-        ( triple-composition B A B A is-equiv-retraction f is-equiv-section)
-        ( is-equiv-section)
+        ( triple-composition B A B A retraction-is-equiv f section-is-equiv)
+        ( section-is-equiv)
         ( homotopy-prewhisker B A A
-          ( composition A B A is-equiv-retraction f)
+          ( composition A B A retraction-is-equiv f)
           ( identity A)
           ( second (first is-equiv-f))
-          ( is-equiv-section)))
+          ( section-is-equiv)))
       ( homotopy-postwhisker B B A
-        ( composition B A B f is-equiv-section)
+        ( composition B A B f section-is-equiv)
         ( identity B)
         ( second (second is-equiv-f))
-        ( is-equiv-retraction))
+        ( retraction-is-equiv))
 
 #end equivalence-data
 ```
@@ -114,14 +114,14 @@ The following type of more coherent equivalences is not a proposition.
   ( is-equiv-f : is-equiv A B f)
   : has-inverse A B f
   :=
-    ( is-equiv-section A B f is-equiv-f ,
+    ( section-is-equiv A B f is-equiv-f ,
       ( homotopy-composition A A
-        ( composition A B A (is-equiv-section A B f is-equiv-f) f)
-        ( composition A B A (is-equiv-retraction A B f is-equiv-f) f)
+        ( composition A B A (section-is-equiv A B f is-equiv-f) f)
+        ( composition A B A (retraction-is-equiv A B f is-equiv-f) f)
         ( identity A)
         ( homotopy-prewhisker A B A
-          ( is-equiv-section A B f is-equiv-f)
-          ( is-equiv-retraction A B f is-equiv-f)
+          ( section-is-equiv A B f is-equiv-f)
+          ( retraction-is-equiv A B f is-equiv-f)
           ( homotopy-inverses-is-equiv A B f is-equiv-f)
           ( f))
         ( second (first is-equiv-f)) ,
@@ -148,11 +148,11 @@ The following are some iterated composites associated to a pair of invertible
 maps.
 
 ```rzk
-#def has-inverse-retraction-composite uses (B has-inverse-f)
+#def retraction-composite-has-inverse uses (B has-inverse-f)
   : A → A
   := composition A B A map-inverse-has-inverse f
 
-#def has-inverse-section-composite uses (A has-inverse-f)
+#def section-composite-has-inverse uses (A has-inverse-f)
   : B → B
   := composition B A B f map-inverse-has-inverse
 ```
@@ -160,7 +160,7 @@ maps.
 This composite is parallel to `f`; we won't need the dual notion.
 
 ```rzk
-#def has-inverse-triple-composite uses (has-inverse-f)
+#def triple-composite-has-inverse uses (has-inverse-f)
   : A → B
   := triple-composition A B A B f map-inverse-has-inverse f
 ```
@@ -168,7 +168,7 @@ This composite is parallel to `f`; we won't need the dual notion.
 This composite is also parallel to `f`; again we won't need the dual notion.
 
 ```rzk
-#def has-inverse-quintuple-composite uses (has-inverse-f)
+#def quintuple-composite-has-inverse uses (has-inverse-f)
   : A → B
   := \ a → f (map-inverse-has-inverse (f (map-inverse-has-inverse (f a))))
 #end has-inverse-data
@@ -209,25 +209,26 @@ invertible map to prove symmetry:
   ( B≃C : Equiv B C)
   : Equiv A C
   :=
-    ( \ a → (first B≃C) ((first A≃B) a) , -- the composite equivalence
-      ( ( \ c →
-          ( first (first (second A≃B))) ((first (first (second (B≃C)))) c) ,
+    ( \ a → first B≃C (first A≃B a) , -- the composite equivalence
+      ( ( ( \ c →
+            first (first (second A≃B))) ((first (first (second (B≃C)))) c) ,
           ( \ a →
             concat A
-              ( (first (first (second A≃B)))
-                ((first (first (second B≃C)))
-                ((first B≃C) ((first A≃B) a))))
-              ( (first (first (second A≃B))) ((first A≃B) a))
+              ( first
+                ( first (second A≃B))
+                ( first (first (second B≃C)) (first B≃C (first A≃B a))))
+              ( first (first (second A≃B)) (first A≃B a))
               ( a)
               ( ap B A
-                ( (first (first (second B≃C))) ((first B≃C) ((first A≃B) a)))
-                ( (first A≃B) a)
+                ( first (first (second B≃C)) (first B≃C (first A≃B a)))
+                ( first A≃B a)
                 ( first (first (second A≃B)))
-                ( (second (first (second B≃C))) ((first A≃B) a)))
-              ( (second (first (second A≃B))) a))) ,
+                ( second (first (second B≃C)) (first A≃B a)))
+              ( ( second (first (second A≃B))) a))) ,
                 ( \ c →
-                  ( first (second (second A≃B)))
-                  ( (first (second (second (B≃C)))) c) ,
+                  first
+                    ( second (second A≃B))
+                    ( (first (second (second (B≃C)))) c) ,
           ( \ c →
             concat C
               ( first B≃C
@@ -262,34 +263,34 @@ Now we compose the functions that are equivalences.
   : is-equiv A C (composition A B C g f)
   :=
     ( ( composition C B A
-        ( is-equiv-retraction A B f is-equiv-f)
-        ( is-equiv-retraction B C g is-equiv-g) ,
+        ( retraction-is-equiv A B f is-equiv-f)
+        ( retraction-is-equiv B C g is-equiv-g) ,
         ( \ a →
           concat A
-            ( (is-equiv-retraction A B f is-equiv-f)
-              ((is-equiv-retraction B C g is-equiv-g) (g (f a))))
-            ( (is-equiv-retraction A B f is-equiv-f) (f a))
+            ( retraction-is-equiv A B f is-equiv-f
+              ( retraction-is-equiv B C g is-equiv-g (g (f a))))
+            ( retraction-is-equiv A B f is-equiv-f (f a))
             ( a)
             ( ap B A
-              ( (is-equiv-retraction B C g is-equiv-g) (g (f a)))
+              ( retraction-is-equiv B C g is-equiv-g (g (f a)))
               ( f a)
-              ( is-equiv-retraction A B f is-equiv-f)
-              ( (second (first is-equiv-g)) (f a)))
-            ( (second (first is-equiv-f)) a))) ,
+              ( retraction-is-equiv A B f is-equiv-f)
+              ( second (first is-equiv-g) (f a)))
+            ( second (first is-equiv-f) a))) ,
       ( composition C B A
-        ( is-equiv-section A B f is-equiv-f)
-        ( is-equiv-section B C g is-equiv-g) ,
+        ( section-is-equiv A B f is-equiv-f)
+        ( section-is-equiv B C g is-equiv-g) ,
         ( \ c →
           concat C
-            ( g (f ((first (second is-equiv-f)) ((first (second is-equiv-g)) c))))
-            ( g ((first (second is-equiv-g)) c))
+            ( g (f (first (second is-equiv-f) (first (second is-equiv-g) c))))
+            ( g (first (second is-equiv-g) c))
             ( c)
             ( ap B C
-              ( f ((first (second is-equiv-f)) ((first (second is-equiv-g)) c)))
-              ( (first (second is-equiv-g)) c)
+              ( f (first (second is-equiv-f) (first (second is-equiv-g) c)))
+              ( first (second is-equiv-g) c)
               ( g)
-              ( (second (second is-equiv-f)) ((first (second is-equiv-g)) c)))
-                ((second (second is-equiv-g)) c))))
+              ( second (second is-equiv-f) (first (second is-equiv-g) c)))
+            ( second (second is-equiv-g) c))))
 ```
 
 ```rzk title="Right cancellation of equivalences in diagrammatic order"
@@ -351,19 +352,19 @@ If a map is homotopic to an equivalence it is an equivalence.
     ( ( ( first (first is-equiv-g)) ,
         ( \ a →
           concat A
-            ( (first (first is-equiv-g)) (f a))
-            ( (first (first is-equiv-g)) (g a))
+            ( first (first is-equiv-g) (f a))
+            ( first (first is-equiv-g) (g a))
             ( a)
             ( ap B A (f a) (g a) (first (first is-equiv-g)) (H a))
-            ( (second (first is-equiv-g)) a))) ,
+            ( second (first is-equiv-g) a))) ,
       ( ( first (second is-equiv-g)) ,
         ( \ b →
           concat B
-            ( f ((first (second is-equiv-g)) b))
-            ( g ((first (second is-equiv-g)) b))
+            ( f (first (second is-equiv-g) b))
+            ( g (first (second is-equiv-g) b))
             ( b)
-            ( H ((first (second is-equiv-g)) b))
-            ( (second (second is-equiv-g)) b))))
+            ( H (first (second is-equiv-g) b))
+            ( second (second is-equiv-g) b))))
 
 #def is-equiv-rev-homotopic-is-equiv
   ( A B : U)
@@ -450,25 +451,25 @@ dependent function types.
   ( fibequiv : (x : X) → Equiv (A x) (B x))
   : Equiv ((x : X) → A x) ((x : X) → B x)
   :=
-    ( ( \ a x → (first (fibequiv x)) (a x)) ,
-      ( ( ( \ b x → (first (first (second (fibequiv x)))) (b x)) ,
+    ( ( \ a x → first (fibequiv x) (a x)) ,
+      ( ( ( \ b x → first (first (second (fibequiv x))) (b x)) ,
           ( \ a →
             eq-htpy
               X A
               ( \ x →
-                (first (first (second (fibequiv x))))
-                  ((first (fibequiv x)) (a x)))
+                first
+                  ( first (second (fibequiv x)))
+                  ( first (fibequiv x) (a x)))
               ( a)
-              ( \ x → (second (first (second (fibequiv x)))) (a x)))) ,
-        ( ( \ b x → (first (second (second (fibequiv x)))) (b x)) ,
+              ( \ x → second (first (second (fibequiv x))) (a x)))) ,
+        ( ( \ b x → first (second (second (fibequiv x))) (b x)) ,
           ( \ b →
             eq-htpy
               X B
               ( \ x →
-                (first (fibequiv x))
-                  ((first (second (second (fibequiv x)))) (b x)))
+                first (fibequiv x) (first (second (second (fibequiv x))) (b x)))
               ( b)
-              ( \ x → (second (second (second (fibequiv x)))) (b x))))))
+              ( \ x → second (second (second (fibequiv x))) (b x))))))
 ```
 
 ## Embeddings
