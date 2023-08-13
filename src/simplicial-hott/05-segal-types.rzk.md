@@ -380,7 +380,7 @@ all $x$ then $(x : X) → A x$ is a Segal type.
   (fiberwise-is-segal-A : (x : X) → is-local-horn-inclusion (A x))
   : is-local-horn-inclusion ((x : X) → A x)
   :=
-    triple-compose-is-equiv
+    triple-comp-is-equiv
       ( Δ² → ((x : X) → A x) )
       ( (x : X) → Δ² → A x )
       ( (x : X) → Λ → A x )
@@ -421,7 +421,7 @@ then $(x : X) → A x$ is a Segal type.
   (fiberwise-is-segal-A : (s : ψ) → is-local-horn-inclusion (A s) )
   : is-local-horn-inclusion ((s : ψ) → A s )
   :=
-    triple-compose-is-equiv
+    triple-comp-is-equiv
     ( Δ² → (s : ψ) → A s  )
     ( (s : ψ) → Δ² → A s  )
     ( (s : ψ) → Λ → A s  )

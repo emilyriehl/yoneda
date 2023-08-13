@@ -254,7 +254,7 @@ invertible map to prove symmetry:
 Now we compose the functions that are equivalences.
 
 ```rzk
-#def compose-is-equiv
+#def comp-is-equiv
   ( A B C : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
@@ -320,7 +320,7 @@ Now we compose the functions that are equivalences.
   : Equiv A D
   := comp-equiv A B D (A≃B) (comp-equiv B C D B≃C C≃D)
 
-#def triple-compose-is-equiv
+#def triple-comp-is-equiv
   ( A B C D : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
@@ -330,11 +330,11 @@ Now we compose the functions that are equivalences.
   ( is-equiv-h : is-equiv C D h)
   : is-equiv A D (triple-composition A B C D h g f)
   :=
-    compose-is-equiv A B D
+    comp-is-equiv A B D
       ( f)
       ( is-equiv-f)
       ( composition B C D h g)
-      ( compose-is-equiv B C D g is-equiv-g h is-equiv-h)
+      ( comp-is-equiv B C D g is-equiv-g h is-equiv-h)
 ```
 
 ## Equivalences and homotopy
