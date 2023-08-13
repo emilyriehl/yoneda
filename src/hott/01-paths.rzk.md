@@ -38,7 +38,7 @@ it like any other function.
 #def rev
   ( p : x = y)
   : y = x
-  := idJ (A , x , (\ y' p' → y' = x) , refl , y , p)
+  := ind-path (A) (x) (\ y' p' → y' = x) (refl) (y) (p)
 ```
 
 ### Path concatenation
@@ -51,7 +51,7 @@ our main definition.
   ( p : x = y)
   ( q : y = z)
   : (x = z)
-  := idJ (A , y , \ z' q' → (x = z') , p , z , q)
+  := ind-path (A) (y) (\ z' q' → (x = z')) (p) (z) (q)
 ```
 
 We also introduce a version defined by induction on the first path variable, for
@@ -61,7 +61,7 @@ situations where it is easier to induct on the first path.
 #def concat'
   ( p : x = y)
   : (y = z) → (x = z)
-  := idJ (A , x , \ y' p' → (y' = z) → (x = z) , \ q' → q' , y , p)
+  := ind-path (A) (x) (\ y' p' → (y' = z) → (x = z)) (\ q' → q') (y) (p)
 
 #end path-algebra
 ```
@@ -77,7 +77,7 @@ situations where it is easier to induct on the first path.
 #def rev-rev
   ( p : x = y)
   : (rev A y x (rev A x y p)) = p
-  := idJ (A , x , \ y' p' → (rev A y' x (rev A x y' p')) = p' , refl , y , p)
+  := ind-path (A) (x) (\ y' p' → (rev A y' x (rev A x y' p')) = p') (refl) (y) (p)
 ```
 
 ### Left unit law for path concatenation
@@ -89,7 +89,7 @@ choice of definition.
 #def left-unit-concat
   ( p : x = y)
   : (concat A x x y refl p) = p
-  := idJ (A , x , \ y' p' → (concat A x x y' refl p') = p' , refl , y , p)
+  := ind-path (A) (x) (\ y' p' → (concat A x x y' refl p') = p') (refl) (y) (p)
 ```
 
 ### Associativity of path concatenation
@@ -102,15 +102,15 @@ choice of definition.
   : ( concat A w y z (concat A w x y p q) r) =
     ( concat A w x z p (concat A x y z q r))
   :=
-    idJ
-    ( ( A) ,
-      ( y) ,
+    ind-path
+      ( A)
+      ( y)
       ( \ z' r' →
         concat A w y z' (concat A w x y p q) r' =
-        concat A w x z' p (concat A x y z' q r')) ,
-      ( refl) ,
-      ( z) ,
-      ( r))
+        concat A w x z' p (concat A x y z' q r'))
+      ( refl)
+      ( z)
+      ( r)
 
 #def rev-associative-concat
   ( p : w = x)
@@ -119,39 +119,39 @@ choice of definition.
   : ( concat A w x z p (concat A x y z q r)) =
     ( concat A w y z (concat A w x y p q) r)
   :=
-    idJ
-    ( A ,
-      y ,
-      \ z' r' →
-        concat A w x z' p (concat A x y z' q r') =
-        concat A w y z' (concat A w x y p q) r' ,
-      refl ,
-      z ,
-      r)
+    ind-path
+      ( A)
+      ( y)
+      ( \ z' r' →
+          concat A w x z' p (concat A x y z' q r') =
+          concat A w y z' (concat A w x y p q) r')
+      ( refl)
+      ( z)
+      ( r)
 
 #def right-inverse-concat
   ( p : x = y)
   : (concat A x y x p (rev A x y p)) = refl
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' → concat A x y' x p' (rev A x y' p') = refl ,
-      refl ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' → concat A x y' x p' (rev A x y' p') = refl)
+      ( refl)
+      ( y)
+      ( p)
 
 #def left-inverse-concat
   ( p : x = y)
   : (concat A y x y (rev A x y p) p) = refl
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' → concat A y' x y' (rev A x y' p') p' = refl ,
-      refl ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' → concat A y' x y' (rev A x y' p') p' = refl)
+      ( refl)
+      ( y)
+      ( p)
 ```
 
 ### Concatenation of two paths with common codomain
@@ -183,13 +183,13 @@ Concatenation of two paths with common domain; defined using `concat` and `rev`.
   ( r : y = z)
   : ((concat A x y z p r) = (concat A x y z q r)) → (p = q)
   :=
-    idJ
-    ( A ,
-      y ,
-      \ z' r' → ((concat A x y z' p r') = (concat A x y z' q r')) → (p = q) ,
-      \ H → H ,
-      z ,
-      r)
+    ind-path
+      ( A)
+      ( y)
+      ( \ z' r' → ((concat A x y z' p r') = (concat A x y z' q r')) → (p = q))
+      ( \ H → H)
+      ( z)
+      ( r)
 
 #end basic-path-coherence
 ```
@@ -210,19 +210,19 @@ of the path algebra coherences defined above.
   : ( rev A x z (concat A x y z p q)) =
     ( concat A z y x (rev A y z q) (rev A x y p))
   :=
-    idJ
-    ( A ,
-      y ,
-      \ z' q' →
-        (rev A x z' (concat A x y z' p q')) =
-        (concat A z' y x (rev A y z' q') (rev A x y p)) ,
-      rev
-        ( y = x)
-        ( concat A y y x refl (rev A x y p))
-        ( rev A x y p)
-        ( left-unit-concat A y x (rev A x y p)) ,
-      z ,
-      q)
+    ind-path
+      ( A)
+      ( y)
+      ( \ z' q' →
+          (rev A x z' (concat A x y z' p q')) =
+          (concat A z' y x (rev A y z' q') (rev A x y p)))
+      ( rev
+          ( y = x)
+          ( concat A y y x refl (rev A x y p))
+          ( rev A x y p)
+          ( left-unit-concat A y x (rev A x y p)))
+      ( z)
+      ( q)
 ```
 
 ### Postwhiskering paths of paths
@@ -234,13 +234,13 @@ of the path algebra coherences defined above.
   ( r : y = z)
   : (concat A x y z p r) = (concat A x y z q r)
   :=
-    idJ
-    ( A ,
-      y ,
-      \ z' r' → (concat A x y z' p r') = (concat A x y z' q r') ,
-      H ,
-      z ,
-      r)
+    ind-path
+      ( A)
+      ( y)
+      ( \ z' r' → (concat A x y z' p r') = (concat A x y z' q r'))
+      ( H)
+      ( z)
+      ( r)
 ```
 
 ### Prewhiskering paths of paths
@@ -255,24 +255,24 @@ Prewhiskering paths of paths is much harder.
     ( H : q = r) →
     ( concat A x y z p q) = (concat A x y z p r)
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-      (q : y' = z) →
-      (r : y' = z) →
-      (H : q = r) →
-      (concat A x y' z p' q) = (concat A x y' z p' r) ,
-      \ q r H →
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+        ( q : y' = z) →
+        ( r : y' = z) →
+        ( H : q = r) →
+        ( concat A x y' z p' q) = (concat A x y' z p' r))
+      ( \ q r H →
         concat
           ( x = z)
           ( concat A x x z refl q)
-          r
+          ( r)
           ( concat A x x z refl r)
           ( concat (x = z) (concat A x x z refl q) q r (left-unit-concat A x z q) H)
-          ( rev (x = z) (concat A x x z refl r) r (left-unit-concat A x z r)) ,
-      y ,
-      p)
+          ( rev (x = z) (concat A x x z refl r) r (left-unit-concat A x z r)))
+      ( y)
+      ( p)
 ```
 
 ### Identifying the two definitions of path concatenation
@@ -283,15 +283,15 @@ Prewhiskering paths of paths is much harder.
   : ( q : y = z) →
     ( concat A x y z p q) = (concat' A x y z p q)
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        (q' : y' =_{A} z) →
-        (concat A x y' z p' q') =_{x =_{A} z} concat' A x y' z p' q' ,
-      \ q' → left-unit-concat A x z q' ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+          (q' : y' =_{A} z) →
+          (concat A x y' z p' q') =_{x =_{A} z} concat' A x y' z p' q')
+      ( \ q' → left-unit-concat A x z q')
+      ( y)
+      ( p)
 
 #def concat'-concat
   ( p : x = y)
@@ -315,16 +315,16 @@ This is easier to prove for `concat'` than for `concat`.
     ( H : p = concat' A x y z q r) →
     ( concat' A y x z (rev A x y q) p) = r
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' q' →
-        (r' : y' =_{A} z) →
-        (H' : p = concat' A x y' z q' r') →
-        (concat' A y' x z (rev A x y' q') p) = r' ,
-      \ r' H' → H' ,
-      y ,
-      q)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' q' →
+        ( r' : y' =_{A} z) →
+        ( H' : p = concat' A x y' z q' r') →
+        ( concat' A y' x z (rev A x y' q') p) = r')
+      ( \ r' H' → H')
+      ( y)
+      ( q)
 ```
 
 The following needs to be outside the previous section because of the usage of
@@ -368,7 +368,7 @@ The following needs to be outside the previous section because of the usage of
   ( f : A → B)
   ( p : x = y)
   : (f x = f y)
-  := idJ (A , x , \ y' → \ p' → (f x = f y') , refl , y , p)
+  := ind-path (A) (x) (\ y' → \ p' → (f x = f y')) (refl) (y) (p)
 
 #def ap-rev
   ( A B : U)
@@ -377,14 +377,14 @@ The following needs to be outside the previous section because of the usage of
   ( p : x = y)
   : (ap A B y x f (rev A x y p)) = (rev B (f x) (f y) (ap A B x y f p))
   :=
-    idJ
-    ( ( A) ,
-      ( x) ,
+    ind-path
+      ( A)
+      ( x)
       ( \ y' p' →
-        ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p')) ,
-      ( refl) ,
-      ( y) ,
-      ( p))
+        ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p'))
+      ( refl)
+      ( y)
+      ( p)
 
 #def ap-concat
   ( A B : U)
@@ -395,15 +395,15 @@ The following needs to be outside the previous section because of the usage of
   : ( ap A B x z f (concat A x y z p q)) =
     ( concat B (f x) (f y) (f z) (ap A B x y f p) (ap A B y z f q))
   :=
-    idJ
-    ( ( A) ,
-      ( y) ,
+    ind-path
+      ( A)
+      ( y)
       ( \ z' q' →
         ( ap A B x z' f (concat A x y z' p q')) =
-        ( concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q'))) ,
-      ( refl) ,
-      ( z) ,
-      ( q))
+        ( concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')))
+      ( refl)
+      ( z)
+      ( q)
 
 #def rev-ap-rev
   ( A B : U)
@@ -412,15 +412,15 @@ The following needs to be outside the previous section because of the usage of
   ( p : x = y)
   : (rev B (f y) (f x) (ap A B y x f (rev A x y p))) = (ap A B x y f p)
   :=
-    idJ
-    ( ( A) ,
-      ( x) ,
+    ind-path
+      ( A)
+      ( x)
       ( \ y' p' →
         (rev B (f y') (f x) (ap A B y' x f (rev A x y' p'))) =
-        (ap A B x y' f p')) ,
-      ( refl) ,
-      ( y) ,
-      ( p))
+        (ap A B x y' f p'))
+      ( refl)
+      ( y)
+      ( p)
 ```
 
 The following is for a specific use.
@@ -437,24 +437,24 @@ The following is for a specific use.
       ( ap A B x y f p)) =
     ( refl)
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-      ( concat
-        ( B) (f y') (f x) (f y')
-        ( ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) =
-        refl ,
-      refl ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+        ( concat
+          ( B) (f y') (f x) (f y')
+          ( ap A B y' x f (rev A x y' p')) (ap A B x y' f p')) =
+        ( refl))
+      ( refl)
+      ( y)
+      ( p)
 
 #def ap-id
   ( A : U)
   ( x y : A)
   ( p : x = y)
   : (ap A A x y (identity A) p) = p
-    := idJ (A , x , \ y' p' → (ap A A x y' (\ z → z) p') = p' , refl , y , p)
+  := ind-path (A) (x) (\ y' p' → (ap A A x y' (\ z → z) p') = p') (refl) (y) (p)
 ```
 
 Application of a function to homotopic paths yields homotopic paths.
@@ -468,13 +468,13 @@ Application of a function to homotopic paths yields homotopic paths.
   ( H : p = q)
   : (ap A B x y f p) = (ap A B x y f q)
   :=
-    idJ
-    ( x = y ,
-      p ,
-      \ q' H' → (ap A B x y f p) = (ap A B x y f q') ,
-      refl ,
-      q ,
-      H)
+    ind-path
+      ( x = y)
+      ( p)
+      ( \ q' H' → (ap A B x y f p) = (ap A B x y f q'))
+      ( refl)
+      ( q)
+      ( H)
 
 #def ap-comp
   ( A B C : U)
@@ -485,15 +485,15 @@ Application of a function to homotopic paths yields homotopic paths.
   : ( ap A C x y (composition A B C g f) p) =
     ( ap B C (f x) (f y) g (ap A B x y f p))
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-      ( ap A C x y' (\ z → g (f z)) p') =
-      ( ap B C (f x) (f y') g (ap A B x y' f p')) ,
-      refl ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+        ( ap A C x y' (\ z → g (f z)) p') =
+        ( ap B C (f x) (f y') g (ap A B x y' f p')))
+      ( refl)
+      ( y)
+      ( p)
 
 #def rev-ap-comp
   ( A B C : U)
@@ -528,7 +528,7 @@ Application of a function to homotopic paths yields homotopic paths.
   ( p : x = y)
   ( u : B x)
   : B y
-  := idJ (A , x , \ y' p' → B y' , u , y , p)
+  := ind-path (A) (x) (\ y' p' → B y') (u) (y) (p)
 ```
 
 ### The lift of a base path to a path from a term in the total space to its transport
@@ -540,13 +540,13 @@ Application of a function to homotopic paths yields homotopic paths.
   ( u : B x)
   : (x , u) =_{Σ (z : A) , B z} (y , transport x y p u)
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' → (x , u) =_{Σ (z : A) , B z} (y' , transport x y' p' u) ,
-      refl ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' → (x , u) =_{Σ (z : A) , B z} (y' , transport x y' p' u))
+      ( refl)
+      ( y)
+      ( p)
 ```
 
 ### Transport along concatenated paths
@@ -560,15 +560,15 @@ Application of a function to homotopic paths yields homotopic paths.
   : ( transport x z (concat A x y z p q) u) =
     ( transport y z q (transport x y p u))
   :=
-    idJ
-    ( A ,
-      y ,
-      \ z' q' →
-      ( transport x z' (concat A x y z' p q') u) =
-      ( transport y z' q' (transport x y p u)) ,
-      refl ,
-      z ,
-      q)
+    ind-path
+      ( A)
+      ( y)
+      ( \ z' q' →
+        ( transport x z' (concat A x y z' p q') u) =
+        ( transport y z' q' (transport x y p u)))
+      ( refl)
+      ( z)
+      ( q)
 
 #def transport-concat-rev
   ( x y z : A)
@@ -578,15 +578,15 @@ Application of a function to homotopic paths yields homotopic paths.
   : ( transport y z q (transport x y p u)) =
     ( transport x z (concat A x y z p q) u)
   :=
-    idJ
-    ( A ,
-      y ,
-      \ z' q' →
-      ( transport y z' q' (transport x y p u)) =
-      ( transport x z' (concat A x y z' p q') u) ,
-      refl ,
-      z ,
-      q)
+    ind-path
+      ( A)
+      ( y)
+      ( \ z' q' →
+        ( transport y z' q' (transport x y p u)) =
+        ( transport x z' (concat A x y z' p q') u))
+      ( refl)
+      ( z)
+      ( q)
 ```
 
 ### Transport along homotopic paths
@@ -599,13 +599,13 @@ Application of a function to homotopic paths yields homotopic paths.
   ( u : B x)
   : (transport x y p u) = (transport x y q u)
   :=
-    idJ
-    ( x = y ,
-      p ,
-      \ q' H' → (transport x y p u) = (transport x y q' u) ,
-      refl ,
-      q ,
-      H)
+    ind-path
+      ( x = y)
+      ( p)
+      ( \ q' H' → (transport x y p u) = (transport x y q' u))
+      ( refl)
+      ( q)
+      ( H)
 ```
 
 ### Transport along a loop
@@ -633,13 +633,13 @@ Application of a function to homotopic paths yields homotopic paths.
   ( p : x = y)
   : (transport A B x y p (f x)) = f y
   :=
-    idJ
-    ( A ,
-      x ,
-      (\ y' p' → (transport A B x y' p' (f x)) = f y') ,
-      refl ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( (\ y' p' → (transport A B x y' p' (f x)) = f y'))
+      ( refl)
+      ( y)
+      ( p)
 ```
 
 ## Higher-order concatenation
@@ -749,13 +749,13 @@ The following is the same as above but with alternating arguments.
   ( p : x = y)
   : triple-concat A y x x y (rev A x y p) refl p = refl
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' → triple-concat A y' x x y' (rev A x y' p') refl p' = refl ,
-      refl ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' → triple-concat A y' x x y' (rev A x y' p') refl p' = refl)
+      ( refl)
+      ( y)
+      ( p)
 
 #def ap-rev-refl-id-triple-concat
   ( A B : U)
@@ -764,15 +764,15 @@ The following is the same as above but with alternating arguments.
   ( p : x = y)
   : (ap A B y y f (triple-concat A y x x y (rev A x y p) refl p)) = refl
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        ap A B y' y' f (triple-concat A y' x x y' (rev A x y' p') refl p') =
-        refl ,
-      refl ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+        ( ap A B y' y' f (triple-concat A y' x x y' (rev A x y' p') refl p')) =
+        ( refl))
+      ( refl)
+      ( y)
+      ( p)
 
 #def ap-triple-concat
   ( A B : U)
@@ -792,23 +792,20 @@ The following is the same as above but with alternating arguments.
       ( ap A B x y f q)
       ( ap A B y z f r))
   :=
-    idJ
-    ( A ,
-      y ,
-      \ z' r' →
-      ap A B w z' f (triple-concat A w x y z' p q r') =
-      triple-concat
-        B
-        ( f w)
-        ( f x)
-        ( f y)
-        ( f z')
-        ( ap A B w x f p)
-        ( ap A B x y f q)
-        ( ap A B y z' f r') ,
-      ap-concat A B w x y f p q ,
-      z ,
-      r)
+    ind-path
+      ( A)
+      ( y)
+      ( \ z' r' →
+        ( ap A B w z' f (triple-concat A w x y z' p q r')) =
+        ( triple-concat
+          ( B)
+          ( f w) (f x) (f y) (f z')
+          ( ap A B w x f p)
+          ( ap A B x y f q)
+          ( ap A B y z' f r')))
+      ( ap-concat A B w x y f p q)
+      ( z)
+      ( r)
 
 #def homotopy-triple-concat
   ( A : U)
@@ -829,12 +826,12 @@ The following is the same as above but with alternating arguments.
   ( H : q = r)
   : (triple-concat A w x y z p q s) = (triple-concat A w x y z p r s)
   :=
-    idJ
-    ( x = y ,
-      q ,
-      \ r' H' →
-      triple-concat A w x y z p q s = triple-concat A w x y z p r' s ,
-      refl ,
-      r ,
-      H)
+    ind-path
+      ( x = y)
+      ( q)
+      ( \ r' H' →
+        triple-concat A w x y z p q s = triple-concat A w x y z p r' s)
+      ( refl)
+      ( r)
+      ( H)
 ```

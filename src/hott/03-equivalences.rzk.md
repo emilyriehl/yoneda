@@ -386,13 +386,13 @@ By path induction, an identification between functions defines a homotopy.
   ( p : f = g)
   : (x : X) → (f x = g x)
   :=
-    idJ
-    ( ( (x : X) → A x) ,
-      ( f) ,
-      ( \ g' p' → (x : X) → (f x = g' x)) ,
-      ( \ x → refl) ,
-      ( g) ,
-      ( p))
+    ind-path
+      ( (x : X) → A x)
+      ( f)
+      ( \ g' p' → (x : X) → (f x = g' x))
+      ( \ x → refl)
+      ( g)
+      ( p)
 ```
 
 The function extensionality axiom asserts that this map defines a family of
@@ -513,17 +513,17 @@ dependent function types.
     \ x →
     ( ( rev A y x) ,
       ( \ p →
-        idJ
-        ( A ,
-          x ,
+        ind-path
+          ( A)
+          ( x)
           ( \ y' p' →
             ( composition
               ( x = y') (y' = x) (x = y') (rev A y' x) (rev A x y') (p'))
             =_{x = y'}
-            ( p')) ,
-          ( refl) ,
-          ( y) ,
-          ( p))))
+            ( p'))
+            ( refl)
+            ( y)
+            ( p)))
 
 #def has-section-rev
   ( A : U)
@@ -532,18 +532,16 @@ dependent function types.
   :=
     \ x →
     ( ( rev A y x) ,
-      ( \ p →
-        idJ
-        ( A ,
-          y ,
-          ( \ x' p' →
-            ( composition
-              ( y = x') (x' = y) (y = x') (rev A x' y) (rev A y x') (p'))
-            =_{y = x'}
-            ( p')) ,
-          ( refl) ,
-          ( x) ,
-          ( p))))
+      ( ind-path
+        ( A)
+        ( y)
+        ( \ x' p' →
+          ( composition
+            ( y = x') (x' = y) (y = x') (rev A x' y) (rev A y x') (p'))
+          =_{y = x'}
+          ( p'))
+        ( refl)
+        ( x)))
 
 #def is-equiv-rev
   ( A : U)

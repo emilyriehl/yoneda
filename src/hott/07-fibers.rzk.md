@@ -23,25 +23,26 @@ We calculate the transport of (a , q) : fib b along p : a = a':
 
 ```rzk
 #def transport-in-fiber
-  (A B : U)
-  (f : A → B)
-  (b : B)
-  (a a' : A)
-  (u : (f a) = b)
-  (p : a = a')
-  : (transport A ( \ x → (f x) = b) a a' p u) =
-    (concat B (f a') (f a) b (ap A B a' a f (rev A a a' p)) u)
+  ( A B : U)
+  ( f : A → B)
+  ( b : B)
+  ( a a' : A)
+  ( u : (f a) = b)
+  ( p : a = a')
+  : ( transport A ( \ x → (f x) = b) a a' p u) =
+    ( concat B (f a') (f a) b (ap A B a' a f (rev A a a' p)) u)
   :=
-    idJ
-    ( A ,
-      a ,
-      \ a'' p' →
-        (transport A (\ x → (f x) = b) a a'' p' u) =
-        (concat B (f a'') (f a) b (ap A B a'' a f (rev A a a'' p')) u) ,
-      ( rev ((f a) = b) (concat B (f a) (f a) b refl u) u
-        ( left-unit-concat B (f a) b u)) ,
-      a' ,
-      p)
+    ind-path
+      ( A)
+      ( a)
+      ( \ a'' p' →
+        ( transport (A) (\ x → (f x) = b) (a) (a'') (p') (u)) =
+        ( concat (B) (f a'') (f a) (b) (ap A B a'' a f (rev A a a'' p')) (u)))
+      ( rev
+        ( (f a) = b) (concat B (f a) (f a) b refl u) (u)
+        ( left-unit-concat B (f a) b u))
+      ( a')
+      ( p)
 ```
 
 ## Contractible maps

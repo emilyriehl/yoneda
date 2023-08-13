@@ -91,7 +91,7 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
   : has-retraction (x = y) Unit (terminal-map (x = y))
   :=
     ( \ a → refl ,
-      \ p → idJ (Unit , x , \ y' p' → refl =_{x = y'} p' , refl , y , p))
+      \ p → ind-path (Unit) (x) (\ y' p' → refl =_{x = y'} p') (refl) (y) (p))
 
 #def terminal-map-of-path-types-of-Unit-has-sec
   ( x y : Unit)
@@ -305,14 +305,14 @@ For example, we prove that based path spaces are contractible.
   ( q : x = y)
   : ( transport A (\ z → (a = z)) x y q p) = (concat A a x y p q)
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' q' →
-        ( transport A (\ z → (a = z)) x y' q' p) = (concat A a x y' p q') ,
-      refl ,
-      y ,
-      q)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' q' →
+        ( transport A (\ z → (a = z)) x y' q' p) = (concat A a x y' p q'))
+      ( refl)
+      ( y)
+      ( q)
 ```
 
 The center of contraction in the based path space is `(a , refl)`.

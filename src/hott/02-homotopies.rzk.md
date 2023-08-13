@@ -102,15 +102,15 @@ composition.
   : (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =
     (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
-        (concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')) ,
-      left-unit-concat B (f x) (g x) (H x) ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+        ( concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
+        ( concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')))
+      ( left-unit-concat B (f x) (g x) (H x))
+      ( y)
+      ( p)
 ```
 
 ```rzk title="Naturality in another form"
@@ -125,23 +125,23 @@ composition.
       ( rev B (f x) (g x) (H x)) (ap A B x y f p) (H y) =
     ap A B x y g p
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        triple-concat
-          ( B)
-          ( g x)
-          ( f x)
-          ( f y')
-          ( g y')
-          ( rev B (f x) (g x) (H x))
-          ( ap A B x y' f p')
-          ( H y') =
-        ap A B x y' g p' ,
-      rev-refl-id-triple-concat B (f x) (g x) (H x) ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+          triple-concat
+            ( B)
+            ( g x)
+            ( f x)
+            ( f y')
+            ( g y')
+            ( rev B (f x) (g x) (H x))
+            ( ap A B x y' f p')
+            ( H y') =
+          ap A B x y' g p')
+      ( rev-refl-id-triple-concat B (f x) (g x) (H x))
+      ( y)
+      ( p)
 ```
 
 ## An application
@@ -231,32 +231,29 @@ Cancelling the path `H a` on the right and reversing yields a path we need:
   : triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (H x)) p (H y) =
     triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (K x)) p (K y)
   :=
-    idJ
-    ( ( f y = g y) ,
-      ( H y) ,
+    ind-path
+      ( f y = g y)
+      ( H y)
       ( \ Ky α' →
-        triple-concat
+        ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
-          ( rev B (f x) (g x) (H x)) (p) (H y) =
-        triple-concat
+          ( rev B (f x) (g x) (H x)) (p) (H y)) =
+        ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
-          ( rev B (f x) (g x) (K x)) (p) (Ky)) ,
-      homotopy-triple-concat
-        B
-        ( g x)
-        ( f x)
-        ( f y)
-        ( g y)
+          ( rev B (f x) (g x) (K x)) (p) (Ky)))
+      ( homotopy-triple-concat
+        ( B) (g x) (f x) (f y) (g y)
         ( rev B (f x) (g x) (H x))
         ( rev B (f x) (g x) (K x))
-        p
+        ( p)
         ( H y)
         ( ap
           ( f x = g x)
           ( g x = f x)
           ( H x)
           ( K x)
-          ( \ G → rev B (f x) (g x) G) (α x)) ,
-      K y ,
-      α y)
+          ( rev B (f x) (g x))
+          ( α x)))
+      ( K y)
+      (α y)
 ```
