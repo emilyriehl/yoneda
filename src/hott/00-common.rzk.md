@@ -47,7 +47,7 @@ The following demonstrates the syntax for constructing terms in Sigma types:
   : A → C
   := \ z → g (f z)
 
-#def triple-composition
+#def triple-comp
   ( h : C → D)
   ( g : B → C)
   ( f : A → B)

@@ -77,8 +77,8 @@ composition.
   : homotopy
       A
       D
-      (triple-composition A B C D g h f)
-      (triple-composition A B C D g k f)
+      (triple-comp A B C D g h f)
+      (triple-comp A B C D g k f)
   :=
     homotopy-postwhisker
       A

@@ -59,10 +59,10 @@ We define equivalences to be bi-invertible maps.
   :=
     homotopy-composition B A
       ( section-is-equiv)
-      ( triple-composition B A B A retraction-is-equiv f section-is-equiv)
+      ( triple-comp B A B A retraction-is-equiv f section-is-equiv)
       ( retraction-is-equiv)
       ( homotopy-rev B A
-        ( triple-composition B A B A retraction-is-equiv f section-is-equiv)
+        ( triple-comp B A B A retraction-is-equiv f section-is-equiv)
         ( section-is-equiv)
         ( homotopy-prewhisker B A A
           ( composition A B A retraction-is-equiv f)
@@ -162,7 +162,7 @@ This composite is parallel to `f`; we won't need the dual notion.
 ```rzk
 #def triple-composite-has-inverse uses (has-inverse-f)
   : A → B
-  := triple-composition A B A B f map-inverse-has-inverse f
+  := triple-comp A B A B f map-inverse-has-inverse f
 ```
 
 This composite is also parallel to `f`; again we won't need the dual notion.
@@ -328,7 +328,7 @@ Now we compose the functions that are equivalences.
   ( is-equiv-g : is-equiv B C g)
   ( h : C → D)
   ( is-equiv-h : is-equiv C D h)
-  : is-equiv A D (triple-composition A B C D h g f)
+  : is-equiv A D (triple-comp A B C D h g f)
   :=
     comp-is-equiv A B D
       ( f)
