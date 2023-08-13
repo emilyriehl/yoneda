@@ -725,7 +725,7 @@ equivalence.
                       ( comp A B C g f) gfisequiv) (g b0))))
               ( rev B (f ((section-is-equiv A B f is-equiv-f) b)) b
                 ( (second (second is-equiv-f)) b)))
-            ( ( homotopy-whisker B A A B
+            ( ( whisker-homotopy B A A B
                 ( \ a →
                   ( retraction-is-equiv A C
                     ( comp A B C g f) gfisequiv) (g (f a)))

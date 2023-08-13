@@ -64,12 +64,12 @@ We define equivalences to be bi-invertible maps.
       ( homotopy-rev B A
         ( triple-comp B A B A retraction-is-equiv f section-is-equiv)
         ( section-is-equiv)
-        ( homotopy-prewhisker B A A
+        ( prewhisker-homotopy B A A
           ( comp A B A retraction-is-equiv f)
           ( identity A)
           ( second (first is-equiv-f))
           ( section-is-equiv)))
-      ( homotopy-postwhisker B B A
+      ( postwhisker-homotopy B B A
         ( comp B A B f section-is-equiv)
         ( identity B)
         ( second (second is-equiv-f))
@@ -119,7 +119,7 @@ The following type of more coherent equivalences is not a proposition.
         ( comp A B A (section-is-equiv A B f is-equiv-f) f)
         ( comp A B A (retraction-is-equiv A B f is-equiv-f) f)
         ( identity A)
-        ( homotopy-prewhisker A B A
+        ( prewhisker-homotopy A B A
           ( section-is-equiv A B f is-equiv-f)
           ( retraction-is-equiv A B f is-equiv-f)
           ( homotopy-inverses-is-equiv A B f is-equiv-f)

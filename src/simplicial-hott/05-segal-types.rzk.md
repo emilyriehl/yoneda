@@ -1151,7 +1151,7 @@ Homotopies form a congruence, meaning that homotopies are respected by
 composition:
 
 ```rzk title="RS17, Proposition 5.13"
-#def homotopy-congruence-Segal
+#def congruence-homotopy-Segal
   (A : U)
   (is-segal-A : is-segal A)
   (x y z : A)
@@ -1183,7 +1183,7 @@ composition:
 As a special case of the above:
 
 ```rzk
-#def homotopy-postwhisker-Segal
+#def postwhisker-homotopy-Segal
   (A : U)
   (is-segal-A : is-segal A)
   (x y z : A)
@@ -1191,13 +1191,13 @@ As a special case of the above:
   (h : hom A y z)
   (p : f = g)
   : (comp-Segal A is-segal-A x y z f h) = (comp-Segal A is-segal-A x y z g h)
-  := homotopy-congruence-Segal A is-segal-A x y z f g h h p refl
+  := congruence-homotopy-Segal A is-segal-A x y z f g h h p refl
 ```
 
 As a special case of the above:
 
 ```rzk
-#def homotopy-prewhisker-Segal
+#def prewhisker-homotopy-Segal
   (A : U)
   (is-segal-A : is-segal A)
   (w x y : A)
@@ -1205,25 +1205,25 @@ As a special case of the above:
   (f g : hom A x y)
   (p : f = g)
   : (comp-Segal A is-segal-A w x y k f) = (comp-Segal A is-segal-A w x y k g)
-  := homotopy-congruence-Segal A is-segal-A w x y k k f g refl p
+  := congruence-homotopy-Segal A is-segal-A w x y k k f g refl p
 ```
 
 ```rzk title="RS17, Proposition 5.14(a)"
-#def homotopy-postwhisker-is-ap-Segal
+#def postwhisker-homotopy-is-ap-Segal
   (A : U)
   (is-segal-A : is-segal A)
   (x y z : A)
   (f g : hom A x y)
   (h : hom A y z)
   (p : f = g)
-  : (homotopy-postwhisker-Segal A is-segal-A x y z f g h p) =
+  : (postwhisker-homotopy-Segal A is-segal-A x y z f g h p) =
     ap (hom A x y) (hom A x z) f g (\ k → comp-Segal A is-segal-A x y z k h) p
   :=
     idJ
     ( hom A x y,
       f,
       \ g' p' →
-      (homotopy-postwhisker-Segal A is-segal-A x y z f g' h p') =
+      (postwhisker-homotopy-Segal A is-segal-A x y z f g' h p') =
       ap
         (hom A x y) (hom A x z)
         f g' (\ k → comp-Segal A is-segal-A x y z k h) p' ,
@@ -1233,21 +1233,21 @@ As a special case of the above:
 ```
 
 ```rzk title="RS17, Proposition 5.14(b)"
-#def homotopy-prewhisker-is-ap-Segal
+#def prewhisker-homotopy-is-ap-Segal
   (A : U)
   (is-segal-A : is-segal A)
   (w x y : A)
   (k : hom A w x)
   (f g : hom A x y)
   (p : f = g)
-  : (homotopy-prewhisker-Segal A is-segal-A w x y k f g p) =
+  : (prewhisker-homotopy-Segal A is-segal-A w x y k f g p) =
     ap (hom A x y) (hom A w y) f g (comp-Segal A is-segal-A w x y k) p
   :=
     idJ
     ( hom A x y ,
       f ,
       \ g' p' →
-      (homotopy-prewhisker-Segal A is-segal-A w x y k f g' p') =
+      (prewhisker-homotopy-Segal A is-segal-A w x y k f g' p') =
       ap (hom A x y) (hom A w y) f g' (comp-Segal A is-segal-A w x y k) p' ,
       refl ,
       g ,

@@ -93,13 +93,13 @@ Some of the definitions in this file rely on extension extensionality:
             (comp-Segal A is-segal-A y x y g f)
             (comp-Segal A is-segal-A y x y h f)
             (id-arr A y)
-            (homotopy-postwhisker-Segal A is-segal-A y x y g h f
+            (postwhisker-homotopy-Segal A is-segal-A y x y g h f
                 (alternating-quintuple-concat (hom A y x)
                 g (comp-Segal A is-segal-A y y x (id-arr A y) g) -- a0 = g and a1 = g o id_y
                 (rev (hom A y x) (comp-Segal A is-segal-A y y x (id-arr A y) g) g (id-comp-Segal A is-segal-A y x g)) -- p1 = identity law
 
                 (comp-Segal A is-segal-A y y x (comp-Segal A is-segal-A y x y h f) g) -- a2 = g o (f o h)
-                (homotopy-postwhisker-Segal A is-segal-A y y x                      -- p2 = postwhiskering
+                (postwhisker-homotopy-Segal A is-segal-A y y x                      -- p2 = postwhiskering
         (id-arr A y)
         (comp-Segal A is-segal-A y x y h f)
         g
@@ -110,7 +110,7 @@ Some of the definitions in this file rely on extension extensionality:
                 (associativity-Segal extext A is-segal-A y x y x h f g)             -- p3 = associativity
 
                 (comp-Segal A is-segal-A y x x h (id-arr A x)) -- a4 = id_x o h
-                (homotopy-prewhisker-Segal A is-segal-A y x x h -- p4 = prewhiskering
+                (prewhisker-homotopy-Segal A is-segal-A y x x h -- p4 = prewhiskering
                 (comp-Segal A is-segal-A x y x f g)
                 (id-arr A x)
                 p)
@@ -151,7 +151,7 @@ Some of the definitions in this file rely on extension extensionality:
         (comp-Segal A is-segal-A z x x k (id-arr A x)) -- id_x k
         k --k
       (associativity-Segal extext A is-segal-A z x y x k f g) -- g(fk) = (gf)k
-      (homotopy-prewhisker-Segal A is-segal-A z x x k (comp-Segal A is-segal-A x y x f g) (id-arr A x) gg)  -- (gf)k = id_x k from (gf) = id_x
+      (prewhisker-homotopy-Segal A is-segal-A z x x k (comp-Segal A is-segal-A x y x f g) (id-arr A x) gg)  -- (gf)k = id_x k from (gf) = id_x
       (comp-id-Segal A is-segal-A z x k) -- id_x k = k
       )
   )
@@ -175,7 +175,7 @@ Some of the definitions in this file rely on extension extensionality:
         (comp-Segal A is-segal-A z y y k (id-arr A y)) -- id_y k
         k --k
       (associativity-Segal extext A is-segal-A z y x y k h f) -- f(hk) = (fh)k
-      (homotopy-prewhisker-Segal A is-segal-A z y y k (comp-Segal A is-segal-A y x y h f) (id-arr A y) hh)  -- (fh)k = id_y k from (fh) = id_y
+      (prewhisker-homotopy-Segal A is-segal-A z y y k (comp-Segal A is-segal-A y x y h f) (id-arr A y) hh)  -- (fh)k = id_y k from (fh) = id_y
       (comp-id-Segal A is-segal-A z y k) -- id_y k = k
       )
   )
@@ -219,7 +219,7 @@ Some of the definitions in this file rely on extension extensionality:
           (associativity-Segal extext A is-segal-A y x y z h f k)
       ) -- (kf)h = k(fh)
 
-      (homotopy-postwhisker-Segal A is-segal-A y y z (comp-Segal A is-segal-A y x y h f) (id-arr A y) k hh)  -- k(fh) = k id_y from (fh) = id_y
+      (postwhisker-homotopy-Segal A is-segal-A y y z (comp-Segal A is-segal-A y x y h f) (id-arr A y) k hh)  -- k(fh) = k id_y from (fh) = id_y
       (id-comp-Segal A is-segal-A y z k) -- k id_y = k
       )
   )
@@ -247,7 +247,7 @@ Some of the definitions in this file rely on extension extensionality:
           (comp-Segal A is-segal-A x y z f (comp-Segal A is-segal-A y x z g k))
           (associativity-Segal extext A is-segal-A x y x z f g k)
       ) -- (kg)f = k(gf)
-      (homotopy-postwhisker-Segal A is-segal-A x x z (comp-Segal A is-segal-A x y x f g) (id-arr A x) k gg)  -- k(gf) = k id_x from (gf) = id_x
+      (postwhisker-homotopy-Segal A is-segal-A x x z (comp-Segal A is-segal-A x y x f g) (id-arr A x) k gg)  -- k(gf) = k id_x from (gf) = id_x
       (id-comp-Segal A is-segal-A x z k) -- k id_x = k
       )
   )

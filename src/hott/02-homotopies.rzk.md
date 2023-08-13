@@ -52,14 +52,14 @@ composition.
 
 #variables A B C : U
 
-#def homotopy-postwhisker
+#def postwhisker-homotopy
   (f g : A → B)
   (H : homotopy A B f g)
   (h : B → C)
   : homotopy A C (comp A B C h f) (comp A B C h g)
   := \ a → ap B C (f a) (g a) h (H a)
 
-#def homotopy-prewhisker
+#def prewhisker-homotopy
   (f g : B → C)
   (H : homotopy B C f g)
   (h : A → B)
@@ -68,7 +68,7 @@ composition.
 
 #end homotopy-whiskering
 
-#def homotopy-whisker
+#def whisker-homotopy
   (A B C D : U)
   (h k : B → C)
   (H : homotopy B C h k)
@@ -80,13 +80,13 @@ composition.
       (triple-comp A B C D g h f)
       (triple-comp A B C D g k f)
   :=
-    homotopy-postwhisker
+    postwhisker-homotopy
       A
       C
       D
       ( comp A B C h f)
       ( comp A B C k f)
-      ( homotopy-prewhisker A B C h k H f)
+      ( prewhisker-homotopy A B C h k H f)
       g
 ```
 
@@ -160,8 +160,8 @@ applies to the path `H a` to produce the following naturality square.
 
 ```rzk
 #def cocone-naturality
-  : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
-    (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
+  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
+    ( concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
   := nat-htpy A A f (identity A) H (f a) a (H a)
 ```
 
@@ -170,8 +170,8 @@ following:
 
 ```rzk
 #def reduced-cocone-naturality
-  : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
-    (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
+    ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))
   :=
     concat
       ( (f (f a)) = a)
@@ -184,8 +184,8 @@ following:
         ( H (f a))
         ( ap A A (f a) a (identity A) (H a)))
       ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))
-      (cocone-naturality)
-      (concat-homotopy
+      ( cocone-naturality)
+      ( concat-homotopy
         ( A)
         ( f (f a))
         ( f a)
