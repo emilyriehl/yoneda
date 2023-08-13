@@ -120,7 +120,7 @@ We now show that half adjoint equivalences are contractible maps.
   (b : B)
   : fib A B f b
   :=
-    ( (has-inverse-inverse A B f (first fisHAE)) b ,
+    ( (map-inverse-has-inverse A B f (first fisHAE)) b ,
       (second (second (first fisHAE))) b)
 ```
 
@@ -137,13 +137,13 @@ this homotopy is straightforward.
 #variable z : fib A B f b
 
 #def isHAE-fib-base-path
-  : ((has-inverse-inverse A B f (first fisHAE)) b) = (first z)
+  : ((map-inverse-has-inverse A B f (first fisHAE)) b) = (first z)
   :=
     concat A
-      ( (has-inverse-inverse A B f (first fisHAE)) b)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( first z)
-      ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+      ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
         ( rev B (f (first z)) b (second z)))
       ( (first (second (first fisHAE))) (first z))
 ```
@@ -153,517 +153,517 @@ Specializing the above to `isHAE-fib-base-path`:
 ```rzk
 #def isHAE-fib-base-path-transport
   : transport A (\ x → (f x) = b)
-      ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)
+      ( (map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
       ( isHAE-fib-base-path )
       ( (second (second (first fisHAE))) b) =
-    concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
-      ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
-          ( rev A ((has-inverse-inverse A B f (first fisHAE)) b) (first z)
+    concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
+      ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
+          ( rev A ((map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
             ( isHAE-fib-base-path )))
       ( (second (second (first fisHAE))) b)
   :=
     transport-in-fiber A B f b
-      ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)
+      ( (map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
       ( (second (second (first fisHAE))) b)
       ( isHAE-fib-base-path )
 
 #def isHAE-fib-base-path-rev-coherence
-  : rev A ((has-inverse-inverse A B f (first fisHAE)) b) (first z)
+  : rev A ((map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
       ( isHAE-fib-base-path) =
     concat A
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-      ( (has-inverse-inverse A B f (first fisHAE)) b)
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) b)
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
         ( (first (second (first fisHAE))) (first z)))
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) b)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-        ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+        ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
           ( rev B (f (first z)) b (second z))))
   :=
     rev-concat A
-      ( (has-inverse-inverse A B f (first fisHAE)) b)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( first z)
-      ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+      ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
         ( rev B (f (first z)) b (second z)))
       ( (first (second (first fisHAE))) (first z))
 
 #def isHAE-fib-base-path-transport-rev-calculation
-  : concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
-    ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
-      ( rev A ((has-inverse-inverse A B f (first fisHAE)) b) (first z)
+  : concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
+    ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
+      ( rev A ((map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
         ( isHAE-fib-base-path )))
     ( (second (second (first fisHAE))) b) =
-    concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
-    ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
+    concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
+    ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
       ( concat A
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-        ( (has-inverse-inverse A B f (first fisHAE)) b)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) b)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z)))
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
             ( rev B (f (first z)) b (second z))))))
     ( (second (second (first fisHAE))) b)
   :=
     homotopy-concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( b)
-      ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
-        ( rev A ((has-inverse-inverse A B f (first fisHAE)) b) (first z)
+      ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
+        ( rev A ((map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
           ( isHAE-fib-base-path )))
-      ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
+      ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
         ( concat A
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z)))
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z))))))
-      ( ap-htpy A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
-        ( rev A ((has-inverse-inverse A B f (first fisHAE)) b) (first z)
+      ( ap-htpy A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
+        ( rev A ((map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
           ( isHAE-fib-base-path ))
         ( concat A
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z)))
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z)))))
         ( isHAE-fib-base-path-rev-coherence ))
       ( (second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-ap-calculation
-  : concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
-    ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
+  : concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
+    ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
       ( concat A
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-        ( (has-inverse-inverse A B f (first fisHAE)) b)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) b)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z)))
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
             ( rev B (f (first z)) b (second z))))))
     ( (second (second (first fisHAE))) b) =
-    concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+    concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z))))))
       ( (second (second (first fisHAE))) b)
   :=
     homotopy-concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( b)
-      ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
+      ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
         ( concat A
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z)))
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z))))))
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z))))))
       ( ap-concat A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-        ( (has-inverse-inverse A B f (first fisHAE)) b)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) b)
         ( f)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z)))
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
             ( rev B (f (first z)) b (second z)))))
       ( (second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-rev-ap-rev-calculation
-  : concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+  : concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( f)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-        ( (has-inverse-inverse A B f (first fisHAE)) b)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) b)
         ( f)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
             ( rev B (f (first z)) b (second z))))))
     ( (second (second (first fisHAE))) b) =
-    concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+    concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
-          ( first z) ((has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( first z) ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( f)
           ( ap B A (f (first z)) b
-            ( has-inverse-inverse A B f (first fisHAE))
+            ( map-inverse-has-inverse A B f (first fisHAE))
             ( second z))))
       ( (second (second (first fisHAE))) b)
   :=
     homotopy-concat B
-      ( f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+      ( f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z))))))
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( f)
           ( ap B A
-            ( f (first z)) b (has-inverse-inverse A B f (first fisHAE))
+            ( f (first z)) b (map-inverse-has-inverse A B f (first fisHAE))
             ( second z))))
       ( concat-homotopy B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b) f
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z)))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b) f
           ( ap B A (f (first z)) b
-            ( has-inverse-inverse A B f (first fisHAE)) (second z)))
+            ( map-inverse-has-inverse A B f (first fisHAE)) (second z)))
         ( ap-htpy A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( ap B A b
               ( f (first z))
-              ( has-inverse-inverse A B f (first fisHAE))
+              ( map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z))))
           ( ap B A
             ( f (first z))
             ( b)
-            ( has-inverse-inverse A B f (first fisHAE))
+            ( map-inverse-has-inverse A B f (first fisHAE))
             ( second z))
           ( rev-ap-rev B A (f (first z)) b
-            ( has-inverse-inverse A B f (first fisHAE)) (second z))))
+            ( map-inverse-has-inverse A B f (first fisHAE)) (second z))))
       ( (second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-ap-ap-calculation
-  : concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+  : concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( ap A B
-        ( first z) ((has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( first z) ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-        ( (has-inverse-inverse A B f (first fisHAE)) b)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) b)
         ( f)
         ( ap B A (f (first z)) b
-          ( has-inverse-inverse A B f (first fisHAE))
+          ( map-inverse-has-inverse A B f (first fisHAE))
           ( second z))))
     ( (second (second (first fisHAE))) b) =
-    concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+    concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( ap A B
-        ( first z) ((has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( first z) ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap B B (f (first z)) b
-        ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z)))
     ( (second (second (first fisHAE))) b)
   :=
     homotopy-concat B
-    ( f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+    ( f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( f)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-        ( (has-inverse-inverse A B f (first fisHAE)) b)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) b)
         ( f)
         ( ap B A
           ( f (first z)) b
-          ( has-inverse-inverse A B f (first fisHAE)) (second z))))
+          ( map-inverse-has-inverse A B f (first fisHAE)) (second z))))
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap B B (f (first z)) b
-        ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z)))
     ( concat-homotopy B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-        ( (has-inverse-inverse A B f (first fisHAE)) b)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) b)
         ( f)
         ( ap B A (f (first z)) b
-          ( has-inverse-inverse A B f (first fisHAE)) (second z)))
+          ( map-inverse-has-inverse A B f (first fisHAE)) (second z)))
       ( ap B B (f (first z)) b
-        ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z))
       ( rev-ap-comp B A B
         ( f (first z))
         ( b)
-        ( has-inverse-inverse A B f (first fisHAE))
+        ( map-inverse-has-inverse A B f (first fisHAE))
         ( f)
         ( second z)))
     ( (second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-assoc-calculation
-  : concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+  : concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap B B (f (first z)) b
-        ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z)))
     ( (second (second (first fisHAE))) b) =
     concat B
     ( f (first z))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
     ( b)
     ( ap A B
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( f)
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( first z)
         ( (first (second (first fisHAE))) (first z))))
     ( concat B
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( b)
       ( ap B B (f (first z)) b
-        ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z))
       ( (second (second (first fisHAE))) b))
   :=
     associative-concat B
     ( f (first z))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
     ( b)
     ( ap A B
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( f)
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
         ( (first (second (first fisHAE))) (first z))))
     ( ap B B (f (first z)) b
-      ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+      ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
       ( second z))
     ( (second (second (first fisHAE))) b)
 
 #def isHAE-fib-base-path-transport-nat-calculation
   : concat B
     ( f (first z))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
     ( b)
     ( ap A B
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( f)
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( first z)
         ( (first (second (first fisHAE))) (first z))))
     ( concat B
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( b)
       ( ap B B (f (first z)) b
-        ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z))
       ( (second (second (first fisHAE))) b)) =
     concat B
     ( f (first z))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
     ( b)
     ( ap A B
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( f)
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( first z)
         ( (first (second (first fisHAE))) (first z))))
     ( concat B
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( b)
       ( (second (second (first fisHAE))) (f (first z)))
@@ -671,34 +671,34 @@ Specializing the above to `isHAE-fib-base-path`:
   :=
     concat-homotopy B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( b)
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( f)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( concat B
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( b)
         ( ap B B
           ( f (first z))
           ( b)
-          ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+          ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
           ( second z))
         ( (second (second (first fisHAE))) b))
       ( concat B
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( b)
         ( (second (second (first fisHAE))) (f (first z)))
         ( ap B B (f (first z)) b (identity B) (second z)))
       ( nat-htpy B B
-        ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( identity B)
         ( second (second (first fisHAE)))
         ( f (first z))
@@ -708,36 +708,36 @@ Specializing the above to `isHAE-fib-base-path`:
 #def isHAE-fib-base-path-transport-ap-id-calculation
   : concat B
     ( f (first z))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
     ( b)
     ( ap A B
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( f)
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( first z)
         ( (first (second (first fisHAE))) (first z))))
     ( concat B
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( b)
       ( (second (second (first fisHAE))) (f (first z)))
       ( ap B B (f (first z)) b (identity B) (second z))) =
   concat B
     ( f (first z))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
     ( b)
     ( ap A B
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( f)
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( first z)
         ( (first (second (first fisHAE))) (first z))))
     ( concat B
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( b)
       ( (second (second (first fisHAE))) (f (first z)))
@@ -745,29 +745,29 @@ Specializing the above to `isHAE-fib-base-path`:
   :=
     concat-homotopy B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( b)
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( concat B
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( b)
         ( (second (second (first fisHAE))) (f (first z)))
         ( ap B B (f (first z)) b (identity B) (second z)))
       ( concat B
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( b)
         ( (second (second (first fisHAE))) (f (first z)))
         (second z))
       ( concat-homotopy B
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( b)
         ( (second (second (first fisHAE))) (f (first z)))
@@ -778,17 +778,17 @@ Specializing the above to `isHAE-fib-base-path`:
 #def isHAE-fib-base-path-transport-reassoc-calculation
   : concat B
     ( f (first z))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
     ( b)
     ( ap A B
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( first z)
         ( (first (second (first fisHAE))) (first z))))
     ( concat B
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( b)
       ( (second (second (first fisHAE))) (f (first z)))
@@ -796,13 +796,13 @@ Specializing the above to `isHAE-fib-base-path`:
     concat B (f (first z)) (f (first z)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( (second (second (first fisHAE))) (f (first z))))
@@ -810,15 +810,15 @@ Specializing the above to `isHAE-fib-base-path`:
   :=
     rev-associative-concat B
     ( f (first z))
-    ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+    ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
     ( f (first z))
     ( b)
     ( ap A B
       ( first z)
-      ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+      ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
       ( f)
       ( rev A
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( first z)
         ( (first (second (first fisHAE))) (first z))))
     ( (second (second (first fisHAE))) (f (first z)))
@@ -828,14 +828,14 @@ Specializing the above to `isHAE-fib-base-path`:
   : concat B (f (first z)) (f (first z)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( f)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( (second (second (first fisHAE))) (f (first z))))
@@ -843,13 +843,13 @@ Specializing the above to `isHAE-fib-base-path`:
     concat B (f (first z)) (f (first z)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
@@ -861,25 +861,25 @@ Specializing the above to `isHAE-fib-base-path`:
     homotopy-concat B (f (first z)) (f (first z)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( (second (second (first fisHAE))) (f (first z))))
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
@@ -889,13 +889,13 @@ Specializing the above to `isHAE-fib-base-path`:
         ( (first (second (first fisHAE))) (first z))))
       ( concat-homotopy B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( (second (second (first fisHAE))) (f (first z)))
@@ -910,12 +910,12 @@ Specializing the above to `isHAE-fib-base-path`:
   : concat B (f (first z)) (f (first z)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( ap A B
-        ( first z) ((has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( first z) ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ((has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
@@ -928,13 +928,13 @@ Specializing the above to `isHAE-fib-base-path`:
     homotopy-concat B (f (first z)) (f (first z)) b
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( f (first z))
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap A B
@@ -955,141 +955,141 @@ Specializing the above to `isHAE-fib-base-path`:
 
 #def isHAE-fib-base-path-transport-path
   : transport A ( \ x → (f x) = b)
-    ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)
+    ( (map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
     ( isHAE-fib-base-path )
     ( (second (second (first fisHAE))) b) = second z
   :=
     alternating-12ary-concat ( (f (first z)) = b)
     ( transport A ( \ x → (f x) = b)
-      ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)
+      ( (map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
       ( isHAE-fib-base-path )
       ( (second (second (first fisHAE))) b))
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( b)
-      ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
-        ( rev A ((has-inverse-inverse A B f (first fisHAE)) b) (first z)
+      ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
+        ( rev A ((map-inverse-has-inverse A B f (first fisHAE)) b) (first z)
           ( isHAE-fib-base-path )))
       ( (second (second (first fisHAE))) b))
     ( isHAE-fib-base-path-transport )
     ( concat B
-      ( f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
-      ( ap A B (first z) ((has-inverse-inverse A B f (first fisHAE)) b) f
+      ( f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
+      ( ap A B (first z) ((map-inverse-has-inverse A B f (first fisHAE)) b) f
         ( concat A
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z)))
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z))))))
       ( (second (second (first fisHAE))) b))
     ( isHAE-fib-base-path-transport-rev-calculation)
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( b)
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) b)
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-            ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) b)
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+            ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first fisHAE))
               ( rev B (f (first z)) b (second z))))))
       ( (second (second (first fisHAE))) b))
     ( isHAE-fib-base-path-transport-ap-calculation )
     ( concat B
-      ( f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+      ( f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
-          ( (has-inverse-inverse A B f (first fisHAE)) b)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) b)
           f
           ( ap B A (f (first z)) b
-            ( has-inverse-inverse A B f (first fisHAE)) (second z))))
+            ( map-inverse-has-inverse A B f (first fisHAE)) (second z))))
       ( (second (second (first fisHAE))) b))
     ( isHAE-fib-base-path-transport-rev-ap-rev-calculation )
-    ( concat B (f (first z)) (f ((has-inverse-inverse A B f (first fisHAE)) b)) b
+    ( concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first fisHAE)) b)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap B B (f (first z)) b
-          ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+          ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
           ( second z)))
       ( (second (second (first fisHAE))) b))
     ( isHAE-fib-base-path-transport-ap-ap-calculation )
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( b)
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( f)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( concat B
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) b))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
         ( b)
         ( ap B B
           ( f (first z)) ( b)
-          ( composition B A B f (has-inverse-inverse A B f (first fisHAE)))
+          ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
           ( second z))
         ( (second (second (first fisHAE))) b)))
     ( isHAE-fib-base-path-transport-assoc-calculation)
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( b)
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
         ( f)
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) (first z)
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z))))
       ( concat B
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( b)
         ( (second (second (first fisHAE))) (f (first z)))
@@ -1097,17 +1097,17 @@ Specializing the above to `isHAE-fib-base-path`:
     ( isHAE-fib-base-path-transport-nat-calculation)
     ( concat B
       ( f (first z))
-      ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+      ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
       ( b)
       ( ap A B
         ( first z)
-        ( (has-inverse-inverse A B f (first fisHAE)) (f (first z))) f
+        ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) f
         ( rev A
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( concat B
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( b)
         ( (second (second (first fisHAE))) (f (first z)))
@@ -1116,14 +1116,14 @@ Specializing the above to `isHAE-fib-base-path`:
     ( concat B (f (first z)) (f (first z)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( (second (second (first fisHAE))) (f (first z))))
@@ -1132,14 +1132,14 @@ Specializing the above to `isHAE-fib-base-path`:
     ( concat B (f (first z)) (f (first z)) b
       ( concat B
         ( f (first z))
-        ( f ((has-inverse-inverse A B f (first fisHAE)) (f (first z))))
+        ( f ((map-inverse-has-inverse A B f (first fisHAE)) (f (first z))))
         ( f (first z))
         ( ap A B
           ( first z)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+          ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
           ( f)
           ( rev A
-            ( (has-inverse-inverse A B f (first fisHAE)) (f (first z)))
+            ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z)))
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap A B
@@ -1162,7 +1162,7 @@ Finally, we may define the contracting homotopy:
   :=
     path-of-pairs-pair-of-paths A
     ( \ x → (f x) = b)
-    ( (has-inverse-inverse A B f (first fisHAE)) b)
+    ( (map-inverse-has-inverse A B f (first fisHAE)) b)
     ( first z)
     ( isHAE-fib-base-path)
     ( (second (second (first fisHAE))) b)

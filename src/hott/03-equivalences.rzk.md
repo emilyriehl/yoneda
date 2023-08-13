@@ -139,7 +139,7 @@ The following type of more coherent equivalences is not a proposition.
 ```
 
 ```rzk title="The inverse of a map with an inverse"
-#def has-inverse-inverse uses (f)
+#def map-inverse-has-inverse uses (f)
   : B → A
   := first (has-inverse-f)
 ```
@@ -150,11 +150,11 @@ maps.
 ```rzk
 #def has-inverse-retraction-composite uses (B has-inverse-f)
   : A → A
-  := composition A B A has-inverse-inverse f
+  := composition A B A map-inverse-has-inverse f
 
 #def has-inverse-section-composite uses (A has-inverse-f)
   : B → B
-  := composition B A B f has-inverse-inverse
+  := composition B A B f map-inverse-has-inverse
 ```
 
 This composite is parallel to `f`; we won't need the dual notion.
@@ -162,7 +162,7 @@ This composite is parallel to `f`; we won't need the dual notion.
 ```rzk
 #def has-inverse-triple-composite uses (has-inverse-f)
   : A → B
-  := triple-composition A B A B f has-inverse-inverse f
+  := triple-composition A B A B f map-inverse-has-inverse f
 ```
 
 This composite is also parallel to `f`; again we won't need the dual notion.
@@ -170,7 +170,7 @@ This composite is also parallel to `f`; again we won't need the dual notion.
 ```rzk
 #def has-inverse-quintuple-composite uses (has-inverse-f)
   : A → B
-  := \ a → f (has-inverse-inverse (f (has-inverse-inverse (f a))))
+  := \ a → f (map-inverse-has-inverse (f (map-inverse-has-inverse (f a))))
 #end has-inverse-data
 ```
 

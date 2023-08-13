@@ -132,7 +132,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   (f : (a : A) → (B a) → (C a))
   (invfamily : (a : A) → has-inverse (B a) (C a) (f a))
   : (Σ (x : A) , C x) → (Σ (x : A) , B x)
-  := \ (a , c) → (a , (has-inverse-inverse (B a) (C a) (f a) (invfamily a)) c)
+  := \ (a , c) → (a , (map-inverse-has-inverse (B a) (C a) (f a) (invfamily a)) c)
 
 #def invertible-family-total-retraction
   (A : U)
@@ -147,7 +147,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
     ( invertible-family-total-inverse A B C f invfamily ,
       \ (a , b) →
         (eq-eq-fiber-Σ A B a
-          ( (has-inverse-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b
+          ( (map-inverse-has-inverse (B a) (C a) (f a) (invfamily a)) (f a b)) b
           ( (first (second (invfamily a))) b)))
 
 #def invertible-family-total-section
@@ -160,7 +160,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
     ( invertible-family-total-inverse A B C f invfamily ,
       \ (a , c) →
         ( eq-eq-fiber-Σ A C a
-          ( f a ((has-inverse-inverse (B a) (C a) (f a) (invfamily a)) c)) c
+          ( f a ((map-inverse-has-inverse (B a) (C a) (f a) (invfamily a)) c)) c
           ( (second (second (invfamily a))) c)))
 
 #def invertible-family-total-invertible
