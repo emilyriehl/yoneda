@@ -54,7 +54,7 @@ We define equivalences to be bi-invertible maps.
 ```
 
 ```rzk title="The homotopy between the section and retraction of an equivalence"
-#def homotopic-inverses-is-equiv uses (f)
+#def homotopy-inverses-is-equiv uses (f)
   : homotopy B A is-equiv-section is-equiv-retraction
   :=
     homotopy-composition B A
@@ -122,7 +122,7 @@ The following type of more coherent equivalences is not a proposition.
         ( homotopy-prewhisker A B A
           ( is-equiv-section A B f is-equiv-f)
           ( is-equiv-retraction A B f is-equiv-f)
-          ( homotopic-inverses-is-equiv A B f is-equiv-f)
+          ( homotopy-inverses-is-equiv A B f is-equiv-f)
           ( f))
         ( second (first is-equiv-f)) ,
       ( second (second is-equiv-f))))
