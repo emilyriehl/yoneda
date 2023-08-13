@@ -209,14 +209,15 @@ invertible map to prove symmetry:
   ( B≃C : Equiv B C)
   : Equiv A C
   :=
-    ( \ a → first B≃C (first A≃B a) , -- the composite equivalence
-      ( ( ( \ c →
-            first (first (second A≃B))) ((first (first (second (B≃C)))) c) ,
+    ( ( \ a → first B≃C (first A≃B a)) ,
+      ( ( ( \ c → first (first (second A≃B)) (first (first (second (B≃C))) c)) ,
           ( \ a →
             concat A
               ( first
                 ( first (second A≃B))
-                ( first (first (second B≃C)) (first B≃C (first A≃B a))))
+                ( first
+                  ( first (second B≃C))
+                  ( first B≃C (first A≃B a))))
               ( first (first (second A≃B)) (first A≃B a))
               ( a)
               ( ap B A
@@ -224,11 +225,11 @@ invertible map to prove symmetry:
                 ( first A≃B a)
                 ( first (first (second A≃B)))
                 ( second (first (second B≃C)) (first A≃B a)))
-              ( ( second (first (second A≃B))) a))) ,
-                ( \ c →
-                  first
-                    ( second (second A≃B))
-                    ( (first (second (second (B≃C)))) c) ,
+              ( second (first (second A≃B)) a))) ,
+        ( ( \ c →
+          first
+            ( second (second A≃B))
+            ( first (second (second (B≃C))) c)) ,
           ( \ c →
             concat C
               ( first B≃C
