@@ -48,7 +48,7 @@ The following type asserts that the fibers of a type family are contractible.
 
 #def contractible-fibers-section-htpy uses (contractible-fibers-A-B)
   : homotopy A A
-    ( composition A (Σ (x : A) , B x) A
+    ( comp A (Σ (x : A) , B x) A
       ( total-space-projection A B) (contractible-fibers-actual-section))
     ( identity A)
   := \ x → refl

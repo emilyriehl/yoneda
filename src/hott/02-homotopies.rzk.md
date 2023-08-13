@@ -56,14 +56,14 @@ composition.
   (f g : A → B)
   (H : homotopy A B f g)
   (h : B → C)
-  : homotopy A C (composition A B C h f) (composition A B C h g)
+  : homotopy A C (comp A B C h f) (comp A B C h g)
   := \ a → ap B C (f a) (g a) h (H a)
 
 #def homotopy-prewhisker
   (f g : B → C)
   (H : homotopy B C f g)
   (h : A → B)
-  : homotopy A C (composition A B C f h) (composition A B C g h)
+  : homotopy A C (comp A B C f h) (comp A B C g h)
   := \ a → H (h a)
 
 #end homotopy-whiskering
@@ -84,8 +84,8 @@ composition.
       A
       C
       D
-      ( composition A B C h f)
-      ( composition A B C k f)
+      ( comp A B C h f)
+      ( comp A B C k f)
       ( homotopy-prewhisker A B C h k H f)
       g
 ```

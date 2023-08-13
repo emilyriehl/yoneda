@@ -41,7 +41,7 @@ The following demonstrates the syntax for constructing terms in Sigma types:
 
 #variables A B C D : U
 
-#def composition
+#def comp
   ( g : B → C)
   ( f : A → B)
   : A → C

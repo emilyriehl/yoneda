@@ -509,7 +509,7 @@ Specializing the above to `isHAE-fib-base-path`:
           ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap B B (f (first z)) b
-        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+        ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z)))
     ( (second (second (first fisHAE))) b)
   :=
@@ -544,7 +544,7 @@ Specializing the above to `isHAE-fib-base-path`:
           ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap B B (f (first z)) b
-        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+        ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z)))
     ( concat-homotopy B
       ( f (first z))
@@ -564,7 +564,7 @@ Specializing the above to `isHAE-fib-base-path`:
         ( ap B A (f (first z)) b
           ( map-inverse-has-inverse A B f (first fisHAE)) (second z)))
       ( ap B B (f (first z)) b
-        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+        ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z))
       ( rev-ap-comp B A B
         ( f (first z))
@@ -588,7 +588,7 @@ Specializing the above to `isHAE-fib-base-path`:
           ( first z)
           ( (first (second (first fisHAE))) (first z))))
       ( ap B B (f (first z)) b
-        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+        ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z)))
     ( (second (second (first fisHAE))) b) =
     concat B
@@ -608,7 +608,7 @@ Specializing the above to `isHAE-fib-base-path`:
       ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( b)
       ( ap B B (f (first z)) b
-        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+        ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z))
       ( (second (second (first fisHAE))) b))
   :=
@@ -625,7 +625,7 @@ Specializing the above to `isHAE-fib-base-path`:
         ( (map-inverse-has-inverse A B f (first fisHAE)) (f (first z))) (first z)
         ( (first (second (first fisHAE))) (first z))))
     ( ap B B (f (first z)) b
-      ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+      ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
       ( second z))
     ( (second (second (first fisHAE))) b)
 
@@ -647,7 +647,7 @@ Specializing the above to `isHAE-fib-base-path`:
       ( f ((map-inverse-has-inverse A B f (first fisHAE)) b))
       ( b)
       ( ap B B (f (first z)) b
-        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+        ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( second z))
       ( (second (second (first fisHAE))) b)) =
     concat B
@@ -688,7 +688,7 @@ Specializing the above to `isHAE-fib-base-path`:
         ( ap B B
           ( f (first z))
           ( b)
-          ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+          ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
           ( second z))
         ( (second (second (first fisHAE))) b))
       ( concat B
@@ -698,7 +698,7 @@ Specializing the above to `isHAE-fib-base-path`:
         ( (second (second (first fisHAE))) (f (first z)))
         ( ap B B (f (first z)) b (identity B) (second z)))
       ( nat-htpy B B
-        ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+        ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
         ( identity B)
         ( second (second (first fisHAE)))
         ( f (first z))
@@ -1051,7 +1051,7 @@ Specializing the above to `isHAE-fib-base-path`:
             ( first z)
             ( (first (second (first fisHAE))) (first z))))
         ( ap B B (f (first z)) b
-          ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+          ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
           ( second z)))
       ( (second (second (first fisHAE))) b))
     ( isHAE-fib-base-path-transport-ap-ap-calculation )
@@ -1073,7 +1073,7 @@ Specializing the above to `isHAE-fib-base-path`:
         ( b)
         ( ap B B
           ( f (first z)) ( b)
-          ( composition B A B f (map-inverse-has-inverse A B f (first fisHAE)))
+          ( comp B A B f (map-inverse-has-inverse A B f (first fisHAE)))
           ( second z))
         ( (second (second (first fisHAE))) b)))
     ( isHAE-fib-base-path-transport-assoc-calculation)

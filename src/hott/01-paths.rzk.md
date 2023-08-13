@@ -465,7 +465,7 @@ Application of a function to homotopic paths yields homotopic paths.
   ( f : A → B)
   ( g : B → C)
   ( p : x = y)
-  : ( ap A C x y (composition A B C g f) p) =
+  : ( ap A C x y (comp A B C g f) p) =
     ( ap B C (f x) (f y) g (ap A B x y f p))
   :=
     idJ
@@ -485,7 +485,7 @@ Application of a function to homotopic paths yields homotopic paths.
   ( g : B → C)
   ( p : x = y)
   : ( ap B C (f x) (f y) g (ap A B x y f p)) =
-    ( ap A C x y (composition A B C g f) p)
+    ( ap A C x y (comp A B C g f) p)
   :=
     rev
       ( g (f x) = g (f y))

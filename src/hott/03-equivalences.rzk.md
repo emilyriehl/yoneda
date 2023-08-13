@@ -16,12 +16,12 @@ This is a literate `rzk` file:
 #def has-section
   ( f : A → B)
   : U
-  := Σ (s : B → A) , (homotopy B B (composition B A B f s) (identity B))
+  := Σ (s : B → A) , (homotopy B B (comp B A B f s) (identity B))
 
 #def has-retraction
   ( f : A → B)
   : U
-  := Σ (r : B → A) , (homotopy A A (composition A B A r f) (identity A))
+  := Σ (r : B → A) , (homotopy A A (comp A B A r f) (identity A))
 ```
 
 We define equivalences to be bi-invertible maps.
@@ -65,12 +65,12 @@ We define equivalences to be bi-invertible maps.
         ( triple-comp B A B A retraction-is-equiv f section-is-equiv)
         ( section-is-equiv)
         ( homotopy-prewhisker B A A
-          ( composition A B A retraction-is-equiv f)
+          ( comp A B A retraction-is-equiv f)
           ( identity A)
           ( second (first is-equiv-f))
           ( section-is-equiv)))
       ( homotopy-postwhisker B B A
-        ( composition B A B f section-is-equiv)
+        ( comp B A B f section-is-equiv)
         ( identity B)
         ( second (second is-equiv-f))
         ( retraction-is-equiv))
@@ -90,8 +90,8 @@ The following type of more coherent equivalences is not a proposition.
   :=
     Σ ( g : B → A) ,
       ( product
-        ( homotopy A A (composition A B A g f) (identity A))
-        ( homotopy B B (composition B A B f g) (identity B)))
+        ( homotopy A A (comp A B A g f) (identity A))
+        ( homotopy B B (comp B A B f g) (identity B)))
 ```
 
 ## Equivalences are invertible maps
@@ -116,8 +116,8 @@ The following type of more coherent equivalences is not a proposition.
   :=
     ( section-is-equiv A B f is-equiv-f ,
       ( comp-homotopy A A
-        ( composition A B A (section-is-equiv A B f is-equiv-f) f)
-        ( composition A B A (retraction-is-equiv A B f is-equiv-f) f)
+        ( comp A B A (section-is-equiv A B f is-equiv-f) f)
+        ( comp A B A (retraction-is-equiv A B f is-equiv-f) f)
         ( identity A)
         ( homotopy-prewhisker A B A
           ( section-is-equiv A B f is-equiv-f)
@@ -150,11 +150,11 @@ maps.
 ```rzk
 #def retraction-composite-has-inverse uses (B has-inverse-f)
   : A → A
-  := composition A B A map-inverse-has-inverse f
+  := comp A B A map-inverse-has-inverse f
 
 #def section-composite-has-inverse uses (A has-inverse-f)
   : B → B
-  := composition B A B f map-inverse-has-inverse
+  := comp B A B f map-inverse-has-inverse
 ```
 
 This composite is parallel to `f`; we won't need the dual notion.
@@ -261,9 +261,9 @@ Now we compose the functions that are equivalences.
   ( is-equiv-f : is-equiv A B f)
   ( g : B → C)
   ( is-equiv-g : is-equiv B C g)
-  : is-equiv A C (composition A B C g f)
+  : is-equiv A C (comp A B C g f)
   :=
-    ( ( composition C B A
+    ( ( comp C B A
         ( retraction-is-equiv A B f is-equiv-f)
         ( retraction-is-equiv B C g is-equiv-g) ,
         ( \ a →
@@ -278,7 +278,7 @@ Now we compose the functions that are equivalences.
               ( retraction-is-equiv A B f is-equiv-f)
               ( second (first is-equiv-g) (f a)))
             ( second (first is-equiv-f) a))) ,
-      ( composition C B A
+      ( comp C B A
         ( section-is-equiv A B f is-equiv-f)
         ( section-is-equiv B C g is-equiv-g) ,
         ( \ c →
@@ -334,7 +334,7 @@ Now we compose the functions that are equivalences.
     comp-is-equiv A B D
       ( f)
       ( is-equiv-f)
-      ( composition B C D h g)
+      ( comp B C D h g)
       ( comp-is-equiv B C D g is-equiv-g h is-equiv-h)
 ```
 
@@ -519,7 +519,7 @@ dependent function types.
         ( A ,
           x ,
           ( \ y' p' →
-            ( composition
+            ( comp
               ( x = y') (y' = x) (x = y') (rev A y' x) (rev A x y') (p'))
             =_{x = y'}
             ( p')) ,
@@ -539,7 +539,7 @@ dependent function types.
         ( A ,
           y ,
           ( \ x' p' →
-            ( composition
+            ( comp
               ( y = x') (x' = y) (y = x') (rev A x' y) (rev A y x') (p'))
             =_{y = x'}
             ( p')) ,
