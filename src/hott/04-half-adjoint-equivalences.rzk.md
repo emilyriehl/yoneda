@@ -452,7 +452,7 @@ have equivalent identity types.
       ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q)
       ( (first (second (first is-HAE-f))) y)
 
-#def ap-rev-homotopy-triple-concat-is-half-adjoint-equiv
+#def ap-rev-eq-triple-concat-eq-first-is-half-adjoint-equiv
   ( x y : A)
   ( q : f x = f y)
   : triple-concat B
@@ -489,7 +489,7 @@ have equivalent identity types.
       ( f)
       ( (first (second (first is-HAE-f))) y))
   :=
-    homotopy-triple-concat B
+    eq-triple-concat-eq-first B
     ( f x)
     ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
     ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
@@ -511,7 +511,7 @@ have equivalent identity types.
     ( ap-rev A B (retraction-composite-has-inverse A B f (first is-HAE-f) x) x f
       ( (first (second (first is-HAE-f))) x))
 
-#def ap-ap-homotopy-triple-concat-is-half-adjoint-equiv
+#def ap-ap-eq-triple-concat-eq-first-is-half-adjoint-equiv
   ( x y : A)
   ( q : f x = f y)
   : (triple-concat B
@@ -712,7 +712,7 @@ have equivalent identity types.
           ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
         ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
           ( (first (second (first is-HAE-f))) y)))
-      ( ap-rev-homotopy-triple-concat-is-half-adjoint-equiv x y q)
+      ( ap-rev-eq-triple-concat-eq-first-is-half-adjoint-equiv x y q)
       ( triple-concat B
         ( f x)
         ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
@@ -727,7 +727,7 @@ have equivalent identity types.
           ( section-composite-has-inverse A B f (first is-HAE-f)) q)
         ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y
           f ((first (second (first is-HAE-f))) y)))
-      ( ap-ap-homotopy-triple-concat-is-half-adjoint-equiv x y q)
+      ( ap-ap-eq-triple-concat-eq-first-is-half-adjoint-equiv x y q)
       ( ap B B (f x) (f y) (identity B) q)
       ( zag-zig-concat-triple-concat-is-half-adjoint-equiv x y q)
       ( q)

@@ -241,7 +241,7 @@ Cancelling the path `H a` on the right and reversing yields a path we need:
         triple-concat
           ( B) (g x) (f x) (f y) (g y)
           ( rev B (f x) (g x) (K x)) (p) (Ky)) ,
-      homotopy-triple-concat
+      eq-triple-concat-eq-first
         B
         ( g x)
         ( f x)

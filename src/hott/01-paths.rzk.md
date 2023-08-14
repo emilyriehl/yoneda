@@ -793,7 +793,7 @@ The following is the same as above but with alternating arguments.
       z ,
       r)
 
-#def homotopy-triple-concat
+#def eq-triple-concat-eq-first
   ( A : U)
   ( w x y z : A)
   ( p q : w = x)
