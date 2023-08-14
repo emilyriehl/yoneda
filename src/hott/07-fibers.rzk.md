@@ -214,7 +214,7 @@ Specializing the above to `is-HAE-fib-base-path`:
             ( rev B (f (first z)) b (second z))))))
     ( (second (second (first is-HAE-f))) b)
   :=
-    homotopy-concat B
+    concat-eq-left B
       ( f (first z))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) b))
       ( b)
@@ -293,7 +293,7 @@ Specializing the above to `is-HAE-fib-base-path`:
               ( rev B (f (first z)) b (second z))))))
       ( (second (second (first is-HAE-f))) b)
   :=
-    homotopy-concat B
+    concat-eq-left B
       ( f (first z))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) b))
       ( b)
@@ -392,7 +392,7 @@ Specializing the above to `is-HAE-fib-base-path`:
             ( second z))))
       ( (second (second (first is-HAE-f))) b)
   :=
-    homotopy-concat B
+    concat-eq-left B
       ( f (first z)) (f ((map-inverse-has-inverse A B f (first is-HAE-f)) b)) b
       ( concat B
         ( f (first z))
@@ -434,7 +434,7 @@ Specializing the above to `is-HAE-fib-base-path`:
           ( ap B A
             ( f (first z)) b (map-inverse-has-inverse A B f (first is-HAE-f))
             ( second z))))
-      ( concat-homotopy B
+      ( concat-eq-right B
         ( f (first z))
         ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))
         ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) b))
@@ -513,7 +513,7 @@ Specializing the above to `is-HAE-fib-base-path`:
         ( second z)))
     ( (second (second (first is-HAE-f))) b)
   :=
-    homotopy-concat B
+    concat-eq-left B
     ( f (first z)) (f ((map-inverse-has-inverse A B f (first is-HAE-f)) b)) b
     ( concat B
       ( f (first z))
@@ -546,7 +546,7 @@ Specializing the above to `is-HAE-fib-base-path`:
       ( ap B B (f (first z)) b
         ( comp B A B f (map-inverse-has-inverse A B f (first is-HAE-f)))
         ( second z)))
-    ( concat-homotopy B
+    ( concat-eq-right B
       ( f (first z))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) b))
@@ -669,7 +669,7 @@ Specializing the above to `is-HAE-fib-base-path`:
       ( (second (second (first is-HAE-f))) (f (first z)))
       ( ap B B (f (first z)) b (identity B) (second z)))
   :=
-    concat-homotopy B
+    concat-eq-right B
       ( f (first z))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))
       ( b)
@@ -743,7 +743,7 @@ Specializing the above to `is-HAE-fib-base-path`:
       ( (second (second (first is-HAE-f))) (f (first z)))
       ( second z))
   :=
-    concat-homotopy B
+    concat-eq-right B
       ( f (first z))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))
       ( b)
@@ -766,7 +766,7 @@ Specializing the above to `is-HAE-fib-base-path`:
         ( b)
         ( (second (second (first is-HAE-f))) (f (first z)))
         (second z))
-      ( concat-homotopy B
+      ( concat-eq-right B
         ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))
         ( f (first z))
         ( b)
@@ -858,7 +858,7 @@ Specializing the above to `is-HAE-fib-base-path`:
           ( ((first (second (first is-HAE-f)))) (first z))))
       ( second z)
   :=
-    homotopy-concat B (f (first z)) (f (first z)) b
+    concat-eq-left B (f (first z)) (f (first z)) b
     ( concat B
       ( f (first z))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))
@@ -887,7 +887,7 @@ Specializing the above to `is-HAE-fib-base-path`:
         ( first z)
         ( f)
         ( (first (second (first is-HAE-f))) (first z))))
-      ( concat-homotopy B
+      ( concat-eq-right B
         ( f (first z))
         ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))
         ( f (first z))
@@ -925,7 +925,7 @@ Specializing the above to `is-HAE-fib-base-path`:
     ( second z) =
     concat B (f (first z)) (f (first z)) b (refl) (second z)
   :=
-    homotopy-concat B (f (first z)) (f (first z)) b
+    concat-eq-left B (f (first z)) (f (first z)) b
     ( concat B
       ( f (first z))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))

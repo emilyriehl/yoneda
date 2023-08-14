@@ -185,7 +185,7 @@ following:
         ( ap A A (f a) a (identity A) (H a)))
       ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))
       ( cocone-naturality)
-      ( concat-homotopy
+      ( concat-eq-right
         ( A)
         ( f (f a))
         ( f a)
@@ -241,7 +241,7 @@ Cancelling the path `H a` on the right and reversing yields a path we need:
         triple-concat
           ( B) (g x) (f x) (f y) (g y)
           ( rev B (f x) (g x) (K x)) (p) (Ky)) ,
-      eq-triple-concat-eq-first
+      triple-concat-eq-first
         B
         ( g x)
         ( f x)

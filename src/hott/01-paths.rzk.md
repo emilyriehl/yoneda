@@ -211,7 +211,7 @@ of the path algebra coherences defined above.
 ### Postwhiskering paths of paths
 
 ```rzk
-#def homotopy-concat
+#def concat-eq-left
   ( p q : x = y)
   ( H : p = q)
   ( r : y = z)
@@ -231,7 +231,7 @@ of the path algebra coherences defined above.
 Prewhiskering paths of paths is much harder.
 
 ```rzk
-#def concat-homotopy
+#def concat-eq-right
   ( p : x = y)
   : ( q : y = z) →
     ( r : y = z) →
@@ -793,7 +793,7 @@ The following is the same as above but with alternating arguments.
       z ,
       r)
 
-#def eq-triple-concat-eq-first
+#def triple-concat-eq-first
   ( A : U)
   ( w x y z : A)
   ( p q : w = x)
@@ -801,9 +801,9 @@ The following is the same as above but with alternating arguments.
   ( s : y = z)
   ( H : p = q)
   : (triple-concat A w x y z p r s) = (triple-concat A w x y z q r s)
-  := homotopy-concat A w x z p q H (concat A x y z r s)
+  := concat-eq-left A w x z p q H (concat A x y z r s)
 
-#def eq-triple-concat-eq-second
+#def triple-concat-eq-second
   ( A : U)
   ( w x y z : A)
   ( p : w = x)
