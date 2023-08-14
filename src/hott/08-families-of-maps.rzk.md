@@ -608,7 +608,7 @@ fundamental theorem:
         ( fund-id-fam-of-eqs-implies-sum-over-codomain-contr familyequiv)
         ( \ (x', p') → P x' p'))
       ( p0)
-      (u , p)
+      ( u , p)
 
 #end fundamental-thm-id-types
 ```
@@ -618,42 +618,42 @@ fundamental theorem:
 ```rzk
 -- It might be better to redo this without appealing to results about
 -- embeddings so that this could go earlier.
-#def RightCancel-is-equiv
-  (A B C : U)
-  (f : A → B)
-  (g : B → C)
-  (is-equiv-g : is-equiv B C g)
-  (gfisequiv : is-equiv A C (comp A B C g f))
+#def is-equiv-right-factor
+  ( A B C : U)
+  ( f : A → B)
+  ( g : B → C)
+  ( is-equiv-g : is-equiv B C g)
+  ( is-equiv-gf : is-equiv A C (comp A B C g f))
   : is-equiv A B f
   :=
     ( ( comp B C A
-        (retraction-is-equiv A C (comp A B C g f) gfisequiv) g ,
-        (second (first gfisequiv))) ,
+        (retraction-is-equiv A C (comp A B C g f) is-equiv-gf) g ,
+        (second (first is-equiv-gf))) ,
       ( comp B C A
-        (section-is-equiv A C (comp A B C g f) gfisequiv) g ,
+        (section-is-equiv A C (comp A B C g f) is-equiv-gf) g ,
         \ b →
           inv-ap-is-emb
             B C g
             ( is-emb-is-equiv B C g is-equiv-g)
-            ( f ((section-is-equiv A C (comp A B C g f) gfisequiv) (g b)))
+            ( f ((section-is-equiv A C (comp A B C g f) is-equiv-gf) (g b)))
             b
-            ( (second (second gfisequiv)) (g b))))
+            ( (second (second is-equiv-gf)) (g b))))
 
-#def LeftCancel-is-equiv
-  (A B C : U)
-  (f : A → B)
-  (is-equiv-f : is-equiv A B f)
-  (g : B → C)
-  (gfisequiv : is-equiv A C (comp A B C g f))
+#def is-equiv-left-factor
+  ( A B C : U)
+  ( f : A → B)
+  ( is-equiv-f : is-equiv A B f)
+  ( g : B → C)
+  ( is-equiv-gf : is-equiv A C (comp A B C g f))
   : is-equiv B C g
   :=
     ( ( comp C A B
-          f (retraction-is-equiv A C (comp A B C g f) gfisequiv) ,
+          f (retraction-is-equiv A C (comp A B C g f) is-equiv-gf) ,
         \ b →
           triple-concat B
-            ( f ((retraction-is-equiv A C (comp A B C g f) gfisequiv)
+            ( f ((retraction-is-equiv A C (comp A B C g f) is-equiv-gf)
               (g b)))
-            ( f ((retraction-is-equiv A C (comp A B C g f) gfisequiv)
+            ( f ((retraction-is-equiv A C (comp A B C g f) is-equiv-gf)
               (g (f ((section-is-equiv A B f is-equiv-f) b)))))
             ( f ((section-is-equiv A B f is-equiv-f) b))
             ( b)
@@ -662,22 +662,22 @@ fundamental theorem:
               ( f ((section-is-equiv A B f is-equiv-f) b))
               ( \ b0 →
                 ( f ((retraction-is-equiv A C
-                      ( comp A B C g f) gfisequiv) (g b0))))
+                      ( comp A B C g f) is-equiv-gf) (g b0))))
               ( rev B (f ((section-is-equiv A B f is-equiv-f) b)) b
                 ( (second (second is-equiv-f)) b)))
             ( ( whisker-homotopy B A A B
                 ( \ a →
                   ( retraction-is-equiv A C
-                    ( comp A B C g f) gfisequiv) (g (f a)))
+                    ( comp A B C g f) is-equiv-gf) (g (f a)))
                 ( \ a → a)
-                ( second (first gfisequiv))
+                ( second (first is-equiv-gf))
                 ( section-is-equiv A B f is-equiv-f)
                 f) b)
             ( (second (second is-equiv-f)) b)) ,
       ( comp C A B
         ( f)
-        ( section-is-equiv A C (comp A B C g f) gfisequiv) ,
-        ( second (second gfisequiv))))
+        ( section-is-equiv A C (comp A B C g f) is-equiv-gf) ,
+        ( second (second is-equiv-gf))))
 ```
 
 ## Maps over product types
@@ -700,43 +700,44 @@ types over a product type.
   := \ (a , (b , c)) → (f a , (g b , h a b c))
 
 #def pullback-is-equiv-base-is-equiv-total-is-equiv
-  (totalisequiv : is-equiv
-                    (Σ (a : A) , (Σ (b : B) , C a b))
-                    (Σ (a' : A') , (Σ (b' : B') , C' a' b'))
-                    total-map-fibered-map-over-product)
-  (is-equiv-f : is-equiv A A' f)
+  ( is-equiv-total :
+    is-equiv
+      ( Σ (a : A) , (Σ (b : B) , C a b))
+      ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
+      ( total-map-fibered-map-over-product))
+  ( is-equiv-f : is-equiv A A' f)
   : is-equiv
-    ( Σ (a : A) , (Σ (b : B) , C a b))
-    ( Σ (a : A) , (Σ (b' : B') , C' (f a) b'))
-    ( \ (a , (b , c)) → (a , (g b , h a b c)))
+      ( Σ (a : A) , (Σ (b : B) , C a b))
+      ( Σ (a : A) , (Σ (b' : B') , C' (f a) b'))
+      ( \ (a , (b , c)) → (a , (g b , h a b c)))
   :=
-    RightCancel-is-equiv
+    is-equiv-right-factor
     ( Σ (a : A) , (Σ (b : B) , C a b))
     ( Σ (a : A) , (Σ (b' : B') , C' (f a) b'))
     ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
     ( \ (a , (b , c)) → (a , (g b , h a b c)))
     ( \ (a , (b' , c')) → (f a , (b' , c')))
-    ( second (total-equiv-pullback-is-equiv
-                A
-                A'
-                f
-                is-equiv-f
-                ( \ a' → (Σ (b' : B') , C' a' b'))))
-    ( totalisequiv)
+    ( second
+      ( total-equiv-pullback-is-equiv
+        ( A) (A')
+        ( f) (is-equiv-f)
+        ( \ a' → (Σ (b' : B') , C' a' b'))))
+    ( is-equiv-total)
 
 #def pullback-is-equiv-bases-are-equiv-total-is-equiv
-  (totalisequiv : is-equiv
-                    ( Σ (a : A) , (Σ (b : B) , C a b))
-                    ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
-                    total-map-fibered-map-over-product)
-  (is-equiv-f : is-equiv A A' f)
-  (is-equiv-g : is-equiv B B' g)
+  ( is-equiv-total :
+      is-equiv
+        ( Σ (a : A) , (Σ (b : B) , C a b))
+        ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
+        ( total-map-fibered-map-over-product))
+  ( is-equiv-f : is-equiv A A' f)
+  ( is-equiv-g : is-equiv B B' g)
   : is-equiv
-    ( Σ (a : A) , (Σ (b : B) , C a b))
-    ( Σ (a : A) , (Σ (b : B) , C' (f a) (g b)))
-    ( \ (a , (b , c)) → (a , (b , h a b c)))
+      ( Σ (a : A) , (Σ (b : B) , C a b))
+      ( Σ (a : A) , (Σ (b : B) , C' (f a) (g b)))
+      ( \ (a , (b , c)) → (a , (b , h a b c)))
   :=
-    RightCancel-is-equiv
+    is-equiv-right-factor
     ( Σ (a : A) , (Σ (b : B) , C a b))
     ( Σ (a : A) , (Σ (b : B) , C' (f a) (g b)))
     ( Σ (a : A) , (Σ (b' : B') , C' (f a) b'))
@@ -749,18 +750,17 @@ types over a product type.
       ( \ a →
         ( second
           ( total-equiv-pullback-is-equiv
-              B
-              B'
-              g
-              is-equiv-g
-              ( \ b' → C' (f a) b')))))
-    ( pullback-is-equiv-base-is-equiv-total-is-equiv totalisequiv is-equiv-f)
+            ( B) (B')
+            ( g) (is-equiv-g)
+            ( \ b' → C' (f a) b')))))
+    ( pullback-is-equiv-base-is-equiv-total-is-equiv is-equiv-total is-equiv-f)
 
 #def fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
-  (totalisequiv : is-equiv
-                  ( Σ (a : A) , (Σ (b : B) , C a b))
-                  ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
-                  total-map-fibered-map-over-product)
+  ( is-equiv-total :
+      is-equiv
+        ( Σ (a : A) , (Σ (b : B) , C a b))
+        ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
+        ( total-map-fibered-map-over-product))
   (is-equiv-f : is-equiv A A' f)
   (is-equiv-g : is-equiv B B' g)
   (a0 : A)
@@ -768,18 +768,18 @@ types over a product type.
   : is-equiv (C a0 b0) (C' (f a0) (g b0)) (h a0 b0)
   :=
     total-equiv-family-of-equiv B
-    ( \ b → C a0 b)
-    ( \ b → C' (f a0) (g b))
-    ( \ b c → h a0 b c)
-    ( total-equiv-family-of-equiv
-      A
-      ( \ a → (Σ (b : B) , C a b))
-      ( \ a → (Σ (b : B) , C' (f a) (g b)))
-      ( \ a (b , c) → (b , h a b c))
-      ( pullback-is-equiv-bases-are-equiv-total-is-equiv
-          totalisequiv is-equiv-f is-equiv-g)
-      a0)
-    b0
+      ( \ b → C a0 b)
+      ( \ b → C' (f a0) (g b))
+      ( \ b c → h a0 b c)
+      ( total-equiv-family-of-equiv
+        ( A)
+        ( \ a → (Σ (b : B) , C a b))
+        ( \ a → (Σ (b : B) , C' (f a) (g b)))
+        ( \ a (b , c) → (b , h a b c))
+        ( pullback-is-equiv-bases-are-equiv-total-is-equiv
+            is-equiv-total is-equiv-f is-equiv-g)
+        ( a0))
+      ( b0)
 
 #end fibered-map-over-product
 ```

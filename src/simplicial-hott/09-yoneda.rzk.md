@@ -808,7 +808,7 @@ an equivalent type in the domain of the evaluation map.
       ( C (a, id-arr A a))
       ( \ s → s a (id-arr A a))
   :=
-    LeftCancel-is-equiv
+    is-equiv-left-factor
       ( (p : coslice A a) → C p)
       ( (x : A) → (f : hom A a x) → C (x, f))
       ( C (a, id-arr A a))
@@ -1038,7 +1038,7 @@ proven, just with an equivalent type in the domain of the evaluation map.
       ( C (a, id-arr A a))
       ( \ s → s a (id-arr A a))
   :=
-    LeftCancel-is-equiv
+    is-equiv-left-factor
       ( (p : slice A a) → C p)
       ( (x : A) → (f : hom A x a) → C (x, f))
       ( C (a, id-arr A a))
