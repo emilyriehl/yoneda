@@ -423,37 +423,37 @@ then $(x : X) → A x$ is a Segal type.
   : is-local-horn-inclusion ((s : ψ) → A s)
   :=
     is-equiv-triple-comp
-    ( Δ² → (s : ψ) → A s)
-    ( (s : ψ) → Δ² → A s)
-    ( (s : ψ) → Λ → A s)
-    ( Λ → (s : ψ) → A s)
-    ( \ g s t → g t s)  -- first equivalence
-    ( second
-      ( fubini
-        ( 2 × 2)
-        ( I)
-        ( Δ²)
-        ( \ t → BOT)
-        ( ψ)
-        ( \ s → BOT)
-        ( \ t s → A s)
-        ( \ u → recBOT)))
-    ( \ h s t → h s t) -- second equivalence
-    ( second (equiv-extension-equiv-fibered extext I ψ
-      ( \ s → Δ² → A s)
-      ( \ s → Λ → A s)
-      ( \ s → (horn-restriction (A s) , fiberwise-is-segal-A s))))
-    ( \ h t s → (h s) t) -- third equivalence
-    ( second
-      ( fubini
-        ( I)
-        ( 2 × 2)
-        ( ψ)
-        ( \ s → BOT)
-        ( Λ)
-        ( \ t → BOT)
-        ( \ s t → A s)
-        ( \ u → recBOT)))
+      ( Δ² → (s : ψ) → A s)
+      ( (s : ψ) → Δ² → A s)
+      ( (s : ψ) → Λ → A s)
+      ( Λ → (s : ψ) → A s)
+      ( \ g s t → g t s)  -- first equivalence
+      ( second
+        ( fubini
+          ( 2 × 2)
+          ( I)
+          ( Δ²)
+          ( \ t → BOT)
+          ( ψ)
+          ( \ s → BOT)
+          ( \ t s → A s)
+          ( \ u → recBOT)))
+      ( \ h s t → h s t) -- second equivalence
+      ( second (equiv-extension-equiv-fibered extext I ψ
+        ( \ s → Δ² → A s)
+        ( \ s → Λ → A s)
+        ( \ s → (horn-restriction (A s) , fiberwise-is-segal-A s))))
+      ( \ h t s → (h s) t) -- third equivalence
+      ( second
+        ( fubini
+          ( I)
+          ( 2 × 2)
+          ( ψ)
+          ( \ s → BOT)
+          ( Λ)
+          ( \ t → BOT)
+          ( \ s t → A s)
+          ( \ u → recBOT)))
 ```
 
 In particular, the arrow type of a Segal type is Segal. First, we define the
@@ -489,8 +489,8 @@ For later use, an equivalent characterization of the arrow type.
 
 ```rzk title="RS17, Corollary 5.6(ii), special case for locality at the horn inclusion"
 #def Segal'-arrow-types uses (extext)
-  (A : U)
-  (is-segal-A : is-local-horn-inclusion A)
+  ( A : U)
+  ( is-segal-A : is-local-horn-inclusion A)
   : is-local-horn-inclusion (arr A)
   :=
     extension-types-Segal
@@ -644,14 +644,14 @@ that the type of arrows in a Segal type is itself a Segal type.
 
 ```rzk
 #def unfolding-square
-  (A : U)
-  (triangle : Δ² → A)
+  ( A : U)
+  ( triangle : Δ² → A)
   : Δ¹×Δ¹ → A
   :=
     \ (t , s) →
     recOR
-      ( ( t ≤ s ↦ triangle (s , t)) ,
-        ( s ≤ t ↦ triangle (t , s)))
+      ( t ≤ s ↦ triangle (s , t) ,
+        s ≤ t ↦ triangle (t , s))
 ```
 
 For use in the proof of associativity:
