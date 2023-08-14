@@ -329,7 +329,7 @@ By uncurrying (RS 4.2) we have an equivalence:
       ( Σ (v : hom A a y) ,
         product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
   :=
-    triple-comp-equiv
+    equiv-triple-comp
     ( dhom-from-representable A a x y f u)
     ( Σ (v : hom A a y) ,
       ( ((t , s) : Δ¹×Δ¹) → A [
@@ -360,7 +360,7 @@ By uncurrying (RS 4.2) we have an equivalence:
         ( hom2 A a x y u f d)
         ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
   :=
-    right-cancel-equiv
+    equiv-right-cancel
     ( dhom-from-representable A a x y f u)
     ( Σ (d : hom A a y) ,
       ( product
@@ -398,7 +398,7 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ (d : hom A a y) ,
       ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
   :=
-    right-cancel-equiv
+    equiv-right-cancel
     ( dhom-from-representable A a x y f u)
     ( Σ (d : hom A a y) ,
       ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
@@ -654,7 +654,7 @@ types as follows.
               (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
               (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
   :=
-    right-cancel-equiv
+    equiv-right-cancel
     ( dhom-from-representable A a x y f u)
     ( Σ (sq : ((t , s) : ∂□) → A
             [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
@@ -714,7 +714,7 @@ types as follows.
                 (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
                 (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t] )
   :=
-    right-cancel-equiv
+    equiv-right-cancel
     ( dhom-from-representable A a x y f u)
     ( ((t , s) : Δ¹×Δ¹) → A
         [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
@@ -1052,7 +1052,7 @@ By uncurrying (RS 4.2) we have an equivalence:
       (Σ (u : hom A x a) ,
         product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
   :=
-    triple-comp-equiv
+    equiv-triple-comp
     ( dhom-to-representable A a x y f v)
     ( Σ (u : hom A x a) ,
         (((t , s) : Δ¹×Δ¹) → A
@@ -1104,7 +1104,7 @@ By uncurrying (RS 4.2) we have an equivalence:
           ( hom2 A x y a f v d)
           ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
   :=
-    right-cancel-equiv
+    equiv-right-cancel
     ( dhom-to-representable A a x y f v)
     ( Σ (d : hom A x a ) ,
       ( product
@@ -1145,7 +1145,7 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ (d : hom A x a) ,
       ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
   :=
-    right-cancel-equiv
+    equiv-right-cancel
     ( dhom-to-representable A a x y f v)
     ( Σ (d : hom A x a) ,
       ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))

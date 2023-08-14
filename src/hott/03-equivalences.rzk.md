@@ -295,7 +295,7 @@ Now we compose the functions that are equivalences.
 ```
 
 ```rzk title="Right cancellation of equivalences in diagrammatic order"
-#def right-cancel-equiv
+#def equiv-right-cancel
   ( A B C : U)
   ( A≃C : Equiv A C)
   ( B≃C : Equiv B C)
@@ -304,7 +304,7 @@ Now we compose the functions that are equivalences.
 ```
 
 ```rzk title="Left cancellation of equivalences in diagrammatic order"
-#def left-cancel-equiv
+#def equiv-left-cancel
   ( A B C : U)
   ( A≃B : Equiv A B)
   ( A≃C : Equiv A C)
@@ -313,7 +313,7 @@ Now we compose the functions that are equivalences.
 ```
 
 ```rzk title="A composition of three equivalences"
-#def triple-comp-equiv
+#def equiv-triple-comp
   ( A B C D : U)
   ( A≃B : Equiv A B)
   ( B≃C : Equiv B C)
@@ -321,7 +321,7 @@ Now we compose the functions that are equivalences.
   : Equiv A D
   := equiv-comp A B D (A≃B) (equiv-comp B C D B≃C C≃D)
 
-#def triple-comp-is-equiv
+#def is-equiv-triple-comp
   ( A B C D : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
@@ -529,10 +529,9 @@ dependent function types.
 
 #def has-section-rev
   ( A : U)
-  ( y : A)
-  : (x : A) → has-section (x = y) (y = x) (rev A x y)
+  ( y x : A)
+  : has-section (x = y) (y = x) (rev A x y)
   :=
-    \ x →
     ( ( rev A y x) ,
       ( \ p →
         idJ

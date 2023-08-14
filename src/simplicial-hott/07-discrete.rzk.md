@@ -57,7 +57,7 @@ of discrete types is discrete.
   ( f g : (x : X) → A x)
   : Equiv (f = g) (hom ((x : X) → A x) f g)
   :=
-    triple-comp-equiv
+    equiv-triple-comp
       ( f = g)
       ( (x : X) → f x = g x)
       ( (x : X) → hom (A x) (f x) (g x))
@@ -124,7 +124,7 @@ only, extending from BOT, that's all we prove here for now.
   ( f g : (t : ψ) → A t)
   : Equiv (f = g) (hom ((t : ψ) → A t) f g)
   :=
-    triple-comp-equiv
+    equiv-triple-comp
       ( f = g)
       ( (t : ψ) → f t = g t)
       ( (t : ψ) → hom (A t) (f t) (g t))
@@ -304,7 +304,7 @@ The equivalence underlying `equiv-arr-Σ-hom`:
                 (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
                 (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
   :=
-    left-cancel-equiv
+    equiv-left-cancel
       ( f =_{Δ¹ → A} g)
       ( Σ ( p : x = z) ,
           ( Σ ( q : y = w) ,

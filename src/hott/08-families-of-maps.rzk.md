@@ -364,21 +364,25 @@ The pullback of a family along homotopic maps is equivalent.
   :=
     ( map-inverse-pullback-homotopy ,
       \ c →
-        concat (pullback A B g C a)
-          ( transport B C (f a) (g a) (α a)
-            ( transport B C (g a) (f a) (rev B (f a) (g a) (α a)) c))
-          ( transport B C (g a) (g a)
-            ( concat B (g a) (f a) (g a) (rev B (f a) (g a) (α a)) (α a)) c)
-          ( c)
-          ( transport-concat-rev B C (g a) (f a) (g a)
-            ( rev B (f a) (g a) (α a)) (α a) c)
-          ( transport2 B C (g a) (g a)
-            ( concat B (g a) (f a) (g a) (rev B (f a) (g a) (α a)) (α a)) refl
-            ( left-inverse-concat B (f a) (g a) (α a)) c))
+      concat
+        ( pullback A B g C a)
+        ( transport B C (f a) (g a) (α a)
+          ( transport B C (g a) (f a) (rev B (f a) (g a) (α a)) c))
+        ( transport B C (g a) (g a)
+          ( concat B (g a) (f a) (g a) (rev B (f a) (g a) (α a)) (α a)) c)
+        ( c)
+        ( transport-concat-rev B C (g a) (f a) (g a)
+          ( rev B (f a) (g a) (α a)) (α a) (c))
+        ( transport2 B C (g a) (g a)
+          ( concat B (g a) (f a) (g a) (rev B (f a) (g a) (α a)) (α a))
+          ( refl)
+          ( left-inverse-concat B (f a) (g a) (α a)) c))
 
 #def is-equiv-pullback-homotopy uses (α)
   : is-equiv
-    (pullback A B f C a) (pullback A B g C a) (pullback-homotopy)
+      ( pullback A B f C a)
+      ( pullback A B g C a)
+      ( pullback-homotopy)
   := ( has-retraction-pullback-homotopy , has-section-pullback-homotopy)
 
 #def equiv-pullback-homotopy uses (α)
@@ -407,20 +411,22 @@ map.
 
 ```rzk
 #def pullback-comparison-fiber
-  (A B : U)
-  (f : A → B)
-  (C : B → U)
-  (z : Σ (b : B) , C b)
+  ( A B : U)
+  ( f : A → B)
+  ( C : B → U)
+  ( z : Σ (b : B) , C b)
   : U
   :=
-    fib (Σ (a : A) , (pullback A B f C) a) (Σ (b : B) , C b)
+    fib
+      ( Σ (a : A) , (pullback A B f C) a)
+      ( Σ (b : B) , C b)
       ( pullback-comparison-map A B f C) z
 
 #def pullback-comparison-fiber-to-fiber
-  (A B : U)
-  (f : A → B)
-  (C : B → U)
-  (z : Σ (b : B) , C b)
+  ( A B : U)
+  ( f : A → B)
+  ( C : B → U)
+  ( z : Σ (b : B) , C b)
   : (pullback-comparison-fiber A B f C z) → (fib A B f (first z))
   :=
     \ (w , p) →
@@ -434,10 +440,10 @@ map.
         p)
 
 #def from-base-fiber-to-pullback-comparison-fiber
-  (A B : U)
-  (f : A → B)
-  (C : B → U)
-  (b : B)
+  ( A B : U)
+  ( f : A → B)
+  ( C : B → U)
+  ( b : B)
   : (fib A B f b) → (c : C b) → (pullback-comparison-fiber A B f C (b , c))
   :=
     \ (a , p) →
@@ -451,10 +457,10 @@ map.
           p)
 
 #def pullback-comparison-fiber-to-fiber-inv
-  (A B : U)
-  (f : A → B)
-  (C : B → U)
-  (z : Σ (b : B) , C b)
+  ( A B : U)
+  ( f : A → B)
+  ( C : B → U)
+  ( z : Σ (b : B) , C b)
   : (fib A B f (first z)) → (pullback-comparison-fiber A B f C z)
   :=
     \ (a , p) →
@@ -462,11 +468,11 @@ map.
       ( first z) (a , p) (second z)
 
 #def pullback-comparison-fiber-to-fiber-retracting-homotopy
-  (A B : U)
-  (f : A → B)
-  (C : B → U)
-  (z : Σ (b : B) , C b)
-  ((w , p) : pullback-comparison-fiber A B f C z)
+  ( A B : U)
+  ( f : A → B)
+  ( C : B → U)
+  ( z : Σ (b : B) , C b)
+  ( (w , p) : pullback-comparison-fiber A B f C z)
   : ( (pullback-comparison-fiber-to-fiber-inv A B f C z)
       ( (pullback-comparison-fiber-to-fiber A B f C z) (w , p))) = (w , p)
   :=
@@ -481,11 +487,11 @@ map.
       p)
 
 #def pullback-comparison-fiber-to-fiber-section-homotopy-map
-  (A B : U)
-  (f : A → B)
-  (C : B → U)
-  (b : B)
-  ((a , p) : fib A B f b)
+  ( A B : U)
+  ( f : A → B)
+  ( C : B → U)
+  ( b : B)
+  ( (a , p) : fib A B f b)
   : (c : C b) →
       ((pullback-comparison-fiber-to-fiber A B f C (b , c))
         ((pullback-comparison-fiber-to-fiber-inv A B f C (b , c)) (a , p))) =
@@ -503,27 +509,27 @@ map.
       p)
 
 #def pullback-comparison-fiber-to-fiber-section-homotopy
-  (A B : U)
-  (f : A → B)
-  (C : B → U)
-  (z : Σ (b : B) , C b)
-  ((a , p) : fib A B f (first z))
-  : ((pullback-comparison-fiber-to-fiber A B f C z)
-      ((pullback-comparison-fiber-to-fiber-inv A B f C z) (a , p))) = (a , p)
+  ( A B : U)
+  ( f : A → B)
+  ( C : B → U)
+  ( z : Σ (b : B) , C b)
+  ( (a , p) : fib A B f (first z))
+  : ( pullback-comparison-fiber-to-fiber A B f C z
+      ( pullback-comparison-fiber-to-fiber-inv A B f C z (a , p))) = (a , p)
   :=
     pullback-comparison-fiber-to-fiber-section-homotopy-map A B f C
-    ( first z) (a , p) (second z)
+      ( first z) (a , p) (second z)
 
 #def equiv-pullback-comparison-fiber
-  (A B : U)
-  (f : A → B)
-  (C : B → U)
-  (z : Σ (b : B) , C b)
+  ( A B : U)
+  ( f : A → B)
+  ( C : B → U)
+  ( z : Σ (b : B) , C b)
   : Equiv (pullback-comparison-fiber A B f C z) (fib A B f (first z))
   :=
     ( pullback-comparison-fiber-to-fiber A B f C z ,
-      ( (pullback-comparison-fiber-to-fiber-inv A B f C z ,
-        pullback-comparison-fiber-to-fiber-retracting-homotopy A B f C z) ,
+      ( ( pullback-comparison-fiber-to-fiber-inv A B f C z ,
+          pullback-comparison-fiber-to-fiber-retracting-homotopy A B f C z) ,
         ( pullback-comparison-fiber-to-fiber-inv A B f C z ,
           pullback-comparison-fiber-to-fiber-section-homotopy A B f C z)))
 ```
@@ -533,10 +539,10 @@ equivalence of total spaces.
 
 ```rzk
 #def total-equiv-pullback-is-equiv
-  (A B : U)
-  (f : A → B)
-  (is-equiv-f : is-equiv A B f)
-  (C : B → U)
+  ( A B : U)
+  ( f : A → B)
+  ( is-equiv-f : is-equiv A B f)
+  ( C : B → U)
   : Equiv (Σ (a : A) , (pullback A B f C) a) (Σ (b : B) , C b)
   :=
     ( pullback-comparison-map A B f C ,
@@ -582,12 +588,15 @@ equivalence of total spaces.
       ( \ x →
         ( total-equiv-family-of-equiv A
           ( \ x' → (a = x'))
-          B
-          f
-          ( is-equiv-are-contr (Σ (x' : A) , (a = x')) (Σ (x' : A) , (B x'))
-            ( is-contr-based-paths A a) is-contr-B
-            ( total-map-family-of-maps A ( \ x' → (a = x')) B f))
-          x)))
+          ( B)
+          ( f)
+          ( is-equiv-are-contr
+            ( Σ (x' : A) , (a = x'))
+            ( Σ (x' : A) , (B x'))
+            ( is-contr-based-paths A a)
+            ( is-contr-B)
+            ( total-map-family-of-maps A (\ x' → (a = x')) B f))
+          ( x))))
 ```
 
 This allows us to apply "based path induction" to a family satisfying the
@@ -596,11 +605,11 @@ fundamental theorem:
 ```rzk
 -- Please suggest a better name.
 #def ind-based-path
-  (familyequiv : (z : A) → (is-equiv (a = z) (B z) (f z)))
-  (P : (z : A) → B z → U)
-  (p0 : P a (f a refl))
-  (u : A)
-  (p : B u)
+  ( familyequiv : (z : A) → (is-equiv (a = z) (B z) (f z)))
+  ( P : (z : A) → B z → U)
+  ( p0 : P a (f a refl))
+  ( u : A)
+  ( p : B u)
   : P u p
   :=
     ind-sing
