@@ -97,7 +97,7 @@ A path in a fiber defines a path in the total space.
   := ind-path (B x) (u) (\ v' p' → (x , u) = (x , v')) (refl) (v) (p)
 ```
 
-The following is essentially `eq-pair` but with explicit arguments.
+The following is essentially `#!rzk eq-pair` but with explicit arguments.
 
 ```rzk
 #def path-of-pairs-pair-of-paths
@@ -142,8 +142,8 @@ The following is essentially `eq-pair` but with explicit arguments.
       ( e)
 ```
 
-Here we've decomposed `e : Eq-Σ s t` as `(e0, e1)` and decomposed `s` and `t`
-similarly for induction purposes.
+Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
+`#!rzk s` and `#!rzk t` similarly for induction purposes.
 
 ```rzk
 #def pair-eq-eq-pair-split
@@ -235,8 +235,10 @@ similarly for induction purposes.
             ( second (second t))))
 ```
 
-**Warning:** The following is the lazy definition with bad computational
-properties.
+!!! warning
+
+    The following definition of `#!rzk triple-eq`
+    is the lazy definition with bad computational properties.
 
 ```rzk
 #def triple-eq
@@ -254,8 +256,8 @@ properties.
 ```
 
 It's surprising that the following typechecks since we defined product-transport
-by a dual path induction over both `p` and `q`, rather than by saying that when
-`p` is `refl` this is ordinary transport.
+by a dual path induction over both `#!rzk p` and `#!rzk q`, rather than by
+saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
 
 ```rzk title="The inverse with explicit arguments"
 #def path-of-triples-to-triple-of-paths
@@ -310,7 +312,7 @@ by a dual path induction over both `p` and `q`, rather than by saying that when
       ( e)
 ```
 
-Here we've decomposed `s`, `t` and `e` for induction purposes:
+Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
 
 ```rzk
 #def triple-eq-eq-triple-split

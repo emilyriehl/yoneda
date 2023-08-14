@@ -616,7 +616,8 @@ fundamental theorem:
 #end fundamental-thm-id-types
 ```
 
-For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
+For all `#!rzk x` , `#!rzk y` in `#!rzk A`, `#!rzk ap_{e ,x ,y}` is an
+equivalence.
 
 ```rzk
 #def emb-is-equiv
@@ -631,8 +632,8 @@ For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
 ```
 
 By the fundamental theorem of identity types, it will suffice to show
-contractibility of `Σ_{t : A} e x = e t` for the family of maps `ap_e`, which is
-of type `(t : A) → (x = t) → (e x = e t)`:
+contractibility of `#!rzk Σ_{t : A} e x = e t` for the family of maps
+`#!rzk ap_e`, which is of type `#!rzk (t : A) → (x = t) → (e x = e t)`:
 
 ```rzk
         ( A)
@@ -642,11 +643,11 @@ of type `(t : A) → (x = t) → (e x = e t)`:
         ( ( is-contr-is-equiv-to-contr
 ```
 
-Contractibility of `Σ_{t : A} e x = e t` will follow since
-`total (\ t → rev B (e x) = (e t))`, mapping from `Σ_{t : A} e x = e t` to
-`Σ_{t : A} e t = e x` is an equivalence, and
-`Σ_{t : A} e t = e x ~ fib (e , e x)` is contractible since `e` is an
-equivalence.
+Contractibility of `#!rzk Σ_{t : A} e x = e t` will follow since
+`#!rzk total (\ t → rev B (e x) = (e t))`, mapping from
+`#!rzk Σ_{t : A} e x = e t` to `#!rzk Σ_{t : A} e t = e x` is an equivalence,
+and `#!rzk Σ_{t : A} e t = e x ~ fib (e , e x)` is contractible since `#!rzk e`
+is an equivalence.
 
 ```rzk
             ( Σ (y' : A) , (e x = e y')) -- source type

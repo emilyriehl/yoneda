@@ -13,8 +13,9 @@ This is a literate `rzk` file:
 - `hott/1-paths.md` - We require basic path algebra.
 - `hott/2-contractible.md` - We require the notion of contractible types and
   their data.
-- `hott/total-space.md` — We rely on `is-equiv-projection-contractible-fibers`
-  and `total-space-projection` in the proof of Theorem 5.5.
+- `hott/total-space.md` — We rely on
+  `#!rzk is-equiv-projection-contractible-fibers` and
+  `#!rzk total-space-projection` in the proof of Theorem 5.5.
 - `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their
   subshapes.
 - `4-extension-types.md` — We use the fubini theorem and extension
@@ -96,7 +97,7 @@ also requires homotopical uniqueness of higher-order composites.
 
 Segal types have a composition functor and witnesses to the composition
 relation. Composition is written in diagrammatic order to match the order of
-arguments in `is-segal`.
+arguments in `#!rzk is-segal`.
 
 ```rzk
 #def Segal-comp
@@ -172,8 +173,8 @@ composite equals $h$.
 
 ## Characterizing Segal types
 
-Our aim is to prove that a type is Segal if and only if the `horn-restriction`
-map, defined below, is an equivalence.
+Our aim is to prove that a type is Segal if and only if the
+`#!rzk horn-restriction` map, defined below, is an equivalence.
 
 <svg style="float: right" viewBox="0 0 200 180" width="150" height="150">
   <polyline points="40,30 160,30" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
@@ -297,8 +298,8 @@ witnesses of the equivalence).
               ( \ t → k (t , 0₂)) (\ t → k (1₂ , t)))))
 ```
 
-We verify that the mapping in `Segal-equiv-horn-restriction A is-segal-A` is
-exactly `horn-restriction A`.
+We verify that the mapping in `#!rzk Segal-equiv-horn-restriction A is-segal-A`
+is exactly `#!rzk horn-restriction A`.
 
 ```rzk
 #def test-Segal-equiv-horn-restriction
@@ -575,7 +576,7 @@ In a Segal type, where composition is unique, it follows that composition with
 an identity arrow recovers the original arrow. Thus, an identity axiom was not
 needed in the definition of Segal types.
 
-```rzk title="If $A$ is Segal then the right unit law holds"
+```rzk title="If A is Segal then the right unit law holds"
 #def Segal-comp-id
   (A : U)
   (is-segal-A : is-segal A)
@@ -593,7 +594,7 @@ needed in the definition of Segal types.
       ( comp-id-witness A x y f)
 ```
 
-```rzk title="If $A$ is Segal then the left unit law holds"
+```rzk title="If A is Segal then the left unit law holds"
 #def Segal-id-comp
   (A : U)
   (is-segal-A : is-segal A)
@@ -673,7 +674,7 @@ For use in the proof of associativity:
   := unfolding-square A (Segal-comp-witness A is-segal-A x y z f g)
 ```
 
-The `Segal-comp-witness-square` as an arrow in the arrow type:
+The `#!rzk Segal-comp-witness-square` as an arrow in the arrow type:
 
 <svg style="float: right" viewBox="0 0 200 200" width="150" height="150">
   <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
@@ -765,9 +766,9 @@ The `Segal-comp-witness-square` as an arrow in the arrow type:
   <text x="140" y="205">h</text>
 </svg>
 
-The `Segal-associativity-witness` curries to define a diagram $Δ²×Δ¹ → A$. The
-`Segal-associativity-tetrahedron` is extracted via the middle-simplex map
-$((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
+The `#!rzk Segal-associativity-witness` curries to define a diagram $Δ²×Δ¹ → A$.
+The `#!rzk Segal-associativity-tetrahedron` is extracted via the middle-simplex
+map $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
 
 ```rzk
 #def Segal-associativity-tetrahedron uses (extext)
@@ -802,7 +803,7 @@ $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
 </svg>
 
 The diagonal composite of three arrows extracted from the
-`Segal-associativity-tetrahedron`.
+`#!rzk Segal-associativity-tetrahedron`.
 
 ```rzk
 #def Segal-triple-composite uses (extext)

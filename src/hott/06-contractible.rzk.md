@@ -221,14 +221,14 @@ A retract of contractible types is contractible.
   := second (second is-retract-of-A-B)
 ```
 
-```rzk title="If $A$ is a retract of a contractible type it has a term"
+```rzk title="If A is a retract of a contractible type it has a term"
 #def is-retract-of-is-contr-isInhabited uses (is-retract-of-A-B)
   ( is-contr-B : is-contr B)
   : A
   := is-retract-of-retraction (contraction-center B is-contr-B)
 ```
 
-```rzk title="If $A$ is a retract of a contractible type it has a contracting homotopy"
+```rzk title="If A is a retract of a contractible type it has a contracting homotopy"
 #def is-retract-of-is-contr-hasHtpy uses (is-retract-of-A-B)
   ( is-contr-B : is-contr B)
   ( a : A)
@@ -244,7 +244,7 @@ A retract of contractible types is contractible.
       ( is-retract-of-homotopy a)
 ```
 
-```rzk title="If $A$ is a retract of a contractible type it is contractible"
+```rzk title="If A is a retract of a contractible type it is contractible"
 #def is-contr-is-retract-of-is-contr uses (is-retract-of-A-B)
   ( is-contr-B : is-contr B)
   : is-contr A
@@ -297,7 +297,7 @@ A retract of contractible types is contractible.
 
 For example, we prove that based path spaces are contractible.
 
-```rzk title="Transport in the space of paths starting at $a$ is concatenation"
+```rzk title="Transport in the space of paths starting at a is concatenation"
 #def concat-as-based-transport
   ( A : U)
   ( a x y : A)
@@ -315,7 +315,7 @@ For example, we prove that based path spaces are contractible.
       ( q)
 ```
 
-The center of contraction in the based path space is `(a , refl)`.
+The center of contraction in the based path space is `#!rzk (a , refl)`.
 
 ```rzk title="The center of contraction in the based path space"
 #def center-based-paths

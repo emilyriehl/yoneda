@@ -113,7 +113,7 @@ Contractible maps are equivalences:
 
 We now show that half adjoint equivalences are contractible maps.
 
-```rzk title="If $f$ is a half adjoint equivalence, its fibers are inhabited"
+```rzk title="If f is a half adjoint equivalence, its fibers are inhabited"
 #def is-surj-is-half-adjoint-equiv
   (A B : U)
   (f : A → B)
@@ -149,7 +149,7 @@ this homotopy is straightforward.
       ( (first (second (first fisHAE))) (first z))
 ```
 
-Specializing the above to `isHAE-fib-base-path`:
+Specializing the above to `#!rzk isHAE-fib-base-path`:
 
 ```rzk
 #def isHAE-fib-base-path-transport

@@ -157,7 +157,7 @@ maps.
   := composition B A B f has-inverse-inverse
 ```
 
-This composite is parallel to `f`; we won't need the dual notion.
+This composite is parallel to `#!rzk f`; we won't need the dual notion.
 
 ```rzk
 #def has-inverse-triple-composite uses (has-inverse-f)
@@ -165,7 +165,8 @@ This composite is parallel to `f`; we won't need the dual notion.
   := triple-composition A B A B f has-inverse-inverse f
 ```
 
-This composite is also parallel to `f`; again we won't need the dual notion.
+This composite is also parallel to `#!rzk f`; again we won't need the dual
+notion.
 
 ```rzk
 #def has-inverse-quintuple-composite uses (has-inverse-f)
@@ -176,8 +177,8 @@ This composite is also parallel to `f`; again we won't need the dual notion.
 
 ## Composing equivalences
 
-The type of equivalences between types uses `is-equiv` rather than
-`has-inverse`.
+The type of equivalences between types uses `#!rzk is-equiv` rather than
+`#!rzk has-inverse`.
 
 ```rzk
 #def Equiv
@@ -416,7 +417,7 @@ extensionality:
 ```
 
 Whenever a definition (implicitly) uses function extensionality, we write
-`uses (funext)`. In particular, the following definitions rely on function
+`#!rzk uses (funext)`. In particular, the following definitions rely on function
 extensionality:
 
 ```rzk title="The equivalence provided by function extensionality"
@@ -429,7 +430,8 @@ extensionality:
 ```
 
 In particular, function extensionality implies that homotopies give rise to
-identifications. This defines `eq-htpy` to be the retraction to `htpy-eq`.
+identifications. This defines `#!rzk eq-htpy` to be the retraction to
+`#!rzk htpy-eq`.
 
 ```rzk
 #def eq-htpy uses (funext)
