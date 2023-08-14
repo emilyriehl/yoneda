@@ -803,7 +803,7 @@ The following is the same as above but with alternating arguments.
   : (triple-concat A w x y z p r s) = (triple-concat A w x y z q r s)
   := homotopy-concat A w x z p q H (concat A x y z r s)
 
-#def triple-homotopy-concat
+#def eq-triple-concat-eq-second
   ( A : U)
   ( w x y z : A)
   ( p : w = x)

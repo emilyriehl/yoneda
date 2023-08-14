@@ -546,7 +546,7 @@ have equivalent identity types.
       ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y
         ( f) ((first (second (first is-HAE-f))) y)))
   :=
-    triple-homotopy-concat B
+    eq-triple-concat-eq-second B
       ( f x)
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
