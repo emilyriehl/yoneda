@@ -415,7 +415,7 @@ If $X$ is a shape and $A : X → U$ is such that $A x$ is a Segal type for all $
 then $(x : X) → A x$ is a Segal type.
 
 ```rzk title="RS17, Corollary 5.6(ii)"
-#def extension-types-Segal uses (extext)
+#def extension-types-Segal' uses (extext)
   (I : CUBE)
   (ψ : I → TOPE)
   (A : ψ → U)
@@ -454,6 +454,19 @@ then $(x : X) → A x$ is a Segal type.
           ( \ t → BOT)
           ( \ s t → A s)
           ( \ u → recBOT)))
+
+#def extension-types-Segal uses (extext)
+  ( I : CUBE)
+  ( ψ : I → TOPE)
+  ( A : ψ → U)
+  ( fiberwise-is-segal-A : (s : ψ) → is-segal (A s))
+  : is-segal((s : ψ) → A s)
+  :=
+    is-segal-is-local-horn-inclusion
+      ( (s : ψ) → A s)
+      ( extension-types-Segal'
+        ( I) (ψ) (A)
+        ( \s → is-local-horn-inclusion-is-segal (A s) (fiberwise-is-segal-A s)))
 ```
 
 In particular, the arrow type of a Segal type is Segal. First, we define the
@@ -488,16 +501,16 @@ For later use, an equivalent characterization of the arrow type.
 ```
 
 ```rzk title="RS17, Corollary 5.6(ii), special case for locality at the horn inclusion"
-#def Segal'-arrow-types uses (extext)
+#def arrow-types-Segal' uses (extext)
   ( A : U)
   ( is-segal-A : is-local-horn-inclusion A)
   : is-local-horn-inclusion (arr A)
   :=
-    extension-types-Segal
+    extension-types-Segal'
       ( 2)
       ( Δ¹)
-      ( \ t → A)
-      ( \ t → is-segal-A)
+      ( \ _ → A)
+      ( \ _ → is-segal-A)
 ```
 
 ```rzk title="RS17, Corollary 5.6(ii), special case for the Segal condition"
@@ -506,12 +519,11 @@ For later use, an equivalent characterization of the arrow type.
   (is-segal-A : is-segal A)
   : is-segal (arr A)
   :=
-    is-segal-is-local-horn-inclusion (arr A)
-      ( extension-types-Segal
-          ( 2)
-          ( Δ¹)
-          ( \ t → A)
-          ( \ t → (is-local-horn-inclusion-is-segal A is-segal-A)))
+    extension-types-Segal
+      ( 2)
+      ( Δ¹)
+      ( \ _ → A)
+      ( \ _ → is-segal-A)
 ```
 
 ## Identity
