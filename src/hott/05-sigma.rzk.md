@@ -235,8 +235,10 @@ similarly for induction purposes.
             ( second (second t))))
 ```
 
-**Warning:** The following is the lazy definition with bad computational
-properties.
+!!! warning
+
+    The following definition of `triple-eq`
+    is the lazy definition with bad computational properties.
 
 ```rzk
 #def triple-eq
