@@ -140,7 +140,7 @@ We build a path that will be whiskered into the naturality square above:
       ( retraction-composite-has-inverse A B f has-inverse-f)
       ( has-inverse-kept-htpy A B f has-inverse-f a))
   :=
-    ap-htpy A B
+    ap-eq A B
       ( retraction-composite-has-inverse A B f has-inverse-f
         ( retraction-composite-has-inverse A B f has-inverse-f a))
       ( retraction-composite-has-inverse A B f has-inverse-f a)

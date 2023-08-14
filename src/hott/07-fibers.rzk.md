@@ -235,7 +235,7 @@ Specializing the above to `is-HAE-fib-base-path`:
             ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z)))
             ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first is-HAE-f))
               ( rev B (f (first z)) b (second z))))))
-      ( ap-htpy A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
+      ( ap-eq A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
         ( rev A ((map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
           ( is-HAE-fib-base-path ))
         ( concat A
@@ -459,7 +459,7 @@ Specializing the above to `is-HAE-fib-base-path`:
           ( (map-inverse-has-inverse A B f (first is-HAE-f)) b) f
           ( ap B A (f (first z)) b
             ( map-inverse-has-inverse A B f (first is-HAE-f)) (second z)))
-        ( ap-htpy A B
+        ( ap-eq A B
           ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z)))
           ( (map-inverse-has-inverse A B f (first is-HAE-f)) b)
           ( f)

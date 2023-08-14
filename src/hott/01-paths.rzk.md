@@ -443,7 +443,7 @@ The following is for a specific use.
 Application of a function to homotopic paths yields homotopic paths.
 
 ```rzk
-#def ap-htpy
+#def ap-eq
   ( A B : U)
   ( x y : A)
   ( f : A → B)
