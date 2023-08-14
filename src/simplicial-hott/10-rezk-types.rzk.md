@@ -346,7 +346,7 @@ Some of the definitions in this file rely on extension extensionality:
   (is-segal-A : is-segal A)
   (x y : A)
   : (x = y) → Iso A is-segal-A x y
-  := \ p → idJ (A , x , \ y' p' → Iso A is-segal-A x y' , (id-iso A is-segal-A x) , y , p)
+  := \ p → ind-path (A) (x) (\ y' p' → Iso A is-segal-A x y') ((id-iso A is-segal-A x)) (y) (p)
 
 #def is-rezk
   (A : U)

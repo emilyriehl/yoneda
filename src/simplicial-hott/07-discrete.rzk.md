@@ -36,7 +36,7 @@ identity types.
   (x y : A)
   (p : x = y)
   : hom A x y
-  := idJ (A , x , \ y' → \ p' → hom A x y' , (id-arr A x) , y , p)
+  := ind-path (A) (x) (\ y' → \ p' → hom A x y') ((id-arr A x)) (y) (p)
 
 #def is-discrete
   (A : U)
@@ -83,15 +83,15 @@ of discrete types is discrete.
   : ( arr-eq ((x : X) → A x) f g h) =
     ( first (equiv-discrete-family X A is-discrete-A f g)) h
   :=
-    idJ
-    ( ( (x : X) → A x) ,
-      ( f) ,
+    ind-path
+      ( (x : X) → A x)
+      ( f)
       ( \ g' h' →
         arr-eq ((x : X) → A x) f g' h' =
-        (first (equiv-discrete-family X A is-discrete-A f g')) h') ,
-      ( refl) ,
-      ( g) ,
-      ( h))
+        (first (equiv-discrete-family X A is-discrete-A f g')) h')
+      ( refl)
+      ( g)
+      ( h)
 ```
 
 ```rzk title="RS17, Proposition 7.2"
@@ -157,15 +157,15 @@ only, extending from BOT, that's all we prove here for now.
   : arr-eq ((t : ψ) → A t) f g h =
     ( first (Eq-discrete-extension I ψ A is-discrete-A f g)) h
   :=
-    idJ
-    ( ( (t : ψ) → A t) ,
-      ( f) ,
+    ind-path
+      ( (t : ψ) → A t)
+      ( f)
       ( \ g' h' →
         ( arr-eq ((t : ψ) → A t) f g' h') =
-        ( first (Eq-discrete-extension I ψ A is-discrete-A f g') h')) ,
-      ( refl) ,
-      ( g) ,
-      ( h))
+        ( first (Eq-discrete-extension I ψ A is-discrete-A f g') h'))
+      ( refl)
+      ( g)
+      ( h)
 ```
 
 ```rzk title="RS17, Proposition 7.2, for extension types"
@@ -238,7 +238,7 @@ Discrete types are automatically Segal types.
           ( \ σ → refl))))
 ```
 
-The equivalence underlying `equiv-arr-Σ-hom`:
+The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
 
 ```rzk
 #def fibered-arr-free-arr
@@ -360,9 +360,9 @@ We close the section so we can use path induction.
         (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
         (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t ])
   :=
-    idJ
-    ( ( A) ,
-      ( x) ,
+    ind-path
+      ( A)
+      ( x)
       ( \ z' p' →
         ( g : hom A z' w) →
         ( product-transport A A (hom A) x z' y w p' q f = g) →
@@ -370,35 +370,32 @@ We close the section so we can use path induction.
           [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
             (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
             (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z' p') t ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t ])) ,
-      ( idJ
-        ( ( A) ,
-          ( y) ,
-          ( \ w' q' →
-            ( g : hom A x w') →
-            ( product-transport A A (hom A) x x y w' refl q' f = g) →
-            ( ((t , s) : Δ¹×Δ¹) → A
-              [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w' q') t ])) ,
-          ( \ g τ →
-            idJ
-            ( ( hom A x y) ,
-              ( f) ,
-              ( \ g' τ' →
-                ( ((t , s) : Δ¹×Δ¹) → A
-                  [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                    (t ≡ 1₂) ∧ (Δ¹ s) ↦ g' s ,
-                    (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-                    (Δ¹ t) ∧ (s ≡ 1₂) ↦ y ])),
-              ( \ (t , s) → f s) ,
-              ( g) ,
-              ( τ))),
-          ( w) ,
-          ( q))) ,
-      ( z) ,
-      ( p))
+            (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t ]))
+      ( ind-path
+        ( A)
+        ( y)
+        ( \ w' q' →
+          ( g : hom A x w') →
+          ( product-transport A A (hom A) x x y w' refl q' f = g) →
+          ( ((t , s) : Δ¹×Δ¹) → A
+            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+              (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+              (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w' q') t ]))
+        ( ind-path
+            ( hom A x y)
+            ( f)
+            ( \ g' τ' →
+              ( ((t , s) : Δ¹×Δ¹) → A
+                [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                  (t ≡ 1₂) ∧ (Δ¹ s) ↦ g' s ,
+                  (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+                  (Δ¹ t) ∧ (s ≡ 1₂) ↦ y ]))
+            ( \ (t , s) → f s))
+        ( w)
+        ( q))
+      ( z)
+      ( p)
 
 #def square-sigma-over-product
   ( A : U)
@@ -444,9 +441,9 @@ We close the section so we can use path induction.
       ( f) (g)
       ( refl , (refl , τ)))
   :=
-    idJ
-    ( ( hom A x y) ,
-      ( f) ,
+    ind-path
+      ( hom A x y)
+      ( f)
       ( \ g' τ' →
         ( first
           ( equiv-square-sigma-over-product A is-discrete-A x y x y f g')
@@ -455,10 +452,10 @@ We close the section so we can use path induction.
           ( A) (is-discrete-A)
           ( x) (y) (x) (y)
           ( f) (g')
-          ( refl , (refl , τ')))) ,
-      ( refl) ,
-      ( g) ,
-      ( τ))
+          ( refl , (refl , τ'))))
+      ( refl)
+      ( g)
+      ( τ)
 
 #def map-equiv-square-sigma-over-product uses (extext)
   ( A : U)
@@ -475,20 +472,20 @@ We close the section so we can use path induction.
     ( square-sigma-over-product
         A is-discrete-A x y z w f g (p , (q , τ)))
   :=
-    idJ
-    ( A ,
-      y ,
-      \ w' q' →
-      ( g : hom A z w') →
-      ( τ : product-transport A A (hom A) x z y w' p q' f = g) →
-      ( first (equiv-square-sigma-over-product
-                A is-discrete-A x y z w' f g))
-        ( p , (q' , τ)) =
-      ( square-sigma-over-product A is-discrete-A x y z w' f g)
-        ( p , (q' , τ)) ,
-      idJ
-      ( ( A) ,
-        ( x) ,
+    ind-path
+      ( A)
+      ( y)
+      ( \ w' q' →
+        ( g : hom A z w') →
+        ( τ : product-transport A A (hom A) x z y w' p q' f = g) →
+        ( first (equiv-square-sigma-over-product
+                  A is-discrete-A x y z w' f g))
+          ( p , (q' , τ)) =
+        ( square-sigma-over-product A is-discrete-A x y z w' f g)
+          ( p , (q' , τ)))
+      ( ind-path
+        ( A)
+        ( x)
         ( \ z' p' →
           ( g : hom A z' y) →
           ( τ :
@@ -497,17 +494,13 @@ We close the section so we can use path induction.
             ( equiv-square-sigma-over-product A is-discrete-A x y z' y f g)
             ( p' , (refl , τ))) =
           ( square-sigma-over-product A is-discrete-A x y z' y f g
-            ( p' , (refl , τ)))) ,
-        ( \ g τ →
-          refl-refl-map-equiv-square-sigma-over-product
-            ( A) (is-discrete-A)
-            ( x) (y)
-            ( f) (g)
-            ( τ)) ,
-        ( z) ,
-        ( p)) ,
-      ( w) ,
-      ( q))
+            ( p' , (refl , τ))))
+        ( refl-refl-map-equiv-square-sigma-over-product
+            ( A) (is-discrete-A) (x) (y) (f))
+        ( z)
+        ( p))
+      ( w)
+      ( q)
 
 #def is-equiv-square-sigma-over-product uses (extext)
   ( A : U)
@@ -530,7 +523,7 @@ We close the section so we can use path induction.
   :=
     is-equiv-rev-homotopy
     ( Σ ( p : x = z) ,
-         ( Σ ( q : y = w) ,
+        ( Σ ( q : y = w) ,
             ( product-transport A A (hom A) x z y w p q f = g)))
     ( Σ ( h : hom A x z) ,
         ( Σ ( k : hom A y w) ,
@@ -800,9 +793,9 @@ the second arrow is an identity.
       ( is-contr-horn-refl-refl-extension-type A is-discrete-A x y f)
 ```
 
-But since `A` is discrete, its hom type family is equivalent to its identity
-type family, and we can use "path induction" over arrows to reduce the general
-case to the one just proven:
+But since `#!rzk A` is discrete, its hom type family is equivalent to its
+identity type family, and we can use "path induction" over arrows to reduce the
+general case to the one just proven:
 
 ```rzk
 #def is-contr-hom2-is-discrete uses (extext)

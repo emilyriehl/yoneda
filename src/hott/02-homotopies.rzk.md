@@ -38,8 +38,8 @@ This is a literate `rzk` file:
   := \ a → concat B (f a) (g a) (h a) (H a) (K a)
 ```
 
-Homotopy composition is defined in diagrammatic order like `concat` but unlike
-composition.
+Homotopy composition is defined in diagrammatic order like `#!rzk concat` but
+unlike composition.
 
 ```rzk
 #end homotopies
@@ -102,15 +102,15 @@ composition.
   : (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =
     (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
-        (concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')) ,
-      left-unit-concat B (f x) (g x) (H x) ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+        ( concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
+        ( concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')))
+      ( left-unit-concat B (f x) (g x) (H x))
+      ( y)
+      ( p)
 ```
 
 ```rzk title="Naturality in another form"
@@ -125,23 +125,23 @@ composition.
       ( rev B (f x) (g x) (H x)) (ap A B x y f p) (H y) =
     ap A B x y g p
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        triple-concat
-          ( B)
-          ( g x)
-          ( f x)
-          ( f y')
-          ( g y')
-          ( rev B (f x) (g x) (H x))
-          ( ap A B x y' f p')
-          ( H y') =
-        ap A B x y' g p' ,
-      rev-refl-id-triple-concat B (f x) (g x) (H x) ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+          triple-concat
+            ( B)
+            ( g x)
+            ( f x)
+            ( f y')
+            ( g y')
+            ( rev B (f x) (g x) (H x))
+            ( ap A B x y' f p')
+            ( H y') =
+          ap A B x y' g p')
+      ( rev-refl-id-triple-concat B (f x) (g x) (H x))
+      ( y)
+      ( p)
 ```
 
 ## An application
@@ -155,8 +155,9 @@ composition.
 #variable a : A
 ```
 
-In the case of a homotopy `H` from `f` to the identity the previous square
-applies to the path `H a` to produce the following naturality square.
+In the case of a homotopy `#!rzk H` from `#!rzk f` to the identity the previous
+square applies to the path `#!rzk H a` to produce the following naturality
+square.
 
 ```rzk
 #def cocone-naturality
@@ -165,7 +166,7 @@ applies to the path `H a` to produce the following naturality square.
   := nat-htpy A A f (identity A) H (f a) a (H a)
 ```
 
-After composing with `ap-id`, this naturality square transforms to the
+After composing with `#!rzk ap-id`, this naturality square transforms to the
 following:
 
 ```rzk
@@ -196,7 +197,8 @@ following:
         ( ap-id A (f a) a (H a)))
 ```
 
-Cancelling the path `H a` on the right and reversing yields a path we need:
+Cancelling the path `#!rzk H a` on the right and reversing yields a path we
+need:
 
 ```rzk
 #def cocone-naturality-coherence
@@ -231,32 +233,29 @@ Cancelling the path `H a` on the right and reversing yields a path we need:
   : triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (H x)) p (H y) =
     triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (K x)) p (K y)
   :=
-    idJ
-    ( ( f y = g y) ,
-      ( H y) ,
+    ind-path
+      ( f y = g y)
+      ( H y)
       ( \ Ky α' →
-        triple-concat
+        ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
-          ( rev B (f x) (g x) (H x)) (p) (H y) =
-        triple-concat
+          ( rev B (f x) (g x) (H x)) (p) (H y)) =
+        ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
-          ( rev B (f x) (g x) (K x)) (p) (Ky)) ,
-      triple-concat-eq-first
-        B
-        ( g x)
-        ( f x)
-        ( f y)
-        ( g y)
+          ( rev B (f x) (g x) (K x)) (p) (Ky)))
+      ( triple-concat-eq-first
+        ( B) (g x) (f x) (f y) (g y)
         ( rev B (f x) (g x) (H x))
         ( rev B (f x) (g x) (K x))
-        p
+        ( p)
         ( H y)
         ( ap
           ( f x = g x)
           ( g x = f x)
           ( H x)
           ( K x)
-          ( \ G → rev B (f x) (g x) G) (α x)) ,
-      K y ,
-      α y)
+          ( rev B (f x) (g x))
+          ( α x)))
+      ( K y)
+      (α y)
 ```

@@ -59,7 +59,7 @@ The following type asserts that the fibers of a type family are contractible.
 ```
 
 This can be used to define the retraction homotopy for the total space
-projection, called `first` here:
+projection, called `#!rzk first` here:
 
 ```rzk
 #def contractible-fibers-retraction-htpy

@@ -407,19 +407,18 @@ have equivalent identity types.
   (x y : A)
   : has-retraction (x = y) (f x = f y) (ap A B x y f)
   :=
-    ( second (iff-ap-is-half-adjoint-equiv x y) ,
-      \ p →
-          idJ
-          ( A ,
-            x ,
-            \ y' p' →
-              ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
-              p' ,
-            ( rev-refl-id-triple-concat A
-              ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x
-              ( (first (second (first is-HAE-f))) x)) ,
-            y ,
-            p))
+    ( ( second (iff-ap-is-half-adjoint-equiv x y)) ,
+      ( ind-path
+          ( A)
+          ( x)
+          ( \ y' p' →
+            ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
+            ( p'))
+          ( rev-refl-id-triple-concat A
+            ( map-inverse-has-inverse A B f (first is-HAE-f) (f x))
+            ( x)
+            ( first (second (first is-HAE-f)) x))
+          ( y)))
 
 #def ap-triple-concat-is-half-adjoint-equiv
   ( x y : A)

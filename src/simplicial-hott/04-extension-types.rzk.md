@@ -10,7 +10,8 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/4-equivalences.rzk` — contains the definitions of `Eq` and `equiv-comp`
+- `hott/4-equivalences.rzk` — contains the definitions of `#!rzk Equiv` and
+  `#!rzk comp-equiv`
 - the file `hott/4-equivalences.rzk` relies in turn on the previous files in
   `hott/`
 
@@ -212,13 +213,14 @@ axiom. Here we state the one that will be most useful and derive an application.
   ( f g : (t : ψ) → A t [ ϕ t ↦ a t ])
   ( p : f = g)
   : (t : ψ) → (f t = g t) [ ϕ t ↦ refl ]
-  := idJ
-    ( ( (t : ψ) → A t [ ϕ t ↦ a t ]) ,
-      ( f) ,
-      ( \ g' p' → (t : ψ) → (f t = g' t) [ ϕ t ↦ refl ]) ,
-      ( \ t → refl) ,
-      ( g) ,
-      ( p))
+  :=
+    ind-path
+      ( (t : ψ) → A t [ ϕ t ↦ a t ])
+      ( f)
+      ( \ g' p' → (t : ψ) → (f t = g' t) [ ϕ t ↦ refl ])
+      ( \ t → refl)
+      ( g)
+      ( p)
 ```
 
 The type that encodes the extension extensionality axiom. As suggested by
@@ -257,8 +259,8 @@ footnote 8, we assert this as an "extension extensionality" axiom
 ```
 
 In particular, extension extensionality implies that homotopies give rise to
-identifications. This definition defines `eq-ext-htpy` to be the retraction to
-`ext-htpy-eq`.
+identifications. This definition defines `#!rzk eq-ext-htpy` to be the
+retraction to `#!rzk ext-htpy-eq`.
 
 ```rzk
 #def eq-ext-htpy uses (extext)
@@ -273,7 +275,7 @@ identifications. This definition defines `eq-ext-htpy` to be the retraction to
 ```
 
 By extension extensionality, fiberwise equivalences of extension types define
-equivalences of extension types. For simplicity, we extend from `BOT`.
+equivalences of extension types. For simplicity, we extend from `#!rzk BOT`.
 
 ```rzk
 #def equiv-extension-equiv-fibered uses (extext)

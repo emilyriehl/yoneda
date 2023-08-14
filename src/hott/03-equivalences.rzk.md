@@ -157,7 +157,7 @@ maps.
   := comp B A B f map-inverse-has-inverse
 ```
 
-This composite is parallel to `f`; we won't need the dual notion.
+This composite is parallel to `#!rzk f`; we won't need the dual notion.
 
 ```rzk
 #def triple-composite-has-inverse uses (has-inverse-f)
@@ -165,7 +165,8 @@ This composite is parallel to `f`; we won't need the dual notion.
   := triple-comp A B A B f map-inverse-has-inverse f
 ```
 
-This composite is also parallel to `f`; again we won't need the dual notion.
+This composite is also parallel to `#!rzk f`; again we won't need the dual
+notion.
 
 ```rzk
 #def quintuple-composite-has-inverse uses (has-inverse-f)
@@ -176,8 +177,8 @@ This composite is also parallel to `f`; again we won't need the dual notion.
 
 ## Composing equivalences
 
-The type of equivalences between types uses `is-equiv` rather than
-`has-inverse`.
+The type of equivalences between types uses `#!rzk is-equiv` rather than
+`#!rzk has-inverse`.
 
 ```rzk
 #def Equiv
@@ -388,13 +389,13 @@ By path induction, an identification between functions defines a homotopy.
   ( p : f = g)
   : (x : X) → (f x = g x)
   :=
-    idJ
-    ( ( (x : X) → A x) ,
-      ( f) ,
-      ( \ g' p' → (x : X) → (f x = g' x)) ,
-      ( \ x → refl) ,
-      ( g) ,
-      ( p))
+    ind-path
+      ( (x : X) → A x)
+      ( f)
+      ( \ g' p' → (x : X) → (f x = g' x))
+      ( \ x → refl)
+      ( g)
+      ( p)
 ```
 
 The function extensionality axiom asserts that this map defines a family of
@@ -418,7 +419,7 @@ extensionality:
 ```
 
 Whenever a definition (implicitly) uses function extensionality, we write
-`uses (funext)`. In particular, the following definitions rely on function
+`#!rzk uses (funext)`. In particular, the following definitions rely on function
 extensionality:
 
 ```rzk title="The equivalence provided by function extensionality"
@@ -431,7 +432,8 @@ extensionality:
 ```
 
 In particular, function extensionality implies that homotopies give rise to
-identifications. This defines `eq-htpy` to be the retraction to `htpy-eq`.
+identifications. This defines `#!rzk eq-htpy` to be the retraction to
+`#!rzk htpy-eq`.
 
 ```rzk
 #def eq-htpy uses (funext)
@@ -515,17 +517,17 @@ dependent function types.
     \ x →
     ( ( rev A y x) ,
       ( \ p →
-        idJ
-        ( A ,
-          x ,
+        ind-path
+          ( A)
+          ( x)
           ( \ y' p' →
             ( comp
               ( x = y') (y' = x) (x = y') (rev A y' x) (rev A x y') (p'))
             =_{x = y'}
-            ( p')) ,
-          ( refl) ,
-          ( y) ,
-          ( p))))
+            ( p'))
+            ( refl)
+            ( y)
+            ( p)))
 
 #def has-section-rev
   ( A : U)
@@ -533,18 +535,16 @@ dependent function types.
   : has-section (x = y) (y = x) (rev A x y)
   :=
     ( ( rev A y x) ,
-      ( \ p →
-        idJ
-        ( A ,
-          y ,
-          ( \ x' p' →
-            ( comp
-              ( y = x') (x' = y) (y = x') (rev A x' y) (rev A y x') (p'))
-            =_{y = x'}
-            ( p')) ,
-          ( refl) ,
-          ( x) ,
-          ( p))))
+      ( ind-path
+        ( A)
+        ( y)
+        ( \ x' p' →
+          ( comp
+            ( y = x') (x' = y) (y = x') (rev A x' y) (rev A y x') (p'))
+          =_{y = x'}
+          ( p'))
+        ( refl)
+        ( x)))
 
 #def is-equiv-rev
   ( A : U)
