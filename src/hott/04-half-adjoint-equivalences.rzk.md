@@ -39,7 +39,7 @@ one:
     Σ ( has-inverse-f : (has-inverse A B f)) ,
       ( ( a : A) →
         ( second (second has-inverse-f) (f a)) =
-          ( ap A B
+        ( ap A B
           ( retraction-composite-has-inverse A B f has-inverse-f a)
           ( a)
           ( f)
@@ -758,7 +758,7 @@ have equivalent identity types.
     is-equiv-ap-is-half-adjoint-equiv A B f
     ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) x y
 
-#def Eq-ap-is-equiv
+#def equiv-ap-is-equiv
   ( A B : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)

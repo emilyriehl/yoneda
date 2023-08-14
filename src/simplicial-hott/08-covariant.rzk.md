@@ -451,7 +451,7 @@ Now we introduce the hypothesis that A is Segal type.
   : Equiv (dhom-from-representable A a x y f u)
     (Σ (d : hom A a y) , (hom2 A a x y u f d))
   :=
-    comp-equiv
+    equiv-comp
     ( dhom-from-representable A a x y f u)
     ( Σ (d : hom A a y) ,
       ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
@@ -514,7 +514,7 @@ we argue as follows:
         ( dhom-from-representable A x y z g f)
         ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
           Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
-        ( comp-equiv
+        ( equiv-comp
           ( dhom-from-representable A x y z g f)
           ( Σ (h : hom A x z) ,
             ( product
@@ -589,7 +589,7 @@ types as follows.
         (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
     (hom A a y)
   :=
-    comp-equiv
+    equiv-comp
     ( ((t , s) : ∂□) → A
         [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
           (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
@@ -1079,7 +1079,7 @@ By uncurrying (RS 4.2) we have an equivalence:
   : Equiv
     ( dhom-to-representable A a x y f v)
     ( Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
-  := comp-equiv
+  := equiv-comp
       (dhom-to-representable A a x y f v)
       (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
       (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
@@ -1182,7 +1182,7 @@ Now we introduce the hypothesis that A is Segal type.
     ( dhom-to-representable A a x y f v)
     ( Σ (d : hom A x a) , (hom2 A x y a f v d))
   :=
-    comp-equiv
+    equiv-comp
     ( dhom-to-representable A a x y f v)
     ( Σ (d : hom A x a) ,
       ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
@@ -1247,7 +1247,7 @@ we argue as follows:
           ( dhom-to-representable A z x y f g)
           ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
             Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
-          ( comp-equiv
+          ( equiv-comp
             ( dhom-to-representable A z x y f g)
             ( Σ (h : hom A x z) ,
               ( product

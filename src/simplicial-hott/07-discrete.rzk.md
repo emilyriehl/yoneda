@@ -62,7 +62,7 @@ of discrete types is discrete.
       ( (x : X) → f x = g x)
       ( (x : X) → hom (A x) (f x) (g x))
       ( hom ((x : X) → A x) f g)
-      ( FunExt-equiv funext X A f g)
+      ( equiv-FunExt funext X A f g)
       ( equiv-function-equiv-fibered funext X
         ( \ x → (f x = g x)) (\ x → hom (A x) (f x) (g x))
         ( \ x → (arr-eq (A x) (f x) (g x) , (is-discrete-A x (f x) (g x)))))
@@ -267,7 +267,7 @@ The equivalence underlying `Eq-arr`:
 #def id-Eq-Eq-arr uses (w x y z)
   : Equiv (f =_{Δ¹ → A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
   :=
-    Eq-ap-is-equiv
+    equiv-ap-is-equiv
       ( arr A)
       ( Σ (u : A) , (Σ (v : A) , (hom A u v))) (fibered-arr-free-arr)
       ( second (Eq-arr A))
@@ -311,7 +311,7 @@ The equivalence underlying `Eq-arr`:
                   (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
                   (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
                   (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
-      ( comp-equiv
+      ( equiv-comp
         ( f =_{Δ¹ → A} g)
         ( fibered-arr-free-arr f = fibered-arr-free-arr g)
         ( Σ ( p : x = z) ,
@@ -319,7 +319,7 @@ The equivalence underlying `Eq-arr`:
                 ( product-transport A A (hom A) x z y w p q f = g)))
         id-Eq-Eq-arr
         equiv-sigma-over-product-arr-eq)
-      ( comp-equiv
+      ( equiv-comp
         ( f =_{Δ¹ → A} g)
         ( hom (arr A) f g)
         ( Σ ( h : hom A x z) ,
@@ -523,7 +523,7 @@ We close the section so we can use path induction.
                 (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
     ( square-sigma-over-product A is-discrete-A x y z w f g)
   :=
-    is-equiv-rev-homotopic-is-equiv
+    is-equiv-rev-homotopy
     ( Σ ( p : x = z) ,
          ( Σ ( q : y = w) ,
             ( product-transport A A (hom A) x z y w p q f = g)))

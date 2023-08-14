@@ -159,7 +159,7 @@ A type is contractible if and only if its terminal map is an equivalence.
   : is-contr B
   := ( terminal-map-is-equiv-implies-contr B
       ( second
-        ( comp-equiv B A Unit
+        ( equiv-comp B A Unit
           ( inv-equiv A B f)
           ( ( terminal-map A) ,
             ( contr-implies-terminal-map-is-equiv A is-contr-A)))))
@@ -430,7 +430,7 @@ A type is contractible if and only if it has singleton induction.
   : (B a) → ((x : A) → B x)
   := ( first singleton-ind-A)
 
-#def comp-sing
+#def compute-ind-sing
   ( A : U)
   ( a : A)
   ( B : A → U)

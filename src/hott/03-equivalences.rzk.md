@@ -54,7 +54,7 @@ We define equivalences to be bi-invertible maps.
 ```
 
 ```rzk title="The homotopy between the section and retraction of an equivalence"
-#def homotopy-inverses-is-equiv uses (f)
+#def homotopy-section-retraction-is-equiv uses (f)
   : homotopy B A section-is-equiv retraction-is-equiv
   :=
     concat-homotopy B A
@@ -122,7 +122,7 @@ The following type of more coherent equivalences is not a proposition.
         ( prewhisker-homotopy A B A
           ( section-is-equiv A B f is-equiv-f)
           ( retraction-is-equiv A B f is-equiv-f)
-          ( homotopy-inverses-is-equiv A B f is-equiv-f)
+          ( homotopy-section-retraction-is-equiv A B f is-equiv-f)
           ( f))
         ( second (first is-equiv-f)) ,
       ( second (second is-equiv-f))))
@@ -203,7 +203,7 @@ invertible map to prove symmetry:
 ```
 
 ```rzk title="Composition of equivalences in diagrammatic order"
-#def comp-equiv
+#def equiv-comp
   ( A B C : U)
   ( A≃B : Equiv A B)
   ( B≃C : Equiv B C)
@@ -255,7 +255,7 @@ invertible map to prove symmetry:
 Now we compose the functions that are equivalences.
 
 ```rzk
-#def comp-is-equiv
+#def is-equiv-comp
   ( A B C : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
@@ -300,7 +300,7 @@ Now we compose the functions that are equivalences.
   ( A≃C : Equiv A C)
   ( B≃C : Equiv B C)
   : Equiv A B
-  := comp-equiv A C B (A≃C) (inv-equiv B C B≃C)
+  := equiv-comp A C B (A≃C) (inv-equiv B C B≃C)
 ```
 
 ```rzk title="Left cancellation of equivalences in diagrammatic order"
@@ -309,7 +309,7 @@ Now we compose the functions that are equivalences.
   ( A≃B : Equiv A B)
   ( A≃C : Equiv A C)
   : Equiv B C
-  := comp-equiv B A C (inv-equiv A B A≃B) (A≃C)
+  := equiv-comp B A C (inv-equiv A B A≃B) (A≃C)
 ```
 
 ```rzk title="A composition of three equivalences"
@@ -319,7 +319,7 @@ Now we compose the functions that are equivalences.
   ( B≃C : Equiv B C)
   ( C≃D : Equiv C D)
   : Equiv A D
-  := comp-equiv A B D (A≃B) (comp-equiv B C D B≃C C≃D)
+  := equiv-comp A B D (A≃B) (equiv-comp B C D B≃C C≃D)
 
 #def triple-comp-is-equiv
   ( A B C D : U)
@@ -331,11 +331,11 @@ Now we compose the functions that are equivalences.
   ( is-equiv-h : is-equiv C D h)
   : is-equiv A D (triple-comp A B C D h g f)
   :=
-    comp-is-equiv A B D
+    is-equiv-comp A B D
       ( f)
       ( is-equiv-f)
       ( comp B C D h g)
-      ( comp-is-equiv B C D g is-equiv-g h is-equiv-h)
+      ( is-equiv-comp B C D g is-equiv-g h is-equiv-h)
 ```
 
 ## Equivalences and homotopy
@@ -367,7 +367,7 @@ If a map is homotopic to an equivalence it is an equivalence.
             ( H (first (second is-equiv-g) b))
             ( second (second is-equiv-g) b))))
 
-#def is-equiv-rev-homotopic-is-equiv
+#def is-equiv-rev-homotopy
   ( A B : U)
   ( f g : A → B)
   ( H : homotopy A B f g)
@@ -422,7 +422,7 @@ Whenever a definition (implicitly) uses function extensionality, we write
 extensionality:
 
 ```rzk title="The equivalence provided by function extensionality"
-#def FunExt-equiv uses (funext)
+#def equiv-FunExt uses (funext)
   ( X : U)
   ( A : X → U)
   ( f g : (x : X) → A x)
@@ -510,7 +510,7 @@ dependent function types.
 #def has-retraction-rev
   ( A : U)
   ( y : A)
-  : (x : A) → has-retraction (x = y) (y = x) ((\ p → ((rev A x y) p)))
+  : (x : A) → has-retraction (x = y) (y = x) (rev A x y)
   :=
     \ x →
     ( ( rev A y x) ,
@@ -530,7 +530,7 @@ dependent function types.
 #def has-section-rev
   ( A : U)
   ( y : A)
-  : (x : A) → has-section (x = y) (y = x) ((\ p → ((rev A x y) p)))
+  : (x : A) → has-section (x = y) (y = x) (rev A x y)
   :=
     \ x →
     ( ( rev A y x) ,

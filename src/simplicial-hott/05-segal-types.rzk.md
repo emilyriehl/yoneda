@@ -265,7 +265,7 @@ witnesses of the equivalence).
   (is-segal-A : is-segal A)
   : Equiv (Δ² → A) (Λ → A)
   :=
-    comp-equiv
+    equiv-comp
       ( Δ² → A)
       ( Σ ( k : Λ → A) ,
           ( Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
@@ -333,7 +333,7 @@ exactly `horn-restriction A`.
             ( \ t → k (1₂ , t))
             ( h)))
       ( second
-        ( comp-equiv
+        ( equiv-comp
           ( Σ ( k : Λ → A ) ,
             Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
               ( hom2 A
