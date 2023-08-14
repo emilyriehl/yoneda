@@ -330,19 +330,19 @@ The pullback of a family along homotopic maps is equivalent.
 
 #def pullback-homotopy
   : (pullback A B f C a) → (pullback A B g C a)
-  := \ c → transport B C (f a) (g a) (α a) c
+  := transport B C (f a) (g a) (α a)
 
-#def pullback-homotopy-inverse
+#def map-inverse-pullback-homotopy
   : (pullback A B g C a) → (pullback A B f C a)
-  := \ c → transport B C (g a) (f a) (rev B (f a) (g a) (α a)) c
+  := transport B C (g a) (f a) (rev B (f a) (g a) (α a))
 
-#def pullback-homotopy-has-retraction
+#def has-retraction-pullback-homotopy
   : has-retraction
     ( pullback A B f C a)
     ( pullback A B g C a)
     ( pullback-homotopy)
   :=
-    ( pullback-homotopy-inverse ,
+    ( map-inverse-pullback-homotopy ,
       \ c →
         concat
         ( pullback A B f C a)
@@ -355,14 +355,14 @@ The pullback of a family along homotopic maps is equivalent.
         ( transport-concat-rev B C (f a) (g a) (f a) (α a)
           ( rev B (f a) (g a) (α a)) c)
         ( transport2 B C (f a) (f a)
-        ( concat B (f a) (g a) (f a) (α a) (rev B (f a) (g a) (α a))) refl
-        ( right-inverse-concat B (f a) (g a) (α a)) c))
+          ( concat B (f a) (g a) (f a) (α a) (rev B (f a) (g a) (α a))) refl
+          ( right-inverse-concat B (f a) (g a) (α a)) c))
 
-#def pullback-homotopy-has-section
+#def has-section-pullback-homotopy
   : has-section (pullback A B f C a) (pullback A B g C a)
     ( pullback-homotopy)
   :=
-    ( pullback-homotopy-inverse ,
+    ( map-inverse-pullback-homotopy ,
       \ c →
         concat (pullback A B g C a)
           ( transport B C (f a) (g a) (α a)
@@ -379,7 +379,11 @@ The pullback of a family along homotopic maps is equivalent.
 #def is-equiv-pullback-homotopy uses (α)
   : is-equiv
     (pullback A B f C a) (pullback A B g C a) (pullback-homotopy)
-  := ( pullback-homotopy-has-retraction , pullback-homotopy-has-section)
+  := ( has-retraction-pullback-homotopy , has-section-pullback-homotopy)
+
+#def equiv-pullback-homotopy uses (α)
+  : Equiv (pullback A B f C a) (pullback A B g C a)
+  := (pullback-homotopy , is-equiv-pullback-homotopy)
 
 #end is-equiv-pullback-htpy
 ```
