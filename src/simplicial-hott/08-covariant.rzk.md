@@ -95,7 +95,7 @@ unique lift with specified domain.
 
 ```rzk title="The type of covariant families over a fixed type"
 #def covariant-family (A : U) : U
-  := (Σ (C : ((a : A) → U)) , is-covariant A C)
+  := (Σ (C : (A → U)) , is-covariant A C)
 ```
 
 The notion of having a unique lift with a fixed domain may also be expressed by

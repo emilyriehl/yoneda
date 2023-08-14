@@ -238,14 +238,18 @@ Discrete types are automatically Segal types.
           ( \ σ → refl))))
 ```
 
-The equivalence underlying `Eq-arr`:
+The equivalence underlying `equiv-arr-Σ-hom`:
 
 ```rzk
 #def fibered-arr-free-arr
   : (arr A) → (Σ (u : A) , (Σ (v : A) , hom A u v))
   := \ k → (k 0₂ , (k 1₂ , k))
 
-#def id-equiv-Eq-arr uses (w x y z)
+#def is-equiv-fibered-arr-free-arr
+  : is-equiv (arr A) (Σ (u : A) , (Σ (v : A) , hom A u v)) (fibered-arr-free-arr)
+  := is-equiv-arr-Σ-hom A
+
+#def is-equiv-ap-fibered-arr-free-arr uses (w x y z)
   : is-equiv
       ( f =_{Δ¹ → A} g)
       ( fibered-arr-free-arr f = fibered-arr-free-arr g)
@@ -259,18 +263,19 @@ The equivalence underlying `Eq-arr`:
     is-equiv-ap-is-equiv
       ( arr A)
       ( Σ (u : A) , (Σ (v : A) , (hom A u v)))
-      fibered-arr-free-arr
-      ( second (Eq-arr A))
+      ( fibered-arr-free-arr)
+      ( is-equiv-fibered-arr-free-arr)
       ( f)
       ( g)
 
-#def id-Eq-Eq-arr uses (w x y z)
+#def id-Eq-equiv-arr-Σ-hom uses (w x y z)
   : Equiv (f =_{Δ¹ → A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
   :=
     equiv-ap-is-equiv
       ( arr A)
-      ( Σ (u : A) , (Σ (v : A) , (hom A u v))) (fibered-arr-free-arr)
-      ( second (Eq-arr A))
+      ( Σ (u : A) , (Σ (v : A) , (hom A u v)))
+      ( fibered-arr-free-arr)
+      ( is-equiv-fibered-arr-free-arr)
       ( f)
       ( g)
 
@@ -288,16 +293,16 @@ The equivalence underlying `Eq-arr`:
 
 #def equiv-square-sigma-over-product uses (extext is-discrete-A)
   : Equiv
-      ( Σ ( p : x = z) ,
-          ( Σ (q : y = w) ,
-              ( product-transport A A (hom A) x z y w p q f = g)))
-      ( Σ ( h : hom A x z) ,
-          ( Σ ( k : hom A y w) ,
-              ( ((t , s) : Δ¹×Δ¹) → A
-                [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                  (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                  (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
-                  (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
+    ( Σ ( p : x = z) ,
+        ( Σ (q : y = w) ,
+            ( product-transport A A (hom A) x z y w p q f = g)))
+    ( Σ ( h : hom A x z) ,
+        ( Σ ( k : hom A y w) ,
+            ( ((t , s) : Δ¹×Δ¹) → A
+              [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
   :=
     left-cancel-equiv
       ( f =_{Δ¹ → A} g)
@@ -317,7 +322,7 @@ The equivalence underlying `Eq-arr`:
         ( Σ ( p : x = z) ,
             ( Σ ( q : y = w) ,
                 ( product-transport A A (hom A) x z y w p q f = g)))
-        id-Eq-Eq-arr
+        id-Eq-equiv-arr-Σ-hom
         equiv-sigma-over-product-arr-eq)
       ( equiv-comp
         ( f =_{Δ¹ → A} g)

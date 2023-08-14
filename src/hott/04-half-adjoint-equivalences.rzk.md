@@ -746,17 +746,17 @@ have equivalent identity types.
   :=
     ( has-retraction-ap-is-half-adjoint-equiv x y ,
       has-section-ap-is-half-adjoint-equiv x y)
+
 #end equiv-identity-types-equiv
 
 #def is-equiv-ap-is-equiv
   ( A B : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
-  ( x y : A)
-  : is-equiv (x = y) (f x = f y) (ap A B x y f)
+  : is-emb A B f
   :=
     is-equiv-ap-is-half-adjoint-equiv A B f
-    ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) x y
+    ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f)
 
 #def equiv-ap-is-equiv
   ( A B : U)

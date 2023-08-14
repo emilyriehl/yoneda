@@ -235,7 +235,7 @@ Finally, we have:
 ```rzk title="The main theorem"
 #def projection-theorem
   (A : U)
-  (B : (a : A) → U)
+  (B : A → U)
   : iff
     ( is-equiv (Σ (x : A) , B x) A (total-space-projection A B))
     ( contractible-fibers A B)

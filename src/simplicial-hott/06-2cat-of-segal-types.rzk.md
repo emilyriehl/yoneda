@@ -91,14 +91,14 @@ Preservation of composition requires the Segal hypothesis.
     =
     ( ap-hom A B F x z (comp-Segal A is-segal-A x y z f g))
   :=
-    comp-uniqueness-Segal B is-segal-B
+    uniqueness-comp-Segal B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g)
       ( ap-hom A B F x z (comp-Segal A is-segal-A x y z f g))
       ( ap-hom2 A B F x y z f g
         ( comp-Segal A is-segal-A x y z f g)
-        ( comp-witness-Segal A is-segal-A x y z f g))
+        ( witness-comp-Segal A is-segal-A x y z f g))
 ```
 
 ## Natural transformations
