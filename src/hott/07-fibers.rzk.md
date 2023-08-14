@@ -112,7 +112,7 @@ Contractible maps are equivalences:
 
 We now show that half adjoint equivalences are contractible maps.
 
-```rzk title="If $f$ is a half adjoint equivalence, its fibers are inhabited"
+```rzk title="If f is a half adjoint equivalence, its fibers are inhabited"
 #def is-surj-is-half-adjoint-equiv
   (A B : U)
   (f : A → B)

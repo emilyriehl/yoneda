@@ -575,7 +575,7 @@ In a Segal type, where composition is unique, it follows that composition with
 an identity arrow recovers the original arrow. Thus, an identity axiom was not
 needed in the definition of Segal types.
 
-```rzk title="If $A$ is Segal then the right unit law holds"
+```rzk title="If A is Segal then the right unit law holds"
 #def Segal-comp-id
   (A : U)
   (is-segal-A : is-segal A)
@@ -593,7 +593,7 @@ needed in the definition of Segal types.
       ( comp-id-witness A x y f)
 ```
 
-```rzk title="If $A$ is Segal then the left unit law holds"
+```rzk title="If A is Segal then the left unit law holds"
 #def Segal-id-comp
   (A : U)
   (is-segal-A : is-segal A)
