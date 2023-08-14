@@ -139,8 +139,8 @@ choice of definition.
 
 ### Concatenation of two paths with common codomain
 
-Concatenation of two paths with common codomain; defined using `concat` and
-`rev`.
+Concatenation of two paths with common codomain; defined using `#!rzk concat`
+and `#!rzk rev`.
 
 ```rzk
 #def zig-zag-concat
@@ -152,7 +152,8 @@ Concatenation of two paths with common codomain; defined using `concat` and
 
 ### Concatenation of two paths with common domain
 
-Concatenation of two paths with common domain; defined using `concat` and `rev`.
+Concatenation of two paths with common domain; defined using `#!rzk concat` and
+`#!rzk rev`.
 
 ```rzk
 #def zag-zig-concat
@@ -288,7 +289,7 @@ Prewhiskering paths of paths is much harder.
       ( concat-concat' p q)
 ```
 
-This is easier to prove for `concat'` than for `concat`.
+This is easier to prove for `#!rzk concat'` than for `#!rzk concat`.
 
 ```rzk
 #def alt-triangle-rotation
@@ -311,7 +312,7 @@ This is easier to prove for `concat'` than for `concat`.
 ```
 
 The following needs to be outside the previous section because of the usage of
-`concat-concat' A y x`.
+`#!rzk concat-concat' A y x`.
 
 ```rzk
 #end derived-path-coherence

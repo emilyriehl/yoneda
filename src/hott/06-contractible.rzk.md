@@ -315,7 +315,7 @@ For example, we prove that based path spaces are contractible.
       q)
 ```
 
-The center of contraction in the based path space is `(a , refl)`.
+The center of contraction in the based path space is `#!rzk (a , refl)`.
 
 ```rzk title="The center of contraction in the based path space"
 #def center-based-paths

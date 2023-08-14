@@ -238,7 +238,7 @@ Discrete types are automatically Segal types.
           ( \ σ → refl))))
 ```
 
-The equivalence underlying `Eq-arr`:
+The equivalence underlying `#!rzk Eq-arr`:
 
 ```rzk
 #def fibered-arr-free-arr
@@ -795,9 +795,9 @@ the second arrow is an identity.
       ( is-contr-horn-refl-refl-extension-type A is-discrete-A x y f)
 ```
 
-But since `A` is discrete, its hom type family is equivalent to its identity
-type family, and we can use "path induction" over arrows to reduce the general
-case to the one just proven:
+But since `#!rzk A` is discrete, its hom type family is equivalent to its
+identity type family, and we can use "path induction" over arrows to reduce the
+general case to the one just proven:
 
 ```rzk
 #def is-contr-hom2-is-discrete uses (extext)

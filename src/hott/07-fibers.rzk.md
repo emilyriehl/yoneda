@@ -148,7 +148,7 @@ this homotopy is straightforward.
       ( (first (second (first fisHAE))) (first z))
 ```
 
-Specializing the above to `isHAE-fib-base-path`:
+Specializing the above to `#!rzk isHAE-fib-base-path`:
 
 ```rzk
 #def isHAE-fib-base-path-transport

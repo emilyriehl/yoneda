@@ -38,8 +38,8 @@ This is a literate `rzk` file:
   := \ a → concat B (f a) (g a) (h a) (H a) (K a)
 ```
 
-Homotopy composition is defined in diagrammatic order like `concat` but unlike
-composition.
+Homotopy composition is defined in diagrammatic order like `#!rzk concat` but
+unlike composition.
 
 ```rzk
 #end homotopies
@@ -155,8 +155,9 @@ composition.
 #variable a : A
 ```
 
-In the case of a homotopy `H` from `f` to the identity the previous square
-applies to the path `H a` to produce the following naturality square.
+In the case of a homotopy `#!rzk H` from `#!rzk f` to the identity the previous
+square applies to the path `#!rzk H a` to produce the following naturality
+square.
 
 ```rzk
 #def cocone-naturality
@@ -165,7 +166,7 @@ applies to the path `H a` to produce the following naturality square.
   := nat-htpy A A f (identity A) H (f a) a (H a)
 ```
 
-After composing with `ap-id`, this naturality square transforms to the
+After composing with `#!rzk ap-id`, this naturality square transforms to the
 following:
 
 ```rzk
@@ -196,7 +197,8 @@ following:
         ( ap-id A (f a) a (H a)))
 ```
 
-Cancelling the path `H a` on the right and reversing yields a path we need:
+Cancelling the path `#!rzk H a` on the right and reversing yields a path we
+need:
 
 ```rzk
 #def cocone-naturality-coherence
