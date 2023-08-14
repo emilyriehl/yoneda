@@ -102,7 +102,7 @@ of discrete types is discrete.
   : is-discrete ((x : X) → A x)
   :=
     \ f g →
-    is-equiv-homotopic-is-equiv
+    is-equiv-homotopy
       ( f = g)
       ( hom ((x : X) → A x) f g)
       ( arr-eq ((x : X) → A x) f g)
@@ -177,7 +177,7 @@ only, extending from BOT, that's all we prove here for now.
   : is-discrete ((t : ψ) → A t)
   :=
     \ f g →
-    is-equiv-homotopic-is-equiv
+    is-equiv-homotopy
       ( f = g)
       ( hom ((t : ψ) → A t) f g)
       ( arr-eq ((t : ψ) → A t) f g)

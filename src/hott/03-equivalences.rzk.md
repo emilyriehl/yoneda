@@ -343,7 +343,7 @@ Now we compose the functions that are equivalences.
 If a map is homotopic to an equivalence it is an equivalence.
 
 ```rzk
-#def is-equiv-homotopic-is-equiv
+#def is-equiv-homotopy
   ( A B : U)
   ( f g : A → B)
   ( H : homotopy A B f g)
@@ -373,7 +373,7 @@ If a map is homotopic to an equivalence it is an equivalence.
   ( H : homotopy A B f g)
   ( is-equiv-f : is-equiv A B f)
   : is-equiv A B g
-  := is-equiv-homotopic-is-equiv A B g f (rev-homotopy A B f g H) is-equiv-f
+  := is-equiv-homotopy A B g f (rev-homotopy A B f g H) is-equiv-f
 ```
 
 ## Function extensionality
