@@ -57,7 +57,7 @@ We define equivalences to be bi-invertible maps.
 #def homotopy-inverses-is-equiv uses (f)
   : homotopy B A section-is-equiv retraction-is-equiv
   :=
-    comp-homotopy B A
+    concat-homotopy B A
       ( section-is-equiv)
       ( triple-comp B A B A retraction-is-equiv f section-is-equiv)
       ( retraction-is-equiv)
@@ -115,7 +115,7 @@ The following type of more coherent equivalences is not a proposition.
   : has-inverse A B f
   :=
     ( section-is-equiv A B f is-equiv-f ,
-      ( comp-homotopy A A
+      ( concat-homotopy A A
         ( comp A B A (section-is-equiv A B f is-equiv-f) f)
         ( comp A B A (retraction-is-equiv A B f is-equiv-f) f)
         ( identity A)
