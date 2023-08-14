@@ -749,7 +749,7 @@ have equivalent identity types.
 
 #end equiv-identity-types-equiv
 
-#def is-equiv-ap-is-equiv
+#def is-emb-is-equiv
   ( A B : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
@@ -758,11 +758,18 @@ have equivalent identity types.
     is-equiv-ap-is-half-adjoint-equiv A B f
     ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f)
 
+#def emb-is-equiv
+  (A B : U)
+  (f : A → B)
+  (is-equiv-f : is-equiv A B f)
+  : Emb A B
+  := (f , is-emb-is-equiv A B f is-equiv-f)
+
 #def equiv-ap-is-equiv
   ( A B : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
   ( x y : A)
   : Equiv (x = y) (f x = f y)
-  := (ap A B x y f , is-equiv-ap-is-equiv A B f is-equiv-f x y)
+  := (ap A B x y f , is-emb-is-equiv A B f is-equiv-f x y)
 ```

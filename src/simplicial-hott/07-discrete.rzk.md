@@ -260,7 +260,7 @@ The equivalence underlying `equiv-arr-Σ-hom`:
         ( g)
         ( fibered-arr-free-arr))
   :=
-    is-equiv-ap-is-equiv
+    is-emb-is-equiv
       ( arr A)
       ( Σ (u : A) , (Σ (v : A) , (hom A u v)))
       ( fibered-arr-free-arr)

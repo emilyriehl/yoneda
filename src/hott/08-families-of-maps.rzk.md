@@ -613,66 +613,6 @@ fundamental theorem:
 #end fundamental-thm-id-types
 ```
 
-For all `x` , `y` in `A`, `ap_{e ,x ,y}` is an equivalence.
-
-```rzk
-#def emb-is-equiv
-  (A B : U)
-  (e : A → B)
-  (is-equiv-e : is-equiv A B e)
-  : (Emb A B)
-  :=
-    ( e ,
-      \ x y →
-      ( fund-id-sum-over-codomain-contr-implies-fam-of-eqs
-```
-
-By the fundamental theorem of identity types, it will suffice to show
-contractibility of `Σ_{t : A} e x = e t` for the family of maps `ap_e`, which is
-of type `(t : A) → (x = t) → (e x = e t)`:
-
-```rzk
-        ( A)
-        ( x)
-        ( \ t → (e x = e t))
-        ( \ t → (ap A B x t e))
-        ( ( is-contr-is-equiv-to-contr
-```
-
-Contractibility of `Σ_{t : A} e x = e t` will follow since
-`total (\ t → rev B (e x) = (e t))`, mapping from `Σ_{t : A} e x = e t` to
-`Σ_{t : A} e t = e x` is an equivalence, and
-`Σ_{t : A} e t = e x ~ fib (e , e x)` is contractible since `e` is an
-equivalence.
-
-```rzk
-            ( Σ (y' : A) , (e x = e y')) -- source type
-            ( Σ (y' : A) , (e y' = e x)) -- target type
-            ( ( total-map-family-of-maps A
-                ( \ y' → (e x) = (e y'))
-                ( \ y' → (e y') = (e x))
-                ( \ y' → (rev B (e x) (e y')))) , -- a) total map
-        ( -- b) proof that total map is equivalence
-          ( first
-            ( total-equiv-iff-family-of-equiv A
-              ( \ y' → (e x) = (e y'))
-              ( \ y' → (e y') = (e x))
-              ( \ y' → (rev B (e x) (e y')))))
-          ( \ y' → (is-equiv-rev B (e x) (e y')))))
-        ( -- fiber of e at e(x) is contractible
-          ( is-contr-map-is-equiv A B e is-equiv-e) (e x))))) (y))
-          -- evaluate at y
-```
-
-```rzk
-#def is-emb-is-equiv
-  (A B : U)
-  (e : A → B)
-  (is-equiv-e : is-equiv A B e)
-  : is-emb A B e
-  := (second (emb-is-equiv A B e is-equiv-e))
-```
-
 ## 2-of-3 for equivalences
 
 ```rzk
