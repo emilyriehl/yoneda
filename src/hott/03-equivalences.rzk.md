@@ -61,7 +61,7 @@ We define equivalences to be bi-invertible maps.
       ( section-is-equiv)
       ( triple-comp B A B A retraction-is-equiv f section-is-equiv)
       ( retraction-is-equiv)
-      ( homotopy-rev B A
+      ( rev-homotopy B A
         ( triple-comp B A B A retraction-is-equiv f section-is-equiv)
         ( section-is-equiv)
         ( prewhisker-homotopy B A A
@@ -373,7 +373,7 @@ If a map is homotopic to an equivalence it is an equivalence.
   ( H : homotopy A B f g)
   ( is-equiv-f : is-equiv A B f)
   : is-equiv A B g
-  := is-equiv-homotopic-is-equiv A B g f (homotopy-rev A B f g H) is-equiv-f
+  := is-equiv-homotopic-is-equiv A B g f (rev-homotopy A B f g H) is-equiv-f
 ```
 
 ## Function extensionality

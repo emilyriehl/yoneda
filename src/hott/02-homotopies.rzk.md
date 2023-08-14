@@ -22,7 +22,7 @@ This is a literate `rzk` file:
 ```
 
 ```rzk title="The reversal of a homotopy"
-#def homotopy-rev
+#def rev-homotopy
   (f g : A → B)
   (H : homotopy f g)
   : homotopy g f
