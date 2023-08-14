@@ -303,7 +303,7 @@ By uncurrying (RS 4.2) we have an equivalence:
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
     ( Σ (v : hom A a y) ,
       ( Σ (d : hom A a y) ,
-        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+        product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d)))
   :=
     total-equiv-family-equiv
     ( hom A a y)
@@ -315,8 +315,8 @@ By uncurrying (RS 4.2) we have an equivalence:
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
     ( \ v →
       ( Σ (d : hom A a y) ,
-        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
-    ( \ v → Eq-square-hom2-pushout A a x a y u f (id-arr A a) v)
+        product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d)))
+    ( \ v → Eq-square-hom2-pushout A a x a y u f (id-hom A a) v)
 
 #def representable-dhom-from-hom2
   (A : U)
@@ -327,7 +327,7 @@ By uncurrying (RS 4.2) we have an equivalence:
     ( dhom-from-representable A a x y f u)
     ( Σ (d : hom A a y) ,
       ( Σ (v : hom A a y) ,
-        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+        product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d)))
   :=
     equiv-triple-comp
     ( dhom-from-representable A a x y f u)
@@ -339,14 +339,14 @@ By uncurrying (RS 4.2) we have an equivalence:
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t ]))
     ( Σ (v : hom A a y) ,
       ( Σ (d : hom A a y) ,
-        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+        product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d)))
     ( Σ (d : hom A a y) ,
       ( Σ (v : hom A a y) ,
-      product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+      product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d)))
     ( uncurried-dhom-from-representable A a x y f u)
     ( representable-dhom-from-uncurry-hom2 A a x y f u)
     ( fubini-Σ (hom A a y) (hom A a y)
-      ( \ v d → product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+      ( \ v d → product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d)))
 
 #def representable-dhom-from-hom2-dist
   (A : U)
@@ -358,30 +358,30 @@ By uncurrying (RS 4.2) we have an equivalence:
     ( Σ (d : hom A a y) ,
       ( product
         ( hom2 A a x y u f d)
-        ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+        ( Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
   :=
     equiv-right-cancel
     ( dhom-from-representable A a x y f u)
     ( Σ (d : hom A a y) ,
       ( product
         ( hom2 A a x y u f d)
-        ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+        ( Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
     ( Σ (d : hom A a y) ,
       ( Σ (v : hom A a y) ,
-        product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+        product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d)))
     ( representable-dhom-from-hom2 A a x y f u)
     ( total-equiv-family-equiv
       ( hom A a y)
       ( \ d →
         ( product
           ( hom2 A a x y u f d)
-          ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+          ( Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
       ( \ d →
         ( Σ (v : hom A a y) ,
-          product (hom2 A a x y u f d) (hom2 A a a y (id-arr A a) v d)))
+          product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d)))
       ( \ d →
         ( distributive-product-Σ (hom2 A a x y u f d) (hom A a y)
-          ( \ v → hom2 A a a y (id-arr A a) v d))))
+          ( \ v → hom2 A a a y (id-hom A a) v d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.
@@ -405,7 +405,7 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ (d : hom A a y) ,
       ( product
         ( hom2 A a x y u f d)
-        ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+        ( Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
     ( representable-dhom-from-hom2-dist A a x y f u)
     ( total-equiv-family-equiv
       ( hom A a y)
@@ -413,17 +413,17 @@ Now we introduce the hypothesis that A is Segal type.
       ( \ d →
         ( product
           ( hom2 A a x y u f d)
-          ( Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d)))
+          ( Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
       ( \ d →
         ( total-equiv-family-equiv
           ( hom2 A a x y u f d)
           ( \ alpha → (Σ (v : hom A a y) , (v = d)))
-          ( \ alpha → (Σ (v : hom A a y) , hom2 A a a y (id-arr A a) v d))
+          ( \ alpha → (Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d))
           ( \ alpha →
             ( total-equiv-family-equiv
               ( hom A a y)
               ( \ v → (v = d))
-              ( \ v → hom2 A a a y (id-arr A a) v d)
+              ( \ v → hom2 A a a y (id-hom A a) v d)
               ( \ v → (Eq-Segal-homotopy-hom2 A is-segal-A a y v d)))))))
 
 
@@ -504,29 +504,29 @@ we argue as follows:
     \ x y z f g →
     is-contr-base-is-contr-Σ
     ( Σ (h : hom A x z) , hom2 A x y z f g h)
-    ( \ hk → Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
+    ( \ hk → Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk))
     ( \ hk → (first hk , \ (t , s) → first hk s))
     ( is-contr-is-equiv-to-contr
       ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-        Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
+        Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk))
       ( dhom-from-representable A x y z g f)
       ( inv-equiv
         ( dhom-from-representable A x y z g f)
         ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-          Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
+          Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk))
         ( equiv-comp
           ( dhom-from-representable A x y z g f)
           ( Σ (h : hom A x z) ,
             ( product
               ( hom2 A x y z f g h)
-              ( Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v h)))
+              ( Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v h)))
           ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-            Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v (first hk))
+            Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk))
           ( representable-dhom-from-hom2-dist A x y z g f)
           ( associative-Σ
             ( hom A x z)
             ( \ h → hom2 A x y z f g h)
-            ( \ h _ → Σ (v : hom A x z) , hom2 A x x z (id-arr A x) v h))))
+            ( \ h _ → Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v h))))
       ( repiscovfam x y z g f))
 ```
 
@@ -788,12 +788,12 @@ arrows in the base on terms in the fibers. In particular, there is an identity
 transport law.
 
 ```rzk
-#def d-id-arr
+#def id-dhom
   (A : U)
   (x : A)
   (C : A → U)
   (u : C x)
-  : dhom A x x (id-arr A x) C u u
+  : dhom A x x (id-hom A x) C u u
   := \ t → u
 ```
 
@@ -804,10 +804,10 @@ transport law.
   (C : A → U)
   (is-covariant-C : is-covariant A C)
   (u : C x)
-  : (covariant-transport A x x (id-arr A x) C is-covariant-C u) = u
+  : (covariant-transport A x x (id-hom A x) C is-covariant-C u) = u
   :=
     covariant-uniqueness
-      A x x (id-arr A x) C is-covariant-C u (u , d-id-arr A x C u)
+      A x x (id-hom A x) C is-covariant-C u (u , id-dhom A x C u)
 ```
 
 ## Natural transformations
@@ -1027,7 +1027,7 @@ By uncurrying (RS 4.2) we have an equivalence:
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ a ]))
     (Σ (u : hom A x a) ,
       (Σ (d : hom A x a) ,
-        product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
+        product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d) ))
   :=
     total-equiv-family-equiv (hom A x a)
     ( \ u →
@@ -1038,8 +1038,8 @@ By uncurrying (RS 4.2) we have an equivalence:
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ a ]))
     ( \ u →
       (Σ (d : hom A x a) ,
-          product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-    ( \ u → Eq-square-hom2-pushout A x a y a u (id-arr A a) f v)
+          product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d) ))
+    ( \ u → Eq-square-hom2-pushout A x a y a u (id-hom A a) f v)
 
 #def representable-dhom-to-hom2
   (A : U)
@@ -1050,7 +1050,7 @@ By uncurrying (RS 4.2) we have an equivalence:
     (dhom-to-representable A a x y f v)
     (Σ (d : hom A x a) ,
       (Σ (u : hom A x a) ,
-        product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
+        product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d) ))
   :=
     equiv-triple-comp
     ( dhom-to-representable A a x y f v)
@@ -1062,14 +1062,14 @@ By uncurrying (RS 4.2) we have an equivalence:
               (Δ¹ t) ∧ (s ≡ 1₂) ↦ a ]))
     ( Σ (u : hom A x a ) ,
       (Σ (d : hom A x a) ,
-        product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
+        product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
     ( Σ (d : hom A x a ) ,
       (Σ (u : hom A x a) ,
-        product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
+        product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
     ( uncurried-dhom-to-representable A a x y f v)
     ( representable-dhom-to-uncurry-hom2 A a x y f v)
     ( fubini-Σ (hom A x a) (hom A x a)
-      (\ u d → product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d)))
+      (\ u d → product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
 
 #def representable-dhom-to-hom2-swap
   (A : U)
@@ -1078,19 +1078,19 @@ By uncurrying (RS 4.2) we have an equivalence:
   (v : hom A y a)
   : Equiv
     ( dhom-to-representable A a x y f v)
-    ( Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
+    ( Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d) ))
   := equiv-comp
       (dhom-to-representable A a x y f v)
-      (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-      (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
+      (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d) ))
+      (Σ (d : hom A x a) , (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d) ))
       (representable-dhom-to-hom2 A a x y f v)
       (total-equiv-family-equiv (hom A x a)
-        (\ d → (Σ (u : hom A x a) , product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d) ))
-        (\ d → (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
+        (\ d → (Σ (u : hom A x a) , product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d) ))
+        (\ d → (Σ (u : hom A x a) , product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d) ))
         (\ d → total-equiv-family-equiv (hom A x a)
-          (\ u → product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d))
-          (\ u → product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d))
-          (\ u → sym-product (hom2 A x a a u (id-arr A a) d) (hom2 A x y a f v d))))
+          (\ u → product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))
+          (\ u → product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d))
+          (\ u → sym-product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))))
 
 #def representable-dhom-to-hom2-dist
   (A : U)
@@ -1102,33 +1102,33 @@ By uncurrying (RS 4.2) we have an equivalence:
       (Σ (d : hom A x a ) ,
         ( product
           ( hom2 A x y a f v d)
-          ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+          ( Σ (u : hom A x a ) , hom2 A x a a u (id-hom A a) d)))
   :=
     equiv-right-cancel
     ( dhom-to-representable A a x y f v)
     ( Σ (d : hom A x a ) ,
       ( product
         ( hom2 A x y a f v d)
-        ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+        ( Σ (u : hom A x a ) , hom2 A x a a u (id-hom A a) d)))
     ( Σ (d : hom A x a) ,
       ( Σ (u : hom A x a) ,
         product
         ( hom2 A x y a f v d)
-        ( hom2 A x a a u (id-arr A a) d)))
+        ( hom2 A x a a u (id-hom A a) d)))
     ( representable-dhom-to-hom2-swap A a x y f v)
     ( total-equiv-family-equiv (hom A x a)
       ( \ d →
         ( product
           ( hom2 A x y a f v d)
-          ( Σ (u : hom A x a ) , hom2 A x a a u (id-arr A a) d)))
+          ( Σ (u : hom A x a ) , hom2 A x a a u (id-hom A a) d)))
       ( \ d →
         ( Σ (u : hom A x a) ,
-          product (hom2 A x y a f v d) (hom2 A x a a u (id-arr A a) d) ))
+          product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d) ))
       ( \ d →
         ( distributive-product-Σ
           ( hom2 A x y a f v d)
           ( hom A x a)
-          ( \ u → hom2 A x a a u (id-arr A a) d))))
+          ( \ u → hom2 A x a a u (id-hom A a) d))))
 ```
 
 Now we introduce the hypothesis that A is Segal type.
@@ -1152,24 +1152,24 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ (d : hom A x a) ,
       ( product
         ( hom2 A x y a f v d)
-        ( Σ (u : hom A x a) , (hom2 A x a a u (id-arr A a) d))))
+        ( Σ (u : hom A x a) , (hom2 A x a a u (id-hom A a) d))))
     ( representable-dhom-to-hom2-dist A a x y f v)
     ( total-equiv-family-equiv (hom A x a)
       ( \ d → (product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
       ( \ d →
         ( product
           ( hom2 A x y a f v d)
-          ( Σ (u : hom A x a) , hom2 A x a a u (id-arr A a) d)))
+          ( Σ (u : hom A x a) , hom2 A x a a u (id-hom A a) d)))
       ( \ d →
         ( total-equiv-family-equiv
           ( hom2 A x y a f v d)
           ( \ α → (Σ (u : hom A x a) , (u = d)))
-          ( \ α → (Σ (u : hom A x a) , hom2 A x a a u (id-arr A a) d))
+          ( \ α → (Σ (u : hom A x a) , hom2 A x a a u (id-hom A a) d))
           ( \ α →
           ( total-equiv-family-equiv
             ( hom A x a)
             ( \ u → (u = d))
-            ( \ u → hom2 A x a a u (id-arr A a) d)
+            ( \ u → hom2 A x a a u (id-hom A a) d)
             ( \ u → (Eq-Segal-homotopy-hom2' A is-segal-A x a u d)))))))
 
 #def is-segal-representable-dhom-to-hom2
@@ -1237,29 +1237,29 @@ we argue as follows:
     \ x y z f g →
       is-contr-base-is-contr-Σ
       ( Σ (h : hom A x z) , hom2 A x y z f g h)
-      ( \ hk → Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
+      ( \ hk → Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk))
       ( \ hk → (first hk , \ (t , s) → first hk t))
       ( is-contr-is-equiv-to-contr
         ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-          Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
+          Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk))
         ( dhom-to-representable A z x y f g)
         ( inv-equiv
           ( dhom-to-representable A z x y f g)
           ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-            Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
+            Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk))
           ( equiv-comp
             ( dhom-to-representable A z x y f g)
             ( Σ (h : hom A x z) ,
               ( product
                 ( hom2 A x y z f g h)
-                ( Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) h)))
+                ( Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) h)))
             ( Σ (hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-              Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) (first hk))
+              Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk))
             ( representable-dhom-to-hom2-dist A z x y f g)
             ( associative-Σ
               ( hom A x z)
               ( \ h → hom2 A x y z f g h)
-              ( \ h _ → Σ (u : hom A x z) , hom2 A x z z u (id-arr A z) h))))
+              ( \ h _ → Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) h))))
               ( repiscontrafam z x y f g))
 ```
 
@@ -1326,10 +1326,10 @@ identity transport law.
   (C : A → U)
   (is-contravariant-C : is-contravariant A C)
   (u : C x)
-  : (contravariant-transport A x x (id-arr A x) C is-contravariant-C u) = u
+  : (contravariant-transport A x x (id-hom A x) C is-contravariant-C u) = u
   :=
-    contravariant-uniqueness A x x (id-arr A x) C is-contravariant-C u
-      (u , d-id-arr A x C u)
+    contravariant-uniqueness A x x (id-hom A x) C is-contravariant-C u
+      (u , id-dhom A x C u)
 ```
 
 ## Contravariant natural transformations

@@ -58,7 +58,7 @@ pointwise equal.
   (A B : U)
   (F : A → B)
   (x : A)
-  : (ap-hom A B F x x (id-arr A x)) = (id-arr B (F x))
+  : (ap-hom A B F x x (id-hom A x)) = (id-hom B (F x))
   := eq-ext-htpy
       extext
       2
@@ -68,8 +68,8 @@ pointwise equal.
       (\ t → recOR
       ( t ≡ 0₂ ↦ F x ,
         t ≡ 1₂ ↦ F x))
-      (ap-hom A B F x x (id-arr A x))
-      (id-arr B (F x))
+      (ap-hom A B F x x (id-hom A x))
+      (id-hom B (F x))
       (\ t → refl)
 ```
 
@@ -241,6 +241,6 @@ The identity natural transformation is identity arrows on components
   (B : A → U)
   (f : (x : A) → (B x))
   (a : A)
-  : (\ t → id-arr ((x : A) → B x) f t a) =_{Δ¹ → B a} id-arr (B a) (f a)
+  : (\ t → id-hom ((x : A) → B x) f t a) =_{Δ¹ → B a} id-hom (B a) (f a)
   := refl
 ```

@@ -36,7 +36,7 @@ identity types.
   (x y : A)
   (p : x = y)
   : hom A x y
-  := ind-path (A) (x) (\ y' → \ p' → hom A x y') ((id-arr A x)) (y) (p)
+  := ind-path (A) (x) (\ y' → \ p' → hom A x y') ((id-hom A x)) (y) (p)
 
 #def is-discrete
   (A : U)
@@ -717,7 +717,7 @@ The extension types that appear in the Segal condition are retracts of this type
   (A : U)
   (x y : A)
   (f g : hom A x y)
-  (α : hom2 A x y y f (id-arr A y) g)
+  (α : hom2 A x y y f (id-hom A y) g)
   : ((t , s) : Δ¹×Δ¹) → A
     [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
       (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
@@ -729,7 +729,7 @@ The extension types that appear in the Segal condition are retracts of this type
   ( A : U)
   ( x y : A)
   ( f : hom A x y)
-  ( (d , α) : Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+  ( (d , α) : Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
   : Σ ( g : hom A x y) ,
       ( ((t , s) : Δ¹×Δ¹) → A
         [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
@@ -749,7 +749,7 @@ The extension types that appear in the Segal condition are retracts of this type
           (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
           (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
           (Δ¹ t) ∧ (s ≡ 1₂) ↦ y ]))
-  : Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d
+  : Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d
   := ((\ t → σ (t , t)) , (\ (t , s) → σ (s , t)))
 
 #def sigma-triangle-to-sigma-square-retract
@@ -757,7 +757,7 @@ The extension types that appear in the Segal condition are retracts of this type
   ( x y : A)
   ( f : hom A x y)
   : is-retract-of
-      ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+      ( Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
       ( Σ (g : hom A x y) ,
           ( ((t , s) : Δ¹×Δ¹) → A
             [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
@@ -779,10 +779,10 @@ the second arrow is an identity.
   ( is-discrete-A : is-discrete A)
   ( x y : A)
   ( f : hom A x y)
-  : is-contr ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+  : is-contr ( Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
   :=
     is-contr-is-retract-of-is-contr
-      ( Σ ( d : hom A x y) , (hom2 A x y y f (id-arr A y) d))
+      ( Σ ( d : hom A x y) , (hom2 A x y y f (id-hom A y) d))
       ( Σ ( g : hom A x y) ,
           ( ((t , s) : Δ¹×Δ¹) → A
             [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
