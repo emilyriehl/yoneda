@@ -153,7 +153,7 @@ Some of the definitions in this file rely on extension extensionality:
       (Segal-associativity extext A is-segal-A z x y x k f g) -- g(fk) = (gf)k
       (Segal-homotopy-prewhisker A is-segal-A z x x k (Segal-comp A is-segal-A x y x f g) (id-arr A x) gg)  -- (gf)k = id_x k from (gf) = id_x
       (Segal-comp-id A is-segal-A z x k) -- id_x k = k
-       )
+      )
   )
 
 #def if-iso-then-postcomp-has-section uses (extext)
@@ -177,7 +177,7 @@ Some of the definitions in this file rely on extension extensionality:
       (Segal-associativity extext A is-segal-A z y x y k h f) -- f(hk) = (fh)k
       (Segal-homotopy-prewhisker A is-segal-A z y y k (Segal-comp A is-segal-A y x y h f) (id-arr A y) hh)  -- (fh)k = id_y k from (fh) = id_y
       (Segal-comp-id A is-segal-A z y k) -- id_y k = k
-       )
+      )
   )
 
 #def if-iso-then-postcomp-is-equiv uses (extext)
@@ -221,7 +221,7 @@ Some of the definitions in this file rely on extension extensionality:
 
       (Segal-homotopy-postwhisker A is-segal-A y y z (Segal-comp A is-segal-A y x y h f) (id-arr A y) k hh)  -- k(fh) = k id_y from (fh) = id_y
       (Segal-id-comp A is-segal-A y z k) -- k id_y = k
-       )
+      )
   )
 
 #def if-iso-then-precomp-has-section uses (extext)
@@ -249,7 +249,7 @@ Some of the definitions in this file rely on extension extensionality:
       ) -- (kg)f = k(gf)
       (Segal-homotopy-postwhisker A is-segal-A x x z (Segal-comp A is-segal-A x y x f g) (id-arr A x) k gg)  -- k(gf) = k id_x from (gf) = id_x
       (Segal-id-comp A is-segal-A x z k) -- k id_x = k
-       )
+      )
   )
 
 #def if-iso-then-precomp-is-equiv uses (extext)

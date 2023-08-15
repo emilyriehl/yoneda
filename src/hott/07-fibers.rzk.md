@@ -10,16 +10,18 @@ This is a literate `rzk` file:
 
 The homotopy fiber of a map is the following type:
 
-```rzk
--- The fiber of a map
+```rzk title="The fiber of a map"
 #def fib
   (A B : U)
   (f : A → B)
   (b : B)
   : U
   := Σ (a : A) , (f a) = b
+```
 
--- We calculate the transport of (a , q) : fib b along p : a = a'
+We calculate the transport of (a , q) : fib b along p : a = a':
+
+```rzk
 #def transport-in-fiber
   (A B : U)
   (f : A → B)
@@ -46,8 +48,7 @@ The homotopy fiber of a map is the following type:
 
 A map is contractible just when its fibers are contractible.
 
-```rzk
--- Contractible maps
+```rzk title="Contractible maps"
 #def is-contr-map
   (A B : U)
   (f : A → B)
@@ -63,8 +64,9 @@ Contractible maps are equivalences:
 #variables A B : U
 #variable f : A → B
 #variable is-contr-f : is-contr-map A B f
+```
 
--- The inverse to a contractible map
+```rzk title="The inverse to a contractible map"
 #def is-contr-map-inverse
   : B → A
   := \ b → first (contraction-center (fib A B f b) (is-contr-f b))
@@ -106,16 +108,15 @@ Contractible maps are equivalences:
 #end is-contr-map-is-equiv
 ```
 
-## Half adjoint equivalences are contractible.
+## Half adjoint equivalences are contractible
 
 We now show that half adjoint equivalences are contractible maps.
 
-```rzk
--- If f is a half adjoint equivalence, its fibers are inhabited.
+```rzk title="If f is a half adjoint equivalence, its fibers are inhabited"
 #def is-surj-is-half-adjoint-equiv
   (A B : U)
   (f : A → B)
-  (fisHAE : is-half-adjoint-equiv A B f) -- first fisHAE : has-inverse A B f
+  (fisHAE : is-half-adjoint-equiv A B f)
   (b : B)
   : fib A B f b
   :=
@@ -145,8 +146,11 @@ this homotopy is straightforward.
       ( ap B A b (f (first z)) (has-inverse-inverse A B f (first fisHAE))
         ( rev B (f (first z)) b (second z)))
       ( (first (second (first fisHAE))) (first z))
+```
 
--- Specializing the above to isHAE-fib-base-path
+Specializing the above to `#!rzk isHAE-fib-base-path`:
+
+```rzk
 #def isHAE-fib-base-path-transport
   : transport A (\ x → (f x) = b)
       ( (has-inverse-inverse A B f (first fisHAE)) b) (first z)

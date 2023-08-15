@@ -68,9 +68,7 @@ The following demonstrates the syntax for constructing terms in Sigma types:
 
 ## Substitution
 
-### Reindexing a type family along a function into the base type
-
-```rzk
+```rzk title="Reindexing a type family along a function into the base type"
 #def reindex
   ( A B : U)
   ( f : B → A)

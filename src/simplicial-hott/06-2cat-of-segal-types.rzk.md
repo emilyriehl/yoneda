@@ -23,11 +23,11 @@ Some of the definitions in this file rely on extension extensionality:
 
 ## Functors
 
-Functions between types induce an action on hom types , preserving sources and
-targets.
+Functions between types induce an action on hom types, preserving sources and
+targets. The action is called `#!rzk ap-hom` to avoid conflicting with
+`#!rzk ap`.
 
 ```rzk title="RS17, Section 6.1"
--- Action of maps on homs. Called "ap-hom" to avoid conflicting with "ap".
 #def ap-hom
   (A B : U)
   (F : A → B)
@@ -49,10 +49,11 @@ targets.
   := \ t → F (alpha t)
 ```
 
-Functions between types automatically preserve identity arrows.
+Functions between types automatically preserve identity arrows. Preservation of
+identities follows from extension extensionality because these arrows are
+pointwise equal.
 
 ```rzk title="RS17, Proposition 6.1.a"
--- Preservation of identities follows from extension extensionality because these arrows are pointwise equal.
 #def functors-pres-id uses (extext)
   (A B : U)
   (F : A → B)
@@ -72,8 +73,9 @@ Functions between types automatically preserve identity arrows.
       (\ t → refl)
 ```
 
+Preservation of composition requires the Segal hypothesis.
+
 ```rzk title="RS17, Proposition 6.1.b"
--- Preservation of composition requires the Segal hypothesis.
 #def functors-pres-comp
   (A B : U)
   (is-segal-A : is-segal A)
@@ -104,8 +106,9 @@ Functions between types automatically preserve identity arrows.
 
 This corresponds to Section 6.2 in [RS17].
 
-Given two simplicial maps `f g : (x : A) → B x` , a **natural transformation**
-from `f` to `g` is an arrow `η : hom ((x : A) → B x) f g` between them.
+Given two simplicial maps `#!rzk f g : (x : A) → B x` , a **natural
+transformation** from `#!rzk f` to `#!rzk g` is an arrow
+`#!rzk η : hom ((x : A) → B x) f g` between them.
 
 ```rzk
 #def nat-trans
@@ -117,7 +120,7 @@ from `f` to `g` is an arrow `η : hom ((x : A) → B x) f g` between them.
 ```
 
 Equivalently , natural transformations can be determined by their **components**
-, i.e. as a family of arrows `(x : A) → hom (B x) (f x) (g x)`.
+, i.e. as a family of arrows `#!rzk (x : A) → hom (B x) (f x) (g x)`.
 
 ```rzk
 #def nat-trans-components
@@ -174,8 +177,8 @@ Equivalently , natural transformations can be determined by their **components**
 ### Horizontal composition
 
 Horizontal composition of natural transformations makes sense over any type. In
-particular , contrary to what is written in [RS17] we do not need `C` to be
-Segal.
+particular , contrary to what is written in [RS17] we do not need `#!rzk C` to
+be Segal.
 
 ```rzk
 #def horizontal-comp-nat-trans

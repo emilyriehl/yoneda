@@ -139,8 +139,8 @@ choice of definition.
 
 ### Concatenation of two paths with common codomain
 
-Concatenation of two paths with common codomain; defined using `concat` and
-`rev`.
+Concatenation of two paths with common codomain; defined using `#!rzk concat`
+and `#!rzk rev`.
 
 ```rzk
 #def zig-zag-concat
@@ -152,7 +152,8 @@ Concatenation of two paths with common codomain; defined using `concat` and
 
 ### Concatenation of two paths with common domain
 
-Concatenation of two paths with common domain; defined using `concat` and `rev`.
+Concatenation of two paths with common domain; defined using `#!rzk concat` and
+`#!rzk rev`.
 
 ```rzk
 #def zag-zig-concat
@@ -286,8 +287,11 @@ Prewhiskering paths of paths is much harder.
       ( concat A x y z p q)
       ( concat' A x y z p q)
       ( concat-concat' p q)
+```
 
--- this is easier to prove for concat' than for concat
+This is easier to prove for `#!rzk concat'` than for `#!rzk concat`.
+
+```rzk
 #def alt-triangle-rotation
   ( p : x = z)
   ( q : x = y)
@@ -308,7 +312,7 @@ Prewhiskering paths of paths is much harder.
 ```
 
 The following needs to be outside the previous section because of the usage of
-`concat-concat' A y x`.
+`#!rzk concat-concat' A y x`.
 
 ```rzk
 #end derived-path-coherence
@@ -358,13 +362,13 @@ The following needs to be outside the previous section because of the usage of
   : (ap A B y x f (rev A x y p)) = (rev B (f x) (f y) (ap A B x y f p))
   :=
     idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p') ,
-      refl ,
-      y ,
-      p)
+    ( ( A) ,
+      ( x) ,
+      ( \ y' p' →
+        ap A B y' x f (rev A x y' p') = rev B (f x) (f y') (ap A B x y' f p')) ,
+      ( refl) ,
+      ( y) ,
+      ( p))
 
 #def ap-concat
   ( A B : U)
@@ -376,14 +380,14 @@ The following needs to be outside the previous section because of the usage of
     ( concat B (f x) (f y) (f z) (ap A B x y f p) (ap A B y z f q))
   :=
     idJ
-    ( A ,
-      y ,
-      \ z' q' →
-        (ap A B x z' f (concat A x y z' p q')) =
-        (concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q')) ,
-      refl ,
-      z ,
-      q)
+    ( ( A) ,
+      ( y) ,
+      ( \ z' q' →
+        ( ap A B x z' f (concat A x y z' p q')) =
+        ( concat B (f x) (f y) (f z') (ap A B x y f p) (ap A B y z' f q'))) ,
+      ( refl) ,
+      ( z) ,
+      ( q))
 
 #def rev-ap-rev
   ( A B : U)
@@ -393,16 +397,19 @@ The following needs to be outside the previous section because of the usage of
   : (rev B (f y) (f x) (ap A B y x f (rev A x y p))) = (ap A B x y f p)
   :=
     idJ
-    ( A ,
-      x ,
-      \ y' p' →
+    ( ( A) ,
+      ( x) ,
+      ( \ y' p' →
         (rev B (f y') (f x) (ap A B y' x f (rev A x y' p'))) =
-        (ap A B x y' f p') ,
-      refl ,
-      y ,
-      p)
+        (ap A B x y' f p')) ,
+      ( refl) ,
+      ( y) ,
+      ( p))
+```
 
--- For specific use
+The following is for a specific use.
+
+```rzk
 #def concat-ap-rev-ap-id
   ( A B : U)
   ( x y : A)
@@ -432,8 +439,11 @@ The following needs to be outside the previous section because of the usage of
   ( p : x = y)
   : (ap A A x y (identity A) p) = p
     := idJ (A , x , \ y' p' → (ap A A x y' (\ z → z) p') = p' , refl , y , p)
+```
 
--- application of a function to homotopic paths yields homotopic paths
+Application of a function to homotopic paths yields homotopic paths.
+
+```rzk
 #def ap-htpy
   ( A B : U)
   ( x y : A)
@@ -492,16 +502,22 @@ The following needs to be outside the previous section because of the usage of
 
 #variable A : U
 #variable B : A → U
+```
 
--- transport in a type family along a path in the base
+### Transport in a type family along a path in the base
+
+```rzk
 #def transport
   ( x y : A)
   ( p : x = y)
   ( u : B x)
   : B y
   := idJ (A , x , \ y' p' → B y' , u , y , p)
+```
 
--- The lift of a base path to a path from a term in the total space to its transport.
+### The lift of a base path to a path from a term in the total space to its transport
+
+```rzk
 #def transport-lift
   ( x y : A)
   ( p : x = y)
@@ -515,8 +531,11 @@ The following needs to be outside the previous section because of the usage of
       refl ,
       y ,
       p)
+```
 
--- transport along concatenated paths
+### Transport along concatenated paths
+
+```rzk
 #def transport-concat
   ( x y z : A)
   ( p : x = y)
@@ -552,8 +571,11 @@ The following needs to be outside the previous section because of the usage of
       refl ,
       z ,
       q)
+```
 
--- A path between transportation along homotopic paths
+### Transport along homotopic paths
+
+```rzk
 #def transport2
   ( x y : A)
   ( p q : x = y)
@@ -568,13 +590,19 @@ The following needs to be outside the previous section because of the usage of
       refl ,
       q ,
       H)
+```
 
+### Transport along a loop
+
+```rzk
 #def transport-loop
   ( a : A)
   ( b : B a)
   : (a = a) → B a
   := \ p → (transport a a p b)
+```
 
+```rzk
 #end transport
 ```
 
@@ -599,6 +627,8 @@ The following needs to be outside the previous section because of the usage of
 ```
 
 ## Higher-order concatenation
+
+For convenience, we record lemmas for higher-order concatenation here.
 
 ```rzk
 #section higher-concatenation
@@ -666,8 +696,11 @@ The following needs to be outside the previous section because of the usage of
         ( quadruple-concat
           a8 a9 a10 a11 a12
           p9 p10 p11 p12))
+```
 
--- Same as above but with alternating arguments
+The following is the same as above but with alternating arguments.
+
+```rzk
 #def alternating-12ary-concat
   ( a0 : A)
   ( a1 : A) (p1 : a0 = a1)

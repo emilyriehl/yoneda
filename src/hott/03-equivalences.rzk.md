@@ -22,8 +22,11 @@ This is a literate `rzk` file:
   ( f : A → B)
   : U
   := Σ (r : B → A) , (homotopy A A (composition A B A r f) (identity A))
+```
 
--- equivalences are bi-invertible maps
+We define equivalences to be bi-invertible maps.
+
+```rzk
 #def is-equiv
   ( f : A → B)
   : U
@@ -48,8 +51,9 @@ This is a literate `rzk` file:
 #def is-equiv-retraction uses (f)
   : B → A
   := first (first is-equiv-f)
+```
 
--- the homotopy between the section and retraction of an equivalence
+```rzk title="The homotopy between the section and retraction of an equivalence"
 #def homotopic-inverses-is-equiv uses (f)
   : homotopy B A is-equiv-section is-equiv-retraction
   :=
@@ -76,8 +80,9 @@ This is a literate `rzk` file:
 
 ## Invertible maps
 
+The following type of more coherent equivalences is not a proposition.
+
 ```rzk
--- the following type of more coherent equivalences is not a proposition
 #def has-inverse
   ( A B : U)
   ( f : A → B)
@@ -86,15 +91,12 @@ This is a literate `rzk` file:
     Σ ( g : B → A) ,
       ( product
         ( homotopy A A (composition A B A g f) (identity A))
-        -- The retracting homotopy
         ( homotopy B B (composition B A B f g) (identity B)))
-        -- The section homotopy
 ```
 
 ## Equivalences are invertible maps
 
-```rzk
--- invertible maps are equivalences
+```rzk title="Invertible maps are equivalences"
 #def is-equiv-has-inverse
   ( A B : U)
   ( f : A → B)
@@ -103,8 +105,9 @@ This is a literate `rzk` file:
   :=
     ( ( first has-inverse-f , first (second has-inverse-f)) ,
       ( first has-inverse-f , second (second has-inverse-f)))
+```
 
--- equivalences are invertible
+```rzk title="Equivalences are invertible"
 #def has-inverse-is-equiv
   ( A B : U)
   ( f : A → B)
@@ -133,13 +136,18 @@ This is a literate `rzk` file:
 #variables A B : U
 #variable f : A → B
 #variable has-inverse-f : has-inverse A B f
+```
 
--- The inverse of a map with an inverse
+```rzk title="The inverse of a map with an inverse"
 #def has-inverse-inverse uses (f)
   : B → A
   := first (has-inverse-f)
+```
 
--- Some iterated composites associated to a pair of invertible maps.
+The following are some iterated composites associated to a pair of invertible
+maps.
+
+```rzk
 #def has-inverse-retraction-composite uses (B has-inverse-f)
   : A → A
   := composition A B A has-inverse-inverse f
@@ -147,13 +155,20 @@ This is a literate `rzk` file:
 #def has-inverse-section-composite uses (A has-inverse-f)
   : B → B
   := composition B A B f has-inverse-inverse
+```
 
--- This composite is parallel to f; we won't need the dual notion.
+This composite is parallel to `#!rzk f`; we won't need the dual notion.
+
+```rzk
 #def has-inverse-triple-composite uses (has-inverse-f)
   : A → B
   := triple-composition A B A B f has-inverse-inverse f
+```
 
--- This composite is also parallel to f; again we won't need the dual notion.
+This composite is also parallel to `#!rzk f`; again we won't need the dual
+notion.
+
+```rzk
 #def has-inverse-quintuple-composite uses (has-inverse-f)
   : A → B
   := \ a → f (has-inverse-inverse (f (has-inverse-inverse (f a))))
@@ -162,7 +177,8 @@ This is a literate `rzk` file:
 
 ## Composing equivalences
 
-The type of equivalences between types uses is-equiv rather than has-inverse.
+The type of equivalences between types uses `#!rzk is-equiv` rather than
+`#!rzk has-inverse`.
 
 ```rzk
 #def Equiv
@@ -172,7 +188,7 @@ The type of equivalences between types uses is-equiv rather than has-inverse.
 ```
 
 The data of an equivalence is not symmetric so we promote an equivalence to an
-invertible map to prove symmetry.
+invertible map to prove symmetry:
 
 ```rzk
 #def inv-equiv
@@ -187,9 +203,7 @@ invertible map to prove symmetry.
         first (second (has-inverse-is-equiv A B (first e) (second e))))))
 ```
 
-Composition of equivalences in diagrammatic order.
-
-```rzk
+```rzk title="Composition of equivalences in diagrammatic order"
 #def comp-equiv
   ( A B C : U)
   ( A≃B : Equiv A B)
@@ -208,8 +222,7 @@ Composition of equivalences in diagrammatic order.
               ( a)
               ( ap B A
                 ( (first (first (second B≃C))) ((first B≃C) ((first A≃B) a)))
-                  -- should be inferred
-                ( (first A≃B) a) -- should be inferred
+                ( (first A≃B) a)
                 ( first (first (second A≃B)))
                 ( (second (first (second B≃C))) ((first A≃B) a)))
               ( (second (first (second A≃B))) a))) ,
@@ -218,20 +231,29 @@ Composition of equivalences in diagrammatic order.
                   ( (first (second (second (B≃C)))) c) ,
           ( \ c →
             concat C
-              ( (first B≃C) ((first A≃B) ((first (second (second A≃B)))
-                ((first (second (second B≃C))) c))))
-              ( (first B≃C) ((first (second (second B≃C))) c))
+              ( first B≃C
+                ( first A≃B
+                  ( first
+                    ( second (second A≃B))
+                    ( first (second (second B≃C)) c))))
+              ( first B≃C (first (second (second B≃C)) c))
               ( c)
               ( ap B C
-                ( (first A≃B) ((first (second (second A≃B)))
-                  ((first (second (second B≃C))) c))) -- should be inferred
-                ( (first (second (second B≃C))) c) -- should be inferred
+                ( first A≃B
+                  ( first
+                    ( second (second A≃B))
+                    ( first (second (second B≃C)) c)))
+                ( first (second (second B≃C)) c)
                 ( first B≃C)
-                ( (second (second (second A≃B)))
-                  ((first (second (second B≃C))) c)))
-              ( (second (second (second B≃C))) c)))))
+                ( second
+                  ( second (second A≃B))
+                  ( first (second (second B≃C)) c)))
+              ( second (second (second B≃C)) c)))))
+```
 
--- now we compose the functions that are equivalences
+Now we compose the functions that are equivalences.
+
+```rzk
 #def compose-is-equiv
   ( A B C : U)
   ( f : A → B)
@@ -241,20 +263,20 @@ Composition of equivalences in diagrammatic order.
   : is-equiv A C (composition A B C g f)
   :=
     ( ( composition C B A
-      ( is-equiv-retraction A B f is-equiv-f)
-      ( is-equiv-retraction B C g is-equiv-g) ,
-      ( \ a →
-        concat A
-          ( (is-equiv-retraction A B f is-equiv-f)
-            ((is-equiv-retraction B C g is-equiv-g) (g (f a))))
-          ( (is-equiv-retraction A B f is-equiv-f) (f a))
-          ( a)
-          ( ap B A
-            ( (is-equiv-retraction B C g is-equiv-g) (g (f a))) -- should be inferred
-            ( f a) -- should be inferred
-            ( is-equiv-retraction A B f is-equiv-f)
-            ( (second (first is-equiv-g)) (f a)))
-          ( (second (first is-equiv-f)) a))) ,
+        ( is-equiv-retraction A B f is-equiv-f)
+        ( is-equiv-retraction B C g is-equiv-g) ,
+        ( \ a →
+          concat A
+            ( (is-equiv-retraction A B f is-equiv-f)
+              ((is-equiv-retraction B C g is-equiv-g) (g (f a))))
+            ( (is-equiv-retraction A B f is-equiv-f) (f a))
+            ( a)
+            ( ap B A
+              ( (is-equiv-retraction B C g is-equiv-g) (g (f a)))
+              ( f a)
+              ( is-equiv-retraction A B f is-equiv-f)
+              ( (second (first is-equiv-g)) (f a)))
+            ( (second (first is-equiv-f)) a))) ,
       ( composition C B A
         ( is-equiv-section A B f is-equiv-f)
         ( is-equiv-section B C g is-equiv-g) ,
@@ -265,29 +287,31 @@ Composition of equivalences in diagrammatic order.
             ( c)
             ( ap B C
               ( f ((first (second is-equiv-f)) ((first (second is-equiv-g)) c)))
-                                -- should be inferred
-              ( (first (second is-equiv-g)) c) -- should be inferred
+              ( (first (second is-equiv-g)) c)
               ( g)
               ( (second (second is-equiv-f)) ((first (second is-equiv-g)) c)))
                 ((second (second is-equiv-g)) c))))
+```
 
--- Right cancellation of equivalences in diagrammatic order.
+```rzk title="Right cancellation of equivalences in diagrammatic order"
 #def right-cancel-equiv
   ( A B C : U)
   ( A≃C : Equiv A C)
   ( B≃C : Equiv B C)
   : Equiv A B
   := comp-equiv A C B (A≃C) (inv-equiv B C B≃C)
+```
 
--- Left cancellation of equivalences in diagrammatic order.
+```rzk title="Left cancellation of equivalences in diagrammatic order"
 #def left-cancel-equiv
   ( A B C : U)
   ( A≃B : Equiv A B)
   ( A≃C : Equiv A C)
   : Equiv B C
   := comp-equiv B A C (inv-equiv A B A≃B) (A≃C)
+```
 
--- a composition of three equivalences
+```rzk title="A composition of three equivalences"
 #def triple-comp-equiv
   ( A B C D : U)
   ( A≃B : Equiv A B)
@@ -353,7 +377,7 @@ If a map is homotopic to an equivalence it is an equivalence.
 
 ## Function extensionality
 
-By path induction, an identification between functions defines a homotopy
+By path induction, an identification between functions defines a homotopy.
 
 ```rzk
 #def htpy-eq
@@ -375,8 +399,7 @@ By path induction, an identification between functions defines a homotopy
 The function extensionality axiom asserts that this map defines a family of
 equivalences.
 
-```rzk
--- The type that encodes the function extensionality axiom.
+```rzk title="The type that encodes the function extensionality axiom"
 #def FunExt : U
   :=
     ( X : U) →
@@ -394,27 +417,35 @@ extensionality:
 ```
 
 Whenever a definition (implicitly) uses function extensionality, we write
-`uses (funext)`. In particular, the following definitions rely on function
+`#!rzk uses (funext)`. In particular, the following definitions rely on function
 extensionality:
 
-```rzk
--- The equivalence provided by function extensionality.
+```rzk title="The equivalence provided by function extensionality"
 #def FunExt-equiv uses (funext)
   ( X : U)
   ( A : X → U)
   ( f g : (x : X) → A x)
   : Equiv (f = g) ((x : X) → f x = g x)
   := (htpy-eq X A f g , funext X A f g)
+```
 
--- In particular, function extensionality implies that homotopies give rise to identifications. This defines eq-htpy to be the retraction to htpy-eq.
+In particular, function extensionality implies that homotopies give rise to
+identifications. This defines `#!rzk eq-htpy` to be the retraction to
+`#!rzk htpy-eq`.
+
+```rzk
 #def eq-htpy uses (funext)
   ( X : U)
   ( A : X → U)
   ( f g : (x : X) → A x)
   : ((x : X) → f x = g x) → (f = g)
   := first (first (funext X A f g))
+```
 
--- Using function extensionality, a fiberwise equivalence defines an equivalence of dependent function types
+Using function extensionality, a fiberwise equivalence defines an equivalence of
+dependent function types.
+
+```rzk
 #def equiv-function-equiv-fibered uses (funext)
   ( X : U)
   ( A B : X → U)
