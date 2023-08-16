@@ -920,7 +920,7 @@
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="err">  : has-retraction (x = y) </span><span class="kt">Unit</span><span class="err"> (terminal-map (x = y))</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="err">  :=</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="err">    ( </span><span class="p">\ </span>a <span class="err">→ </span><span class="s">refl</span><span class="err"> ,</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="err">      </span><span class="p">\ </span>p <span class="err">→ </span><span class="s">idJ</span><span class="err"> (</span><span class="kt">Unit</span><span class="err"> , x , </span><span class="p">\ </span>y&#39; p&#39; <span class="err">→ </span><span class="s">refl</span><span class="err"> =_{x = y&#39;} p&#39; , </span><span class="s">refl</span><span class="err"> , y , p))</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="err">      </span><span class="p">\ </span>p <span class="err">→ ind-path (</span><span class="kt">Unit</span><span class="err">) (x) (</span><span class="p">\ </span>y&#39; p&#39; <span class="err">→ </span><span class="s">refl</span><span class="err"> =_{x = y&#39;} p&#39;) (</span><span class="s">refl</span><span class="err">) (y) (p))</span>
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">terminal-map-of-path-types-of-Unit-has-sec</span>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="err">  </span><span class="p">( </span>x y <span class="p">:</span><span class="err"> </span><span class="kt">Unit</span><span class="err">)</span>
@@ -1109,14 +1109,14 @@
 </span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="err">  </span><span class="p">( </span>q <span class="p">:</span><span class="err"> x = y)</span>
 </span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="err">  : ( transport A (</span><span class="p">\ </span>z <span class="err">→ (a = z)) x y q p) = (concat A a x y p q)</span>
 </span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="err">  :=</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="err">    </span><span class="s">idJ</span>
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="err">    ( A ,</span>
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="err">      x ,</span>
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="err">      </span><span class="p">\ </span>y&#39; q&#39; <span class="err">→</span>
-</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="err">        ( transport A (</span><span class="p">\ </span>z <span class="err">→ (a = z)) x y&#39; q&#39; p) = (concat A a x y&#39; p q&#39;) ,</span>
-</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="err">      </span><span class="s">refl</span><span class="err"> ,</span>
-</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="err">      y ,</span>
-</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="err">      q)</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="err">    ind-path</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="err">      ( A)</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="err">      ( x)</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="err">      ( </span><span class="p">\ </span>y&#39; q&#39; <span class="err">→</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="err">        ( transport A (</span><span class="p">\ </span>z <span class="err">→ (a = z)) x y&#39; q&#39; p) = (concat A a x y&#39; p q&#39;))</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="err">      ( </span><span class="s">refl</span><span class="err">)</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="err">      ( y)</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="err">      ( q)</span>
 </span></code></pre></div>
 <p>The center of contraction in the based path space is <code class="language-rzk highlight"><span class="err">(a , </span><span class="s">refl</span><span class="err">)</span></code>.</p>
 <div class="language-rzk highlight"><span class="filename">The center of contraction in the based path space</span><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">center-based-paths</span>

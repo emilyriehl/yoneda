@@ -1674,34 +1674,39 @@ arrow.</p>
 </span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="err">  </span><span class="p">(</span>f g <span class="p">:</span><span class="err"> hom A x y)</span>
 </span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="err">  </span><span class="p">(</span>p <span class="p">:</span><span class="err"> f = g)</span>
 </span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="err">  : (hom2 A x x y (id-arr A x) f g)</span>
-</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="err">  := </span><span class="s">idJ</span><span class="err"> (hom A x y , f ,</span>
-</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="err">          </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→ (hom2 A x x y (id-arr A x) f g&#39;) ,</span>
-</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="err">          (id-comp-witness A x y f) , g , p)</span>
-</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>
-</span><span id="__span-36-11"><a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">homotopy-to-hom2-total-map</span>
-</span><span id="__span-36-12"><a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-36-13"><a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a><span class="err">  </span><span class="p">(</span>x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-36-14"><a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-36-15"><a id="__codelineno-36-15" name="__codelineno-36-15" href="#__codelineno-36-15"></a><span class="err">  : </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g) →</span>
-</span><span id="__span-36-16"><a id="__codelineno-36-16" name="__codelineno-36-16" href="#__codelineno-36-16"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x x y (id-arr A x) f g))</span>
-</span><span id="__span-36-17"><a id="__codelineno-36-17" name="__codelineno-36-17" href="#__codelineno-36-17"></a><span class="err">  := \ (g , p) → (g , homotopy-to-hom2 A x y f g p)</span>
-</span><span id="__span-36-18"><a id="__codelineno-36-18" name="__codelineno-36-18" href="#__codelineno-36-18"></a>
-</span><span id="__span-36-19"><a id="__codelineno-36-19" name="__codelineno-36-19" href="#__codelineno-36-19"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-homotopy-to-hom2-total-map-is-equiv</span>
-</span><span id="__span-36-20"><a id="__codelineno-36-20" name="__codelineno-36-20" href="#__codelineno-36-20"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-36-21"><a id="__codelineno-36-21" name="__codelineno-36-21" href="#__codelineno-36-21"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
-</span><span id="__span-36-22"><a id="__codelineno-36-22" name="__codelineno-36-22" href="#__codelineno-36-22"></a><span class="err">  </span><span class="p">(</span>x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-36-23"><a id="__codelineno-36-23" name="__codelineno-36-23" href="#__codelineno-36-23"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-36-24"><a id="__codelineno-36-24" name="__codelineno-36-24" href="#__codelineno-36-24"></a><span class="err">  : is-equiv</span>
-</span><span id="__span-36-25"><a id="__codelineno-36-25" name="__codelineno-36-25" href="#__codelineno-36-25"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g)</span>
-</span><span id="__span-36-26"><a id="__codelineno-36-26" name="__codelineno-36-26" href="#__codelineno-36-26"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x x y (id-arr A x) f g))</span>
-</span><span id="__span-36-27"><a id="__codelineno-36-27" name="__codelineno-36-27" href="#__codelineno-36-27"></a><span class="err">      (homotopy-to-hom2-total-map A x y f)</span>
-</span><span id="__span-36-28"><a id="__codelineno-36-28" name="__codelineno-36-28" href="#__codelineno-36-28"></a><span class="err">  :=</span>
-</span><span id="__span-36-29"><a id="__codelineno-36-29" name="__codelineno-36-29" href="#__codelineno-36-29"></a><span class="err">    is-equiv-are-contr</span>
-</span><span id="__span-36-30"><a id="__codelineno-36-30" name="__codelineno-36-30" href="#__codelineno-36-30"></a><span class="err">    </span><span class="p">( </span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g)</span>
-</span><span id="__span-36-31"><a id="__codelineno-36-31" name="__codelineno-36-31" href="#__codelineno-36-31"></a><span class="err">    </span><span class="p">( </span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x x y (id-arr A x) f g))</span>
-</span><span id="__span-36-32"><a id="__codelineno-36-32" name="__codelineno-36-32" href="#__codelineno-36-32"></a><span class="err">    ( is-contr-based-paths (hom A x y) f)</span>
-</span><span id="__span-36-33"><a id="__codelineno-36-33" name="__codelineno-36-33" href="#__codelineno-36-33"></a><span class="err">    ( is-segal-A x x y (id-arr A x) f)</span>
-</span><span id="__span-36-34"><a id="__codelineno-36-34" name="__codelineno-36-34" href="#__codelineno-36-34"></a><span class="err">    ( homotopy-to-hom2-total-map A x y f)</span>
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="err">  :=</span>
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="err">    ind-path</span>
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="err">      ( hom A x y)</span>
+</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="err">      ( f)</span>
+</span><span id="__span-36-11"><a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a><span class="err">      ( </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→ (hom2 A x x y (id-arr A x) f g&#39;))</span>
+</span><span id="__span-36-12"><a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a><span class="err">      ( id-comp-witness A x y f)</span>
+</span><span id="__span-36-13"><a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a><span class="err">      ( g)</span>
+</span><span id="__span-36-14"><a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a><span class="err">      ( p)</span>
+</span><span id="__span-36-15"><a id="__codelineno-36-15" name="__codelineno-36-15" href="#__codelineno-36-15"></a>
+</span><span id="__span-36-16"><a id="__codelineno-36-16" name="__codelineno-36-16" href="#__codelineno-36-16"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">homotopy-to-hom2-total-map</span>
+</span><span id="__span-36-17"><a id="__codelineno-36-17" name="__codelineno-36-17" href="#__codelineno-36-17"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-36-18"><a id="__codelineno-36-18" name="__codelineno-36-18" href="#__codelineno-36-18"></a><span class="err">  </span><span class="p">(</span>x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-36-19"><a id="__codelineno-36-19" name="__codelineno-36-19" href="#__codelineno-36-19"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-36-20"><a id="__codelineno-36-20" name="__codelineno-36-20" href="#__codelineno-36-20"></a><span class="err">  : </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g) →</span>
+</span><span id="__span-36-21"><a id="__codelineno-36-21" name="__codelineno-36-21" href="#__codelineno-36-21"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x x y (id-arr A x) f g))</span>
+</span><span id="__span-36-22"><a id="__codelineno-36-22" name="__codelineno-36-22" href="#__codelineno-36-22"></a><span class="err">  := \ (g , p) → (g , homotopy-to-hom2 A x y f g p)</span>
+</span><span id="__span-36-23"><a id="__codelineno-36-23" name="__codelineno-36-23" href="#__codelineno-36-23"></a>
+</span><span id="__span-36-24"><a id="__codelineno-36-24" name="__codelineno-36-24" href="#__codelineno-36-24"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-homotopy-to-hom2-total-map-is-equiv</span>
+</span><span id="__span-36-25"><a id="__codelineno-36-25" name="__codelineno-36-25" href="#__codelineno-36-25"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-36-26"><a id="__codelineno-36-26" name="__codelineno-36-26" href="#__codelineno-36-26"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
+</span><span id="__span-36-27"><a id="__codelineno-36-27" name="__codelineno-36-27" href="#__codelineno-36-27"></a><span class="err">  </span><span class="p">(</span>x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-36-28"><a id="__codelineno-36-28" name="__codelineno-36-28" href="#__codelineno-36-28"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-36-29"><a id="__codelineno-36-29" name="__codelineno-36-29" href="#__codelineno-36-29"></a><span class="err">  : is-equiv</span>
+</span><span id="__span-36-30"><a id="__codelineno-36-30" name="__codelineno-36-30" href="#__codelineno-36-30"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g)</span>
+</span><span id="__span-36-31"><a id="__codelineno-36-31" name="__codelineno-36-31" href="#__codelineno-36-31"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x x y (id-arr A x) f g))</span>
+</span><span id="__span-36-32"><a id="__codelineno-36-32" name="__codelineno-36-32" href="#__codelineno-36-32"></a><span class="err">      (homotopy-to-hom2-total-map A x y f)</span>
+</span><span id="__span-36-33"><a id="__codelineno-36-33" name="__codelineno-36-33" href="#__codelineno-36-33"></a><span class="err">  :=</span>
+</span><span id="__span-36-34"><a id="__codelineno-36-34" name="__codelineno-36-34" href="#__codelineno-36-34"></a><span class="err">    is-equiv-are-contr</span>
+</span><span id="__span-36-35"><a id="__codelineno-36-35" name="__codelineno-36-35" href="#__codelineno-36-35"></a><span class="err">    </span><span class="p">( </span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g)</span>
+</span><span id="__span-36-36"><a id="__codelineno-36-36" name="__codelineno-36-36" href="#__codelineno-36-36"></a><span class="err">    </span><span class="p">( </span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x x y (id-arr A x) f g))</span>
+</span><span id="__span-36-37"><a id="__codelineno-36-37" name="__codelineno-36-37" href="#__codelineno-36-37"></a><span class="err">    ( is-contr-based-paths (hom A x y) f)</span>
+</span><span id="__span-36-38"><a id="__codelineno-36-38" name="__codelineno-36-38" href="#__codelineno-36-38"></a><span class="err">    ( is-segal-A x x y (id-arr A x) f)</span>
+</span><span id="__span-36-39"><a id="__codelineno-36-39" name="__codelineno-36-39" href="#__codelineno-36-39"></a><span class="err">    ( homotopy-to-hom2-total-map A x y f)</span>
 </span></code></pre></div>
 <div class="language-rzk highlight"><span class="filename">RS17, Proposition 5.10</span><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Eq-Segal-homotopy-hom2</span>
 </span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
@@ -1726,34 +1731,39 @@ arrow.</p>
 </span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="err">  </span><span class="p">(</span>f g <span class="p">:</span><span class="err"> hom A x y)</span>
 </span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="err">  </span><span class="p">(</span>p <span class="p">:</span><span class="err"> f = g)</span>
 </span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="err">  : (hom2 A x y y f (id-arr A y) g)</span>
-</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="err">  := </span><span class="s">idJ</span><span class="err"> (hom A x y , f ,</span>
-</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="err">          </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→ (hom2 A x y y f (id-arr A y) g&#39;) ,</span>
-</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="err">          (comp-id-witness A x y f) , g , p)</span>
-</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>
-</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">homotopy-to-hom2&#39;-total-map</span>
-</span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-38-13"><a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a><span class="err">  </span><span class="p">(</span>x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-38-14"><a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-38-15"><a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a><span class="err">  : </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g) →</span>
-</span><span id="__span-38-16"><a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x y y f (id-arr A y) g))</span>
-</span><span id="__span-38-17"><a id="__codelineno-38-17" name="__codelineno-38-17" href="#__codelineno-38-17"></a><span class="err">  := \ (g , p) → (g , homotopy-to-hom2&#39; A x y f g p)</span>
-</span><span id="__span-38-18"><a id="__codelineno-38-18" name="__codelineno-38-18" href="#__codelineno-38-18"></a>
-</span><span id="__span-38-19"><a id="__codelineno-38-19" name="__codelineno-38-19" href="#__codelineno-38-19"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-homotopy-to-hom2&#39;-total-map-is-equiv</span>
-</span><span id="__span-38-20"><a id="__codelineno-38-20" name="__codelineno-38-20" href="#__codelineno-38-20"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-38-21"><a id="__codelineno-38-21" name="__codelineno-38-21" href="#__codelineno-38-21"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
-</span><span id="__span-38-22"><a id="__codelineno-38-22" name="__codelineno-38-22" href="#__codelineno-38-22"></a><span class="err">  </span><span class="p">(</span>x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-38-23"><a id="__codelineno-38-23" name="__codelineno-38-23" href="#__codelineno-38-23"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-38-24"><a id="__codelineno-38-24" name="__codelineno-38-24" href="#__codelineno-38-24"></a><span class="err">  : is-equiv</span>
-</span><span id="__span-38-25"><a id="__codelineno-38-25" name="__codelineno-38-25" href="#__codelineno-38-25"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g)</span>
-</span><span id="__span-38-26"><a id="__codelineno-38-26" name="__codelineno-38-26" href="#__codelineno-38-26"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x y y f (id-arr A y) g))</span>
-</span><span id="__span-38-27"><a id="__codelineno-38-27" name="__codelineno-38-27" href="#__codelineno-38-27"></a><span class="err">      (homotopy-to-hom2&#39;-total-map A x y f)</span>
-</span><span id="__span-38-28"><a id="__codelineno-38-28" name="__codelineno-38-28" href="#__codelineno-38-28"></a><span class="err">  :=</span>
-</span><span id="__span-38-29"><a id="__codelineno-38-29" name="__codelineno-38-29" href="#__codelineno-38-29"></a><span class="err">    is-equiv-are-contr</span>
-</span><span id="__span-38-30"><a id="__codelineno-38-30" name="__codelineno-38-30" href="#__codelineno-38-30"></a><span class="err">    </span><span class="p">( </span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g)</span>
-</span><span id="__span-38-31"><a id="__codelineno-38-31" name="__codelineno-38-31" href="#__codelineno-38-31"></a><span class="err">    </span><span class="p">( </span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x y y f (id-arr A y) g))</span>
-</span><span id="__span-38-32"><a id="__codelineno-38-32" name="__codelineno-38-32" href="#__codelineno-38-32"></a><span class="err">    ( is-contr-based-paths (hom A x y) f)</span>
-</span><span id="__span-38-33"><a id="__codelineno-38-33" name="__codelineno-38-33" href="#__codelineno-38-33"></a><span class="err">    ( is-segal-A x y y f (id-arr A y))</span>
-</span><span id="__span-38-34"><a id="__codelineno-38-34" name="__codelineno-38-34" href="#__codelineno-38-34"></a><span class="err">    ( homotopy-to-hom2&#39;-total-map A x y f)</span>
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="err">  :=</span>
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="err">    ind-path</span>
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="err">      ( hom A x y)</span>
+</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a><span class="err">      ( f)</span>
+</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a><span class="err">      ( </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→ (hom2 A x y y f (id-arr A y) g&#39;))</span>
+</span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a><span class="err">      ( comp-id-witness A x y f)</span>
+</span><span id="__span-38-13"><a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a><span class="err">      ( g)</span>
+</span><span id="__span-38-14"><a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a><span class="err">      ( p)</span>
+</span><span id="__span-38-15"><a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a>
+</span><span id="__span-38-16"><a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">homotopy-to-hom2&#39;-total-map</span>
+</span><span id="__span-38-17"><a id="__codelineno-38-17" name="__codelineno-38-17" href="#__codelineno-38-17"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-38-18"><a id="__codelineno-38-18" name="__codelineno-38-18" href="#__codelineno-38-18"></a><span class="err">  </span><span class="p">(</span>x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-38-19"><a id="__codelineno-38-19" name="__codelineno-38-19" href="#__codelineno-38-19"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-38-20"><a id="__codelineno-38-20" name="__codelineno-38-20" href="#__codelineno-38-20"></a><span class="err">  : </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g) →</span>
+</span><span id="__span-38-21"><a id="__codelineno-38-21" name="__codelineno-38-21" href="#__codelineno-38-21"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x y y f (id-arr A y) g))</span>
+</span><span id="__span-38-22"><a id="__codelineno-38-22" name="__codelineno-38-22" href="#__codelineno-38-22"></a><span class="err">  := \ (g , p) → (g , homotopy-to-hom2&#39; A x y f g p)</span>
+</span><span id="__span-38-23"><a id="__codelineno-38-23" name="__codelineno-38-23" href="#__codelineno-38-23"></a>
+</span><span id="__span-38-24"><a id="__codelineno-38-24" name="__codelineno-38-24" href="#__codelineno-38-24"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-homotopy-to-hom2&#39;-total-map-is-equiv</span>
+</span><span id="__span-38-25"><a id="__codelineno-38-25" name="__codelineno-38-25" href="#__codelineno-38-25"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-38-26"><a id="__codelineno-38-26" name="__codelineno-38-26" href="#__codelineno-38-26"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
+</span><span id="__span-38-27"><a id="__codelineno-38-27" name="__codelineno-38-27" href="#__codelineno-38-27"></a><span class="err">  </span><span class="p">(</span>x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-38-28"><a id="__codelineno-38-28" name="__codelineno-38-28" href="#__codelineno-38-28"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-38-29"><a id="__codelineno-38-29" name="__codelineno-38-29" href="#__codelineno-38-29"></a><span class="err">  : is-equiv</span>
+</span><span id="__span-38-30"><a id="__codelineno-38-30" name="__codelineno-38-30" href="#__codelineno-38-30"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g)</span>
+</span><span id="__span-38-31"><a id="__codelineno-38-31" name="__codelineno-38-31" href="#__codelineno-38-31"></a><span class="err">      </span><span class="p">(</span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x y y f (id-arr A y) g))</span>
+</span><span id="__span-38-32"><a id="__codelineno-38-32" name="__codelineno-38-32" href="#__codelineno-38-32"></a><span class="err">      (homotopy-to-hom2&#39;-total-map A x y f)</span>
+</span><span id="__span-38-33"><a id="__codelineno-38-33" name="__codelineno-38-33" href="#__codelineno-38-33"></a><span class="err">  :=</span>
+</span><span id="__span-38-34"><a id="__codelineno-38-34" name="__codelineno-38-34" href="#__codelineno-38-34"></a><span class="err">    is-equiv-are-contr</span>
+</span><span id="__span-38-35"><a id="__codelineno-38-35" name="__codelineno-38-35" href="#__codelineno-38-35"></a><span class="err">    </span><span class="p">( </span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , f = g)</span>
+</span><span id="__span-38-36"><a id="__codelineno-38-36" name="__codelineno-38-36" href="#__codelineno-38-36"></a><span class="err">    </span><span class="p">( </span>Σ (g <span class="p">:</span><span class="err"> hom A x y) , (hom2 A x y y f (id-arr A y) g))</span>
+</span><span id="__span-38-37"><a id="__codelineno-38-37" name="__codelineno-38-37" href="#__codelineno-38-37"></a><span class="err">    ( is-contr-based-paths (hom A x y) f)</span>
+</span><span id="__span-38-38"><a id="__codelineno-38-38" name="__codelineno-38-38" href="#__codelineno-38-38"></a><span class="err">    ( is-segal-A x y y f (id-arr A y))</span>
+</span><span id="__span-38-39"><a id="__codelineno-38-39" name="__codelineno-38-39" href="#__codelineno-38-39"></a><span class="err">    ( homotopy-to-hom2&#39;-total-map A x y f)</span>
 </span></code></pre></div>
 <div class="language-rzk highlight"><span class="filename">RS17, Proposition 5.10</span><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Eq-Segal-homotopy-hom2&#39;</span>
 </span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
@@ -1782,37 +1792,42 @@ the data provided by a commutative triangle with that boundary.</p>
 </span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="err">  </span><span class="p">(</span>h <span class="p">:</span><span class="err"> hom A x z)</span>
 </span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="err">  </span><span class="p">(</span>p <span class="p">:</span><span class="err"> (Segal-comp A is-segal-A x y z f g) = h)</span>
 </span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="err">  : (hom2 A x y z f g h)</span>
-</span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="err">  := </span><span class="s">idJ</span><span class="err"> (hom A x z , (Segal-comp A is-segal-A x y z f g) ,</span>
-</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="err">          </span><span class="p">\ </span>h&#39; p&#39; <span class="err">→ (hom2 A x y z f g h&#39;) ,</span>
-</span><span id="__span-40-12"><a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="err">          Segal-comp-witness A is-segal-A x y z f g , h , p)</span>
-</span><span id="__span-40-13"><a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a>
-</span><span id="__span-40-14"><a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-eq-to-hom2-total-map</span>
-</span><span id="__span-40-15"><a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-40-16"><a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
-</span><span id="__span-40-17"><a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a><span class="err">  </span><span class="p">(</span>x y z <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-40-18"><a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-40-19"><a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="err">  </span><span class="p">(</span>g <span class="p">:</span><span class="err"> hom A y z)</span>
-</span><span id="__span-40-20"><a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="err">  : </span><span class="p">(</span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (Segal-comp A is-segal-A x y z f g) = h) →</span>
-</span><span id="__span-40-21"><a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a><span class="err">      </span><span class="p">(</span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (hom2 A x y z f g h))</span>
-</span><span id="__span-40-22"><a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a><span class="err">  := \ (h , p) → (h , Segal-eq-to-hom2 A is-segal-A x y z f g h p)</span>
-</span><span id="__span-40-23"><a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a>
-</span><span id="__span-40-24"><a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-eq-to-hom2-total-map-is-equiv</span>
-</span><span id="__span-40-25"><a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-40-26"><a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
-</span><span id="__span-40-27"><a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a><span class="err">  </span><span class="p">(</span>x y z <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-40-28"><a id="__codelineno-40-28" name="__codelineno-40-28" href="#__codelineno-40-28"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
-</span><span id="__span-40-29"><a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a><span class="err">  </span><span class="p">(</span>g <span class="p">:</span><span class="err"> hom A y z)</span>
-</span><span id="__span-40-30"><a id="__codelineno-40-30" name="__codelineno-40-30" href="#__codelineno-40-30"></a><span class="err">  : is-equiv</span>
-</span><span id="__span-40-31"><a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a><span class="err">      </span><span class="p">(</span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (Segal-comp A is-segal-A x y z f g) = h)</span>
-</span><span id="__span-40-32"><a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a><span class="err">      </span><span class="p">(</span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (hom2 A x y z f g h))</span>
-</span><span id="__span-40-33"><a id="__codelineno-40-33" name="__codelineno-40-33" href="#__codelineno-40-33"></a><span class="err">      (Segal-eq-to-hom2-total-map A is-segal-A x y z f g)</span>
-</span><span id="__span-40-34"><a id="__codelineno-40-34" name="__codelineno-40-34" href="#__codelineno-40-34"></a><span class="err">  :=</span>
-</span><span id="__span-40-35"><a id="__codelineno-40-35" name="__codelineno-40-35" href="#__codelineno-40-35"></a><span class="err">    is-equiv-are-contr</span>
-</span><span id="__span-40-36"><a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a><span class="err">    </span><span class="p">( </span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (Segal-comp A is-segal-A x y z f g) = h)</span>
-</span><span id="__span-40-37"><a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a><span class="err">    </span><span class="p">( </span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (hom2 A x y z f g h))</span>
-</span><span id="__span-40-38"><a id="__codelineno-40-38" name="__codelineno-40-38" href="#__codelineno-40-38"></a><span class="err">    ( is-contr-based-paths (hom A x z) (Segal-comp A is-segal-A x y z f g) )</span>
-</span><span id="__span-40-39"><a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a><span class="err">    ( is-segal-A x y z f g)</span>
-</span><span id="__span-40-40"><a id="__codelineno-40-40" name="__codelineno-40-40" href="#__codelineno-40-40"></a><span class="err">    ( Segal-eq-to-hom2-total-map A is-segal-A x y z f g)</span>
+</span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="err">  :=</span>
+</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="err">    ind-path</span>
+</span><span id="__span-40-12"><a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="err">      ( hom A x z)</span>
+</span><span id="__span-40-13"><a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a><span class="err">      ( Segal-comp A is-segal-A x y z f g)</span>
+</span><span id="__span-40-14"><a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="err">      ( </span><span class="p">\ </span>h&#39; p&#39; <span class="err">→ hom2 A x y z f g h&#39;)</span>
+</span><span id="__span-40-15"><a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a><span class="err">      ( Segal-comp-witness A is-segal-A x y z f g)</span>
+</span><span id="__span-40-16"><a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="err">      ( h)</span>
+</span><span id="__span-40-17"><a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a><span class="err">      ( p)</span>
+</span><span id="__span-40-18"><a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a>
+</span><span id="__span-40-19"><a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-eq-to-hom2-total-map</span>
+</span><span id="__span-40-20"><a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-40-21"><a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
+</span><span id="__span-40-22"><a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a><span class="err">  </span><span class="p">(</span>x y z <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-40-23"><a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-40-24"><a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="err">  </span><span class="p">(</span>g <span class="p">:</span><span class="err"> hom A y z)</span>
+</span><span id="__span-40-25"><a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a><span class="err">  : </span><span class="p">(</span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (Segal-comp A is-segal-A x y z f g) = h) →</span>
+</span><span id="__span-40-26"><a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a><span class="err">      </span><span class="p">(</span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (hom2 A x y z f g h))</span>
+</span><span id="__span-40-27"><a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a><span class="err">  := \ (h , p) → (h , Segal-eq-to-hom2 A is-segal-A x y z f g h p)</span>
+</span><span id="__span-40-28"><a id="__codelineno-40-28" name="__codelineno-40-28" href="#__codelineno-40-28"></a>
+</span><span id="__span-40-29"><a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-eq-to-hom2-total-map-is-equiv</span>
+</span><span id="__span-40-30"><a id="__codelineno-40-30" name="__codelineno-40-30" href="#__codelineno-40-30"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-40-31"><a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a><span class="err">  </span><span class="p">(</span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
+</span><span id="__span-40-32"><a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a><span class="err">  </span><span class="p">(</span>x y z <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-40-33"><a id="__codelineno-40-33" name="__codelineno-40-33" href="#__codelineno-40-33"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> hom A x y)</span>
+</span><span id="__span-40-34"><a id="__codelineno-40-34" name="__codelineno-40-34" href="#__codelineno-40-34"></a><span class="err">  </span><span class="p">(</span>g <span class="p">:</span><span class="err"> hom A y z)</span>
+</span><span id="__span-40-35"><a id="__codelineno-40-35" name="__codelineno-40-35" href="#__codelineno-40-35"></a><span class="err">  : is-equiv</span>
+</span><span id="__span-40-36"><a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a><span class="err">      </span><span class="p">(</span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (Segal-comp A is-segal-A x y z f g) = h)</span>
+</span><span id="__span-40-37"><a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a><span class="err">      </span><span class="p">(</span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (hom2 A x y z f g h))</span>
+</span><span id="__span-40-38"><a id="__codelineno-40-38" name="__codelineno-40-38" href="#__codelineno-40-38"></a><span class="err">      (Segal-eq-to-hom2-total-map A is-segal-A x y z f g)</span>
+</span><span id="__span-40-39"><a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a><span class="err">  :=</span>
+</span><span id="__span-40-40"><a id="__codelineno-40-40" name="__codelineno-40-40" href="#__codelineno-40-40"></a><span class="err">    is-equiv-are-contr</span>
+</span><span id="__span-40-41"><a id="__codelineno-40-41" name="__codelineno-40-41" href="#__codelineno-40-41"></a><span class="err">    </span><span class="p">( </span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (Segal-comp A is-segal-A x y z f g) = h)</span>
+</span><span id="__span-40-42"><a id="__codelineno-40-42" name="__codelineno-40-42" href="#__codelineno-40-42"></a><span class="err">    </span><span class="p">( </span>Σ (h <span class="p">:</span><span class="err"> hom A x z) , (hom2 A x y z f g h))</span>
+</span><span id="__span-40-43"><a id="__codelineno-40-43" name="__codelineno-40-43" href="#__codelineno-40-43"></a><span class="err">    ( is-contr-based-paths (hom A x z) (Segal-comp A is-segal-A x y z f g) )</span>
+</span><span id="__span-40-44"><a id="__codelineno-40-44" name="__codelineno-40-44" href="#__codelineno-40-44"></a><span class="err">    ( is-segal-A x y z f g)</span>
+</span><span id="__span-40-45"><a id="__codelineno-40-45" name="__codelineno-40-45" href="#__codelineno-40-45"></a><span class="err">    ( Segal-eq-to-hom2-total-map A is-segal-A x y z f g)</span>
 </span></code></pre></div>
 <div class="language-rzk highlight"><span class="filename">RS17, Proposition 5.12</span><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Eq-Segal-eq-hom2</span>
 </span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
@@ -1844,23 +1859,23 @@ composition:</p>
 </span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a><span class="err">  </span><span class="p">(</span>q <span class="p">:</span><span class="err"> h = k)</span>
 </span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a><span class="err">  : (Segal-comp A is-segal-A x y z f h) = (Segal-comp A is-segal-A x y z g k)</span>
 </span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a><span class="err">  :=</span>
-</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a><span class="err">    </span><span class="s">idJ</span>
-</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a><span class="err">      ( ( hom A y z),</span>
-</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a><span class="err">        ( h),</span>
-</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a><span class="err">        ( </span><span class="p">\ </span>k&#39; q&#39; <span class="err">→</span>
-</span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a><span class="err">          (Segal-comp A is-segal-A x y z f h) =</span>
-</span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a><span class="err">          (Segal-comp A is-segal-A x y z g k&#39;)),</span>
-</span><span id="__span-42-17"><a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a><span class="err">        ( </span><span class="s">idJ</span>
-</span><span id="__span-42-18"><a id="__codelineno-42-18" name="__codelineno-42-18" href="#__codelineno-42-18"></a><span class="err">          ( ( hom A x y ),</span>
-</span><span id="__span-42-19"><a id="__codelineno-42-19" name="__codelineno-42-19" href="#__codelineno-42-19"></a><span class="err">            ( f),</span>
-</span><span id="__span-42-20"><a id="__codelineno-42-20" name="__codelineno-42-20" href="#__codelineno-42-20"></a><span class="err">            ( </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→</span>
-</span><span id="__span-42-21"><a id="__codelineno-42-21" name="__codelineno-42-21" href="#__codelineno-42-21"></a><span class="err">              (Segal-comp A is-segal-A x y z f h) =</span>
-</span><span id="__span-42-22"><a id="__codelineno-42-22" name="__codelineno-42-22" href="#__codelineno-42-22"></a><span class="err">              (Segal-comp A is-segal-A x y z g&#39; h)),</span>
-</span><span id="__span-42-23"><a id="__codelineno-42-23" name="__codelineno-42-23" href="#__codelineno-42-23"></a><span class="err">            ( </span><span class="s">refl</span><span class="err">),</span>
-</span><span id="__span-42-24"><a id="__codelineno-42-24" name="__codelineno-42-24" href="#__codelineno-42-24"></a><span class="err">            ( g),</span>
-</span><span id="__span-42-25"><a id="__codelineno-42-25" name="__codelineno-42-25" href="#__codelineno-42-25"></a><span class="err">            (p))),</span>
-</span><span id="__span-42-26"><a id="__codelineno-42-26" name="__codelineno-42-26" href="#__codelineno-42-26"></a><span class="err">        ( k),</span>
-</span><span id="__span-42-27"><a id="__codelineno-42-27" name="__codelineno-42-27" href="#__codelineno-42-27"></a><span class="err">        ( q))</span>
+</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a><span class="err">    ind-path</span>
+</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a><span class="err">      ( hom A y z)</span>
+</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a><span class="err">      ( h)</span>
+</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a><span class="err">      ( </span><span class="p">\ </span>k&#39; q&#39; <span class="err">→</span>
+</span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a><span class="err">        ( Segal-comp A is-segal-A x y z f h) =</span>
+</span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a><span class="err">        ( Segal-comp A is-segal-A x y z g k&#39;))</span>
+</span><span id="__span-42-17"><a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a><span class="err">      ( ind-path</span>
+</span><span id="__span-42-18"><a id="__codelineno-42-18" name="__codelineno-42-18" href="#__codelineno-42-18"></a><span class="err">        ( hom A x y )</span>
+</span><span id="__span-42-19"><a id="__codelineno-42-19" name="__codelineno-42-19" href="#__codelineno-42-19"></a><span class="err">        ( f)</span>
+</span><span id="__span-42-20"><a id="__codelineno-42-20" name="__codelineno-42-20" href="#__codelineno-42-20"></a><span class="err">        ( </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→</span>
+</span><span id="__span-42-21"><a id="__codelineno-42-21" name="__codelineno-42-21" href="#__codelineno-42-21"></a><span class="err">          ( Segal-comp A is-segal-A x y z f h) =</span>
+</span><span id="__span-42-22"><a id="__codelineno-42-22" name="__codelineno-42-22" href="#__codelineno-42-22"></a><span class="err">          ( Segal-comp A is-segal-A x y z g&#39; h))</span>
+</span><span id="__span-42-23"><a id="__codelineno-42-23" name="__codelineno-42-23" href="#__codelineno-42-23"></a><span class="err">        ( </span><span class="s">refl</span><span class="err">)</span>
+</span><span id="__span-42-24"><a id="__codelineno-42-24" name="__codelineno-42-24" href="#__codelineno-42-24"></a><span class="err">        ( g)</span>
+</span><span id="__span-42-25"><a id="__codelineno-42-25" name="__codelineno-42-25" href="#__codelineno-42-25"></a><span class="err">        ( p))</span>
+</span><span id="__span-42-26"><a id="__codelineno-42-26" name="__codelineno-42-26" href="#__codelineno-42-26"></a><span class="err">      ( k)</span>
+</span><span id="__span-42-27"><a id="__codelineno-42-27" name="__codelineno-42-27" href="#__codelineno-42-27"></a><span class="err">      ( q)</span>
 </span></code></pre></div>
 <p>As a special case of the above:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-homotopy-postwhisker</span>
@@ -1894,17 +1909,17 @@ composition:</p>
 </span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="err">  : (Segal-homotopy-postwhisker A is-segal-A x y z f g h p) =</span>
 </span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="err">    ap (hom A x y) (hom A x z) f g (</span><span class="p">\ </span>k <span class="err">→ Segal-comp A is-segal-A x y z k h) p</span>
 </span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a><span class="err">  :=</span>
-</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a><span class="err">    </span><span class="s">idJ</span>
-</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a><span class="err">    ( hom A x y,</span>
-</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a><span class="err">      f,</span>
-</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a><span class="err">      </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→</span>
-</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a><span class="err">      (Segal-homotopy-postwhisker A is-segal-A x y z f g&#39; h p&#39;) =</span>
-</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a><span class="err">      ap</span>
-</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a><span class="err">        (hom A x y) (hom A x z)</span>
-</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a><span class="err">        f g&#39; (</span><span class="p">\ </span>k <span class="err">→ Segal-comp A is-segal-A x y z k h) p&#39; ,</span>
-</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a><span class="err">      </span><span class="s">refl</span><span class="err"> ,</span>
-</span><span id="__span-45-20"><a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a><span class="err">      g ,</span>
-</span><span id="__span-45-21"><a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a><span class="err">      p)</span>
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a><span class="err">    ind-path</span>
+</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a><span class="err">      ( hom A x y)</span>
+</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a><span class="err">      ( f)</span>
+</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a><span class="err">      ( </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→</span>
+</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a><span class="err">        (Segal-homotopy-postwhisker A is-segal-A x y z f g&#39; h p&#39;) =</span>
+</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a><span class="err">        ap</span>
+</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a><span class="err">          (hom A x y) (hom A x z)</span>
+</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a><span class="err">          f g&#39; (</span><span class="p">\ </span>k <span class="err">→ Segal-comp A is-segal-A x y z k h) p&#39;)</span>
+</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a><span class="err">      ( </span><span class="s">refl</span><span class="err">)</span>
+</span><span id="__span-45-20"><a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a><span class="err">      ( g)</span>
+</span><span id="__span-45-21"><a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a><span class="err">      ( p)</span>
 </span></code></pre></div>
 <div class="language-rzk highlight"><span class="filename">RS17, Proposition 5.14(b)</span><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf">Segal-homotopy-prewhisker-is-ap</span>
 </span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
@@ -1916,15 +1931,15 @@ composition:</p>
 </span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="err">  : (Segal-homotopy-prewhisker A is-segal-A w x y k f g p) =</span>
 </span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a><span class="err">    ap (hom A x y) (hom A w y) f g (Segal-comp A is-segal-A w x y k) p</span>
 </span><span id="__span-46-10"><a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a><span class="err">  :=</span>
-</span><span id="__span-46-11"><a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a><span class="err">    </span><span class="s">idJ</span>
-</span><span id="__span-46-12"><a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a><span class="err">    ( hom A x y ,</span>
-</span><span id="__span-46-13"><a id="__codelineno-46-13" name="__codelineno-46-13" href="#__codelineno-46-13"></a><span class="err">      f ,</span>
-</span><span id="__span-46-14"><a id="__codelineno-46-14" name="__codelineno-46-14" href="#__codelineno-46-14"></a><span class="err">      </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→</span>
-</span><span id="__span-46-15"><a id="__codelineno-46-15" name="__codelineno-46-15" href="#__codelineno-46-15"></a><span class="err">      (Segal-homotopy-prewhisker A is-segal-A w x y k f g&#39; p&#39;) =</span>
-</span><span id="__span-46-16"><a id="__codelineno-46-16" name="__codelineno-46-16" href="#__codelineno-46-16"></a><span class="err">      ap (hom A x y) (hom A w y) f g&#39; (Segal-comp A is-segal-A w x y k) p&#39; ,</span>
-</span><span id="__span-46-17"><a id="__codelineno-46-17" name="__codelineno-46-17" href="#__codelineno-46-17"></a><span class="err">      </span><span class="s">refl</span><span class="err"> ,</span>
-</span><span id="__span-46-18"><a id="__codelineno-46-18" name="__codelineno-46-18" href="#__codelineno-46-18"></a><span class="err">      g ,</span>
-</span><span id="__span-46-19"><a id="__codelineno-46-19" name="__codelineno-46-19" href="#__codelineno-46-19"></a><span class="err">      p)</span>
+</span><span id="__span-46-11"><a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a><span class="err">    ind-path</span>
+</span><span id="__span-46-12"><a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a><span class="err">      ( hom A x y)</span>
+</span><span id="__span-46-13"><a id="__codelineno-46-13" name="__codelineno-46-13" href="#__codelineno-46-13"></a><span class="err">      ( f)</span>
+</span><span id="__span-46-14"><a id="__codelineno-46-14" name="__codelineno-46-14" href="#__codelineno-46-14"></a><span class="err">      ( </span><span class="p">\ </span>g&#39; p&#39; <span class="err">→</span>
+</span><span id="__span-46-15"><a id="__codelineno-46-15" name="__codelineno-46-15" href="#__codelineno-46-15"></a><span class="err">        (Segal-homotopy-prewhisker A is-segal-A w x y k f g&#39; p&#39;) =</span>
+</span><span id="__span-46-16"><a id="__codelineno-46-16" name="__codelineno-46-16" href="#__codelineno-46-16"></a><span class="err">        ap (hom A x y) (hom A w y) f g&#39; (Segal-comp A is-segal-A w x y k) p&#39;)</span>
+</span><span id="__span-46-17"><a id="__codelineno-46-17" name="__codelineno-46-17" href="#__codelineno-46-17"></a><span class="err">      ( </span><span class="s">refl</span><span class="err">)</span>
+</span><span id="__span-46-18"><a id="__codelineno-46-18" name="__codelineno-46-18" href="#__codelineno-46-18"></a><span class="err">      ( g)</span>
+</span><span id="__span-46-19"><a id="__codelineno-46-19" name="__codelineno-46-19" href="#__codelineno-46-19"></a><span class="err">      ( p)</span>
 </span><span id="__span-46-20"><a id="__codelineno-46-20" name="__codelineno-46-20" href="#__codelineno-46-20"></a>
 </span><span id="__span-46-21"><a id="__codelineno-46-21" name="__codelineno-46-21" href="#__codelineno-46-21"></a><span class="nd">#section</span><span class="n"> is-segal-Unit</span>
 </span><span id="__span-46-22"><a id="__codelineno-46-22" name="__codelineno-46-22" href="#__codelineno-46-22"></a>

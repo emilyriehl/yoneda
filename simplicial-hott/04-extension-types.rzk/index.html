@@ -969,13 +969,14 @@ axiom. Here we state the one that will be most useful and derive an application.
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="err">  </span><span class="p">( </span>f g <span class="p">:</span><span class="err"> </span><span class="p">(</span>t <span class="p">:</span><span class="err"> ψ) → A t [ ϕ t ↦ a t ])</span>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="err">  </span><span class="p">( </span>p <span class="p">:</span><span class="err"> f = g)</span>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="err">  : </span><span class="p">(</span>t <span class="p">:</span><span class="err"> ψ) → (f t = g t) [ ϕ t ↦ </span><span class="s">refl</span><span class="err"> ]</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="err">  := </span><span class="s">idJ</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="err">    </span><span class="p">( </span>( (t <span class="p">:</span><span class="err"> ψ) → A t [ ϕ t ↦ a t ]) ,</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="err">      ( f) ,</span>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="err">      </span><span class="p">( </span>\ g&#39; p&#39; → (t <span class="p">:</span><span class="err"> ψ) → (f t = g&#39; t) [ ϕ t ↦ </span><span class="s">refl</span><span class="err"> ]) ,</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="err">      ( </span><span class="p">\ </span>t <span class="err">→ </span><span class="s">refl</span><span class="err">) ,</span>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="err">      ( g) ,</span>
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="err">      ( p))</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="err">  :=</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="err">    ind-path</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="err">      </span><span class="p">( </span>(t <span class="p">:</span><span class="err"> ψ) → A t [ ϕ t ↦ a t ])</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="err">      ( f)</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="err">      </span><span class="p">( </span>\ g&#39; p&#39; → (t <span class="p">:</span><span class="err"> ψ) → (f t = g&#39; t) [ ϕ t ↦ </span><span class="s">refl</span><span class="err"> ])</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="err">      ( </span><span class="p">\ </span>t <span class="err">→ </span><span class="s">refl</span><span class="err">)</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="err">      ( g)</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="err">      ( p)</span>
 </span></code></pre></div>
 <p>The type that encodes the extension extensionality axiom. As suggested by
 footnote 8, we assert this as an "extension extensionality" axiom</p>
