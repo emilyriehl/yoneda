@@ -57,16 +57,16 @@ This is a literate `rzk` file:
   : ( transport A B (first s) (first t) (first-path-Σ s t e) (second s)) =
     ( second t)
   :=
-    idJ
-    ( ( Σ (a : A) , B a) ,
-      ( s) ,
+    ind-path
+      ( Σ (a : A) , B a)
+      ( s)
       ( \ t' e' →
         ( transport A B
           ( first s) (first t') (first-path-Σ s t' e') (second s)) =
-        ( second t')) ,
-      ( refl) ,
-      ( t) ,
-      ( e))
+        ( second t'))
+      ( refl)
+      ( t)
+      ( e)
 ```
 
 ```rzk title="Rijke 22, Definition 9.3.1"
@@ -94,7 +94,7 @@ A path in a fiber defines a path in the total space.
   ( u v : B x)
   ( p : u = v)
   : (x , u) =_{Σ (a : A) , B a} (x , v)
-  := idJ (B x , u , \ v' p' → (x , u) = (x , v') , refl , v , p)
+  := ind-path (B x) (u) (\ v' p' → (x , u) = (x , v')) (refl) (v) (p)
 ```
 
 The following is essentially `#!rzk eq-pair` but with explicit arguments.
@@ -108,15 +108,15 @@ The following is essentially `#!rzk eq-pair` but with explicit arguments.
     ( (transport A B x y p u) = v) →
     ( x , u) =_{Σ (z : A) , B z} (y , v)
   :=
-    idJ
-    ( ( A) ,
-      ( x) ,
+    ind-path
+      ( A)
+      ( x)
       ( \ y' p' → (u' : B x) → (v' : B y') →
         ((transport A B x y' p' u') = v') →
-        (x , u') =_{Σ (z : A) , B z} (y' , v')) ,
-      ( \ u' v' q' → (eq-eq-fiber-Σ x u' v' q')) ,
-      ( y) ,
-      ( p))
+        (x , u') =_{Σ (z : A) , B z} (y' , v'))
+      ( \ u' v' q' → (eq-eq-fiber-Σ x u' v' q'))
+      ( y)
+      ( p)
 ```
 
 ```rzk title="The inverse to pair-eq"
@@ -133,14 +133,13 @@ The following is essentially `#!rzk eq-pair` but with explicit arguments.
   ( e : s = t)
   : (eq-pair s t (pair-eq s t e)) = e
   :=
-    idJ
-    ( Σ (a : A) ,
-      B a ,
-      s ,
-      \ t' e' → (eq-pair s t' (pair-eq s t' e')) = e' ,
-      refl ,
-      t ,
-      e)
+    ind-path
+      ( Σ (a : A) , (B a))
+      ( s)
+      ( \ t' e' → (eq-pair s t' (pair-eq s t' e')) = e')
+      ( refl)
+      ( t)
+      ( e)
 ```
 
 Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
@@ -158,27 +157,28 @@ Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
       =_{Eq-Σ (s0 , s1) (t0 , t1)}
       ( e0 , e1))
   :=
-    idJ
-    ( A ,
-      s0 ,
+    ind-path
+      ( A)
+      ( s0)
       ( \ t0' e0' →
-        (t1 : B t0') → (e1 : (transport A B s0 t0' e0' s1) = t1) →
-        ( ( pair-eq (s0 , s1) (t0' , t1) (eq-pair (s0 , s1) (t0' , t1) (e0' , e1)))
-          =_{Eq-Σ (s0 , s1) (t0' , t1)}
-          ( e0' , e1))) ,
-      ( \ t1 e1 →
-        idJ
-        ( B s0 ,
-          s1 ,
-          \ t1' e1' →
-            ( pair-eq (s0 , s1) (s0 , t1')
-              ( eq-pair (s0 , s1) (s0 , t1') (refl , e1')))
-              =_{Eq-Σ (s0 , s1) (s0 , t1')} (refl , e1') ,
-          refl ,
-          t1 ,
-          e1)) ,
-      t0 ,
-      e0)
+        ( t1 : B t0') →
+        ( e1 : (transport A B s0 t0' e0' s1) = t1) →
+        ( pair-eq (s0 , s1) (t0' , t1) (eq-pair (s0 , s1) (t0' , t1) (e0' , e1)))
+        =_{Eq-Σ (s0 , s1) (t0' , t1)}
+        ( e0' , e1))
+      ( ind-path
+        ( B s0)
+        ( s1)
+        ( \ t1' e1' →
+          ( pair-eq
+            ( s0 , s1)
+            ( s0 , t1')
+            ( eq-pair (s0 , s1) (s0 , t1') (refl , e1')))
+          =_{Eq-Σ (s0 , s1) (s0 , t1')}
+          ( refl , e1'))
+        ( refl))
+      ( t0)
+      ( e0)
 
 #def pair-eq-eq-pair
   ( s t : Σ (a : A) , B a)
@@ -186,7 +186,7 @@ Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
   : ( pair-eq s t (eq-pair s t e)) =_{Eq-Σ s t} e
   :=
     pair-eq-eq-pair-split
-    ( first s) (second s) (first t) (first e) (second t) (second e)
+      ( first s) (second s) (first t) (first e) (second t) (second e)
 
 #def Eq-Σ-equiv
   ( s t : Σ (a : A) , B a)
@@ -215,13 +215,13 @@ Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
   ( c : C a b)
   : C a' b'
   :=
-    idJ
-    ( B ,
-      b ,
-      \ b'' q' → C a' b'' ,
-      idJ (A , a , \ a'' p' → C a'' b , c , a' , p) ,
-      b' ,
-      q)
+    ind-path
+      ( B)
+      ( b)
+      ( \ b'' q' → C a' b'')
+      ( ind-path (A) (a) (\ a'' p' → C a'' b) (c) (a') (p))
+      ( b')
+      ( q)
 
 #def Eq-Σ-over-product
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))
@@ -246,13 +246,13 @@ Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
   ( e : s = t)
   : Eq-Σ-over-product s t
   :=
-    idJ
-    ( Σ (a : A) , (Σ (b : B) , C a b) ,
-      s ,
-      \ t' e' → (Eq-Σ-over-product s t') ,
-      ( refl , (refl , refl)) ,
-      t ,
-      e)
+    ind-path
+      ( Σ (a : A) , (Σ (b : B) , C a b))
+      ( s)
+      ( \ t' e' → (Eq-Σ-over-product s t'))
+      ( ( refl , (refl , refl)))
+      ( t)
+      ( e)
 ```
 
 It's surprising that the following typechecks since we defined product-transport
@@ -270,20 +270,21 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
     ( r : product-transport a a' u u' p q c = c') →
     ( (a, (u, c)) =_{(Σ (x : A), (Σ (y : B) , C x y))} (a', (u', c')))
   :=
-    idJ
-    ( ( A) ,
-      ( a) ,
+    ind-path
+      ( A)
+      ( a)
       ( \ a'' p' →
-        (q : u = u') →
-        (c' : C a'' u') →
-        (r : product-transport a a'' u u' p' q c = c') →
-        ( (a, (u, c)) =_{(Σ (x : A) , (Σ (y : B), C x y))} (a'', (u', c')))) ,
+        ( q : u = u') →
+        ( c' : C a'' u') →
+        ( r : product-transport a a'' u u' p' q c = c') →
+        ( (a, (u, c)) =_{(Σ (x : A) , (Σ (y : B), C x y))} (a'', (u', c'))))
       ( \ q c' r →
-        ( eq-eq-fiber-Σ A (\x → (Σ (v : B) , C x v)) a
+        eq-eq-fiber-Σ
+          ( A) (\x → (Σ (v : B) , C x v)) (a)
           ( u, c) ( u', c')
-          ( path-of-pairs-pair-of-paths B (\y → C a y) u u' q c c' r))) ,
-      ( a') ,
-      ( p))
+          ( path-of-pairs-pair-of-paths B (\y → C a y) u u' q c c' r))
+      ( a')
+      ( p)
 
 #def eq-triple
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))
@@ -302,13 +303,13 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
   ( e : s = t)
   : (eq-triple s t (triple-eq s t e)) = e
   :=
-    idJ
-    ( ( Σ (a : A) , (Σ (b : B) , C a b)) ,
-      ( s) ,
-      ( \ t' e' → (eq-triple s t' (triple-eq s t' e')) = e') ,
-      ( refl) ,
-      ( t) ,
-      ( e))
+    ind-path
+      ( Σ (a : A) , (Σ (b : B) , C a b))
+      ( s)
+      ( \ t' e' → (eq-triple s t' (triple-eq s t' e')) = e')
+      ( refl)
+      ( t)
+      ( e)
 ```
 
 Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
@@ -318,8 +319,9 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
   ( a a' : A)
   ( b b' : B)
   ( c : C a b)
-  ( p : a = a')
-  : ( q : b = b') →
+
+  : ( p : a = a') →
+    ( q : b = b') →
     ( c' : C a' b') →
     ( r : product-transport a a' b b' p q c = c') →
     ( triple-eq
@@ -327,9 +329,9 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
       ( eq-triple (a , (b , c)) (a' , (b' , c')) (p , (q , r)))) =
     ( p , (q , r))
   :=
-    idJ
-    ( ( A) ,
-      ( a) ,
+    ind-path
+      ( A)
+      ( a)
       ( \ a'' p' →
         ( q : b = b') →
         ( c' : C a'' b') →
@@ -337,36 +339,30 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
         ( triple-eq
           ( a , (b , c)) (a'' , (b' , c'))
           ( eq-triple (a , (b , c)) (a'' , (b' , c')) (p' , (q , r)))) =
-        ( p' , (q , r))) ,
-      \ q →
-        idJ
-        ( ( B) ,
-          ( b) ,
-          ( \ b'' q' →
-            ( c' : C a b'') →
-            ( r : product-transport a a b b'' refl q' c = c') →
-            ( triple-eq
-              ( a , (b , c)) (a , (b'' , c'))
-              ( eq-triple (a , (b , c)) (a , (b'' , c')) (refl , (q' , r)))) =
-              ( refl , (q' , r))) ,
-          ( \ c' r →
-            idJ
-            ( ( C a b) ,
-              ( c) ,
-              ( \ c'' r' →
-                triple-eq
+        ( p' , (q , r)))
+      ( ind-path
+        ( B)
+        ( b)
+        ( \ b'' q' →
+          ( c' : C a b'') →
+          ( r : product-transport a a b b'' refl q' c = c') →
+          ( triple-eq
+            ( a , (b , c)) (a , (b'' , c'))
+            ( eq-triple (a , (b , c)) (a , (b'' , c')) (refl , (q' , r)))) =
+          ( refl , (q' , r)))
+        ( ind-path
+            ( C a b)
+            ( c)
+            ( \ c'' r' →
+              triple-eq
+                ( a , (b , c)) (a , (b , c''))
+                ( eq-triple
                   ( a , (b , c)) (a , (b , c''))
-                  ( eq-triple
-                    ( a , (b , c)) (a , (b , c''))
-                    ( refl , (refl , r'))) =
-                  ( refl , (refl , r'))) ,
-              ( refl) ,
-              ( c') ,
-              ( r))) ,
-          ( b') ,
-          ( q)) ,
-      ( a') ,
-      ( p))
+                  ( refl , (refl , r'))) =
+                ( refl , (refl , r')))
+            ( refl))
+        ( b'))
+      ( a')
 
 #def triple-eq-eq-triple
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))

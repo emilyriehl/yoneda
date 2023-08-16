@@ -977,9 +977,14 @@ arrow.
   (f g : hom A x y)
   (p : f = g)
   : (hom2 A x x y (id-arr A x) f g)
-  := idJ (hom A x y , f ,
-          \ g' p' → (hom2 A x x y (id-arr A x) f g') ,
-          (id-comp-witness A x y f) , g , p)
+  :=
+    ind-path
+      ( hom A x y)
+      ( f)
+      ( \ g' p' → (hom2 A x x y (id-arr A x) f g'))
+      ( id-comp-witness A x y f)
+      ( g)
+      ( p)
 
 #def homotopy-to-hom2-total-map
   (A : U)
@@ -1034,9 +1039,14 @@ A dual notion of homotopy can be defined similarly.
   (f g : hom A x y)
   (p : f = g)
   : (hom2 A x y y f (id-arr A y) g)
-  := idJ (hom A x y , f ,
-          \ g' p' → (hom2 A x y y f (id-arr A y) g') ,
-          (comp-id-witness A x y f) , g , p)
+  :=
+    ind-path
+      ( hom A x y)
+      ( f)
+      ( \ g' p' → (hom2 A x y y f (id-arr A y) g'))
+      ( comp-id-witness A x y f)
+      ( g)
+      ( p)
 
 #def homotopy-to-hom2'-total-map
   (A : U)
@@ -1095,9 +1105,14 @@ the data provided by a commutative triangle with that boundary.
   (h : hom A x z)
   (p : (Segal-comp A is-segal-A x y z f g) = h)
   : (hom2 A x y z f g h)
-  := idJ (hom A x z , (Segal-comp A is-segal-A x y z f g) ,
-          \ h' p' → (hom2 A x y z f g h') ,
-          Segal-comp-witness A is-segal-A x y z f g , h , p)
+  :=
+    ind-path
+      ( hom A x z)
+      ( Segal-comp A is-segal-A x y z f g)
+      ( \ h' p' → hom2 A x y z f g h')
+      ( Segal-comp-witness A is-segal-A x y z f g)
+      ( h)
+      ( p)
 
 #def Segal-eq-to-hom2-total-map
   (A : U)
@@ -1162,23 +1177,23 @@ composition:
   (q : h = k)
   : (Segal-comp A is-segal-A x y z f h) = (Segal-comp A is-segal-A x y z g k)
   :=
-    idJ
-      ( ( hom A y z),
-        ( h),
-        ( \ k' q' →
-          (Segal-comp A is-segal-A x y z f h) =
-          (Segal-comp A is-segal-A x y z g k')),
-        ( idJ
-          ( ( hom A x y ),
-            ( f),
-            ( \ g' p' →
-              (Segal-comp A is-segal-A x y z f h) =
-              (Segal-comp A is-segal-A x y z g' h)),
-            ( refl),
-            ( g),
-            (p))),
-        ( k),
-        ( q))
+    ind-path
+      ( hom A y z)
+      ( h)
+      ( \ k' q' →
+        ( Segal-comp A is-segal-A x y z f h) =
+        ( Segal-comp A is-segal-A x y z g k'))
+      ( ind-path
+        ( hom A x y )
+        ( f)
+        ( \ g' p' →
+          ( Segal-comp A is-segal-A x y z f h) =
+          ( Segal-comp A is-segal-A x y z g' h))
+        ( refl)
+        ( g)
+        ( p))
+      ( k)
+      ( q)
 ```
 
 As a special case of the above:
@@ -1220,17 +1235,17 @@ As a special case of the above:
   : (Segal-homotopy-postwhisker A is-segal-A x y z f g h p) =
     ap (hom A x y) (hom A x z) f g (\ k → Segal-comp A is-segal-A x y z k h) p
   :=
-    idJ
-    ( hom A x y,
-      f,
-      \ g' p' →
-      (Segal-homotopy-postwhisker A is-segal-A x y z f g' h p') =
-      ap
-        (hom A x y) (hom A x z)
-        f g' (\ k → Segal-comp A is-segal-A x y z k h) p' ,
-      refl ,
-      g ,
-      p)
+    ind-path
+      ( hom A x y)
+      ( f)
+      ( \ g' p' →
+        (Segal-homotopy-postwhisker A is-segal-A x y z f g' h p') =
+        ap
+          (hom A x y) (hom A x z)
+          f g' (\ k → Segal-comp A is-segal-A x y z k h) p')
+      ( refl)
+      ( g)
+      ( p)
 ```
 
 ```rzk title="RS17, Proposition 5.14(b)"
@@ -1244,15 +1259,15 @@ As a special case of the above:
   : (Segal-homotopy-prewhisker A is-segal-A w x y k f g p) =
     ap (hom A x y) (hom A w y) f g (Segal-comp A is-segal-A w x y k) p
   :=
-    idJ
-    ( hom A x y ,
-      f ,
-      \ g' p' →
-      (Segal-homotopy-prewhisker A is-segal-A w x y k f g' p') =
-      ap (hom A x y) (hom A w y) f g' (Segal-comp A is-segal-A w x y k) p' ,
-      refl ,
-      g ,
-      p)
+    ind-path
+      ( hom A x y)
+      ( f)
+      ( \ g' p' →
+        (Segal-homotopy-prewhisker A is-segal-A w x y k f g' p') =
+        ap (hom A x y) (hom A w y) f g' (Segal-comp A is-segal-A w x y k) p')
+      ( refl)
+      ( g)
+      ( p)
 
 #section is-segal-Unit
 

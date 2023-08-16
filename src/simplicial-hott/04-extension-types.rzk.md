@@ -213,13 +213,14 @@ axiom. Here we state the one that will be most useful and derive an application.
   ( f g : (t : ψ) → A t [ ϕ t ↦ a t ])
   ( p : f = g)
   : (t : ψ) → (f t = g t) [ ϕ t ↦ refl ]
-  := idJ
-    ( ( (t : ψ) → A t [ ϕ t ↦ a t ]) ,
-      ( f) ,
-      ( \ g' p' → (t : ψ) → (f t = g' t) [ ϕ t ↦ refl ]) ,
-      ( \ t → refl) ,
-      ( g) ,
-      ( p))
+  :=
+    ind-path
+      ( (t : ψ) → A t [ ϕ t ↦ a t ])
+      ( f)
+      ( \ g' p' → (t : ψ) → (f t = g' t) [ ϕ t ↦ refl ])
+      ( \ t → refl)
+      ( g)
+      ( p)
 ```
 
 The type that encodes the extension extensionality axiom. As suggested by

@@ -40,12 +40,13 @@ maps.
     → fib (B (first w)) (C (first w)) (f (first w)) (second w)
   :=
     \ (z , p) →
-      idJ
-      ( (Σ (x : A) , C x) ,
-        ((total-map-family-of-maps A B C f) z) ,
-        \ w' p' → fib (B (first w')) (C (first w')) (f (first w')) (second w') , ((second z) , refl) ,
-        w ,
-        p)
+    ind-path
+      ( Σ (x : A) , C x)
+      ( total-map-family-of-maps A B C f z)
+      ( \ w' p' → fib (B (first w')) (C (first w')) (f (first w')) (second w'))
+      ( second z , refl)
+      ( w)
+      ( p)
 
 #def total-map-to-fiber-retraction
   (A : U)
@@ -57,19 +58,19 @@ maps.
     ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f) w)
     ( total-map-to-fiber A B C f w)
   :=
-    ( total-map-from-fiber A B C f w ,
-      \ (b , p) →
-        idJ
-        ( (C (first w)) ,
-          (f (first w) b) ,
-          \ w1 p' →
-            ((total-map-from-fiber A B C f ((first w , w1)))
-              ((total-map-to-fiber A B C f (first w , w1)) (b , p')))
+    ( ( total-map-from-fiber A B C f w) ,
+      ( \ (b , p) →
+        ind-path
+          ( C (first w))
+          ( f (first w) b)
+          ( \ w1 p' →
+            ( ( total-map-from-fiber A B C f ((first w , w1)))
+              ( (total-map-to-fiber A B C f (first w , w1)) (b , p')))
             =_{(fib (B (first w)) (C (first w)) (f (first w)) (w1))}
-            (b , p') ,
-          refl ,
-          (second w) ,
-          p))
+            ( b , p'))
+          ( refl)
+          ( second w)
+          ( p)))
 
 #def total-map-to-fiber-section
   (A : U)
@@ -81,18 +82,18 @@ maps.
     ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f) w)
     ( total-map-to-fiber A B C f w)
   :=
-    ( total-map-from-fiber A B C f w ,
-      \ (z , p) →
-        idJ
-        ( (Σ (x : A) , C x) ,
-          ((first z , f (first z) (second z))) ,
-          \ w' p' →
-            ( (total-map-to-fiber A B C f w')
-              ( (total-map-from-fiber A B C f w') (z , p'))) =
-            ( z , p') ,
-          refl ,
-          w ,
-          p))
+    ( ( total-map-from-fiber A B C f w) ,
+      ( \ (z , p) →
+        ind-path
+          ( Σ (x : A) , C x)
+          ( first z , f (first z) (second z))
+          ( \ w' p' →
+            ( ( total-map-to-fiber A B C f w')
+              ( ( total-map-from-fiber A B C f w') (z , p'))) =
+            ( z , p'))
+          ( refl)
+          ( w)
+          ( p)))
 
 #def total-map-to-fiber-is-equiv
   (A : U)
@@ -420,14 +421,14 @@ map.
   : (pullback-comparison-fiber A B f C z) → (fib A B f (first z))
   :=
     \ (w , p) →
-      idJ
-      ( (Σ (b : B) , C b) ,
-        (pullback-comparison-map A B f C w) ,
-        \ z' p' →
-          ( fib A B f (first z')) ,
-        (first w , refl) ,
-        z ,
-        p)
+    ind-path
+      ( Σ (b : B) , C b)
+      ( pullback-comparison-map A B f C w)
+      ( \ z' p' →
+        ( fib A B f (first z')))
+      ( first w , refl)
+      ( z)
+      ( p)
 
 #def from-base-fiber-to-pullback-comparison-fiber
   (A B : U)
@@ -437,14 +438,14 @@ map.
   : (fib A B f b) → (c : C b) → (pullback-comparison-fiber A B f C (b , c))
   :=
     \ (a , p) →
-        idJ
-        ( B ,
-          f a ,
-          \ b' p' →
-            (c : C b') → (pullback-comparison-fiber A B f C ((b' , c))) ,
-          \ c → ((a , c) , refl) ,
-          b ,
-          p)
+    ind-path
+      ( B)
+      ( f a)
+      ( \ b' p' →
+          (c : C b') → (pullback-comparison-fiber A B f C ((b' , c))))
+      ( \ c → ((a , c) , refl))
+      ( b)
+      ( p)
 
 #def pullback-comparison-fiber-to-fiber-inv
   (A B : U)
@@ -466,15 +467,16 @@ map.
   : ( (pullback-comparison-fiber-to-fiber-inv A B f C z)
       ( (pullback-comparison-fiber-to-fiber A B f C z) (w , p))) = (w , p)
   :=
-    idJ
-    ( (Σ (b : B) , C b) ,
-      (pullback-comparison-map A B f C w) ,
-      \ z' p' →
-        ((pullback-comparison-fiber-to-fiber-inv A B f C z')
-          ((pullback-comparison-fiber-to-fiber A B f C z') (w , p'))) = (w , p') ,
-      refl ,
-      z ,
-      p)
+    ind-path
+      ( Σ (b : B) , C b)
+      ( pullback-comparison-map A B f C w)
+      ( \ z' p' →
+        ( ( pullback-comparison-fiber-to-fiber-inv A B f C z')
+          ( ( pullback-comparison-fiber-to-fiber A B f C z') (w , p'))) =
+        ( w , p'))
+      ( refl)
+      ( z)
+      ( p)
 
 #def pullback-comparison-fiber-to-fiber-section-homotopy-map
   (A B : U)
@@ -487,16 +489,17 @@ map.
         ((pullback-comparison-fiber-to-fiber-inv A B f C (b , c)) (a , p))) =
       (a , p)
   :=
-    idJ
-    ( B ,
-      f a ,
-      \ b' p' → (c : C b') →
-        ( (pullback-comparison-fiber-to-fiber A B f C (b' , c))
+    ind-path
+      ( B)
+      ( f a)
+      ( \ b' p' →
+        ( c : C b') →
+        ( ( pullback-comparison-fiber-to-fiber A B f C (b' , c))
           ( (pullback-comparison-fiber-to-fiber-inv A B f C (b' , c)) (a , p'))) =
-        ( a , p') ,
-      \ c → refl ,
-      b ,
-      p)
+        ( a , p'))
+      ( \ c → refl)
+      ( b)
+      ( p)
 
 #def pullback-comparison-fiber-to-fiber-section-homotopy
   (A B : U)
