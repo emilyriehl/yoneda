@@ -8,8 +8,7 @@ This is a literate `rzk` file:
 
 ## Contractible types
 
-```rzk
--- contractible types
+```rzk title="The type of contractibility proofs"
 #def is-contr (A : U) : U
   := Σ (x : A) , ((y : A) → x = y)
 ```
@@ -25,8 +24,9 @@ This is a literate `rzk` file:
 #def contraction-center
   : A
   := (first is-contr-A)
+```
 
--- The path from the contraction center to any point.
+```rzk title="The path from the contraction center to any point"
 #def contracting-htpy
   : ( z : A) → contraction-center = z
   := second is-contr-A
@@ -45,8 +45,9 @@ This is a literate `rzk` file:
   :=
     ( left-inverse-concat A contraction-center contraction-center
       ( contracting-htpy contraction-center))
+```
 
--- A path between an arbitrary pair of types in a contractible type.
+```rzk title="A path between any pair of terms in a contractible type"
 #def contractible-connecting-htpy uses (is-contr-A)
   (x y : A)
   : x = y
@@ -73,8 +74,9 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
   ( x y : Unit)
   : x = y
   := refl
+```
 
--- Terminal projection as a constant map
+```rzk title="The terminal projection as a constant map"
 #def terminal-map
   ( A : U)
   : A → Unit
@@ -89,7 +91,7 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
   : has-retraction (x = y) Unit (terminal-map (x = y))
   :=
     ( \ a → refl ,
-      \ p → idJ (Unit , x , \ y' p' → refl =_{x = y'} p' , refl , y , p))
+      \ p → ind-path (Unit) (x) (\ y' p' → refl =_{x = y'} p') (refl) (y) (p))
 
 #def terminal-map-of-path-types-of-Unit-has-sec
   ( x y : Unit)
@@ -159,7 +161,7 @@ A type is contractible if and only if its terminal map is an equivalence.
       ( second
         ( comp-equiv B A Unit
           ( inv-equiv A B f)
-          ( (terminal-map A) ,
+          ( ( terminal-map A) ,
             ( contr-implies-terminal-map-is-equiv A is-contr-A)))))
 
 #def equiv-with-contractible-codomain-implies-contractible-domain
@@ -195,9 +197,7 @@ A type is contractible if and only if its terminal map is an equivalence.
 
 A retract of contractible types is contractible.
 
-```rzk
--- A type that records a proof that A is a retract of B.
--- Very similar to has-retraction.
+```rzk title="The type of proofs that A is a retract of B"
 #def is-retract-of
   ( A B : U)
   : U
@@ -206,28 +206,30 @@ A retract of contractible types is contractible.
 #section retraction-data
 
 #variables A B : U
-#variable AretractB : is-retract-of A B
+#variable is-retract-of-A-B : is-retract-of A B
 
 #def is-retract-of-section
   : A → B
-  := first AretractB
+  := first is-retract-of-A-B
 
 #def is-retract-of-retraction
   : B → A
-  := first (second AretractB)
+  := first (second is-retract-of-A-B)
 
 #def is-retract-of-homotopy
   : homotopy A A (composition A B A is-retract-of-retraction is-retract-of-section) (identity A)
-  := second (second AretractB)
+  := second (second is-retract-of-A-B)
+```
 
--- If A is a retract of a contractible type it has a term.
-#def is-retract-of-is-contr-isInhabited uses (AretractB)
+```rzk title="If A is a retract of a contractible type it has a term"
+#def is-retract-of-is-contr-isInhabited uses (is-retract-of-A-B)
   ( is-contr-B : is-contr B)
   : A
   := is-retract-of-retraction (contraction-center B is-contr-B)
+```
 
--- If A is a retract of a contractible type it has a contracting homotopy.
-#def is-retract-of-is-contr-hasHtpy uses (AretractB)
+```rzk title="If A is a retract of a contractible type it has a contracting homotopy"
+#def is-retract-of-is-contr-hasHtpy uses (is-retract-of-A-B)
   ( is-contr-B : is-contr B)
   ( a : A)
   : ( is-retract-of-is-contr-isInhabited is-contr-B) = a
@@ -240,23 +242,24 @@ A retract of contractible types is contractible.
         ( is-retract-of-retraction)
         ( contracting-htpy B is-contr-B (is-retract-of-section a)))
       ( is-retract-of-homotopy a)
+```
 
--- If A is a retract of a contractible type it is contractible.
-#def is-retract-of-is-contr-is-contr uses (AretractB)
+```rzk title="If A is a retract of a contractible type it is contractible"
+#def is-contr-is-retract-of-is-contr uses (is-retract-of-A-B)
   ( is-contr-B : is-contr B)
   : is-contr A
   :=
     ( is-retract-of-is-contr-isInhabited is-contr-B ,
       is-retract-of-is-contr-hasHtpy is-contr-B)
+```
 
+```rzk
 #end retraction-data
 ```
 
 ## Functions between contractible types
 
-A function between contractible types is an equivalence
-
-```rzk
+```rzk title="Any function between contractible types is an equivalence"
 #def is-equiv-are-contr
   ( A B : U)
   ( is-contr-A : is-contr A)
@@ -271,23 +274,21 @@ A function between contractible types is an equivalence
                 (f (contraction-center A is-contr-A)) b))
 ```
 
-A type equivalent to a contractible type is contractible.
-
-```rzk
+```rzk title="A type equivalent to a contractible type is contractible"
 #def is-contr-is-equiv-to-contr
   ( A B : U)
   ( e : Equiv A B)
   ( is-contr-B : is-contr B)
   : is-contr A
   :=
-    is-retract-of-is-contr-is-contr A B (first e , first (second e)) is-contr-B
+    is-contr-is-retract-of-is-contr A B (first e , first (second e)) is-contr-B
 
 #def is-contr-is-equiv-from-contr
   ( A B : U)
   ( e : Equiv A B)
   ( is-contr-A : is-contr A)
   : is-contr B
-  := is-retract-of-is-contr-is-contr B A
+  := is-contr-is-retract-of-is-contr B A
       ( first (second (second e)) , (first e , second (second (second e))))
       ( is-contr-A)
 ```
@@ -296,54 +297,58 @@ A type equivalent to a contractible type is contractible.
 
 For example, we prove that based path spaces are contractible.
 
-```rzk
--- Transport in the space of paths starting at a is concatenation.
+```rzk title="Transport in the space of paths starting at a is concatenation"
 #def concat-as-based-transport
-  ( A : U)             -- The ambient type.
-  ( a x y : A)         -- The basepoint and two other points.
-  ( p : a = x)         -- An element of the based path space.
-  ( q : x = y)         -- A path in the base.
+  ( A : U)
+  ( a x y : A)
+  ( p : a = x)
+  ( q : x = y)
   : ( transport A (\ z → (a = z)) x y q p) = (concat A a x y p q)
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' q' →
-        ( transport A (\ z → (a = z)) x y' q' p) = (concat A a x y' p q') ,
-      refl ,
-      y ,
-      q)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' q' →
+        ( transport A (\ z → (a = z)) x y' q' p) = (concat A a x y' p q'))
+      ( refl)
+      ( y)
+      ( q)
+```
 
--- The center of contraction in the based path space is `(a , refl)`
-#def based-paths-center
-  ( A : U)         -- The ambient type.
-  ( a : A)         -- The basepoint.
+The center of contraction in the based path space is `#!rzk (a , refl)`.
+
+```rzk title="The center of contraction in the based path space"
+#def center-based-paths
+  ( A : U)
+  ( a : A)
   : Σ (x : A) , (a = x)
-  := ( a , refl)
+  := (a , refl)
+```
 
--- The contracting homotopy.
-#def based-paths-contracting-homotopy
-  ( A : U)                     -- The ambient type.
-  ( a : A)                     -- The basepoint.
-  ( p : Σ (x : A) , a = x)      -- Another based path.
-  : (based-paths-center A a) = p
+```rzk title="The contracting homotopy in the based path space"
+#def contracting-homotopy-based-paths
+  ( A : U)
+  ( a : A)
+  ( p : Σ (x : A) , a = x)
+  : (center-based-paths A a) = p
   :=
     path-of-pairs-pair-of-paths
       A ( \ z → a = z) a (first p) (second p) (refl) (second p)
-        (concat
-          ( a = (first p))
-          ( transport A (\ z → (a = z)) a (first p) (second p) (refl))
-          ( concat A a a (first p) (refl) (second p))
-          ( second p)
-          ( concat-as-based-transport A a a (first p) (refl) (second p))
-          ( left-unit-concat A a (first p) (second p)))
+      ( concat
+        ( a = (first p))
+        ( transport A (\ z → (a = z)) a (first p) (second p) (refl))
+        ( concat A a a (first p) (refl) (second p))
+        ( second p)
+        ( concat-as-based-transport A a a (first p) (refl) (second p))
+        ( left-unit-concat A a (first p) (second p)))
+```
 
--- Based path spaces are contractible
+```rzk title="Based path spaces are contractible"
 #def is-contr-based-paths
-  ( A : U)         -- The ambient type.
-  ( a : A)         -- The basepoint.
+  ( A : U)
+  ( a : A)
   : is-contr (Σ (x : A) , a = x)
-  := ( based-paths-center A a , based-paths-contracting-homotopy A a)
+  := (center-based-paths A a , contracting-homotopy-based-paths A a)
 ```
 
 ## Contractible products
@@ -430,12 +435,21 @@ A type is contractible if and only if it has singleton induction.
   ( a : A)
   ( B : A → U)
   ( singleton-ind-A : has-singleton-induction-pointed A a B)
-  : ( homotopy (B a) (B a) (composition (B a) ((x : A) → B x) (B a) (ev-pt A a B) (ind-sing A a B singleton-ind-A)) (identity (B a)))
+  : ( homotopy
+      ( B a)
+      ( B a)
+      ( composition
+        ( B a)
+        ( (x : A) → B x)
+        ( B a)
+        ( ev-pt A a B)
+        ( ind-sing A a B singleton-ind-A))
+      ( identity (B a)))
   := (second singleton-ind-A)
 
 #def contr-implies-singleton-induction-ind
   ( A : U)
-  (is-contr-A : is-contr A)
+  ( is-contr-A : is-contr A)
   : (has-singleton-induction A)
   :=
     ( ( contraction-center A is-contr-A) ,

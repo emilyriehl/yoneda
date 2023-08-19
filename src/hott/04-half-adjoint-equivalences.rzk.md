@@ -8,8 +8,10 @@ This is a literate `rzk` file:
 
 ## Half adjoint equivalences
 
+We'll require a more coherent notion of equivalence. Namely, the notion of
+**half adjoint equivalences**.
+
 ```rzk
--- We'll require a more coherent notion of equivalence
 #def is-half-adjoint-equiv
   ( A B : U)
   ( f : A → B)
@@ -18,23 +20,30 @@ This is a literate `rzk` file:
     Σ ( has-inverse-f : (has-inverse A B f)) ,
       ( ( a : A) →
         ( second (second has-inverse-f) (f a)) =
-        ( ap A B ( has-inverse-retraction-composite A B f has-inverse-f a) a
-          ( f) ( ( ( first ( second has-inverse-f))) a)))
+        ( ap A B
+          ( has-inverse-retraction-composite A B f has-inverse-f a)
+          ( a)
+          ( f)
+          ( first (second has-inverse-f) a)))
+```
 
--- By function extensionality, the previous definition coincides with the
--- following one:
+By function extensionality, the previous definition coincides with the following
+one:
+
+```rzk
 #def is-half-adjoint-equiv'
   (A B : U)
   (f : A → B)
   : U
-  := Σ ( has-inverse-f : (has-inverse A B f)) ,
-       ( ( a : A) →
-         ( second (second has-inverse-f) (f a)) =
-           ( ap A B
-            ( has-inverse-retraction-composite A B f has-inverse-f a)
-            ( a)
-            ( f)
-            ( first (second has-inverse-f) a)))
+  :=
+    Σ ( has-inverse-f : (has-inverse A B f)) ,
+      ( ( a : A) →
+        ( second (second has-inverse-f) (f a)) =
+          ( ap A B
+          ( has-inverse-retraction-composite A B f has-inverse-f a)
+          ( a)
+          ( f)
+          ( first (second has-inverse-f) a)))
 ```
 
 ## Coherence data from an invertible map
@@ -96,8 +105,11 @@ following naturality square.
     ( has-inverse-retraction-composite A B f has-inverse-f a)
     ( a)
     ( has-inverse-kept-htpy A B f has-inverse-f a)
+```
 
--- building a path that will be whiskered into the naturality square above
+We build a path that will be whiskered into the naturality square above:
+
+```rzk
 #def has-inverse-cocone-homotopy-coherence
   : has-inverse-kept-htpy A B f has-inverse-f
       ( has-inverse-retraction-composite A B f has-inverse-f a) =
@@ -180,9 +192,12 @@ following naturality square.
         ( has-inverse-retraction-composite A B f has-inverse-f)
         ( f)
         ( has-inverse-kept-htpy A B f has-inverse-f a))
+```
 
--- This morally gives the half adjoint inverse coherence.
--- It just requires rotation.
+This morally gives the half adjoint inverse coherence. It just requires
+rotation.
+
+```rzk
 #def has-inverse-replaced-naturality-square
   : concat B
     ( has-inverse-quintuple-composite A B f has-inverse-f a)
@@ -205,7 +220,8 @@ following naturality square.
     ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a f
       ( has-inverse-kept-htpy A B f has-inverse-f a))
   :=
-    concat (has-inverse-quintuple-composite A B f has-inverse-f a = f a)
+    concat
+      ( has-inverse-quintuple-composite A B f has-inverse-f a = f a)
       ( concat B
         ( has-inverse-quintuple-composite A B f has-inverse-f a)
         ( has-inverse-triple-composite A B f has-inverse-f a)
@@ -249,8 +265,11 @@ following naturality square.
         ( has-inverse-cocone-coherence)
         ( has-inverse-discarded-htpy A B f has-inverse-f (f a)))
       ( has-inverse-discarded-naturality-square)
+```
 
--- This will replace the discarded homotopy
+This will replace the discarded homotopy.
+
+```rzk
 #def has-inverse-corrected-htpy
   : homotopy B B (has-inverse-section-composite A B f has-inverse-f) (\ b → b)
   :=
@@ -278,8 +297,11 @@ following naturality square.
             ( (first (second has-inverse-f))
               (has-inverse-inverse A B f has-inverse-f b)))
           ( (has-inverse-discarded-htpy A B f has-inverse-f b)))
+```
 
--- this is the half adjoint coherence
+The following is the half adjoint coherence.
+
+```rzk
 #def has-inverse-coherence
   : ( has-inverse-corrected-htpy (f a)) =
     ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a f
@@ -307,14 +329,17 @@ following naturality square.
       ( ap A B (has-inverse-retraction-composite A B f has-inverse-f a) a f
         ( has-inverse-kept-htpy A B f has-inverse-f a))
       ( has-inverse-replaced-naturality-square)
+```
 
+```rzk
 #end has-inverse-coherence
 ```
 
 ## Invertible maps are half adjoint equivalences
 
 To promote an invertible map to a half adjoint equivalence we change the data of
-the invertible map by replacing the discarded homotopy with the corrected one.
+the invertible map by discarding the homotopy and replacing it with a corrected
+one.
 
 ```rzk
 #def corrected-has-inverse-has-inverse
@@ -326,8 +351,9 @@ the invertible map by replacing the discarded homotopy with the corrected one.
     ( has-inverse-inverse A B f has-inverse-f ,
       ( has-inverse-kept-htpy A B f has-inverse-f ,
         has-inverse-corrected-htpy A B f has-inverse-f))
+```
 
--- Invertible maps are half adjoint equivalences!
+```rzk title="Invertible maps are half adjoint equivalences!"
 #def is-half-adjoint-equiv-has-inverse
   ( A B : U)
   ( f : A → B)
@@ -336,8 +362,9 @@ the invertible map by replacing the discarded homotopy with the corrected one.
   :=
     ( corrected-has-inverse-has-inverse A B f has-inverse-f ,
       has-inverse-coherence A B f has-inverse-f)
+```
 
--- Equivalences are half adjoint equivalences!
+```rzk title="Equivalences are half adjoint equivalences!"
 #def is-half-adjoint-equiv-is-equiv
   ( A B : U)
   ( f : A → B)
@@ -364,35 +391,34 @@ have equivalent identity types.
   ( x y : A)
   : iff (x = y) (f x = f y)
   :=
-    (ap A B x y f ,
+    ( ap A B x y f ,
       \ q →
-        triple-concat A
-          ( x)
-          ( (has-inverse-inverse A B f (first fisHAE)) (f x))
-          ( (has-inverse-inverse A B f (first fisHAE)) (f y))
-          ( y)
-          ( rev A (has-inverse-retraction-composite A B f (first fisHAE) x) x
-            ( (first (second (first fisHAE))) x))
-          ( ap B A (f x) (f y) (has-inverse-inverse A B f (first fisHAE)) q)
-          ( (first (second (first fisHAE))) y))
+      triple-concat A
+        ( x)
+        ( (has-inverse-inverse A B f (first fisHAE)) (f x))
+        ( (has-inverse-inverse A B f (first fisHAE)) (f y))
+        ( y)
+        ( rev A (has-inverse-retraction-composite A B f (first fisHAE) x) x
+          ( (first (second (first fisHAE))) x))
+        ( ap B A (f x) (f y) (has-inverse-inverse A B f (first fisHAE)) q)
+        ( (first (second (first fisHAE))) y))
 
 #def has-retraction-ap-is-half-adjoint-equiv
   (x y : A)
   : has-retraction (x = y) (f x = f y) (ap A B x y f)
   :=
-    ( second (iff-ap-is-half-adjoint-equiv x y) ,
-      \ p →
-          idJ
-          ( A ,
-            x ,
-            \ y' p' →
-              ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
-              p' ,
-            ( rev-refl-id-triple-concat A
-              ( (has-inverse-inverse A B f (first fisHAE)) (f x)) x
-              ( (first (second (first fisHAE))) x)) ,
-            y ,
-            p))
+    ( ( second (iff-ap-is-half-adjoint-equiv x y)) ,
+      ( ind-path
+          ( A)
+          ( x)
+          ( \ y' p' →
+            ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
+            ( p'))
+          ( rev-refl-id-triple-concat A
+            ( has-inverse-inverse A B f (first fisHAE) (f x))
+            ( x)
+            ( first (second (first fisHAE)) x))
+          ( y)))
 
 #def ap-triple-concat-is-half-adjoint-equiv
   ( x y : A)

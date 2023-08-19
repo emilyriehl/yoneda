@@ -12,28 +12,36 @@ This is a literate `rzk` file:
 #section homotopies
 
 #variables A B : U
+```
 
--- The type of homotopies between parallel functions.
+```rzk title="The type of homotopies between parallel functions"
 #def homotopy
   (f g : A → B)
   : U
   := (a : A) → (f a = g a)
+```
 
--- The reversal of a homotopy
+```rzk title="The reversal of a homotopy"
 #def homotopy-rev
   (f g : A → B)
   (H : homotopy f g)
   : homotopy g f
   := \ a → rev B (f a) (g a) (H a)
+```
 
--- Homotopy composition is defined in diagrammatic order like concat but unlike composition.
+```rzk
 #def homotopy-composition
   (f g h : A → B)
   (H : homotopy f g)
   (K : homotopy g h)
   : homotopy f h
   := \ a → concat B (f a) (g a) (h a) (H a) (K a)
+```
 
+Homotopy composition is defined in diagrammatic order like `#!rzk concat` but
+unlike composition.
+
+```rzk
 #end homotopies
 ```
 
@@ -84,8 +92,7 @@ This is a literate `rzk` file:
 
 ## Naturality
 
-```rzk
--- The naturality square associated to a homotopy and a path.
+```rzk title="The naturality square associated to a homotopy and a path"
 #def nat-htpy
   (A B : U)
   (f g : A → B)
@@ -95,17 +102,18 @@ This is a literate `rzk` file:
   : (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =
     (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        (concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
-        (concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')) ,
-      left-unit-concat B (f x) (g x) (H x) ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+        ( concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
+        ( concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')))
+      ( left-unit-concat B (f x) (g x) (H x))
+      ( y)
+      ( p)
+```
 
--- Naturality in another form
+```rzk title="Naturality in another form"
 #def triple-concat-nat-htpy
   (A B : U)
   (f g : A → B)
@@ -117,23 +125,23 @@ This is a literate `rzk` file:
       ( rev B (f x) (g x) (H x)) (ap A B x y f p) (H y) =
     ap A B x y g p
   :=
-    idJ
-    ( A ,
-      x ,
-      \ y' p' →
-        triple-concat
-          ( B)
-          ( g x)
-          ( f x)
-          ( f y')
-          ( g y')
-          ( rev B (f x) (g x) (H x))
-          ( ap A B x y' f p')
-          ( H y') =
-        ap A B x y' g p' ,
-      rev-refl-id-triple-concat B (f x) (g x) (H x) ,
-      y ,
-      p)
+    ind-path
+      ( A)
+      ( x)
+      ( \ y' p' →
+          triple-concat
+            ( B)
+            ( g x)
+            ( f x)
+            ( f y')
+            ( g y')
+            ( rev B (f x) (g x) (H x))
+            ( ap A B x y' f p')
+            ( H y') =
+          ap A B x y' g p')
+      ( rev-refl-id-triple-concat B (f x) (g x) (H x))
+      ( y)
+      ( p)
 ```
 
 ## An application
@@ -145,15 +153,23 @@ This is a literate `rzk` file:
 #variable f : A → A
 #variable H : homotopy A A f (identity A)
 #variable a : A
+```
 
--- In the case of a homotopy H from f to the identity the previous square applies to the path H a to produce the following naturality square.
+In the case of a homotopy `#!rzk H` from `#!rzk f` to the identity the previous
+square applies to the path `#!rzk H a` to produce the following naturality
+square.
+
+```rzk
 #def cocone-naturality
   : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
     (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
   := nat-htpy A A f (identity A) H (f a) a (H a)
+```
 
--- After composing with ap-id, this naturality square transforms to the
--- following:
+After composing with `#!rzk ap-id`, this naturality square transforms to the
+following:
+
+```rzk
 #def reduced-cocone-naturality
   : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
     (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
@@ -179,8 +195,12 @@ This is a literate `rzk` file:
         ( ap A A (f a) a (identity A) (H a))
         ( H a)
         ( ap-id A (f a) a (H a)))
+```
 
--- Cancelling the path (H a) on the right and reversing yields a path we need:
+Cancelling the path `#!rzk H a` on the right and reversing yields a path we
+need:
+
+```rzk
 #def cocone-naturality-coherence
   : (H (f a)) = (ap A A (f a) a f (H a))
   :=
@@ -203,43 +223,39 @@ This is a literate `rzk` file:
 ## Conjugation with higher homotopies
 
 ```rzk
--- Conjugation between higher homotopies
 #def triple-concat-higher-homotopy
-  (A B : U)
-  (f g : A → B)
-  (H K : homotopy A B f g)
-  (α : (a : A) → H a = K a)
-  (x y : A)
-  (p : f x = f y)
+  ( A B : U)
+  ( f g : A → B)
+  ( H K : homotopy A B f g)
+  ( α : (a : A) → H a = K a)
+  ( x y : A)
+  ( p : f x = f y)
   : triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (H x)) p (H y) =
     triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (K x)) p (K y)
   :=
-    idJ
-    ( f y = g y ,
-      H y ,
-      \ Ky α' →
-        triple-concat
+    ind-path
+      ( f y = g y)
+      ( H y)
+      ( \ Ky α' →
+        ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
-          ( rev B (f x) (g x) (H x)) (p) (H y) =
-        triple-concat
+          ( rev B (f x) (g x) (H x)) (p) (H y)) =
+        ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
-          ( rev B (f x) (g x) (K x)) (p) (Ky) ,
-      homotopy-triple-concat
-        B
-        ( g x)
-        ( f x)
-        ( f y)
-        ( g y)
+          ( rev B (f x) (g x) (K x)) (p) (Ky)))
+      ( homotopy-triple-concat
+        ( B) (g x) (f x) (f y) (g y)
         ( rev B (f x) (g x) (H x))
         ( rev B (f x) (g x) (K x))
-        p
+        ( p)
         ( H y)
         ( ap
           ( f x = g x)
           ( g x = f x)
           ( H x)
           ( K x)
-          ( \ G → rev B (f x) (g x) G) (α x)) ,
-      K y ,
-      α y)
+          ( rev B (f x) (g x))
+          ( α x)))
+      ( K y)
+      (α y)
 ```

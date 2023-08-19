@@ -32,14 +32,14 @@ identity types.
 
 ```rzk title="RS17, Definition 7.1"
 #def arr-eq
-  (A : U)             -- A type.
-  (x y : A)           -- Two points of type A.
-  (p : x = y)         -- A path p from x to y in A.
-  : hom A x y         -- An arrow p from x to y in A.
-  := idJ (A , x , \ y' → \ p' → hom A x y' , (id-arr A x) , y , p)
+  (A : U)
+  (x y : A)
+  (p : x = y)
+  : hom A x y
+  := ind-path (A) (x) (\ y' → \ p' → hom A x y') ((id-arr A x)) (y) (p)
 
 #def is-discrete
-  (A : U)             -- A type.
+  (A : U)
   : U
   := (x : A) → (y : A) → is-equiv (x =_{A} y) (hom A x y) (arr-eq A x y)
 ```
@@ -83,15 +83,15 @@ of discrete types is discrete.
   : ( arr-eq ((x : X) → A x) f g h) =
     ( first (equiv-discrete-family X A is-discrete-A f g)) h
   :=
-    idJ
-    ( ( (x : X) → A x) ,
-      ( f) ,
+    ind-path
+      ( (x : X) → A x)
+      ( f)
       ( \ g' h' →
         arr-eq ((x : X) → A x) f g' h' =
-        (first (equiv-discrete-family X A is-discrete-A f g')) h') ,
-      ( refl) ,
-      ( g) ,
-      ( h))
+        (first (equiv-discrete-family X A is-discrete-A f g')) h')
+      ( refl)
+      ( g)
+      ( h)
 ```
 
 ```rzk title="RS17, Proposition 7.2"
@@ -157,15 +157,15 @@ only, extending from BOT, that's all we prove here for now.
   : arr-eq ((t : ψ) → A t) f g h =
     ( first (Eq-discrete-extension I ψ A is-discrete-A f g)) h
   :=
-    idJ
-    ( ( (t : ψ) → A t) ,
-      ( f) ,
+    ind-path
+      ( (t : ψ) → A t)
+      ( f)
       ( \ g' h' →
         ( arr-eq ((t : ψ) → A t) f g' h') =
-        ( first (Eq-discrete-extension I ψ A is-discrete-A f g') h')) ,
-      ( refl) ,
-      ( g) ,
-      ( h))
+        ( first (Eq-discrete-extension I ψ A is-discrete-A f g') h'))
+      ( refl)
+      ( g)
+      ( h)
 ```
 
 ```rzk title="RS17, Proposition 7.2, for extension types"
@@ -236,8 +236,11 @@ Discrete types are automatically Segal types.
           ( \ α → refl)) ,
         ( ( \ σ → \ t → \ s → (second (second σ)) (t , s)) ,
           ( \ σ → refl))))
+```
 
--- The equivalence underlying Eq-arr.
+The equivalence underlying `#!rzk Eq-arr`:
+
+```rzk
 #def fibered-arr-free-arr
   : (arr A) → (Σ (u : A) , (Σ (v : A) , hom A u v))
   := \ k → (k 0₂ , (k 1₂ , k))
@@ -328,10 +331,15 @@ Discrete types are automatically Segal types.
                     (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
         ( equiv-arr-eq-discrete)
         ( equiv-square-hom-arr))
+```
 
+We close the section so we can use path induction.
+
+```rzk
 #end discrete-arr-equivalences
+```
 
--- closing the section so I can use path induction
+```rzk
 #def fibered-map-square-sigma-over-product
   ( A : U)
   ( is-discrete-A : is-discrete A)
@@ -347,9 +355,9 @@ Discrete types are automatically Segal types.
         (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
         (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t ])
   :=
-    idJ
-    ( ( A) ,
-      ( x) ,
+    ind-path
+      ( A)
+      ( x)
       ( \ z' p' →
         ( g : hom A z' w) →
         ( product-transport A A (hom A) x z' y w p' q f = g) →
@@ -357,35 +365,32 @@ Discrete types are automatically Segal types.
           [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
             (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
             (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z' p') t ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t ])) ,
-      ( idJ
-        ( ( A) ,
-          ( y) ,
-          ( \ w' q' →
-            ( g : hom A x w') →
-            ( product-transport A A (hom A) x x y w' refl q' f = g) →
-            ( ((t , s) : Δ¹×Δ¹) → A
-              [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w' q') t ])) ,
-          ( \ g τ →
-            idJ
-            ( ( hom A x y) ,
-              ( f) ,
-              ( \ g' τ' →
-                ( ((t , s) : Δ¹×Δ¹) → A
-                  [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                    (t ≡ 1₂) ∧ (Δ¹ s) ↦ g' s ,
-                    (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-                    (Δ¹ t) ∧ (s ≡ 1₂) ↦ y ])),
-              ( \ (t , s) → f s) ,
-              ( g) ,
-              ( τ))),
-          ( w) ,
-          ( q))) ,
-      ( z) ,
-      ( p))
+            (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t ]))
+      ( ind-path
+        ( A)
+        ( y)
+        ( \ w' q' →
+          ( g : hom A x w') →
+          ( product-transport A A (hom A) x x y w' refl q' f = g) →
+          ( ((t , s) : Δ¹×Δ¹) → A
+            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+              (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+              (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w' q') t ]))
+        ( ind-path
+            ( hom A x y)
+            ( f)
+            ( \ g' τ' →
+              ( ((t , s) : Δ¹×Δ¹) → A
+                [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                  (t ≡ 1₂) ∧ (Δ¹ s) ↦ g' s ,
+                  (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+                  (Δ¹ t) ∧ (s ≡ 1₂) ↦ y ]))
+            ( \ (t , s) → f s))
+        ( w)
+        ( q))
+      ( z)
+      ( p)
 
 #def square-sigma-over-product
   ( A : U)
@@ -431,9 +436,9 @@ Discrete types are automatically Segal types.
       ( f) (g)
       ( refl , (refl , τ)))
   :=
-    idJ
-    ( ( hom A x y) ,
-      ( f) ,
+    ind-path
+      ( hom A x y)
+      ( f)
       ( \ g' τ' →
         ( first
           ( equiv-square-sigma-over-product A is-discrete-A x y x y f g')
@@ -442,10 +447,10 @@ Discrete types are automatically Segal types.
           ( A) (is-discrete-A)
           ( x) (y) (x) (y)
           ( f) (g')
-          ( refl , (refl , τ')))) ,
-      ( refl) ,
-      ( g) ,
-      ( τ))
+          ( refl , (refl , τ'))))
+      ( refl)
+      ( g)
+      ( τ)
 
 #def map-equiv-square-sigma-over-product uses (extext)
   ( A : U)
@@ -462,20 +467,20 @@ Discrete types are automatically Segal types.
     ( square-sigma-over-product
         A is-discrete-A x y z w f g (p , (q , τ)))
   :=
-    idJ
-    ( A ,
-      y ,
-      \ w' q' →
-      ( g : hom A z w') →
-      ( τ : product-transport A A (hom A) x z y w' p q' f = g) →
-      ( first (equiv-square-sigma-over-product
-                A is-discrete-A x y z w' f g))
-        ( p , (q' , τ)) =
-      ( square-sigma-over-product A is-discrete-A x y z w' f g)
-        ( p , (q' , τ)) ,
-      idJ
-      ( ( A) ,
-        ( x) ,
+    ind-path
+      ( A)
+      ( y)
+      ( \ w' q' →
+        ( g : hom A z w') →
+        ( τ : product-transport A A (hom A) x z y w' p q' f = g) →
+        ( first (equiv-square-sigma-over-product
+                  A is-discrete-A x y z w' f g))
+          ( p , (q' , τ)) =
+        ( square-sigma-over-product A is-discrete-A x y z w' f g)
+          ( p , (q' , τ)))
+      ( ind-path
+        ( A)
+        ( x)
         ( \ z' p' →
           ( g : hom A z' y) →
           ( τ :
@@ -484,17 +489,13 @@ Discrete types are automatically Segal types.
             ( equiv-square-sigma-over-product A is-discrete-A x y z' y f g)
             ( p' , (refl , τ))) =
           ( square-sigma-over-product A is-discrete-A x y z' y f g
-            ( p' , (refl , τ)))) ,
-        ( \ g τ →
-          refl-refl-map-equiv-square-sigma-over-product
-            ( A) (is-discrete-A)
-            ( x) (y)
-            ( f) (g)
-            ( τ)) ,
-        ( z) ,
-        ( p)) ,
-      ( w) ,
-      ( q))
+            ( p' , (refl , τ))))
+        ( refl-refl-map-equiv-square-sigma-over-product
+            ( A) (is-discrete-A) (x) (y) (f))
+        ( z)
+        ( p))
+      ( w)
+      ( q)
 
 #def is-equiv-square-sigma-over-product uses (extext)
   ( A : U)
@@ -517,7 +518,7 @@ Discrete types are automatically Segal types.
   :=
     is-equiv-rev-homotopic-is-equiv
     ( Σ ( p : x = z) ,
-         ( Σ ( q : y = w) ,
+        ( Σ ( q : y = w) ,
             ( product-transport A A (hom A) x z y w p q f = g)))
     ( Σ ( h : hom A x z) ,
         ( Σ ( k : hom A y w) ,
@@ -775,7 +776,7 @@ the second arrow is an identity.
   ( f : hom A x y)
   : is-contr ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
   :=
-    is-retract-of-is-contr-is-contr
+    is-contr-is-retract-of-is-contr
       ( Σ ( d : hom A x y) , (hom2 A x y y f (id-arr A y) d))
       ( Σ ( g : hom A x y) ,
           ( ((t , s) : Δ¹×Δ¹) → A
@@ -787,9 +788,9 @@ the second arrow is an identity.
       ( is-contr-horn-refl-refl-extension-type A is-discrete-A x y f)
 ```
 
-But since `A` is discrete, its hom type family is equivalent to its identity
-type family, and we can use "path induction" over arrows to reduce the general
-case to the one just proven:
+But since `#!rzk A` is discrete, its hom type family is equivalent to its
+identity type family, and we can use "path induction" over arrows to reduce the
+general case to the one just proven:
 
 ```rzk
 #def is-contr-hom2-is-discrete uses (extext)

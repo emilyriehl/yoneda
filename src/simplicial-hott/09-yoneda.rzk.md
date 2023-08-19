@@ -30,12 +30,12 @@ extension extensionality:
 ## Natural transformations involving a representable functor
 
 Fix a Segal type $A$ and a term $a : A$. The Yoneda lemma characterizes natural
-transformations from the representable type family `hom A a : A → U` to a
-covariant type family `C : A → U`.
+transformations from the representable type family `#!rzk hom A a : A → U` to a
+covariant type family `#!rzk C : A → U`.
 
 Ordinarily, such a natural transformation would involve a family of maps
 
-`ϕ : (z : A) → hom A a z → C z`
+`#!rzk ϕ : (z : A) → hom A a z → C z`
 
 together with a proof of naturality of these components, but by
 naturality-covariant-fiberwise-transformation naturality is automatic.
@@ -65,24 +65,28 @@ naturality-covariant-fiberwise-transformation naturality is automatic.
 ## The Yoneda maps
 
 For any Segal type $A$ and term $a : A$, the Yoneda lemma provides an
-equivalence between the type `(z : A) → hom A a z → C z` of natural
-transformations out of the functor `hom A a` and valued in an arbitrary
+equivalence between the type `#!rzk (z : A) → hom A a z → C z` of natural
+transformations out of the functor `#!rzk hom A a` and values in an arbitrary
 covariant family $C$ and the type $C a$.
 
 One of the maps in this equivalence is evaluation at the identity. The inverse
 map makes use of the covariant transport operation.
 
+The following map, `#!rzk evid`, evaluates a natural transformation out of a
+representable functor at the identity arrow.
+
 ```rzk
--- The map evid evaluates a natural transformation
--- out of a representable functor at the identity arrow.
 #def evid
   (A : U)
   (a : A)
   (C : A → U)
   : ((z : A) → hom A a z → C z) → C a
   := \ ϕ → ϕ a (id-arr A a)
+```
 
--- The inverse map only exists for Segal types.
+The inverse map only exists for Segal types.
+
+```rzk
 #def yon
   (A : U)
   (is-segal-A : is-segal A)
@@ -111,8 +115,8 @@ straightforward:
 ```
 
 The other composite carries $ϕ$ to an a priori distinct natural transformation.
-We first show that these are pointwise equal at all `x : A` and `f : hom A a x`
-in two steps.
+We first show that these are pointwise equal at all `#!rzk x : A` and
+`#!rzk f : hom A a x` in two steps.
 
 ```rzk
 #section yon-evid
@@ -122,8 +126,12 @@ in two steps.
 #variable a : A
 #variable C : A → U
 #variable is-covariant-C : is-covariant A C
+```
 
--- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A a x.
+The composite `#!rzk yon-evid` of `#!rzk ϕ` equals `#!rzk ϕ` at all
+`#!rzk x : A` and `#!rzk f : hom A a x`.
+
+```rzk
 #def yon-evid-twice-pointwise
   (ϕ : (z : A) → hom A a z → C z)
   (x : A)
@@ -144,8 +152,12 @@ in two steps.
         ( f)
         ( ϕ x)
         ( Segal-id-comp A is-segal-A a x f))
+```
 
--- By funext, these are equals as functions of f pointwise in x.
+By `#!rzk funext`, these are equals as functions of `#!rzk f` pointwise in
+`#!rzk x`.
+
+```rzk
 #def yon-evid-once-pointwise uses (funext)
   (ϕ : (z : A) → hom A a z → C z)
   (x : A)
@@ -157,12 +169,17 @@ in two steps.
       ( \ f → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
       ( \ f → (ϕ x f))
       ( \ f → yon-evid-twice-pointwise ϕ x f)
+```
 
--- By funext again, these are equal as functions of x and f.
+By `#!rzk funext` again, these are equal as functions of `#!rzk x` and
+`#!rzk f`.
+
+```rzk
 #def yon-evid uses (funext)
   (ϕ : (z : A) → hom A a z → C z)
   : ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) = ϕ
-  := eq-htpy funext
+  :=
+    eq-htpy funext
       ( A)
       ( \ x → (hom A a x → C x))
       ( \ x → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x)
@@ -196,9 +213,9 @@ This is proven combining the previous steps.
 
 The equivalence of the Yoneda lemma is natural in both $a : A$ and $C : A → U$.
 
-Naturality in $a$ follows from the fact that the maps `evid` and `yon` are
-fiberwise equivalences between covariant families over $A$, though it requires
-some work, to prove that the domain is covariant.
+Naturality in $a$ follows from the fact that the maps `#!rzk evid` and
+`#!rzk yon` are fiberwise equivalences between covariant families over $A$,
+though it requires some work to prove that the domain is covariant.
 
 ```rzk
 #def is-covariant-yoneda-domain uses (funext)
@@ -364,7 +381,7 @@ Dually, the Yoneda lemma for contravariant type families characterizes natural
 transformations from the contravariant family represented by a term $a : A$ in a
 Segal type to a contravariant type family $C : A → U$.
 
-By `naturality-contravariant-fiberwise-transformation` naturality is again
+By `#!rzk naturality-contravariant-fiberwise-transformation` naturality is again
 automatic.
 
 ```rzk
@@ -389,24 +406,28 @@ automatic.
 ```
 
 For any Segal type $A$ and term $a : A$, the contravariant Yoneda lemma provides
-an equivalence between the type `(z : A) → hom A z a → C z` of natural
-transformations out of the functor `\ z → hom A z a` and valued in an arbitrary
-contravariant family $C$ and the type $C a$.
+an equivalence between the type `#!rzk (z : A) → hom A z a → C z` of natural
+transformations out of the functor `#!rzk \ z → hom A z a` and valued in an
+arbitrary contravariant family $C$ and the type $C a$.
 
 One of the maps in this equivalence is evaluation at the identity. The inverse
 map makes use of the contravariant transport operation.
 
+The following map, `#!rzk contra-evid` evaluates a natural transformation out of
+a representable functor at the identity arrow.
+
 ```rzk
--- The map evid evaluates a natural transformation
--- out of a representable functor at the identity arrow.
 #def contra-evid
   (A : U)
   (a : A)
   (C : A → U)
   : ( (z : A) → hom A z a → C z) → C a
   := \ ϕ → ϕ a (id-arr A a)
+```
 
--- The inverse map only exists for Segal types and contravariant families.
+The inverse map only exists for Segal types and contravariant families.
+
+```rzk
 #def contra-yon
   (A : U)
   (is-segal-A : is-segal A)
@@ -433,8 +454,8 @@ straightforward:
 ```
 
 The other composite carries $ϕ$ to an a priori distinct natural transformation.
-We first show that these are pointwise equal at all `x : A` and `f : hom A x a`
-in two steps.
+We first show that these are pointwise equal at all `#!rzk x : A` and
+`#!rzk f : hom A x a` in two steps.
 
 ```rzk
 #section contra-yon-evid
@@ -444,8 +465,12 @@ in two steps.
 #variable a : A
 #variable C : A → U
 #variable is-contravariant-C : is-contravariant A C
+```
 
--- The composite yon-evid of ϕ equals ϕ at all x : A and f : hom A x a.
+The composite `#!rzk contra-yon-evid` of `#!rzk ϕ` equals `#!rzk ϕ` at all
+`#!rzk x : A` and `#!rzk f : hom A x a`.
+
+```rzk
 #def contra-yon-evid-twice-pointwise
   (ϕ : (z : A) → hom A z a → C z)
   (x : A)
@@ -468,8 +493,12 @@ in two steps.
         ( f)
         ( ϕ x)
         ( Segal-comp-id A is-segal-A x a f))
+```
 
--- By funext, these are equals as functions of f pointwise in x.
+By `#!rzk funext`, these are equals as functions of `#!rzk f` pointwise in
+`#!rzk x`.
+
+```rzk
 #def contra-yon-evid-once-pointwise uses (funext)
   (ϕ : (z : A) → hom A z a → C z)
   (x : A)
@@ -484,8 +513,12 @@ in two steps.
           ( (contra-evid A a C) ϕ )) x f)
       ( \ f → (ϕ x f))
       ( \ f → contra-yon-evid-twice-pointwise ϕ x f)
+```
 
--- By funext again, these are equal as functions of x and f.
+By `#!rzk funext` again, these are equal as functions of `#!rzk x` and
+`#!rzk f`.
+
+```rzk
 #def contra-yon-evid uses (funext)
   (ϕ : (z : A) → hom A z a → C z)
   : (contra-yon A is-segal-A a C is-contravariant-C)((contra-evid A a C) ϕ) = ϕ
@@ -524,10 +557,10 @@ equivalence.
 
 The equivalence of the Yoneda lemma is natural in both $a : A$ and $C : A → U$.
 
-Naturality in $a$ follows from the fact that the maps `evid` and `yon` are
-fiberwise equivalences between contravariant families over $A$, though it
-requires some work, which has not yet been formalized, to prove that the domain
-is contravariant.
+Naturality in $a$ follows from the fact that the maps `#!rzk evid` and
+`#!rzk yon` are fiberwise equivalences between contravariant families over $A$,
+though it requires some work, which has not yet been formalized, to prove that
+the domain is contravariant.
 
 Naturality in $C$ is not automatic but can be proven easily:
 
@@ -737,7 +770,7 @@ family defines an inverse equivalence to evaluation at the element.
 
 ## Initial objects in slice categories
 
-The type `coslice A a` is the type of arrows in $A$ with domain $a$.
+The type `#!rzk coslice A a` is the type of arrows in $A$ with domain $a$.
 
 ```rzk
 #def coslice
@@ -966,7 +999,7 @@ family defines an inverse equivalence to evaluation at the element.
 
 ## Final objects in slice categories
 
-The type `slice A a` is the type of arrows in $A$ with codomain $a$.
+The type `#!rzk slice A a` is the type of arrows in $A$ with codomain $a$.
 
 ```rzk
 #def slice

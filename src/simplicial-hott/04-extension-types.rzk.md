@@ -10,7 +10,8 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-- `hott/4-equivalences.rzk` — contains the definitions of `Eq` and `comp-equiv`
+- `hott/4-equivalences.rzk` — contains the definitions of `#!rzk Equiv` and
+  `#!rzk comp-equiv`
 - the file `hott/4-equivalences.rzk` relies in turn on the previous files in
   `hott/`
 
@@ -45,10 +46,10 @@ This is a literate `rzk` file:
     ( (x : X) → (t : ψ) → Y t x [ ϕ t ↦ f t x])
     ( (t : ψ) → ((x : X) → Y t x) [ ϕ t ↦ f t ])
   :=
-    ( \ h t x → (h x) t , -- the one-way map
-      ( ( \ g x t → g t x , -- the retraction
-          \ h → refl) , -- the retracting homotopy
-        ( \ g x t → g t x , -- the section
+    ( \ h t x → (h x) t ,
+      ( ( \ g x t → g t x ,
+          \ h → refl) ,
+        ( \ g x t → g t x ,
           \ g → refl)))
 ```
 
@@ -67,11 +68,11 @@ This is a literate `rzk` file:
     ( ((t , s) : I × J | ψ t ∧ ζ s) → X t s
       [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
   :=
-    ( \ g (t , s) → (g t) s , -- the one way map
-      ( ( \ h t s → h (t , s) , -- its retraction
-          \ g → refl) , -- the retracting homotopy
-        ( \ h t s → h (t , s) , -- its section
-          \ h → refl)))  -- the section homotopy
+    ( \ g (t , s) → (g t) s ,
+      ( ( \ h t s → h (t , s) ,
+          \ g → refl) ,
+        ( \ h t s → h (t , s) ,
+          \ h → refl)))
 
 #def uncurry-opcurry
   ( I J : CUBE)
@@ -143,26 +144,9 @@ This is a literate `rzk` file:
 
 ## Composites and unions of cofibrations
 
-```rzk title="RS17, Theorem 4.4"
--- Reformulated via tope disjunction instead of inclusion.
--- See https://github.com/rzk-lang/rzk/issues/8
-#def cofibration-composition'
-  ( I : CUBE)
-  ( χ ψ ϕ : I → TOPE)
-  ( X : χ → U)
-  ( a : (t : I | χ t ∧ ψ t ∧ ϕ t) → X t )
-  : Equiv
-      ( (t : χ) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ])
-      ( Σ ( f : (t : I | χ t ∧ ψ t) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ]) ,
-          ( (t : χ) → X t [ χ t ∧ ψ t ↦ f t ]))
-  :=
-    ( \ h → (\ t → h t , \ t → h t) ,
-      ( ( \ (_f, g) t → g t , \ h → refl) ,
-        ( \ (_f, g) t → g t , \ h → refl)))
-```
+The original form.
 
 ```rzk title="RS17, Theorem 4.4"
--- original form
 #def cofibration-composition
   ( I : CUBE)
   ( χ : I → TOPE)
@@ -178,6 +162,25 @@ This is a literate `rzk` file:
     ( \ h → (\ t → h t , \ t → h t) ,
       ( ( \ (_f, g) t → g t , \ h → refl) ,
         ( ( \ (_f, g) t → g t , \ h → refl))))
+```
+
+A reformulated version via tope disjunction instead of inclusion (see
+<https://github.com/rzk-lang/rzk/issues/8>).
+
+```rzk title="RS17, Theorem 4.4"
+#def cofibration-composition'
+  ( I : CUBE)
+  ( χ ψ ϕ : I → TOPE)
+  ( X : χ → U)
+  ( a : (t : I | χ t ∧ ψ t ∧ ϕ t) → X t )
+  : Equiv
+      ( (t : χ) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ])
+      ( Σ ( f : (t : I | χ t ∧ ψ t) → X t [ χ t ∧ ψ t ∧ ϕ t ↦ a t ]) ,
+          ( (t : χ) → X t [ χ t ∧ ψ t ↦ f t ]))
+  :=
+    ( \ h → (\ t → h t , \ t → h t) ,
+      ( ( \ (_f, g) t → g t , \ h → refl) ,
+        ( \ (_f, g) t → g t , \ h → refl)))
 ```
 
 ```rzk title="RS17, Theorem 4.5"
@@ -210,13 +213,14 @@ axiom. Here we state the one that will be most useful and derive an application.
   ( f g : (t : ψ) → A t [ ϕ t ↦ a t ])
   ( p : f = g)
   : (t : ψ) → (f t = g t) [ ϕ t ↦ refl ]
-  := idJ
-    ( ( (t : ψ) → A t [ ϕ t ↦ a t ]) ,
-      ( f) ,
-      ( \ g' p' → (t : ψ) → (f t = g' t) [ ϕ t ↦ refl ]) ,
-      ( \ t → refl) ,
-      ( g) ,
-      ( p))
+  :=
+    ind-path
+      ( (t : ψ) → A t [ ϕ t ↦ a t ])
+      ( f)
+      ( \ g' p' → (t : ψ) → (f t = g' t) [ ϕ t ↦ refl ])
+      ( \ t → refl)
+      ( g)
+      ( p)
 ```
 
 The type that encodes the extension extensionality axiom. As suggested by
@@ -240,8 +244,9 @@ footnote 8, we assert this as an "extension extensionality" axiom
       ( ext-htpy-eq I ψ ϕ A a f g)
 
 #assume extext : ExtExt
+```
 
--- The equivalence provided by extension extensionality.
+```rzk title="The equivalence provided by extension extensionality"
 #def equiv-ExtExt uses (extext)
   ( I : CUBE)
   ( ψ : I → TOPE)
@@ -254,8 +259,8 @@ footnote 8, we assert this as an "extension extensionality" axiom
 ```
 
 In particular, extension extensionality implies that homotopies give rise to
-identifications. This definition defines `eq-ext-htpy` to be the retraction to
-`ext-htpy-eq`.
+identifications. This definition defines `#!rzk eq-ext-htpy` to be the
+retraction to `#!rzk ext-htpy-eq`.
 
 ```rzk
 #def eq-ext-htpy uses (extext)
@@ -270,11 +275,9 @@ identifications. This definition defines `eq-ext-htpy` to be the retraction to
 ```
 
 By extension extensionality, fiberwise equivalences of extension types define
-equivalences of extension types.
+equivalences of extension types. For simplicity, we extend from `#!rzk BOT`.
 
 ```rzk
--- A fiberwise equivalence defines an equivalence of extension types, for
--- simplicity extending from BOT
 #def equiv-extension-equiv-fibered uses (extext)
   ( I : CUBE)
   ( ψ : I → TOPE)
