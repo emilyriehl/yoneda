@@ -17,6 +17,12 @@ This is a literate `rzk` file:
 - `5-segal-types.md` - We make use of the notion of Segal types and their
   structures.
 
+Some of the definitions in this file rely on extension extensionality:
+
+```rzk
+#assume extext : ExtExt
+```
+
 ## Dependent hom types
 
 In a type family over a base type, there is a dependent hom type of arrows that
@@ -103,7 +109,7 @@ contractibility of the type of extensions along the domain inclusion into the
 1-simplex.
 
 ```rzk
-#def has-unique-lifts-with-fixed-domain
+#def has-unique-fixed-domain-lifts
   (A : U)
   (C : A → U)
   : U
@@ -137,11 +143,11 @@ By the equivalence-invariance of contractibility, this proves the desired
 logical equivalence
 
 ```rzk title="RS17, Proposition 8.4"
-#def has-unique-lifts-with-fixed-domain-iff-is-covariant
+#def has-unique-fixed-domain-lifts-iff-is-covariant
   (A : U)
   (C : A → U)
   : iff
-      (has-unique-lifts-with-fixed-domain A C)
+      (has-unique-fixed-domain-lifts A C)
       (is-covariant A C)
   :=
     ( \ C-has-unique-lifts x y f u →
@@ -846,6 +852,150 @@ with the covariant lifts.
           A x y f C D is-covariant-C ϕ u)
 ```
 
+## Covariant equivalence
+
+A family of types that is equivalent to a covariant family is itself covariant.
+
+To prove this we first show that the corresponding types of lifts with fixed
+domain are equivalent:
+
+```rzk
+#def equiv-covariant-total-dhom
+  (A : U)
+  (C : A → U)
+  (x y : A)
+  (f : hom A x y)
+  : Equiv
+    ( (t : Δ¹) → C (f t))
+    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+  :=
+    ( \ h → (h 0₂ , \ t → h t) ,
+      ( ( \ k t → (second k) t , \ h → refl) ,
+        ( ( \ k t → (second k) t , \ h → refl))))
+```
+
+```rzk
+#section dhom-from-equivalence
+
+#variable A : U
+#variables B C : A → U
+#variable equiv-BC : (a : A) → Equiv (B a) (C a)
+#variables x y : A
+#variable f : hom A x y
+
+#def equiv-total-dhom-equiv uses (A x y)
+  : Equiv ((t : Δ¹) → B (f t)) ((t : Δ¹) → C (f t))
+  :=
+    equiv-extension-equiv-fibered
+      ( extext)
+      ( 2)
+      ( Δ¹)
+      ( \ t → B (f t))
+      ( \ t → C (f t))
+      ( \ t → equiv-BC (f t))
+
+#def equiv-total-covariant-dhom-equiv uses (extext equiv-BC)
+  : Equiv
+    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+  :=
+    triple-comp-equiv
+    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( (t : Δ¹) → B (f t))
+    ( (t : Δ¹) → C (f t))
+    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+    ( inv-equiv
+      ( (t : Δ¹) → B (f t))
+      ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+      ( equiv-covariant-total-dhom A B x y f))
+    ( equiv-total-dhom-equiv)
+    ( equiv-covariant-total-dhom A C x y f)
+
+#def equiv-pullback-total-covariant-dhom-equiv uses (A y)
+  : Equiv
+    ( Σ (i : B x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+  :=
+    total-equiv-pullback-is-equiv
+      ( B x)
+      ( C x)
+      ( first (equiv-BC x))
+      ( second (equiv-BC x))
+      ( \ u → ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+
+#def is-equiv-to-pullback-total-covariant-dhom-equiv uses (extext A y)
+  : is-equiv
+    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (i : B x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( \ (i, h) → (i, \ t → (first (equiv-BC (f t))) (h t)))
+  :=
+    right-cancel-is-equiv
+    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (i : B x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+    ( \ (i, h) → (i, \ t → (first (equiv-BC (f t))) (h t)))
+    ( first (equiv-pullback-total-covariant-dhom-equiv))
+    ( second (equiv-pullback-total-covariant-dhom-equiv))
+    ( second (equiv-total-covariant-dhom-equiv))
+
+#def equiv-to-pullback-total-covariant-dhom-equiv uses (extext A y)
+  : Equiv
+    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (i : B x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+  :=
+    ( \ (i, h) → (i, \ t → (first (equiv-BC (f t))) (h t)),
+      is-equiv-to-pullback-total-covariant-dhom-equiv)
+
+#def family-equiv-dhom-family-equiv uses (extext A y)
+  (i : B x)
+  : Equiv
+    ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i])
+    ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i])
+  :=
+    family-equiv-total-equiv
+    ( B x)
+    ( \ii → ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ ii]))
+    ( \ii → ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) ii]))
+    ( \ii h t → (first (equiv-BC (f t))) (h t))
+    ( is-equiv-to-pullback-total-covariant-dhom-equiv)
+    ( i)
+
+#end dhom-from-equivalence
+```
+
+Now we introduce the hypothesis that $C$ is covariant in the form of
+`has-unique-fixed-domain-lifts`.
+
+```rzk
+#def equiv-has-unique-fixed-domain-lifts uses (extext)
+  (A : U)
+  (B C : A → U)
+  (equiv-BC : (a : A) → Equiv (B a) (C a))
+  (has-unique-fixed-domain-lifts-C :
+    has-unique-fixed-domain-lifts A C)
+  : has-unique-fixed-domain-lifts A B
+  :=
+    \ x y f i →
+    is-contr-is-equiv-to-contr
+    ( (t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i])
+    ( (t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i])
+    ( family-equiv-dhom-family-equiv A B C equiv-BC x y f i)
+    ( has-unique-fixed-domain-lifts-C x y f ((first (equiv-BC x)) i))
+
+#def equiv-is-covariant uses (extext)
+  (A : U)
+  (B C : A → U)
+  (equiv-BC : (a : A) → Equiv (B a) (C a))
+  (is-covariant-C : is-covariant A C)
+  : is-covariant A B
+  :=
+    ( first (has-unique-fixed-domain-lifts-iff-is-covariant A B))
+      ( equiv-has-unique-fixed-domain-lifts
+        A B C equiv-BC
+        ( (second (has-unique-fixed-domain-lifts-iff-is-covariant A C))
+          is-covariant-C))
+```
+
 ## Contravariant families
 
 A family of types over a base type is contravariant if every arrow in the base
@@ -882,7 +1032,7 @@ by contractibility of the type of extensions along the codomain inclusion into
 the 1-simplex.
 
 ```rzk
-#def has-unique-lifts-with-fixed-codomain
+#def has-unique-fixed-codomain-lifts
   (A : U)
   (C : A → U)
   : U
@@ -916,11 +1066,11 @@ By the equivalence-invariance of contractibility, this proves the desired
 logical equivalence
 
 ```rzk title="RS17, Proposition 8.4"
-#def has-unique-lifts-with-fixed-codomain-iff-is-contravariant
+#def has-unique-fixed-codomain-lifts-iff-is-contravariant
   (A : U)
   (C : A → U)
   : iff
-      (has-unique-lifts-with-fixed-codomain A C)
+      (has-unique-fixed-codomain-lifts A C)
       (is-contravariant A C)
   :=
     ( \ C-has-unique-lifts x y f v →

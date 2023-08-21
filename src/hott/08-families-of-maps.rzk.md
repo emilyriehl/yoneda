@@ -258,6 +258,18 @@ implication could be proven similarly.
       ( is-contr-map-is-equiv
         ( Σ (x : A) , B x) (Σ (x : A) , C x)
         ( total-map-family-of-maps A B C f) totalequiv) a)
+
+#def family-equiv-total-equiv
+  ( A : U)
+  ( B C : A → U)
+  ( f : (a : A) → (B a) → (C a))
+  ( totalequiv : is-equiv
+                ( Σ (x : A) , B x)
+                ( Σ (x : A) , C x)
+                ( total-map-family-of-maps A B C f))
+  ( a : A)
+  : Equiv (B a) (C a)
+  := ( f a , total-equiv-family-of-equiv A B C f totalequiv a)
 ```
 
 In summary, a family of maps is an equivalence iff the map on total spaces is an
@@ -679,45 +691,48 @@ is an equivalence.
 
 ## 2-of-3 for equivalences
 
+The following functions refine `right-cancel-equiv` and `left-cancel-equiv` by
+providing control over the underlying maps of the equivalence.
+
 ```rzk
 -- It might be better to redo this without appealing to results about
 -- embeddings so that this could go earlier.
-#def RightCancel-is-equiv
+#def right-cancel-is-equiv
   (A B C : U)
   (f : A → B)
   (g : B → C)
   (is-equiv-g : is-equiv B C g)
-  (gfisequiv : is-equiv A C (composition A B C g f))
+  (is-equiv-gf : is-equiv A C (composition A B C g f))
   : is-equiv A B f
   :=
     ( ( composition B C A
-        (is-equiv-retraction A C (composition A B C g f) gfisequiv) g ,
-        (second (first gfisequiv))) ,
+        (is-equiv-retraction A C (composition A B C g f) is-equiv-gf) g ,
+        (second (first is-equiv-gf))) ,
       ( composition B C A
-        (is-equiv-section A C (composition A B C g f) gfisequiv) g ,
+        (is-equiv-section A C (composition A B C g f) is-equiv-gf) g ,
         \ b →
           inv-ap-is-emb
             B C g
             ( is-emb-is-equiv B C g is-equiv-g)
-            ( f ((is-equiv-section A C (composition A B C g f) gfisequiv) (g b)))
+            ( f ((is-equiv-section A C (composition A B C g f) is-equiv-gf) (g b)))
             b
-            ( (second (second gfisequiv)) (g b))))
+            ( (second (second is-equiv-gf)) (g b))))
 
-#def LeftCancel-is-equiv
+#def left-cancel-is-equiv
   (A B C : U)
   (f : A → B)
   (is-equiv-f : is-equiv A B f)
   (g : B → C)
-  (gfisequiv : is-equiv A C (composition A B C g f))
+  (is-equiv-gf : is-equiv A C (composition A B C g f))
   : is-equiv B C g
   :=
     ( ( composition C A B
-          f (is-equiv-retraction A C (composition A B C g f) gfisequiv) ,
+          f (is-equiv-retraction A C (composition A B C g f) is-equiv-gf) ,
         \ b →
           triple-concat B
-            ( f ((is-equiv-retraction A C (composition A B C g f) gfisequiv)
+            ( f ((is-equiv-retraction A C (composition A B C g f) is-equiv-gf)
               (g b)))
-            ( f ((is-equiv-retraction A C (composition A B C g f) gfisequiv)
+            ( f ((is-equiv-retraction A C (composition A B C g f) is-equiv-gf)
               (g (f ((is-equiv-section A B f is-equiv-f) b)))))
             ( f ((is-equiv-section A B f is-equiv-f) b))
             ( b)
@@ -726,22 +741,22 @@ is an equivalence.
               ( f ((is-equiv-section A B f is-equiv-f) b))
               ( \ b0 →
                 ( f ((is-equiv-retraction A C
-                      ( composition A B C g f) gfisequiv) (g b0))))
+                      ( composition A B C g f) is-equiv-gf) (g b0))))
               ( rev B (f ((is-equiv-section A B f is-equiv-f) b)) b
                 ( (second (second is-equiv-f)) b)))
             ( ( homotopy-whisker B A A B
                 ( \ a →
                   ( is-equiv-retraction A C
-                    ( composition A B C g f) gfisequiv) (g (f a)))
+                    ( composition A B C g f) is-equiv-gf) (g (f a)))
                 ( \ a → a)
-                ( second (first gfisequiv))
+                ( second (first is-equiv-gf))
                 ( is-equiv-section A B f is-equiv-f)
                 f) b)
             ( (second (second is-equiv-f)) b)) ,
       ( composition C A B
         ( f)
-        ( is-equiv-section A C (composition A B C g f) gfisequiv) ,
-        ( second (second gfisequiv))))
+        ( is-equiv-section A C (composition A B C g f) is-equiv-gf) ,
+        ( second (second is-equiv-gf))))
 ```
 
 ## Maps over product types
@@ -774,7 +789,7 @@ types over a product type.
     ( Σ (a : A) , (Σ (b' : B') , C' (f a) b'))
     ( \ (a , (b , c)) → (a , (g b , h a b c)))
   :=
-    RightCancel-is-equiv
+    right-cancel-is-equiv
     ( Σ (a : A) , (Σ (b : B) , C a b))
     ( Σ (a : A) , (Σ (b' : B') , C' (f a) b'))
     ( Σ (a' : A') , (Σ (b' : B') , C' a' b'))
@@ -800,7 +815,7 @@ types over a product type.
     ( Σ (a : A) , (Σ (b : B) , C' (f a) (g b)))
     ( \ (a , (b , c)) → (a , (b , h a b c)))
   :=
-    RightCancel-is-equiv
+    right-cancel-is-equiv
     ( Σ (a : A) , (Σ (b : B) , C a b))
     ( Σ (a : A) , (Σ (b : B) , C' (f a) (g b)))
     ( Σ (a : A) , (Σ (b' : B') , C' (f a) b'))
