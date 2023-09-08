@@ -91,7 +91,9 @@ The intersection of shapes is defined by conjunction on topes.
 
 ```rzk
 #def shape-intersection
-  (I : CUBE) (ψ χ : I → TOPE) : I → TOPE
+  ( I : CUBE)
+  ( ψ χ : I → TOPE)
+  : I → TOPE
   := \ t → ψ t ∧ χ t
 ```
 
@@ -101,6 +103,8 @@ The union of shapes is defined by disjunction on topes.
 
 ```rzk
 #def shapeUnion
-  (I : CUBE) (ψ χ : I → TOPE) : I → TOPE
+  ( I : CUBE)
+  ( ψ χ : I → TOPE)
+  : I → TOPE
   := \ t → ψ t ∨ χ t
 ```
