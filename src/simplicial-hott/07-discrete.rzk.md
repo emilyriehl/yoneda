@@ -32,14 +32,14 @@ identity types.
 
 ```rzk title="RS17, Definition 7.1"
 #def arr-eq
-  (A : U)
-  (x y : A)
-  (p : x = y)
+  ( A : U)
+  ( x y : A)
+  ( p : x = y)
   : hom A x y
   := ind-path (A) (x) (\ y' → \ p' → hom A x y') ((id-hom A x)) (y) (p)
 
 #def is-discrete
-  (A : U)
+  ( A : U)
   : U
   := (x : A) → (y : A) → is-equiv (x =_{A} y) (hom A x y) (arr-eq A x y)
 ```
@@ -714,11 +714,11 @@ The extension types that appear in the Segal condition are retracts of this type
 
 ```rzk
 #def triangle-to-square-section
-  (A : U)
-  (x y : A)
-  (f g : hom A x y)
-  (α : hom2 A x y y f (id-hom A y) g)
-  : ((t , s) : Δ¹×Δ¹) → A
+  ( A : U)
+  ( x y : A)
+  ( f g : hom A x y)
+  ( α : hom2 A x y y f (id-hom A y) g)
+  : ( (t , s) : Δ¹×Δ¹) → A
     [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
       (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
       (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
@@ -736,7 +736,7 @@ The extension types that appear in the Segal condition are retracts of this type
           (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
           (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
           (Δ¹ t) ∧ (s ≡ 1₂) ↦ y ])
-  := (d , triangle-to-square-section A x y f d α)
+  := ( d , triangle-to-square-section A x y f d α)
 
 #def sigma-square-to-sigma-triangle-retraction
   ( A : U)
@@ -750,7 +750,7 @@ The extension types that appear in the Segal condition are retracts of this type
           (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
           (Δ¹ t) ∧ (s ≡ 1₂) ↦ y ]))
   : Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d
-  := ((\ t → σ (t , t)) , (\ (t , s) → σ (s , t)))
+  := ( (\ t → σ (t , t)) , (\ (t , s) → σ (s , t)))
 
 #def sigma-triangle-to-sigma-square-retract
   ( A : U)
