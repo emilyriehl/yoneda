@@ -21,7 +21,6 @@ This is a literate `rzk` file:
 - `4-extension-types.md` — We use the fubini theorem and extension
   extensionality.
 - `5-segal-types.md` - We make heavy use of the notion of Segal types
-- `8-covariant.md` - We use covariant type families.
 - `10-rezk-types.md`- We use Rezk types.
 
 ## (Iso-)Inner families
