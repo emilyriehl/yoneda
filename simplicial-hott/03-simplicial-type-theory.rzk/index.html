@@ -874,14 +874,18 @@
 <h3 id="intersections">Intersections<a class="headerlink" href="#intersections" title="Permanent link">&para;</a></h3>
 <p>The intersection of shapes is defined by conjunction on topes.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:shape-intersection" id="define:shape-intersection" style="visibility: visible; position: relative; color: inherit">shape-intersection</a></span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="err">  </span><span class="p">(</span>I <span class="p">:</span><span class="err"> CUBE) </span><span class="p">(</span>ψ χ <span class="p">:</span><span class="err"> I → TOPE) : I → TOPE</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="err">  := </span><span class="p">\ </span>t <span class="err">→ ψ t </span><span class="sx">∧</span><span class="err"> χ t</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="err">  </span><span class="p">( </span>I <span class="p">:</span><span class="err"> CUBE)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="err">  </span><span class="p">( </span>ψ χ <span class="p">:</span><span class="err"> I → TOPE)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="err">  : I → TOPE</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="err">  := </span><span class="p">\ </span>t <span class="err">→ ψ t </span><span class="sx">∧</span><span class="err"> χ t</span>
 </span></code></pre></div>
 <h3 id="unions">Unions<a class="headerlink" href="#unions" title="Permanent link">&para;</a></h3>
 <p>The union of shapes is defined by disjunction on topes.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:shapeUnion" id="define:shapeUnion" style="visibility: visible; position: relative; color: inherit">shapeUnion</a></span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="err">  </span><span class="p">(</span>I <span class="p">:</span><span class="err"> CUBE) </span><span class="p">(</span>ψ χ <span class="p">:</span><span class="err"> I → TOPE) : I → TOPE</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="err">  := </span><span class="p">\ </span>t <span class="err">→ ψ t </span><span class="sx">∨</span><span class="err"> χ t</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="err">  </span><span class="p">( </span>I <span class="p">:</span><span class="err"> CUBE)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="err">  </span><span class="p">( </span>ψ χ <span class="p">:</span><span class="err"> I → TOPE)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="err">  : I → TOPE</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="err">  := </span><span class="p">\ </span>t <span class="err">→ ψ t </span><span class="sx">∨</span><span class="err"> χ t</span>
 </span></code></pre></div>
 
 
