@@ -159,7 +159,7 @@ A type is contractible if and only if its terminal map is an equivalence.
   : is-contr B
   := ( terminal-map-is-equiv-implies-contr B
       ( second
-        ( comp-equiv B A Unit
+        ( equiv-comp B A Unit
           ( inv-equiv A B f)
           ( ( terminal-map A) ,
             ( contr-implies-terminal-map-is-equiv A is-contr-A)))))
@@ -217,7 +217,7 @@ A retract of contractible types is contractible.
   := first (second is-retract-of-A-B)
 
 #def is-retract-of-homotopy
-  : homotopy A A (composition A B A is-retract-of-retraction is-retract-of-section) (identity A)
+  : homotopy A A (comp A B A is-retract-of-retraction is-retract-of-section) (identity A)
   := second (second is-retract-of-A-B)
 ```
 
@@ -236,7 +236,7 @@ A retract of contractible types is contractible.
   := concat
       A
       ( is-retract-of-is-contr-isInhabited is-contr-B)
-      ( (composition A B A is-retract-of-retraction is-retract-of-section) a)
+      ( (comp A B A is-retract-of-retraction is-retract-of-section) a)
       a
       ( ap B A (contraction-center B is-contr-B) (is-retract-of-section a)
         ( is-retract-of-retraction)
@@ -430,7 +430,7 @@ A type is contractible if and only if it has singleton induction.
   : (B a) → ((x : A) → B x)
   := ( first singleton-ind-A)
 
-#def comp-sing
+#def compute-ind-sing
   ( A : U)
   ( a : A)
   ( B : A → U)
@@ -438,7 +438,7 @@ A type is contractible if and only if it has singleton induction.
   : ( homotopy
       ( B a)
       ( B a)
-      ( composition
+      ( comp
         ( B a)
         ( (x : A) → B x)
         ( B a)

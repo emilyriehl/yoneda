@@ -36,7 +36,7 @@ identity types.
   (x y : A)
   (p : x = y)
   : hom A x y
-  := ind-path (A) (x) (\ y' → \ p' → hom A x y') ((id-arr A x)) (y) (p)
+  := ind-path (A) (x) (\ y' → \ p' → hom A x y') ((id-hom A x)) (y) (p)
 
 #def is-discrete
   (A : U)
@@ -57,12 +57,12 @@ of discrete types is discrete.
   ( f g : (x : X) → A x)
   : Equiv (f = g) (hom ((x : X) → A x) f g)
   :=
-    triple-comp-equiv
+    equiv-triple-comp
       ( f = g)
       ( (x : X) → f x = g x)
       ( (x : X) → hom (A x) (f x) (g x))
       ( hom ((x : X) → A x) f g)
-      ( FunExt-equiv funext X A f g)
+      ( equiv-FunExt funext X A f g)
       ( equiv-function-equiv-fibered funext X
         ( \ x → (f x = g x)) (\ x → hom (A x) (f x) (g x))
         ( \ x → (arr-eq (A x) (f x) (g x) , (is-discrete-A x (f x) (g x)))))
@@ -102,7 +102,7 @@ of discrete types is discrete.
   : is-discrete ((x : X) → A x)
   :=
     \ f g →
-    is-equiv-homotopic-is-equiv
+    is-equiv-homotopy
       ( f = g)
       ( hom ((x : X) → A x) f g)
       ( arr-eq ((x : X) → A x) f g)
@@ -124,7 +124,7 @@ only, extending from BOT, that's all we prove here for now.
   ( f g : (t : ψ) → A t)
   : Equiv (f = g) (hom ((t : ψ) → A t) f g)
   :=
-    triple-comp-equiv
+    equiv-triple-comp
       ( f = g)
       ( (t : ψ) → f t = g t)
       ( (t : ψ) → hom (A t) (f t) (g t))
@@ -177,7 +177,7 @@ only, extending from BOT, that's all we prove here for now.
   : is-discrete ((t : ψ) → A t)
   :=
     \ f g →
-    is-equiv-homotopic-is-equiv
+    is-equiv-homotopy
       ( f = g)
       ( hom ((t : ψ) → A t) f g)
       ( arr-eq ((t : ψ) → A t) f g)
@@ -238,14 +238,18 @@ Discrete types are automatically Segal types.
           ( \ σ → refl))))
 ```
 
-The equivalence underlying `#!rzk Eq-arr`:
+The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
 
 ```rzk
 #def fibered-arr-free-arr
   : (arr A) → (Σ (u : A) , (Σ (v : A) , hom A u v))
   := \ k → (k 0₂ , (k 1₂ , k))
 
-#def id-equiv-Eq-arr uses (w x y z)
+#def is-equiv-fibered-arr-free-arr
+  : is-equiv (arr A) (Σ (u : A) , (Σ (v : A) , hom A u v)) (fibered-arr-free-arr)
+  := is-equiv-arr-Σ-hom A
+
+#def is-equiv-ap-fibered-arr-free-arr uses (w x y z)
   : is-equiv
       ( f =_{Δ¹ → A} g)
       ( fibered-arr-free-arr f = fibered-arr-free-arr g)
@@ -256,21 +260,22 @@ The equivalence underlying `#!rzk Eq-arr`:
         ( g)
         ( fibered-arr-free-arr))
   :=
-    is-equiv-ap-is-equiv
+    is-emb-is-equiv
       ( arr A)
       ( Σ (u : A) , (Σ (v : A) , (hom A u v)))
-      fibered-arr-free-arr
-      ( second (Eq-arr A))
+      ( fibered-arr-free-arr)
+      ( is-equiv-fibered-arr-free-arr)
       ( f)
       ( g)
 
-#def id-Eq-Eq-arr uses (w x y z)
+#def id-Eq-equiv-arr-Σ-hom uses (w x y z)
   : Equiv (f =_{Δ¹ → A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
   :=
-    Eq-ap-is-equiv
+    equiv-ap-is-equiv
       ( arr A)
-      ( Σ (u : A) , (Σ (v : A) , (hom A u v))) (fibered-arr-free-arr)
-      ( second (Eq-arr A))
+      ( Σ (u : A) , (Σ (v : A) , (hom A u v)))
+      ( fibered-arr-free-arr)
+      ( is-equiv-fibered-arr-free-arr)
       ( f)
       ( g)
 
@@ -288,18 +293,18 @@ The equivalence underlying `#!rzk Eq-arr`:
 
 #def equiv-square-sigma-over-product uses (extext is-discrete-A)
   : Equiv
-      ( Σ ( p : x = z) ,
-          ( Σ (q : y = w) ,
-              ( product-transport A A (hom A) x z y w p q f = g)))
-      ( Σ ( h : hom A x z) ,
-          ( Σ ( k : hom A y w) ,
-              ( ((t , s) : Δ¹×Δ¹) → A
-                [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                  (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                  (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
-                  (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
+    ( Σ ( p : x = z) ,
+        ( Σ (q : y = w) ,
+            ( product-transport A A (hom A) x z y w p q f = g)))
+    ( Σ ( h : hom A x z) ,
+        ( Σ ( k : hom A y w) ,
+            ( ((t , s) : Δ¹×Δ¹) → A
+              [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
   :=
-    left-cancel-equiv
+    equiv-left-cancel
       ( f =_{Δ¹ → A} g)
       ( Σ ( p : x = z) ,
           ( Σ ( q : y = w) ,
@@ -311,15 +316,15 @@ The equivalence underlying `#!rzk Eq-arr`:
                   (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
                   (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
                   (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
-      ( comp-equiv
+      ( equiv-comp
         ( f =_{Δ¹ → A} g)
         ( fibered-arr-free-arr f = fibered-arr-free-arr g)
         ( Σ ( p : x = z) ,
             ( Σ ( q : y = w) ,
                 ( product-transport A A (hom A) x z y w p q f = g)))
-        id-Eq-Eq-arr
+        id-Eq-equiv-arr-Σ-hom
         equiv-sigma-over-product-arr-eq)
-      ( comp-equiv
+      ( equiv-comp
         ( f =_{Δ¹ → A} g)
         ( hom (arr A) f g)
         ( Σ ( h : hom A x z) ,
@@ -516,7 +521,7 @@ We close the section so we can use path induction.
                 (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t ])))
     ( square-sigma-over-product A is-discrete-A x y z w f g)
   :=
-    is-equiv-rev-homotopic-is-equiv
+    is-equiv-rev-homotopy
     ( Σ ( p : x = z) ,
         ( Σ ( q : y = w) ,
             ( product-transport A A (hom A) x z y w p q f = g)))
@@ -712,7 +717,7 @@ The extension types that appear in the Segal condition are retracts of this type
   (A : U)
   (x y : A)
   (f g : hom A x y)
-  (α : hom2 A x y y f (id-arr A y) g)
+  (α : hom2 A x y y f (id-hom A y) g)
   : ((t , s) : Δ¹×Δ¹) → A
     [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
       (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
@@ -724,7 +729,7 @@ The extension types that appear in the Segal condition are retracts of this type
   ( A : U)
   ( x y : A)
   ( f : hom A x y)
-  ( (d , α) : Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+  ( (d , α) : Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
   : Σ ( g : hom A x y) ,
       ( ((t , s) : Δ¹×Δ¹) → A
         [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
@@ -744,7 +749,7 @@ The extension types that appear in the Segal condition are retracts of this type
           (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
           (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
           (Δ¹ t) ∧ (s ≡ 1₂) ↦ y ]))
-  : Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d
+  : Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d
   := ((\ t → σ (t , t)) , (\ (t , s) → σ (s , t)))
 
 #def sigma-triangle-to-sigma-square-retract
@@ -752,7 +757,7 @@ The extension types that appear in the Segal condition are retracts of this type
   ( x y : A)
   ( f : hom A x y)
   : is-retract-of
-      ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+      ( Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
       ( Σ (g : hom A x y) ,
           ( ((t , s) : Δ¹×Δ¹) → A
             [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
@@ -774,10 +779,10 @@ the second arrow is an identity.
   ( is-discrete-A : is-discrete A)
   ( x y : A)
   ( f : hom A x y)
-  : is-contr ( Σ (d : hom A x y) , hom2 A x y y f (id-arr A y) d)
+  : is-contr ( Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
   :=
     is-contr-is-retract-of-is-contr
-      ( Σ ( d : hom A x y) , (hom2 A x y y f (id-arr A y) d))
+      ( Σ ( d : hom A x y) , (hom2 A x y y f (id-hom A y) d))
       ( Σ ( g : hom A x y) ,
           ( ((t , s) : Δ¹×Δ¹) → A
             [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
