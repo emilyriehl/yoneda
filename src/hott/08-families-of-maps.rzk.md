@@ -631,9 +631,10 @@ fundamental theorem:
 
 ## 2-of-3 for equivalences
 
+The following functions refine `equiv-right-cancel` and `equiv-left-cancel` by
+providing control over the underlying maps of the equivalence.
+
 ```rzk
--- It might be better to redo this without appealing to results about
--- embeddings so that this could go earlier.
 #def is-equiv-right-factor
   ( A B C : U)
   ( f : A → B)
