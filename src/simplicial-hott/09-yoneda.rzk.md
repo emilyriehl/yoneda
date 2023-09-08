@@ -242,7 +242,10 @@ though it requires some work to prove that the domain is covariant.
   (is-covariant-C : is-covariant A C)
   (ϕ : (z : A) → hom A a z → C z)
   : (covariant-transport A a b f C is-covariant-C (evid A a C ϕ)) =
-    (evid A b C (covariant-transport A a b f ( \ x -> (z : A) → hom A x z → C z)     (is-covariant-yoneda-domain A is-segal-A C is-covariant-C) ϕ))
+    (evid A b C
+      (covariant-transport A a b f
+        ( \ x -> (z : A) → hom A x z → C z)
+        ( is-covariant-yoneda-domain A is-segal-A C is-covariant-C) ϕ))
   :=
     naturality-covariant-fiberwise-transformation
     ( A)
