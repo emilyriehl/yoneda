@@ -258,6 +258,18 @@ implication could be proven similarly.
       ( is-contr-map-is-equiv
         ( Σ (x : A) , B x) (Σ (x : A) , C x)
         ( total-map-family-of-maps A B C f) totalequiv) a)
+
+#def family-equiv-total-equiv
+  ( A : U)
+  ( B C : A → U)
+  ( f : (a : A) → (B a) → (C a))
+  ( totalequiv : is-equiv
+                ( Σ (x : A) , B x)
+                ( Σ (x : A) , C x)
+                ( total-map-family-of-maps A B C f))
+  ( a : A)
+  : Equiv (B a) (C a)
+  := ( f a , total-equiv-family-of-equiv A B C f totalequiv a)
 ```
 
 In summary, a family of maps is an equivalence iff the map on total spaces is an
