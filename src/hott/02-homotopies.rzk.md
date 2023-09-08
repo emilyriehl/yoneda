@@ -22,7 +22,7 @@ This is a literate `rzk` file:
 ```
 
 ```rzk title="The reversal of a homotopy"
-#def homotopy-rev
+#def rev-homotopy
   (f g : A → B)
   (H : homotopy f g)
   : homotopy g f
@@ -30,7 +30,7 @@ This is a literate `rzk` file:
 ```
 
 ```rzk
-#def homotopy-composition
+#def concat-homotopy
   (f g h : A → B)
   (H : homotopy f g)
   (K : homotopy g h)
@@ -52,23 +52,23 @@ unlike composition.
 
 #variables A B C : U
 
-#def homotopy-postwhisker
+#def postwhisker-homotopy
   (f g : A → B)
   (H : homotopy A B f g)
   (h : B → C)
-  : homotopy A C (composition A B C h f) (composition A B C h g)
+  : homotopy A C (comp A B C h f) (comp A B C h g)
   := \ a → ap B C (f a) (g a) h (H a)
 
-#def homotopy-prewhisker
+#def prewhisker-homotopy
   (f g : B → C)
   (H : homotopy B C f g)
   (h : A → B)
-  : homotopy A C (composition A B C f h) (composition A B C g h)
+  : homotopy A C (comp A B C f h) (comp A B C g h)
   := \ a → H (h a)
 
 #end homotopy-whiskering
 
-#def homotopy-whisker
+#def whisker-homotopy
   (A B C D : U)
   (h k : B → C)
   (H : homotopy B C h k)
@@ -77,16 +77,16 @@ unlike composition.
   : homotopy
       A
       D
-      (triple-composition A B C D g h f)
-      (triple-composition A B C D g k f)
+      (triple-comp A B C D g h f)
+      (triple-comp A B C D g k f)
   :=
-    homotopy-postwhisker
+    postwhisker-homotopy
       A
       C
       D
-      ( composition A B C h f)
-      ( composition A B C k f)
-      ( homotopy-prewhisker A B C h k H f)
+      ( comp A B C h f)
+      ( comp A B C k f)
+      ( prewhisker-homotopy A B C h k H f)
       g
 ```
 
@@ -161,8 +161,8 @@ square.
 
 ```rzk
 #def cocone-naturality
-  : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
-    (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
+  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
+    ( concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
   := nat-htpy A A f (identity A) H (f a) a (H a)
 ```
 
@@ -171,8 +171,8 @@ following:
 
 ```rzk
 #def reduced-cocone-naturality
-  : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
-    (concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
+    ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))
   :=
     concat
       ( (f (f a)) = a)
@@ -185,8 +185,8 @@ following:
         ( H (f a))
         ( ap A A (f a) a (identity A) (H a)))
       ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))
-      (cocone-naturality)
-      (concat-homotopy
+      ( cocone-naturality)
+      ( concat-eq-right
         ( A)
         ( f (f a))
         ( f a)
@@ -243,7 +243,7 @@ need:
         ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
           ( rev B (f x) (g x) (K x)) (p) (Ky)))
-      ( homotopy-triple-concat
+      ( triple-concat-eq-first
         ( B) (g x) (f x) (f y) (g y)
         ( rev B (f x) (g x) (H x))
         ( rev B (f x) (g x) (K x))

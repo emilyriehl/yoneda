@@ -58,7 +58,7 @@ pointwise equal.
   (A B : U)
   (F : A → B)
   (x : A)
-  : (ap-hom A B F x x (id-arr A x)) = (id-arr B (F x))
+  : (ap-hom A B F x x (id-hom A x)) = (id-hom B (F x))
   := eq-ext-htpy
       extext
       2
@@ -68,8 +68,8 @@ pointwise equal.
       (\ t → recOR
       ( t ≡ 0₂ ↦ F x ,
         t ≡ 1₂ ↦ F x))
-      (ap-hom A B F x x (id-arr A x))
-      (id-arr B (F x))
+      (ap-hom A B F x x (id-hom A x))
+      (id-hom B (F x))
       (\ t → refl)
 ```
 
@@ -85,21 +85,21 @@ Preservation of composition requires the Segal hypothesis.
   (f : hom A x y)
   (g : hom A y z)
   :
-    ( Segal-comp B is-segal-B
+    ( comp-Segal B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g))
     =
-    ( ap-hom A B F x z (Segal-comp A is-segal-A x y z f g))
+    ( ap-hom A B F x z (comp-Segal A is-segal-A x y z f g))
   :=
-    Segal-comp-uniqueness B is-segal-B
+    uniqueness-comp-Segal B is-segal-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g)
-      ( ap-hom A B F x z (Segal-comp A is-segal-A x y z f g))
+      ( ap-hom A B F x z (comp-Segal A is-segal-A x y z f g))
       ( ap-hom2 A B F x y z f g
-        ( Segal-comp A is-segal-A x y z f g)
-        ( Segal-comp-witness A is-segal-A x y z f g))
+        ( comp-Segal A is-segal-A x y z f g)
+        ( witness-comp-Segal A is-segal-A x y z f g))
 ```
 
 ## Natural transformations
@@ -214,7 +214,7 @@ Segal types.
   (η : nat-trans-components A B f g)
   (η' : nat-trans-components A B g h)
   : nat-trans-components A B f h
-  := \ x → Segal-comp (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
+  := \ x → comp-Segal (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
 
 #def vertical-comp-nat-trans
   (A : U)
@@ -241,6 +241,6 @@ The identity natural transformation is identity arrows on components
   (B : A → U)
   (f : (x : A) → (B x))
   (a : A)
-  : (\ t → id-arr ((x : A) → B x) f t a) =_{Δ¹ → B a} id-arr (B a) (f a)
+  : (\ t → id-hom ((x : A) → B x) f t a) =_{Δ¹ → B a} id-hom (B a) (f a)
   := refl
 ```
