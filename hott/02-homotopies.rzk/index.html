@@ -793,13 +793,13 @@
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">  : U</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">  := </span><span class="p">(</span>a <span class="p">:</span><span class="err"> A) → (f a = g a)</span>
 </span></code></pre></div>
-<div class="language-rzk highlight"><span class="filename">The reversal of a homotopy</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:homotopy-rev" id="define:homotopy-rev" style="visibility: visible; position: relative; color: inherit">homotopy-rev</a></span>
+<div class="language-rzk highlight"><span class="filename">The reversal of a homotopy</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:rev-homotopy" id="define:rev-homotopy" style="visibility: visible; position: relative; color: inherit">rev-homotopy</a></span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">  </span><span class="p">(</span>f g <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">  </span><span class="p">(</span>H <span class="p">:</span><span class="err"> homotopy f g)</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">  : homotopy g f</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">  := </span><span class="p">\ </span>a <span class="err">→ rev B (f a) (g a) (H a)</span>
 </span></code></pre></div>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:homotopy-composition" id="define:homotopy-composition" style="visibility: visible; position: relative; color: inherit">homotopy-composition</a></span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:concat-homotopy" id="define:concat-homotopy" style="visibility: visible; position: relative; color: inherit">concat-homotopy</a></span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">  </span><span class="p">(</span>f g h <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">  </span><span class="p">(</span>H <span class="p">:</span><span class="err"> homotopy f g)</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">  </span><span class="p">(</span>K <span class="p">:</span><span class="err"> homotopy g h)</span>
@@ -815,23 +815,23 @@ unlike composition.</p>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kr">#variables</span><span class="p"> </span>A B C<span class="err"> : U</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:homotopy-postwhisker" id="define:homotopy-postwhisker" style="visibility: visible; position: relative; color: inherit">homotopy-postwhisker</a></span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:postwhisker-homotopy" id="define:postwhisker-homotopy" style="visibility: visible; position: relative; color: inherit">postwhisker-homotopy</a></span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="err">  </span><span class="p">(</span>f g <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="err">  </span><span class="p">(</span>H <span class="p">:</span><span class="err"> homotopy A B f g)</span>
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="err">  </span><span class="p">(</span>h <span class="p">:</span><span class="err"> B → C)</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="err">  : homotopy A C (composition A B C h f) (composition A B C h g)</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="err">  : homotopy A C (comp A B C h f) (comp A B C h g)</span>
 </span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="err">  := </span><span class="p">\ </span>a <span class="err">→ ap B C (f a) (g a) h (H a)</span>
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:homotopy-prewhisker" id="define:homotopy-prewhisker" style="visibility: visible; position: relative; color: inherit">homotopy-prewhisker</a></span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:prewhisker-homotopy" id="define:prewhisker-homotopy" style="visibility: visible; position: relative; color: inherit">prewhisker-homotopy</a></span>
 </span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="err">  </span><span class="p">(</span>f g <span class="p">:</span><span class="err"> B → C)</span>
 </span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="err">  </span><span class="p">(</span>H <span class="p">:</span><span class="err"> homotopy B C f g)</span>
 </span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="err">  </span><span class="p">(</span>h <span class="p">:</span><span class="err"> A → B)</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="err">  : homotopy A C (composition A B C f h) (composition A B C g h)</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="err">  : homotopy A C (comp A B C f h) (comp A B C g h)</span>
 </span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="err">  := </span><span class="p">\ </span>a <span class="err">→ H (h a)</span>
 </span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
 </span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="nd">#end</span><span class="n"> homotopy-whiskering</span>
 </span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
-</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:homotopy-whisker" id="define:homotopy-whisker" style="visibility: visible; position: relative; color: inherit">homotopy-whisker</a></span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:whisker-homotopy" id="define:whisker-homotopy" style="visibility: visible; position: relative; color: inherit">whisker-homotopy</a></span>
 </span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="err">  </span><span class="p">(</span>A B C D <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="err">  </span><span class="p">(</span>h k <span class="p">:</span><span class="err"> B → C)</span>
 </span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="err">  </span><span class="p">(</span>H <span class="p">:</span><span class="err"> homotopy B C h k)</span>
@@ -840,16 +840,16 @@ unlike composition.</p>
 </span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="err">  : homotopy</span>
 </span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="err">      A</span>
 </span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="err">      D</span>
-</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="err">      (triple-composition A B C D g h f)</span>
-</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="err">      (triple-composition A B C D g k f)</span>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="err">      (triple-comp A B C D g h f)</span>
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="err">      (triple-comp A B C D g k f)</span>
 </span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="err">  :=</span>
-</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="err">    homotopy-postwhisker</span>
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="err">    postwhisker-homotopy</span>
 </span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="err">      A</span>
 </span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="err">      C</span>
 </span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="err">      D</span>
-</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a><span class="err">      ( composition A B C h f)</span>
-</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a><span class="err">      ( composition A B C k f)</span>
-</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a><span class="err">      ( homotopy-prewhisker A B C h k H f)</span>
+</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a><span class="err">      ( comp A B C h f)</span>
+</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a><span class="err">      ( comp A B C k f)</span>
+</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a><span class="err">      ( prewhisker-homotopy A B C h k H f)</span>
 </span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a><span class="err">      g</span>
 </span></code></pre></div>
 <h2 id="naturality">Naturality<a class="headerlink" href="#naturality" title="Permanent link">&para;</a></h2>
@@ -913,15 +913,15 @@ unlike composition.</p>
 square applies to the path <code class="language-rzk highlight"><span class="err">H a</span></code> to produce the following naturality
 square.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:cocone-naturality" id="define:cocone-naturality" style="visibility: visible; position: relative; color: inherit">cocone-naturality</a></span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="err">  : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="err">    (concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="err">  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="err">    ( concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="err">  := nat-htpy A A f (identity A) H (f a) a (H a)</span>
 </span></code></pre></div>
 <p>After composing with <code class="language-rzk highlight"><span class="err">ap-id</span></code>, this naturality square transforms to the
 following:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:reduced-cocone-naturality" id="define:reduced-cocone-naturality" style="visibility: visible; position: relative; color: inherit">reduced-cocone-naturality</a></span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="err">  : (concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="err">    (concat A (f (f a)) (f a) (a) (H (f a)) (H a))</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="err">  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="err">    ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="err">  :=</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="err">    concat</span>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="err">      ( (f (f a)) = a)</span>
@@ -934,8 +934,8 @@ following:</p>
 </span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="err">        ( H (f a))</span>
 </span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="err">        ( ap A A (f a) a (identity A) (H a)))</span>
 </span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="err">      ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="err">      (cocone-naturality)</span>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="err">      (concat-homotopy</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="err">      ( cocone-naturality)</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="err">      ( concat-eq-right</span>
 </span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="err">        ( A)</span>
 </span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="err">        ( f (f a))</span>
 </span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="err">        ( f a)</span>
@@ -986,7 +986,7 @@ need:</p>
 </span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="err">        ( triple-concat</span>
 </span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="err">          ( B) (g x) (f x) (f y) (g y)</span>
 </span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="err">          ( rev B (f x) (g x) (K x)) (p) (Ky)))</span>
-</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="err">      ( homotopy-triple-concat</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="err">      ( triple-concat-eq-first</span>
 </span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="err">        ( B) (g x) (f x) (f y) (g y)</span>
 </span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="err">        ( rev B (f x) (g x) (H x))</span>
 </span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="err">        ( rev B (f x) (g x) (K x))</span>

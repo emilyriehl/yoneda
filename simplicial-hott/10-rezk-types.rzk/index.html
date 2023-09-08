@@ -752,7 +752,7 @@
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> hom A x y)</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="err">  </span><span class="p">( </span>g <span class="p">:</span><span class="err"> hom A y x)</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">  : U</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">  := ( Segal-comp A is-segal-A x y x f g) =_{hom A x x} (id-arr A x)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">  := ( comp-Segal A is-segal-A x y x f g) =_{hom A x x} (id-hom A x)</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Retraction-arrow" id="define:Retraction-arrow" style="visibility: visible; position: relative; color: inherit">Retraction-arrow</a></span>
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
@@ -769,7 +769,7 @@
 </span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> hom A x y)</span>
 </span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="err">  </span><span class="p">( </span>h <span class="p">:</span><span class="err"> hom A y x)</span>
 </span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="err">  : U</span>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="err">  := ( Segal-comp A is-segal-A y x y h f) =_{hom A y y} (id-arr A y)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="err">  := ( comp-Segal A is-segal-A y x y h f) =_{hom A y y} (id-hom A y)</span>
 </span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
 </span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Section-arrow" id="define:Section-arrow" style="visibility: visible; position: relative; color: inherit">Section-arrow</a></span>
 </span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="err">  </span><span class="p">(</span>A <span class="p">:</span><span class="err"> U)</span>
@@ -830,40 +830,40 @@
 </span><span id="__span-2-83"><a id="__codelineno-2-83" name="__codelineno-2-83" href="#__codelineno-2-83"></a><span class="err">        ( p ,</span>
 </span><span id="__span-2-84"><a id="__codelineno-2-84" name="__codelineno-2-84" href="#__codelineno-2-84"></a><span class="err">          ( concat</span>
 </span><span id="__span-2-85"><a id="__codelineno-2-85" name="__codelineno-2-85" href="#__codelineno-2-85"></a><span class="err">            ( hom A y y)</span>
-</span><span id="__span-2-86"><a id="__codelineno-2-86" name="__codelineno-2-86" href="#__codelineno-2-86"></a><span class="err">            ( Segal-comp A is-segal-A y x y g f)</span>
-</span><span id="__span-2-87"><a id="__codelineno-2-87" name="__codelineno-2-87" href="#__codelineno-2-87"></a><span class="err">            ( Segal-comp A is-segal-A y x y h f)</span>
-</span><span id="__span-2-88"><a id="__codelineno-2-88" name="__codelineno-2-88" href="#__codelineno-2-88"></a><span class="err">            ( id-arr A y)</span>
-</span><span id="__span-2-89"><a id="__codelineno-2-89" name="__codelineno-2-89" href="#__codelineno-2-89"></a><span class="err">            ( Segal-homotopy-postwhisker A is-segal-A y x y g h f</span>
+</span><span id="__span-2-86"><a id="__codelineno-2-86" name="__codelineno-2-86" href="#__codelineno-2-86"></a><span class="err">            ( comp-Segal A is-segal-A y x y g f)</span>
+</span><span id="__span-2-87"><a id="__codelineno-2-87" name="__codelineno-2-87" href="#__codelineno-2-87"></a><span class="err">            ( comp-Segal A is-segal-A y x y h f)</span>
+</span><span id="__span-2-88"><a id="__codelineno-2-88" name="__codelineno-2-88" href="#__codelineno-2-88"></a><span class="err">            ( id-hom A y)</span>
+</span><span id="__span-2-89"><a id="__codelineno-2-89" name="__codelineno-2-89" href="#__codelineno-2-89"></a><span class="err">            ( postwhisker-homotopy-Segal A is-segal-A y x y g h f</span>
 </span><span id="__span-2-90"><a id="__codelineno-2-90" name="__codelineno-2-90" href="#__codelineno-2-90"></a><span class="err">              ( alternating-quintuple-concat</span>
 </span><span id="__span-2-91"><a id="__codelineno-2-91" name="__codelineno-2-91" href="#__codelineno-2-91"></a><span class="err">                ( hom A y x)</span>
 </span><span id="__span-2-92"><a id="__codelineno-2-92" name="__codelineno-2-92" href="#__codelineno-2-92"></a><span class="err">                ( g)</span>
-</span><span id="__span-2-93"><a id="__codelineno-2-93" name="__codelineno-2-93" href="#__codelineno-2-93"></a><span class="err">                ( Segal-comp A is-segal-A y y x (id-arr A y) g)</span>
+</span><span id="__span-2-93"><a id="__codelineno-2-93" name="__codelineno-2-93" href="#__codelineno-2-93"></a><span class="err">                ( comp-Segal A is-segal-A y y x (id-hom A y) g)</span>
 </span><span id="__span-2-94"><a id="__codelineno-2-94" name="__codelineno-2-94" href="#__codelineno-2-94"></a><span class="err">                ( rev</span>
 </span><span id="__span-2-95"><a id="__codelineno-2-95" name="__codelineno-2-95" href="#__codelineno-2-95"></a><span class="err">                  ( hom A y x)</span>
-</span><span id="__span-2-96"><a id="__codelineno-2-96" name="__codelineno-2-96" href="#__codelineno-2-96"></a><span class="err">                  ( Segal-comp A is-segal-A y y x (id-arr A y) g)</span>
+</span><span id="__span-2-96"><a id="__codelineno-2-96" name="__codelineno-2-96" href="#__codelineno-2-96"></a><span class="err">                  ( comp-Segal A is-segal-A y y x (id-hom A y) g)</span>
 </span><span id="__span-2-97"><a id="__codelineno-2-97" name="__codelineno-2-97" href="#__codelineno-2-97"></a><span class="err">                  ( g)</span>
-</span><span id="__span-2-98"><a id="__codelineno-2-98" name="__codelineno-2-98" href="#__codelineno-2-98"></a><span class="err">                  ( Segal-id-comp A is-segal-A y x g))</span>
-</span><span id="__span-2-99"><a id="__codelineno-2-99" name="__codelineno-2-99" href="#__codelineno-2-99"></a><span class="err">                ( Segal-comp A is-segal-A y y x</span>
-</span><span id="__span-2-100"><a id="__codelineno-2-100" name="__codelineno-2-100" href="#__codelineno-2-100"></a><span class="err">                  ( Segal-comp A is-segal-A y x y h f) ( g))</span>
-</span><span id="__span-2-101"><a id="__codelineno-2-101" name="__codelineno-2-101" href="#__codelineno-2-101"></a><span class="err">                ( Segal-homotopy-postwhisker A is-segal-A y y x</span>
-</span><span id="__span-2-102"><a id="__codelineno-2-102" name="__codelineno-2-102" href="#__codelineno-2-102"></a><span class="err">                  ( id-arr A y)</span>
-</span><span id="__span-2-103"><a id="__codelineno-2-103" name="__codelineno-2-103" href="#__codelineno-2-103"></a><span class="err">                  ( Segal-comp A is-segal-A y x y h f)</span>
+</span><span id="__span-2-98"><a id="__codelineno-2-98" name="__codelineno-2-98" href="#__codelineno-2-98"></a><span class="err">                  ( id-comp-Segal A is-segal-A y x g))</span>
+</span><span id="__span-2-99"><a id="__codelineno-2-99" name="__codelineno-2-99" href="#__codelineno-2-99"></a><span class="err">                ( comp-Segal A is-segal-A y y x</span>
+</span><span id="__span-2-100"><a id="__codelineno-2-100" name="__codelineno-2-100" href="#__codelineno-2-100"></a><span class="err">                  ( comp-Segal A is-segal-A y x y h f) ( g))</span>
+</span><span id="__span-2-101"><a id="__codelineno-2-101" name="__codelineno-2-101" href="#__codelineno-2-101"></a><span class="err">                ( postwhisker-homotopy-Segal A is-segal-A y y x</span>
+</span><span id="__span-2-102"><a id="__codelineno-2-102" name="__codelineno-2-102" href="#__codelineno-2-102"></a><span class="err">                  ( id-hom A y)</span>
+</span><span id="__span-2-103"><a id="__codelineno-2-103" name="__codelineno-2-103" href="#__codelineno-2-103"></a><span class="err">                  ( comp-Segal A is-segal-A y x y h f)</span>
 </span><span id="__span-2-104"><a id="__codelineno-2-104" name="__codelineno-2-104" href="#__codelineno-2-104"></a><span class="err">                  ( g)</span>
 </span><span id="__span-2-105"><a id="__codelineno-2-105" name="__codelineno-2-105" href="#__codelineno-2-105"></a><span class="err">                  ( rev</span>
 </span><span id="__span-2-106"><a id="__codelineno-2-106" name="__codelineno-2-106" href="#__codelineno-2-106"></a><span class="err">                    ( hom A y y)</span>
-</span><span id="__span-2-107"><a id="__codelineno-2-107" name="__codelineno-2-107" href="#__codelineno-2-107"></a><span class="err">                    ( Segal-comp A is-segal-A y x y h f)</span>
-</span><span id="__span-2-108"><a id="__codelineno-2-108" name="__codelineno-2-108" href="#__codelineno-2-108"></a><span class="err">                    ( id-arr A y)</span>
+</span><span id="__span-2-107"><a id="__codelineno-2-107" name="__codelineno-2-107" href="#__codelineno-2-107"></a><span class="err">                    ( comp-Segal A is-segal-A y x y h f)</span>
+</span><span id="__span-2-108"><a id="__codelineno-2-108" name="__codelineno-2-108" href="#__codelineno-2-108"></a><span class="err">                    ( id-hom A y)</span>
 </span><span id="__span-2-109"><a id="__codelineno-2-109" name="__codelineno-2-109" href="#__codelineno-2-109"></a><span class="err">                    ( q)))</span>
-</span><span id="__span-2-110"><a id="__codelineno-2-110" name="__codelineno-2-110" href="#__codelineno-2-110"></a><span class="err">                ( Segal-comp A is-segal-A y x x</span>
+</span><span id="__span-2-110"><a id="__codelineno-2-110" name="__codelineno-2-110" href="#__codelineno-2-110"></a><span class="err">                ( comp-Segal A is-segal-A y x x</span>
 </span><span id="__span-2-111"><a id="__codelineno-2-111" name="__codelineno-2-111" href="#__codelineno-2-111"></a><span class="err">                  ( h)</span>
-</span><span id="__span-2-112"><a id="__codelineno-2-112" name="__codelineno-2-112" href="#__codelineno-2-112"></a><span class="err">                  ( Segal-comp A is-segal-A x y x f g))</span>
-</span><span id="__span-2-113"><a id="__codelineno-2-113" name="__codelineno-2-113" href="#__codelineno-2-113"></a><span class="err">                ( Segal-associativity extext A is-segal-A y x y x h f g)</span>
-</span><span id="__span-2-114"><a id="__codelineno-2-114" name="__codelineno-2-114" href="#__codelineno-2-114"></a><span class="err">                ( Segal-comp A is-segal-A y x x h (id-arr A x))</span>
-</span><span id="__span-2-115"><a id="__codelineno-2-115" name="__codelineno-2-115" href="#__codelineno-2-115"></a><span class="err">                ( Segal-homotopy-prewhisker A is-segal-A y x x h</span>
-</span><span id="__span-2-116"><a id="__codelineno-2-116" name="__codelineno-2-116" href="#__codelineno-2-116"></a><span class="err">                  ( Segal-comp A is-segal-A x y x f g)</span>
-</span><span id="__span-2-117"><a id="__codelineno-2-117" name="__codelineno-2-117" href="#__codelineno-2-117"></a><span class="err">                  ( id-arr A x) p)</span>
+</span><span id="__span-2-112"><a id="__codelineno-2-112" name="__codelineno-2-112" href="#__codelineno-2-112"></a><span class="err">                  ( comp-Segal A is-segal-A x y x f g))</span>
+</span><span id="__span-2-113"><a id="__codelineno-2-113" name="__codelineno-2-113" href="#__codelineno-2-113"></a><span class="err">                ( associativity-Segal extext A is-segal-A y x y x h f g)</span>
+</span><span id="__span-2-114"><a id="__codelineno-2-114" name="__codelineno-2-114" href="#__codelineno-2-114"></a><span class="err">                ( comp-Segal A is-segal-A y x x h (id-hom A x))</span>
+</span><span id="__span-2-115"><a id="__codelineno-2-115" name="__codelineno-2-115" href="#__codelineno-2-115"></a><span class="err">                ( prewhisker-homotopy-Segal A is-segal-A y x x h</span>
+</span><span id="__span-2-116"><a id="__codelineno-2-116" name="__codelineno-2-116" href="#__codelineno-2-116"></a><span class="err">                  ( comp-Segal A is-segal-A x y x f g)</span>
+</span><span id="__span-2-117"><a id="__codelineno-2-117" name="__codelineno-2-117" href="#__codelineno-2-117"></a><span class="err">                  ( id-hom A x) p)</span>
 </span><span id="__span-2-118"><a id="__codelineno-2-118" name="__codelineno-2-118" href="#__codelineno-2-118"></a><span class="err">                ( h)</span>
-</span><span id="__span-2-119"><a id="__codelineno-2-119" name="__codelineno-2-119" href="#__codelineno-2-119"></a><span class="err">                ( Segal-comp-id A is-segal-A y x h)))</span>
+</span><span id="__span-2-119"><a id="__codelineno-2-119" name="__codelineno-2-119" href="#__codelineno-2-119"></a><span class="err">                ( comp-id-Segal A is-segal-A y x h)))</span>
 </span><span id="__span-2-120"><a id="__codelineno-2-120" name="__codelineno-2-120" href="#__codelineno-2-120"></a><span class="err">            ( q)))))</span>
 </span><span id="__span-2-121"><a id="__codelineno-2-121" name="__codelineno-2-121" href="#__codelineno-2-121"></a>
 </span><span id="__span-2-122"><a id="__codelineno-2-122" name="__codelineno-2-122" href="#__codelineno-2-122"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:inverse-iff-iso-arrow" id="define:inverse-iff-iso-arrow" style="visibility: visible; position: relative; color: inherit">inverse-iff-iso-arrow</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>extext<span class="p">)</span>
@@ -884,21 +884,21 @@
 </span><span id="__span-2-137"><a id="__codelineno-2-137" name="__codelineno-2-137" href="#__codelineno-2-137"></a><span class="err">  </span><span class="p">( </span>g <span class="p">:</span><span class="err"> hom A y x)</span>
 </span><span id="__span-2-138"><a id="__codelineno-2-138" name="__codelineno-2-138" href="#__codelineno-2-138"></a><span class="err">  </span><span class="p">( </span>gg <span class="p">:</span><span class="err"> has-retraction-arrow A is-segal-A x y f g)</span>
 </span><span id="__span-2-139"><a id="__codelineno-2-139" name="__codelineno-2-139" href="#__codelineno-2-139"></a><span class="err">  : </span><span class="p">( </span>z <span class="p">:</span><span class="err"> A) →</span>
-</span><span id="__span-2-140"><a id="__codelineno-2-140" name="__codelineno-2-140" href="#__codelineno-2-140"></a><span class="err">    has-retraction (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)</span>
+</span><span id="__span-2-140"><a id="__codelineno-2-140" name="__codelineno-2-140" href="#__codelineno-2-140"></a><span class="err">    has-retraction (hom A z x) (hom A z y) (postcomp-Segal A is-segal-A x y f z)</span>
 </span><span id="__span-2-141"><a id="__codelineno-2-141" name="__codelineno-2-141" href="#__codelineno-2-141"></a><span class="err">  :=</span>
 </span><span id="__span-2-142"><a id="__codelineno-2-142" name="__codelineno-2-142" href="#__codelineno-2-142"></a><span class="err">    </span><span class="p">\ </span>z <span class="err">→</span>
-</span><span id="__span-2-143"><a id="__codelineno-2-143" name="__codelineno-2-143" href="#__codelineno-2-143"></a><span class="err">    ( ( Segal-postcomp A is-segal-A y x g z) ,</span>
+</span><span id="__span-2-143"><a id="__codelineno-2-143" name="__codelineno-2-143" href="#__codelineno-2-143"></a><span class="err">    ( ( postcomp-Segal A is-segal-A y x g z) ,</span>
 </span><span id="__span-2-144"><a id="__codelineno-2-144" name="__codelineno-2-144" href="#__codelineno-2-144"></a><span class="err">        </span><span class="p">\ </span>k <span class="err">→</span>
 </span><span id="__span-2-145"><a id="__codelineno-2-145" name="__codelineno-2-145" href="#__codelineno-2-145"></a><span class="err">      ( triple-concat</span>
 </span><span id="__span-2-146"><a id="__codelineno-2-146" name="__codelineno-2-146" href="#__codelineno-2-146"></a><span class="err">        ( hom A z x)</span>
-</span><span id="__span-2-147"><a id="__codelineno-2-147" name="__codelineno-2-147" href="#__codelineno-2-147"></a><span class="err">        ( Segal-comp A is-segal-A z y x (Segal-comp A is-segal-A z x y k f) g)</span>
-</span><span id="__span-2-148"><a id="__codelineno-2-148" name="__codelineno-2-148" href="#__codelineno-2-148"></a><span class="err">        ( Segal-comp A is-segal-A z x x k (Segal-comp A is-segal-A x y x f g))</span>
-</span><span id="__span-2-149"><a id="__codelineno-2-149" name="__codelineno-2-149" href="#__codelineno-2-149"></a><span class="err">        ( Segal-comp A is-segal-A z x x k (id-arr A x))</span>
+</span><span id="__span-2-147"><a id="__codelineno-2-147" name="__codelineno-2-147" href="#__codelineno-2-147"></a><span class="err">        ( comp-Segal A is-segal-A z y x (comp-Segal A is-segal-A z x y k f) g)</span>
+</span><span id="__span-2-148"><a id="__codelineno-2-148" name="__codelineno-2-148" href="#__codelineno-2-148"></a><span class="err">        ( comp-Segal A is-segal-A z x x k (comp-Segal A is-segal-A x y x f g))</span>
+</span><span id="__span-2-149"><a id="__codelineno-2-149" name="__codelineno-2-149" href="#__codelineno-2-149"></a><span class="err">        ( comp-Segal A is-segal-A z x x k (id-hom A x))</span>
 </span><span id="__span-2-150"><a id="__codelineno-2-150" name="__codelineno-2-150" href="#__codelineno-2-150"></a><span class="err">        ( k)</span>
-</span><span id="__span-2-151"><a id="__codelineno-2-151" name="__codelineno-2-151" href="#__codelineno-2-151"></a><span class="err">        ( Segal-associativity extext A is-segal-A z x y x k f g)</span>
-</span><span id="__span-2-152"><a id="__codelineno-2-152" name="__codelineno-2-152" href="#__codelineno-2-152"></a><span class="err">        ( Segal-homotopy-prewhisker A is-segal-A z x x k</span>
-</span><span id="__span-2-153"><a id="__codelineno-2-153" name="__codelineno-2-153" href="#__codelineno-2-153"></a><span class="err">          ( Segal-comp A is-segal-A x y x f g) (id-arr A x) gg)</span>
-</span><span id="__span-2-154"><a id="__codelineno-2-154" name="__codelineno-2-154" href="#__codelineno-2-154"></a><span class="err">        ( Segal-comp-id A is-segal-A z x k)))</span>
+</span><span id="__span-2-151"><a id="__codelineno-2-151" name="__codelineno-2-151" href="#__codelineno-2-151"></a><span class="err">        ( associativity-Segal extext A is-segal-A z x y x k f g)</span>
+</span><span id="__span-2-152"><a id="__codelineno-2-152" name="__codelineno-2-152" href="#__codelineno-2-152"></a><span class="err">        ( prewhisker-homotopy-Segal A is-segal-A z x x k</span>
+</span><span id="__span-2-153"><a id="__codelineno-2-153" name="__codelineno-2-153" href="#__codelineno-2-153"></a><span class="err">          ( comp-Segal A is-segal-A x y x f g) (id-hom A x) gg)</span>
+</span><span id="__span-2-154"><a id="__codelineno-2-154" name="__codelineno-2-154" href="#__codelineno-2-154"></a><span class="err">        ( comp-id-Segal A is-segal-A z x k)))</span>
 </span><span id="__span-2-155"><a id="__codelineno-2-155" name="__codelineno-2-155" href="#__codelineno-2-155"></a>
 </span><span id="__span-2-156"><a id="__codelineno-2-156" name="__codelineno-2-156" href="#__codelineno-2-156"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:has-section-postcomp-has-section" id="define:has-section-postcomp-has-section" style="visibility: visible; position: relative; color: inherit">has-section-postcomp-has-section</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>extext<span class="p">)</span>
 </span><span id="__span-2-157"><a id="__codelineno-2-157" name="__codelineno-2-157" href="#__codelineno-2-157"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
@@ -908,21 +908,21 @@
 </span><span id="__span-2-161"><a id="__codelineno-2-161" name="__codelineno-2-161" href="#__codelineno-2-161"></a><span class="err">  </span><span class="p">( </span>h <span class="p">:</span><span class="err"> hom A y x)</span>
 </span><span id="__span-2-162"><a id="__codelineno-2-162" name="__codelineno-2-162" href="#__codelineno-2-162"></a><span class="err">  </span><span class="p">( </span>hh <span class="p">:</span><span class="err"> has-section-arrow A is-segal-A x y f h)</span>
 </span><span id="__span-2-163"><a id="__codelineno-2-163" name="__codelineno-2-163" href="#__codelineno-2-163"></a><span class="err">  : </span><span class="p">( </span>z <span class="p">:</span><span class="err"> A) →</span>
-</span><span id="__span-2-164"><a id="__codelineno-2-164" name="__codelineno-2-164" href="#__codelineno-2-164"></a><span class="err">    has-section (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)</span>
+</span><span id="__span-2-164"><a id="__codelineno-2-164" name="__codelineno-2-164" href="#__codelineno-2-164"></a><span class="err">    has-section (hom A z x) (hom A z y) (postcomp-Segal A is-segal-A x y f z)</span>
 </span><span id="__span-2-165"><a id="__codelineno-2-165" name="__codelineno-2-165" href="#__codelineno-2-165"></a><span class="err">  :=</span>
 </span><span id="__span-2-166"><a id="__codelineno-2-166" name="__codelineno-2-166" href="#__codelineno-2-166"></a><span class="err">    </span><span class="p">\ </span>z <span class="err">→</span>
-</span><span id="__span-2-167"><a id="__codelineno-2-167" name="__codelineno-2-167" href="#__codelineno-2-167"></a><span class="err">    ( ( Segal-postcomp A is-segal-A y x h z) ,</span>
+</span><span id="__span-2-167"><a id="__codelineno-2-167" name="__codelineno-2-167" href="#__codelineno-2-167"></a><span class="err">    ( ( postcomp-Segal A is-segal-A y x h z) ,</span>
 </span><span id="__span-2-168"><a id="__codelineno-2-168" name="__codelineno-2-168" href="#__codelineno-2-168"></a><span class="err">        </span><span class="p">\ </span>k <span class="err">→</span>
 </span><span id="__span-2-169"><a id="__codelineno-2-169" name="__codelineno-2-169" href="#__codelineno-2-169"></a><span class="err">        ( triple-concat</span>
 </span><span id="__span-2-170"><a id="__codelineno-2-170" name="__codelineno-2-170" href="#__codelineno-2-170"></a><span class="err">          ( hom A z y)</span>
-</span><span id="__span-2-171"><a id="__codelineno-2-171" name="__codelineno-2-171" href="#__codelineno-2-171"></a><span class="err">          ( Segal-comp A is-segal-A z x y (Segal-comp A is-segal-A z y x k h) f)</span>
-</span><span id="__span-2-172"><a id="__codelineno-2-172" name="__codelineno-2-172" href="#__codelineno-2-172"></a><span class="err">          ( Segal-comp A is-segal-A z y y k (Segal-comp A is-segal-A y x y h f))</span>
-</span><span id="__span-2-173"><a id="__codelineno-2-173" name="__codelineno-2-173" href="#__codelineno-2-173"></a><span class="err">          ( Segal-comp A is-segal-A z y y k (id-arr A y))</span>
+</span><span id="__span-2-171"><a id="__codelineno-2-171" name="__codelineno-2-171" href="#__codelineno-2-171"></a><span class="err">          ( comp-Segal A is-segal-A z x y (comp-Segal A is-segal-A z y x k h) f)</span>
+</span><span id="__span-2-172"><a id="__codelineno-2-172" name="__codelineno-2-172" href="#__codelineno-2-172"></a><span class="err">          ( comp-Segal A is-segal-A z y y k (comp-Segal A is-segal-A y x y h f))</span>
+</span><span id="__span-2-173"><a id="__codelineno-2-173" name="__codelineno-2-173" href="#__codelineno-2-173"></a><span class="err">          ( comp-Segal A is-segal-A z y y k (id-hom A y))</span>
 </span><span id="__span-2-174"><a id="__codelineno-2-174" name="__codelineno-2-174" href="#__codelineno-2-174"></a><span class="err">          ( k)</span>
-</span><span id="__span-2-175"><a id="__codelineno-2-175" name="__codelineno-2-175" href="#__codelineno-2-175"></a><span class="err">          ( Segal-associativity extext A is-segal-A z y x y k h f)</span>
-</span><span id="__span-2-176"><a id="__codelineno-2-176" name="__codelineno-2-176" href="#__codelineno-2-176"></a><span class="err">          ( Segal-homotopy-prewhisker A is-segal-A z y y k</span>
-</span><span id="__span-2-177"><a id="__codelineno-2-177" name="__codelineno-2-177" href="#__codelineno-2-177"></a><span class="err">            ( Segal-comp A is-segal-A y x y h f) (id-arr A y) hh)</span>
-</span><span id="__span-2-178"><a id="__codelineno-2-178" name="__codelineno-2-178" href="#__codelineno-2-178"></a><span class="err">          ( Segal-comp-id A is-segal-A z y k)))</span>
+</span><span id="__span-2-175"><a id="__codelineno-2-175" name="__codelineno-2-175" href="#__codelineno-2-175"></a><span class="err">          ( associativity-Segal extext A is-segal-A z y x y k h f)</span>
+</span><span id="__span-2-176"><a id="__codelineno-2-176" name="__codelineno-2-176" href="#__codelineno-2-176"></a><span class="err">          ( prewhisker-homotopy-Segal A is-segal-A z y y k</span>
+</span><span id="__span-2-177"><a id="__codelineno-2-177" name="__codelineno-2-177" href="#__codelineno-2-177"></a><span class="err">            ( comp-Segal A is-segal-A y x y h f) (id-hom A y) hh)</span>
+</span><span id="__span-2-178"><a id="__codelineno-2-178" name="__codelineno-2-178" href="#__codelineno-2-178"></a><span class="err">          ( comp-id-Segal A is-segal-A z y k)))</span>
 </span><span id="__span-2-179"><a id="__codelineno-2-179" name="__codelineno-2-179" href="#__codelineno-2-179"></a>
 </span><span id="__span-2-180"><a id="__codelineno-2-180" name="__codelineno-2-180" href="#__codelineno-2-180"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-equiv-postcomp-is-iso" id="define:is-equiv-postcomp-is-iso" style="visibility: visible; position: relative; color: inherit">is-equiv-postcomp-is-iso</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>extext<span class="p">)</span>
 </span><span id="__span-2-181"><a id="__codelineno-2-181" name="__codelineno-2-181" href="#__codelineno-2-181"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
@@ -934,7 +934,7 @@
 </span><span id="__span-2-187"><a id="__codelineno-2-187" name="__codelineno-2-187" href="#__codelineno-2-187"></a><span class="err">  </span><span class="p">( </span>h <span class="p">:</span><span class="err"> hom A y x)</span>
 </span><span id="__span-2-188"><a id="__codelineno-2-188" name="__codelineno-2-188" href="#__codelineno-2-188"></a><span class="err">  </span><span class="p">( </span>hh <span class="p">:</span><span class="err"> has-section-arrow A is-segal-A x y f h)</span>
 </span><span id="__span-2-189"><a id="__codelineno-2-189" name="__codelineno-2-189" href="#__codelineno-2-189"></a><span class="err">  : </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) →</span>
-</span><span id="__span-2-190"><a id="__codelineno-2-190" name="__codelineno-2-190" href="#__codelineno-2-190"></a><span class="err">    is-equiv (hom A z x) (hom A z y) (Segal-postcomp A is-segal-A x y f z)</span>
+</span><span id="__span-2-190"><a id="__codelineno-2-190" name="__codelineno-2-190" href="#__codelineno-2-190"></a><span class="err">    is-equiv (hom A z x) (hom A z y) (postcomp-Segal A is-segal-A x y f z)</span>
 </span><span id="__span-2-191"><a id="__codelineno-2-191" name="__codelineno-2-191" href="#__codelineno-2-191"></a><span class="err">  :=</span>
 </span><span id="__span-2-192"><a id="__codelineno-2-192" name="__codelineno-2-192" href="#__codelineno-2-192"></a><span class="err">    </span><span class="p">\ </span>z <span class="err">→</span>
 </span><span id="__span-2-193"><a id="__codelineno-2-193" name="__codelineno-2-193" href="#__codelineno-2-193"></a><span class="err">    ( ( has-retraction-postcomp-has-retraction A is-segal-A x y f g gg z) ,</span>
@@ -948,28 +948,28 @@
 </span><span id="__span-2-201"><a id="__codelineno-2-201" name="__codelineno-2-201" href="#__codelineno-2-201"></a><span class="err">  </span><span class="p">( </span>h <span class="p">:</span><span class="err"> hom A y x)</span>
 </span><span id="__span-2-202"><a id="__codelineno-2-202" name="__codelineno-2-202" href="#__codelineno-2-202"></a><span class="err">  </span><span class="p">( </span>hh <span class="p">:</span><span class="err"> has-section-arrow A is-segal-A x y f h)</span>
 </span><span id="__span-2-203"><a id="__codelineno-2-203" name="__codelineno-2-203" href="#__codelineno-2-203"></a><span class="err">  : </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) →</span>
-</span><span id="__span-2-204"><a id="__codelineno-2-204" name="__codelineno-2-204" href="#__codelineno-2-204"></a><span class="err">    has-retraction (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)</span>
+</span><span id="__span-2-204"><a id="__codelineno-2-204" name="__codelineno-2-204" href="#__codelineno-2-204"></a><span class="err">    has-retraction (hom A y z) (hom A x z) (precomp-Segal A is-segal-A x y f z)</span>
 </span><span id="__span-2-205"><a id="__codelineno-2-205" name="__codelineno-2-205" href="#__codelineno-2-205"></a><span class="err">  :=</span>
 </span><span id="__span-2-206"><a id="__codelineno-2-206" name="__codelineno-2-206" href="#__codelineno-2-206"></a><span class="err">    </span><span class="p">\ </span>z <span class="err">→</span>
-</span><span id="__span-2-207"><a id="__codelineno-2-207" name="__codelineno-2-207" href="#__codelineno-2-207"></a><span class="err">    ( ( Segal-precomp A is-segal-A y x h z) ,</span>
+</span><span id="__span-2-207"><a id="__codelineno-2-207" name="__codelineno-2-207" href="#__codelineno-2-207"></a><span class="err">    ( ( precomp-Segal A is-segal-A y x h z) ,</span>
 </span><span id="__span-2-208"><a id="__codelineno-2-208" name="__codelineno-2-208" href="#__codelineno-2-208"></a><span class="err">        </span><span class="p">\ </span>k <span class="err">→</span>
 </span><span id="__span-2-209"><a id="__codelineno-2-209" name="__codelineno-2-209" href="#__codelineno-2-209"></a><span class="err">        ( triple-concat</span>
 </span><span id="__span-2-210"><a id="__codelineno-2-210" name="__codelineno-2-210" href="#__codelineno-2-210"></a><span class="err">          ( hom A y z)</span>
-</span><span id="__span-2-211"><a id="__codelineno-2-211" name="__codelineno-2-211" href="#__codelineno-2-211"></a><span class="err">          ( Segal-comp A is-segal-A y x z h (Segal-comp A is-segal-A x y z f k))</span>
-</span><span id="__span-2-212"><a id="__codelineno-2-212" name="__codelineno-2-212" href="#__codelineno-2-212"></a><span class="err">          ( Segal-comp A is-segal-A y y z (Segal-comp A is-segal-A y x y h f) k)</span>
-</span><span id="__span-2-213"><a id="__codelineno-2-213" name="__codelineno-2-213" href="#__codelineno-2-213"></a><span class="err">          ( Segal-comp A is-segal-A y y z (id-arr A y) k)</span>
+</span><span id="__span-2-211"><a id="__codelineno-2-211" name="__codelineno-2-211" href="#__codelineno-2-211"></a><span class="err">          ( comp-Segal A is-segal-A y x z h (comp-Segal A is-segal-A x y z f k))</span>
+</span><span id="__span-2-212"><a id="__codelineno-2-212" name="__codelineno-2-212" href="#__codelineno-2-212"></a><span class="err">          ( comp-Segal A is-segal-A y y z (comp-Segal A is-segal-A y x y h f) k)</span>
+</span><span id="__span-2-213"><a id="__codelineno-2-213" name="__codelineno-2-213" href="#__codelineno-2-213"></a><span class="err">          ( comp-Segal A is-segal-A y y z (id-hom A y) k)</span>
 </span><span id="__span-2-214"><a id="__codelineno-2-214" name="__codelineno-2-214" href="#__codelineno-2-214"></a><span class="err">          ( k)</span>
 </span><span id="__span-2-215"><a id="__codelineno-2-215" name="__codelineno-2-215" href="#__codelineno-2-215"></a><span class="err">          ( rev</span>
 </span><span id="__span-2-216"><a id="__codelineno-2-216" name="__codelineno-2-216" href="#__codelineno-2-216"></a><span class="err">            ( hom A y z)</span>
-</span><span id="__span-2-217"><a id="__codelineno-2-217" name="__codelineno-2-217" href="#__codelineno-2-217"></a><span class="err">            ( Segal-comp A is-segal-A y y z</span>
-</span><span id="__span-2-218"><a id="__codelineno-2-218" name="__codelineno-2-218" href="#__codelineno-2-218"></a><span class="err">              ( Segal-comp A is-segal-A y x y h f) k)</span>
-</span><span id="__span-2-219"><a id="__codelineno-2-219" name="__codelineno-2-219" href="#__codelineno-2-219"></a><span class="err">            ( Segal-comp A is-segal-A y x z</span>
-</span><span id="__span-2-220"><a id="__codelineno-2-220" name="__codelineno-2-220" href="#__codelineno-2-220"></a><span class="err">              h (Segal-comp A is-segal-A x y z f k))</span>
-</span><span id="__span-2-221"><a id="__codelineno-2-221" name="__codelineno-2-221" href="#__codelineno-2-221"></a><span class="err">            ( Segal-associativity extext A is-segal-A y x y z h f k))</span>
-</span><span id="__span-2-222"><a id="__codelineno-2-222" name="__codelineno-2-222" href="#__codelineno-2-222"></a><span class="err">          ( Segal-homotopy-postwhisker A is-segal-A y y z</span>
-</span><span id="__span-2-223"><a id="__codelineno-2-223" name="__codelineno-2-223" href="#__codelineno-2-223"></a><span class="err">            ( Segal-comp A is-segal-A y x y h f)</span>
-</span><span id="__span-2-224"><a id="__codelineno-2-224" name="__codelineno-2-224" href="#__codelineno-2-224"></a><span class="err">            ( id-arr A y) k hh)</span>
-</span><span id="__span-2-225"><a id="__codelineno-2-225" name="__codelineno-2-225" href="#__codelineno-2-225"></a><span class="err">          ( Segal-id-comp A is-segal-A y z k)</span>
+</span><span id="__span-2-217"><a id="__codelineno-2-217" name="__codelineno-2-217" href="#__codelineno-2-217"></a><span class="err">            ( comp-Segal A is-segal-A y y z</span>
+</span><span id="__span-2-218"><a id="__codelineno-2-218" name="__codelineno-2-218" href="#__codelineno-2-218"></a><span class="err">              ( comp-Segal A is-segal-A y x y h f) k)</span>
+</span><span id="__span-2-219"><a id="__codelineno-2-219" name="__codelineno-2-219" href="#__codelineno-2-219"></a><span class="err">            ( comp-Segal A is-segal-A y x z</span>
+</span><span id="__span-2-220"><a id="__codelineno-2-220" name="__codelineno-2-220" href="#__codelineno-2-220"></a><span class="err">              h (comp-Segal A is-segal-A x y z f k))</span>
+</span><span id="__span-2-221"><a id="__codelineno-2-221" name="__codelineno-2-221" href="#__codelineno-2-221"></a><span class="err">            ( associativity-Segal extext A is-segal-A y x y z h f k))</span>
+</span><span id="__span-2-222"><a id="__codelineno-2-222" name="__codelineno-2-222" href="#__codelineno-2-222"></a><span class="err">          ( postwhisker-homotopy-Segal A is-segal-A y y z</span>
+</span><span id="__span-2-223"><a id="__codelineno-2-223" name="__codelineno-2-223" href="#__codelineno-2-223"></a><span class="err">            ( comp-Segal A is-segal-A y x y h f)</span>
+</span><span id="__span-2-224"><a id="__codelineno-2-224" name="__codelineno-2-224" href="#__codelineno-2-224"></a><span class="err">            ( id-hom A y) k hh)</span>
+</span><span id="__span-2-225"><a id="__codelineno-2-225" name="__codelineno-2-225" href="#__codelineno-2-225"></a><span class="err">          ( id-comp-Segal A is-segal-A y z k)</span>
 </span><span id="__span-2-226"><a id="__codelineno-2-226" name="__codelineno-2-226" href="#__codelineno-2-226"></a><span class="err">        )</span>
 </span><span id="__span-2-227"><a id="__codelineno-2-227" name="__codelineno-2-227" href="#__codelineno-2-227"></a><span class="err">    )</span>
 </span><span id="__span-2-228"><a id="__codelineno-2-228" name="__codelineno-2-228" href="#__codelineno-2-228"></a>
@@ -981,30 +981,30 @@
 </span><span id="__span-2-234"><a id="__codelineno-2-234" name="__codelineno-2-234" href="#__codelineno-2-234"></a><span class="err">  </span><span class="p">( </span>g <span class="p">:</span><span class="err"> hom A y x)</span>
 </span><span id="__span-2-235"><a id="__codelineno-2-235" name="__codelineno-2-235" href="#__codelineno-2-235"></a><span class="err">  </span><span class="p">( </span>gg <span class="p">:</span><span class="err"> has-retraction-arrow A is-segal-A x y f g)</span>
 </span><span id="__span-2-236"><a id="__codelineno-2-236" name="__codelineno-2-236" href="#__codelineno-2-236"></a><span class="err">  : </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) →</span>
-</span><span id="__span-2-237"><a id="__codelineno-2-237" name="__codelineno-2-237" href="#__codelineno-2-237"></a><span class="err">    has-section (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)</span>
+</span><span id="__span-2-237"><a id="__codelineno-2-237" name="__codelineno-2-237" href="#__codelineno-2-237"></a><span class="err">    has-section (hom A y z) (hom A x z) (precomp-Segal A is-segal-A x y f z)</span>
 </span><span id="__span-2-238"><a id="__codelineno-2-238" name="__codelineno-2-238" href="#__codelineno-2-238"></a><span class="err">  :=</span>
 </span><span id="__span-2-239"><a id="__codelineno-2-239" name="__codelineno-2-239" href="#__codelineno-2-239"></a><span class="err">    </span><span class="p">\ </span>z <span class="err">→</span>
-</span><span id="__span-2-240"><a id="__codelineno-2-240" name="__codelineno-2-240" href="#__codelineno-2-240"></a><span class="err">    ( ( Segal-precomp A is-segal-A y x g z) ,</span>
+</span><span id="__span-2-240"><a id="__codelineno-2-240" name="__codelineno-2-240" href="#__codelineno-2-240"></a><span class="err">    ( ( precomp-Segal A is-segal-A y x g z) ,</span>
 </span><span id="__span-2-241"><a id="__codelineno-2-241" name="__codelineno-2-241" href="#__codelineno-2-241"></a><span class="err">        </span><span class="p">\ </span>k <span class="err">→</span>
 </span><span id="__span-2-242"><a id="__codelineno-2-242" name="__codelineno-2-242" href="#__codelineno-2-242"></a><span class="err">        ( triple-concat</span>
 </span><span id="__span-2-243"><a id="__codelineno-2-243" name="__codelineno-2-243" href="#__codelineno-2-243"></a><span class="err">          ( hom A x z)</span>
-</span><span id="__span-2-244"><a id="__codelineno-2-244" name="__codelineno-2-244" href="#__codelineno-2-244"></a><span class="err">          ( Segal-comp A is-segal-A x y z f (Segal-comp A is-segal-A y x z g k))</span>
-</span><span id="__span-2-245"><a id="__codelineno-2-245" name="__codelineno-2-245" href="#__codelineno-2-245"></a><span class="err">          ( Segal-comp A is-segal-A x x z (Segal-comp A is-segal-A x y x f g) k)</span>
-</span><span id="__span-2-246"><a id="__codelineno-2-246" name="__codelineno-2-246" href="#__codelineno-2-246"></a><span class="err">          ( Segal-comp A is-segal-A x x z (id-arr A x) k)</span>
+</span><span id="__span-2-244"><a id="__codelineno-2-244" name="__codelineno-2-244" href="#__codelineno-2-244"></a><span class="err">          ( comp-Segal A is-segal-A x y z f (comp-Segal A is-segal-A y x z g k))</span>
+</span><span id="__span-2-245"><a id="__codelineno-2-245" name="__codelineno-2-245" href="#__codelineno-2-245"></a><span class="err">          ( comp-Segal A is-segal-A x x z (comp-Segal A is-segal-A x y x f g) k)</span>
+</span><span id="__span-2-246"><a id="__codelineno-2-246" name="__codelineno-2-246" href="#__codelineno-2-246"></a><span class="err">          ( comp-Segal A is-segal-A x x z (id-hom A x) k)</span>
 </span><span id="__span-2-247"><a id="__codelineno-2-247" name="__codelineno-2-247" href="#__codelineno-2-247"></a><span class="err">          ( k)</span>
 </span><span id="__span-2-248"><a id="__codelineno-2-248" name="__codelineno-2-248" href="#__codelineno-2-248"></a><span class="err">          ( rev</span>
 </span><span id="__span-2-249"><a id="__codelineno-2-249" name="__codelineno-2-249" href="#__codelineno-2-249"></a><span class="err">            ( hom A x z)</span>
-</span><span id="__span-2-250"><a id="__codelineno-2-250" name="__codelineno-2-250" href="#__codelineno-2-250"></a><span class="err">            ( Segal-comp A is-segal-A x x z</span>
-</span><span id="__span-2-251"><a id="__codelineno-2-251" name="__codelineno-2-251" href="#__codelineno-2-251"></a><span class="err">              ( Segal-comp A is-segal-A x y x f g) k)</span>
-</span><span id="__span-2-252"><a id="__codelineno-2-252" name="__codelineno-2-252" href="#__codelineno-2-252"></a><span class="err">            ( Segal-comp A is-segal-A x y z</span>
-</span><span id="__span-2-253"><a id="__codelineno-2-253" name="__codelineno-2-253" href="#__codelineno-2-253"></a><span class="err">              f (Segal-comp A is-segal-A y x z g k))</span>
-</span><span id="__span-2-254"><a id="__codelineno-2-254" name="__codelineno-2-254" href="#__codelineno-2-254"></a><span class="err">            ( Segal-associativity extext A is-segal-A x y x z f g k))</span>
-</span><span id="__span-2-255"><a id="__codelineno-2-255" name="__codelineno-2-255" href="#__codelineno-2-255"></a><span class="err">          ( Segal-homotopy-postwhisker A is-segal-A x x z</span>
-</span><span id="__span-2-256"><a id="__codelineno-2-256" name="__codelineno-2-256" href="#__codelineno-2-256"></a><span class="err">            ( Segal-comp A is-segal-A x y x f g)</span>
-</span><span id="__span-2-257"><a id="__codelineno-2-257" name="__codelineno-2-257" href="#__codelineno-2-257"></a><span class="err">            ( id-arr A x)</span>
+</span><span id="__span-2-250"><a id="__codelineno-2-250" name="__codelineno-2-250" href="#__codelineno-2-250"></a><span class="err">            ( comp-Segal A is-segal-A x x z</span>
+</span><span id="__span-2-251"><a id="__codelineno-2-251" name="__codelineno-2-251" href="#__codelineno-2-251"></a><span class="err">              ( comp-Segal A is-segal-A x y x f g) k)</span>
+</span><span id="__span-2-252"><a id="__codelineno-2-252" name="__codelineno-2-252" href="#__codelineno-2-252"></a><span class="err">            ( comp-Segal A is-segal-A x y z</span>
+</span><span id="__span-2-253"><a id="__codelineno-2-253" name="__codelineno-2-253" href="#__codelineno-2-253"></a><span class="err">              f (comp-Segal A is-segal-A y x z g k))</span>
+</span><span id="__span-2-254"><a id="__codelineno-2-254" name="__codelineno-2-254" href="#__codelineno-2-254"></a><span class="err">            ( associativity-Segal extext A is-segal-A x y x z f g k))</span>
+</span><span id="__span-2-255"><a id="__codelineno-2-255" name="__codelineno-2-255" href="#__codelineno-2-255"></a><span class="err">          ( postwhisker-homotopy-Segal A is-segal-A x x z</span>
+</span><span id="__span-2-256"><a id="__codelineno-2-256" name="__codelineno-2-256" href="#__codelineno-2-256"></a><span class="err">            ( comp-Segal A is-segal-A x y x f g)</span>
+</span><span id="__span-2-257"><a id="__codelineno-2-257" name="__codelineno-2-257" href="#__codelineno-2-257"></a><span class="err">            ( id-hom A x)</span>
 </span><span id="__span-2-258"><a id="__codelineno-2-258" name="__codelineno-2-258" href="#__codelineno-2-258"></a><span class="err">            ( k)</span>
 </span><span id="__span-2-259"><a id="__codelineno-2-259" name="__codelineno-2-259" href="#__codelineno-2-259"></a><span class="err">            ( gg))</span>
-</span><span id="__span-2-260"><a id="__codelineno-2-260" name="__codelineno-2-260" href="#__codelineno-2-260"></a><span class="err">          ( Segal-id-comp A is-segal-A x z k)))</span>
+</span><span id="__span-2-260"><a id="__codelineno-2-260" name="__codelineno-2-260" href="#__codelineno-2-260"></a><span class="err">          ( id-comp-Segal A is-segal-A x z k)))</span>
 </span><span id="__span-2-261"><a id="__codelineno-2-261" name="__codelineno-2-261" href="#__codelineno-2-261"></a>
 </span><span id="__span-2-262"><a id="__codelineno-2-262" name="__codelineno-2-262" href="#__codelineno-2-262"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-equiv-precomp-is-iso" id="define:is-equiv-precomp-is-iso" style="visibility: visible; position: relative; color: inherit">is-equiv-precomp-is-iso</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>extext<span class="p">)</span>
 </span><span id="__span-2-263"><a id="__codelineno-2-263" name="__codelineno-2-263" href="#__codelineno-2-263"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
@@ -1016,7 +1016,7 @@
 </span><span id="__span-2-269"><a id="__codelineno-2-269" name="__codelineno-2-269" href="#__codelineno-2-269"></a><span class="err">  </span><span class="p">( </span>h <span class="p">:</span><span class="err"> hom A y x)</span>
 </span><span id="__span-2-270"><a id="__codelineno-2-270" name="__codelineno-2-270" href="#__codelineno-2-270"></a><span class="err">  </span><span class="p">( </span>hh <span class="p">:</span><span class="err"> has-section-arrow A is-segal-A x y f h)</span>
 </span><span id="__span-2-271"><a id="__codelineno-2-271" name="__codelineno-2-271" href="#__codelineno-2-271"></a><span class="err">  : </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) →</span>
-</span><span id="__span-2-272"><a id="__codelineno-2-272" name="__codelineno-2-272" href="#__codelineno-2-272"></a><span class="err">    is-equiv (hom A y z) (hom A x z) (Segal-precomp A is-segal-A x y f z)</span>
+</span><span id="__span-2-272"><a id="__codelineno-2-272" name="__codelineno-2-272" href="#__codelineno-2-272"></a><span class="err">    is-equiv (hom A y z) (hom A x z) (precomp-Segal A is-segal-A x y f z)</span>
 </span><span id="__span-2-273"><a id="__codelineno-2-273" name="__codelineno-2-273" href="#__codelineno-2-273"></a><span class="err">  :=</span>
 </span><span id="__span-2-274"><a id="__codelineno-2-274" name="__codelineno-2-274" href="#__codelineno-2-274"></a><span class="err">    </span><span class="p">\ </span>z <span class="err">→</span>
 </span><span id="__span-2-275"><a id="__codelineno-2-275" name="__codelineno-2-275" href="#__codelineno-2-275"></a><span class="err">      ( ( has-retraction-precomp-has-section A is-segal-A x y f h hh z) ,</span>
@@ -1036,9 +1036,9 @@
 </span><span id="__span-2-289"><a id="__codelineno-2-289" name="__codelineno-2-289" href="#__codelineno-2-289"></a><span class="err">    ( is-contr-map-is-equiv</span>
 </span><span id="__span-2-290"><a id="__codelineno-2-290" name="__codelineno-2-290" href="#__codelineno-2-290"></a><span class="err">      ( hom A y x)</span>
 </span><span id="__span-2-291"><a id="__codelineno-2-291" name="__codelineno-2-291" href="#__codelineno-2-291"></a><span class="err">      ( hom A x x)</span>
-</span><span id="__span-2-292"><a id="__codelineno-2-292" name="__codelineno-2-292" href="#__codelineno-2-292"></a><span class="err">      ( Segal-precomp A is-segal-A x y f x)</span>
+</span><span id="__span-2-292"><a id="__codelineno-2-292" name="__codelineno-2-292" href="#__codelineno-2-292"></a><span class="err">      ( precomp-Segal A is-segal-A x y f x)</span>
 </span><span id="__span-2-293"><a id="__codelineno-2-293" name="__codelineno-2-293" href="#__codelineno-2-293"></a><span class="err">      ( is-equiv-precomp-is-iso A is-segal-A x y f g gg h hh x))</span>
-</span><span id="__span-2-294"><a id="__codelineno-2-294" name="__codelineno-2-294" href="#__codelineno-2-294"></a><span class="err">    ( id-arr A x)</span>
+</span><span id="__span-2-294"><a id="__codelineno-2-294" name="__codelineno-2-294" href="#__codelineno-2-294"></a><span class="err">    ( id-hom A x)</span>
 </span><span id="__span-2-295"><a id="__codelineno-2-295" name="__codelineno-2-295" href="#__codelineno-2-295"></a>
 </span><span id="__span-2-296"><a id="__codelineno-2-296" name="__codelineno-2-296" href="#__codelineno-2-296"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-contr-Section-arrow-is-iso" id="define:is-contr-Section-arrow-is-iso" style="visibility: visible; position: relative; color: inherit">is-contr-Section-arrow-is-iso</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>extext<span class="p">)</span>
 </span><span id="__span-2-297"><a id="__codelineno-2-297" name="__codelineno-2-297" href="#__codelineno-2-297"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
@@ -1054,9 +1054,9 @@
 </span><span id="__span-2-307"><a id="__codelineno-2-307" name="__codelineno-2-307" href="#__codelineno-2-307"></a><span class="err">    ( is-contr-map-is-equiv</span>
 </span><span id="__span-2-308"><a id="__codelineno-2-308" name="__codelineno-2-308" href="#__codelineno-2-308"></a><span class="err">      ( hom A y x)</span>
 </span><span id="__span-2-309"><a id="__codelineno-2-309" name="__codelineno-2-309" href="#__codelineno-2-309"></a><span class="err">      ( hom A y y)</span>
-</span><span id="__span-2-310"><a id="__codelineno-2-310" name="__codelineno-2-310" href="#__codelineno-2-310"></a><span class="err">      ( Segal-postcomp A is-segal-A x y f y)</span>
+</span><span id="__span-2-310"><a id="__codelineno-2-310" name="__codelineno-2-310" href="#__codelineno-2-310"></a><span class="err">      ( postcomp-Segal A is-segal-A x y f y)</span>
 </span><span id="__span-2-311"><a id="__codelineno-2-311" name="__codelineno-2-311" href="#__codelineno-2-311"></a><span class="err">      ( is-equiv-postcomp-is-iso A is-segal-A x y f g gg h hh y))</span>
-</span><span id="__span-2-312"><a id="__codelineno-2-312" name="__codelineno-2-312" href="#__codelineno-2-312"></a><span class="err">    ( id-arr A y)</span>
+</span><span id="__span-2-312"><a id="__codelineno-2-312" name="__codelineno-2-312" href="#__codelineno-2-312"></a><span class="err">    ( id-hom A y)</span>
 </span><span id="__span-2-313"><a id="__codelineno-2-313" name="__codelineno-2-313" href="#__codelineno-2-313"></a>
 </span><span id="__span-2-314"><a id="__codelineno-2-314" name="__codelineno-2-314" href="#__codelineno-2-314"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-contr-is-iso-arrow-is-iso" id="define:is-contr-is-iso-arrow-is-iso" style="visibility: visible; position: relative; color: inherit">is-contr-is-iso-arrow-is-iso</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>extext<span class="p">)</span>
 </span><span id="__span-2-315"><a id="__codelineno-2-315" name="__codelineno-2-315" href="#__codelineno-2-315"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
@@ -1098,20 +1098,20 @@
 </span><span id="__span-2-351"><a id="__codelineno-2-351" name="__codelineno-2-351" href="#__codelineno-2-351"></a><span class="err">  :=</span>
 </span><span id="__span-2-352"><a id="__codelineno-2-352" name="__codelineno-2-352" href="#__codelineno-2-352"></a><span class="err">    </span><span class="p">\ </span>x <span class="err">→</span>
 </span><span id="__span-2-353"><a id="__codelineno-2-353" name="__codelineno-2-353" href="#__codelineno-2-353"></a><span class="err">    (</span>
-</span><span id="__span-2-354"><a id="__codelineno-2-354" name="__codelineno-2-354" href="#__codelineno-2-354"></a><span class="err">    (id-arr A x) ,</span>
+</span><span id="__span-2-354"><a id="__codelineno-2-354" name="__codelineno-2-354" href="#__codelineno-2-354"></a><span class="err">    (id-hom A x) ,</span>
 </span><span id="__span-2-355"><a id="__codelineno-2-355" name="__codelineno-2-355" href="#__codelineno-2-355"></a><span class="err">    (</span>
 </span><span id="__span-2-356"><a id="__codelineno-2-356" name="__codelineno-2-356" href="#__codelineno-2-356"></a><span class="err">    (</span>
-</span><span id="__span-2-357"><a id="__codelineno-2-357" name="__codelineno-2-357" href="#__codelineno-2-357"></a><span class="err">      (id-arr A x) ,</span>
-</span><span id="__span-2-358"><a id="__codelineno-2-358" name="__codelineno-2-358" href="#__codelineno-2-358"></a><span class="err">      (Segal-id-comp A is-segal-A x x (id-arr A x))</span>
+</span><span id="__span-2-357"><a id="__codelineno-2-357" name="__codelineno-2-357" href="#__codelineno-2-357"></a><span class="err">      (id-hom A x) ,</span>
+</span><span id="__span-2-358"><a id="__codelineno-2-358" name="__codelineno-2-358" href="#__codelineno-2-358"></a><span class="err">      (id-comp-Segal A is-segal-A x x (id-hom A x))</span>
 </span><span id="__span-2-359"><a id="__codelineno-2-359" name="__codelineno-2-359" href="#__codelineno-2-359"></a><span class="err">    ) ,</span>
 </span><span id="__span-2-360"><a id="__codelineno-2-360" name="__codelineno-2-360" href="#__codelineno-2-360"></a><span class="err">    (</span>
-</span><span id="__span-2-361"><a id="__codelineno-2-361" name="__codelineno-2-361" href="#__codelineno-2-361"></a><span class="err">      (id-arr A x) ,</span>
-</span><span id="__span-2-362"><a id="__codelineno-2-362" name="__codelineno-2-362" href="#__codelineno-2-362"></a><span class="err">      (Segal-id-comp A is-segal-A x x (id-arr A x))</span>
+</span><span id="__span-2-361"><a id="__codelineno-2-361" name="__codelineno-2-361" href="#__codelineno-2-361"></a><span class="err">      (id-hom A x) ,</span>
+</span><span id="__span-2-362"><a id="__codelineno-2-362" name="__codelineno-2-362" href="#__codelineno-2-362"></a><span class="err">      (id-comp-Segal A is-segal-A x x (id-hom A x))</span>
 </span><span id="__span-2-363"><a id="__codelineno-2-363" name="__codelineno-2-363" href="#__codelineno-2-363"></a><span class="err">    )</span>
 </span><span id="__span-2-364"><a id="__codelineno-2-364" name="__codelineno-2-364" href="#__codelineno-2-364"></a><span class="err">      )</span>
 </span><span id="__span-2-365"><a id="__codelineno-2-365" name="__codelineno-2-365" href="#__codelineno-2-365"></a><span class="err">  )</span>
 </span><span id="__span-2-366"><a id="__codelineno-2-366" name="__codelineno-2-366" href="#__codelineno-2-366"></a>
-</span><span id="__span-2-367"><a id="__codelineno-2-367" name="__codelineno-2-367" href="#__codelineno-2-367"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:iso-id" id="define:iso-id" style="visibility: visible; position: relative; color: inherit">iso-id</a></span>
+</span><span id="__span-2-367"><a id="__codelineno-2-367" name="__codelineno-2-367" href="#__codelineno-2-367"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:iso-eq" id="define:iso-eq" style="visibility: visible; position: relative; color: inherit">iso-eq</a></span>
 </span><span id="__span-2-368"><a id="__codelineno-2-368" name="__codelineno-2-368" href="#__codelineno-2-368"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-2-369"><a id="__codelineno-2-369" name="__codelineno-2-369" href="#__codelineno-2-369"></a><span class="err">  </span><span class="p">( </span>is-segal-A <span class="p">:</span><span class="err"> is-segal A)</span>
 </span><span id="__span-2-370"><a id="__codelineno-2-370" name="__codelineno-2-370" href="#__codelineno-2-370"></a><span class="err">  </span><span class="p">( </span>x y <span class="p">:</span><span class="err"> A)</span>
@@ -1132,7 +1132,7 @@
 </span><span id="__span-2-385"><a id="__codelineno-2-385" name="__codelineno-2-385" href="#__codelineno-2-385"></a><span class="err">  :=</span>
 </span><span id="__span-2-386"><a id="__codelineno-2-386" name="__codelineno-2-386" href="#__codelineno-2-386"></a><span class="err">    </span><span class="kt">Σ</span><span class="err"> </span><span class="p">( </span>is-segal-A <span class="p">:</span><span class="err"> is-segal A) ,</span>
 </span><span id="__span-2-387"><a id="__codelineno-2-387" name="__codelineno-2-387" href="#__codelineno-2-387"></a><span class="err">      </span><span class="p">(</span>x <span class="p">:</span><span class="err"> A) → </span><span class="p">(</span>y <span class="p">:</span><span class="err"> A) →</span>
-</span><span id="__span-2-388"><a id="__codelineno-2-388" name="__codelineno-2-388" href="#__codelineno-2-388"></a><span class="err">        is-equiv (x = y) (Iso A is-segal-A x y) (iso-id A is-segal-A x y)</span>
+</span><span id="__span-2-388"><a id="__codelineno-2-388" name="__codelineno-2-388" href="#__codelineno-2-388"></a><span class="err">        is-equiv (x = y) (Iso A is-segal-A x y) (iso-eq A is-segal-A x y)</span>
 </span></code></pre></div>
 <h2 id="uniqueness-of-initial-and-final-objects">Uniqueness of initial and final objects<a class="headerlink" href="#uniqueness-of-initial-and-final-objects" title="Permanent link">&para;</a></h2>
 <p>In a Segal type, initial objects are isomorphic.</p>
@@ -1149,18 +1149,18 @@
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">          contractible-connecting-htpy</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">            ( hom A a a)</span>
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">            ( ainitial a)</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">            ( Segal-comp A is-segal-A a b a</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">            ( comp-Segal A is-segal-A a b a</span>
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">              ( </span><span class="s">first</span><span class="err"> (ainitial b))</span>
 </span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">              ( </span><span class="s">first</span><span class="err"> (binitial a)))</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">            ( id-arr A a)) ,</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">            ( id-hom A a)) ,</span>
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="err">        ( </span><span class="s">first</span><span class="err"> (binitial a) ,</span>
 </span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="err">          contractible-connecting-htpy</span>
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="err">            ( hom A b b)</span>
 </span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="err">            ( binitial b)</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="err">            ( Segal-comp A is-segal-A b a b</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="err">            ( comp-Segal A is-segal-A b a b</span>
 </span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="err">              ( </span><span class="s">first</span><span class="err"> (binitial a))</span>
 </span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="err">              ( </span><span class="s">first</span><span class="err"> (ainitial b)))</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="err">            ( id-arr A b))))</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="err">            ( id-hom A b))))</span>
 </span></code></pre></div>
 <p>In a Segal type, final objects are isomorphic.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:iso-final" id="define:iso-final" style="visibility: visible; position: relative; color: inherit">iso-final</a></span>
@@ -1177,18 +1177,18 @@
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">          contractible-connecting-htpy</span>
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">            ( hom A a a)</span>
 </span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">            ( afinal a)</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">            ( Segal-comp A is-segal-A a b a</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">            ( comp-Segal A is-segal-A a b a</span>
 </span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="err">              ( </span><span class="s">first</span><span class="err"> (bfinal a))</span>
 </span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="err">              ( </span><span class="s">first</span><span class="err"> (afinal b)))</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="err">            ( id-arr A a)) ,</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="err">            ( id-hom A a)) ,</span>
 </span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="err">        ( </span><span class="s">first</span><span class="err"> (afinal b) ,</span>
 </span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="err">          contractible-connecting-htpy</span>
 </span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="err">            ( hom A b b)</span>
 </span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="err">            ( bfinal b)</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="err">            ( Segal-comp A is-segal-A b a b</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="err">            ( comp-Segal A is-segal-A b a b</span>
 </span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">              ( </span><span class="s">first</span><span class="err"> (afinal b))</span>
 </span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="err">              ( </span><span class="s">first</span><span class="err"> (bfinal a)))</span>
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="err">            ( id-arr A b))))</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="err">            ( id-hom A b))))</span>
 </span></code></pre></div>
 
 

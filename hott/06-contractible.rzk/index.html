@@ -984,7 +984,7 @@
 </span><span id="__span-8-46"><a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a><span class="err">  : is-contr B</span>
 </span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a><span class="err">  := ( terminal-map-is-equiv-implies-contr B</span>
 </span><span id="__span-8-48"><a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a><span class="err">      ( </span><span class="s">second</span>
-</span><span id="__span-8-49"><a id="__codelineno-8-49" name="__codelineno-8-49" href="#__codelineno-8-49"></a><span class="err">        ( comp-equiv B A Unit</span>
+</span><span id="__span-8-49"><a id="__codelineno-8-49" name="__codelineno-8-49" href="#__codelineno-8-49"></a><span class="err">        ( equiv-comp B A Unit</span>
 </span><span id="__span-8-50"><a id="__codelineno-8-50" name="__codelineno-8-50" href="#__codelineno-8-50"></a><span class="err">          ( inv-equiv A B f)</span>
 </span><span id="__span-8-51"><a id="__codelineno-8-51" name="__codelineno-8-51" href="#__codelineno-8-51"></a><span class="err">          ( ( terminal-map A) ,</span>
 </span><span id="__span-8-52"><a id="__codelineno-8-52" name="__codelineno-8-52" href="#__codelineno-8-52"></a><span class="err">            ( contr-implies-terminal-map-is-equiv A is-contr-A)))))</span>
@@ -1038,7 +1038,7 @@
 </span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="err">  := </span><span class="s">first</span><span class="err"> (</span><span class="s">second</span><span class="err"> is-retract-of-A-B)</span>
 </span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>
 </span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-retract-of-homotopy" id="define:is-retract-of-homotopy" style="visibility: visible; position: relative; color: inherit">is-retract-of-homotopy</a></span>
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="err">  : homotopy A A (composition A B A is-retract-of-retraction is-retract-of-section) (identity A)</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="err">  : homotopy A A (comp A B A is-retract-of-retraction is-retract-of-section) (identity A)</span>
 </span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="err">  := </span><span class="s">second</span><span class="err"> (</span><span class="s">second</span><span class="err"> is-retract-of-A-B)</span>
 </span></code></pre></div>
 <div class="language-rzk highlight"><span class="filename">If A is a retract of a contractible type it has a term</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-retract-of-is-contr-isInhabited" id="define:is-retract-of-is-contr-isInhabited" style="visibility: visible; position: relative; color: inherit">is-retract-of-is-contr-isInhabited</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>is-retract-of-A-B<span class="p">)</span>
@@ -1053,7 +1053,7 @@
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="err">  := concat</span>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="err">      A</span>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="err">      ( is-retract-of-is-contr-isInhabited is-contr-B)</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="err">      ( (composition A B A is-retract-of-retraction is-retract-of-section) a)</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="err">      ( (comp A B A is-retract-of-retraction is-retract-of-section) a)</span>
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="err">      a</span>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="err">      ( ap B A (contraction-center B is-contr-B) (is-retract-of-section a)</span>
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="err">        ( is-retract-of-retraction)</span>
@@ -1220,7 +1220,7 @@
 </span><span id="__span-21-31"><a id="__codelineno-21-31" name="__codelineno-21-31" href="#__codelineno-21-31"></a><span class="err">  : (B a) → </span><span class="p">(</span>(x <span class="p">:</span><span class="err"> A) → B x)</span>
 </span><span id="__span-21-32"><a id="__codelineno-21-32" name="__codelineno-21-32" href="#__codelineno-21-32"></a><span class="err">  := ( </span><span class="s">first</span><span class="err"> singleton-ind-A)</span>
 </span><span id="__span-21-33"><a id="__codelineno-21-33" name="__codelineno-21-33" href="#__codelineno-21-33"></a>
-</span><span id="__span-21-34"><a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:comp-sing" id="define:comp-sing" style="visibility: visible; position: relative; color: inherit">comp-sing</a></span>
+</span><span id="__span-21-34"><a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:compute-ind-sing" id="define:compute-ind-sing" style="visibility: visible; position: relative; color: inherit">compute-ind-sing</a></span>
 </span><span id="__span-21-35"><a id="__codelineno-21-35" name="__codelineno-21-35" href="#__codelineno-21-35"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-21-36"><a id="__codelineno-21-36" name="__codelineno-21-36" href="#__codelineno-21-36"></a><span class="err">  </span><span class="p">( </span>a <span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-21-37"><a id="__codelineno-21-37" name="__codelineno-21-37" href="#__codelineno-21-37"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> A → U)</span>
@@ -1228,7 +1228,7 @@
 </span><span id="__span-21-39"><a id="__codelineno-21-39" name="__codelineno-21-39" href="#__codelineno-21-39"></a><span class="err">  : ( homotopy</span>
 </span><span id="__span-21-40"><a id="__codelineno-21-40" name="__codelineno-21-40" href="#__codelineno-21-40"></a><span class="err">      ( B a)</span>
 </span><span id="__span-21-41"><a id="__codelineno-21-41" name="__codelineno-21-41" href="#__codelineno-21-41"></a><span class="err">      ( B a)</span>
-</span><span id="__span-21-42"><a id="__codelineno-21-42" name="__codelineno-21-42" href="#__codelineno-21-42"></a><span class="err">      ( composition</span>
+</span><span id="__span-21-42"><a id="__codelineno-21-42" name="__codelineno-21-42" href="#__codelineno-21-42"></a><span class="err">      ( comp</span>
 </span><span id="__span-21-43"><a id="__codelineno-21-43" name="__codelineno-21-43" href="#__codelineno-21-43"></a><span class="err">        ( B a)</span>
 </span><span id="__span-21-44"><a id="__codelineno-21-44" name="__codelineno-21-44" href="#__codelineno-21-44"></a><span class="err">        </span><span class="p">( </span>(x <span class="p">:</span><span class="err"> A) → B x)</span>
 </span><span id="__span-21-45"><a id="__codelineno-21-45" name="__codelineno-21-45" href="#__codelineno-21-45"></a><span class="err">        ( B a)</span>
