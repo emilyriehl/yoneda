@@ -41,10 +41,10 @@ Extension types are used to define the type of arrows between fixed terms:
 
 ```rzk title="RS17, Definition 5.1"
 #def hom
-  (A : U)
-  (x y : A)
+  ( A : U)
+  ( x y : A)
   : U
-  := (t : Δ¹) → A [
+  := ( t : Δ¹) → A [
     t ≡ 0₂ ↦ x ,  -- the left endpoint is exactly x
     t ≡ 1₂ ↦ y    -- the right endpoint is exactly y
   ]
@@ -67,13 +67,13 @@ Extension types are also used to define the type of commutative triangles:
 
 ```rzk title="RS17, Definition 5.2"
 #def hom2
-  (A : U)
-  (x y z : A)
-  (f : hom A x y)
-  (g : hom A y z)
-  (h : hom A x z)
+  ( A : U)
+  ( x y z : A)
+  ( f : hom A x y)
+  ( g : hom A y z)
+  ( h : hom A x z)
   : U
-  := ((t1 , t2) : Δ²) → A [
+  := ( (t1 , t2) : Δ²) → A [
     t2 ≡ 0₂ ↦ f t1 ,  -- the top edge is exactly `f`,
     t1 ≡ 1₂ ↦ g t2 ,  -- the right edge is exactly `g`, and
     t2 ≡ t1 ↦ h t2    -- the diagonal is exactly `h`
@@ -88,10 +88,10 @@ also requires homotopical uniqueness of higher-order composites.
 
 ```rzk title="RS17, Definition 5.3"
 #def is-segal
-  (A : U)
+  ( A : U)
   : U
-  := (x : A) → (y : A) → (z : A) →
-      (f : hom A x y) → (g : hom A y z) →
+  := ( x : A) → (y : A) → (z : A) →
+      ( f : hom A x y) → (g : hom A y z) →
       is-contr ( Σ (h : hom A x z) , hom2 A x y z f g h)
 ```
 
