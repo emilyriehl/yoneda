@@ -782,7 +782,6 @@ the cocartesian Yoneda Lemma.</p>
 <li><code>4-extension-types.md</code> — We use the fubini theorem and extension
   extensionality.</li>
 <li><code>5-segal-types.md</code> - We make heavy use of the notion of Segal types</li>
-<li><code>8-covariant.md</code> - We use covariant type families.</li>
 <li><code>10-rezk-types.md</code>- We use Rezk types.</li>
 </ul>
 <h2 id="iso-inner-families">(Iso-)Inner families<a class="headerlink" href="#iso-inner-families" title="Permanent link">&para;</a></h2>
@@ -790,21 +789,21 @@ the cocartesian Yoneda Lemma.</p>
 future, hopefully, these can be replaced by instances of orthogonal and LARI
 families.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:totalType" id="define:totalType" style="visibility: visible; position: relative; color: inherit">totalType</a></span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="err">  </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">  : </span><span class="kt">U</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="err">  </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → U)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">  : U</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="err">  := </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>b <span class="p">:</span><span class="err"> B) , P b</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:isInnerFam" id="define:isInnerFam" style="visibility: visible; position: relative; color: inherit">isInnerFam</a></span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="err">  </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">  : </span><span class="kt">U</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="err">  </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → U)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">  : U</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">  := product (product (is-segal B) (is-segal (totalType B P))) </span><span class="p">(</span>(b <span class="p">:</span><span class="err"> B) → (is-segal (P b)))</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-isoInnerFam" id="define:is-isoInnerFam" style="visibility: visible; position: relative; color: inherit">is-isoInnerFam</a></span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="err">  </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → </span><span class="kt">U</span><span class="err">)</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="err">  : </span><span class="kt">U</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="err">  </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → U)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="err">  : U</span>
 </span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="err">  := product (product (is-rezk B) (is-rezk (totalType B P))) </span><span class="p">(</span>(b <span class="p">:</span><span class="err"> B) → (is-segal (P b)))</span>
 </span></code></pre></div>
 <h2 id="cocartesian-arrows">Cocartesian arrows<a class="headerlink" href="#cocartesian-arrows" title="Permanent link">&para;</a></h2>
@@ -812,14 +811,14 @@ families.</p>
 cocartesian. This is an alternative version using unpacked extension types, as
 this is preferred for usage.</p>
 <div class="language-rzk highlight"><span class="filename">BW23, Definition 5.1.1</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:isCocartArr" id="define:isCocartArr" style="visibility: visible; position: relative; color: inherit">isCocartArr</a></span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="err">  </span><span class="p">(</span>B <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">  </span><span class="p">(</span>b b&#39; <span class="p">:</span><span class="err"> B)</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">  </span><span class="p">(</span>u <span class="p">:</span><span class="err"> hom B b b&#39;)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">  </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">  </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → U)</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="err">  </span><span class="p">(</span>e <span class="p">:</span><span class="err"> P b)</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">  </span><span class="p">(</span>e&#39; <span class="p">:</span><span class="err"> P b&#39;)</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">  </span><span class="p">(</span>f <span class="p">:</span><span class="err"> dhom B b b&#39; u P e e&#39;)</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">  : </span><span class="kt">U</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">  : U</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">  := </span><span class="p">(</span>b&#39;&#39; <span class="p">:</span><span class="err"> B)</span>
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">  → </span><span class="p">(</span>v <span class="p">:</span><span class="err"> hom B b&#39; b&#39;&#39;)</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="err">  → </span><span class="p">(</span>w <span class="p">:</span><span class="err"> hom B b b&#39;&#39;)</span>
@@ -834,19 +833,14 @@ this is preferred for usage.</p>
 <p>The following is the type of cocartesian lifts of a fixed arrow in the base with
 a given starting point in the fiber.</p>
 <div class="language-rzk highlight"><span class="filename">BW23, Definition 5.1.2</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:CocartLift" id="define:CocartLift" style="visibility: visible; position: relative; color: inherit">CocartLift</a></span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">    </span><span class="p">(</span>B <span class="p">:</span><span class="err"> </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">    </span><span class="p">(</span>B <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">    </span><span class="p">(</span>b b&#39; <span class="p">:</span><span class="err"> B)</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">    </span><span class="p">(</span>u <span class="p">:</span><span class="err"> hom B b b&#39;)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">    </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → </span><span class="kt">U</span><span class="err">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">    </span><span class="p">(</span>P <span class="p">:</span><span class="err"> B → U)</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">    </span><span class="p">(</span>e <span class="p">:</span><span class="err"> P b)</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">    : </span><span class="kt">U</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">    : U</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">    := </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>e&#39; <span class="p">:</span><span class="err"> P b&#39;) , </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>f <span class="p">:</span><span class="err"> dhom B b b&#39; u P e e&#39;) , isCocartArr B b b&#39; u P e e&#39; f</span>
 </span></code></pre></div>
-<h1 id="def-cocart-is-prop-b-u-bis-rezk-is-rezk-b-b-b-b-u-hom-b-b-b">def cocart-is-prop (B : U) (Bis-rezk : is-rezk B) (b b' : B) (u : hom B b b')<a class="headerlink" href="#def-cocart-is-prop-b-u-bis-rezk-is-rezk-b-b-b-b-u-hom-b-b-b" title="Permanent link">&para;</a></h1>
-<p>(P : B → U) (TPis-rezk : is-rezk (totalType B P)) (PisfibRezk : (b : B) →
-is-rezk (P b)) (e : P b) (e' : P b') (f : dhom B b b' u P e e') (fiscocart :
-isCocartArr B b b' u P e e' f) : is-contr (CocartLift B b b' u P e) := ( (e' , f
-, fiscocart) , \ d → \ g →</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>
 </span></code></pre></div>
 
