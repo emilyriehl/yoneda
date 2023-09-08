@@ -31,23 +31,23 @@ future, hopefully, these can be replaced by instances of orthogonal and LARI
 families.
 
 ```rzk
-#def totalType
-  (B : U)
-  (P : B → U)
+#def is-inner-fam
+  ( B : U)
+  ( P : B → U)
   : U
-  := Σ (b : B) , P b
+  :=
+    product
+    ( product (is-segal B) (is-segal (Σ (b : B) , P b)))
+    ( (b : B) → (is-segal (P b)))
 
-#def isInnerFam
-  (B : U)
-  (P : B → U)
+#def is-isoinner-fam
+  ( B : U)
+  ( P : B → U)
   : U
-  := product (product (is-segal B) (is-segal (totalType B P))) ((b : B) → (is-segal (P b)))
-
-#def is-isoInnerFam
-  (B : U)
-  (P : B → U)
-  : U
-  := product (product (is-rezk B) (is-rezk (totalType B P))) ((b : B) → (is-segal (P b)))
+  :=
+    product
+    ( product (is-rezk B) (is-rezk (Σ (b : B) , P b)))
+    ( (b : B) → (is-segal (P b)))
 ```
 
 ## Cocartesian arrows
@@ -57,23 +57,21 @@ cocartesian. This is an alternative version using unpacked extension types, as
 this is preferred for usage.
 
 ```rzk title="BW23, Definition 5.1.1"
-#def isCocartArr
-  (B : U)
-  (b b' : B)
-  (u : hom B b b')
-  (P : B → U)
-  (e : P b)
-  (e' : P b')
-  (f : dhom B b b' u P e e')
+#def is-cocart-arrow
+  ( B : U)
+  ( b b' : B)
+  ( u : hom B b b')
+  ( P : B → U)
+  ( e : P b)
+  ( e' : P b')
+  ( f : dhom B b b' u P e e')
   : U
-  := (b'' : B)
-  → (v : hom B b' b'')
-  → (w : hom B b b'')
-  → (sigma : hom2 B b b' b'' u v w)
-  → (e'' : P b'')
-  → (h : dhom B b b'' w P e e'')
-  → is-contr
-      ( Σ ( g : dhom B b' b'' v P e' e'') ,
+  :=
+    (b'' : B) → (v : hom B b' b'') → (w : hom B b b'') →
+      (sigma : hom2 B b b' b'' u v w) → (e'' : P b'') →
+      (h : dhom B b b'' w P e e'') →
+      is-contr
+        ( Σ ( g : dhom B b' b'' v P e' e'') ,
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 ```
 
@@ -83,22 +81,14 @@ The following is the type of cocartesian lifts of a fixed arrow in the base with
 a given starting point in the fiber.
 
 ```rzk title="BW23, Definition 5.1.2"
-#def CocartLift
-    (B : U)
-    (b b' : B)
-    (u : hom B b b')
-    (P : B → U)
-    (e : P b)
-    : U
-    := Σ (e' : P b') , Σ (f : dhom B b b' u P e e') , isCocartArr B b b' u P e e' f
-```
-
-#def cocart-is-prop (B : U) (Bis-rezk : is-rezk B) (b b' : B) (u : hom B b b')
-(P : B → U) (TPis-rezk : is-rezk (totalType B P)) (PisfibRezk : (b : B) →
-is-rezk (P b)) (e : P b) (e' : P b') (f : dhom B b b' u P e e') (fiscocart :
-isCocartArr B b b' u P e e' f) : is-contr (CocartLift B b b' u P e) := ( (e' , f
-, fiscocart) , \ d → \ g →
-
-```
-
+#def cocart-lift
+  ( B : U)
+  ( b b' : B)
+  ( u : hom B b b')
+  ( P : B → U)
+  ( e : P b)
+  : U
+  :=
+    Σ (e' : P b') ,
+      Σ (f : dhom B b b' u P e e') , is-cocart-arrow B b b' u P e e' f
 ```
