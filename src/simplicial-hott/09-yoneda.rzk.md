@@ -772,7 +772,7 @@ This proves the initiality of identity arrows in the coslice of a Segal type.
 The dependent Yoneda lemma now follows by specializing these results.
 
 ```rzk
-#def dependent-ev-id
+#def dependent-evid
   (A : U)
   (a : A)
   (C : (coslice A a) → U)
@@ -788,7 +788,7 @@ The dependent Yoneda lemma now follows by specializing these results.
   : is-equiv
       ( (p : coslice A a) → C p)
       ( C (a, id-hom A a))
-      ( dependent-ev-id A a C)
+      ( dependent-evid A a C)
   :=
     is-equiv-covariant-ev-initial
       ( coslice A a)
@@ -1002,7 +1002,7 @@ The contravariant version of the dependent Yoneda lemma now follows by
 specializing these results.
 
 ```rzk
-#def contra-dependent-ev-id
+#def contra-dependent-evid
   (A : U)
   (a : A)
   (C : (slice A a) → U)
@@ -1018,7 +1018,7 @@ specializing these results.
   : is-equiv
       ( (p : slice A a) → C p)
       ( C (a, id-hom A a))
-      ( contra-dependent-ev-id A a C)
+      ( contra-dependent-evid A a C)
   :=
     is-equiv-contravariant-ev-final
       ( slice A a)

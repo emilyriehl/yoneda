@@ -381,7 +381,7 @@ Some of the definitions in this file rely on extension extensionality:
       )
   )
 
-#def iso-id
+#def iso-eq
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y : A)
@@ -402,7 +402,7 @@ Some of the definitions in this file rely on extension extensionality:
   :=
     Σ ( is-segal-A : is-segal A) ,
       (x : A) → (y : A) →
-        is-equiv (x = y) (Iso A is-segal-A x y) (iso-id A is-segal-A x y)
+        is-equiv (x = y) (Iso A is-segal-A x y) (iso-eq A is-segal-A x y)
 ```
 
 ## Uniqueness of initial and final objects
