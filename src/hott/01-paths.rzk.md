@@ -229,7 +229,7 @@ of the path algebra coherences defined above.
 ### Postwhiskering paths of paths
 
 ```rzk
-#def homotopy-concat
+#def concat-eq-left
   ( p q : x = y)
   ( H : p = q)
   ( r : y = z)
@@ -249,7 +249,7 @@ of the path algebra coherences defined above.
 Prewhiskering paths of paths is much harder.
 
 ```rzk
-#def concat-homotopy
+#def concat-eq-right
   ( p : x = y)
   : ( q : y = z) →
     ( r : y = z) →
@@ -461,7 +461,7 @@ The following is for a specific use.
 Application of a function to homotopic paths yields homotopic paths.
 
 ```rzk
-#def ap-htpy
+#def ap-eq
   ( A B : U)
   ( x y : A)
   ( f : A → B)
@@ -483,7 +483,7 @@ Application of a function to homotopic paths yields homotopic paths.
   ( f : A → B)
   ( g : B → C)
   ( p : x = y)
-  : ( ap A C x y (composition A B C g f) p) =
+  : ( ap A C x y (comp A B C g f) p) =
     ( ap B C (f x) (f y) g (ap A B x y f p))
   :=
     ind-path
@@ -503,7 +503,7 @@ Application of a function to homotopic paths yields homotopic paths.
   ( g : B → C)
   ( p : x = y)
   : ( ap B C (f x) (f y) g (ap A B x y f p)) =
-    ( ap A C x y (composition A B C g f) p)
+    ( ap A C x y (comp A B C g f) p)
   :=
     rev
       ( g (f x) = g (f y))
@@ -808,7 +808,7 @@ The following is the same as above but with alternating arguments.
       ( z)
       ( r)
 
-#def homotopy-triple-concat
+#def triple-concat-eq-first
   ( A : U)
   ( w x y z : A)
   ( p q : w = x)
@@ -816,9 +816,9 @@ The following is the same as above but with alternating arguments.
   ( s : y = z)
   ( H : p = q)
   : (triple-concat A w x y z p r s) = (triple-concat A w x y z q r s)
-  := homotopy-concat A w x z p q H (concat A x y z r s)
+  := concat-eq-left A w x z p q H (concat A x y z r s)
 
-#def triple-homotopy-concat
+#def triple-concat-eq-second
   ( A : U)
   ( w x y z : A)
   ( p : w = x)

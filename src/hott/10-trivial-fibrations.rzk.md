@@ -48,7 +48,7 @@ The following type asserts that the fibers of a type family are contractible.
 
 #def contractible-fibers-section-htpy uses (contractible-fibers-A-B)
   : homotopy A A
-    ( composition A (Σ (x : A) , B x) A
+    ( comp A (Σ (x : A) , B x) A
       ( total-space-projection A B) (contractible-fibers-actual-section))
     ( identity A)
   := \ x → refl
@@ -235,7 +235,7 @@ Finally, we have:
 ```rzk title="The main theorem"
 #def projection-theorem
   (A : U)
-  (B : (a : A) → U)
+  (B : A → U)
   : iff
     ( is-equiv (Σ (x : A) , B x) A (total-space-projection A B))
     ( contractible-fibers A B)
