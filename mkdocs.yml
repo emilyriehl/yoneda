@@ -87,3 +87,6 @@ extra_javascript:
 
 plugins:
   - search
+  - rzk:
+      render_svg: false
+      anchor_definitions: true
