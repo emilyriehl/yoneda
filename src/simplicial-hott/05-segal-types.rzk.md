@@ -75,10 +75,10 @@ Extension types are also used to define the type of commutative triangles:
   ( h : hom A x z)
   : U
   :=
-    ( (t1 , t2) : Δ²) →
-    A [ t2 ≡ 0₂ ↦ f t1 ,  -- the top edge is exactly `f`,
-        t1 ≡ 1₂ ↦ g t2 ,  -- the right edge is exactly `g`, and
-        t2 ≡ t1 ↦ h t2]  -- the diagonal is exactly `h`
+    ( (t₁ , t₂) : Δ²) →
+    A [ t₂ ≡ 0₂ ↦ f t₁ ,  -- the top edge is exactly `f`,
+        t₁ ≡ 1₂ ↦ g t₂ ,  -- the right edge is exactly `g`, and
+        t₂ ≡ t₁ ↦ h t₂]   -- the diagonal is exactly `h`
 ```
 
 ## The Segal condition
