@@ -44,10 +44,11 @@ Extension types are used to define the type of arrows between fixed terms:
   ( A : U)
   ( x y : A)
   : U
-  := ( t : Δ¹) → A [
-    t ≡ 0₂ ↦ x ,  -- the left endpoint is exactly x
-    t ≡ 1₂ ↦ y    -- the right endpoint is exactly y
-  ]
+  :=
+    ( t : Δ¹) →
+    A [ t ≡ 0₂ ↦ x,  -- the left endpoint is exactly x
+        t ≡ 1₂ ↦ y]   -- the right endpoint is exactly y
+
 ```
 
 Extension types are also used to define the type of commutative triangles:
@@ -167,7 +168,7 @@ composite equals $h$.
       ( comp-Segal A is-segal-A x y z f g ,
         witness-comp-Segal A is-segal-A x y z f g)
       ( h , alpha)
-      ( contracting-htpy
+      ( homotopy-contraction
         ( Σ (k : hom A x z) , (hom2 A x y z f g k))
         ( is-segal-A x y z f g)
         ( h , alpha))
@@ -400,7 +401,7 @@ all $x$ then $(x : X) → A x$ is a Segal type.
         (\ t → A)
         (\ t → recBOT)))
       ( \ h x t → h x t) -- second equivalence
-      ( second (equiv-function-equiv-fibered
+      ( second (equiv-function-equiv-family
         ( funext)
         ( X)
         ( \ x → (Δ² → A x))
@@ -444,7 +445,7 @@ then $(x : X) → A x$ is a Segal type.
           ( \ t s → A s)
           ( \ u → recBOT)))
       ( \ h s t → h s t) -- second equivalence
-      ( second (equiv-extension-equiv-fibered extext I ψ
+      ( second (equiv-extension-equiv-family extext I ψ
         ( \ s → Δ² → A s)
         ( \ s → Λ → A s)
         ( \ s → (horn-restriction (A s) , fiberwise-is-segal-A s))))
@@ -471,7 +472,7 @@ then $(x : X) → A x$ is a Segal type.
       ( (s : ψ) → A s)
       ( extension-types-Segal'
         ( I) (ψ) (A)
-        ( \s → is-local-horn-inclusion-is-segal (A s) (fiberwise-is-segal-A s)))
+        ( \ s → is-local-horn-inclusion-is-segal (A s) (fiberwise-is-segal-A s)))
 ```
 
 In particular, the arrow type of a Segal type is Segal. First, we define the
@@ -952,7 +953,8 @@ The front face:
   ( h : hom A y z)
   : ( comp-Segal A is-segal-A w x z f (comp-Segal A is-segal-A x y z g h)) =
     ( triple-comp-Segal A is-segal-A w x y z f g h)
-  := uniqueness-comp-Segal
+  :=
+    uniqueness-comp-Segal
       ( A) (is-segal-A) (w) (x) (z) (f) (comp-Segal A is-segal-A x y z g h)
       ( triple-comp-Segal A is-segal-A w x y z f g h)
       ( right-witness-asociative-Segal A is-segal-A w x y z f g h)
@@ -1151,7 +1153,7 @@ the data provided by a commutative triangle with that boundary.
     ( Σ (h : hom A x z) , (hom2 A x y z f g h))
   := \ (h , p) → (h , map-hom2-eq-Segal A is-segal-A x y z f g h p)
 
-#def eq-to-hom2-total-map-is-equiv-Segal
+#def is-equiv-map-total-hom2-eq-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y z : A)
@@ -1171,7 +1173,7 @@ the data provided by a commutative triangle with that boundary.
 ```
 
 ```rzk title="RS17, Proposition 5.12"
-#def Eq-Segal-eq-hom2
+#def extensionality-hom2-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y z : A)
@@ -1186,7 +1188,7 @@ the data provided by a commutative triangle with that boundary.
         ( \ m → (comp-Segal A is-segal-A x y z f g) = m)
         ( hom2 A x y z f g)
         ( map-hom2-eq-Segal A is-segal-A x y z f g)
-        ( eq-to-hom2-total-map-is-equiv-Segal A is-segal-A x y z f g)
+        ( is-equiv-map-total-hom2-eq-Segal A is-segal-A x y z f g)
         ( k)))
 ```
 
@@ -1252,7 +1254,7 @@ As a special case of the above:
 ```
 
 ```rzk title="RS17, Proposition 5.14(a)"
-#def postwhisker-homotopy-is-ap-Segal
+#def compute-postwhisker-homotopy-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y z : A)
@@ -1290,8 +1292,8 @@ As a special case of the above:
       ( hom A x y)
       ( f)
       ( \ g' p' →
-        (prewhisker-homotopy-Segal A is-segal-A w x y k f g' p') =
-        ap (hom A x y) (hom A w y) f g' (comp-Segal A is-segal-A w x y k) p')
+        ( prewhisker-homotopy-Segal A is-segal-A w x y k f g' p') =
+        ( ap (hom A x y) (hom A w y) f g' (comp-Segal A is-segal-A w x y k) p'))
       ( refl)
       ( g)
       ( p)
@@ -1316,9 +1318,10 @@ As a special case of the above:
   :=
     \ x y z f g →
     is-contr-is-retract-of-is-contr
-      ( Σ (h : hom Unit x z) , hom2 Unit x y z f g h)
+      ( Σ (h : hom Unit x z) , (hom2 Unit x y z f g h))
       ( Δ² → Unit)
-      ( \ (_ , k) → k , (\ k → (\ t → k (t , t) , k) , \ _ → refl))
+      ( ( \ (_ , k) → k) ,
+        ( \ k → ((\ t → k (t , t)) , k) , \ _ → refl))
       ( is-contr-Δ²→Unit)
 
 #end is-segal-Unit

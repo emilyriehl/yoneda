@@ -12,7 +12,7 @@ We now calculate the fiber of the map on total spaces associated to a family of
 maps.
 
 ```rzk
-#def total-map-family-of-maps
+#def total-map
   ( A : U)
   ( B C : A → U)
   ( f : (a : A) → (B a) → (C a))
@@ -25,7 +25,7 @@ maps.
   ( f : (a : A) → (B a) → (C a))
   ( w : (Σ (x : A) , C x))
   : fib (B (first w)) (C (first w)) (f (first w)) (second w) →
-    ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f) w)
+    ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map A B C f) w)
   :=
     \ (b , p) →
       ( (first w , b) ,
@@ -36,13 +36,13 @@ maps.
   ( B C : A → U)
   ( f : (a : A) → (B a) → (C a))
   ( w : (Σ (x : A) , C x))
-  : ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f) w)
-    → fib (B (first w)) (C (first w)) (f (first w)) (second w)
+  : fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map A B C f) w →
+    fib (B (first w)) (C (first w)) (f (first w)) (second w)
   :=
     \ (z , p) →
     ind-path
       ( Σ (x : A) , C x)
-      ( total-map-family-of-maps A B C f z)
+      ( total-map A B C f z)
       ( \ w' p' → fib (B (first w')) (C (first w')) (f (first w')) (second w'))
       ( second z , refl)
       ( w)
@@ -55,7 +55,7 @@ maps.
   ( w : (Σ (x : A) , C x))
   : has-retraction
     ( fib (B (first w)) (C (first w)) (f (first w)) (second w))
-    ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f) w)
+    ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map A B C f) w)
     ( total-map-to-fiber A B C f w)
   :=
     ( ( total-map-from-fiber A B C f w) ,
@@ -79,7 +79,7 @@ maps.
   ( w : (Σ (x : A) , C x))
   : has-section
     ( fib (B (first w)) (C (first w)) (f (first w)) (second w))
-    ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f) w)
+    ( fib (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map A B C f) w)
     ( total-map-to-fiber A B C f w)
   :=
     ( ( total-map-from-fiber A B C f w) ,
@@ -103,7 +103,7 @@ maps.
   : is-equiv
     ( fib (B (first w)) (C (first w)) (f (first w)) (second w))
     ( fib (Σ (x : A) , B x) (Σ (x : A) , C x)
-      ( total-map-family-of-maps A B C f) w)
+      ( total-map A B C f) w)
     ( total-map-to-fiber A B C f w)
   :=
     ( total-map-to-fiber-retraction A B C f w ,
@@ -117,7 +117,7 @@ maps.
   : Equiv
     ( fib (B (first w)) (C (first w)) (f (first w)) (second w))
     ( fib (Σ (x : A) , B x) (Σ (x : A) , C x)
-      ( total-map-family-of-maps A B C f) w)
+      ( total-map A B C f) w)
   := (total-map-to-fiber A B C f w , total-map-to-fiber-is-equiv A B C f w)
 ```
 
@@ -143,7 +143,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   : has-retraction
     ( Σ (x : A) , B x)
     ( Σ (x : A) , C x)
-    ( total-map-family-of-maps A B C f)
+    ( total-map A B C f)
   :=
     ( invertible-family-total-inverse A B C f invfamily ,
       \ (a , b) →
@@ -156,7 +156,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   ( B C : A → U)
   ( f : (a : A) → (B a) → (C a))
   ( invfamily : (a : A) → has-inverse (B a) (C a) (f a))
-  : has-section (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f)
+  : has-section (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map A B C f)
   :=
     ( invertible-family-total-inverse A B C f invfamily ,
       \ (a , c) →
@@ -172,7 +172,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   : has-inverse
     ( Σ (x : A) , B x)
     ( Σ (x : A) , C x)
-    ( total-map-family-of-maps A B C f)
+    ( total-map A B C f)
   :=
     ( invertible-family-total-inverse A B C f invfamily ,
       ( second (invertible-family-total-retraction A B C f invfamily) ,
@@ -184,10 +184,10 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   ( f : (a : A) → (B a) → (C a))
   ( familyequiv : (a : A) → is-equiv (B a) (C a) (f a))
   : is-equiv
-    ( Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f)
+    ( Σ (x : A) , B x) (Σ (x : A) , C x) (total-map A B C f)
   :=
     is-equiv-has-inverse
-    ( Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f)
+    ( Σ (x : A) , B x) (Σ (x : A) , C x) (total-map A B C f)
     ( invertible-family-total-invertible A B C f
       ( \ a → has-inverse-is-equiv (B a) (C a) (f a) (familyequiv a)))
 
@@ -197,7 +197,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
   ( familyeq : (a : A) → Equiv (B a) (C a))
   : Equiv (Σ (x : A) , B x) (Σ (x : A) , C x)
   :=
-    ( total-map-family-of-maps A B C (\ a → first (familyeq a)) ,
+    ( total-map A B C (\ a → first (familyeq a)) ,
       family-of-equiv-total-equiv A B C
         ( \ a → first (familyeq a))
         ( \ a → second (familyeq a)))
@@ -212,7 +212,7 @@ thus an equivalence) on total spaces.
   ( B C : A → U)
   ( f : (a : A) → (B a) → (C a))
   ( familyequiv : (a : A) → is-equiv (B a) (C a) (f a))
-  : has-inverse (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map-family-of-maps A B C f)
+  : has-inverse (Σ (x : A) , B x) (Σ (x : A) , C x) (total-map A B C f)
   :=
     invertible-family-total-invertible A B C f
     ( \ a → has-inverse-is-equiv (B a) (C a) (f a) (familyequiv a))
@@ -230,15 +230,15 @@ implication could be proven similarly.
     is-contr-map
       ( Σ (x : A) , B x)
       ( Σ (x : A) , C x)
-      ( total-map-family-of-maps A B C f))
+      ( total-map A B C f))
   ( a : A)
   : is-contr-map (B a) (C a) (f a)
   :=
     \ c →
-      is-contr-is-equiv-to-contr
+      is-contr-equiv-is-contr'
         ( fib (B a) (C a) (f a) c)
         ( fib (Σ (x : A) , B x) (Σ (x : A) , C x)
-          ( total-map-family-of-maps A B C f) ((a , c)))
+          ( total-map A B C f) ((a , c)))
         ( total-map-fiber-equiv A B C f ((a , c)))
         ( totalcontrmap ((a , c)))
 
@@ -249,7 +249,7 @@ implication could be proven similarly.
   ( totalequiv : is-equiv
                 ( Σ (x : A) , B x)
                 ( Σ (x : A) , C x)
-                ( total-map-family-of-maps A B C f))
+                ( total-map A B C f))
   (a : A)
   : is-equiv (B a) (C a) (f a)
   :=
@@ -257,7 +257,7 @@ implication could be proven similarly.
     ( total-contr-map-family-of-contr-maps A B C f
       ( is-contr-map-is-equiv
         ( Σ (x : A) , B x) (Σ (x : A) , C x)
-        ( total-map-family-of-maps A B C f) totalequiv) a)
+        ( total-map A B C f) totalequiv) a)
 
 #def family-equiv-total-equiv
   ( A : U)
@@ -266,7 +266,7 @@ implication could be proven similarly.
   ( totalequiv : is-equiv
                 ( Σ (x : A) , B x)
                 ( Σ (x : A) , C x)
-                ( total-map-family-of-maps A B C f))
+                ( total-map A B C f))
   ( a : A)
   : Equiv (B a) (C a)
   := ( f a , total-equiv-family-of-equiv A B C f totalequiv a)
@@ -283,7 +283,7 @@ equivalence.
   : iff
       ( (a : A) → is-equiv (B a) (C a) (f a))
       ( is-equiv (Σ (x : A) , B x) (Σ (x : A) , C x)
-        ( total-map-family-of-maps A B C f))
+        ( total-map A B C f))
   := (family-of-equiv-total-equiv A B C f , total-equiv-family-of-equiv A B C f)
 ```
 
@@ -311,7 +311,7 @@ equivalence.
   ( a : A)
   : is-contr (Σ (x : A) , x = a)
   :=
-    is-contr-is-equiv-to-contr (Σ (x : A) , x = a) (Σ (x : A) , a = x)
+    is-contr-equiv-is-contr' (Σ (x : A) , x = a) (Σ (x : A) , a = x)
       ( equiv-based-paths A a)
       ( is-contr-based-paths A a)
 ```
@@ -566,7 +566,7 @@ equivalence of total spaces.
         ( Σ (b : B) , C b)
         ( pullback-comparison-map A B f C)
         ( \ z →
-          ( is-contr-is-equiv-to-contr
+          ( is-contr-equiv-is-contr'
             ( pullback-comparison-fiber A B f C z)
             ( fib A B f (first z))
             ( equiv-pullback-comparison-fiber A B f C z)
@@ -589,9 +589,9 @@ equivalence of total spaces.
     ( \ familyequiv →
       ( equiv-with-contractible-domain-implies-contractible-codomain
         ( Σ (x : A) , a = x) (Σ (x : A) , B x)
-        ( ( total-map-family-of-maps A ( \ x → (a = x)) B f) ,
+        ( ( total-map A ( \ x → (a = x)) B f) ,
           ( is-equiv-has-inverse (Σ (x : A) , a = x) (Σ (x : A) , B x)
-            ( total-map-family-of-maps A ( \ x → (a = x)) B f)
+            ( total-map A ( \ x → (a = x)) B f)
             ( total-has-inverse-family-equiv A
               ( \ x → (a = x)) B f familyequiv)))
         ( is-contr-based-paths A a)))
@@ -610,7 +610,7 @@ equivalence of total spaces.
           ( Σ (x' : A) , (B x'))
           ( is-contr-based-paths A a)
           ( is-contr-Σ-A-B)
-          ( total-map-family-of-maps A (\ x' → (a = x')) B f))
+          ( total-map A (\ x' → (a = x')) B f))
         ( x))
 ```
 

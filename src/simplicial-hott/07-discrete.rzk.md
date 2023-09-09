@@ -41,7 +41,7 @@ identity types.
 #def is-discrete
   ( A : U)
   : U
-  := (x : A) → (y : A) → is-equiv (x =_{A} y) (hom A x y) (arr-eq A x y)
+  := (x : A) → (y : A) → is-equiv (x = y) (hom A x y) (arr-eq A x y)
 ```
 
 ## Families of discrete types
@@ -63,8 +63,9 @@ of discrete types is discrete.
       ( (x : X) → hom (A x) (f x) (g x))
       ( hom ((x : X) → A x) f g)
       ( equiv-FunExt funext X A f g)
-      ( equiv-function-equiv-fibered funext X
-        ( \ x → (f x = g x)) (\ x → hom (A x) (f x) (g x))
+      ( equiv-function-equiv-family funext X
+        ( \ x → (f x = g x))
+        ( \ x → hom (A x) (f x) (g x))
         ( \ x → (arr-eq (A x) (f x) (g x) , (is-discrete-A x (f x) (g x)))))
       ( flip-ext-fun-inv
         ( 2)
@@ -130,7 +131,7 @@ only, extending from BOT, that's all we prove here for now.
       ( (t : ψ) → hom (A t) (f t) (g t))
       ( hom ((t : ψ) → A t) f g)
       ( equiv-ExtExt extext I ψ (\ _ → BOT) A (\ _ → recBOT) f g)
-      ( equiv-extension-equiv-fibered
+      ( equiv-extension-equiv-family
         ( extext)
         ( I)
         ( ψ)
@@ -210,32 +211,29 @@ Discrete types are automatically Segal types.
 #variable g : hom A z w
 
 #def is-equiv-arr-eq-discrete uses (extext x y z w)
-  : is-equiv (f =_{Δ¹ → A} g) (hom (arr A) f g) (arr-eq (arr A) f g)
+  : is-equiv (f =_{arr A} g) (hom (arr A) f g) (arr-eq (arr A) f g)
   := (is-discrete-arr-is-discrete A is-discrete-A) f g
 
 #def equiv-arr-eq-discrete uses (extext x y z w)
-  : Equiv (f =_{Δ¹ → A} g) (hom (arr A) f g)
-  := (arr-eq (arr A) f g ,
-          (is-discrete-arr-is-discrete A is-discrete-A) f g)
+  : Equiv (f =_{arr A} g) (hom (arr A) f g)
+  := (arr-eq (arr A) f g , (is-discrete-arr-is-discrete A is-discrete-A) f g)
 
 #def equiv-square-hom-arr
   : Equiv
       ( hom (arr A) f g)
       ( Σ ( h : hom A x z) ,
           ( Σ ( k : hom A y w) ,
-              ( ((t , s) : Δ¹×Δ¹) → A
-                [ t ≡ 0₂ ∧ Δ¹ s ↦ f s ,
-                  t ≡ 1₂ ∧ Δ¹ s ↦ g s ,
-                  Δ¹ t ∧ s ≡ 0₂ ↦ h t ,
-                  Δ¹ t ∧ s ≡ 1₂ ↦ k t])))
+              ( ( (t , s) : Δ¹×Δ¹) →
+                A [ t ≡ 0₂ ∧ Δ¹ s ↦ f s ,
+                    t ≡ 1₂ ∧ Δ¹ s ↦ g s ,
+                    Δ¹ t ∧ s ≡ 0₂ ↦ h t ,
+                    Δ¹ t ∧ s ≡ 1₂ ↦ k t])))
   :=
     ( \ α →
       ( ( \ t → α t 0₂) ,
         ( ( \ t → α t 1₂) , (\ (t , s) → α t s))) ,
-      ( ( ( \ σ t s → (second (second σ)) (t , s)) ,
-          ( \ α → refl)) ,
-        ( ( \ σ t s → (second (second σ)) (t , s)) ,
-          ( \ σ → refl))))
+      ( ( ( \ σ t s → (second (second σ)) (t , s)) , (\ α → refl)) ,
+        ( ( \ σ t s → (second (second σ)) (t , s)) , (\ σ → refl))))
 ```
 
 The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
@@ -285,7 +283,8 @@ The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
       ( Σ ( p : x = z) ,
           ( Σ ( q : y = w) ,
               ( product-transport A A (hom A) x z y w p q f = g)))
-  := equiv-Eq-Σ-over-product
+  :=
+    extensionality-Σ-over-product
       ( A) (A)
       ( hom A)
       ( fibered-arr-free-arr f)
@@ -298,11 +297,11 @@ The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
             ( product-transport A A (hom A) x z y w p q f = g)))
     ( Σ ( h : hom A x z) ,
         ( Σ ( k : hom A y w) ,
-            ( ((t , s) : Δ¹×Δ¹) → A
-              [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
+            ( ((t , s) : Δ¹×Δ¹) →
+              A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                  (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                  (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
+                  (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
   :=
     equiv-left-cancel
       ( f =_{Δ¹ → A} g)
@@ -311,11 +310,11 @@ The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
               ( product-transport A A (hom A) x z y w p q f = g)))
       ( Σ ( h : hom A x z) ,
           ( Σ ( k : hom A y w) ,
-              ( ((t , s) : Δ¹×Δ¹) → A
-                [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                  (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                  (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
-                  (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
+              ( ((t , s) : Δ¹×Δ¹) →
+                A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                    (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                    (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
+                    (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
       ( equiv-comp
         ( f =_{Δ¹ → A} g)
         ( fibered-arr-free-arr f = fibered-arr-free-arr g)
@@ -329,11 +328,11 @@ The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
         ( hom (arr A) f g)
         ( Σ ( h : hom A x z) ,
             ( Σ ( k : hom A y w) ,
-                ( ((t , s) : Δ¹×Δ¹) → A
-                  [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                    (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                    (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
-                    (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
+                ( ( (t , s) : Δ¹×Δ¹) →
+                  A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                      (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                      (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
+                      (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
         ( equiv-arr-eq-discrete)
         ( equiv-square-hom-arr))
 ```
@@ -354,11 +353,11 @@ We close the section so we can use path induction.
   ( q : y = w)
   : ( g : hom A z w) →
     ( product-transport A A (hom A) x z y w p q f = g) →
-    ( ((t , s) : Δ¹×Δ¹) → A
-      [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-        (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-        (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
-        (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t])
+    ( ( (t , s) : Δ¹×Δ¹) →
+      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+          (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+          (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
+          (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t])
   :=
     ind-path
       ( A)
@@ -366,32 +365,32 @@ We close the section so we can use path induction.
       ( \ z' p' →
         ( g : hom A z' w) →
         ( product-transport A A (hom A) x z' y w p' q f = g) →
-        ( ((t , s) : Δ¹×Δ¹) → A
-          [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z' p') t ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t]))
+        ( ( (t , s) : Δ¹×Δ¹) →
+          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+              (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z' p') t ,
+              (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t]))
       ( ind-path
         ( A)
         ( y)
         ( \ w' q' →
           ( g : hom A x w') →
           ( product-transport A A (hom A) x x y w' refl q' f = g) →
-          ( ((t , s) : Δ¹×Δ¹) → A
-            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w' q') t]))
+          ( ( (t , s) : Δ¹×Δ¹) →
+            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w' q') t]))
         ( ind-path
-            ( hom A x y)
-            ( f)
-            ( \ g' τ' →
-              ( ((t , s) : Δ¹×Δ¹) → A
-                [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+          ( hom A x y)
+          ( f)
+          ( \ g' τ' →
+            ( ( (t , s) : Δ¹×Δ¹) →
+              A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
                   (t ≡ 1₂) ∧ (Δ¹ s) ↦ g' s ,
                   (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
                   (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
-            ( \ (t , s) → f s))
+          ( \ (t , s) → f s))
         ( w)
         ( q))
       ( z)
@@ -409,22 +408,19 @@ We close the section so we can use path induction.
             ( product-transport A A (hom A) x z y w p q f = g))))
   : Σ ( h : hom A x z) ,
       ( Σ ( k : hom A y w) ,
-          ( ((t , s) : Δ¹×Δ¹) → A
-            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t]))
+          ( ( (t , s) : Δ¹×Δ¹) →
+            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t]))
   :=
-    ( arr-eq A x z p ,
-      ( arr-eq A y w q ,
-        fibered-map-square-sigma-over-product
+    ( ( arr-eq A x z p) ,
+      ( ( arr-eq A y w q) ,
+        ( fibered-map-square-sigma-over-product
           ( A) (is-discrete-A)
           ( x) (y) (z) (w)
-          ( f)
-          ( p)
-          ( q)
-          ( g)
-          ( τ)))
+          ( f) (p) (q) (g)
+          ( τ))))
 
 #def refl-refl-map-equiv-square-sigma-over-product uses (extext)
   ( A : U)
@@ -514,11 +510,11 @@ We close the section so we can use path induction.
             ( product-transport A A (hom A) x z y w p q f = g)))
     ( Σ ( h : hom A x z) ,
         ( Σ ( k : hom A y w) ,
-            ( ((t , s) : Δ¹×Δ¹) → A
-              [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
+            ( ( (t , s) : Δ¹×Δ¹) →
+              A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                  (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                  (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
+                  (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
     ( square-sigma-over-product A is-discrete-A x y z w f g)
   :=
     is-equiv-rev-homotopy
@@ -527,19 +523,16 @@ We close the section so we can use path induction.
             ( product-transport A A (hom A) x z y w p q f = g)))
     ( Σ ( h : hom A x z) ,
         ( Σ ( k : hom A y w) ,
-            ( ((t , s) : Δ¹×Δ¹) → A
-              [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-                (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
-    ( first
-      ( equiv-square-sigma-over-product A is-discrete-A x y z w f g))
+            ( ( (t , s) : Δ¹×Δ¹) →
+              A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                  (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                  (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
+                  (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
+    ( first (equiv-square-sigma-over-product A is-discrete-A x y z w f g))
     ( square-sigma-over-product A is-discrete-A x y z w f g)
     ( \ (p , (q , τ)) →
-      map-equiv-square-sigma-over-product
-        A is-discrete-A x y z w f p q g τ)
-    ( second
-      ( equiv-square-sigma-over-product A is-discrete-A x y z w f g))
+      map-equiv-square-sigma-over-product A is-discrete-A x y z w f p q g τ)
+    ( second (equiv-square-sigma-over-product A is-discrete-A x y z w f g))
 
 #def is-equiv-fibered-map-square-sigma-over-product uses (extext)
   ( A : U)
@@ -551,11 +544,11 @@ We close the section so we can use path induction.
   ( q : y = w)
   : is-equiv
     ( product-transport A A (hom A) x z y w p q f = g)
-    ( ((t , s) : Δ¹×Δ¹) → A
-      [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-        (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-        (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
-        (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t])
+    ( ( (t , s) : Δ¹×Δ¹) →
+      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+          (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+          (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
+          (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t])
     ( fibered-map-square-sigma-over-product A is-discrete-A x y z w f p q g)
   :=
     fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
@@ -565,11 +558,11 @@ We close the section so we can use path induction.
       ( hom A y w)
       ( \ p' q' → (product-transport A A (hom A) x z y w p' q' f) = g)
       ( \ h' k' →
-        ( ((t , s) : Δ¹×Δ¹) → A
-          [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ h' t ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ k' t]))
+        ( ( (t , s) : Δ¹×Δ¹) →
+          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+              (Δ¹ t) ∧ (s ≡ 0₂) ↦ h' t ,
+              (Δ¹ t) ∧ (s ≡ 1₂) ↦ k' t]))
       ( arr-eq A x z)
       ( arr-eq A y w)
       ( \ p' q' →
@@ -594,11 +587,11 @@ We close the section so we can use path induction.
   ( g : hom A x y)
   : is-equiv
     (f = g)
-    ( ((t , s) : Δ¹×Δ¹) → A
-      [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-        (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-        (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-        (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
+    ( ( (t , s) : Δ¹×Δ¹) →
+      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+          (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+          (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+          (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
     ( fibered-map-square-sigma-over-product
       A is-discrete-A x y x y f refl refl g)
   :=
@@ -615,22 +608,22 @@ The previous calculations allow us to establish a family of equivalences:
   ( x y : A)
   ( f : hom A x y)
   : is-equiv
-    ( Σ (g : hom A x y) , f = g)
-    ( Σ (g : hom A x y) ,
-        ( ((t , s) : Δ¹×Δ¹) → A
-          [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
-    ( total-map-family-of-maps
+    ( Σ ( g : hom A x y) , f = g)
+    ( Σ ( g : hom A x y) ,
+        ( ( (t , s) : Δ¹×Δ¹) →
+          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+              (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+              (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
+    ( total-map
       ( hom A x y)
       ( \ g → f = g)
       ( \ g →
-        ((t , s) : Δ¹×Δ¹) → A
-        [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
+        ( (t , s) : Δ¹×Δ¹) →
+        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+            (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+            (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+            (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
       ( fibered-map-square-sigma-over-product
           A is-discrete-A x y x y f refl refl))
   :=
@@ -638,11 +631,11 @@ The previous calculations allow us to establish a family of equivalences:
       ( hom A x y)
       ( \ g → f = g)
       ( \ g →
-        ((t , s) : Δ¹×Δ¹) → A
-        [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
+        ( (t , s) : Δ¹×Δ¹) →
+        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+            (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+            (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+            (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
       ( fibered-map-square-sigma-over-product
           A is-discrete-A x y x y f refl refl)
       ( \ g →
@@ -659,18 +652,18 @@ The previous calculations allow us to establish a family of equivalences:
   : Equiv
       ( Σ (g : hom A x y) , f = g)
       ( Σ (g : hom A x y) ,
-          ( ((t , s) : Δ¹×Δ¹) → A
-            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
+          ( ( (t , s) : Δ¹×Δ¹) →
+            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
   :=
-    ( ( total-map-family-of-maps
+    ( ( total-map
         ( hom A x y)
         ( \ g → f = g)
         ( \ g →
-          ((t , s) : Δ¹×Δ¹) → A
-            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+          ( (t , s) : Δ¹×Δ¹) →
+          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
               (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
               (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
               (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
@@ -691,19 +684,20 @@ spaces, we conclude that the codomain extension type is contractible.
   ( f : hom A x y)
   : is-contr
     ( Σ ( g : hom A x y) ,
-        ( ((t , s) : Δ¹×Δ¹) → A
-          [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
-  := is-contr-is-equiv-from-contr
-      ( Σ ( g : hom A x y) , f = g)
-      ( Σ ( g : hom A x y) ,
-          ( ((t , s) : Δ¹×Δ¹) → A
-            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+        ( ( (t , s) : Δ¹×Δ¹) →
+          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
               (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
               (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
               (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
+  :=
+    is-contr-equiv-is-contr
+      ( Σ ( g : hom A x y) , f = g)
+      ( Σ ( g : hom A x y) ,
+          ( ( (t , s) : Δ¹×Δ¹) →
+            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
       ( equiv-sum-fibered-map-square-sigma-over-product-refl-refl
           A is-discrete-A x y f)
       ( is-contr-based-paths (hom A x y) f)
@@ -718,11 +712,11 @@ The extension types that appear in the Segal condition are retracts of this type
   ( x y : A)
   ( f g : hom A x y)
   ( α : hom2 A x y y f (id-hom A y) g)
-  : ( (t , s) : Δ¹×Δ¹) → A
-    [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-      (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-      (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-      (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]
+  : ( (t , s) : Δ¹×Δ¹) →
+    A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+        (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+        (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+        (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]
   := \ (t , s) → recOR (t ≤ s ↦ α (s , t) , s ≤ t ↦ g s)
 
 #def sigma-triangle-to-sigma-square-section
@@ -731,11 +725,11 @@ The extension types that appear in the Segal condition are retracts of this type
   ( f : hom A x y)
   ( (d , α) : Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
   : Σ ( g : hom A x y) ,
-      ( ((t , s) : Δ¹×Δ¹) → A
-        [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
+      ( ( (t , s) : Δ¹×Δ¹) →
+        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+            (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+            (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+            (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
   := ( d , triangle-to-square-section A x y f d α)
 
 #def sigma-square-to-sigma-triangle-retraction
@@ -743,13 +737,13 @@ The extension types that appear in the Segal condition are retracts of this type
   ( x y : A)
   ( f : hom A x y)
   ( (g , σ) :
-    Σ (g : hom A x y) ,
-      ( ((t , s) : Δ¹×Δ¹) → A
-        [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
-  : Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d
+    Σ ( g : hom A x y) ,
+      ( ( (t , s) : Δ¹×Δ¹) →
+        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+            (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+            (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+            (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
+  : Σ (d : hom A x y) , (hom2 A x y y f (id-hom A y) d)
   := ( (\ t → σ (t , t)) , (\ (t , s) → σ (s , t)))
 
 #def sigma-triangle-to-sigma-square-retract
@@ -757,17 +751,17 @@ The extension types that appear in the Segal condition are retracts of this type
   ( x y : A)
   ( f : hom A x y)
   : is-retract-of
-      ( Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
-      ( Σ (g : hom A x y) ,
-          ( ((t , s) : Δ¹×Δ¹) → A
-            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
+      ( Σ (d : hom A x y) , (hom2 A x y y f (id-hom A y) d))
+      ( Σ ( g : hom A x y) ,
+          ( ( (t , s) : Δ¹×Δ¹) →
+            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
   :=
-    ( sigma-triangle-to-sigma-square-section A x y f ,
-      ( sigma-square-to-sigma-triangle-retraction A x y f ,
-        \ dα → refl))
+    ( ( sigma-triangle-to-sigma-square-section A x y f) ,
+      ( ( sigma-square-to-sigma-triangle-retraction A x y f) ,
+        ( \ dα → refl)))
 ```
 
 We can now verify the Segal condition in the case of composable pairs in which
@@ -779,16 +773,16 @@ the second arrow is an identity.
   ( is-discrete-A : is-discrete A)
   ( x y : A)
   ( f : hom A x y)
-  : is-contr ( Σ (d : hom A x y) , hom2 A x y y f (id-hom A y) d)
+  : is-contr ( Σ (d : hom A x y) , (hom2 A x y y f (id-hom A y) d))
   :=
     is-contr-is-retract-of-is-contr
       ( Σ ( d : hom A x y) , (hom2 A x y y f (id-hom A y) d))
       ( Σ ( g : hom A x y) ,
-          ( ((t , s) : Δ¹×Δ¹) → A
-            [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
+          ( ( (t , s) : Δ¹×Δ¹) →
+            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
+                (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
+                (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
       ( sigma-triangle-to-sigma-square-retract A x y f)
       ( is-contr-horn-refl-refl-extension-type A is-discrete-A x y f)
 ```
@@ -807,14 +801,13 @@ general case to the one just proven:
   : is-contr (Σ (h : hom A x z) , hom2 A x y z f g h)
   :=
     ind-based-path
-      A
-      y
+      ( A)
+      ( y)
       ( \ w → hom A y w)
       ( \ w → arr-eq A y w)
       ( is-discrete-A y)
       ( \ w d → is-contr ( Σ (h : hom A x w) , hom2 A x y w f d h))
-      ( is-contr-hom2-with-id-is-discrete
-          A is-discrete-A x y f)
+      ( is-contr-hom2-with-id-is-discrete A is-discrete-A x y f)
       ( z)
       ( g)
 ```

@@ -414,26 +414,26 @@ In a Segal type, initial objects are isomorphic.
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
-  ( ainitial : is-initial A a)
-  ( binitial : is-initial A b)
+  ( is-initial-a : is-initial A a)
+  ( is-initial-b : is-initial A b)
   : Iso A is-segal-A a b
   :=
-    ( first (ainitial b) ,
-      ( ( first (binitial a) ,
-          contractible-connecting-htpy
+    ( first (is-initial-a b) ,
+      ( ( first (is-initial-b a) ,
+          eq-is-contr
             ( hom A a a)
-            ( ainitial a)
+            ( is-initial-a a)
             ( comp-Segal A is-segal-A a b a
-              ( first (ainitial b))
-              ( first (binitial a)))
+              ( first (is-initial-a b))
+              ( first (is-initial-b a)))
             ( id-hom A a)) ,
-        ( first (binitial a) ,
-          contractible-connecting-htpy
+        ( first (is-initial-b a) ,
+          eq-is-contr
             ( hom A b b)
-            ( binitial b)
+            ( is-initial-b b)
             ( comp-Segal A is-segal-A b a b
-              ( first (binitial a))
-              ( first (ainitial b)))
+              ( first (is-initial-b a))
+              ( first (is-initial-a b)))
             ( id-hom A b))))
 ```
 
@@ -444,26 +444,26 @@ In a Segal type, final objects are isomorphic.
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
-  ( afinal : is-final A a)
-  ( bfinal : is-final A b)
+  ( is-final-a : is-final A a)
+  ( is-final-b : is-final A b)
   ( iso : Iso A is-segal-A a b)
   : Iso A is-segal-A a b
   :=
-    ( first (bfinal a) ,
-      ( ( first (afinal b) ,
-          contractible-connecting-htpy
+    ( first (is-final-b a) ,
+      ( ( first (is-final-a b) ,
+          eq-is-contr
             ( hom A a a)
-            ( afinal a)
+            ( is-final-a a)
             ( comp-Segal A is-segal-A a b a
-              ( first (bfinal a))
-              ( first (afinal b)))
+              ( first (is-final-b a))
+              ( first (is-final-a b)))
             ( id-hom A a)) ,
-        ( first (afinal b) ,
-          contractible-connecting-htpy
+        ( first (is-final-a b) ,
+          eq-is-contr
             ( hom A b b)
-            ( bfinal b)
+            ( is-final-b b)
             ( comp-Segal A is-segal-A b a b
-              ( first (afinal b))
-              ( first (bfinal a)))
+              ( first (is-final-a b))
+              ( first (is-final-b a)))
             ( id-hom A b))))
 ```

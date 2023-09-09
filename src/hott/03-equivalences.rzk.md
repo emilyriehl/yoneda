@@ -172,6 +172,7 @@ notion.
 #def quintuple-composite-has-inverse uses (has-inverse-f)
   : A → B
   := \ a → f (map-inverse-has-inverse (f (map-inverse-has-inverse (f a))))
+
 #end has-inverse-data
 ```
 
@@ -448,31 +449,31 @@ Using function extensionality, a fiberwise equivalence defines an equivalence of
 dependent function types.
 
 ```rzk
-#def equiv-function-equiv-fibered uses (funext)
+#def equiv-function-equiv-family uses (funext)
   ( X : U)
   ( A B : X → U)
-  ( fibequiv : (x : X) → Equiv (A x) (B x))
+  ( famequiv : (x : X) → Equiv (A x) (B x))
   : Equiv ((x : X) → A x) ((x : X) → B x)
   :=
-    ( ( \ a x → first (fibequiv x) (a x)) ,
-      ( ( ( \ b x → first (first (second (fibequiv x))) (b x)) ,
+    ( ( \ a x → first (famequiv x) (a x)) ,
+      ( ( ( \ b x → first (first (second (famequiv x))) (b x)) ,
           ( \ a →
             eq-htpy
               X A
               ( \ x →
                 first
-                  ( first (second (fibequiv x)))
-                  ( first (fibequiv x) (a x)))
+                  ( first (second (famequiv x)))
+                  ( first (famequiv x) (a x)))
               ( a)
-              ( \ x → second (first (second (fibequiv x))) (a x)))) ,
-        ( ( \ b x → first (second (second (fibequiv x))) (b x)) ,
+              ( \ x → second (first (second (famequiv x))) (a x)))) ,
+        ( ( \ b x → first (second (second (famequiv x))) (b x)) ,
           ( \ b →
             eq-htpy
               X B
               ( \ x →
-                first (fibequiv x) (first (second (second (fibequiv x))) (b x)))
+                first (famequiv x) (first (second (second (famequiv x))) (b x)))
               ( b)
-              ( \ x → second (second (second (fibequiv x))) (b x))))))
+              ( \ x → second (second (second (famequiv x))) (b x))))))
 ```
 
 ## Embeddings

@@ -321,7 +321,8 @@ Naturality in $C$ is not automatic but can be proven easily:
       ( yon A is-segal-A a D is-covariant-D) (ψ a)) u x f =
     ( comp (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
       ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f
-  := naturality-covariant-fiberwise-transformation
+  :=
+    naturality-covariant-fiberwise-transformation
       A a x f C D is-covariant-C is-covariant-D ψ u
 
 #def is-natural-in-family-yon-once-pointwise uses (funext)
@@ -600,7 +601,8 @@ Naturality in $C$ is not automatic but can be proven easily:
     ( comp (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
       ( \ α z g → ψ z (α z g))
       ( contra-yon A is-segal-A a C is-contravariant-C)) u x f
-  := naturality-contravariant-fiberwise-transformation
+  :=
+    naturality-contravariant-fiberwise-transformation
       A x a f C D is-contravariant-C is-contravariant-D ψ u
 
 #def is-natural-in-family-contra-yon-once-pointwise uses (funext)
@@ -696,11 +698,11 @@ Initial objects satisfy an induction principle relative to covariant families.
 #def arrows-from-initial
   ( x : A)
   : hom A a x
-  := contraction-center (hom A a x) (is-initial-a x)
+  := center-contraction (hom A a x) (is-initial-a x)
 
 #def identity-component-arrows-from-initial
   : arrows-from-initial a = id-hom A a
-  := contracting-htpy (hom A a a) (is-initial-a a) (id-hom A a)
+  := homotopy-contraction (hom A a a) (is-initial-a a) (id-hom A a)
 
 #def ind-initial uses (is-initial-a)
   ( u : C a)
@@ -834,7 +836,7 @@ This proves the initiality of identity arrows in the coslice of a Segal type.
   : is-initial (coslice A a) (a, id-hom A a)
   :=
     \ (x, f) →
-    is-contr-is-equiv-to-contr
+    is-contr-equiv-is-contr'
       ( hom (coslice A a) (a, id-hom A a) (x, f))
       ( (t : Δ¹) → hom A a (f t) [t ≡ 0₂ ↦ id-hom A a])
       ( equiv-hom-in-coslice A a x f)
@@ -924,11 +926,11 @@ Final objects satisfy an induction principle relative to contravariant families.
 #def arrows-to-final
   ( x : A)
   : hom A x a
-  := contraction-center (hom A x a) (is-final-a x)
+  := center-contraction (hom A x a) (is-final-a x)
 
 #def identity-component-arrows-to-final
   : arrows-to-final a = id-hom A a
-  := contracting-htpy (hom A a a) (is-final-a a) (id-hom A a)
+  := homotopy-contraction (hom A a a) (is-final-a a) (id-hom A a)
 
 #def ind-final uses (is-final-a)
   ( u : C a)
@@ -1063,7 +1065,7 @@ This proves the finality of identity arrows in the slice of a Segal type.
   : is-final (slice A a) (a, id-hom A a)
   :=
     \ (x, f) →
-    is-contr-is-equiv-to-contr
+    is-contr-equiv-is-contr'
       ( hom (slice A a) (x, f) (a, id-hom A a))
       ( (t : Δ¹) → hom A (f t) a [t ≡ 1₂ ↦ id-hom A a])
       ( equiv-hom-in-slice A a x f)

@@ -63,10 +63,10 @@ This is a literate `rzk` file:
   ( X : ψ → ζ → U)
   ( f : ((t , s) : I × J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)) → X t s)
   : Equiv
-    ( (t : ψ) → ((s : ζ) → X t s [ χ s ↦ f (t , s)])
-      [ ϕ t ↦ \ s → f (t , s)])
-    ( ((t , s) : I × J | ψ t ∧ ζ s) → X t s
-      [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
+    ( (t : ψ) →
+      ( (s : ζ) → X t s [ χ s ↦ f (t , s)]) [ ϕ t ↦ \ s → f (t , s)])
+    ( ((t , s) : I × J | ψ t ∧ ζ s) →
+      X t s [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
   :=
     ( \ g (t , s) → (g t) s ,
       ( ( \ h t s → h (t , s) ,
@@ -83,10 +83,10 @@ This is a literate `rzk` file:
   ( X : ψ → ζ → U)
   ( f : ((t , s) : I × J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)) → X t s)
   : Equiv
-    ( ((t , s) : I × J | ψ t ∧ ζ s) → X t s
-      [ (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
-    ( (s : ζ) → ((t : ψ) → X t s [ ϕ t ↦ f (t , s)])
-      [ χ s ↦ \ t → f (t , s)])
+    ( ((t , s) : I × J | ψ t ∧ ζ s) →
+      X t s [ (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
+    ( ( s : ζ) →
+      ( (t : ψ) → X t s [ ϕ t ↦ f (t , s)]) [ χ s ↦ \ t → f (t , s)])
   :=
     ( \ h s t → h (t , s) ,
       ( ( \ g (t , s) → (g s) t ,
@@ -103,18 +103,18 @@ This is a literate `rzk` file:
   ( X : ψ → ζ → U)
   ( f : ((t , s) : I × J | (ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s)) → X t s)
   : Equiv
-    ( (t : ψ) → ((s : ζ) → X t s [ χ s ↦ f (t , s)])
-        [ ϕ t ↦ \ s → f (t , s)])
-    ( (s : ζ) → ((t : ψ) → X t s [ ϕ t ↦ f (t , s)])
-        [ χ s ↦ \ t → f (t , s)])
+    ( ( t : ψ) →
+      ( (s : ζ) → X t s [ χ s ↦ f (t , s)]) [ ϕ t ↦ \ s → f (t , s)])
+    ( ( s : ζ) →
+      ( (t : ψ) → X t s [ ϕ t ↦ f (t , s)]) [ χ s ↦ \ t → f (t , s)])
   :=
     equiv-comp
-      ( (t : ψ) → ((s : ζ) → X t s [ χ s ↦ f (t , s)])
-        [ ϕ t ↦ \ s → f (t , s)])
-      ( ((t , s) : I × J | ψ t ∧ ζ s) → X t s
-        [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
-      ( (s : ζ) → ((t : ψ) → X t s [ ϕ t ↦ f (t , s)])
-        [ χ s ↦ \ t → f (t , s)])
+      ( ( t : ψ) →
+        ( (s : ζ) → X t s [ χ s ↦ f (t , s)]) [ ϕ t ↦ \ s → f (t , s)])
+      ( ( (t , s) : I × J | ψ t ∧ ζ s) →
+        X t s [(ϕ t ∧ ζ s) ∨ (ψ t ∧ χ s) ↦ f (t , s)])
+      ( ( s : ζ) →
+        ( (t : ψ) → X t s [ ϕ t ↦ f (t , s)]) [ χ s ↦ \ t → f (t , s)])
       ( curry-uncurry I J ψ ϕ ζ χ X f)
       ( uncurry-opcurry I J ψ ϕ ζ χ X f)
 ```
@@ -278,15 +278,15 @@ By extension extensionality, fiberwise equivalences of extension types define
 equivalences of extension types. For simplicity, we extend from `#!rzk BOT`.
 
 ```rzk
-#def equiv-extension-equiv-fibered uses (extext)
+#def equiv-extension-equiv-family uses (extext)
   ( I : CUBE)
   ( ψ : I → TOPE)
   ( A B : ψ → U)
-  ( fibequiv : (t : ψ) → (Equiv (A t) (B t)))
+  ( famequiv : (t : ψ) → (Equiv (A t) (B t)))
   : Equiv ((t : ψ) → A t) ((t : ψ) → B t)
   :=
-    ( ( \ a t → (first (fibequiv t)) (a t)) ,
-      ( ( ( \ b t → (first (first (second (fibequiv t)))) (b t)) ,
+    ( ( \ a t → (first (famequiv t)) (a t)) ,
+      ( ( ( \ b t → (first (first (second (famequiv t)))) (b t)) ,
           ( \ a →
             eq-ext-htpy
               ( I)
@@ -295,10 +295,10 @@ equivalences of extension types. For simplicity, we extend from `#!rzk BOT`.
               ( A)
               ( \ u → recBOT)
               ( \ t →
-                first (first (second (fibequiv t))) (first (fibequiv t) (a t)))
+                first (first (second (famequiv t))) (first (famequiv t) (a t)))
               ( a)
-              ( \ t → second (first (second (fibequiv t))) (a t)))) ,
-        ( ( \ b t → first (second (second (fibequiv t))) (b t)) ,
+              ( \ t → second (first (second (famequiv t))) (a t)))) ,
+        ( ( \ b t → first (second (second (famequiv t))) (b t)) ,
           ( \ b →
             eq-ext-htpy
               ( I)
@@ -307,7 +307,7 @@ equivalences of extension types. For simplicity, we extend from `#!rzk BOT`.
               ( B)
               ( \ u → recBOT)
               ( \ t →
-                first (fibequiv t) (first (second (second (fibequiv t))) (b t)))
+                first (famequiv t) (first (second (second (famequiv t))) (b t)))
               ( b)
-              ( \ t → second (second (second (fibequiv t))) (b t))))))
+              ( \ t → second (second (second (famequiv t))) (b t))))))
 ```

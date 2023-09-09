@@ -59,15 +59,14 @@ pointwise equal.
   ( F : A → B)
   ( x : A)
   : ( ap-hom A B F x x (id-hom A x)) = (id-hom B (F x))
-  := eq-ext-htpy
-      extext
-      2
-      Δ¹
-      ∂Δ¹
+  :=
+    eq-ext-htpy
+      ( extext)
+      ( 2)
+      ( Δ¹)
+      ( ∂Δ¹)
       ( \ t → B)
-      ( \ t → recOR
-      ( t ≡ 0₂ ↦ F x ,
-        t ≡ 1₂ ↦ F x))
+      ( \ t → recOR (t ≡ 0₂ ↦ F x , t ≡ 1₂ ↦ F x))
       ( ap-hom A B F x x (id-hom A x))
       ( id-hom B (F x))
       ( \ t → refl)
