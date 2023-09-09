@@ -12,9 +12,9 @@ The homotopy fiber of a map is the following type:
 
 ```rzk title="The fiber of a map"
 #def fib
-  (A B : U)
-  (f : A → B)
-  (b : B)
+  ( A B : U)
+  ( f : A → B)
+  ( b : B)
   : U
   := Σ (a : A) , (f a) = b
 ```
@@ -51,8 +51,8 @@ A map is contractible just when its fibers are contractible.
 
 ```rzk title="Contractible maps"
 #def is-contr-map
-  (A B : U)
-  (f : A → B)
+  ( A B : U)
+  ( f : A → B)
   : U
   := (b : B) → is-contr (fib A B f b)
 ```
@@ -115,10 +115,10 @@ We now show that half adjoint equivalences are contractible maps.
 
 ```rzk title="If f is a half adjoint equivalence, its fibers are inhabited"
 #def is-surj-is-half-adjoint-equiv
-  (A B : U)
-  (f : A → B)
-  (is-HAE-f : is-half-adjoint-equiv A B f)
-  (b : B)
+  ( A B : U)
+  ( f : A → B)
+  ( is-HAE-f : is-half-adjoint-equiv A B f)
+  ( b : B)
   : fib A B f b
   :=
     ( (map-inverse-has-inverse A B f (first is-HAE-f)) b ,
@@ -1177,9 +1177,9 @@ Half adjoint equivalences define contractible maps:
 
 ```rzk
 #def is-contr-map-is-half-adjoint-equiv
-  (A B : U)
-  (f : A → B)
-  (is-HAE-f : is-half-adjoint-equiv A B f)
+  ( A B : U)
+  ( f : A → B)
+  ( is-HAE-f : is-half-adjoint-equiv A B f)
   : is-contr-map A B f
   := \ b →
         ( is-surj-is-half-adjoint-equiv A B f is-HAE-f b ,
@@ -1190,9 +1190,9 @@ Half adjoint equivalences define contractible maps:
 
 ```rzk
 #def is-contr-map-is-equiv
-  (A B : U)
-  (f : A → B)
-  (is-equiv-f : is-equiv A B f)
+  ( A B : U)
+  ( f : A → B)
+  ( is-equiv-f : is-equiv A B f)
   : is-contr-map A B f
   := \ b →
         ( is-surj-is-half-adjoint-equiv A B f
@@ -1201,8 +1201,8 @@ Half adjoint equivalences define contractible maps:
             ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f) b z)
 
 #def is-contr-map-iff-is-equiv
-  (A B : U)
-  (f : A → B)
+  ( A B : U)
+  ( f : A → B)
   : iff (is-contr-map A B f) (is-equiv A B f)
   := (is-equiv-is-contr-map A B f , is-contr-map-is-equiv A B f)
 ```
