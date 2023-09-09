@@ -346,7 +346,6 @@ We close the section so we can use path induction.
 ```rzk
 #def fibered-map-square-sigma-over-product
   ( A : U)
-  ( is-discrete-A : is-discrete A)
   ( x y z w : A)
   ( f : hom A x y)
   ( p : x = z)
@@ -398,7 +397,6 @@ We close the section so we can use path induction.
 
 #def square-sigma-over-product
   ( A : U)
-  ( is-discrete-A : is-discrete A)
   ( x y z w : A)
   ( f : hom A x y)
   ( g : hom A z w)
@@ -417,7 +415,7 @@ We close the section so we can use path induction.
     ( ( arr-eq A x z p) ,
       ( ( arr-eq A y w q) ,
         ( fibered-map-square-sigma-over-product
-          ( A) (is-discrete-A)
+          ( A)
           ( x) (y) (z) (w)
           ( f) (p) (q) (g)
           ( τ))))
@@ -432,7 +430,7 @@ We close the section so we can use path induction.
       ( equiv-square-sigma-over-product A is-discrete-A x y x y f g)
       (refl , (refl , τ))) =
     ( square-sigma-over-product
-      ( A) (is-discrete-A)
+      ( A)
       ( x) (y) (x) (y)
       ( f) (g)
       ( refl , (refl , τ)))
@@ -445,7 +443,7 @@ We close the section so we can use path induction.
           ( equiv-square-sigma-over-product A is-discrete-A x y x y f g')
           ( refl , (refl , τ'))) =
         ( square-sigma-over-product
-          ( A) (is-discrete-A)
+          ( A)
           ( x) (y) (x) (y)
           ( f) (g')
           ( refl , (refl , τ'))))
@@ -466,7 +464,7 @@ We close the section so we can use path induction.
       ( equiv-square-sigma-over-product A is-discrete-A x y z w f g)
       ( p , (q , τ))) =
     ( square-sigma-over-product
-        A is-discrete-A x y z w f g (p , (q , τ)))
+        A x y z w f g (p , (q , τ)))
   :=
     ind-path
       ( A)
@@ -474,23 +472,22 @@ We close the section so we can use path induction.
       ( \ w' q' →
         ( g : hom A z w') →
         ( τ : product-transport A A (hom A) x z y w' p q' f = g) →
-        ( first (equiv-square-sigma-over-product
-                  A is-discrete-A x y z w' f g))
+        ( first
+          ( equiv-square-sigma-over-product
+              A is-discrete-A x y z w' f g))
           ( p , (q' , τ)) =
-        ( square-sigma-over-product A is-discrete-A x y z w' f g)
+        ( square-sigma-over-product A x y z w' f g)
           ( p , (q' , τ)))
       ( ind-path
         ( A)
         ( x)
         ( \ z' p' →
           ( g : hom A z' y) →
-          ( τ :
-            product-transport A A (hom A) x z' y y p' refl f = g) →
+          ( τ : product-transport A A (hom A) x z' y y p' refl f = g) →
           ( first
             ( equiv-square-sigma-over-product A is-discrete-A x y z' y f g)
             ( p' , (refl , τ))) =
-          ( square-sigma-over-product A is-discrete-A x y z' y f g
-            ( p' , (refl , τ))))
+          ( square-sigma-over-product A x y z' y f g (p' , (refl , τ))))
         ( refl-refl-map-equiv-square-sigma-over-product
             ( A) (is-discrete-A) (x) (y) (f))
         ( z)
@@ -515,7 +512,7 @@ We close the section so we can use path induction.
                   (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
                   (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
                   (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
-    ( square-sigma-over-product A is-discrete-A x y z w f g)
+    ( square-sigma-over-product A x y z w f g)
   :=
     is-equiv-rev-homotopy
     ( Σ ( p : x = z) ,
@@ -529,7 +526,7 @@ We close the section so we can use path induction.
                   (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
                   (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
     ( first (equiv-square-sigma-over-product A is-discrete-A x y z w f g))
-    ( square-sigma-over-product A is-discrete-A x y z w f g)
+    ( square-sigma-over-product A x y z w f g)
     ( \ (p , (q , τ)) →
       map-equiv-square-sigma-over-product A is-discrete-A x y z w f p q g τ)
     ( second (equiv-square-sigma-over-product A is-discrete-A x y z w f g))
@@ -549,7 +546,7 @@ We close the section so we can use path induction.
           (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
           (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
           (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t])
-    ( fibered-map-square-sigma-over-product A is-discrete-A x y z w f p q g)
+    ( fibered-map-square-sigma-over-product A x y z w f p q g)
   :=
     fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
       ( x = z)
@@ -567,7 +564,7 @@ We close the section so we can use path induction.
       ( arr-eq A y w)
       ( \ p' q' →
         fibered-map-square-sigma-over-product
-          ( A) (is-discrete-A)
+          ( A)
           ( x) (y) (z) (w)
           ( f)
           ( p')
@@ -593,7 +590,7 @@ We close the section so we can use path induction.
           (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
           (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
     ( fibered-map-square-sigma-over-product
-      A is-discrete-A x y x y f refl refl g)
+      A x y x y f refl refl g)
   :=
     is-equiv-fibered-map-square-sigma-over-product
       A is-discrete-A x y x y f g refl refl
@@ -625,7 +622,7 @@ The previous calculations allow us to establish a family of equivalences:
             (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
             (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
       ( fibered-map-square-sigma-over-product
-          A is-discrete-A x y x y f refl refl))
+          A x y x y f refl refl))
   :=
     family-of-equiv-total-equiv
       ( hom A x y)
@@ -637,7 +634,7 @@ The previous calculations allow us to establish a family of equivalences:
             (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
             (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
       ( fibered-map-square-sigma-over-product
-          A is-discrete-A x y x y f refl refl)
+          A x y x y f refl refl)
       ( \ g →
         is-equiv-fibered-map-square-sigma-over-product-refl-refl
           ( A) (is-discrete-A)
@@ -668,7 +665,7 @@ The previous calculations allow us to establish a family of equivalences:
               (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
               (Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
         ( fibered-map-square-sigma-over-product
-            A is-discrete-A x y x y f refl refl)) ,
+            A x y x y f refl refl)) ,
     is-equiv-sum-fibered-map-square-sigma-over-product-refl-refl
       A is-discrete-A x y f)
 ```
