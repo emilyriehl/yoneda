@@ -459,7 +459,7 @@ This is the dependent version of the currying equivalence.
   :=
     ( ( \ s a b → s (a , b)) ,
       ( ( ( \ f (a , b) → f a b ,
-            \ f → refl ) ,
+            \ f → refl) ,
           ( \ f (a , b) → f a b ,
-            \ s → refl ))))
+            \ s → refl))))
 ```

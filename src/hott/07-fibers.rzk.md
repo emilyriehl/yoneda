@@ -155,18 +155,18 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
 #def is-HAE-fib-base-path-transport
   : transport A (\ x → (f x) = b)
       ( (map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
-      ( is-HAE-fib-base-path )
+      ( is-HAE-fib-base-path)
       ( (second (second (first is-HAE-f))) b) =
     concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first is-HAE-f)) b)) b
       ( ap A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
           ( rev A ((map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
-            ( is-HAE-fib-base-path )))
+            ( is-HAE-fib-base-path)))
       ( (second (second (first is-HAE-f))) b)
   :=
     transport-in-fiber A B f b
       ( (map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
       ( (second (second (first is-HAE-f))) b)
-      ( is-HAE-fib-base-path )
+      ( is-HAE-fib-base-path)
 
 #def is-HAE-fib-base-path-rev-coherence
   : rev A ((map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
@@ -196,7 +196,7 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
   : concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first is-HAE-f)) b)) b
     ( ap A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
       ( rev A ((map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
-        ( is-HAE-fib-base-path )))
+        ( is-HAE-fib-base-path)))
     ( (second (second (first is-HAE-f))) b) =
     concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first is-HAE-f)) b)) b
     ( ap A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
@@ -221,7 +221,7 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
       ( b)
       ( ap A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
         ( rev A ((map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
-          ( is-HAE-fib-base-path )))
+          ( is-HAE-fib-base-path)))
       ( ap A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
         ( concat A
           ( first z)
@@ -238,7 +238,7 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
               ( rev B (f (first z)) b (second z))))))
       ( ap-eq A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
         ( rev A ((map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
-          ( is-HAE-fib-base-path ))
+          ( is-HAE-fib-base-path))
         ( concat A
           ( first z)
           ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z)))
@@ -252,7 +252,7 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
             ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z)))
             ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first is-HAE-f))
               ( rev B (f (first z)) b (second z)))))
-        ( is-HAE-fib-base-path-rev-coherence ))
+        ( is-HAE-fib-base-path-rev-coherence))
       ( (second (second (first is-HAE-f))) b)
 
 #def is-HAE-fib-base-path-transport-ap-calculation
@@ -957,13 +957,13 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
 #def is-HAE-fib-base-path-transport-path
   : transport A ( \ x → (f x) = b)
     ( (map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
-    ( is-HAE-fib-base-path )
+    ( is-HAE-fib-base-path)
     ( (second (second (first is-HAE-f))) b) = second z
   :=
     alternating-12ary-concat ( (f (first z)) = b)
     ( transport A ( \ x → (f x) = b)
       ( (map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
-      ( is-HAE-fib-base-path )
+      ( is-HAE-fib-base-path)
       ( (second (second (first is-HAE-f))) b))
     ( concat B
       ( f (first z))
@@ -971,9 +971,9 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
       ( b)
       ( ap A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
         ( rev A ((map-inverse-has-inverse A B f (first is-HAE-f)) b) (first z)
-          ( is-HAE-fib-base-path )))
+          ( is-HAE-fib-base-path)))
       ( (second (second (first is-HAE-f))) b))
-    ( is-HAE-fib-base-path-transport )
+    ( is-HAE-fib-base-path-transport)
     ( concat B
       ( f (first z)) (f ((map-inverse-has-inverse A B f (first is-HAE-f)) b)) b
       ( ap A B (first z) ((map-inverse-has-inverse A B f (first is-HAE-f)) b) f
@@ -1017,7 +1017,7 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
             ( ap B A b (f (first z)) (map-inverse-has-inverse A B f (first is-HAE-f))
               ( rev B (f (first z)) b (second z))))))
       ( (second (second (first is-HAE-f))) b))
-    ( is-HAE-fib-base-path-transport-ap-calculation )
+    ( is-HAE-fib-base-path-transport-ap-calculation)
     ( concat B
       ( f (first z)) (f ((map-inverse-has-inverse A B f (first is-HAE-f)) b)) b
       ( concat B
@@ -1038,7 +1038,7 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
           ( ap B A (f (first z)) b
             ( map-inverse-has-inverse A B f (first is-HAE-f)) (second z))))
       ( (second (second (first is-HAE-f))) b))
-    ( is-HAE-fib-base-path-transport-rev-ap-rev-calculation )
+    ( is-HAE-fib-base-path-transport-rev-ap-rev-calculation)
     ( concat B (f (first z)) (f ((map-inverse-has-inverse A B f (first is-HAE-f)) b)) b
       ( concat B
         ( f (first z))
@@ -1055,7 +1055,7 @@ Specializing the above to `#!rzk isHAE-fib-base-path`:
           ( comp B A B f (map-inverse-has-inverse A B f (first is-HAE-f)))
           ( second z)))
       ( (second (second (first is-HAE-f))) b))
-    ( is-HAE-fib-base-path-transport-ap-ap-calculation )
+    ( is-HAE-fib-base-path-transport-ap-ap-calculation)
     ( concat B
       ( f (first z))
       ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f (first z))))

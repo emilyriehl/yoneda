@@ -136,15 +136,15 @@ The composite `#!rzk yon-evid` of `#!rzk ϕ` equals `#!rzk ϕ` at all
   ( ϕ : (z : A) → hom A a z → C z)
   ( x : A)
   ( f : hom A a x)
-  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f = ϕ x f
+  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x f = ϕ x f
   :=
     concat
       ( C x)
-      ( ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
+      ( ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x f)
       ( ϕ x (comp-Segal A is-segal-A a a x (id-hom A a) f))
       ( ϕ x f)
       ( naturality-covariant-fiberwise-representable-transformation
-        A is-segal-A a a x (id-hom A a) f C is-covariant-C ϕ )
+        A is-segal-A a a x (id-hom A a) f C is-covariant-C ϕ)
       ( ap
         ( hom A a x)
         ( C x)
@@ -161,12 +161,12 @@ By `#!rzk funext`, these are equals as functions of `#!rzk f` pointwise in
 #def yon-evid-once-pointwise uses (funext)
   ( ϕ : (z : A) → hom A a z → C z)
   ( x : A)
-  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x = ϕ x
+  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x = ϕ x
   :=
     eq-htpy funext
       ( hom A a x)
       ( \ f → C x)
-      ( \ f → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
+      ( \ f → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x f)
       ( \ f → (ϕ x f))
       ( \ f → yon-evid-twice-pointwise ϕ x f)
 ```
@@ -177,12 +177,12 @@ By `#!rzk funext` again, these are equal as functions of `#!rzk x` and
 ```rzk
 #def yon-evid uses (funext)
   ( ϕ : (z : A) → hom A a z → C z)
-  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) = ϕ
+  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) = ϕ
   :=
     eq-htpy funext
       ( A)
       ( \ x → (hom A a x → C x))
-      ( \ x → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x)
+      ( \ x → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x)
       ( \ x → (ϕ x))
       ( \ x → yon-evid-once-pointwise ϕ x)
 
@@ -367,7 +367,7 @@ Naturality in $C$ is not automatic but can be proven easily:
       ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u
   :=
     eq-htpy funext
-      ( A )
+      ( A)
       ( \ x → hom A a x → D x)
       ( \ x →
         ( comp (C a) (D a) ((z : A) → hom A a z → D z)
@@ -486,11 +486,11 @@ The composite `#!rzk contra-yon-evid` of `#!rzk ϕ` equals `#!rzk ϕ` at all
     concat
       ( C x)
       ( ((contra-yon A is-segal-A a C is-contravariant-C)
-            ((contra-evid A a C) ϕ )) x f)
+            ((contra-evid A a C) ϕ)) x f)
       ( ϕ x (comp-Segal A is-segal-A x a a f (id-hom A a)))
       ( ϕ x f)
       ( naturality-contravariant-fiberwise-representable-transformation
-          A is-segal-A a x a (id-hom A a) f C is-contravariant-C ϕ )
+          A is-segal-A a x a (id-hom A a) f C is-contravariant-C ϕ)
       ( ap
         ( hom A x a)
         ( C x)
@@ -508,14 +508,14 @@ By `#!rzk funext`, these are equals as functions of `#!rzk f` pointwise in
   ( ϕ : (z : A) → hom A z a → C z)
   ( x : A)
   : ( (contra-yon A is-segal-A a C is-contravariant-C)
-        ( (contra-evid A a C) ϕ )) x = ϕ x
+        ( (contra-evid A a C) ϕ)) x = ϕ x
   :=
     eq-htpy funext
       ( hom A x a)
       ( \ f → C x)
       ( \ f →
         ( (contra-yon A is-segal-A a C is-contravariant-C)
-          ( (contra-evid A a C) ϕ )) x f)
+          ( (contra-evid A a C) ϕ)) x f)
       ( \ f → (ϕ x f))
       ( \ f → contra-yon-evid-twice-pointwise ϕ x f)
 ```
@@ -533,7 +533,7 @@ By `#!rzk funext` again, these are equal as functions of `#!rzk x` and
       ( \ x → (hom A x a → C x))
       ( \ x →
         ( (contra-yon A is-segal-A a C is-contravariant-C)
-              ((contra-evid A a C) ϕ )) x)
+              ((contra-evid A a C) ϕ)) x)
       ( \ x → (ϕ x))
       ( \ x → contra-yon-evid-once-pointwise ϕ x)
 
@@ -649,7 +649,7 @@ Naturality in $C$ is not automatic but can be proven easily:
       ( contra-yon A is-segal-A a C is-contravariant-C)) u
   :=
     eq-htpy funext
-      ( A )
+      ( A)
       ( \ x → hom A x a → D x)
       ( \ x →
         ( comp (C a) (D a) ((z : A) → hom A z a → D z)
@@ -760,7 +760,7 @@ family defines an inverse equivalence to evaluation at the element.
   ( is-covariant-C : is-covariant A C)
   : is-equiv ((x : A) → C x) (C a) (ev-pt A a C)
   :=
-    ( ( ( ind-initial A a is-initial-a C is-covariant-C ),
+    ( ( ( ind-initial A a is-initial-a C is-covariant-C),
         ( \ s → eq-htpy
                   funext
                     ( A)
@@ -989,7 +989,7 @@ family defines an inverse equivalence to evaluation at the element.
   ( is-contravariant-C : is-contravariant A C)
   : is-equiv ((x : A) → C x) (C a) (ev-pt A a C)
   :=
-    ( ( ( ind-final A a is-final-a C is-contravariant-C ),
+    ( ( ( ind-final A a is-final-a C is-contravariant-C),
         ( \ s → eq-htpy
                   funext
                     ( A)

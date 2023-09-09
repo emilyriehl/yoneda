@@ -236,7 +236,7 @@ witnesses of the equivalence).
   ( g : hom A y z)
   : Equiv
     ( Σ (h : hom A x z) , (hom2 A x y z f g h))
-    ( (t : Δ²) → A [ Λ t ↦ horn A x y z f g t ])
+    ( (t : Δ²) → A [ Λ t ↦ horn A x y z f g t])
   :=
     ( \ hh t → (second hh) t ,
       ( ( \ k → (\ t → k (t , t) , \ (t , s) → k (t , s)) ,
@@ -282,7 +282,7 @@ witnesses of the equivalence).
       ( Λ → A)
       ( equiv-horn-restriction A)
       ( total-space-projection
-        ( Λ → A )
+        ( Λ → A)
         ( \ k →
           Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
             ( hom2 A
@@ -330,7 +330,7 @@ is exactly `#!rzk horn-restriction A`.
   :=
     \ x y z f g →
     contractible-fibers-is-equiv-projection
-      (  Λ → A )
+      (  Λ → A)
       ( \ k →
         Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
           ( hom2 A
@@ -340,18 +340,18 @@ is exactly `#!rzk horn-restriction A`.
             ( h)))
       ( second
         ( equiv-comp
-          ( Σ ( k : Λ → A ) ,
+          ( Σ ( k : Λ → A) ,
             Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
               ( hom2 A
                 ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
                 ( \ t → k (t , 0₂))
                 ( \ t → k (1₂ , t))
                 ( h)))
-          ( Δ² → A )
-          ( Λ  → A )
+          ( Δ² → A)
+          ( Λ  → A)
           ( inv-equiv
-            ( Δ² → A )
-            ( Σ ( k : Λ → A ) ,
+            ( Δ² → A)
+            ( Σ ( k : Λ → A) ,
               Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
                 ( hom2 A
                   ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
@@ -387,10 +387,10 @@ all $x$ then $(x : X) → A x$ is a Segal type.
   : is-local-horn-inclusion ((x : X) → A x)
   :=
     is-equiv-triple-comp
-      ( Δ² → ((x : X) → A x) )
-      ( (x : X) → Δ² → A x )
-      ( (x : X) → Λ → A x )
-      ( Λ → ((x : X) → A x) )
+      ( Δ² → ((x : X) → A x))
+      ( (x : X) → Δ² → A x)
+      ( (x : X) → Λ → A x)
+      ( Λ → ((x : X) → A x))
       ( \ g x t → g t x) -- first equivalence
       ( second (flip-ext-fun
         ( 2 × 2)
@@ -403,8 +403,8 @@ all $x$ then $(x : X) → A x$ is a Segal type.
       ( second (equiv-function-equiv-fibered
         ( funext)
         ( X)
-        ( \ x → (Δ² → A x) )
-        ( \ x → (Λ → A x) )
+        ( \ x → (Δ² → A x))
+        ( \ x → (Λ → A x))
         ( \ x → (horn-restriction (A x) , fiberwise-is-segal-A x))))
       ( \ h t x → (h x) t) -- third equivalence
       ( second (flip-ext-fun-inv
@@ -1165,7 +1165,7 @@ the data provided by a commutative triangle with that boundary.
     is-equiv-are-contr
       ( Σ (h : hom A x z) , (comp-Segal A is-segal-A x y z f g) = h)
       ( Σ (h : hom A x z) , (hom2 A x y z f g h))
-      ( is-contr-based-paths (hom A x z) (comp-Segal A is-segal-A x y z f g) )
+      ( is-contr-based-paths (hom A x z) (comp-Segal A is-segal-A x y z f g))
       ( is-segal-A x y z f g)
       ( map-total-hom2-eq-Segal A is-segal-A x y z f g)
 ```
@@ -1211,7 +1211,7 @@ composition:
         ( comp-Segal A is-segal-A x y z f h) =
         ( comp-Segal A is-segal-A x y z g k'))
       ( ind-path
-        ( hom A x y )
+        ( hom A x y)
         ( f)
         ( \ g' p' →
           ( comp-Segal A is-segal-A x y z f h) =
