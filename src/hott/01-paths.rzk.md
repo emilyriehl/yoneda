@@ -369,7 +369,7 @@ The following needs to be outside the previous section because of the usage of
   ( f : A → B)
   ( p : x = y)
   : (f x = f y)
-  := ind-path (A) (x) (\ y' → \ p' → (f x = f y')) (refl) (y) (p)
+  := ind-path (A) (x) (\ y' p' → (f x = f y')) (refl) (y) (p)
 
 #def ap-rev
   ( A B : U)

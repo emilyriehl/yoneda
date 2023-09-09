@@ -73,11 +73,11 @@ Extension types are also used to define the type of commutative triangles:
   ( g : hom A y z)
   ( h : hom A x z)
   : U
-  := ( (t1 , t2) : Δ²) → A [
-    t2 ≡ 0₂ ↦ f t1 ,  -- the top edge is exactly `f`,
-    t1 ≡ 1₂ ↦ g t2 ,  -- the right edge is exactly `g`, and
-    t2 ≡ t1 ↦ h t2    -- the diagonal is exactly `h`
-  ]
+  :=
+    ( (t1 , t2) : Δ²) →
+    A [ t2 ≡ 0₂ ↦ f t1 ,  -- the top edge is exactly `f`,
+        t1 ≡ 1₂ ↦ g t2 ,  -- the right edge is exactly `g`, and
+        t2 ≡ t1 ↦ h t2]  -- the diagonal is exactly `h`
 ```
 
 ## The Segal condition
@@ -90,9 +90,10 @@ also requires homotopical uniqueness of higher-order composites.
 #def is-segal
   ( A : U)
   : U
-  := ( x : A) → (y : A) → (z : A) →
-      ( f : hom A x y) → (g : hom A y z) →
-      is-contr ( Σ (h : hom A x z) , hom2 A x y z f g h)
+  :=
+    (x : A) → (y : A) → (z : A) →
+    (f : hom A x y) → (g : hom A y z) →
+    is-contr (Σ (h : hom A x z) , (hom2 A x y z f g h))
 ```
 
 Segal types have a composition functor and witnesses to the composition
@@ -159,16 +160,17 @@ composite equals $h$.
   ( h : hom A x z)
   ( alpha : hom2 A x y z f g h)
   : ( comp-Segal A is-segal-A x y z f g) = h
-  := first-path-Σ
-      (hom A x z)
-      (\ k → hom2 A x y z f g k)
-      (comp-Segal A is-segal-A x y z f g ,
+  :=
+    first-path-Σ
+      ( hom A x z)
+      ( hom2 A x y z f g)
+      ( comp-Segal A is-segal-A x y z f g ,
         witness-comp-Segal A is-segal-A x y z f g)
-      (h , alpha)
-      (contracting-htpy
-        (Σ (k : hom A x z) , hom2 A x y z f g k)
-        (is-segal-A x y z f g)
-        (h , alpha))
+      ( h , alpha)
+      ( contracting-htpy
+        ( Σ (k : hom A x z) , (hom2 A x y z f g k))
+        ( is-segal-A x y z f g)
+        ( h , alpha))
 ```
 
 ## Characterizing Segal types
@@ -198,14 +200,15 @@ A pair of composable arrows form a horn.
   :=
     \ (t , s) →
     recOR
-    ( s ≡ 0₂ ↦ f t ,
-      t ≡ 1₂ ↦ g s)
+      ( s ≡ 0₂ ↦ f t ,
+        t ≡ 1₂ ↦ g s)
 ```
 
 The underlying horn of a simplex:
 
 ```rzk
-#def horn-restriction (A : U)
+#def horn-restriction
+  ( A : U)
   : (Δ² → A) → (Λ → A)
   := \ f t → f t
 ```
@@ -213,7 +216,9 @@ The underlying horn of a simplex:
 This provides an alternate definition of Segal types.
 
 ```rzk
-#def is-local-horn-inclusion (A : U) : U
+#def is-local-horn-inclusion
+  ( A : U)
+  : U
   := is-equiv (Δ² → A) (Λ → A) (horn-restriction A)
 ```
 
@@ -501,7 +506,7 @@ For later use, an equivalent characterization of the arrow type.
 ```
 
 ```rzk title="RS17, Corollary 5.6(ii), special case for locality at the horn inclusion"
-#def arrow-types-Segal' uses (extext)
+#def is-local-horn-inclusion-arr uses (extext)
   ( A : U)
   ( is-segal-A : is-local-horn-inclusion A)
   : is-local-horn-inclusion (arr A)
@@ -514,7 +519,7 @@ For later use, an equivalent characterization of the arrow type.
 ```
 
 ```rzk title="RS17, Corollary 5.6(ii), special case for the Segal condition"
-#def arrow-types-Segal uses (extext)
+#def is-segal-arr uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   : is-segal (arr A)
@@ -749,7 +754,7 @@ The `#!rzk witness-square-comp-Segal` as an arrow in the arrow type:
 </svg>
 
 ```rzk
-#def associativity-witness-Segal uses (extext)
+#def witness-asociative-Segal uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -759,14 +764,14 @@ The `#!rzk witness-square-comp-Segal` as an arrow in the arrow type:
   : hom2 (arr A) f g h
       (arr-in-arr-Segal A is-segal-A w x y f g)
       (arr-in-arr-Segal A is-segal-A x y z g h)
-      (comp-Segal (arr A) (arrow-types-Segal A is-segal-A)
+      (comp-Segal (arr A) (is-segal-arr A is-segal-A)
       f g h
       (arr-in-arr-Segal A is-segal-A w x y f g)
       (arr-in-arr-Segal A is-segal-A x y z g h))
   :=
     witness-comp-Segal
       ( arr A)
-      ( arrow-types-Segal A is-segal-A)
+      ( is-segal-arr A is-segal-A)
       f g h
       ( arr-in-arr-Segal A is-segal-A w x y f g)
       ( arr-in-arr-Segal A is-segal-A x y z g h)
@@ -790,12 +795,12 @@ The `#!rzk witness-square-comp-Segal` as an arrow in the arrow type:
   <text x="140" y="205">h</text>
 </svg>
 
-The `#!rzk Segal-associativity-witness` curries to define a diagram $Δ²×Δ¹ → A$.
-The `#!rzk associativity-tetrahedron-Segal` is extracted via the middle-simplex
+The `#!rzk witness-associative-Segal` curries to define a diagram $Δ²×Δ¹ → A$.
+The `#!rzk tetrahedron-associative-Segal` is extracted via the middle-simplex
 map $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
 
 ```rzk
-#def associativity-tetrahedron-Segal uses (extext)
+#def tetrahedron-associative-Segal uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -805,7 +810,7 @@ map $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
   : Δ³ → A
   :=
     \ ((t , s) , r) →
-    (associativity-witness-Segal A is-segal-A w x y z f g h) (t , r) s
+    (witness-asociative-Segal A is-segal-A w x y z f g h) (t , r) s
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -827,7 +832,7 @@ map $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
 </svg>
 
 The diagonal composite of three arrows extracted from the
-`#!rzk associativity-tetrahedron-Segal`.
+`#!rzk tetrahedron-associative-Segal`.
 
 ```rzk
 #def triple-comp-Segal uses (extext)
@@ -840,7 +845,7 @@ The diagonal composite of three arrows extracted from the
   : hom A w z
   :=
     \ t →
-    associativity-tetrahedron-Segal A is-segal-A w x y z f g h
+    tetrahedron-associative-Segal A is-segal-A w x y z f g h
       ( (t , t) , t)
 ```
 
@@ -865,7 +870,7 @@ The diagonal composite of three arrows extracted from the
 </svg>
 
 ```rzk
-#def left-associativity-witness-Segal uses (extext)
+#def left-witness-asociative-Segal uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -878,7 +883,7 @@ The diagonal composite of three arrows extracted from the
     (triple-comp-Segal A is-segal-A w x y z f g h)
   :=
     \ (t , s) →
-    associativity-tetrahedron-Segal A is-segal-A w x y z f g h
+    tetrahedron-associative-Segal A is-segal-A w x y z f g h
       ( (t , t) , s)
 ```
 
@@ -905,7 +910,7 @@ The front face:
 </svg>
 
 ```rzk
-#def right-associativity-witness-Segal uses (extext)
+#def right-witness-asociative-Segal uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -918,7 +923,7 @@ The front face:
     ( triple-comp-Segal A is-segal-A w x y z f g h)
   :=
     \ (t , s) →
-    associativity-tetrahedron-Segal A is-segal-A w x y z f g h
+    tetrahedron-associative-Segal A is-segal-A w x y z f g h
       ( (t , s) , s)
 ```
 
@@ -936,7 +941,7 @@ The front face:
     uniqueness-comp-Segal
       A is-segal-A w y z (comp-Segal A is-segal-A w x y f g) h
       ( triple-comp-Segal A is-segal-A w x y z f g h)
-      ( left-associativity-witness-Segal A is-segal-A w x y z f g h)
+      ( left-witness-asociative-Segal A is-segal-A w x y z f g h)
 
 #def right-associativity-Segal uses (extext)
   ( A : U)
@@ -950,7 +955,7 @@ The front face:
   := uniqueness-comp-Segal
       ( A) (is-segal-A) (w) (x) (z) (f) (comp-Segal A is-segal-A x y z g h)
       ( triple-comp-Segal A is-segal-A w x y z f g h)
-      ( right-associativity-witness-Segal A is-segal-A w x y z f g h)
+      ( right-witness-asociative-Segal A is-segal-A w x y z f g h)
 
 #def associativity-Segal uses (extext)
   ( A : U)
@@ -977,7 +982,7 @@ The front face:
   ( x y : A)
   ( f : hom A x y)
   : (z : A) → (hom A z x) → (hom A z y)
-  := \ z → \ g → (comp-Segal A is-segal-A z x y g f)
+  := \ z g → (comp-Segal A is-segal-A z x y g f)
 
 #def precomp-Segal
   ( A : U)
@@ -985,7 +990,7 @@ The front face:
   ( x y : A)
   ( f : hom A x y)
   : (z : A) → (hom A y z) → (hom A x z)
-  := \ z → \ g → (comp-Segal A is-segal-A x y z f g)
+  := \ z → comp-Segal A is-segal-A x y z f
 ```
 
 ## Homotopies
@@ -995,12 +1000,11 @@ type, homotopies are equivalent to terms in hom2 types involving an identity
 arrow.
 
 ```rzk
-#def homotopy-to-hom2
+#def map-hom2-homotopy
   ( A : U)
   ( x y : A)
   ( f g : hom A x y)
-  ( p : f = g)
-  : (hom2 A x x y (id-hom A x) f g)
+  : (f = g) → (hom2 A x x y (id-hom A x) f g)
   :=
     ind-path
       ( hom A x y)
@@ -1008,56 +1012,55 @@ arrow.
       ( \ g' p' → (hom2 A x x y (id-hom A x) f g'))
       ( id-comp-witness A x y f)
       ( g)
-      ( p)
 
-#def homotopy-to-hom2-total-map
+#def map-total-hom2-homotopy
   ( A : U)
   ( x y : A)
   ( f : hom A x y)
-  : (Σ (g : hom A x y) , f = g) →
-      (Σ (g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
-  := \ (g , p) → (g , homotopy-to-hom2 A x y f g p)
+  : ( Σ (g : hom A x y) , (f = g)) →
+    ( Σ (g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
+  := \ (g , p) → (g , map-hom2-homotopy A x y f g p)
 
-#def homotopy-to-hom2-total-map-is-equiv-Segal
+#def is-equiv-map-total-hom2-homotopy-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y : A)
   ( f : hom A x y)
   : is-equiv
-      (Σ (g : hom A x y) , f = g)
-      (Σ (g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
-      (homotopy-to-hom2-total-map A x y f)
+      ( Σ (g : hom A x y) , f = g)
+      ( Σ (g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
+      ( map-total-hom2-homotopy A x y f)
   :=
     is-equiv-are-contr
-    ( Σ (g : hom A x y) , f = g)
-    ( Σ (g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
-    ( is-contr-based-paths (hom A x y) f)
-    ( is-segal-A x x y (id-hom A x) f)
-    ( homotopy-to-hom2-total-map A x y f)
+      ( Σ (g : hom A x y) , f = g)
+      ( Σ (g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
+      ( is-contr-based-paths (hom A x y) f)
+      ( is-segal-A x x y (id-hom A x) f)
+      ( map-total-hom2-homotopy A x y f)
 ```
 
 ```rzk title="RS17, Proposition 5.10"
-#def Eq-Segal-homotopy-hom2
+#def equiv-homotopy-hom2-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y : A)
   ( f h : hom A x y)
   : Equiv (f = h) (hom2 A x x y (id-hom A x) f h)
   :=
-    ( ( homotopy-to-hom2 A x y f h) ,
+    ( ( map-hom2-homotopy A x y f h) ,
       ( total-equiv-family-of-equiv
         ( hom A x y)
         ( \ k → (f = k))
         ( \ k → (hom2 A x x y (id-hom A x) f k))
-        ( homotopy-to-hom2 A x y f)
-        ( homotopy-to-hom2-total-map-is-equiv-Segal A is-segal-A x y f)
+        ( map-hom2-homotopy A x y f)
+        ( is-equiv-map-total-hom2-homotopy-Segal A is-segal-A x y f)
         ( h)))
 ```
 
 A dual notion of homotopy can be defined similarly.
 
 ```rzk
-#def homotopy-to-hom2'
+#def map-hom2-homotopy'
   ( A : U)
   ( x y : A)
   ( f g : hom A x y)
@@ -1072,47 +1075,47 @@ A dual notion of homotopy can be defined similarly.
       ( g)
       ( p)
 
-#def homotopy-to-hom2'-total-map
+#def map-total-hom2-homotopy'
   ( A : U)
   ( x y : A)
   ( f : hom A x y)
-  : (Σ (g : hom A x y) , f = g) →
-      (Σ (g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
-  := \ (g , p) → (g , homotopy-to-hom2' A x y f g p)
+  : ( Σ (g : hom A x y) , (f = g)) →
+    ( Σ (g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
+  := \ (g , p) → (g , map-hom2-homotopy' A x y f g p)
 
-#def homotopy-to-hom2'-total-map-is-equiv-Segal
+#def is-equiv-map-total-hom2-homotopy'-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y : A)
   ( f : hom A x y)
   : is-equiv
-      (Σ (g : hom A x y) , f = g)
-      (Σ (g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
-      (homotopy-to-hom2'-total-map A x y f)
+      ( Σ (g : hom A x y) , f = g)
+      ( Σ (g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
+      ( map-total-hom2-homotopy' A x y f)
   :=
     is-equiv-are-contr
-    ( Σ (g : hom A x y) , f = g)
-    ( Σ (g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
-    ( is-contr-based-paths (hom A x y) f)
-    ( is-segal-A x y y f (id-hom A y))
-    ( homotopy-to-hom2'-total-map A x y f)
+      ( Σ (g : hom A x y) , (f = g))
+      ( Σ (g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
+      ( is-contr-based-paths (hom A x y) f)
+      ( is-segal-A x y y f (id-hom A y))
+      ( map-total-hom2-homotopy' A x y f)
 ```
 
 ```rzk title="RS17, Proposition 5.10"
-#def Eq-Segal-homotopy-hom2'
+#def equiv-homotopy-hom2'-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y : A)
   ( f h : hom A x y)
   : Equiv (f = h) (hom2 A x y y f (id-hom A y) h)
   :=
-    ( ( homotopy-to-hom2' A x y f h) ,
+    ( ( map-hom2-homotopy' A x y f h) ,
       ( total-equiv-family-of-equiv
         ( hom A x y)
         ( \ k → (f = k))
         ( \ k → (hom2 A x y y f (id-hom A y) k))
-        ( homotopy-to-hom2' A x y f)
-        ( homotopy-to-hom2'-total-map-is-equiv-Segal A is-segal-A x y f)
+        ( map-hom2-homotopy' A x y f)
+        ( is-equiv-map-total-hom2-homotopy'-Segal A is-segal-A x y f)
         ( h)))
 ```
 
@@ -1120,7 +1123,7 @@ More generally, a homotopy between a composite and another map is equivalent to
 the data provided by a commutative triangle with that boundary.
 
 ```rzk
-#def eq-to-hom2-Segal
+#def map-hom2-eq-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y z : A)
@@ -1128,7 +1131,7 @@ the data provided by a commutative triangle with that boundary.
   ( g : hom A y z)
   ( h : hom A x z)
   ( p : (comp-Segal A is-segal-A x y z f g) = h)
-  : (hom2 A x y z f g h)
+  : ( hom2 A x y z f g h)
   :=
     ind-path
       ( hom A x z)
@@ -1138,15 +1141,15 @@ the data provided by a commutative triangle with that boundary.
       ( h)
       ( p)
 
-#def eq-to-hom2-total-map-Segal
+#def map-total-hom2-eq-Segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
-  : (Σ (h : hom A x z) , (comp-Segal A is-segal-A x y z f g) = h) →
-      (Σ (h : hom A x z) , (hom2 A x y z f g h))
-  := \ (h , p) → (h , eq-to-hom2-Segal A is-segal-A x y z f g h p)
+  : ( Σ (h : hom A x z) , (comp-Segal A is-segal-A x y z f g) = h) →
+    ( Σ (h : hom A x z) , (hom2 A x y z f g h))
+  := \ (h , p) → (h , map-hom2-eq-Segal A is-segal-A x y z f g h p)
 
 #def eq-to-hom2-total-map-is-equiv-Segal
   ( A : U)
@@ -1155,16 +1158,16 @@ the data provided by a commutative triangle with that boundary.
   ( f : hom A x y)
   ( g : hom A y z)
   : is-equiv
-      (Σ (h : hom A x z) , (comp-Segal A is-segal-A x y z f g) = h)
-      (Σ (h : hom A x z) , (hom2 A x y z f g h))
-      (eq-to-hom2-total-map-Segal A is-segal-A x y z f g)
+      ( Σ (h : hom A x z) , (comp-Segal A is-segal-A x y z f g) = h)
+      ( Σ (h : hom A x z) , (hom2 A x y z f g h))
+      ( map-total-hom2-eq-Segal A is-segal-A x y z f g)
   :=
     is-equiv-are-contr
-    ( Σ (h : hom A x z) , (comp-Segal A is-segal-A x y z f g) = h)
-    ( Σ (h : hom A x z) , (hom2 A x y z f g h))
-    ( is-contr-based-paths (hom A x z) (comp-Segal A is-segal-A x y z f g) )
-    ( is-segal-A x y z f g)
-    ( eq-to-hom2-total-map-Segal A is-segal-A x y z f g)
+      ( Σ (h : hom A x z) , (comp-Segal A is-segal-A x y z f g) = h)
+      ( Σ (h : hom A x z) , (hom2 A x y z f g h))
+      ( is-contr-based-paths (hom A x z) (comp-Segal A is-segal-A x y z f g) )
+      ( is-segal-A x y z f g)
+      ( map-total-hom2-eq-Segal A is-segal-A x y z f g)
 ```
 
 ```rzk title="RS17, Proposition 5.12"
@@ -1177,14 +1180,14 @@ the data provided by a commutative triangle with that boundary.
   ( k : hom A x z)
   : Equiv ((comp-Segal A is-segal-A x y z f g) = k) (hom2 A x y z f g k)
   :=
-    ( eq-to-hom2-Segal A is-segal-A x y z f g k ,
-      total-equiv-family-of-equiv
-      ( hom A x z)
-      ( \ m → (comp-Segal A is-segal-A x y z f g) = m)
-      ( \ m → hom2 A x y z f g m)
-      ( eq-to-hom2-Segal A is-segal-A x y z f g)
-      ( eq-to-hom2-total-map-is-equiv-Segal A is-segal-A x y z f g)
-      ( k))
+    ( ( map-hom2-eq-Segal A is-segal-A x y z f g k) ,
+      ( total-equiv-family-of-equiv
+        ( hom A x z)
+        ( \ m → (comp-Segal A is-segal-A x y z f g) = m)
+        ( hom2 A x y z f g)
+        ( map-hom2-eq-Segal A is-segal-A x y z f g)
+        ( eq-to-hom2-total-map-is-equiv-Segal A is-segal-A x y z f g)
+        ( k)))
 ```
 
 Homotopies form a congruence, meaning that homotopies are respected by
@@ -1199,7 +1202,7 @@ composition:
   ( h k : hom A y z)
   ( p : f = g)
   ( q : h = k)
-  : (comp-Segal A is-segal-A x y z f h) = (comp-Segal A is-segal-A x y z g k)
+  : ( comp-Segal A is-segal-A x y z f h) = (comp-Segal A is-segal-A x y z g k)
   :=
     ind-path
       ( hom A y z)
@@ -1238,13 +1241,13 @@ As a special case of the above:
 
 ```rzk
 #def prewhisker-homotopy-Segal
-  (A : U)
-  (is-segal-A : is-segal A)
-  (w x y : A)
-  (k : hom A w x)
-  (f g : hom A x y)
-  (p : f = g)
-  : (comp-Segal A is-segal-A w x y k f) = (comp-Segal A is-segal-A w x y k g)
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( w x y : A)
+  ( k : hom A w x)
+  ( f g : hom A x y)
+  ( p : f = g)
+  : ( comp-Segal A is-segal-A w x y k f) = (comp-Segal A is-segal-A w x y k g)
   := congruence-homotopy-Segal A is-segal-A w x y k k f g refl p
 ```
 
@@ -1257,16 +1260,16 @@ As a special case of the above:
   ( h : hom A y z)
   ( p : f = g)
   : ( postwhisker-homotopy-Segal A is-segal-A x y z f g h p) =
-    ap (hom A x y) (hom A x z) f g (\ k → comp-Segal A is-segal-A x y z k h) p
+    ( ap (hom A x y) (hom A x z) f g (\ k → comp-Segal A is-segal-A x y z k h) p)
   :=
     ind-path
       ( hom A x y)
       ( f)
       ( \ g' p' →
-        (postwhisker-homotopy-Segal A is-segal-A x y z f g' h p') =
-        ap
+        ( postwhisker-homotopy-Segal A is-segal-A x y z f g' h p') =
+        ( ap
           (hom A x y) (hom A x z)
-          f g' (\ k → comp-Segal A is-segal-A x y z k h) p')
+          (f) (g') (\ k → comp-Segal A is-segal-A x y z k h) (p')))
       ( refl)
       ( g)
       ( p)
@@ -1281,7 +1284,7 @@ As a special case of the above:
   ( f g : hom A x y)
   ( p : f = g)
   : ( prewhisker-homotopy-Segal A is-segal-A w x y k f g p) =
-    ap (hom A x y) (hom A w y) f g (comp-Segal A is-segal-A w x y k) p
+    ( ap (hom A x y) (hom A w y) f g (comp-Segal A is-segal-A w x y k) p)
   :=
     ind-path
       ( hom A x y)
@@ -1295,24 +1298,28 @@ As a special case of the above:
 
 #section is-segal-Unit
 
-#def iscontr-Unit : is-contr Unit := (unit , \ _ → refl)
+#def is-contr-Unit : is-contr Unit := (unit , \ _ → refl)
 
 #def is-contr-Δ²→Unit uses (extext)
   : is-contr (Δ² → Unit)
-  := (\ _ → unit , \ k → eq-ext-htpy extext
-    (2 × 2) Δ² (\ _ → BOT)
-    (\ _ → Unit) (\ _ → recBOT)
-    (\ _ → unit) k
-    (\ _ → refl)
-    )
+  :=
+    ( \ _ → unit ,
+      \ k →
+      eq-ext-htpy extext
+        ( 2 × 2) Δ² (\ _ → BOT)
+        ( \ _ → Unit) (\ _ → recBOT)
+        ( \ _ → unit) k
+        ( \ _ → refl))
 
 #def is-segal-Unit uses (extext)
   : is-segal Unit
-  := \ x y z f g → is-contr-is-retract-of-is-contr
-    (Σ (h : hom Unit x z) , hom2 Unit x y z f g h)
-    (Δ² → Unit)
-    (\ (_ , k) → k , (\ k → (\ t → k (t , t) , k) , \ _ → refl))
-    is-contr-Δ²→Unit
+  :=
+    \ x y z f g →
+    is-contr-is-retract-of-is-contr
+      ( Σ (h : hom Unit x z) , hom2 Unit x y z f g h)
+      ( Δ² → Unit)
+      ( \ (_ , k) → k , (\ k → (\ t → k (t , t) , k) , \ _ → refl))
+      ( is-contr-Δ²→Unit)
 
 #end is-segal-Unit
 ```

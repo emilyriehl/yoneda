@@ -430,7 +430,7 @@ Now we introduce the hypothesis that A is Segal type.
               ( hom A a y)
               ( \ v → (v = d))
               ( \ v → hom2 A a a y (id-hom A a) v d)
-              ( \ v → (Eq-Segal-homotopy-hom2 A is-segal-A a y v d)))))))
+              ( \ v → (equiv-homotopy-hom2-Segal A is-segal-A a y v d)))))))
 
 
 #def codomain-based-paths-contraction
@@ -579,10 +579,10 @@ types as follows.
     (hom A a y)
   :=
     ( \ v → (\ r → v ((1₂ , r))) ,
-      ( ( \ v → \ (t , s) → v s ,
-          \ v → refl) ,
-        ( \ v → \ (t , s) → v s ,
-          \ v → refl)))
+      ( ( \ v (t , s) → v s ,
+          \ _ → refl) ,
+        ( \ v (_ , s) → v s ,
+          \ _ → refl)))
 
 #def base-hom-expansion
   ( A : U)
@@ -1327,7 +1327,7 @@ Now we introduce the hypothesis that A is Segal type.
             ( hom A x a)
             ( \ u → (u = d))
             ( \ u → hom2 A x a a u (id-hom A a) d)
-            ( \ u → (Eq-Segal-homotopy-hom2' A is-segal-A x a u d)))))))
+            ( \ u → (equiv-homotopy-hom2'-Segal A is-segal-A x a u d)))))))
 
 #def is-segal-representable-dhom-to-hom2
   ( A : U)

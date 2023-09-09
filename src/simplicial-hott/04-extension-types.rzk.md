@@ -193,9 +193,9 @@ A reformulated version via tope disjunction instead of inclusion (see
       ( (t : I | ϕ t ∨ ψ t) → X t [ ψ t ↦ a t ])
       ( (t : ϕ) → X t [ ϕ t ∧ ψ t ↦ a t ])
   :=
-    (\ h → \ t → h t ,
-      ( ( \ g → \ t → recOR (ϕ t ↦ g t , ψ t ↦ a t) , \ h → refl) ,
-        ( \ g → \ t → recOR (ϕ t ↦ g t , ψ t ↦ a t) , \ h → refl)))
+    (\ h t → h t ,
+      ( ( \ g t → recOR (ϕ t ↦ g t , ψ t ↦ a t) , \ _ → refl) ,
+        ( \ g t → recOR (ϕ t ↦ g t , ψ t ↦ a t) , \ _ → refl)))
 ```
 
 ## Relative function extensionality

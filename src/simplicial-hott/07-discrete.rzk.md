@@ -36,7 +36,7 @@ identity types.
   ( x y : A)
   ( p : x = y)
   : hom A x y
-  := ind-path (A) (x) (\ y' → \ p' → hom A x y') ((id-hom A x)) (y) (p)
+  := ind-path (A) (x) (\ y' p' → hom A x y') ((id-hom A x)) (y) (p)
 
 #def is-discrete
   ( A : U)
@@ -232,9 +232,9 @@ Discrete types are automatically Segal types.
     ( \ α →
       ( ( \ t → α t 0₂) ,
         ( ( \ t → α t 1₂) , (\ (t , s) → α t s))) ,
-      ( ( ( \ σ → \ t → \ s → (second (second σ)) (t , s)) ,
+      ( ( ( \ σ t s → (second (second σ)) (t , s)) ,
           ( \ α → refl)) ,
-        ( ( \ σ → \ t → \ s → (second (second σ)) (t , s)) ,
+        ( ( \ σ t s → (second (second σ)) (t , s)) ,
           ( \ σ → refl))))
 ```
 
