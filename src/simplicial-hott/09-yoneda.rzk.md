@@ -88,7 +88,7 @@ The inverse map only exists for Segal types.
 
 ```rzk
 #def yon
-  (A  : U)
+  ( A : U)
   ( is-segal-A : is-segal A)
   ( a : A)
   ( C : A → U)
@@ -247,7 +247,7 @@ though it requires some work to prove that the domain is covariant.
       ( covariant-transport A a b f
         ( \ x -> (z : A) → hom A x z → C z)
 
-        (  is-covariant-yoneda-domain A is-segal-A C is-covariant-C) ϕ))
+        ( is-covariant-yoneda-domain A is-segal-A C is-covariant-C) ϕ))
   :=
     naturality-covariant-fiberwise-transformation
     ( A)

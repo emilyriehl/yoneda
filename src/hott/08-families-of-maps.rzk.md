@@ -166,7 +166,7 @@ It will be easiest to work with the incoherent notion of two-sided-inverses.
 
 #def invertible-family-total-invertible
   ( A : U)
-  (  B C : A → U)
+  ( B C : A → U)
   ( f : (a : A) → (B a) → (C a))
   ( invfamily : (a : A) → has-inverse (B a) (C a) (f a))
   : has-inverse
@@ -597,21 +597,21 @@ equivalence of total spaces.
         ( is-contr-based-paths A a)))
 
 #def fund-id-sum-over-codomain-contr-implies-fam-of-eqs
-  : (is-contr (Σ (x : A) , B x)) → ((x : A) → (is-equiv (a = x) (B x) (f x)))
+  : ( is-contr (Σ (x : A) , B x)) →
+    ( (x : A) → (is-equiv (a = x) (B x) (f x)))
   :=
-    ( \ is-contr-B →
-      ( \ x →
-        ( total-equiv-family-of-equiv A
-          ( \ x' → (a = x'))
-          ( B)
-          ( f)
-          ( is-equiv-are-contr
-            ( Σ (x' : A) , (a = x'))
-            ( Σ (x' : A) , (B x'))
-            ( is-contr-based-paths A a)
-            ( is-contr-B)
-            ( total-map-family-of-maps A (\ x' → (a = x')) B f))
-          ( x))))
+    ( \ is-contr-Σ-A-B x →
+      total-equiv-family-of-equiv A
+        ( \ x' → (a = x'))
+        ( B)
+        ( f)
+        ( is-equiv-are-contr
+          ( Σ (x' : A) , (a = x'))
+          ( Σ (x' : A) , (B x'))
+          ( is-contr-based-paths A a)
+          ( is-contr-Σ-A-B)
+          ( total-map-family-of-maps A (\ x' → (a = x')) B f))
+        ( x))
 ```
 
 This allows us to apply "based path induction" to a family satisfying the

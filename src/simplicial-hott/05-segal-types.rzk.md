@@ -330,7 +330,7 @@ is exactly `#!rzk horn-restriction A`.
   :=
     \ x y z f g →
     contractible-fibers-is-equiv-projection
-      (  Λ → A)
+      ( Λ → A)
       ( \ k →
         Σ ( h : hom A (k (0₂ , 0₂)) (k (1₂ , 1₂))) ,
           ( hom2 A
