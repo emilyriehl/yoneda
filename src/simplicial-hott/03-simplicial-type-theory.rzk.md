@@ -37,7 +37,7 @@ This is a literate `rzk` file:
 ```rzk title="The boundary of a 2-simplex"
 #def ∂Δ² : Δ² → TOPE
   :=
-    \ (t, s) → (s ≡ 0₂ ∨ t ≡ 1₂ ∨ s ≡ t)
+    \ (t , s) → (s ≡ 0₂ ∨ t ≡ 1₂ ∨ s ≡ t)
 ```
 
 ### The inner horn

@@ -634,7 +634,7 @@ fundamental theorem:
       ( contr-implies-singleton-induction-pointed
         ( Σ (z : A) , B z)
         ( fund-id-fam-of-eqs-implies-sum-over-codomain-contr familyequiv)
-        ( \ (x', p') → P x' p'))
+        ( \ (x' , p') → P x' p'))
       ( p0)
       ( u , p)
 

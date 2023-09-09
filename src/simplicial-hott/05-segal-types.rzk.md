@@ -46,7 +46,7 @@ Extension types are used to define the type of arrows between fixed terms:
   : U
   :=
     ( t : Δ¹) →
-    A [ t ≡ 0₂ ↦ x,  -- the left endpoint is exactly x
+    A [ t ≡ 0₂ ↦ x ,  -- the left endpoint is exactly x
         t ≡ 1₂ ↦ y]   -- the right endpoint is exactly y
 
 ```
@@ -466,7 +466,7 @@ then $(x : X) → A x$ is a Segal type.
   ( ψ : I → TOPE)
   ( A : ψ → U)
   ( fiberwise-is-segal-A : (s : ψ) → is-segal (A s))
-  : is-segal((s : ψ) → A s)
+  : is-segal ((s : ψ) → A s)
   :=
     is-segal-is-local-horn-inclusion
       ( (s : ψ) → A s)
@@ -573,7 +573,7 @@ Witness for the right identity law:
   ( x y : A)
   ( f : hom A x y)
   : hom2 A x y y f (id-hom A y) f
-  := \ (t, s) → f t
+  := \ (t , s) → f t
 ```
 
 Witness for the left identity law:
@@ -598,7 +598,7 @@ Witness for the left identity law:
   ( x y : A)
   ( f : hom A x y)
   : hom2 A x x y (id-hom A x) f f
-  := \ (t, s) → f s
+  := \ (t , s) → f s
 ```
 
 In a Segal type, where composition is unique, it follows that composition with

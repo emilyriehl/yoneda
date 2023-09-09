@@ -136,9 +136,9 @@ This is a literate `rzk` file:
         ( (t : ψ) → Y t (f t) [ ϕ t ↦ b t]))
     :=
       ( \ g → (\ t → (first (g t)) , \ t → second (g t)) ,
-        ( ( \ (f, h) t → (f t , h t) ,
+        ( ( \ (f , h) t → (f t , h t) ,
             \ _ → refl) ,
-          ( \ (f, h) t → (f t , h t) ,
+          ( \ (f , h) t → (f t , h t) ,
             \ _ → refl)))
 ```
 
@@ -160,8 +160,8 @@ The original form.
         ( (t : χ) → X t [ ψ t ↦ f t]))
   :=
     ( \ h → (\ t → h t , \ t → h t) ,
-      ( ( \ (_f, g) t → g t , \ h → refl) ,
-        ( ( \ (_f, g) t → g t , \ h → refl))))
+      ( ( \ (_f , g) t → g t , \ h → refl) ,
+        ( ( \ (_f , g) t → g t , \ h → refl))))
 ```
 
 A reformulated version via tope disjunction instead of inclusion (see
@@ -179,8 +179,8 @@ A reformulated version via tope disjunction instead of inclusion (see
           ( (t : χ) → X t [ χ t ∧ ψ t ↦ f t]))
   :=
     ( \ h → (\ t → h t , \ t → h t) ,
-      ( ( \ (_f, g) t → g t , \ h → refl) ,
-        ( \ (_f, g) t → g t , \ h → refl)))
+      ( ( \ (_f , g) t → g t , \ h → refl) ,
+        ( \ (_f , g) t → g t , \ h → refl)))
 ```
 
 ```rzk title="RS17, Theorem 4.5"

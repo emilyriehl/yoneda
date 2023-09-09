@@ -269,7 +269,7 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
   : ( q : u = u') →
     ( c' : C a' u') →
     ( r : product-transport a a' u u' p q c = c') →
-    ( (a, (u, c)) =_{(Σ (x : A), (Σ (y : B) , C x y))} (a', (u', c')))
+    ( (a , (u , c)) =_{(Σ (x : A) , (Σ (y : B) , C x y))} (a' , (u' , c')))
   :=
     ind-path
       ( A)
@@ -278,11 +278,11 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
         ( q : u = u') →
         ( c' : C a'' u') →
         ( r : product-transport a a'' u u' p' q c = c') →
-        ( (a, (u, c)) =_{(Σ (x : A) , (Σ (y : B), C x y))} (a'', (u', c'))))
+        ( (a , (u , c)) =_{(Σ (x : A) , (Σ (y : B) , C x y))} (a'' , (u' , c'))))
       ( \ q c' r →
         eq-eq-fiber-Σ
           ( A) (\ x → (Σ (v : B) , C x v)) (a)
-          ( u, c) ( u', c')
+          ( u , c) ( u' , c')
           ( path-of-pairs-pair-of-paths B (\ y → C a y) u u' q c c' r))
       ( a')
       ( p)
@@ -455,7 +455,7 @@ This is the dependent version of the currying equivalence.
   (B : A → U)
   (C : (a : A) → B a → U)
   : Equiv
-      ((p : Σ (a : A), B a) → C (first p) (second p))
+      ((p : Σ (a : A) , (B a)) → C (first p) (second p))
       ((a : A) → (b : B a) → C a b)
   :=
     ( ( \ s a b → s (a , b)) ,

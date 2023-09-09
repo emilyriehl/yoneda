@@ -878,7 +878,7 @@ domain are equivalent:
   ( f : hom A x y)
   : Equiv
     ( (t : Δ¹) → C (f t))
-    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
   :=
     ( ( \ h → (h 0₂ , \ t → h t)) ,
       ( ( \ k t → (second k) t , \ h → refl) ,
@@ -907,25 +907,25 @@ domain are equivalent:
 
 #def equiv-total-covariant-dhom-equiv uses (extext equiv-BC)
   : Equiv
-    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
-    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
   :=
     equiv-triple-comp
-    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
     ( (t : Δ¹) → B (f t))
     ( (t : Δ¹) → C (f t))
-    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
     ( inv-equiv
       ( (t : Δ¹) → B (f t))
-      ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+      ( Σ (i : B x) , ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
       ( equiv-covariant-total-dhom A B x y f))
     ( equiv-total-dhom-equiv)
     ( equiv-covariant-total-dhom A C x y f)
 
 #def equiv-pullback-total-covariant-dhom-equiv uses (A y)
   : Equiv
-    ( Σ (i : B x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
-    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+    ( Σ (i : B x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
   :=
     total-equiv-pullback-is-equiv
       ( B x)
@@ -936,25 +936,25 @@ domain are equivalent:
 
 #def is-equiv-to-pullback-total-covariant-dhom-equiv uses (extext A y)
   : is-equiv
-    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
-    ( Σ (i : B x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
-    ( \ (i, h) → (i, \ t → (first (equiv-BC (f t))) (h t)))
+    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (i : B x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
   :=
     is-equiv-right-factor
-    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
-    ( Σ (i : B x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
-    ( Σ (u : C x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
-    ( \ (i, h) → (i, \ t → (first (equiv-BC (f t))) (h t)))
+    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (i : B x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u]))
+    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
     ( first (equiv-pullback-total-covariant-dhom-equiv))
     ( second (equiv-pullback-total-covariant-dhom-equiv))
     ( second (equiv-total-covariant-dhom-equiv))
 
 #def equiv-to-pullback-total-covariant-dhom-equiv uses (extext A y)
   : Equiv
-    ( Σ (i : B x), ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
-    ( Σ (i : B x), ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [ t ≡ 0₂ ↦ i]))
+    ( Σ (i : B x) , ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
   :=
-    ( \ (i, h) → (i, \ t → (first (equiv-BC (f t))) (h t)),
+    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)) ,
       is-equiv-to-pullback-total-covariant-dhom-equiv)
 
 #def family-equiv-dhom-family-equiv uses (extext A y)
