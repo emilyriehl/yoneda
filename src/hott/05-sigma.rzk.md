@@ -433,9 +433,9 @@ unimportant.
 
 ```rzk
 #def associative-Σ
-  (A : U)
-  (B : A → U)
-  (C : (a : A) → B a → U)
+  ( A : U)
+  ( B : A → U)
+  ( C : (a : A) → B a → U)
   : Equiv
       ( Σ (a : A) , Σ (b : B a) , C a b)
       ( Σ (ab : Σ (a : A) , B a) , C (first ab) (second ab))
@@ -451,9 +451,9 @@ This is the dependent version of the currying equivalence.
 
 ```rzk
 #def equiv-dependent-curry
-  (A : U)
-  (B : A → U)
-  (C : (a : A) → B a → U)
+  ( A : U)
+  ( B : A → U)
+  ( C : (a : A) → B a → U)
   : Equiv
       ((p : Σ (a : A) , (B a)) → C (first p) (second p))
       ((a : A) → (b : B a) → C a b)
