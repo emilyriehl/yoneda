@@ -237,7 +237,7 @@ witnesses of the equivalence).
   ( g : hom A y z)
   : Equiv
     ( Σ (h : hom A x z) , (hom2 A x y z f g h))
-    ( (t : Δ²) → A [ Λ t ↦ horn A x y z f g t])
+    ( (t : Δ²) → A [Λ t ↦ horn A x y z f g t])
   :=
     ( \ hh t → (second hh) t ,
       ( ( \ k → (\ t → k (t , t) , \ (t , s) → k (t , s)) ,
