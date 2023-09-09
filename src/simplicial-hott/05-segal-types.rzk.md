@@ -257,13 +257,10 @@ witnesses of the equivalence).
               ( h))))
   :=
     ( \ k →
-      ( \ t → k t ,
-        ( \ t → k (t , t) ,
-          \ t → k t)) ,
-      ( ( \ khh t → (second (second khh)) t ,
-          \ k → refl) ,
-        ( \ khh t → (second (second khh)) t ,
-          \ k → refl)))
+      ( ( \ t → k t) ,
+        ( \ t → k (t , t) , \ t → k t)) ,
+      ( ( \ khh t → (second (second khh)) t , \ k → refl) ,
+        ( \ khh t → (second (second khh)) t , \ k → refl)))
 ```
 
 ```rzk title="RS17, Theorem 5.5 (the hard direction)"
@@ -369,8 +366,8 @@ We have now proven that both notions of Segal types are logically equivalent.
 ```rzk title="RS17, Theorem 5.5"
 #def is-segal-iff-is-local-horn-inclusion
   ( A : U)
-  : iff ( is-segal A) (is-local-horn-inclusion A)
-  := ( is-local-horn-inclusion-is-segal A , is-segal-is-local-horn-inclusion A)
+  : iff (is-segal A) (is-local-horn-inclusion A)
+  := (is-local-horn-inclusion-is-segal A , is-segal-is-local-horn-inclusion A)
 ```
 
 ## Segal function and extension types
@@ -398,8 +395,8 @@ all $x$ then $(x : X) → A x$ is a Segal type.
         ( Δ²)
         ( \ t → BOT)
         ( X)
-        (\ t → A)
-        (\ t → recBOT)))
+        ( \ t → A)
+        ( \ t → recBOT)))
       ( \ h x t → h x t) -- second equivalence
       ( second (equiv-function-equiv-family
         ( funext)
@@ -929,7 +926,7 @@ The front face:
 ```
 
 ```rzk
-#def left-associativity-is-segal uses (extext)
+#def left-associative-is-segal uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -944,7 +941,7 @@ The front face:
       ( triple-comp-is-segal A is-segal-A w x y z f g h)
       ( left-witness-asociative-is-segal A is-segal-A w x y z f g h)
 
-#def right-associativity-is-segal uses (extext)
+#def right-associative-is-segal uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -959,7 +956,7 @@ The front face:
       ( triple-comp-is-segal A is-segal-A w x y z f g h)
       ( right-witness-asociative-is-segal A is-segal-A w x y z f g h)
 
-#def associativity-is-segal uses (extext)
+#def associative-is-segal uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -974,8 +971,8 @@ The front face:
     ( comp-is-segal A is-segal-A w y z (comp-is-segal A is-segal-A w x y f g) h)
     ( triple-comp-is-segal A is-segal-A w x y z f g h)
     ( comp-is-segal A is-segal-A w x z f (comp-is-segal A is-segal-A x y z g h))
-    ( left-associativity-is-segal A is-segal-A w x y z f g h)
-    ( right-associativity-is-segal A is-segal-A w x y z f g h)
+    ( left-associative-is-segal A is-segal-A w x y z f g h)
+    ( right-associative-is-segal A is-segal-A w x y z f g h)
 
 
 #def postcomp-is-segal
@@ -984,7 +981,7 @@ The front face:
   ( x y : A)
   ( f : hom A x y)
   : (z : A) → (hom A z x) → (hom A z y)
-  := \ z g → (comp-is-segal A is-segal-A z x y g f)
+  := \ z g → comp-is-segal A is-segal-A z x y g f
 
 #def precomp-is-segal
   ( A : U)
@@ -1034,7 +1031,7 @@ arrow.
       ( map-total-hom2-homotopy A x y f)
   :=
     is-equiv-are-contr
-      ( Σ (g : hom A x y) , f = g)
+      ( Σ (g : hom A x y) , (f = g))
       ( Σ (g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
       ( is-contr-based-paths (hom A x y) f)
       ( is-segal-A x x y (id-hom A x) f)
@@ -1173,7 +1170,7 @@ the data provided by a commutative triangle with that boundary.
 ```
 
 ```rzk title="RS17, Proposition 5.12"
-#def extensionality-hom2-is-segal
+#def equiv-hom2-eq-comp-is-segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y z : A)
@@ -1204,7 +1201,8 @@ composition:
   ( h k : hom A y z)
   ( p : f = g)
   ( q : h = k)
-  : ( comp-is-segal A is-segal-A x y z f h) = (comp-is-segal A is-segal-A x y z g k)
+  : ( comp-is-segal A is-segal-A x y z f h) =
+    ( comp-is-segal A is-segal-A x y z g k)
   :=
     ind-path
       ( hom A y z)
@@ -1249,7 +1247,8 @@ As a special case of the above:
   ( k : hom A w x)
   ( f g : hom A x y)
   ( p : f = g)
-  : ( comp-is-segal A is-segal-A w x y k f) = (comp-is-segal A is-segal-A w x y k g)
+  : ( comp-is-segal A is-segal-A w x y k f) =
+    ( comp-is-segal A is-segal-A w x y k g)
   := congruence-homotopy-is-segal A is-segal-A w x y k k f g refl p
 ```
 

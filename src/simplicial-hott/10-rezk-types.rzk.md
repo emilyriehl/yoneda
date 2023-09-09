@@ -127,7 +127,7 @@ Some of the definitions in this file rely on extension extensionality:
                 ( comp-is-segal A is-segal-A y x x
                   ( h)
                   ( comp-is-segal A is-segal-A x y x f g))
-                ( associativity-is-segal extext A is-segal-A y x y x h f g)
+                ( associative-is-segal extext A is-segal-A y x y x h f g)
                 ( comp-is-segal A is-segal-A y x x h (id-hom A x))
                 ( prewhisker-homotopy-is-segal A is-segal-A y x x h
                   ( comp-is-segal A is-segal-A x y x f g)
@@ -165,7 +165,7 @@ Some of the definitions in this file rely on extension extensionality:
         ( comp-is-segal A is-segal-A z x x k (comp-is-segal A is-segal-A x y x f g))
         ( comp-is-segal A is-segal-A z x x k (id-hom A x))
         ( k)
-        ( associativity-is-segal extext A is-segal-A z x y x k f g)
+        ( associative-is-segal extext A is-segal-A z x y x k f g)
         ( prewhisker-homotopy-is-segal A is-segal-A z x x k
           ( comp-is-segal A is-segal-A x y x f g) (id-hom A x) gg)
         ( comp-id-is-segal A is-segal-A z x k)))
@@ -189,7 +189,7 @@ Some of the definitions in this file rely on extension extensionality:
           ( comp-is-segal A is-segal-A z y y k (comp-is-segal A is-segal-A y x y h f))
           ( comp-is-segal A is-segal-A z y y k (id-hom A y))
           ( k)
-          ( associativity-is-segal extext A is-segal-A z y x y k h f)
+          ( associative-is-segal extext A is-segal-A z y x y k h f)
           ( prewhisker-homotopy-is-segal A is-segal-A z y y k
             ( comp-is-segal A is-segal-A y x y h f) (id-hom A y) hh)
           ( comp-id-is-segal A is-segal-A z y k)))
@@ -235,7 +235,7 @@ Some of the definitions in this file rely on extension extensionality:
               ( comp-is-segal A is-segal-A y x y h f) k)
             ( comp-is-segal A is-segal-A y x z
               h (comp-is-segal A is-segal-A x y z f k))
-            ( associativity-is-segal extext A is-segal-A y x y z h f k))
+            ( associative-is-segal extext A is-segal-A y x y z h f k))
           ( postwhisker-homotopy-is-segal A is-segal-A y y z
             ( comp-is-segal A is-segal-A y x y h f)
             ( id-hom A y) k hh)
@@ -268,7 +268,7 @@ Some of the definitions in this file rely on extension extensionality:
               ( comp-is-segal A is-segal-A x y x f g) k)
             ( comp-is-segal A is-segal-A x y z
               f (comp-is-segal A is-segal-A y x z g k))
-            ( associativity-is-segal extext A is-segal-A x y x z f g k))
+            ( associative-is-segal extext A is-segal-A x y x z f g k))
           ( postwhisker-homotopy-is-segal A is-segal-A x x z
             ( comp-is-segal A is-segal-A x y x f g)
             ( id-hom A x)
