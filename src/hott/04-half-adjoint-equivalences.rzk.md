@@ -758,9 +758,9 @@ have equivalent identity types.
     ( is-half-adjoint-equiv-is-equiv A B f is-equiv-f)
 
 #def emb-is-equiv
-  (A B : U)
-  (f : A → B)
-  (is-equiv-f : is-equiv A B f)
+  ( A B : U)
+  ( f : A → B)
+  ( is-equiv-f : is-equiv A B f)
   : Emb A B
   := (f , is-emb-is-equiv A B f is-equiv-f)
 

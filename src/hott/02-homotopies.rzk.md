@@ -16,24 +16,24 @@ This is a literate `rzk` file:
 
 ```rzk title="The type of homotopies between parallel functions"
 #def homotopy
-  (f g : A → B)
+  ( f g : A → B)
   : U
-  := (a : A) → (f a = g a)
+  := ( a : A) → (f a = g a)
 ```
 
 ```rzk title="The reversal of a homotopy"
 #def rev-homotopy
-  (f g : A → B)
-  (H : homotopy f g)
+  ( f g : A → B)
+  ( H : homotopy f g)
   : homotopy g f
   := \ a → rev B (f a) (g a) (H a)
 ```
 
 ```rzk
 #def concat-homotopy
-  (f g h : A → B)
-  (H : homotopy f g)
-  (K : homotopy g h)
+  ( f g h : A → B)
+  ( H : homotopy f g)
+  ( K : homotopy g h)
   : homotopy f h
   := \ a → concat B (f a) (g a) (h a) (H a) (K a)
 ```
@@ -53,27 +53,27 @@ unlike composition.
 #variables A B C : U
 
 #def postwhisker-homotopy
-  (f g : A → B)
-  (H : homotopy A B f g)
-  (h : B → C)
+  ( f g : A → B)
+  ( H : homotopy A B f g)
+  ( h : B → C)
   : homotopy A C (comp A B C h f) (comp A B C h g)
   := \ a → ap B C (f a) (g a) h (H a)
 
 #def prewhisker-homotopy
-  (f g : B → C)
-  (H : homotopy B C f g)
-  (h : A → B)
+  ( f g : B → C)
+  ( H : homotopy B C f g)
+  ( h : A → B)
   : homotopy A C (comp A B C f h) (comp A B C g h)
   := \ a → H (h a)
 
 #end homotopy-whiskering
 
 #def whisker-homotopy
-  (A B C D : U)
-  (h k : B → C)
-  (H : homotopy B C h k)
-  (f : A → B)
-  (g : C → D)
+  ( A B C D : U)
+  ( h k : B → C)
+  ( H : homotopy B C h k)
+  ( f : A → B)
+  ( g : C → D)
   : homotopy
       A
       D
@@ -94,13 +94,13 @@ unlike composition.
 
 ```rzk title="The naturality square associated to a homotopy and a path"
 #def nat-htpy
-  (A B : U)
-  (f g : A → B)
-  (H : homotopy A B f g)
-  (x y : A)
-  (p : x = y)
-  : (concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =
-    (concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
+  ( A B : U)
+  ( f g : A → B)
+  ( H : homotopy A B f g)
+  ( x y : A)
+  ( p : x = y)
+  : ( concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =
+    ( concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
   :=
     ind-path
       ( A)
@@ -115,11 +115,11 @@ unlike composition.
 
 ```rzk title="Naturality in another form"
 #def triple-concat-nat-htpy
-  (A B : U)
-  (f g : A → B)
-  (H : homotopy A B f g)
-  (x y : A)
-  (p : x = y)
+  ( A B : U)
+  ( f g : A → B)
+  ( H : homotopy A B f g)
+  ( x y : A)
+  ( p : x = y)
   : triple-concat
       ( B) (g x) (f x) (f y) (g y)
       ( rev B (f x) (g x) (H x)) (ap A B x y f p) (H y) =
