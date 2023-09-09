@@ -397,7 +397,7 @@ By uncurrying (RS 4.2) we have an equivalence:
 Now we introduce the hypothesis that A is Segal type.
 
 ```rzk
-#def representable-dhom-from-path-space-Segal
+#def representable-dhom-from-path-space-is-segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a x y : A)
@@ -434,7 +434,7 @@ Now we introduce the hypothesis that A is Segal type.
               ( hom A a y)
               ( \ v → (v = d))
               ( \ v → hom2 A a a y (id-hom A a) v d)
-              ( \ v → (equiv-homotopy-hom2-Segal A is-segal-A a y v d)))))))
+              ( \ v → (equiv-homotopy-hom2-is-segal A is-segal-A a y v d)))))))
 
 
 #def codomain-based-paths-contraction
@@ -467,7 +467,7 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ (d : hom A a y) ,
       ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
     ( Σ (d : hom A a y) , (hom2 A a x y u f d))
-    ( representable-dhom-from-path-space-Segal A is-segal-A a x y f u)
+    ( representable-dhom-from-path-space-is-segal A is-segal-A a x y f u)
     ( total-equiv-family-equiv
       ( hom A a y)
       ( \ d → product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d)))
@@ -492,7 +492,7 @@ Now we introduce the hypothesis that A is Segal type.
 Finally, we see that covariant hom families in a Segal type are covariant.
 
 ```rzk title="RS17, Proposition 8.13(<-)"
-#def is-segal-representable-is-covariant
+#def is-covariant-representable-is-segal
   (A : U)
   (is-segal-A : is-segal A)
   (a : A)
@@ -505,7 +505,7 @@ circular - using Proposition 5.10, which holds only for Segal types - so instead
 we argue as follows:
 
 ```rzk title="RS17, Proposition 8.13(→)"
-#def representable-is-covariant-is-segal
+#def is-segal-is-covariant-representable
   ( A : U)
   ( corepresentable-family-is-covariant : (a : A) →
     is-covariant A (\ x → hom A a x))
@@ -1311,7 +1311,7 @@ By uncurrying (RS 4.2) we have an equivalence:
 Now we introduce the hypothesis that A is Segal type.
 
 ```rzk
-#def representable-dhom-to-path-space-Segal
+#def representable-dhom-to-path-space-is-segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a x y : A)
@@ -1347,7 +1347,7 @@ Now we introduce the hypothesis that A is Segal type.
             ( hom A x a)
             ( \ u → (u = d))
             ( \ u → hom2 A x a a u (id-hom A a) d)
-            ( \ u → equiv-homotopy-hom2'-Segal A is-segal-A x a u d)))))
+            ( \ u → equiv-homotopy-hom2'-is-segal A is-segal-A x a u d)))))
 
 #def is-segal-representable-dhom-to-hom2
   ( A : U)
@@ -1364,7 +1364,7 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ ( d : hom A x a) ,
         ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
     ( Σ (d : hom A x a) , (hom2 A x y a f v d))
-    ( representable-dhom-to-path-space-Segal A is-segal-A a x y f v)
+    ( representable-dhom-to-path-space-is-segal A is-segal-A a x y f v)
     ( total-equiv-family-equiv
       ( hom A x a)
       ( \ d → product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d)))
@@ -1390,7 +1390,7 @@ Finally, we see that contravariant hom families in a Segal type are
 contravariant.
 
 ```rzk title="RS17, Proposition 8.13(<-), dual"
-#def is-segal-representable-is-contravariant
+#def is-contravariant-representable-is-segal
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a : A)
@@ -1403,7 +1403,7 @@ circular - using Proposition 5.10, which holds only for Segal types - so instead
 we argue as follows:
 
 ```rzk title="RS17, Proposition 8.13(→), dual"
-#def representable-is-contravariant-is-segal
+#def is-segal-is-contravariant-representable
   ( A : U)
   ( representable-family-is-contravariant : (a : A) →
     is-contravariant A (\ x → hom A x a))
