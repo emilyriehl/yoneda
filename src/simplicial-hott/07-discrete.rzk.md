@@ -31,7 +31,7 @@ Discrete types are types in which the hom-types are canonically equivalent to
 identity types.
 
 ```rzk title="RS17, Definition 7.1"
-#def arr-eq
+#def hom-eq
   ( A : U)
   ( x y : A)
   ( p : x = y)
@@ -41,7 +41,7 @@ identity types.
 #def is-discrete
   ( A : U)
   : U
-  := (x : A) → (y : A) → is-equiv (x = y) (hom A x y) (arr-eq A x y)
+  := (x : A) → (y : A) → is-equiv (x = y) (hom A x y) (hom-eq A x y)
 ```
 
 ## Families of discrete types
@@ -50,7 +50,7 @@ By function extensionality, the dependent function type associated to a family
 of discrete types is discrete.
 
 ```rzk
-#def equiv-discrete-family uses (funext)
+#def equiv-hom-eq-function-type-is-discrete uses (funext)
   ( X : U)
   ( A : X → U)
   ( is-discrete-A : (x : X) → is-discrete (A x))
@@ -66,7 +66,7 @@ of discrete types is discrete.
       ( equiv-function-equiv-family funext X
         ( \ x → (f x = g x))
         ( \ x → hom (A x) (f x) (g x))
-        ( \ x → (arr-eq (A x) (f x) (g x) , (is-discrete-A x (f x) (g x)))))
+        ( \ x → (hom-eq (A x) (f x) (g x) , (is-discrete-A x (f x) (g x)))))
       ( flip-ext-fun-inv
         ( 2)
         ( Δ¹)
@@ -75,28 +75,28 @@ of discrete types is discrete.
         ( \ t x → A x)
         ( \ t x → recOR (t ≡ 0₂ ↦ f x , t ≡ 1₂ ↦ g x)))
 
-#def equiv-discrete-family-map uses (funext)
+#def compute-hom-eq-function-type-is-discrete uses (funext)
   ( X : U)
   ( A : X → U)
   ( is-discrete-A : (x : X) → is-discrete (A x))
   ( f g : (x : X) → A x)
   ( h : f = g)
-  : ( arr-eq ((x : X) → A x) f g h) =
-    ( first (equiv-discrete-family X A is-discrete-A f g)) h
+  : ( hom-eq ((x : X) → A x) f g h) =
+    ( first (equiv-hom-eq-function-type-is-discrete X A is-discrete-A f g)) h
   :=
     ind-path
       ( (x : X) → A x)
       ( f)
       ( \ g' h' →
-        arr-eq ((x : X) → A x) f g' h' =
-        (first (equiv-discrete-family X A is-discrete-A f g')) h')
+        hom-eq ((x : X) → A x) f g' h' =
+        (first (equiv-hom-eq-function-type-is-discrete X A is-discrete-A f g')) h')
       ( refl)
       ( g)
       ( h)
 ```
 
 ```rzk title="RS17, Proposition 7.2"
-#def is-discrete-dependent-function-discrete-family uses (funext)
+#def is-discrete-function-type uses (funext)
   ( X : U)
   ( A : X → U)
   ( is-discrete-A : (x : X) → is-discrete (A x))
@@ -106,18 +106,19 @@ of discrete types is discrete.
     is-equiv-homotopy
       ( f = g)
       ( hom ((x : X) → A x) f g)
-      ( arr-eq ((x : X) → A x) f g)
-      ( first (equiv-discrete-family X A is-discrete-A f g))
-      ( equiv-discrete-family-map X A is-discrete-A f g)
-      ( second (equiv-discrete-family X A is-discrete-A f g))
+      ( hom-eq ((x : X) → A x) f g)
+      ( first (equiv-hom-eq-function-type-is-discrete X A is-discrete-A f g))
+      ( compute-hom-eq-function-type-is-discrete X A is-discrete-A f g)
+      ( second (equiv-hom-eq-function-type-is-discrete X A is-discrete-A f g))
 ```
 
 By extension extensionality, an extension type into a family of discrete types
-is discrete. Sinced fibered-Eq-extension-Equiv considers total extension types
-only, extending from BOT, that's all we prove here for now.
+is discrete. Since `#!rzk equiv-extension-equiv-family` considers total
+extension types only, extending from `#!rzk BOT`, that's all we prove here for
+now.
 
 ```rzk
-#def Eq-discrete-extension uses (extext)
+#def equiv-hom-eq-extension-type-is-discrete uses (extext)
   ( I : CUBE)
   ( ψ : I → TOPE)
   ( A : ψ → U)
@@ -137,7 +138,7 @@ only, extending from BOT, that's all we prove here for now.
         ( ψ)
         ( \ t → f t = g t)
         ( \ t → hom (A t) (f t) (g t))
-        ( \ t → (arr-eq (A t) (f t) (g t) , (is-discrete-A t (f t) (g t)))))
+        ( \ t → (hom-eq (A t) (f t) (g t) , (is-discrete-A t (f t) (g t)))))
       ( fubini
         ( I)
         ( 2)
@@ -148,29 +149,29 @@ only, extending from BOT, that's all we prove here for now.
         ( \ t s → A t)
         ( \ (t , s) → recOR (s ≡ 0₂ ↦ f t , s ≡ 1₂ ↦ g t)))
 
-#def Eq-discrete-extension-map uses (extext)
+#def compute-hom-eq-extension-type-is-discrete uses (extext)
   ( I : CUBE)
   ( ψ : (t : I) → TOPE)
   ( A : ψ → U)
   ( is-discrete-A : (t : ψ) → is-discrete (A t))
   ( f g : (t : ψ) → A t)
   ( h : f = g)
-  : arr-eq ((t : ψ) → A t) f g h =
-    ( first (Eq-discrete-extension I ψ A is-discrete-A f g)) h
+  : ( hom-eq ((t : ψ) → A t) f g h) =
+    ( first (equiv-hom-eq-extension-type-is-discrete I ψ A is-discrete-A f g)) h
   :=
     ind-path
       ( (t : ψ) → A t)
       ( f)
       ( \ g' h' →
-        ( arr-eq ((t : ψ) → A t) f g' h') =
-        ( first (Eq-discrete-extension I ψ A is-discrete-A f g') h'))
+        ( hom-eq ((t : ψ) → A t) f g' h') =
+        ( first (equiv-hom-eq-extension-type-is-discrete I ψ A is-discrete-A f g') h'))
       ( refl)
       ( g)
       ( h)
 ```
 
 ```rzk title="RS17, Proposition 7.2, for extension types"
-#def is-discrete-extension-family uses (extext)
+#def is-discrete-extension-type uses (extext)
   ( I : CUBE)
   ( ψ : (t : I) → TOPE)
   ( A : ψ → U)
@@ -181,20 +182,20 @@ only, extending from BOT, that's all we prove here for now.
     is-equiv-homotopy
       ( f = g)
       ( hom ((t : ψ) → A t) f g)
-      ( arr-eq ((t : ψ) → A t) f g)
-      ( first (Eq-discrete-extension I ψ A is-discrete-A f g))
-      ( Eq-discrete-extension-map I ψ A is-discrete-A f g)
-      ( second (Eq-discrete-extension I ψ A is-discrete-A f g))
+      ( hom-eq ((t : ψ) → A t) f g)
+      ( first (equiv-hom-eq-extension-type-is-discrete I ψ A is-discrete-A f g))
+      ( compute-hom-eq-extension-type-is-discrete I ψ A is-discrete-A f g)
+      ( second (equiv-hom-eq-extension-type-is-discrete I ψ A is-discrete-A f g))
 ```
 
 For instance, the arrow type of a discrete type is discrete.
 
 ```rzk
-#def is-discrete-arr-is-discrete uses (extext)
+#def is-discrete-arr uses (extext)
   ( A : U)
   ( is-discrete-A : is-discrete A)
   : is-discrete (arr A)
-  := is-discrete-extension-family 2 Δ¹ (\ _ → A) (\ _ → is-discrete-A)
+  := is-discrete-extension-type 2 Δ¹ (\ _ → A) (\ _ → is-discrete-A)
 ```
 
 ## Discrete types are Segal types
@@ -210,13 +211,13 @@ Discrete types are automatically Segal types.
 #variable f : hom A x y
 #variable g : hom A z w
 
-#def is-equiv-arr-eq-discrete uses (extext x y z w)
-  : is-equiv (f =_{arr A} g) (hom (arr A) f g) (arr-eq (arr A) f g)
-  := (is-discrete-arr-is-discrete A is-discrete-A) f g
+#def is-equiv-hom-eq-discrete uses (extext x y z w)
+  : is-equiv (f =_{arr A} g) (hom (arr A) f g) (hom-eq (arr A) f g)
+  := (is-discrete-arr A is-discrete-A) f g
 
-#def equiv-arr-eq-discrete uses (extext x y z w)
+#def equiv-hom-eq-discrete uses (extext x y z w)
   : Equiv (f =_{arr A} g) (hom (arr A) f g)
-  := (arr-eq (arr A) f g , (is-discrete-arr-is-discrete A is-discrete-A) f g)
+  := (hom-eq (arr A) f g , (is-discrete-arr A is-discrete-A) f g)
 
 #def equiv-square-hom-arr
   : Equiv
@@ -266,7 +267,7 @@ The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
       ( f)
       ( g)
 
-#def id-Eq-equiv-arr-Σ-hom uses (w x y z)
+#def equiv-eq-fibered-arr-eq-free-arr uses (w x y z)
   : Equiv (f =_{Δ¹ → A} g) (fibered-arr-free-arr f = fibered-arr-free-arr g)
   :=
     equiv-ap-is-equiv
@@ -277,7 +278,7 @@ The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
       ( f)
       ( g)
 
-#def equiv-sigma-over-product-arr-eq
+#def equiv-sigma-over-product-hom-eq
   : Equiv
       ( fibered-arr-free-arr f = fibered-arr-free-arr g)
       ( Σ ( p : x = z) ,
@@ -321,8 +322,8 @@ The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
         ( Σ ( p : x = z) ,
             ( Σ ( q : y = w) ,
                 ( product-transport A A (hom A) x z y w p q f = g)))
-        id-Eq-equiv-arr-Σ-hom
-        equiv-sigma-over-product-arr-eq)
+        equiv-eq-fibered-arr-eq-free-arr
+        equiv-sigma-over-product-hom-eq)
       ( equiv-comp
         ( f =_{Δ¹ → A} g)
         ( hom (arr A) f g)
@@ -333,7 +334,7 @@ The equivalence underlying `#!rzk equiv-arr-Σ-hom`:
                       (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
                       (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
                       (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
-        ( equiv-arr-eq-discrete)
+        ( equiv-hom-eq-discrete)
         ( equiv-square-hom-arr))
 ```
 
@@ -355,8 +356,8 @@ We close the section so we can use path induction.
     ( ( (t , s) : Δ¹×Δ¹) →
       A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
           (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t])
+          (Δ¹ t) ∧ (s ≡ 0₂) ↦ (hom-eq A x z p) t ,
+          (Δ¹ t) ∧ (s ≡ 1₂) ↦ (hom-eq A y w q) t])
   :=
     ind-path
       ( A)
@@ -367,8 +368,8 @@ We close the section so we can use path induction.
         ( ( (t , s) : Δ¹×Δ¹) →
           A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
               (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z' p') t ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t]))
+              (Δ¹ t) ∧ (s ≡ 0₂) ↦ (hom-eq A x z' p') t ,
+              (Δ¹ t) ∧ (s ≡ 1₂) ↦ (hom-eq A y w q) t]))
       ( ind-path
         ( A)
         ( y)
@@ -379,7 +380,7 @@ We close the section so we can use path induction.
             A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
                 (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
                 (Δ¹ t) ∧ (s ≡ 0₂) ↦ x ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w' q') t]))
+                (Δ¹ t) ∧ (s ≡ 1₂) ↦ (hom-eq A y w' q') t]))
         ( ind-path
           ( hom A x y)
           ( f)
@@ -412,8 +413,8 @@ We close the section so we can use path induction.
                 (Δ¹ t) ∧ (s ≡ 0₂) ↦ h t ,
                 (Δ¹ t) ∧ (s ≡ 1₂) ↦ k t]))
   :=
-    ( ( arr-eq A x z p) ,
-      ( ( arr-eq A y w q) ,
+    ( ( hom-eq A x z p) ,
+      ( ( hom-eq A y w q) ,
         ( fibered-map-square-sigma-over-product
           ( A)
           ( x) (y) (z) (w)
@@ -544,8 +545,8 @@ We close the section so we can use path induction.
     ( ( (t , s) : Δ¹×Δ¹) →
       A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ f s ,
           (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ (arr-eq A x z p) t ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ (arr-eq A y w q) t])
+          (Δ¹ t) ∧ (s ≡ 0₂) ↦ (hom-eq A x z p) t ,
+          (Δ¹ t) ∧ (s ≡ 1₂) ↦ (hom-eq A y w q) t])
     ( fibered-map-square-sigma-over-product A x y z w f p q g)
   :=
     fibered-map-is-equiv-bases-are-equiv-total-map-is-equiv
@@ -560,8 +561,8 @@ We close the section so we can use path induction.
               (t ≡ 1₂) ∧ (Δ¹ s) ↦ g s ,
               (Δ¹ t) ∧ (s ≡ 0₂) ↦ h' t ,
               (Δ¹ t) ∧ (s ≡ 1₂) ↦ k' t]))
-      ( arr-eq A x z)
-      ( arr-eq A y w)
+      ( hom-eq A x z)
+      ( hom-eq A y w)
       ( \ p' q' →
         fibered-map-square-sigma-over-product
           ( A)
@@ -801,7 +802,7 @@ general case to the one just proven:
       ( A)
       ( y)
       ( \ w → hom A y w)
-      ( \ w → arr-eq A y w)
+      ( \ w → hom-eq A y w)
       ( is-discrete-A y)
       ( \ w d → is-contr ( Σ (h : hom A x w) , hom2 A x y w f d h))
       ( is-contr-hom2-with-id-is-discrete A is-discrete-A x y f)

@@ -278,7 +278,7 @@ By uncurrying (RS 4.2) we have an equivalence:
       ( t ≤ s ↦ α1 (s , t) ,
         s ≤ t ↦ α2 (t , s))
 
-#def Eq-square-hom2-pushout
+#def equiv-square-hom2-pushout
   ( A : U)
   ( w x y z : A)
   ( u : hom A w x)
@@ -324,7 +324,7 @@ By uncurrying (RS 4.2) we have an equivalence:
     ( \ v →
       ( Σ ( d : hom A a y) ,
           ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
-    ( \ v → Eq-square-hom2-pushout A a x a y u f (id-hom A a) v)
+    ( \ v → equiv-square-hom2-pushout A a x a y u f (id-hom A a) v)
 
 #def representable-dhom-from-hom2
   ( A : U)
@@ -1204,7 +1204,7 @@ By uncurrying (RS 4.2) we have an equivalence:
     ( \ u →
       Σ ( d : hom A x a) ,
         ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
-    ( \ u → Eq-square-hom2-pushout A x a y a u (id-hom A a) f v)
+    ( \ u → equiv-square-hom2-pushout A x a y a u (id-hom A a) f v)
 
 #def representable-dhom-to-hom2
   ( A : U)
