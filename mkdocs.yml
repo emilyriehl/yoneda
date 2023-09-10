@@ -1,12 +1,13 @@
-site_name: 'yoneda'
-repo_url: https://github.com/emilyriehl/yoneda
-repo_name: emilyriehl/yoneda
-edit_uri: edit/master/src
+site_name: 'Formalising the ∞-categorical Yoneda lemma'
+#repo_url: https://github.com/rzk-lang/yoneda
+#repo_name: rzk-lang/yoneda
+#edit_uri: edit/master/src
 
 docs_dir: src
 nav:
   - General:
       - About: index.md
+      - Code style: STYLEGUIDE.md
 
   - HoTT:
       - Common: hott/00-common.rzk.md

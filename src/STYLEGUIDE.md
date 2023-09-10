@@ -117,7 +117,7 @@ two-space indentation level increases.
   For instance, the subuniverse of Segal types is called `Segal`, and its
   internal hom, called `function-type-Segal,` has the following signature:
 
-  ```rzk
+  ```{.unchecked .rzk}
   #def function-type-Segal
     ( A B : Segal)
     : Segal

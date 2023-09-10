@@ -9,7 +9,7 @@ permissions:
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: ['2023-09-10']
     paths:
       - src/**
       - custom_theme/**

@@ -9,37 +9,13 @@ the aim of proving the Yoneda lemma for ∞-categories following the paper
 
 The formalizations are implemented using
 [`rzk`](https://github.com/rzk-lang/rzk), an experimental proof assistant for a
-variant of type theory with shapes developed by
-[Nikolai Kudasov](https://fizruk.github.io/). Formalizations were contributed by
-[Fredrik Bakke](https://github.com/fredrik-bakke),
-[Nikolai Kudasov](https://fizruk.github.io/),
-[Emily Riehl](https://emilyriehl.github.io/), and
-[Jonathan Weinberger](https://sites.google.com/view/jonathanweinberger). Our
-source files are available on [github](https://github.com/emilyriehl/).
-
-Another aim of this project is to compare the proof of the Yoneda lemma for
-∞-categories in simplicial HoTT with proofs of the Yoneda lemma for 1-categories
-in other proof assistants. To that end
-[Sina Hazratpour](https://sinhp.github.io/) has contributed a formalization in
-[`Lean3`](https://leanprover-community.github.io/) extracted from materials he
-prepared to teach
-[Introduction to Proofs](https://sinhp.github.io/teaching/2022-introduction-to-proofs-with-Lean)
-at Johns Hopkins, which can be found
-[here](https://github.com/emilyriehl/yoneda/blob/master/lean/yoneda.lean).
-
-We also contributed a proof of the
-[Yoneda lemma for precategories](https://unimath.github.io/agda-unimath/category-theory.yoneda-lemma-precategories.html)
-to the [Agda-Unimath](https://unimath.github.io/agda-unimath/) library. Here we
-prove the Yoneda lemma for pre-∞-categories, since the univalence/completeness
-condition is not required for this result. By analogy, precategories are the
-non-univalent 1-categories in HoTT.
+variant of type theory with shapes.
 
 ## Checking the Formalisations Locally
 
 Install the
 [`rzk`](https://rzk-lang.github.io/rzk/latest/getting-started/install/) proof
-assistant. Then run the following command from the root of
-[our repository](https://github.com/emilyriehl/yoneda):
+assistant. Then run the following command from the root of the project:
 
 ```sh
 rzk typecheck src/hott/* src/simplicial-hott/*
