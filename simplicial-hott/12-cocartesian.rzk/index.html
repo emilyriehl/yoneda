@@ -676,6 +676,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cocartesian-family" class="md-nav__link">
+    Cocartesian family
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -745,6 +752,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cocartesian-family" class="md-nav__link">
+    Cocartesian family
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -788,7 +802,7 @@ the cocartesian Yoneda Lemma.</p>
 <p>This is a (tentative and redundant) definition of (iso-)inner families. In the
 future, hopefully, these can be replaced by instances of orthogonal and LARI
 families.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-inner-fam" id="define:is-inner-fam" style="visibility: visible; position: relative; color: inherit">is-inner-fam</a></span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-inner-family" id="define:is-inner-family" style="visibility: visible; position: relative; color: inherit">is-inner-family</a></span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="err">  </span><span class="p">( </span>P <span class="p">:</span><span class="err"> B → U)</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">  : U</span>
@@ -797,7 +811,7 @@ families.</p>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">    ( product (is-segal B) </span><span class="p">(</span>is-segal (Σ (b <span class="p">:</span><span class="err"> B) , P b)))</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">    </span><span class="p">( </span>(b <span class="p">:</span><span class="err"> B) → (is-segal (P b)))</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-isoinner-fam" id="define:is-isoinner-fam" style="visibility: visible; position: relative; color: inherit">is-isoinner-fam</a></span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-isoinner-family" id="define:is-isoinner-family" style="visibility: visible; position: relative; color: inherit">is-isoinner-family</a></span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="err">  </span><span class="p">( </span>P <span class="p">:</span><span class="err"> B → U)</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="err">  : U</span>
@@ -810,7 +824,7 @@ families.</p>
 <p>Here we define the proposition that a dependent arrow in a family is
 cocartesian. This is an alternative version using unpacked extension types, as
 this is preferred for usage.</p>
-<div class="language-rzk highlight"><span class="filename">BW23, Definition 5.1.1</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-cocart-arrow" id="define:is-cocart-arrow" style="visibility: visible; position: relative; color: inherit">is-cocart-arrow</a></span>
+<div class="language-rzk highlight"><span class="filename">BW23, Definition 5.1.1</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-cocartesian-arrow" id="define:is-cocartesian-arrow" style="visibility: visible; position: relative; color: inherit">is-cocartesian-arrow</a></span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">  </span><span class="p">( </span>b b&#39; <span class="p">:</span><span class="err"> B)</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">  </span><span class="p">( </span>u <span class="p">:</span><span class="err"> hom B b b&#39;)</span>
@@ -830,7 +844,7 @@ this is preferred for usage.</p>
 <h2 id="cocartesian-lifts">Cocartesian lifts<a class="headerlink" href="#cocartesian-lifts" title="Permanent link">&para;</a></h2>
 <p>The following is the type of cocartesian lifts of a fixed arrow in the base with
 a given starting point in the fiber.</p>
-<div class="language-rzk highlight"><span class="filename">BW23, Definition 5.1.2</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:cocart-lift" id="define:cocart-lift" style="visibility: visible; position: relative; color: inherit">cocart-lift</a></span>
+<div class="language-rzk highlight"><span class="filename">BW23, Definition 5.1.2</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:cocartesian-lift" id="define:cocartesian-lift" style="visibility: visible; position: relative; color: inherit">cocartesian-lift</a></span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">  </span><span class="p">( </span>b b&#39; <span class="p">:</span><span class="err"> B)</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">  </span><span class="p">( </span>u <span class="p">:</span><span class="err"> hom B b b&#39;)</span>
@@ -839,7 +853,25 @@ a given starting point in the fiber.</p>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">  : U</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">  :=</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">    </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>e&#39; <span class="p">:</span><span class="err"> P b&#39;) ,</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">      </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>f <span class="p">:</span><span class="err"> dhom B b b&#39; u P e e&#39;) , is-cocart-arrow B b b&#39; u P e e&#39; f</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">      </span><span class="kt">Σ</span><span class="err"> </span><span class="p">(</span>f <span class="p">:</span><span class="err"> dhom B b b&#39; u P e e&#39;) , is-cocartesian-arrow B b b&#39; u P e e&#39; f</span>
+</span></code></pre></div>
+<h2 id="cocartesian-family">Cocartesian family<a class="headerlink" href="#cocartesian-family" title="Permanent link">&para;</a></h2>
+<p>A family over cocartesian if it is isoinner and any arrow in
+the has a cocartesian lift, given a point in the fiber over the domain.</p>
+<div class="language-rzk highlight"><span class="filename">BW23, Definition 5.2.1</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:has-cocartesian-lifts" id="define:has-cocartesian-lifts" style="visibility: visible; position: relative; color: inherit">has-cocartesian-lifts</a></span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">  </span><span class="p">( </span>P <span class="p">:</span><span class="err"> B → U)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">  : U</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">  :=</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">    </span><span class="p">( </span>b <span class="p">:</span><span class="err"> B) → </span><span class="p">( </span>b&#39; <span class="p">:</span><span class="err"> B) → </span><span class="p">( </span>u <span class="p">:</span><span class="err"> hom B b b&#39;) →</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">      </span><span class="p">( </span>e <span class="p">:</span><span class="err"> P b) → </span><span class="p">( </span>Σ (e&#39; <span class="p">:</span><span class="err"> P b&#39;),</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">        </span><span class="p">( </span>Σ (f <span class="p">:</span><span class="err"> dhom B b b&#39; u P e e&#39;), is-cocartesian-arrow B b b&#39; u P e e&#39; f))</span>
+</span></code></pre></div>
+<div class="language-rzk highlight"><span class="filename">BW23, Definition 5.2.2</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-cocartesian-family" id="define:is-cocartesian-family" style="visibility: visible; position: relative; color: inherit">is-cocartesian-family</a></span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="err">  </span><span class="p">( </span>P <span class="p">:</span><span class="err"> B → U)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="err">  : U</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="err">  := product (is-isoinner-family B P) (has-cocartesian-lifts B P)</span>
 </span></code></pre></div>
 
 
