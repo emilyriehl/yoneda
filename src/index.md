@@ -48,8 +48,8 @@ rzk typecheck src/hott/* src/simplicial-hott/*
 ## References
 
 1. Emily Riehl & Michael Shulman. A type theory for synthetic ∞-categories.
-   Higher Structures 1(1), 147-224. 2017. https://arxiv.org/abs/1705.07442
+   Higher Structures 1(1), 147-224. 2017. <https://arxiv.org/abs/1705.07442>
 
 2. Emily Riehl. Could ∞-category theory be taught to undergraduates? Notices of
    the AMS. May 2023.
-   https://www.ams.org/journals/notices/202305/noti2692/noti2692.html
+   <https://www.ams.org/journals/notices/202305/noti2692/noti2692.html>
