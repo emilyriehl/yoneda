@@ -38,7 +38,7 @@ The following type asserts that the fibers of a type family are contractible.
 ```rzk title="The center of contraction in contractible fibers"
 #def contractible-fibers-section
   : (x : A) → B x
-  := \ x → contraction-center (B x) (contractible-fibers-A-B x)
+  := \ x → center-contraction (B x) (contractible-fibers-A-B x)
 ```
 
 ```rzk title="The section of the total space projection built from the contraction centers"
@@ -65,12 +65,13 @@ projection, called `#!rzk first` here:
 #def contractible-fibers-retraction-htpy
   : (z : Σ (x : A) , B x) →
       (contractible-fibers-actual-section) (first z) = z
-  := \ z →
-      eq-eq-fiber-Σ A B
-        ( first z)
-        ( (contractible-fibers-section) (first z))
-        ( second z)
-        ( contracting-htpy (B (first z)) (contractible-fibers-A-B (first z)) (second z))
+  :=
+    \ z →
+    eq-eq-fiber-Σ A B
+      ( first z)
+      ( (contractible-fibers-section) (first z))
+      ( second z)
+      ( homotopy-contraction (B (first z)) (contractible-fibers-A-B (first z)) (second z))
 
 #def contractible-fibers-retraction uses (contractible-fibers-A-B)
   : has-retraction (Σ (x : A) , B x) A (total-space-projection A B)
@@ -149,7 +150,8 @@ We start over from a stronger hypothesis of a half adjoint equivalence.
 #def projection-hae-section uses (proj-B-to-A-is-half-adjoint-equivalence)
   (a : A)
   : B a
-  := transport A B (first (projection-hae-inverse a)) a
+  :=
+    transport A B (first (projection-hae-inverse a)) a
       ( projection-hae-base-htpy a)
       ( second (projection-hae-inverse a))
 
@@ -164,7 +166,8 @@ We start over from a stronger hypothesis of a half adjoint equivalence.
       ( projection-hae-total-htpy))
     ( second (projection-hae-inverse (first w)))) =
     ( second w)
-  := second-path-Σ A B (projection-hae-inverse (first w)) w
+  :=
+    second-path-Σ A B (projection-hae-inverse (first w)) w
       ( projection-hae-total-htpy)
 
 #def projection-hae-base-coherence
@@ -188,7 +191,7 @@ We start over from a stronger hypothesis of a half adjoint equivalence.
     ( projection-hae-base-coherence)
     ( second (projection-hae-inverse (first w)))
 
-#def projection-hae-fibered-contracting-htpy
+#def projection-hae-fibered-homotopy-contraction
   : (projection-hae-section (first w)) =_{B (first w)} (second w)
   :=
     concat (B (first w))
@@ -219,7 +222,7 @@ Finally, we have:
     \ x →
       ( (projection-hae-section A B proj-B-to-A-is-half-adjoint-equivalence x) ,
         \ u →
-          projection-hae-fibered-contracting-htpy
+          projection-hae-fibered-homotopy-contraction
           A B proj-B-to-A-is-half-adjoint-equivalence (x , u))
 ```
 

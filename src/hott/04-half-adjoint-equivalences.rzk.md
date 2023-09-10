@@ -385,7 +385,7 @@ have equivalent identity types.
 
 #variables A B : U
 #variable f : A → B
-#variable is-HAE-f : is-half-adjoint-equiv A B f
+#variable is-hae-f : is-half-adjoint-equiv A B f
 
 #def iff-ap-is-half-adjoint-equiv
   ( x y : A)
@@ -395,13 +395,13 @@ have equivalent identity types.
       \ q →
       triple-concat A
         ( x)
-        ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-        ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
         ( y)
-        ( rev A (retraction-composite-has-inverse A B f (first is-HAE-f) x) x
-          ( (first (second (first is-HAE-f))) x))
-        ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q)
-        ( (first (second (first is-HAE-f))) y))
+        ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
+          ( (first (second (first is-hae-f))) x))
+        ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q)
+        ( (first (second (first is-hae-f))) y))
 
 #def has-retraction-ap-is-half-adjoint-equiv
   (x y : A)
@@ -415,9 +415,9 @@ have equivalent identity types.
             ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
             ( p'))
           ( rev-refl-id-triple-concat A
-            ( map-inverse-has-inverse A B f (first is-HAE-f) (f x))
+            ( map-inverse-has-inverse A B f (first is-hae-f) (f x))
             ( x)
-            ( first (second (first is-HAE-f)) x))
+            ( first (second (first is-hae-f)) x))
           ( y)))
 
 #def ap-triple-concat-is-half-adjoint-equiv
@@ -426,143 +426,143 @@ have equivalent identity types.
   : ap A B x y f ((second (iff-ap-is-half-adjoint-equiv x y)) q) =
     (triple-concat B
       ( f x)
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
-      ( ap A B x ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) f
-        ( rev A (retraction-composite-has-inverse A B f (first is-HAE-f) x) x
-          ( (first (second (first is-HAE-f))) x)))
+      ( ap A B x ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) f
+        ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
+          ( (first (second (first is-hae-f))) x)))
       ( ap A B
-        ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-        ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
         ( f)
-        ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
-      ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
-        ( (first (second (first is-HAE-f))) y)))
+        ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
+      ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
+        ( (first (second (first is-hae-f))) y)))
   :=
     ap-triple-concat A B
       ( x)
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( y)
       ( f)
-      ( rev A (retraction-composite-has-inverse A B f (first is-HAE-f) x) x
-        ( (first (second (first is-HAE-f))) x))
-      ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q)
-      ( (first (second (first is-HAE-f))) y)
+      ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
+        ( (first (second (first is-hae-f))) x))
+      ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q)
+      ( (first (second (first is-hae-f))) y)
 
 #def ap-rev-triple-concat-eq-first-is-half-adjoint-equiv
   ( x y : A)
   ( q : f x = f y)
   : triple-concat B
     ( f x)
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
     ( f y)
-    ( ap A B x ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) f
-      (rev A (retraction-composite-has-inverse A B f (first is-HAE-f) x) x
-        ( (first (second (first is-HAE-f))) x)))
+    ( ap A B x ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) f
+      (rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
+        ( (first (second (first is-hae-f))) x)))
     ( ap A B
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( f)
-      ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
-    ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
-      ( (first (second (first is-HAE-f))) y)) =
+      ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
+    ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
+      ( (first (second (first is-hae-f))) y)) =
     triple-concat B
     ( f x)
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
     ( f y)
-    ( rev B (f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-      ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-        ( (first (second (first is-HAE-f))) x)))
+    ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+      ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+        ( (first (second (first is-hae-f))) x)))
     ( ap A B
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( f)
-      ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
+      ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
     ( ap A B
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( y)
       ( f)
-      ( (first (second (first is-HAE-f))) y))
+      ( (first (second (first is-hae-f))) y))
   :=
     triple-concat-eq-first B
     ( f x)
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
     ( f y)
     ( ap A B
-      ( x) ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) f
-      ( rev A (retraction-composite-has-inverse A B f (first is-HAE-f) x) x
-        ( (first (second (first is-HAE-f))) x)))
-    ( rev B (f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-      ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-        ( (first (second (first is-HAE-f))) x)))
+      ( x) ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) f
+      ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
+        ( (first (second (first is-hae-f))) x)))
+    ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+      ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+        ( (first (second (first is-hae-f))) x)))
     ( ap A B
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-      ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( f)
-      ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
-    ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
-      ( (first (second (first is-HAE-f))) y))
-    ( ap-rev A B (retraction-composite-has-inverse A B f (first is-HAE-f) x) x f
-      ( (first (second (first is-HAE-f))) x))
+      ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
+    ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
+      ( (first (second (first is-hae-f))) y))
+    ( ap-rev A B (retraction-composite-has-inverse A B f (first is-hae-f) x) x f
+      ( (first (second (first is-hae-f))) x))
 
 #def ap-ap-triple-concat-eq-first-is-half-adjoint-equiv
   ( x y : A)
   ( q : f x = f y)
   : (triple-concat B
       ( f x)
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
       ( rev B
-        ( f (retraction-composite-has-inverse A B f (first is-HAE-f) x))
+        ( f (retraction-composite-has-inverse A B f (first is-hae-f) x))
         ( f x)
         ( ap A B
-          ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-          ( (first (second (first is-HAE-f))) x)))
+          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+          ( (first (second (first is-hae-f))) x)))
       ( ap A B
-        ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-        ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
         ( f)
-        ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
-      ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
-        ( (first (second (first is-HAE-f))) y))) =
+        ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
+      ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
+        ( (first (second (first is-hae-f))) y))) =
     ( triple-concat B
       ( f x)
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
       ( rev B
-        ( f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-        ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-          ( (first (second (first is-HAE-f))) x)))
+        ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+        ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+          ( (first (second (first is-hae-f))) x)))
       ( ap B B (f x) (f y)
-        ( section-composite-has-inverse A B f (first is-HAE-f)) q)
-      ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y
-        ( f) ((first (second (first is-HAE-f))) y)))
+        ( section-composite-has-inverse A B f (first is-hae-f)) q)
+      ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y
+        ( f) ((first (second (first is-hae-f))) y)))
   :=
     triple-concat-eq-second B
       ( f x)
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
-      ( rev B ( f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-        ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-          ( (first (second (first is-HAE-f))) x)))
+      ( rev B ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+        ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+          ( (first (second (first is-hae-f))) x)))
       ( ap A B
-        ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-        ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y))
+        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
         ( f)
-        ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
-      ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-HAE-f)) q)
-      ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
-        ( (first (second (first is-HAE-f))) y))
+        ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
+      ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
+      ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
+        ( (first (second (first is-hae-f))) y))
       ( rev-ap-comp B A B (f x) (f y)
-        ( map-inverse-has-inverse A B f (first is-HAE-f)) f q)
+        ( map-inverse-has-inverse A B f (first is-hae-f)) f q)
 
 -- This needs to be reversed later.
 #def triple-concat-higher-homotopy-is-half-adjoint-equiv
@@ -570,54 +570,54 @@ have equivalent identity types.
   ( q : f x = f y)
   : triple-concat B
       ( f x)
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
-      ( rev B ( f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-        ( (second (second (first is-HAE-f))) (f x)))
+      ( rev B ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+        ( (second (second (first is-hae-f))) (f x)))
       ( ap B B (f x) (f y)
-        ( section-composite-has-inverse A B f (first is-HAE-f)) q)
-      ( (second (second (first is-HAE-f))) (f y)) =
+        ( section-composite-has-inverse A B f (first is-hae-f)) q)
+      ( (second (second (first is-hae-f))) (f y)) =
     triple-concat B
       ( f x)
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-      ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+      ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
-      (rev B (f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-        (ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f ((first (second (first is-HAE-f))) x)))
-        (ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-HAE-f)) q)
-        (ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f ((first (second (first is-HAE-f))) y))
+      (rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+        (ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f ((first (second (first is-hae-f))) x)))
+        (ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
+        (ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f ((first (second (first is-hae-f))) y))
   :=
     triple-concat-higher-homotopy A B
-      ( triple-composite-has-inverse A B f (first is-HAE-f)) f
-      ( \ a → (((second (second (first is-HAE-f)))) (f a)))
+      ( triple-composite-has-inverse A B f (first is-hae-f)) f
+      ( \ a → (((second (second (first is-hae-f)))) (f a)))
       ( \ a →
-        ( ap A B (retraction-composite-has-inverse A B f (first is-HAE-f) a) a f
-          ( ((first (second (first is-HAE-f)))) a)))
-      ( second is-HAE-f)
+        ( ap A B (retraction-composite-has-inverse A B f (first is-hae-f) a) a f
+          ( ((first (second (first is-hae-f)))) a)))
+      ( second is-hae-f)
       ( x)
       ( y)
       ( ap B B (f x) (f y)
-        ( section-composite-has-inverse A B f (first is-HAE-f)) q)
+        ( section-composite-has-inverse A B f (first is-hae-f)) q)
 
 #def triple-concat-nat-htpy-is-half-adjoint-equiv
   ( x y : A)
   ( q : f x = f y)
   : triple-concat B
     ( f x)
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
     ( f y)
-    ( rev B (f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-      ( ((second (second (first is-HAE-f)))) (f x)))
-    ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-HAE-f)) q)
-    ( ((second (second (first is-HAE-f)))) (f y))
+    ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+      ( ((second (second (first is-hae-f)))) (f x)))
+    ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
+    ( ((second (second (first is-hae-f)))) (f y))
     = ap B B (f x) (f y) (identity B) q
   :=
     triple-concat-nat-htpy B B
-      ( section-composite-has-inverse A B f (first is-HAE-f))
+      ( section-composite-has-inverse A B f (first is-hae-f))
       ( identity B)
-      ( (second (second (first is-HAE-f))))
+      ( (second (second (first is-hae-f))))
       ( f x)
       ( f y)
       q
@@ -627,43 +627,43 @@ have equivalent identity types.
   ( q : f x = f y)
   : triple-concat B
     ( f x)
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-    ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+    ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
     ( f y)
-    ( rev B (f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-      ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-        ( (first (second (first is-HAE-f))) x)))
-    ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-HAE-f)) q)
-    ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
-      ( (first (second (first is-HAE-f))) y)) =
+    ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+      ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+        ( (first (second (first is-hae-f))) x)))
+    ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
+    ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
+      ( (first (second (first is-hae-f))) y)) =
     ap B B (f x) (f y) (identity B) q
   :=
     zag-zig-concat (f x = f y)
       ( triple-concat B
         ( f x)
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
         ( f y)
         ( rev B
-          ( f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-          ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-            ( (first (second (first is-HAE-f))) x)))
+          ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+          ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+            ( (first (second (first is-hae-f))) x)))
         ( ap B B (f x) (f y)
-          ( section-composite-has-inverse A B f (first is-HAE-f)) q)
-        ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y
-          f ((first (second (first is-HAE-f))) y)))
+          ( section-composite-has-inverse A B f (first is-hae-f)) q)
+        ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y
+          f ((first (second (first is-hae-f))) y)))
       ( triple-concat B
         ( f x)
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
         ( f y)
         ( rev B
-          ( f (retraction-composite-has-inverse A B f (first is-HAE-f) x))
+          ( f (retraction-composite-has-inverse A B f (first is-hae-f) x))
           ( f x)
-          ( ((second (second (first is-HAE-f)))) (f x)))
+          ( ((second (second (first is-hae-f)))) (f x)))
         ( ap B B (f x) (f y)
-          ( section-composite-has-inverse A B f (first is-HAE-f)) q)
-        ( ((second (second (first is-HAE-f)))) (f y)))
+          ( section-composite-has-inverse A B f (first is-hae-f)) q)
+        ( ((second (second (first is-hae-f)))) (f y)))
       ( ap B B (f x) (f y) (identity B) q)
       ( triple-concat-higher-homotopy-is-half-adjoint-equiv x y q)
       ( triple-concat-nat-htpy-is-half-adjoint-equiv x y q)
@@ -683,63 +683,63 @@ have equivalent identity types.
       ( ap A B x y f ((second (iff-ap-is-half-adjoint-equiv x y)) q))
       ( triple-concat B
         ( f x)
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
         ( f y)
-        ( ap A B x ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) f
-          ( rev A (retraction-composite-has-inverse A B f (first is-HAE-f) x) x
-            ( (first (second (first is-HAE-f))) x)))
+        ( ap A B x ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) f
+          ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
+            ( (first (second (first is-hae-f))) x)))
         ( ap A B
-          ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-          ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) f
-          ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
-        ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
-          ( (first (second (first is-HAE-f))) y)))
+          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y)) f
+          ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
+        ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
+          ( (first (second (first is-hae-f))) y)))
       ( ap-triple-concat-is-half-adjoint-equiv x y q)
       ( triple-concat B
         ( f x)
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
         ( f y)
         ( rev B
-          ( f (retraction-composite-has-inverse A B f (first is-HAE-f) x)) (f x)
-          ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-            ( (first (second (first is-HAE-f))) x)))
+          ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+          ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+            ( (first (second (first is-hae-f))) x)))
         ( ap A B
-          ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f x))
-          ( (map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) f
-          ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-HAE-f)) q))
-        ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y f
-          ( (first (second (first is-HAE-f))) y)))
+          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y)) f
+          ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
+        ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
+          ( (first (second (first is-hae-f))) y)))
       ( ap-rev-triple-concat-eq-first-is-half-adjoint-equiv x y q)
       ( triple-concat B
         ( f x)
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)))
-        ( f ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
+        ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
         ( f y)
         ( rev B
-          ( f (retraction-composite-has-inverse A B f (first is-HAE-f) x))
+          ( f (retraction-composite-has-inverse A B f (first is-hae-f) x))
           ( f x)
-          ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f x)) x f
-            ( (first (second (first is-HAE-f))) x)))
+          ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+            ( (first (second (first is-hae-f))) x)))
         ( ap B B (f x) (f y)
-          ( section-composite-has-inverse A B f (first is-HAE-f)) q)
-        ( ap A B ((map-inverse-has-inverse A B f (first is-HAE-f)) (f y)) y
-          f ((first (second (first is-HAE-f))) y)))
+          ( section-composite-has-inverse A B f (first is-hae-f)) q)
+        ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y
+          f ((first (second (first is-hae-f))) y)))
       ( ap-ap-triple-concat-eq-first-is-half-adjoint-equiv x y q)
       ( ap B B (f x) (f y) (identity B) q)
       ( zag-zig-concat-triple-concat-is-half-adjoint-equiv x y q)
       ( q)
       ( triple-concat-reduction-is-half-adjoint-equiv x y q)
 
-#def has-section-ap-is-half-adjoint-equiv uses (is-HAE-f)
+#def has-section-ap-is-half-adjoint-equiv uses (is-hae-f)
   ( x y : A)
   : has-section (x = y) (f x = f y) (ap A B x y f)
   :=
     ( second (iff-ap-is-half-adjoint-equiv x y) ,
       section-htpy-ap-is-half-adjoint-equiv x y)
 
-#def is-equiv-ap-is-half-adjoint-equiv uses (is-HAE-f)
+#def is-equiv-ap-is-half-adjoint-equiv uses (is-hae-f)
   ( x y : A)
   : is-equiv (x = y) (f x = f y) (ap A B x y f)
   :=

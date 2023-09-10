@@ -51,12 +51,12 @@ naturality-covariant-fiberwise-transformation naturality is automatic.
   ( is-covariant-C : is-covariant A C)
   ( ϕ : (z : A) → hom A a z → C z)
   : (covariant-transport A x y g C is-covariant-C (ϕ x f)) =
-    (ϕ y (comp-Segal A is-segal-A a x y f g))
+    (ϕ y (comp-is-segal A is-segal-A a x y f g))
   :=
     naturality-covariant-fiberwise-transformation A x y g
       (\ z → hom A a z)
       ( C)
-      ( is-segal-representable-is-covariant A is-segal-A a)
+      ( is-covariant-representable-is-segal A is-segal-A a)
       ( is-covariant-C)
       ( ϕ)
       ( f)
@@ -88,7 +88,7 @@ The inverse map only exists for Segal types.
 
 ```rzk
 #def yon
-  (A  : U)
+  ( A : U)
   ( is-segal-A : is-segal A)
   ( a : A)
   ( C : A → U)
@@ -136,22 +136,22 @@ The composite `#!rzk yon-evid` of `#!rzk ϕ` equals `#!rzk ϕ` at all
   ( ϕ : (z : A) → hom A a z → C z)
   ( x : A)
   ( f : hom A a x)
-  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f = ϕ x f
+  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x f = ϕ x f
   :=
     concat
       ( C x)
-      ( ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
-      ( ϕ x (comp-Segal A is-segal-A a a x (id-hom A a) f))
+      ( ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x f)
+      ( ϕ x (comp-is-segal A is-segal-A a a x (id-hom A a) f))
       ( ϕ x f)
       ( naturality-covariant-fiberwise-representable-transformation
-        A is-segal-A a a x (id-hom A a) f C is-covariant-C ϕ )
+        A is-segal-A a a x (id-hom A a) f C is-covariant-C ϕ)
       ( ap
         ( hom A a x)
         ( C x)
-        ( comp-Segal A is-segal-A a a x (id-hom A a) f)
+        ( comp-is-segal A is-segal-A a a x (id-hom A a) f)
         ( f)
         ( ϕ x)
-        ( id-comp-Segal A is-segal-A a x f))
+        ( id-comp-is-segal A is-segal-A a x f))
 ```
 
 By `#!rzk funext`, these are equals as functions of `#!rzk f` pointwise in
@@ -161,12 +161,12 @@ By `#!rzk funext`, these are equals as functions of `#!rzk f` pointwise in
 #def yon-evid-once-pointwise uses (funext)
   ( ϕ : (z : A) → hom A a z → C z)
   ( x : A)
-  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x = ϕ x
+  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x = ϕ x
   :=
     eq-htpy funext
       ( hom A a x)
       ( \ f → C x)
-      ( \ f → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x f)
+      ( \ f → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x f)
       ( \ f → (ϕ x f))
       ( \ f → yon-evid-twice-pointwise ϕ x f)
 ```
@@ -177,12 +177,12 @@ By `#!rzk funext` again, these are equal as functions of `#!rzk x` and
 ```rzk
 #def yon-evid uses (funext)
   ( ϕ : (z : A) → hom A a z → C z)
-  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) = ϕ
+  : ( (yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) = ϕ
   :=
     eq-htpy funext
       ( A)
       ( \ x → (hom A a x → C x))
-      ( \ x → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ )) x)
+      ( \ x → ((yon A is-segal-A a C is-covariant-C) ((evid A a C) ϕ)) x)
       ( \ x → (ϕ x))
       ( \ x → yon-evid-once-pointwise ϕ x)
 
@@ -195,7 +195,7 @@ The Yoneda lemma says that evaluation at the identity defines an equivalence.
 This is proven combining the previous steps.
 
 ```rzk title="RS17, Theorem 9.1"
-#def Yoneda-lemma uses (funext)
+#def yoneda-lemma uses (funext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a : A)
@@ -203,9 +203,9 @@ This is proven combining the previous steps.
   ( is-covariant-C : is-covariant A C)
   : is-equiv ((z : A) → hom A a z → C z) (C a) (evid A a C)
   :=
-    ( ( ( yon A is-segal-A a C is-covariant-C),
-        ( yon-evid A is-segal-A a C is-covariant-C)),
-      ( ( yon A is-segal-A a C is-covariant-C),
+    ( ( ( yon A is-segal-A a C is-covariant-C) ,
+        ( yon-evid A is-segal-A a C is-covariant-C)) ,
+      ( ( yon A is-segal-A a C is-covariant-C) ,
         ( evid-yon A is-segal-A a C is-covariant-C)))
 ```
 
@@ -230,7 +230,7 @@ though it requires some work to prove that the domain is covariant.
     ( A)
     ( \ a -> (z : A) → hom A a z → C z)
     ( C)
-    ( \ a -> (evid A a C, Yoneda-lemma A is-segal-A a C is-covariant-C))
+    ( \ a -> (evid A a C , yoneda-lemma A is-segal-A a C is-covariant-C))
     ( is-covariant-C)
 
 #def is-natural-in-object-evid uses (funext extext)
@@ -247,7 +247,7 @@ though it requires some work to prove that the domain is covariant.
       ( covariant-transport A a b f
         ( \ x -> (z : A) → hom A x z → C z)
 
-        (  is-covariant-yoneda-domain A is-segal-A C is-covariant-C) ϕ))
+        ( is-covariant-yoneda-domain A is-segal-A C is-covariant-C) ϕ))
   :=
     naturality-covariant-fiberwise-transformation
     ( A)
@@ -321,7 +321,8 @@ Naturality in $C$ is not automatic but can be proven easily:
       ( yon A is-segal-A a D is-covariant-D) (ψ a)) u x f =
     ( comp (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
       ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f
-  := naturality-covariant-fiberwise-transformation
+  :=
+    naturality-covariant-fiberwise-transformation
       A a x f C D is-covariant-C is-covariant-D ψ u
 
 #def is-natural-in-family-yon-once-pointwise uses (funext)
@@ -346,7 +347,7 @@ Naturality in $C$ is not automatic but can be proven easily:
         ( comp (C a) (D a) ((z : A) → hom A a z → D z)
           ( yon A is-segal-A a D is-covariant-D) (ψ a)) u x f)
       ( \ f →
-        ( comp (C a)((z : A) → hom A a z → C z)((z : A) → hom A a z → D z)
+        ( comp (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
         ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x f)
       ( \ f →
         is-natural-in-family-yon-twice-pointwise
@@ -367,13 +368,13 @@ Naturality in $C$ is not automatic but can be proven easily:
       ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u
   :=
     eq-htpy funext
-      ( A )
+      ( A)
       ( \ x → hom A a x → D x)
       ( \ x →
         ( comp (C a) (D a) ((z : A) → hom A a z → D z)
           ( yon A is-segal-A a D is-covariant-D) (ψ a)) u x)
       ( \ x →
-        ( comp (C a)((z : A) → hom A a z → C z)((z : A) → hom A a z → D z)
+        ( comp (C a) ((z : A) → hom A a z → C z) ((z : A) → hom A a z → D z)
         ( \ α z g → ψ z (α z g)) (yon A is-segal-A a C is-covariant-C)) u x)
       ( \ x →
         is-natural-in-family-yon-once-pointwise
@@ -400,11 +401,11 @@ automatic.
   ( is-contravariant-C : is-contravariant A C)
   ( ϕ : (z : A) → hom A z a → C z)
   : ( contravariant-transport A x y g C is-contravariant-C (ϕ y f)) =
-    ( ϕ x (comp-Segal A is-segal-A x y a g f))
+    ( ϕ x (comp-is-segal A is-segal-A x y a g f))
   :=
     naturality-contravariant-fiberwise-transformation A x y g
       ( \ z → hom A z a) C
-      ( is-segal-representable-is-contravariant A is-segal-A a)
+      ( is-contravariant-representable-is-segal A is-segal-A a)
       ( is-contravariant-C)
       ( ϕ)
       ( f)
@@ -486,18 +487,18 @@ The composite `#!rzk contra-yon-evid` of `#!rzk ϕ` equals `#!rzk ϕ` at all
     concat
       ( C x)
       ( ((contra-yon A is-segal-A a C is-contravariant-C)
-            ((contra-evid A a C) ϕ )) x f)
-      ( ϕ x (comp-Segal A is-segal-A x a a f (id-hom A a)))
+            ((contra-evid A a C) ϕ)) x f)
+      ( ϕ x (comp-is-segal A is-segal-A x a a f (id-hom A a)))
       ( ϕ x f)
       ( naturality-contravariant-fiberwise-representable-transformation
-          A is-segal-A a x a (id-hom A a) f C is-contravariant-C ϕ )
+          A is-segal-A a x a (id-hom A a) f C is-contravariant-C ϕ)
       ( ap
         ( hom A x a)
         ( C x)
-        ( comp-Segal A is-segal-A x a a f (id-hom A a))
+        ( comp-is-segal A is-segal-A x a a f (id-hom A a))
         ( f)
         ( ϕ x)
-        ( comp-id-Segal A is-segal-A x a f))
+        ( comp-id-is-segal A is-segal-A x a f))
 ```
 
 By `#!rzk funext`, these are equals as functions of `#!rzk f` pointwise in
@@ -508,14 +509,14 @@ By `#!rzk funext`, these are equals as functions of `#!rzk f` pointwise in
   ( ϕ : (z : A) → hom A z a → C z)
   ( x : A)
   : ( (contra-yon A is-segal-A a C is-contravariant-C)
-        ( (contra-evid A a C) ϕ )) x = ϕ x
+        ( (contra-evid A a C) ϕ)) x = ϕ x
   :=
     eq-htpy funext
       ( hom A x a)
       ( \ f → C x)
       ( \ f →
         ( (contra-yon A is-segal-A a C is-contravariant-C)
-          ( (contra-evid A a C) ϕ )) x f)
+          ( (contra-evid A a C) ϕ)) x f)
       ( \ f → (ϕ x f))
       ( \ f → contra-yon-evid-twice-pointwise ϕ x f)
 ```
@@ -526,16 +527,14 @@ By `#!rzk funext` again, these are equal as functions of `#!rzk x` and
 ```rzk
 #def contra-yon-evid uses (funext)
   ( ϕ : (z : A) → hom A z a → C z)
-  : ( contra-yon A is-segal-A a C is-contravariant-C)((contra-evid A a C) ϕ) = ϕ
+  : contra-yon A is-segal-A a C is-contravariant-C (contra-evid A a C ϕ) = ϕ
   :=
     eq-htpy funext
       ( A)
       ( \ x → (hom A x a → C x))
-      ( \ x →
-        ( (contra-yon A is-segal-A a C is-contravariant-C)
-              ((contra-evid A a C) ϕ )) x)
-      ( \ x → (ϕ x))
-      ( \ x → contra-yon-evid-once-pointwise ϕ x)
+      ( contra-yon A is-segal-A a C is-contravariant-C (contra-evid A a C ϕ))
+      ( ϕ)
+      ( contra-yon-evid-once-pointwise ϕ)
 
 #end contra-yon-evid
 ```
@@ -544,7 +543,7 @@ The contravariant Yoneda lemma says that evaluation at the identity defines an
 equivalence.
 
 ```rzk
-#def contra-Yoneda-lemma uses (funext)
+#def contra-yoneda-lemma uses (funext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a : A)
@@ -552,9 +551,9 @@ equivalence.
   ( is-contravariant-C : is-contravariant A C)
   : is-equiv ((z : A) → hom A z a → C z) (C a) (contra-evid A a C)
   :=
-    ( ( ( contra-yon A is-segal-A a C is-contravariant-C),
-        ( contra-yon-evid A is-segal-A a C is-contravariant-C)),
-      ( ( contra-yon A is-segal-A a C is-contravariant-C),
+    ( ( ( contra-yon A is-segal-A a C is-contravariant-C) ,
+        ( contra-yon-evid A is-segal-A a C is-contravariant-C)) ,
+      ( ( contra-yon A is-segal-A a C is-contravariant-C) ,
         ( contra-evid-yon A is-segal-A a C is-contravariant-C)))
 ```
 
@@ -600,7 +599,8 @@ Naturality in $C$ is not automatic but can be proven easily:
     ( comp (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
       ( \ α z g → ψ z (α z g))
       ( contra-yon A is-segal-A a C is-contravariant-C)) u x f
-  := naturality-contravariant-fiberwise-transformation
+  :=
+    naturality-contravariant-fiberwise-transformation
       A x a f C D is-contravariant-C is-contravariant-D ψ u
 
 #def is-natural-in-family-contra-yon-once-pointwise uses (funext)
@@ -626,7 +626,7 @@ Naturality in $C$ is not automatic but can be proven easily:
         ( comp (C a) (D a) ((z : A) → hom A z a → D z)
           ( contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x f)
       ( \ f →
-        ( comp (C a)((z : A) → hom A z a → C z)((z : A) → hom A z a → D z)
+        ( comp (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
         ( \ α z g → ψ z (α z g))
         ( contra-yon A is-segal-A a C is-contravariant-C)) u x f)
       ( \ f →
@@ -649,13 +649,13 @@ Naturality in $C$ is not automatic but can be proven easily:
       ( contra-yon A is-segal-A a C is-contravariant-C)) u
   :=
     eq-htpy funext
-      ( A )
+      ( A)
       ( \ x → hom A x a → D x)
       ( \ x →
         ( comp (C a) (D a) ((z : A) → hom A z a → D z)
           ( contra-yon A is-segal-A a D is-contravariant-D) (ψ a)) u x)
       ( \ x →
-        ( comp (C a)((z : A) → hom A z a → C z)((z : A) → hom A z a → D z)
+        ( comp (C a) ((z : A) → hom A z a → C z) ((z : A) → hom A z a → D z)
         ( \ α z g → ψ z (α z g))
         ( contra-yon A is-segal-A a C is-contravariant-C)) u x)
       ( \ x →
@@ -696,11 +696,11 @@ Initial objects satisfy an induction principle relative to covariant families.
 #def arrows-from-initial
   ( x : A)
   : hom A a x
-  := contraction-center (hom A a x) (is-initial-a x)
+  := center-contraction (hom A a x) (is-initial-a x)
 
 #def identity-component-arrows-from-initial
   : arrows-from-initial a = id-hom A a
-  := contracting-htpy (hom A a a) (is-initial-a a) (id-hom A a)
+  := homotopy-contraction (hom A a a) (is-initial-a a) (id-hom A a)
 
 #def ind-initial uses (is-initial-a)
   ( u : C a)
@@ -711,7 +711,7 @@ Initial objects satisfy an induction principle relative to covariant families.
 #def has-cov-section-ev-pt uses (is-initial-a)
   : has-section ((x : A) → C x) (C a) (ev-pt A a C)
   :=
-    ( ( ind-initial),
+    ( ( ind-initial) ,
       ( \ u →
         concat
           ( C a)
@@ -743,7 +743,7 @@ Initial objects satisfy an induction principle relative to covariant families.
       ( C)
       ( is-covariant-C)
       ( ev-pt A a C s)
-      ( ( s b, \ t → s (arrows-from-initial b t)))
+      ( ( s b , \ t → s (arrows-from-initial b t)))
 
 #end initial-evaluation-equivalence
 ```
@@ -760,7 +760,7 @@ family defines an inverse equivalence to evaluation at the element.
   ( is-covariant-C : is-covariant A C)
   : is-equiv ((x : A) → C x) (C a) (ev-pt A a C)
   :=
-    ( ( ( ind-initial A a is-initial-a C is-covariant-C ),
+    ( ( ( ind-initial A a is-initial-a C is-covariant-C) ,
         ( \ s → eq-htpy
                   funext
                     ( A)
@@ -769,7 +769,7 @@ family defines an inverse equivalence to evaluation at the element.
                         A a is-initial-a C is-covariant-C (ev-pt A a C s))
                     ( s)
                     ( ind-initial-ev-pt-pointwise
-                        A a is-initial-a C is-covariant-C s))),
+                        A a is-initial-a C is-covariant-C s))) ,
       ( has-cov-section-ev-pt A a is-initial-a C is-covariant-C))
 ```
 
@@ -794,13 +794,13 @@ given by the identity arrow at $a$. This makes use of the following equivalence.
   ( a x : A)
   ( f : hom A a x)
   : Equiv
-    ( hom (coslice A a) (a, id-hom A a) (x, f))
+    ( hom (coslice A a) (a , id-hom A a) (x , f))
     ( (t : Δ¹) → hom A a (f t) [t ≡ 0₂ ↦ id-hom A a])
   :=
-    ( \ h t s → (second (h s)) t,
-      (( \ k s → ( k 1₂ s, \ t → k t s),
-        \ h → refl),
-      ( \ k s → ( k 1₂ s, \ t → k t s),
+    ( \ h t s → (second (h s)) t ,
+      (( \ k s → ( k 1₂ s , \ t → k t s) ,
+        \ h → refl) ,
+      ( \ k s → ( k 1₂ s , \ t → k t s) ,
         \ k → refl)))
 ```
 
@@ -817,7 +817,7 @@ contractible.
   :=
     ( second (has-unique-fixed-domain-lifts-iff-is-covariant
                 A (\ z → hom A a z)))
-      ( is-segal-representable-is-covariant A is-segal-A a)
+      ( is-covariant-representable-is-segal A is-segal-A a)
       ( a)
       ( x)
       ( f)
@@ -831,11 +831,11 @@ This proves the initiality of identity arrows in the coslice of a Segal type.
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a : A)
-  : is-initial (coslice A a) (a, id-hom A a)
+  : is-initial (coslice A a) (a , id-hom A a)
   :=
-    \ (x, f) →
-    is-contr-is-equiv-to-contr
-      ( hom (coslice A a) (a, id-hom A a) (x, f))
+    \ (x , f) →
+    is-contr-equiv-is-contr'
+      ( hom (coslice A a) (a , id-hom A a) (x , f))
       ( (t : Δ¹) → hom A a (f t) [t ≡ 0₂ ↦ id-hom A a])
       ( equiv-hom-in-coslice A a x f)
       ( is-contr-is-segal-hom-in-coslice A is-segal-A a x f)
@@ -850,8 +850,8 @@ The dependent Yoneda lemma now follows by specializing these results.
   ( A : U)
   ( a : A)
   ( C : (coslice A a) → U)
-  : ( (p : coslice A a) → C p) → C (a, id-hom A a)
-  := \ s → s (a, id-hom A a)
+  : ( (p : coslice A a) → C p) → C (a , id-hom A a)
+  := \ s → s (a , id-hom A a)
 
 #def dependent-yoneda-lemma' uses (funext)
   ( A : U)
@@ -861,12 +861,12 @@ The dependent Yoneda lemma now follows by specializing these results.
   ( is-covariant-C : is-covariant (coslice A a) C)
   : is-equiv
       ( (p : coslice A a) → C p)
-      ( C (a, id-hom A a))
+      ( C (a , id-hom A a))
       ( dependent-evid A a C)
   :=
     is-equiv-covariant-ev-initial
       ( coslice A a)
-      ( (a, id-hom A a))
+      ( (a , id-hom A a))
       ( is-initial-id-hom-is-segal A is-segal-A a)
       ( C)
       ( is-covariant-C)
@@ -883,16 +883,16 @@ an equivalent type in the domain of the evaluation map.
   ( C : (coslice A a) → U)
   ( is-covariant-C : is-covariant (coslice A a) C)
   : is-equiv
-      ( (x : A) → (f : hom A a x) → C (x, f))
-      ( C (a, id-hom A a))
+      ( (x : A) → (f : hom A a x) → C (x , f))
+      ( C (a , id-hom A a))
       ( \ s → s a (id-hom A a))
   :=
     is-equiv-left-factor
       ( (p : coslice A a) → C p)
-      ( (x : A) → (f : hom A a x) → C (x, f))
-      ( C (a, id-hom A a))
-      ( first (equiv-dependent-curry A (\ z → hom A a z)(\ x f → C (x, f))))
-      ( second (equiv-dependent-curry A (\ z → hom A a z)(\ x f → C (x, f))))
+      ( (x : A) → (f : hom A a x) → C (x , f))
+      ( C (a , id-hom A a))
+      ( first (equiv-dependent-curry A (\ z → hom A a z) (\ x f → C (x , f))))
+      ( second (equiv-dependent-curry A (\ z → hom A a z) (\ x f → C (x , f))))
       ( \ s → s a (id-hom A a))
       ( dependent-yoneda-lemma' A is-segal-A a C is-covariant-C)
 ```
@@ -924,11 +924,11 @@ Final objects satisfy an induction principle relative to contravariant families.
 #def arrows-to-final
   ( x : A)
   : hom A x a
-  := contraction-center (hom A x a) (is-final-a x)
+  := center-contraction (hom A x a) (is-final-a x)
 
 #def identity-component-arrows-to-final
   : arrows-to-final a = id-hom A a
-  := contracting-htpy (hom A a a) (is-final-a a) (id-hom A a)
+  := homotopy-contraction (hom A a a) (is-final-a a) (id-hom A a)
 
 #def ind-final uses (is-final-a)
   ( u : C a)
@@ -940,7 +940,7 @@ Final objects satisfy an induction principle relative to contravariant families.
 #def has-contra-section-ev-pt uses (is-final-a)
   : has-section ((x : A) → C x) (C a) (ev-pt A a C)
   :=
-    ( ( ind-final),
+    ( ( ind-final) ,
       ( \ u →
         concat
           ( C a)
@@ -972,7 +972,7 @@ Final objects satisfy an induction principle relative to contravariant families.
       ( C)
       ( is-contravariant-C)
       ( ev-pt A a C s)
-      ( ( s b, \ t → s (arrows-to-final b t)))
+      ( ( s b , \ t → s (arrows-to-final b t)))
 
 #end final-evaluation-equivalence
 ```
@@ -989,7 +989,7 @@ family defines an inverse equivalence to evaluation at the element.
   ( is-contravariant-C : is-contravariant A C)
   : is-equiv ((x : A) → C x) (C a) (ev-pt A a C)
   :=
-    ( ( ( ind-final A a is-final-a C is-contravariant-C ),
+    ( ( ( ind-final A a is-final-a C is-contravariant-C) ,
         ( \ s → eq-htpy
                   funext
                     ( A)
@@ -998,7 +998,7 @@ family defines an inverse equivalence to evaluation at the element.
                         A a is-final-a C is-contravariant-C (ev-pt A a C s))
                     ( s)
                     ( ind-final-ev-pt-pointwise
-                        A a is-final-a C is-contravariant-C s))),
+                        A a is-final-a C is-contravariant-C s))) ,
       ( has-contra-section-ev-pt A a is-final-a C is-contravariant-C))
 ```
 
@@ -1023,13 +1023,13 @@ by the identity arrow at $a$. This makes use of the following equivalence.
   ( a x : A)
   ( f : hom A x a)
   : Equiv
-    ( hom (slice A a) (x, f) (a, id-hom A a))
+    ( hom (slice A a) (x , f) (a , id-hom A a))
     ( (t : Δ¹) → hom A (f t) a [t ≡ 1₂ ↦ id-hom A a])
   :=
-    ( \ h t s → (second (h s)) t,
-      (( \ k s → ( k 0₂ s, \ t → k t s),
-        \ h → refl),
-      ( \ k s → ( k 0₂ s, \ t → k t s),
+    ( \ h t s → (second (h s)) t ,
+      (( \ k s → ( k 0₂ s , \ t → k t s) ,
+        \ h → refl) ,
+      ( \ k s → ( k 0₂ s , \ t → k t s) ,
         \ k → refl)))
 ```
 
@@ -1046,7 +1046,7 @@ contractible.
   :=
     ( second (has-unique-fixed-codomain-lifts-iff-is-contravariant
                 A (\ z → hom A z a)))
-      ( is-segal-representable-is-contravariant A is-segal-A a)
+      ( is-contravariant-representable-is-segal A is-segal-A a)
       ( x)
       ( a)
       ( f)
@@ -1060,11 +1060,11 @@ This proves the finality of identity arrows in the slice of a Segal type.
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a : A)
-  : is-final (slice A a) (a, id-hom A a)
+  : is-final (slice A a) (a , id-hom A a)
   :=
-    \ (x, f) →
-    is-contr-is-equiv-to-contr
-      ( hom (slice A a) (x, f) (a, id-hom A a))
+    \ (x , f) →
+    is-contr-equiv-is-contr'
+      ( hom (slice A a) (x , f) (a , id-hom A a))
       ( (t : Δ¹) → hom A (f t) a [t ≡ 1₂ ↦ id-hom A a])
       ( equiv-hom-in-slice A a x f)
       ( is-contr-is-segal-hom-in-slice A is-segal-A a x f)
@@ -1080,8 +1080,8 @@ specializing these results.
   ( A : U)
   ( a : A)
   ( C : (slice A a) → U)
-  : ((p : slice A a) → C p) → C (a, id-hom A a)
-  := \ s → s (a, id-hom A a)
+  : ((p : slice A a) → C p) → C (a , id-hom A a)
+  := \ s → s (a , id-hom A a)
 
 #def contra-dependent-yoneda-lemma' uses (funext)
   ( A : U)
@@ -1091,12 +1091,12 @@ specializing these results.
   ( is-contravariant-C : is-contravariant (slice A a) C)
   : is-equiv
       ( (p : slice A a) → C p)
-      ( C (a, id-hom A a))
+      ( C (a , id-hom A a))
       ( contra-dependent-evid A a C)
   :=
     is-equiv-contravariant-ev-final
       ( slice A a)
-      ( (a, id-hom A a))
+      ( (a , id-hom A a))
       ( is-final-id-hom-is-segal A is-segal-A a)
       ( C)
       ( is-contravariant-C)
@@ -1113,16 +1113,16 @@ proven, just with an equivalent type in the domain of the evaluation map.
   ( C : (slice A a) → U)
   ( is-contravariant-C : is-contravariant (slice A a) C)
   : is-equiv
-      ( (x : A) → (f : hom A x a) → C (x, f))
-      ( C (a, id-hom A a))
+      ( (x : A) → (f : hom A x a) → C (x , f))
+      ( C (a , id-hom A a))
       ( \ s → s a (id-hom A a))
   :=
     is-equiv-left-factor
       ( (p : slice A a) → C p)
-      ( (x : A) → (f : hom A x a) → C (x, f))
-      ( C (a, id-hom A a))
-      ( first (equiv-dependent-curry A (\ z → hom A z a)(\ x f → C (x, f))))
-      ( second (equiv-dependent-curry A (\ z → hom A z a)(\ x f → C (x, f))))
+      ( (x : A) → (f : hom A x a) → C (x , f))
+      ( C (a , id-hom A a))
+      ( first (equiv-dependent-curry A (\ z → hom A z a) (\ x f → C (x , f))))
+      ( second (equiv-dependent-curry A (\ z → hom A z a) (\ x f → C (x , f))))
       ( \ s → s a (id-hom A a))
       ( contra-dependent-yoneda-lemma'
           A is-segal-A a C is-contravariant-C)

@@ -78,7 +78,7 @@ A type is a proposition when its identity types are contractible.
   : is-prop A
   :=
     \ x y →
-      ( is-contr-is-equiv-to-contr (x = y) (unit = unit)
+      ( is-contr-equiv-is-contr' (x = y) (unit = unit)
         ( (ap A Unit x y (terminal-map A)) , (f x y))
         ( path-types-of-Unit-are-contractible unit unit))
 

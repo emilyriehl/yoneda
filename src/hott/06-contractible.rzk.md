@@ -21,39 +21,39 @@ This is a literate `rzk` file:
 #variable A : U
 #variable is-contr-A : is-contr A
 
-#def contraction-center
+#def center-contraction
   : A
   := (first is-contr-A)
 ```
 
 ```rzk title="The path from the contraction center to any point"
-#def contracting-htpy
-  : ( z : A) → contraction-center = z
+#def homotopy-contraction
+  : ( z : A) → center-contraction = z
   := second is-contr-A
 
-#def contracting-htpy-realigned uses (is-contr-A)
-  : ( z : A) → contraction-center = z
+#def realign-homotopy-contraction uses (is-contr-A)
+  : ( z : A) → center-contraction = z
   :=
     \ z →
-      ( concat A contraction-center contraction-center z
-          (rev A contraction-center contraction-center
-            ( contracting-htpy contraction-center))
-          (contracting-htpy z))
+      ( concat A center-contraction center-contraction z
+          (rev A center-contraction center-contraction
+            ( homotopy-contraction center-contraction))
+          (homotopy-contraction z))
 
-#def contracting-htpy-realigned-path uses (is-contr-A)
-  : ( contracting-htpy-realigned contraction-center) = refl
+#def path-realign-homotopy-contraction uses (is-contr-A)
+  : ( realign-homotopy-contraction center-contraction) = refl
   :=
-    ( left-inverse-concat A contraction-center contraction-center
-      ( contracting-htpy contraction-center))
+    ( left-inverse-concat A center-contraction center-contraction
+      ( homotopy-contraction center-contraction))
 ```
 
 ```rzk title="A path between any pair of terms in a contractible type"
-#def contractible-connecting-htpy uses (is-contr-A)
+#def eq-is-contr uses (is-contr-A)
   (x y : A)
   : x = y
   :=
-    zag-zig-concat A x contraction-center y
-    ( contracting-htpy x) (contracting-htpy y)
+    zag-zig-concat A x center-contraction y
+      ( homotopy-contraction x) (homotopy-contraction y)
 
 #end contractible-data
 ```
@@ -121,14 +121,14 @@ A type is contractible if and only if its terminal map is an equivalence.
   ( is-contr-A : is-contr A)
   : has-retraction A Unit (terminal-map A)
   :=
-    ( constant Unit A (contraction-center A is-contr-A) ,
-      \ y → (contracting-htpy A is-contr-A) y)
+    ( constant Unit A (center-contraction A is-contr-A) ,
+      \ y → (homotopy-contraction A is-contr-A) y)
 
 #def contr-implies-terminal-map-is-equiv-sec
   ( A : U)
   ( is-contr-A : is-contr A)
   : has-section A Unit (terminal-map A)
-  := ( constant Unit A (contraction-center A is-contr-A) , \ z → refl)
+  := ( constant Unit A (center-contraction A is-contr-A) , \ z → refl)
 
 #def contr-implies-terminal-map-is-equiv
   ( A : U)
@@ -142,8 +142,7 @@ A type is contractible if and only if its terminal map is an equivalence.
   ( A : U)
   (e : terminal-map-is-equiv A)
   : is-contr A
-  := ( (first (first e)) unit ,
-       (second (first e)))
+  := ( (first (first e)) unit , (second (first e)))
 
 #def contr-iff-terminal-map-is-equiv
   ( A : U)
@@ -157,7 +156,8 @@ A type is contractible if and only if its terminal map is an equivalence.
   ( f : Equiv A B)
   ( is-contr-A : is-contr A)
   : is-contr B
-  := ( terminal-map-is-equiv-implies-contr B
+  :=
+    ( terminal-map-is-equiv-implies-contr B
       ( second
         ( equiv-comp B A Unit
           ( inv-equiv A B f)
@@ -225,7 +225,7 @@ A retract of contractible types is contractible.
 #def is-retract-of-is-contr-isInhabited uses (is-retract-of-A-B)
   ( is-contr-B : is-contr B)
   : A
-  := is-retract-of-retraction (contraction-center B is-contr-B)
+  := is-retract-of-retraction (center-contraction B is-contr-B)
 ```
 
 ```rzk title="If A is a retract of a contractible type it has a contracting homotopy"
@@ -233,14 +233,15 @@ A retract of contractible types is contractible.
   ( is-contr-B : is-contr B)
   ( a : A)
   : ( is-retract-of-is-contr-isInhabited is-contr-B) = a
-  := concat
-      A
+  :=
+    concat
+      ( A)
       ( is-retract-of-is-contr-isInhabited is-contr-B)
       ( (comp A B A is-retract-of-retraction is-retract-of-section) a)
-      a
-      ( ap B A (contraction-center B is-contr-B) (is-retract-of-section a)
+      ( a)
+      ( ap B A (center-contraction B is-contr-B) (is-retract-of-section a)
         ( is-retract-of-retraction)
-        ( contracting-htpy B is-contr-B (is-retract-of-section a)))
+        ( homotopy-contraction B is-contr-B (is-retract-of-section a)))
       ( is-retract-of-homotopy a)
 ```
 
@@ -267,15 +268,15 @@ A retract of contractible types is contractible.
   ( f : A → B)
   : is-equiv A B f
   :=
-    ( ( \ b → contraction-center A is-contr-A ,
-        \ a → contracting-htpy A is-contr-A a) ,
-      ( \ b → contraction-center A is-contr-A ,
-        \ b → contractible-connecting-htpy B is-contr-B
-                (f (contraction-center A is-contr-A)) b))
+    ( ( \ b → center-contraction A is-contr-A ,
+        \ a → homotopy-contraction A is-contr-A a) ,
+      ( \ b → center-contraction A is-contr-A ,
+        \ b → eq-is-contr B is-contr-B
+                (f (center-contraction A is-contr-A)) b))
 ```
 
 ```rzk title="A type equivalent to a contractible type is contractible"
-#def is-contr-is-equiv-to-contr
+#def is-contr-equiv-is-contr'
   ( A B : U)
   ( e : Equiv A B)
   ( is-contr-B : is-contr B)
@@ -283,12 +284,13 @@ A retract of contractible types is contractible.
   :=
     is-contr-is-retract-of-is-contr A B (first e , first (second e)) is-contr-B
 
-#def is-contr-is-equiv-from-contr
+#def is-contr-equiv-is-contr
   ( A B : U)
   ( e : Equiv A B)
   ( is-contr-A : is-contr A)
   : is-contr B
-  := is-contr-is-retract-of-is-contr B A
+  :=
+    is-contr-is-retract-of-is-contr B A
       ( first (second (second e)) , (first e , second (second (second e))))
       ( is-contr-A)
 ```
@@ -326,7 +328,7 @@ The center of contraction in the based path space is `#!rzk (a , refl)`.
 ```
 
 ```rzk title="The contracting homotopy in the based path space"
-#def contracting-homotopy-based-paths
+#def contraction-based-paths
   ( A : U)
   ( a : A)
   ( p : Σ (x : A) , a = x)
@@ -348,7 +350,7 @@ The center of contraction in the based path space is `#!rzk (a , refl)`.
   ( A : U)
   ( a : A)
   : is-contr (Σ (x : A) , a = x)
-  := (center-based-paths A a , contracting-homotopy-based-paths A a)
+  := (center-based-paths A a , contraction-based-paths A a)
 ```
 
 ## Contractible products
@@ -452,29 +454,29 @@ A type is contractible if and only if it has singleton induction.
   ( is-contr-A : is-contr A)
   : (has-singleton-induction A)
   :=
-    ( ( contraction-center A is-contr-A) ,
+    ( ( center-contraction A is-contr-A) ,
       \ B →
         ( ( \ b x →
                 ( transport A B
-                  ( contraction-center A is-contr-A) x
-                  ( contracting-htpy-realigned A is-contr-A x) b)) ,
+                  ( center-contraction A is-contr-A) x
+                  ( realign-homotopy-contraction A is-contr-A x) b)) ,
           ( \ b →
                 ( ap
-                  ( (contraction-center A is-contr-A) =
-                    (contraction-center A is-contr-A))
-                  ( B (contraction-center A is-contr-A))
-                  ( contracting-htpy-realigned A is-contr-A
-                    ( contraction-center A is-contr-A))
-                  refl_{(contraction-center A is-contr-A)}
+                  ( (center-contraction A is-contr-A) =
+                    (center-contraction A is-contr-A))
+                  ( B (center-contraction A is-contr-A))
+                  ( realign-homotopy-contraction A is-contr-A
+                    ( center-contraction A is-contr-A))
+                  refl_{(center-contraction A is-contr-A)}
                   ( \ p →
-                    ( transport-loop A B (contraction-center A is-contr-A) b p))
-                  ( contracting-htpy-realigned-path A is-contr-A)))))
+                    ( transport-loop A B (center-contraction A is-contr-A) b p))
+                  ( path-realign-homotopy-contraction A is-contr-A)))))
 
 #def contr-implies-singleton-induction-pointed
   ( A : U)
   ( is-contr-A : is-contr A)
   ( B : A → U)
-  : has-singleton-induction-pointed A (contraction-center A is-contr-A) B
+  : has-singleton-induction-pointed A (center-contraction A is-contr-A) B
   := ( second (contr-implies-singleton-induction-ind A is-contr-A)) B
 
 #def singleton-induction-ind-implies-contr
