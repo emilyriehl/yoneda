@@ -852,18 +852,17 @@ pointwise equal.</p>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">  </span><span class="p">( </span>F <span class="p">:</span><span class="err"> A → B)</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">  </span><span class="p">( </span>x <span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">  : ( ap-hom A B F x x (id-hom A x)) = (id-hom B (F x))</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">  := eq-ext-htpy</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">      extext</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">      </span><span class="kt">2</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">      Δ¹</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">      ∂Δ¹</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">      ( </span><span class="p">\ </span>t <span class="err">→ B)</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">      ( </span><span class="p">\ </span>t <span class="err">→ </span><span class="s">recOR</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">      ( t </span><span class="sx">≡</span><span class="err"> </span><span class="m">0₂</span><span class="err"> ↦ F x ,</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">        t </span><span class="sx">≡</span><span class="err"> </span><span class="m">1₂</span><span class="err"> ↦ F x))</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">      ( ap-hom A B F x x (id-hom A x))</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">      ( id-hom B (F x))</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">      ( </span><span class="p">\ </span>t <span class="err">→ </span><span class="s">refl</span><span class="err">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">  :=</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">    eq-ext-htpy</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">      ( extext)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">      ( </span><span class="kt">2</span><span class="err">)</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">      ( Δ¹)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">      ( ∂Δ¹)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">      ( </span><span class="p">\ </span>t <span class="err">→ B)</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">      ( </span><span class="p">\ </span>t <span class="err">→ </span><span class="s">recOR</span><span class="err"> (t </span><span class="sx">≡</span><span class="err"> </span><span class="m">0₂</span><span class="err"> ↦ F x , t </span><span class="sx">≡</span><span class="err"> </span><span class="m">1₂</span><span class="err"> ↦ F x))</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">      ( ap-hom A B F x x (id-hom A x))</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">      ( id-hom B (F x))</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">      ( </span><span class="p">\ </span>t <span class="err">→ </span><span class="s">refl</span><span class="err">)</span>
 </span></code></pre></div>
 <p>Preservation of composition requires the Segal hypothesis.</p>
 <div class="language-rzk highlight"><span class="filename">RS17, Proposition 6.1.b</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:functors-pres-comp" id="define:functors-pres-comp" style="visibility: visible; position: relative; color: inherit">functors-pres-comp</a></span>
@@ -875,21 +874,21 @@ pointwise equal.</p>
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> hom A x y)</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">  </span><span class="p">( </span>g <span class="p">:</span><span class="err"> hom A y z)</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">  :</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">    ( comp-Segal B is-segal-B</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">    ( comp-is-segal B is-segal-B</span>
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">      ( F x) (F y) (F z)</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">      ( ap-hom A B F x y f)</span>
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">      ( ap-hom A B F y z g))</span>
 </span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">    =</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">    ( ap-hom A B F x z (comp-Segal A is-segal-A x y z f g))</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">    ( ap-hom A B F x z (comp-is-segal A is-segal-A x y z f g))</span>
 </span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="err">  :=</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="err">    uniqueness-comp-Segal B is-segal-B</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="err">    uniqueness-comp-is-segal B is-segal-B</span>
 </span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="err">      ( F x) (F y) (F z)</span>
 </span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="err">      ( ap-hom A B F x y f)</span>
 </span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="err">      ( ap-hom A B F y z g)</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="err">      ( ap-hom A B F x z (comp-Segal A is-segal-A x y z f g))</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="err">      ( ap-hom A B F x z (comp-is-segal A is-segal-A x y z f g))</span>
 </span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="err">      ( ap-hom2 A B F x y z f g</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="err">        ( comp-Segal A is-segal-A x y z f g)</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">        ( witness-comp-Segal A is-segal-A x y z f g))</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="err">        ( comp-is-segal A is-segal-A x y z f g)</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">        ( witness-comp-is-segal A is-segal-A x y z f g))</span>
 </span></code></pre></div>
 <h2 id="natural-transformations">Natural transformations<a class="headerlink" href="#natural-transformations" title="Permanent link">&para;</a></h2>
 <p>This corresponds to Section 6.2 in [RS17].</p>
@@ -983,7 +982,7 @@ Segal types.</p>
 </span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="err">  </span><span class="p">( </span>η <span class="p">:</span><span class="err"> nat-trans-components A B f g)</span>
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="err">  </span><span class="p">( </span>η&#39; <span class="p">:</span><span class="err"> nat-trans-components A B g h)</span>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="err">  : nat-trans-components A B f h</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="err">  := </span><span class="p">\ </span>x <span class="err">→ comp-Segal (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η&#39; x)</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="err">  := </span><span class="p">\ </span>x <span class="err">→ comp-is-segal (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η&#39; x)</span>
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:vertical-comp-nat-trans" id="define:vertical-comp-nat-trans" style="visibility: visible; position: relative; color: inherit">vertical-comp-nat-trans</a></span>
 </span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
