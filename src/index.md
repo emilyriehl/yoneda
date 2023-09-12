@@ -3,7 +3,7 @@
 This is a formalization library for simplicial Homotopy Type Theory (HoTT) with
 the aim of proving the Yoneda lemma for ∞-categories following the paper
 "[A type theory for synthetic ∞-categories](https://higher-structures.math.cas.cz/api/files/issues/Vol1Iss1/RiehlShulman)"
-[1]. This formalization project could be regarded as a companion to the article
+[1]. This formalization project follows the philosophy layed out in
 "[Could ∞-category theory be taught to undergraduates?](https://www.ams.org/journals/notices/202305/noti2692/noti2692.html)"
 [2].
 
