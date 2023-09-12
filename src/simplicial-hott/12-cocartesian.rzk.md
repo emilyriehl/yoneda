@@ -30,7 +30,7 @@ future, hopefully, these can be replaced by instances of orthogonal and LARI
 families.
 
 ```rzk
-#def is-inner-fam
+#def is-inner-family
   ( B : U)
   ( P : B → U)
   : U
@@ -39,7 +39,7 @@ families.
     ( product (is-segal B) (is-segal (Σ (b : B) , P b)))
     ( (b : B) → (is-segal (P b)))
 
-#def is-isoinner-fam
+#def is-isoinner-family
   ( B : U)
   ( P : B → U)
   : U
@@ -56,7 +56,7 @@ cocartesian. This is an alternative version using unpacked extension types, as
 this is preferred for usage.
 
 ```rzk title="BW23, Definition 5.1.1"
-#def is-cocart-arrow
+#def is-cocartesian-arrow
   ( B : U)
   ( b b' : B)
   ( u : hom B b b')
@@ -80,7 +80,7 @@ The following is the type of cocartesian lifts of a fixed arrow in the base with
 a given starting point in the fiber.
 
 ```rzk title="BW23, Definition 5.1.2"
-#def cocart-lift
+#def cocartesian-lift
   ( B : U)
   ( b b' : B)
   ( u : hom B b b')
@@ -89,5 +89,29 @@ a given starting point in the fiber.
   : U
   :=
     Σ (e' : P b') ,
-      Σ (f : dhom B b b' u P e e') , is-cocart-arrow B b b' u P e e' f
+      Σ (f : dhom B b b' u P e e') , is-cocartesian-arrow B b b' u P e e' f
+```
+
+## Cocartesian family
+
+A family over cocartesian if it is isoinner and any arrow in
+the has a cocartesian lift, given a point in the fiber over the domain.
+
+```rzk title="BW23, Definition 5.2.1"
+#def has-cocartesian-lifts
+  ( B : U)
+  ( P : B → U)
+  : U
+  :=
+    ( b : B) → ( b' : B) → ( u : hom B b b') →
+      ( e : P b) → ( Σ (e' : P b'),
+        ( Σ (f : dhom B b b' u P e e'), is-cocartesian-arrow B b b' u P e e' f))
+```
+
+```rzk title="BW23, Definition 5.2.2"
+#def is-cocartesian-family
+  ( B : U)
+  ( P : B → U)
+  : U
+  := product (is-isoinner-family B P) (has-cocartesian-lifts B P)
 ```

@@ -19,7 +19,8 @@ This is a literate `rzk` file:
   ( e_A : a = a')
   ( e_B : b = b')
   : ( a , b) =_{product A B} (a' , b')
-  := transport A (\ x → (a , b) =_{product A B} (x , b')) a a' e_A
+  :=
+    transport A (\ x → (a , b) =_{product A B} (x , b')) a a' e_A
       ( transport B (\ y → (a , b) =_{product A B} (a , y)) b b' e_B refl)
 
 #def first-path-product
@@ -188,7 +189,7 @@ Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
     pair-eq-eq-pair-split
       ( first s) (second s) (first t) (first e) (second t) (second e)
 
-#def Eq-Σ-equiv
+#def extensionality-Σ
   ( s t : Σ (a : A) , B a)
   : Equiv (s = t) (Eq-Σ s t)
   :=
@@ -260,7 +261,7 @@ by a dual path induction over both `#!rzk p` and `#!rzk q`, rather than by
 saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
 
 ```rzk title="The inverse with explicit arguments"
-#def path-of-triples-to-triple-of-paths
+#def triple-of-paths-path-of-triples
   ( a a' : A)
   ( u u' : B)
   ( c : C a u)
@@ -268,7 +269,7 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
   : ( q : u = u') →
     ( c' : C a' u') →
     ( r : product-transport a a' u u' p q c = c') →
-    ( (a, (u, c)) =_{(Σ (x : A), (Σ (y : B) , C x y))} (a', (u', c')))
+    ( (a , (u , c)) =_{(Σ (x : A) , (Σ (y : B) , C x y))} (a' , (u' , c')))
   :=
     ind-path
       ( A)
@@ -277,12 +278,12 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
         ( q : u = u') →
         ( c' : C a'' u') →
         ( r : product-transport a a'' u u' p' q c = c') →
-        ( (a, (u, c)) =_{(Σ (x : A) , (Σ (y : B), C x y))} (a'', (u', c'))))
+        ( (a , (u , c)) =_{(Σ (x : A) , (Σ (y : B) , C x y))} (a'' , (u' , c'))))
       ( \ q c' r →
         eq-eq-fiber-Σ
-          ( A) (\x → (Σ (v : B) , C x v)) (a)
-          ( u, c) ( u', c')
-          ( path-of-pairs-pair-of-paths B (\y → C a y) u u' q c c' r))
+          ( A) (\ x → (Σ (v : B) , C x v)) (a)
+          ( u , c) ( u' , c')
+          ( path-of-pairs-pair-of-paths B (\ y → C a y) u u' q c c' r))
       ( a')
       ( p)
 
@@ -291,7 +292,7 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
   ( e : Eq-Σ-over-product s t)
   : (s = t)
   :=
-    path-of-triples-to-triple-of-paths
+    triple-of-paths-path-of-triples
     ( first s) (first t)
     ( first (second s)) (first (second t))
     ( second (second s)) (first e)
@@ -376,7 +377,7 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
       ( first (second e)) (second (second t))
       ( second (second e))
 
-#def equiv-Eq-Σ-over-product
+#def extensionality-Σ-over-product
   ( s t : Σ (a : A) , (Σ (b : B) , C a b))
   : Equiv (s = t) (Eq-Σ-over-product s t)
   :=
@@ -432,9 +433,9 @@ unimportant.
 
 ```rzk
 #def associative-Σ
-  (A : U)
-  (B : A → U)
-  (C : (a : A) → B a → U)
+  ( A : U)
+  ( B : A → U)
+  ( C : (a : A) → B a → U)
   : Equiv
       ( Σ (a : A) , Σ (b : B a) , C a b)
       ( Σ (ab : Σ (a : A) , B a) , C (first ab) (second ab))
@@ -450,16 +451,16 @@ This is the dependent version of the currying equivalence.
 
 ```rzk
 #def equiv-dependent-curry
-  (A : U)
-  (B : A → U)
-  (C : (a : A) → B a → U)
+  ( A : U)
+  ( B : A → U)
+  ( C : (a : A) → B a → U)
   : Equiv
-      ((p : Σ (a : A), B a) → C (first p) (second p))
+      ((p : Σ (a : A) , (B a)) → C (first p) (second p))
       ((a : A) → (b : B a) → C a b)
   :=
     ( ( \ s a b → s (a , b)) ,
       ( ( ( \ f (a , b) → f a b ,
-            \ f → refl ) ,
+            \ f → refl) ,
           ( \ f (a , b) → f a b ,
-            \ s → refl ))))
+            \ s → refl))))
 ```
