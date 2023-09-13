@@ -103,13 +103,11 @@ Preservation of composition requires the Segal hypothesis.
 
 ## Natural transformations
 
-This corresponds to Section 6.2 in [RS17].
-
 Given two simplicial maps `#!rzk f g : (x : A) → B x` , a **natural
 transformation** from `#!rzk f` to `#!rzk g` is an arrow
 `#!rzk η : hom ((x : A) → B x) f g` between them.
 
-```rzk
+```rzk title="RS17, Definition 6.2"
 #def nat-trans
   ( A : U)
   ( B : A → U)

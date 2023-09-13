@@ -66,7 +66,14 @@ Some of the definitions in this file rely on extension extensionality:
   ( x y : A)
   : U
   := Σ ( f : hom A x y) , is-iso-arrow A is-segal-A x y f
+```
 
+## Invertible arrows
+
+We now show that $f : hom A x y$ is an isomorphism if and only if it is
+invertible, meaning $f$ has a two-sided composition inverse $g : hom A y x$.
+
+```rzk
 #def has-inverse-arrow
   ( A : U)
   ( is-segal-A : is-segal A)
@@ -135,7 +142,9 @@ Some of the definitions in this file rely on extension extensionality:
                 ( h)
                 ( comp-id-is-segal A is-segal-A y x h)))
             ( q)))))
+```
 
+```rzk title="RS17, Proposition 10.1"
 #def inverse-iff-iso-arrow uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
@@ -145,7 +154,13 @@ Some of the definitions in this file rely on extension extensionality:
   :=
     ( is-iso-arrow-has-inverse-arrow A is-segal-A x y f ,
       has-inverse-arrow-is-iso-arrow A is-segal-A x y f)
+```
 
+## Being an isomorphism is a proposition
+
+The predicate `is-iso-arrow` is a proposition.
+
+```rzk
 #def has-retraction-postcomp-has-retraction uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
@@ -154,15 +169,18 @@ Some of the definitions in this file rely on extension extensionality:
   ( g : hom A y x)
   ( gg : has-retraction-arrow A is-segal-A x y f g)
   : ( z : A) →
-    has-retraction (hom A z x) (hom A z y) (postcomp-is-segal A is-segal-A x y f z)
+    has-retraction (hom A z x) (hom A z y)
+      ( postcomp-is-segal A is-segal-A x y f z)
   :=
     \ z →
     ( ( postcomp-is-segal A is-segal-A y x g z) ,
         \ k →
       ( triple-concat
         ( hom A z x)
-        ( comp-is-segal A is-segal-A z y x (comp-is-segal A is-segal-A z x y k f) g)
-        ( comp-is-segal A is-segal-A z x x k (comp-is-segal A is-segal-A x y x f g))
+        ( comp-is-segal A is-segal-A z y x
+          ( comp-is-segal A is-segal-A z x y k f) g)
+        ( comp-is-segal A is-segal-A z x x
+          k ( comp-is-segal A is-segal-A x y x f g))
         ( comp-is-segal A is-segal-A z x x k (id-hom A x))
         ( k)
         ( associative-is-segal extext A is-segal-A z x y x k f g)
@@ -185,8 +203,10 @@ Some of the definitions in this file rely on extension extensionality:
         \ k →
         ( triple-concat
           ( hom A z y)
-          ( comp-is-segal A is-segal-A z x y (comp-is-segal A is-segal-A z y x k h) f)
-          ( comp-is-segal A is-segal-A z y y k (comp-is-segal A is-segal-A y x y h f))
+          ( comp-is-segal A is-segal-A z x y
+            ( comp-is-segal A is-segal-A z y x k h) f)
+          ( comp-is-segal A is-segal-A z y y
+            k (comp-is-segal A is-segal-A y x y h f))
           ( comp-is-segal A is-segal-A z y y k (id-hom A y))
           ( k)
           ( associative-is-segal extext A is-segal-A z y x y k h f)
@@ -218,15 +238,18 @@ Some of the definitions in this file rely on extension extensionality:
   ( h : hom A y x)
   ( hh : has-section-arrow A is-segal-A x y f h)
   : (z : A) →
-    has-retraction (hom A y z) (hom A x z) (precomp-is-segal A is-segal-A x y f z)
+    has-retraction (hom A y z) (hom A x z)
+      ( precomp-is-segal A is-segal-A x y f z)
   :=
     \ z →
     ( ( precomp-is-segal A is-segal-A y x h z) ,
         \ k →
         ( triple-concat
           ( hom A y z)
-          ( comp-is-segal A is-segal-A y x z h (comp-is-segal A is-segal-A x y z f k))
-          ( comp-is-segal A is-segal-A y y z (comp-is-segal A is-segal-A y x y h f) k)
+          ( comp-is-segal A is-segal-A y x z
+            h (comp-is-segal A is-segal-A x y z f k))
+          ( comp-is-segal A is-segal-A y y z
+            ( comp-is-segal A is-segal-A y x y h f) k)
           ( comp-is-segal A is-segal-A y y z (id-hom A y) k)
           ( k)
           ( rev
@@ -258,9 +281,12 @@ Some of the definitions in this file rely on extension extensionality:
         \ k →
         ( triple-concat
           ( hom A x z)
-          ( comp-is-segal A is-segal-A x y z f (comp-is-segal A is-segal-A y x z g k))
-          ( comp-is-segal A is-segal-A x x z (comp-is-segal A is-segal-A x y x f g) k)
-          ( comp-is-segal A is-segal-A x x z (id-hom A x) k)
+          ( comp-is-segal A is-segal-A x y z
+            f (comp-is-segal A is-segal-A y x z g k))
+          ( comp-is-segal A is-segal-A x x z
+            ( comp-is-segal A is-segal-A x y x f g) k)
+          ( comp-is-segal A is-segal-A x x z
+            ( id-hom A x) k)
           ( k)
           ( rev
             ( hom A x z)
@@ -344,7 +370,9 @@ Some of the definitions in this file rely on extension extensionality:
       ( Section-arrow A is-segal-A x y f)
       ( is-contr-Retraction-arrow-is-iso A is-segal-A x y f g gg h hh)
       ( is-contr-Section-arrow-is-iso A is-segal-A x y f g gg h hh))
+```
 
+```rzk title="RS17, Proposition 10.2"
 #def is-prop-is-iso-arrow uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
@@ -360,7 +388,14 @@ Some of the definitions in this file rely on extension extensionality:
           ( second (first is-isof))
           ( first (second is-isof))
           ( second (second is-isof)))))
+```
 
+## Rezk types
+
+A Segal type $A$ is a Rezk type just when, for all $x y : A$, the natural map
+from `x = y` to `Iso A is-segal-A x y` is an equivalence.
+
+```rzk
 #def iso-id-arrow
   (A : U)
   (is-segal-A : is-segal A)
@@ -395,7 +430,9 @@ Some of the definitions in this file rely on extension extensionality:
       ( iso-id-arrow A is-segal-A x)
       ( y)
       ( p)
+```
 
+```rzk title="RS17, Definition 10.6"
 #def is-rezk
   (A : U)
   : U
