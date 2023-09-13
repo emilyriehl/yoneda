@@ -70,8 +70,9 @@ Some of the definitions in this file rely on extension extensionality:
 
 ## Invertible arrows
 
-We now show that $f : hom A x y$ is an isomorphism if and only if it is
-invertible, meaning $f$ has a two-sided composition inverse $g : hom A y x$.
+We now show that `#!rzk f : hom A a x` is an isomorphism if and only if it is
+invertible, meaning `#!rzk f` has a two-sided composition inverse
+`#!rzk g : hom A x a`.
 
 ```rzk
 #def has-inverse-arrow
@@ -158,7 +159,7 @@ invertible, meaning $f$ has a two-sided composition inverse $g : hom A y x$.
 
 ## Being an isomorphism is a proposition
 
-The predicate `is-iso-arrow` is a proposition.
+The predicate `#!rzk is-iso-arrow` is a proposition.
 
 ```rzk
 #def has-retraction-postcomp-has-retraction uses (extext)
@@ -392,8 +393,8 @@ The predicate `is-iso-arrow` is a proposition.
 
 ## Rezk types
 
-A Segal type $A$ is a Rezk type just when, for all $x y : A$, the natural map
-from `x = y` to `Iso A is-segal-A x y` is an equivalence.
+A Segal type $A$ is a Rezk type just when, for all `#!rzk x y : A`, the natural
+map from `#!rzk x = y` to `#!rzk Iso A is-segal-A x y` is an equivalence.
 
 ```rzk
 #def iso-id-arrow
