@@ -955,7 +955,11 @@ The front face:
       ( A) (is-segal-A) (w) (x) (z) (f) (comp-is-segal A is-segal-A x y z g h)
       ( triple-comp-is-segal A is-segal-A w x y z f g h)
       ( right-witness-asociative-is-segal A is-segal-A w x y z f g h)
+```
 
+We conclude that Segal composition is associative.
+
+```rzk title="RS17, Proposition 5.9"
 #def associative-is-segal uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
