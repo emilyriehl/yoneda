@@ -891,11 +891,10 @@ pointwise equal.</p>
 </span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">        ( witness-comp-is-segal A is-segal-A x y z f g))</span>
 </span></code></pre></div>
 <h2 id="natural-transformations">Natural transformations<a class="headerlink" href="#natural-transformations" title="Permanent link">&para;</a></h2>
-<p>This corresponds to Section 6.2 in [RS17].</p>
 <p>Given two simplicial maps <code class="language-rzk highlight"><span class="err">f g : </span><span class="p">(</span>x <span class="p">:</span><span class="err"> A) → B x</span></code> , a <strong>natural
 transformation</strong> from <code class="language-rzk highlight"><span class="err">f</span></code> to <code class="language-rzk highlight"><span class="err">g</span></code> is an arrow
 <code class="language-rzk highlight"><span class="err">η : hom </span><span class="p">(</span>(x <span class="p">:</span><span class="err"> A) → B x) f g</span></code> between them.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:nat-trans" id="define:nat-trans" style="visibility: visible; position: relative; color: inherit">nat-trans</a></span>
+<div class="language-rzk highlight"><span class="filename">RS17, Definition 6.2</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:nat-trans" id="define:nat-trans" style="visibility: visible; position: relative; color: inherit">nat-trans</a></span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="err">  </span><span class="p">( </span>B <span class="p">:</span><span class="err"> A → U)</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="err">  </span><span class="p">( </span>f g <span class="p">:</span><span class="err"> </span><span class="p">(</span>x <span class="p">:</span><span class="err"> A) → (B x))</span>
