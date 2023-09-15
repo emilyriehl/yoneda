@@ -46,7 +46,7 @@ families.
   :=
     product
     ( product (is-rezk B) (is-rezk (Σ (b : B) , P b)))
-    ( (b : B) → (is-segal (P b)))
+    ( (b : B) → (is-rezk (P b)))
 ```
 
 ## Cocartesian arrows
