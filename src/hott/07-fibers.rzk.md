@@ -19,6 +19,14 @@ The homotopy fiber of a map is the following type:
   := Σ (a : A) , (f a) = b
 ```
 
+```rzk title="The total space of a family"
+#def total-type
+  ( A : U)
+  ( P : A → U)
+  : U
+  := Σ (a : A), P a
+```
+
 We calculate the transport of (a , q) : fib b along p : a = a':
 
 ```rzk

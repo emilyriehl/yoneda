@@ -47,7 +47,243 @@ families.
     product
     ( product (is-rezk B) (is-rezk (Σ (b : B) , P b)))
     ( (b : B) → (is-rezk (P b)))
+
+#def axiom-choice-dhom
+  ( B : U)
+  ( a b : B)
+  ( P : B → U)
+  ( x : P a)
+  ( y : P b)
+  : Equiv
+    ( hom (total-type B P) (a, x) (b, y))
+    ( Σ ( u' : hom B a b) ,
+        ( dhom B a b u' P x y)
+    )
+  :=
+  ( axiom-choice 
+    2 
+    Δ¹
+    ∂Δ¹
+    ( \ t → B)
+    ( \ t → \ c → (P c)) 
+    ( \ t → recOR(t ≡ 0₂ ↦ a , t ≡ 1₂ ↦ b))
+    ( \ t → recOR(t ≡ 0₂ ↦ x , t ≡ 1₂ ↦ y))
+  )
+
+#def inv-axiom-choice-dhom
+  ( B : U)
+  ( a b : B)
+  ( P : B → U)
+  ( x : P a)
+  ( y : P b)
+  : Equiv
+    ( Σ ( u' : hom B a b) ,
+        ( dhom B a b u' P x y)
+    )
+    ( hom (total-type B P) (a, x) (b, y))
+  :=
+    ( inv-equiv
+      ( hom (total-type B P) (a, x) (b, y))
+      ( Σ ( u' : hom B a b) ,
+          ( dhom B a b u' P x y)
+      )
+      ( axiom-choice-dhom B a b P x y)
+    )
+
+#def dep-comp-is-inner-sigma
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  ( is-inner-family-P : is-inner-family B P)
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : ( Σ ( w : hom B a c) , (dhom B a c w P x z) )
+  :=
+        (
+        (first (axiom-choice-dhom B a c P x z))
+        
+        (comp-is-segal (total-type B P) (second (first is-inner-family-P))
+        (a, x) (b, y) (c, z)
+        ( (\t → (u t, f t)))
+        ( (\t → (v t, g t)))
+        )
+
+        )
+
+#def dep-comp-is-inner-proj1
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  ( is-inner-family-P : is-inner-family B P)
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : hom B a c
+  :=( first (dep-comp-is-inner-sigma B a b c u v P is-inner-family-P x y z f g))
+
+#def proj-test
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  ( is-inner-family-P : is-inner-family B P)
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : ( (comp-is-segal B (first (first (is-inner-family-P))) a b c u v) 
+     = ( dep-comp-is-inner-proj1 B a b c u v P is-inner-family-P x y z f g) )
+  := refl
+
+#def dep-comp-is-inner-proj2
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  ( is-inner-family-P : is-inner-family B P)
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : ( dhom B a c (comp-is-segal B (first (first (is-inner-family-P))) a b c u v) P x z)
+  :=( second (dep-comp-is-inner-sigma B a b c u v P is-inner-family-P x y z f g))
+
+#def proj1-dep-comp-is-inner
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  (is-segal-B : is-segal B)
+  (is-segal-total-P : is-segal (total-type B P))
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : (hom B a c)
+  := (first
+      ( (first (axiom-choice-dhom B a c P x z))
+        (comp-is-segal (total-type B P) is-segal-total-P
+        (a, x) (b, y) (c, z)
+        ( (\t → (u t, f t)))
+        ( (\t → (v t, g t)))
+        )
+      )
+  )
+
+
+#def proj2-dep-comp-is-inner
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  (is-segal-B : is-segal B)
+  (is-segal-total-P : is-segal (total-type B P))
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : (dhom B a c (comp-is-segal B is-segal-B a b c (\t → (u t)) (\t → (v t))) P x z)
+  := (second
+       ((first (axiom-choice-dhom B a c P x z))
+        (comp-is-segal (total-type B P) (is-segal-total-P)
+        (a, x) (b, y) (c, z)
+        (\t → (u t, f t))
+        (\t → (v t, g t))
+        )
+       )
+       )
+
+#def second-dep-comp-is-inner
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  ( is-inner-family-P : is-inner-family B P)
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : ( dhom B a c (comp-is-segal B (first (first is-inner-family-P)) a b c 
+    (first 
+       ( (comp
+          ( Σ ( w : hom B a b) , (dhom B a b w P x y) )
+          (hom (total-type B P) (a, x) (b, y))
+          ( Σ ( w : hom B a b) , (dhom B a b w P x y) )
+          (first (axiom-choice-dhom B a b P x y))
+          (first (inv-axiom-choice-dhom B a b P x y))
+        ) (u, f)
+       ))
+    (first 
+       ( (comp
+          ( Σ ( w : hom B b c) , (dhom B b c w P y z) )
+          (hom (total-type B P) (b, y) (c, z))
+          ( Σ ( w : hom B b c) , (dhom B b c w P y z) )
+          (first (axiom-choice-dhom B b c P y z))
+          (first (inv-axiom-choice-dhom B b c P y z))
+        ) (v, g)
+       ))
+  )
+
+    P x z)
+  :=
+        ( second
+        (
+        (first (axiom-choice-dhom B a c P x z))
+        
+        (comp-is-segal (total-type B P) (second (first is-inner-family-P))
+        (a, x) (b, y) (c, z) 
+        ( (first (inv-axiom-choice-dhom B a b P x y)) (u, f))
+        ( (first (inv-axiom-choice-dhom B b c P y z)) (v, g))
+        )
+        )
+        ) 
+
+#def proj2-dep-comp-is-inner-alt
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  (is-segal-B : is-segal B)
+  ( is-inner-family-P : is-inner-family B P)
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : (dhom B a c (comp-is-segal B is-segal-B a b c (\t → (u t)) (\t → (v t))) P x z)
+  := (second
+       ((first (axiom-choice-dhom B a c P x z))
+        (comp-is-segal (total-type B P) (second (first is-inner-family-P))
+        (a, x) (b, y) (c, z)
+        (\t → (u t, f t))
+        (\t → (v t, g t))
+        )
+       )
+       )
+
 ```
+
+      
 
 ## Cocartesian arrows
 
@@ -73,6 +309,37 @@ this is preferred for usage.
         ( Σ ( g : dhom B b' b'' v P e' e'') ,
           ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
 ```
+
+```rzk
+#def cocartesian-arrow
+  ( B : U)
+  ( b b' : B)
+  ( u : hom B b b')
+  ( P : B → U)
+  ( e : P b)
+  ( e' : P b')
+  : U
+  := Σ (f : dhom B b b' u P e e'), (is-cocartesian-arrow B b b' u P e e' f)
+```
+
+
+
+rzk
+#def cancellation-cocartesian-arrow
+  ( B : U)
+  ( b b' : B)
+  ( u : hom B b b')
+  ( v : hom B b' b'')
+  ( P : B → U)
+  ( e : P b)
+  ( e' : P b')
+  ( e'' : P b'')
+  ( f : cocartesian-arrow B b b' u P e e')
+  ( g : dhom B b' b'' v P e' e'')
+  ( g' : dhom B b' b'' v P e' e'')
+  : (comp-segal (total-type B P) ) 
+  
+
 
 ## Cocartesian lifts
 

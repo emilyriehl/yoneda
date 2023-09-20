@@ -142,6 +142,29 @@ This is a literate `rzk` file:
             \ _ → refl)))
 ```
 
+```rzk
+#def inv-axiom-choice
+  ( I : CUBE)
+  ( ψ : I → TOPE)
+  ( ϕ : ψ → TOPE)
+  ( X : ψ → U)
+  ( Y : (t : ψ) → (x : X t) → U)
+  ( a : (t : ϕ) → X t)
+  ( b : (t : ϕ) → Y t (a t))
+  : Equiv
+    ( Σ ( f : ((t : ψ) → X t [ϕ t ↦ a t])) ,
+        ( (t : ψ) → Y t (f t) [ϕ t ↦ b t]))
+    ( (t : ψ) → (Σ (x : X t) , Y t x) [ϕ t ↦ (a t , b t)])
+    :=
+      ( \ (f, h) → ( \ t -> (f t , h t)) ,
+        ( ( \ g → (\ t → (first (g t)) , \ t → second (g t)) ,
+            \ _ → refl) ,
+          ( \ g → (\ t → (first (g t)) , \ t → second (g t)) ,
+            \ _ → refl)
+        )
+      )
+```
+
 ## Composites and unions of cofibrations
 
 The original form.

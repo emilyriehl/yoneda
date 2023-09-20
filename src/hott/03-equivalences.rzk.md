@@ -13,15 +13,27 @@ This is a literate `rzk` file:
 
 #variables A B : U
 
+#def witness-section
+  ( f : A → B)
+  ( s : B → A)
+  : U
+  := (homotopy B B (comp B A B f s) (identity B))
+
 #def has-section
   ( f : A → B)
   : U
-  := Σ (s : B → A) , (homotopy B B (comp B A B f s) (identity B))
+  := Σ (s : B → A) , (witness-section f s)
+
+#def witness-retraction
+  ( f : A → B)
+  ( r : B → A)
+  : U
+  := (homotopy A A (comp A B A r f) (identity A))
 
 #def has-retraction
   ( f : A → B)
   : U
-  := Σ (r : B → A) , (homotopy A A (comp A B A r f) (identity A))
+  := Σ (r : B → A) , (witness-retraction f r)
 ```
 
 We define equivalences to be bi-invertible maps.
@@ -202,6 +214,22 @@ invertible map to prove symmetry:
           second (second (has-inverse-is-equiv A B (first e) (second e)))) ,
         ( first e ,
         first (second (has-inverse-is-equiv A B (first e) (second e))))))
+```
+
+```rzk
+#def section-inv-equiv
+  ( A B : U)
+  ( e : Equiv A B)
+  : ( witness-section A B (first e) (first (inv-equiv A B e)))
+  := ( second (first (second (inv-equiv A B e))))
+```
+
+```rzk
+#def retraction-inv-equiv
+  ( A B : U)
+  ( e : Equiv A B)
+  : ( witness-retraction A B (first e) (first (inv-equiv A B e)))
+  := ( second (second (second (inv-equiv A B e))))
 ```
 
 ```rzk title="Composition of equivalences in diagrammatic order"
