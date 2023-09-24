@@ -38,6 +38,15 @@ This is a literate `rzk` file:
 #end paths-in-products
 ```
 
+```rzk
+#def proj-base
+  ( B : U)
+  ( P : B → U)
+  : (Σ (b : B), P b) → B
+  := \(b , x) → b
+
+```
+
 ## Identity types of Sigma types
 
 ```rzk

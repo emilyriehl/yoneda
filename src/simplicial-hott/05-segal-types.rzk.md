@@ -81,6 +81,15 @@ Extension types are also used to define the type of commutative triangles:
         t₂ ≡ t₁ ↦ h t₂]   -- the diagonal is exactly `h`
 ```
 
+```rzk
+#def long-edge-2-simplex
+  ( A : U)
+  ( α : Δ² -> A)
+  : Δ¹ -> A
+  := \t -> α (t, t)
+
+```
+
 ## The Segal condition
 
 A type is **Segal** if every composable pair of arrows has a unique composite.
