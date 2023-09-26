@@ -435,12 +435,18 @@ map from `#!rzk x = y` to `#!rzk Iso A is-segal-A x y` is an equivalence.
 
 ```rzk title="RS17, Definition 10.6"
 #def is-rezk
-  (A : U)
+  ( A : U)
   : U
   :=
     Σ ( is-segal-A : is-segal A) ,
-      (x : A) → (y : A) →
+      ( x : A) → (y : A) →
         is-equiv (x = y) (Iso A is-segal-A x y) (iso-eq A is-segal-A x y)
+
+#def is-segal-is-rezk
+  ( A : U)
+  ( is-rezk-A : is-rezk A)
+  : is-segal A
+  := (first (is-rezk-A))
 ```
 
 ## Uniqueness of initial and final objects
