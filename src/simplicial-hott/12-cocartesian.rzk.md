@@ -47,6 +47,25 @@ families.
     product
     ( product (is-rezk B) (is-rezk (Σ (b : B) , P b)))
     ( (b : B) → (is-rezk (P b)))
+
+#def is-segal-base-is-isoinner
+ ( B : U)
+ ( P : B -> U)
+ ( is-isoinner-P : is-isoinner-family B P) 
+ : is-segal B
+ := ( is-segal-is-rezk B (first (first is-isoinner-P)))
+
+#def is-inner-is-isoinner
+ ( B : U)
+ ( P : B -> U)
+ ( is-isoinner-P : is-isoinner-family B P)
+ : is-inner-family B P
+ := ( 
+      ( is-segal-is-rezk B (first (first is-isoinner-P)),
+        ( is-segal-is-rezk (total-type B P) (second (first is-isoinner-P)))
+        ),
+      (\ b → (is-segal-is-rezk (P b) ((second is-isoinner-P) b) ))
+    )
 ```
 
 ## Dependent composition
@@ -382,6 +401,23 @@ some coherence seems to be needed going through the axiom of choice for extensio
 
   )
 
+#def dep-comp-is-isoinner
+  ( B : U)
+  ( a b c : B)
+  ( u : hom B a b)
+  ( v : hom B b c)
+  ( P : B → U)
+  (is-isoinner-P : is-isoinner-family B P)
+  ( x : P a)
+  ( y : P b)
+  ( z : P c)
+  ( f : dhom B a b u P x y)
+  ( g : dhom B b c v P y z)
+  : dhom B a c (comp-is-segal B (first (first (is-inner-is-isoinner B P is-isoinner-P))) a b c u v) P x z 
+  := 
+  (dep-comp-is-inner B a b c u v P (first (first (is-inner-is-isoinner B P is-isoinner-P)))
+   (second (first (is-inner-is-isoinner B P is-isoinner-P)))
+   x y z f g)
 ```
       
 
@@ -391,6 +427,25 @@ some coherence seems to be needed going through the axiom of choice for extensio
 Here we define the proposition that a dependent arrow in a family is
 cocartesian. This is an alternative version using unpacked extension types, as
 this is preferred for usage.
+
+```rzk
+#def filling-data-cocartesian
+  ( B : U)
+  ( b b' b'' : B)
+  ( u : hom B b b')
+  ( v : hom B b' b'')
+  ( w : hom B b b'')
+  ( sigma : hom2 B b b' b'' u v w)
+  ( P : B → U)
+  ( e : P b)
+  ( e' : P b')
+  ( e'' : P b'')
+  ( f : dhom B b b' u P e e')
+  ( h : dhom B b b'' w P e e'')
+  : U
+  := Σ ( g : dhom B b' b'' v P e' e'') ,
+          ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h)
+```
 
 ```rzk title="BW23, Definition 5.1.1"
 #def is-cocartesian-arrow
@@ -406,9 +461,8 @@ this is preferred for usage.
     (b'' : B) → (v : hom B b' b'') → (w : hom B b b'') →
       (sigma : hom2 B b b' b'' u v w) → (e'' : P b'') →
       (h : dhom B b b'' w P e e'') →
-      is-contr
-        ( Σ ( g : dhom B b' b'' v P e' e'') ,
-          ( dhom2 B b b' b'' u v w sigma P e e' e'' f g h))
+      is-contr (filling-data-cocartesian B b b' b'' u v w sigma
+        P e e' e'' f h)
 ```
 
 ```rzk
@@ -420,8 +474,76 @@ this is preferred for usage.
   ( e : P b)
   ( e' : P b')
   : U
-  := Σ (f : dhom B b b' u P e e'), (is-cocartesian-arrow B b b' u P e e' f)
+  := Σ ( f : dhom B b b' u P e e'), (is-cocartesian-arrow B b b' u P e e' f)
 ```
+
+```rzk
+#def filling-data-is-cocartesian
+  ( B : U)
+  ( b b' b'' : B)
+  ( u : hom B b b')
+  ( v : hom B b' b'')
+  ( w : hom B b b'')
+  ( sigma : hom2 B b b' b'' u v w)
+  ( P : B → U)
+  ( e : P b)
+  ( e' : P b')
+  ( e'' : P b'')
+  ( f : dhom B b b' u P e e')
+  ( is-cocartesian-arrow-f : is-cocartesian-arrow B b b' u P e e' f)
+  ( h : dhom B b b'' w P e e'')
+  : (filling-data-cocartesian B b b' b'' u v w sigma
+        P e e' e'' f h)
+  := ((center-contraction 
+       (filling-data-cocartesian B b b' b'' u v w sigma
+        P e e' e'' f h)
+        (is-cocartesian-arrow-f b'' v w sigma e'' h)
+        )
+        )
+
+#def filling-arrow-is-cocartesian
+  ( B : U)
+  ( b b' b'' : B)
+  ( u : hom B b b')
+  ( v : hom B b' b'')
+  ( w : hom B b b'')
+  ( sigma : hom2 B b b' b'' u v w)
+  ( P : B → U)
+  ( e : P b)
+  ( e' : P b')
+  ( e'' : P b'')
+  ( f : dhom B b b' u P e e')
+  ( is-cocartesian-arrow-f : is-cocartesian-arrow B b b' u P e e' f)
+  ( h : dhom B b b'' w P e e'')
+  : dhom B b' b'' v P e' e''
+  := ( first (filling-data-is-cocartesian B b b' b'' u v w sigma
+       P e e' e'' f is-cocartesian-arrow-f h
+        )
+     )
+
+#def filling-simplex-is-cocartesian
+  ( B : U)
+  ( b b' b'' : B)
+  ( u : hom B b b')
+  ( v : hom B b' b'')
+  ( w : hom B b b'')
+  ( sigma : hom2 B b b' b'' u v w)
+  ( P : B → U)
+  ( e : P b)
+  ( e' : P b')
+  ( e'' : P b'')
+  ( f : dhom B b b' u P e e')
+  ( is-cocartesian-arrow-f : is-cocartesian-arrow B b b' u P e e' f)
+  ( h : dhom B b b'' w P e e'')
+  : ( dhom2 B b b' b'' u v w sigma P e e' e'' f 
+      (filling-arrow-is-cocartesian B b b' b'' u v w sigma P e e' e'' f is-cocartesian-arrow-f h)
+   h)
+  := ( second (filling-data-is-cocartesian B b b' b'' u v w sigma
+       P e e' e'' f is-cocartesian-arrow-f h
+        )
+     )
+
+```     
 
 ## Cocartesian lifts
 
@@ -464,3 +586,4 @@ the has a cocartesian lift, given a point in the fiber over the domain.
   : U
   := product (is-isoinner-family B P) (has-cocartesian-lifts B P)
 ```
+
