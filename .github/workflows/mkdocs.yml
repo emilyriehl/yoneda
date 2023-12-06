@@ -1,48 +1,58 @@
-# This is a basic workflow to help you get started with Actions
+name: MKDocs
 
-name: Build and Deploy MkDocs to GitHub Pages
+on:
+  push:
+    branches: [master]
+    tags: [v*]
+    paths:
+      - .github/workflows/mkdocs.yml
+      - mkdocs.yml
+      - custom_theme/**
+      - requirements.txt
+
+  workflow_dispatch:
 
 permissions:
   contents: write
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-    paths:
-      - src/**
-      - custom_theme/**
-      - mkdocs.yml
-      - requirements.txt
-      - .github/workflows/mkdocs.yml
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   mkdocs:
-    # The type of runner that the job will run on
+    name: 'Build and Deploy MkDocs to GitHub Pages'
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: 📥 Checkout repository
         uses: actions/checkout@v3
-
-      - name: 🔨 Build MkDocs
-        uses: Tiryoh/actions-mkdocs@v0
         with:
-          mkdocs_version: 'latest' # option
-          #mkdocs_version: '1.1' # option
-          requirements: 'requirements.txt' # option
-          configfile: 'mkdocs.yml' # option
+          fetch-depth: 0
 
-      - name: 📘 Publish Generated MkDocs
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: 🧰 Set up Python
+        uses: actions/setup-python@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          folder: site
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+
+      - name: 🔨 Install rzk proof assistant
+        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        with:
+          repo: rzk-lang/rzk
+          tag: latest
+          rename-to: rzk
+          chmod: 0755
+
+      - name: 🔨 Install MkDocs Material and mike
+        run: pip install -r docs/requirements.txt
+
+      - name: ⚙️  Configure Git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: 🚀 Deploy with mike (${{ github.ref_name }}, latest)
+        if: ${{ github.ref_name != 'master' }}
+        run: |
+          mike deploy --rebase --push --update-aliases --config-file docs/mkdocs.yml ${{ github.ref_name }} latest
+
+      - name: 🚀 Deploy with mike (${{ github.ref_name }})
+        if: ${{ github.ref_name == 'master' }}
+        run: |
+          mike deploy --rebase --push --config-file docs/mkdocs.yml ${{ github.ref_name }}

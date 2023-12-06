@@ -1,4 +1,5 @@
-mkdocs-material
+mkdocs-material[imaging]
 python-markdown-math
 pygments-rzk
 mkdocs-plugin-rzk
+mike
