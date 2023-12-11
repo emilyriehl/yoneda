@@ -22,4 +22,4 @@ jobs:
         with:
           rzk-version: latest
           # rzk-version: v0.4.1.1   # example of a specific version
-          files: src/hott/* src/simplicial-hott/*
+          # files: src/hott/* src/simplicial-hott/*
