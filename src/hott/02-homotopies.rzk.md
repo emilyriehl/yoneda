@@ -77,8 +77,8 @@ unlike composition.
   : homotopy
       A
       D
-      (triple-comp A B C D g h f)
-      (triple-comp A B C D g k f)
+      ( triple-comp A B C D g h f)
+      ( triple-comp A B C D g k f)
   :=
     postwhisker-homotopy
       A
@@ -99,15 +99,15 @@ unlike composition.
   ( H : homotopy A B f g)
   ( x y : A)
   ( p : x = y)
-  : ( concat B (f x) (f y) (g y) (ap A B x y f p) (H y)) =
-    ( concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
+  : ( concat B (f x) (f y) (g y) (ap A B x y f p) (H y))
+  = ( concat B (f x) (g x) (g y) (H x) (ap A B x y g p))
   :=
     ind-path
       ( A)
       ( x)
       ( \ y' p' →
-        ( concat B (f x) (f y') (g y') (ap A B x y' f p') (H y')) =
-        ( concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')))
+        ( concat B (f x) (f y') (g y') (ap A B x y' f p') (H y'))
+      = ( concat B (f x) (g x) (g y') (H x) (ap A B x y' g p')))
       ( left-unit-concat B (f x) (g x) (H x))
       ( y)
       ( p)
@@ -122,8 +122,8 @@ unlike composition.
   ( p : x = y)
   : triple-concat
       ( B) (g x) (f x) (f y) (g y)
-      ( rev B (f x) (g x) (H x)) (ap A B x y f p) (H y) =
-    ap A B x y g p
+      ( rev B (f x) (g x) (H x)) (ap A B x y f p) (H y)
+  = ap A B x y g p
   :=
     ind-path
       ( A)
@@ -137,8 +137,8 @@ unlike composition.
             ( g y')
             ( rev B (f x) (g x) (H x))
             ( ap A B x y' f p')
-            ( H y') =
-          ap A B x y' g p')
+            ( H y')
+        = ap A B x y' g p')
       ( rev-refl-id-triple-concat B (f x) (g x) (H x))
       ( y)
       ( p)
@@ -161,8 +161,8 @@ square.
 
 ```rzk
 #def cocone-naturality
-  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
-    ( concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
+  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a))
+  = ( concat A (f (f a)) (f a) (a) (H (f a)) (ap A A (f a) a (identity A) (H a)))
   := nat-htpy A A f (identity A) H (f a) a (H a)
 ```
 
@@ -171,11 +171,11 @@ following:
 
 ```rzk
 #def reduced-cocone-naturality
-  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a)) =
-    ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))
+  : ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a))
+  = ( concat A (f (f a)) (f a) (a) (H (f a)) (H a))
   :=
     concat
-      ( (f (f a)) = a)
+      ( ( f (f a)) = a)
       ( concat A (f (f a)) (f a) a (ap A A (f a) a f (H a)) (H a))
       ( concat
         ( A)
@@ -202,7 +202,7 @@ need:
 
 ```rzk
 #def cocone-naturality-coherence
-  : (H (f a)) = (ap A A (f a) a f (H a))
+  : ( H (f a)) = (ap A A (f a) a f (H a))
   :=
     rev
       ( f (f a) = f a)
@@ -230,8 +230,8 @@ need:
   ( α : (a : A) → H a = K a)
   ( x y : A)
   ( p : f x = f y)
-  : triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (H x)) p (H y) =
-    triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (K x)) p (K y)
+  : triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (H x)) p (H y)
+  = triple-concat B (g x) (f x) (f y) (g y) (rev B (f x) (g x) (K x)) p (K y)
   :=
     ind-path
       ( f y = g y)
@@ -239,8 +239,8 @@ need:
       ( \ Ky α' →
         ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
-          ( rev B (f x) (g x) (H x)) (p) (H y)) =
-        ( triple-concat
+          ( rev B (f x) (g x) (H x)) (p) (H y))
+      = ( triple-concat
           ( B) (g x) (f x) (f y) (g y)
           ( rev B (f x) (g x) (K x)) (p) (Ky)))
       ( triple-concat-eq-first
@@ -257,5 +257,5 @@ need:
           ( rev B (f x) (g x))
           ( α x)))
       ( K y)
-      (α y)
+      ( α y)
 ```

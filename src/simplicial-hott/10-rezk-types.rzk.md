@@ -30,7 +30,7 @@ Some of the definitions in this file rely on extension extensionality:
   ( x y : A)
   ( f : hom A x y)
   : U
-  := Σ ( g : hom A y x) , ( has-retraction-arrow A is-segal-A x y f g)
+  := Σ ( g : hom A y x) , (has-retraction-arrow A is-segal-A x y f g)
 
 #def has-section-arrow
   ( A : U)
@@ -42,12 +42,12 @@ Some of the definitions in this file rely on extension extensionality:
   := ( comp-is-segal A is-segal-A y x y h f) =_{hom A y y} (id-hom A y)
 
 #def Section-arrow
-  (A : U)
-  (is-segal-A : is-segal A)
-  (x y : A)
-  (f : hom A x y)
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( x y : A)
+  ( f : hom A x y)
   : U
-  := Σ (h : hom A y x) , (has-section-arrow A is-segal-A x y f h)
+  := Σ ( h : hom A y x) , (has-section-arrow A is-segal-A x y f h)
 
 #def is-iso-arrow
   ( A : U)
@@ -82,8 +82,8 @@ invertible, meaning `#!rzk f` has a two-sided composition inverse
   ( f : hom A x y)
   : U
   :=
-    Σ ( g : hom A y x) ,
-      product
+    Σ ( g : hom A y x)
+    , product
       ( has-retraction-arrow A is-segal-A x y f g)
       ( has-section-arrow A is-segal-A x y f g)
 
@@ -94,19 +94,19 @@ invertible, meaning `#!rzk f` has a two-sided composition inverse
   ( f : hom A x y)
   : ( has-inverse-arrow A is-segal-A x y f) → (is-iso-arrow A is-segal-A x y f)
   :=
-    ( \ (g , (p , q)) → ((g , p) , (g , q)))
+    ( \ ( g , ( p , q)) → ((g , p) , (g , q)))
 
 #def has-inverse-arrow-is-iso-arrow uses (extext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y : A)
   ( f : hom A x y)
-  : (is-iso-arrow A is-segal-A x y f) → (has-inverse-arrow A is-segal-A x y f)
+  : ( is-iso-arrow A is-segal-A x y f) → (has-inverse-arrow A is-segal-A x y f)
   :=
-    ( \ ((g , p) , (h , q)) →
-      ( g ,
-        ( p ,
-          ( concat
+    ( \ ( ( g , p) , (h , q)) →
+      ( g
+      , ( p
+        , ( concat
             ( hom A y y)
             ( comp-is-segal A is-segal-A y x y g f)
             ( comp-is-segal A is-segal-A y x y h f)
@@ -122,7 +122,7 @@ invertible, meaning `#!rzk f` has a two-sided composition inverse
                   ( g)
                   ( id-comp-is-segal A is-segal-A y x g))
                 ( comp-is-segal A is-segal-A y y x
-                  ( comp-is-segal A is-segal-A y x y h f) ( g))
+                  ( comp-is-segal A is-segal-A y x y h f) (g))
                 ( postwhisker-homotopy-is-segal A is-segal-A y y x
                   ( id-hom A y)
                   ( comp-is-segal A is-segal-A y x y h f)
@@ -153,8 +153,8 @@ invertible, meaning `#!rzk f` has a two-sided composition inverse
   ( f : hom A x y)
   : iff (has-inverse-arrow A is-segal-A x y f) (is-iso-arrow A is-segal-A x y f)
   :=
-    ( is-iso-arrow-has-inverse-arrow A is-segal-A x y f ,
-      has-inverse-arrow-is-iso-arrow A is-segal-A x y f)
+    ( is-iso-arrow-has-inverse-arrow A is-segal-A x y f
+    , has-inverse-arrow-is-iso-arrow A is-segal-A x y f)
 ```
 
 ## Being an isomorphism is a proposition
@@ -169,19 +169,19 @@ The predicate `#!rzk is-iso-arrow` is a proposition.
   ( f : hom A x y)
   ( g : hom A y x)
   ( gg : has-retraction-arrow A is-segal-A x y f g)
-  : ( z : A) →
-    has-retraction (hom A z x) (hom A z y)
+  : ( z : A)
+  → has-retraction (hom A z x) (hom A z y)
       ( postcomp-is-segal A is-segal-A x y f z)
   :=
     \ z →
-    ( ( postcomp-is-segal A is-segal-A y x g z) ,
-        \ k →
+    ( ( postcomp-is-segal A is-segal-A y x g z)
+      , \ k →
       ( triple-concat
         ( hom A z x)
         ( comp-is-segal A is-segal-A z y x
           ( comp-is-segal A is-segal-A z x y k f) g)
         ( comp-is-segal A is-segal-A z x x
-          k ( comp-is-segal A is-segal-A x y x f g))
+          k (comp-is-segal A is-segal-A x y x f g))
         ( comp-is-segal A is-segal-A z x x k (id-hom A x))
         ( k)
         ( associative-is-segal extext A is-segal-A z x y x k f g)
@@ -196,12 +196,12 @@ The predicate `#!rzk is-iso-arrow` is a proposition.
   ( f : hom A x y)
   ( h : hom A y x)
   ( hh : has-section-arrow A is-segal-A x y f h)
-  : ( z : A) →
-    has-section (hom A z x) (hom A z y) (postcomp-is-segal A is-segal-A x y f z)
+  : ( z : A)
+  → has-section (hom A z x) (hom A z y) (postcomp-is-segal A is-segal-A x y f z)
   :=
     \ z →
-    ( ( postcomp-is-segal A is-segal-A y x h z) ,
-        \ k →
+    ( ( postcomp-is-segal A is-segal-A y x h z)
+      , \ k →
         ( triple-concat
           ( hom A z y)
           ( comp-is-segal A is-segal-A z x y
@@ -224,12 +224,12 @@ The predicate `#!rzk is-iso-arrow` is a proposition.
   ( gg : has-retraction-arrow A is-segal-A x y f g)
   ( h : hom A y x)
   ( hh : has-section-arrow A is-segal-A x y f h)
-  : (z : A) →
-    is-equiv (hom A z x) (hom A z y) (postcomp-is-segal A is-segal-A x y f z)
+  : ( z : A)
+  → is-equiv (hom A z x) (hom A z y) (postcomp-is-segal A is-segal-A x y f z)
   :=
     \ z →
-    ( ( has-retraction-postcomp-has-retraction A is-segal-A x y f g gg z) ,
-      ( has-section-postcomp-has-section A is-segal-A x y f h hh z))
+    ( ( has-retraction-postcomp-has-retraction A is-segal-A x y f g gg z)
+    , ( has-section-postcomp-has-section A is-segal-A x y f h hh z))
 
 #def has-retraction-precomp-has-section uses (extext)
   ( A : U)
@@ -238,13 +238,13 @@ The predicate `#!rzk is-iso-arrow` is a proposition.
   ( f : hom A x y)
   ( h : hom A y x)
   ( hh : has-section-arrow A is-segal-A x y f h)
-  : (z : A) →
-    has-retraction (hom A y z) (hom A x z)
+  : ( z : A)
+  → has-retraction (hom A y z) (hom A x z)
       ( precomp-is-segal A is-segal-A x y f z)
   :=
     \ z →
-    ( ( precomp-is-segal A is-segal-A y x h z) ,
-        \ k →
+    ( ( precomp-is-segal A is-segal-A y x h z)
+      , \ k →
         ( triple-concat
           ( hom A y z)
           ( comp-is-segal A is-segal-A y x z
@@ -274,12 +274,12 @@ The predicate `#!rzk is-iso-arrow` is a proposition.
   ( f : hom A x y)
   ( g : hom A y x)
   ( gg : has-retraction-arrow A is-segal-A x y f g)
-  : (z : A) →
-    has-section (hom A y z) (hom A x z) (precomp-is-segal A is-segal-A x y f z)
+  : ( z : A)
+  → has-section (hom A y z) (hom A x z) (precomp-is-segal A is-segal-A x y f z)
   :=
     \ z →
-    ( ( precomp-is-segal A is-segal-A y x g z) ,
-        \ k →
+    ( ( precomp-is-segal A is-segal-A y x g z)
+      , \ k →
         ( triple-concat
           ( hom A x z)
           ( comp-is-segal A is-segal-A x y z
@@ -312,12 +312,12 @@ The predicate `#!rzk is-iso-arrow` is a proposition.
   ( gg : has-retraction-arrow A is-segal-A x y f g)
   ( h : hom A y x)
   ( hh : has-section-arrow A is-segal-A x y f h)
-  : (z : A) →
-    is-equiv (hom A y z) (hom A x z) (precomp-is-segal A is-segal-A x y f z)
+  : ( z : A)
+  → is-equiv (hom A y z) (hom A x z) (precomp-is-segal A is-segal-A x y f z)
   :=
     \ z →
-      ( ( has-retraction-precomp-has-section A is-segal-A x y f h hh z) ,
-        ( has-section-precomp-has-retraction A is-segal-A x y f g gg z))
+      ( ( has-retraction-precomp-has-section A is-segal-A x y f h hh z)
+      , ( has-section-precomp-has-retraction A is-segal-A x y f g gg z))
 
 #def is-contr-Retraction-arrow-is-iso uses (extext)
   ( A : U)
@@ -379,7 +379,7 @@ The predicate `#!rzk is-iso-arrow` is a proposition.
   ( is-segal-A : is-segal A)
   ( x y : A)
   ( f : hom A x y)
-  : (is-prop (is-iso-arrow A is-segal-A x y f))
+  : ( is-prop (is-iso-arrow A is-segal-A x y f))
   :=
     ( is-prop-is-contr-is-inhabited
       ( is-iso-arrow A is-segal-A x y f)
@@ -398,21 +398,21 @@ map from `#!rzk x = y` to `#!rzk Iso A is-segal-A x y` is an equivalence.
 
 ```rzk
 #def iso-id-arrow
-  (A : U)
-  (is-segal-A : is-segal A)
-  : (x : A) → Iso A is-segal-A x x
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  : ( x : A) → Iso A is-segal-A x x
   :=
     \ x →
     (
-    (id-hom A x) ,
+    ( id-hom A x)
+  , (
     (
-    (
-      (id-hom A x) ,
-      (id-comp-is-segal A is-segal-A x x (id-hom A x))
-    ) ,
-    (
-      (id-hom A x) ,
-      (id-comp-is-segal A is-segal-A x x (id-hom A x))
+      ( id-hom A x)
+    , ( id-comp-is-segal A is-segal-A x x (id-hom A x))
+    )
+  , (
+      ( id-hom A x)
+    , ( id-comp-is-segal A is-segal-A x x (id-hom A x))
     )
       )
   )
@@ -421,7 +421,7 @@ map from `#!rzk x = y` to `#!rzk Iso A is-segal-A x y` is an equivalence.
   ( A : U)
   ( is-segal-A : is-segal A)
   ( x y : A)
-  : (x = y) → Iso A is-segal-A x y
+  : ( x = y) → Iso A is-segal-A x y
   :=
     \ p →
     ind-path
@@ -438,15 +438,15 @@ map from `#!rzk x = y` to `#!rzk Iso A is-segal-A x y` is an equivalence.
   ( A : U)
   : U
   :=
-    Σ ( is-segal-A : is-segal A) ,
-      ( x : A) → (y : A) →
-        is-equiv (x = y) (Iso A is-segal-A x y) (iso-eq A is-segal-A x y)
+    Σ ( is-segal-A : is-segal A)
+    , ( x : A) → (y : A)
+      → is-equiv (x = y) (Iso A is-segal-A x y) (iso-eq A is-segal-A x y)
 
 #def is-segal-is-rezk
   ( A : U)
   ( is-rezk-A : is-rezk A)
   : is-segal A
-  := (first (is-rezk-A))
+  := ( first (is-rezk-A))
 ```
 
 ## Uniqueness of initial and final objects
@@ -462,17 +462,17 @@ In a Segal type, initial objects are isomorphic.
   ( is-initial-b : is-initial A b)
   : Iso A is-segal-A a b
   :=
-    ( first (is-initial-a b) ,
-      ( ( first (is-initial-b a) ,
-          eq-is-contr
+    ( first (is-initial-a b)
+    , ( ( first (is-initial-b a)
+        , eq-is-contr
             ( hom A a a)
             ( is-initial-a a)
             ( comp-is-segal A is-segal-A a b a
               ( first (is-initial-a b))
               ( first (is-initial-b a)))
-            ( id-hom A a)) ,
-        ( first (is-initial-b a) ,
-          eq-is-contr
+            ( id-hom A a))
+      , ( first (is-initial-b a)
+        , eq-is-contr
             ( hom A b b)
             ( is-initial-b b)
             ( comp-is-segal A is-segal-A b a b
@@ -493,17 +493,17 @@ In a Segal type, final objects are isomorphic.
   ( iso : Iso A is-segal-A a b)
   : Iso A is-segal-A a b
   :=
-    ( first (is-final-b a) ,
-      ( ( first (is-final-a b) ,
-          eq-is-contr
+    ( first (is-final-b a)
+    , ( ( first (is-final-a b)
+        , eq-is-contr
             ( hom A a a)
             ( is-final-a a)
             ( comp-is-segal A is-segal-A a b a
               ( first (is-final-b a))
               ( first (is-final-a b)))
-            ( id-hom A a)) ,
-        ( first (is-final-a b) ,
-          eq-is-contr
+            ( id-hom A a))
+      , ( first (is-final-a b)
+        , eq-is-contr
             ( hom A b b)
             ( is-final-b b)
             ( comp-is-segal A is-segal-A b a b

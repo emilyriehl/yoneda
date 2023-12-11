@@ -12,7 +12,7 @@ This is a literate `rzk` file:
 #def product
   ( A B : U)
   : U
-  := Σ (x : A) , B
+  := Σ ( x : A) , B
 ```
 
 The following demonstrates the syntax for constructing terms in Sigma types:
@@ -22,7 +22,7 @@ The following demonstrates the syntax for constructing terms in Sigma types:
   ( A : U)
   ( a : A)
   : product A A
-  := (a , a)
+  := ( a , a)
 ```
 
 ## The type of logical equivalences between types

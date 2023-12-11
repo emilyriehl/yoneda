@@ -43,7 +43,7 @@ targets. The action is called `#!rzk ap-hom` to avoid conflicting with
   ( f : hom A x y)
   ( g : hom A y z)
   ( h : hom A x z)
-  (α : hom2 A x y z f g h)
+  ( α : hom2 A x y z f g h)
   : hom2 B (F x) (F y) (F z)
     ( ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z h)
   := \ t → F (α t)
@@ -88,8 +88,8 @@ Preservation of composition requires the Segal hypothesis.
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g))
-    =
-    ( ap-hom A B F x z (comp-is-segal A is-segal-A x y z f g))
+
+  = ( ap-hom A B F x z (comp-is-segal A is-segal-A x y z f g))
   :=
     uniqueness-comp-is-segal B is-segal-B
       ( F x) (F y) (F z)
@@ -158,8 +158,8 @@ Equivalently , natural transformations can be determined by their **components**
       ( nat-trans-components A B f g)
       ( ev-components-nat-trans A B f g)
   :=
-    ( ( \ η t x → η x t , \ _ → refl) ,
-      ( \ η t x → η x t , \ _ → refl))
+    ( ( \ η t x → η x t , \ _ → refl)
+    , ( \ η t x → η x t , \ _ → refl))
 
 #def equiv-components-nat-trans
   ( A : U)
@@ -167,8 +167,8 @@ Equivalently , natural transformations can be determined by their **components**
   ( f g : (x : A) → (B x))
   : Equiv (nat-trans A B f g) (nat-trans-components A B f g)
   :=
-    ( ev-components-nat-trans A B f g ,
-      is-equiv-ev-components-nat-trans A B f g)
+    ( ev-components-nat-trans A B f g
+    , is-equiv-ev-components-nat-trans A B f g)
 ```
 
 ### Horizontal composition

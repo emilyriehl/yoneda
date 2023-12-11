@@ -37,7 +37,7 @@ live over a specified arrow in the base type.
   ( u : C x)
   ( v : C y)
   : U
-  := (t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u , t ≡ 1₂ ↦ v]
+  := ( t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u , t ≡ 1₂ ↦ v]
 ```
 
 It will be convenient to collect together dependent hom types with fixed domain
@@ -51,7 +51,7 @@ but varying codomain.
   ( C : A → U)
   ( u : C x)
   : U
-  := ( Σ (v : C y) , dhom A x y f C u v)
+  := ( Σ ( v : C y) , dhom A x y f C u v)
 ```
 
 There is also a type of dependent commutative triangles over a base commutative
@@ -74,10 +74,10 @@ triangle.
   ( hh : dhom A x z h C u w)
   : U
   :=
-    ( (t1 , t2) : Δ²) → C (α (t1 , t2)) [
-        t2 ≡ 0₂ ↦ ff t1 ,
-        t1 ≡ 1₂ ↦ gg t2 ,
-        t2 ≡ t1 ↦ hh t2
+    ( ( t1 , t2) : Δ²) → C (α (t1 , t2)) [
+        t2 ≡ 0₂ ↦ ff t1
+      , t1 ≡ 1₂ ↦ gg t2
+      , t2 ≡ t1 ↦ hh t2
       ]
 ```
 
@@ -92,13 +92,14 @@ unique lift with specified domain.
   ( C : A → U)
   : U
   :=
-    ( x : A) → (y : A) → (f : hom A x y) → (u : C x) →
-    is-contr (dhom-from A x y f C u)
+    ( x : A) → (y : A) → (f : hom A x y) → (u : C x)
+  → is-contr (dhom-from A x y f C u)
 ```
 
 ```rzk title="The type of covariant families over a fixed type"
-#def covariant-family (A : U) : U
-  := ( Σ (C : (A → U)) , is-covariant A C)
+#def covariant-family (A : U)
+  : U
+  := ( Σ ( C : (A → U)) , is-covariant A C)
 ```
 
 The notion of having a unique lift with a fixed domain may also be expressed by
@@ -111,8 +112,8 @@ contractibility of the type of extensions along the domain inclusion into the
   ( C : A → U)
   : U
   :=
-    ( x : A) → (y : A) → (f : hom A x y) → (u : C x) →
-    is-contr ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u])
+    ( x : A) → (y : A) → (f : hom A x y) → (u : C x)
+  → is-contr ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u])
 ```
 
 These two notions of covariance are equivalent because the two types of lifts of
@@ -128,12 +129,12 @@ here.
   ( f : hom A x y)
   ( u : C x)
   : Equiv
-      ((t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u])
-      (dhom-from A x y f C u)
+      ( ( t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u])
+      ( dhom-from A x y f C u)
   :=
-    ( \ h → (h 1₂ , \ t → h t) ,
-      ( ( \ fg t → (second fg) t , \ h → refl) ,
-        ( ( \ fg t → (second fg) t , \ h → refl))))
+    ( \ h → (h 1₂ , \ t → h t)
+    , ( ( \ fg t → (second fg) t , \ h → refl)
+      , ( ( \ fg t → (second fg) t , \ h → refl))))
 ```
 
 By the equivalence-invariance of contractibility, this proves the desired
@@ -149,13 +150,13 @@ logical equivalence
   :=
     ( ( \ C-has-unique-lifts x y f u →
         is-contr-equiv-is-contr
-          ( (t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u])
+          ( ( t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u])
           ( dhom-from A x y f C u)
           ( equiv-lifts-with-fixed-domain A C x y f u)
-          ( C-has-unique-lifts x y f u)) ,
-      ( \ C-is-covariant x y f u →
+          ( C-has-unique-lifts x y f u))
+    , ( \ C-is-covariant x y f u →
         is-contr-equiv-is-contr'
-          ( (t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u])
+          ( ( t : Δ¹) → C (f t) [ t ≡ 0₂ ↦ u])
           ( dhom-from A x y f C u)
           ( equiv-lifts-with-fixed-domain A C x y f u)
           ( C-is-covariant x y f u)))
@@ -190,19 +191,19 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( v : hom A a y)
   : Equiv
     ( dhom-representable A a x y f u v)
-    ( ( (t , s) : Δ¹×Δ¹) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+    ( ( ( t , s) : Δ¹×Δ¹)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
   :=
     curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s → A)
-    ( \ (t , s) →
+    ( \ ( t , s) →
       recOR
-        ( (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t))
+        ( ( t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t))
 
 #def dhom-from-representable
   ( A : U)
@@ -223,22 +224,22 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( u : hom A a x)
   : Equiv
     ( dhom-from-representable A a x y f u)
-    ( Σ ( v : hom A a y) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+    ( Σ ( v : hom A a y)
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
   :=
     total-equiv-family-equiv
       ( hom A a y)
       ( \ v → dhom-representable A a x y f u v)
       ( \ v →
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+        ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
       ( \ v → uncurried-dhom-representable A a x y f u v)
 
 #def square-to-hom2-pushout
@@ -248,12 +249,12 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( f : hom A x z)
   ( g : hom A w y)
   ( v : hom A y z)
-  : ( ( (t , s) : Δ¹×Δ¹) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ g t ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]) →
-    ( Σ (d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
+  : ( ( ( t , s) : Δ¹×Δ¹)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ g t
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+  → ( Σ ( d : hom A w z) , product (hom2 A w x z u f d) (hom2 A w y z g v d))
   :=
     \ sq →
     ( ( \ t → sq (t , t)) , (\ (t , s) → sq (s , t) , \ (t , s) → sq (t , s)))
@@ -265,18 +266,18 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( f : hom A x z)
   ( g : hom A w y)
   ( v : hom A y z)
-  : ( Σ ( d : hom A w z) ,
-        ( product (hom2 A w x z u f d) (hom2 A w y z g v d))) →
-      ( ( (t , s) : Δ¹×Δ¹) →
-        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ g t ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+  : ( Σ ( d : hom A w z)
+      , ( product (hom2 A w x z u f d) (hom2 A w y z g v d)))
+    → ( ( ( t , s) : Δ¹×Δ¹)
+      → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ g t
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
   :=
-    \ (d , (α1 , α2)) (t , s) →
+    \ ( d , (α1 , α2)) (t , s) →
     recOR
-      ( t ≤ s ↦ α1 (s , t) ,
-        s ≤ t ↦ α2 (t , s))
+      ( t ≤ s ↦ α1 (s , t)
+      , s ≤ t ↦ α2 (t , s))
 
 #def equiv-square-hom2-pushout
   ( A : U)
@@ -286,16 +287,16 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( g : hom A w y)
   ( v : hom A y z)
   : Equiv
-    ( ( (t , s) : Δ¹×Δ¹) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ g t ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
-    ( Σ (d : hom A w z) , (product (hom2 A w x z u f d) (hom2 A w y z g v d)))
+    ( ( ( t , s) : Δ¹×Δ¹)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ g t
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+    ( Σ ( d : hom A w z) , (product (hom2 A w x z u f d) (hom2 A w y z g v d)))
   :=
-    ( ( square-to-hom2-pushout A w x y z u f g v) ,
-      ( ( hom2-pushout-to-square A w x y z u f g v , \ sq → refl) ,
-        ( hom2-pushout-to-square A w x y z u f g v , \ αs → refl)))
+    ( ( square-to-hom2-pushout A w x y z u f g v)
+    , ( ( hom2-pushout-to-square A w x y z u f g v , \ sq → refl)
+      , ( hom2-pushout-to-square A w x y z u f g v , \ αs → refl)))
 
 #def representable-dhom-from-uncurry-hom2
   ( A : U)
@@ -303,27 +304,27 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( f : hom A x y)
   ( u : hom A a x)
   : Equiv
-    ( Σ (v : hom A a y) ,
-      ( ( (t , s) : Δ¹×Δ¹) →
-        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
-    ( Σ ( v : hom A a y) ,
-        ( Σ ( d : hom A a y) ,
-            ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
+    ( Σ ( v : hom A a y)
+    , ( ( ( t , s) : Δ¹×Δ¹)
+      → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+    ( Σ ( v : hom A a y)
+      , ( Σ ( d : hom A a y)
+          , ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
   :=
     total-equiv-family-equiv
     ( hom A a y)
     ( \ v →
-      ( ( (t , s) : Δ¹×Δ¹) →
-        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+      ( ( ( t , s) : Δ¹×Δ¹)
+      → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
     ( \ v →
-      ( Σ ( d : hom A a y) ,
-          ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
+      ( Σ ( d : hom A a y)
+        , ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
     ( \ v → equiv-square-hom2-pushout A a x a y u f (id-hom A a) v)
 
 #def representable-dhom-from-hom2
@@ -333,24 +334,24 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( u : hom A a x)
   : Equiv
     ( dhom-from-representable A a x y f u)
-    ( Σ ( d : hom A a y) ,
-        ( Σ ( v : hom A a y) ,
-            ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
+    ( Σ ( d : hom A a y)
+      , ( Σ ( v : hom A a y)
+          , ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
   :=
     equiv-triple-comp
     ( dhom-from-representable A a x y f u)
-    ( Σ ( v : hom A a y) ,
-        ( ((t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
-    ( Σ ( v : hom A a y) ,
-        ( Σ ( d : hom A a y) ,
-            ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
-    ( Σ ( d : hom A a y) ,
-        ( Σ ( v : hom A a y) ,
-            ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
+    ( Σ ( v : hom A a y)
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+    ( Σ ( v : hom A a y)
+      , ( Σ ( d : hom A a y)
+          , ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
+    ( Σ ( d : hom A a y)
+      , ( Σ ( v : hom A a y)
+          , ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
     ( uncurried-dhom-from-representable A a x y f u)
     ( representable-dhom-from-uncurry-hom2 A a x y f u)
     ( fubini-Σ (hom A a y) (hom A a y)
@@ -363,30 +364,30 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( u : hom A a x)
   : Equiv
     ( dhom-from-representable A a x y f u)
-    ( Σ ( d : hom A a y) ,
-        ( product
+    ( Σ ( d : hom A a y)
+      , ( product
           ( hom2 A a x y u f d)
-          ( Σ (v : hom A a y) , (hom2 A a a y (id-hom A a) v d))))
+          ( Σ ( v : hom A a y) , (hom2 A a a y (id-hom A a) v d))))
   :=
     equiv-right-cancel
     ( dhom-from-representable A a x y f u)
-    ( Σ ( d : hom A a y) ,
-        ( product
+    ( Σ ( d : hom A a y)
+      , ( product
           ( hom2 A a x y u f d)
-          ( Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
-    ( Σ ( d : hom A a y) ,
-        ( Σ ( v : hom A a y) ,
-            ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
+          ( Σ ( v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
+    ( Σ ( d : hom A a y)
+      , ( Σ ( v : hom A a y)
+          , ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
     ( representable-dhom-from-hom2 A a x y f u)
     ( total-equiv-family-equiv
       ( hom A a y)
       ( \ d →
         ( product
           ( hom2 A a x y u f d)
-          ( Σ (v : hom A a y) , (hom2 A a a y (id-hom A a) v d))))
+          ( Σ ( v : hom A a y) , (hom2 A a a y (id-hom A a) v d))))
       ( \ d →
-        ( Σ ( v : hom A a y) ,
-            ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
+        ( Σ ( v : hom A a y)
+          , ( product (hom2 A a x y u f d) (hom2 A a a y (id-hom A a) v d))))
       ( \ d →
         ( distributive-product-Σ
           ( hom2 A a x y u f d)
@@ -405,17 +406,17 @@ Now we introduce the hypothesis that A is Segal type.
   ( u : hom A a x)
   : Equiv
     ( dhom-from-representable A a x y f u)
-    ( Σ ( d : hom A a y) ,
-        ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
+    ( Σ ( d : hom A a y)
+      , ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
   :=
     equiv-right-cancel
     ( dhom-from-representable A a x y f u)
-    ( Σ ( d : hom A a y) ,
-        ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
-    ( Σ ( d : hom A a y) ,
-        ( product
+    ( Σ ( d : hom A a y)
+      , ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
+    ( Σ ( d : hom A a y)
+      , ( product
           ( hom2 A a x y u f d)
-          ( Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
+          ( Σ ( v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
     ( representable-dhom-from-hom2-dist A a x y f u)
     ( total-equiv-family-equiv
       ( hom A a y)
@@ -423,7 +424,7 @@ Now we introduce the hypothesis that A is Segal type.
       ( \ d →
         ( product
           ( hom2 A a x y u f d)
-          ( Σ (v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
+          ( Σ ( v : hom A a y) , hom2 A a a y (id-hom A a) v d)))
       ( \ d →
         ( total-equiv-family-equiv
           ( hom2 A a x y u f d)
@@ -460,13 +461,13 @@ Now we introduce the hypothesis that A is Segal type.
   ( u : hom A a x)
   : Equiv
     ( dhom-from-representable A a x y f u)
-    ( Σ (d : hom A a y) , (hom2 A a x y u f d))
+    ( Σ ( d : hom A a y) , (hom2 A a x y u f d))
   :=
     equiv-comp
     ( dhom-from-representable A a x y f u)
-    ( Σ (d : hom A a y) ,
-      ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
-    ( Σ (d : hom A a y) , (hom2 A a x y u f d))
+    ( Σ ( d : hom A a y)
+    , ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
+    ( Σ ( d : hom A a y) , (hom2 A a x y u f d))
     ( representable-dhom-from-path-space-is-segal A is-segal-A a x y f u)
     ( total-equiv-family-equiv
       ( hom A a y)
@@ -484,7 +485,7 @@ Now we introduce the hypothesis that A is Segal type.
   :=
     is-contr-equiv-is-contr'
       ( dhom-from-representable A a x y f u)
-      ( Σ (d : hom A a y) , (hom2 A a x y u f d))
+      ( Σ ( d : hom A a y) , (hom2 A a x y u f d))
       ( is-segal-representable-dhom-from-hom2 A is-segal-A a x y f u)
       ( is-segal-A a x y u f)
 ```
@@ -493,9 +494,9 @@ Finally, we see that covariant hom families in a Segal type are covariant.
 
 ```rzk title="RS17, Proposition 8.13(<-)"
 #def is-covariant-representable-is-segal
-  (A : U)
-  (is-segal-A : is-segal A)
-  (a : A)
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a : A)
   : is-covariant A (\ x → hom A a x)
   := is-segal-representable-dhom-from-contractible A is-segal-A a
 ```
@@ -507,31 +508,31 @@ we argue as follows:
 ```rzk title="RS17, Proposition 8.13(→)"
 #def is-segal-is-covariant-representable
   ( A : U)
-  ( corepresentable-family-is-covariant : (a : A) →
-    is-covariant A (\ x → hom A a x))
+  ( corepresentable-family-is-covariant : (a : A)
+  → is-covariant A (\ x → hom A a x))
   : is-segal A
   :=
     \ x y z f g →
     is-contr-base-is-contr-Σ
-    ( Σ (h : hom A x z) , hom2 A x y z f g h)
+    ( Σ ( h : hom A x z) , hom2 A x y z f g h)
     ( \ hk → Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk))
     ( \ hk → (first hk , \ (t , s) → first hk s))
     ( is-contr-equiv-is-contr'
-      ( Σ ( hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-          ( Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk)))
+      ( Σ ( hk : Σ (h : hom A x z) , hom2 A x y z f g h)
+        , ( Σ ( v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk)))
       ( dhom-from-representable A x y z g f)
       ( inv-equiv
         ( dhom-from-representable A x y z g f)
-        ( Σ ( hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-            ( Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk)))
+        ( Σ ( hk : Σ (h : hom A x z) , hom2 A x y z f g h)
+          , ( Σ ( v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk)))
         ( equiv-comp
           ( dhom-from-representable A x y z g f)
-          ( Σ ( h : hom A x z) ,
-              ( product
+          ( Σ ( h : hom A x z)
+            , ( product
                 ( hom2 A x y z f g h)
-                ( Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v h)))
-          ( Σ ( hk : Σ (h : hom A x z) , hom2 A x y z f g h) ,
-              ( Σ (v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk)))
+                ( Σ ( v : hom A x z) , hom2 A x x z (id-hom A x) v h)))
+          ( Σ ( hk : Σ (h : hom A x z) , hom2 A x y z f g h)
+            , ( Σ ( v : hom A x z) , hom2 A x x z (id-hom A x) v (first hk)))
           ( representable-dhom-from-hom2-dist A x y z g f)
           ( associative-Σ
             ( hom A x z)
@@ -551,25 +552,25 @@ types as follows.
   ( f : hom A x y)
   ( u : hom A a x)
   : Equiv
-    ( ( (t , s) : ∂□) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
-    ( ( (t , s) : 2 × 2 | (t ≡ 1₂) ∧ (Δ¹ s)) →
-      A [ (t ≡ 1₂) ∧ (s ≡ 0₂) ↦ a ,
-          (t ≡ 1₂) ∧ (s ≡ 1₂) ↦ y])
+    ( ( ( t , s) : ∂□)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+    ( ( ( t , s) : 2 × 2 | (t ≡ 1₂) ∧ (Δ¹ s))
+    → A [ (t ≡ 1₂) ∧ (s ≡ 0₂) ↦ a
+        , ( t ≡ 1₂) ∧ (s ≡ 1₂) ↦ y])
   :=
     cofibration-union
     ( 2 × 2)
-    ( \ (t , s) → (t ≡ 1₂) ∧ Δ¹ s)
-    ( \ (t , s) →
-      ((t ≡ 0₂) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (s ≡ 0₂)) ∨ ((Δ¹ t) ∧ (s ≡ 1₂)))
-    ( \ (t , s) → A)
-    ( \ (t , s) →
+    ( \ ( t , s) → (t ≡ 1₂) ∧ Δ¹ s)
+    ( \ ( t , s) →
+      ( ( t ≡ 0₂) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (s ≡ 0₂)) ∨ ((Δ¹ t) ∧ (s ≡ 1₂)))
+    ( \ ( t , s) → A)
+    ( \ ( t , s) →
       recOR
-        ( (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t))
+        ( ( t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t))
 
 #def base-hom-rewriting
   ( A : U)
@@ -577,14 +578,14 @@ types as follows.
   ( f : hom A x y)
   ( u : hom A a x)
   : Equiv
-    ( ( (t , s) : 2 × 2 | (t ≡ 1₂) ∧ (Δ¹ s)) →
-      A [ (t ≡ 1₂) ∧ (s ≡ 0₂) ↦ a ,
-          (t ≡ 1₂) ∧ (s ≡ 1₂) ↦ y])
+    ( ( ( t , s) : 2 × 2 | (t ≡ 1₂) ∧ (Δ¹ s))
+    → A [ (t ≡ 1₂) ∧ (s ≡ 0₂) ↦ a
+        , ( t ≡ 1₂) ∧ (s ≡ 1₂) ↦ y])
     ( hom A a y)
   :=
-    ( ( \ v → (\ r → v ((1₂ , r)))) ,
-      ( ( \ v (t , s) → v s , \ _ → refl) ,
-        ( \ v (_ , s) → v s , \ _ → refl)))
+    ( ( \ v → (\ r → v ((1₂ , r))))
+    , ( ( \ v (t , s) → v s , \ _ → refl)
+      , ( \ v (_ , s) → v s , \ _ → refl)))
 
 #def base-hom-expansion
   ( A : U)
@@ -592,20 +593,20 @@ types as follows.
   ( f : hom A x y)
   ( u : hom A a x)
   : Equiv
-    ( ( (t , s) : ∂□) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+    ( ( ( t , s) : ∂□)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
     ( hom A a y)
   :=
     equiv-comp
-    ( ( (t , s) : ∂□) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
-    ( ( (t , s) : 2 × 2 | (t ≡ 1₂) ∧ (Δ¹ s)) →
-      A [ (t ≡ 1₂) ∧ (s ≡ 0₂) ↦ a ,
-          (t ≡ 1₂) ∧ (s ≡ 1₂) ↦ y])
+    ( ( ( t , s) : ∂□)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+    ( ( ( t , s) : 2 × 2 | (t ≡ 1₂) ∧ (Δ¹ s))
+    → A [ (t ≡ 1₂) ∧ (s ≡ 0₂) ↦ a
+        , ( t ≡ 1₂) ∧ (s ≡ 1₂) ↦ y])
     ( hom A a y)
     ( cofibration-union-test A a x y f u)
     ( base-hom-rewriting A a x y f u)
@@ -617,36 +618,36 @@ types as follows.
   ( u : hom A a x)
   : Equiv
     ( Σ ( sq :
-          ( (t , s) : ∂□) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s)) ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
-    ( Σ ( v : hom A a y) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+          ( ( t , s) : ∂□)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s))
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+    ( Σ ( v : hom A a y)
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
   :=
     total-equiv-pullback-is-equiv
-    ( ( (t , s) : ∂□) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+    ( ( ( t , s) : ∂□)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
     ( hom A a y)
     ( first (base-hom-expansion A a x y f u))
     ( second (base-hom-expansion A a x y f u))
     ( \ v →
-      ( ( (t , s) : Δ¹×Δ¹) →
-        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+      ( ( ( t , s) : Δ¹×Δ¹)
+      → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
 
 #def representable-dhom-from-composite-expansion
   ( A : U)
@@ -656,34 +657,34 @@ types as follows.
   : Equiv
     ( dhom-from-representable A a x y f u)
     ( Σ ( sq :
-          ( (t , s) : ∂□) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s)) ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+          ( ( t , s) : ∂□)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s))
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
   :=
     equiv-right-cancel
       ( dhom-from-representable A a x y f u)
       ( Σ ( sq :
-            ( (t , s) : ∂□) →
-            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-                (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]) ,
-          ( ( (t , s) : Δ¹×Δ¹) →
-            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-                (t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s)) ,
-                (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
-      ( Σ ( v : hom A a y) ,
-          ( ( (t , s) : Δ¹×Δ¹) →
-            A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-                (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-                (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-                (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+            ( ( t , s) : ∂□)
+          → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+              , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+              , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+        , ( ( ( t , s) : Δ¹×Δ¹)
+          → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+              , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s))
+              , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+              , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+      ( Σ ( v : hom A a y)
+        , ( ( ( t , s) : Δ¹×Δ¹)
+          → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+              , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+              , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+              , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
       ( uncurried-dhom-from-representable A a x y f u)
       ( representable-dhom-from-expansion A a x y f u)
 
@@ -693,30 +694,30 @@ types as follows.
   ( f : hom A x y)
   ( u : hom A a x)
   : Equiv
-    ( ( (t , s) : Δ¹×Δ¹) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+    ( ( ( t , s) : Δ¹×Δ¹)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
     ( Σ ( sq :
-          ( (t , s) : ∂□) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s)) ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+          ( ( t , s) : ∂□)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s))
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
   :=
     cofibration-composition (2 × 2) Δ¹×Δ¹ ∂□
-      ( \ (t , s) →
-        ( (t ≡ 0₂) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (s ≡ 0₂)) ∨ ((Δ¹ t) ∧ (s ≡ 1₂)))
+      ( \ ( t , s) →
+        ( ( t ≡ 0₂) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (s ≡ 0₂)) ∨ ((Δ¹ t) ∧ (s ≡ 1₂)))
       ( \ ts → A)
-      ( \ (t , s) →
+      ( \ ( t , s) →
         recOR
-          ( (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t))
+          ( ( t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t))
 
 #def representable-dhom-from-as-extension-type
   ( A : U)
@@ -725,27 +726,27 @@ types as follows.
   ( u : hom A a x)
   : Equiv
       ( dhom-from-representable A a x y f u)
-      ( ( (t , s) : Δ¹×Δ¹) →
-        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+      ( ( ( t , s) : Δ¹×Δ¹)
+      → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
   :=
     equiv-right-cancel
     ( dhom-from-representable A a x y f u)
-    ( ( (t , s) : Δ¹×Δ¹) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+    ( ( ( t , s) : Δ¹×Δ¹)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
     ( Σ ( sq :
-          ( (t , s) : ∂□) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s)) ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ a ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
+          ( ( t , s) : ∂□)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ (sq (1₂ , s))
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
     ( representable-dhom-from-composite-expansion A a x y f u)
     ( representable-dhom-from-cofibration-composition A a x y f u)
 ```
@@ -843,8 +844,8 @@ with the covariant lifts.
   ( u : C x)
   : dhom-from A x y f D (ϕ x u)
   :=
-    ( ( ϕ y (covariant-transport A x y f C is-covariant-C u)) ,
-      ( \ t → ϕ (f t) (covariant-lift A x y f C is-covariant-C u t)))
+    ( ( ϕ y (covariant-transport A x y f C is-covariant-C u))
+    , ( \ t → ϕ (f t) (covariant-lift A x y f C is-covariant-C u t)))
 
 #def naturality-covariant-fiberwise-transformation
   ( A : U)
@@ -855,8 +856,8 @@ with the covariant lifts.
   ( is-covariant-D : is-covariant A D)
   ( ϕ : (z : A) → C z → D z)
   ( u : C x)
-  : ( covariant-transport A x y f D is-covariant-D (ϕ x u)) =
-    ( ϕ y (covariant-transport A x y f C is-covariant-C u))
+  : ( covariant-transport A x y f D is-covariant-D (ϕ x u))
+  = ( ϕ y (covariant-transport A x y f C is-covariant-C u))
   :=
     covariant-uniqueness A x y f D is-covariant-D (ϕ x u)
       ( covariant-fiberwise-transformation-application
@@ -877,12 +878,12 @@ domain are equivalent:
   ( x y : A)
   ( f : hom A x y)
   : Equiv
-    ( (t : Δ¹) → C (f t))
-    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
+    ( ( t : Δ¹) → C (f t))
+    ( Σ ( u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
   :=
-    ( ( \ h → (h 0₂ , \ t → h t)) ,
-      ( ( \ k t → (second k) t , \ h → refl) ,
-        ( ( \ k t → (second k) t , \ h → refl))))
+    ( ( \ h → (h 0₂ , \ t → h t))
+    , ( ( \ k t → (second k) t , \ h → refl)
+      , ( ( \ k t → (second k) t , \ h → refl))))
 ```
 
 ```rzk
@@ -895,7 +896,7 @@ domain are equivalent:
 #variable f : hom A x y
 
 #def equiv-total-dhom-equiv uses (A x y)
-  : Equiv ( (t : Δ¹) → B (f t)) ((t : Δ¹) → C (f t))
+  : Equiv ((t : Δ¹) → B (f t)) ((t : Δ¹) → C (f t))
   :=
     equiv-extension-equiv-family
       ( extext)
@@ -907,25 +908,25 @@ domain are equivalent:
 
 #def equiv-total-covariant-dhom-equiv uses (extext equiv-BC)
   : Equiv
-    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
-    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
+    ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
+    ( Σ ( u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
   :=
     equiv-triple-comp
-    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
-    ( (t : Δ¹) → B (f t))
-    ( (t : Δ¹) → C (f t))
-    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
+    ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
+    ( ( t : Δ¹) → B (f t))
+    ( ( t : Δ¹) → C (f t))
+    ( Σ ( u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
     ( inv-equiv
-      ( (t : Δ¹) → B (f t))
-      ( Σ (i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
+      ( ( t : Δ¹) → B (f t))
+      ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
       ( equiv-covariant-total-dhom A B x y f))
     ( equiv-total-dhom-equiv)
     ( equiv-covariant-total-dhom A C x y f)
 
 #def equiv-pullback-total-covariant-dhom-equiv uses (A y)
   : Equiv
-    ( Σ (i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
-    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
+    ( Σ ( i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( Σ ( u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
   :=
     total-equiv-pullback-is-equiv
       ( B x)
@@ -936,37 +937,37 @@ domain are equivalent:
 
 #def is-equiv-to-pullback-total-covariant-dhom-equiv uses (extext A y)
   : is-equiv
-    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
-    ( Σ (i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
-    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
+    ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
+    ( Σ ( i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( \ ( i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
   :=
     is-equiv-right-factor
-    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
-    ( Σ (i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
-    ( Σ (u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
-    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
+    ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
+    ( Σ ( i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( Σ ( u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
+    ( \ ( i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
     ( first (equiv-pullback-total-covariant-dhom-equiv))
     ( second (equiv-pullback-total-covariant-dhom-equiv))
     ( second (equiv-total-covariant-dhom-equiv))
 
 #def equiv-to-pullback-total-covariant-dhom-equiv uses (extext A y)
   : Equiv
-    ( Σ (i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
-    ( Σ (i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
+    ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
+    ( Σ ( i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
   :=
-    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)) ,
-      is-equiv-to-pullback-total-covariant-dhom-equiv)
+    ( \ ( i , h) → (i , \ t → (first (equiv-BC (f t))) (h t))
+    , is-equiv-to-pullback-total-covariant-dhom-equiv)
 
 #def family-equiv-dhom-family-equiv uses (extext A y)
-  (i : B x)
+  ( i : B x)
   : Equiv
-    ( (t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i])
-    ( (t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i])
+    ( ( t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i])
+    ( ( t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i])
   :=
     family-equiv-total-equiv
     ( B x)
-    ( \ ii → ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ ii]))
-    ( \ ii → ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) ii]))
+    ( \ ii → ( ( t : Δ¹) → B (f t) [t ≡ 0₂ ↦ ii]))
+    ( \ ii → ( ( t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) ii]))
     ( \ ii h t → (first (equiv-BC (f t))) (h t))
     ( is-equiv-to-pullback-total-covariant-dhom-equiv)
     ( i)
@@ -988,8 +989,8 @@ Now we introduce the hypothesis that $C$ is covariant in the form of
   :=
     \ x y f i →
     is-contr-equiv-is-contr'
-    ( (t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i])
-    ( (t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i])
+    ( ( t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i])
+    ( ( t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i])
     ( family-equiv-dhom-family-equiv A B C equiv-BC x y f i)
     ( has-unique-fixed-domain-lifts-C x y f ((first (equiv-BC x)) i))
 
@@ -1003,7 +1004,7 @@ Now we introduce the hypothesis that $C$ is covariant in the form of
     ( first (has-unique-fixed-domain-lifts-iff-is-covariant A B))
       ( equiv-has-unique-fixed-domain-lifts
         A B C equiv-BC
-        ( (second (has-unique-fixed-domain-lifts-iff-is-covariant A C))
+        ( ( second (has-unique-fixed-domain-lifts-iff-is-covariant A C))
           is-covariant-C))
 ```
 
@@ -1020,7 +1021,7 @@ has a unique lift with specified codomain.
   ( C : A → U)
   ( v : C y)
   : U
-  := ( Σ (u : C x) , dhom A x y f C u v)
+  := ( Σ ( u : C x) , dhom A x y f C u v)
 ```
 
 ```rzk title="RS17, Definition 8.2, dual form"
@@ -1029,13 +1030,14 @@ has a unique lift with specified codomain.
   ( C : A → U)
   : U
   :=
-    ( x : A) → (y : A) → (f : hom A x y) → (v : C y) →
-    is-contr (dhom-to A x y f C v)
+    ( x : A) → (y : A) → (f : hom A x y) → (v : C y)
+  → is-contr (dhom-to A x y f C v)
 ```
 
 ```rzk title="The type of contravariant families over a fixed type"
-#def contravariant-family (A : U) : U
-  := ( Σ (C : A → U) , is-contravariant A C)
+#def contravariant-family (A : U)
+  : U
+  := ( Σ ( C : A → U) , is-contravariant A C)
 ```
 
 The notion of having a unique lift with a fixed codomain may also be expressed
@@ -1048,8 +1050,8 @@ the 1-simplex.
   ( C : A → U)
   : U
   :=
-    ( x : A) → (y : A) → (f : hom A x y) → (v : C y) →
-    is-contr ((t : Δ¹) → C (f t) [t ≡ 1₂ ↦ v])
+    ( x : A) → (y : A) → (f : hom A x y) → (v : C y)
+  → is-contr ((t : Δ¹) → C (f t) [t ≡ 1₂ ↦ v])
 ```
 
 These two notions of covariance are equivalent because the two types of lifts of
@@ -1065,12 +1067,12 @@ here.
   ( f : hom A x y)
   ( v : C y)
   : Equiv
-      ( (t : Δ¹) → C (f t) [t ≡ 1₂ ↦ v])
+      ( ( t : Δ¹) → C (f t) [t ≡ 1₂ ↦ v])
       ( dhom-to A x y f C v)
   :=
-    ( ( \ h → (h 0₂ , \ t → h t)) ,
-      ( ( \ fg t → (second fg) t , \ h → refl) ,
-        ( ( \ fg t → (second fg) t , \ h → refl))))
+    ( ( \ h → (h 0₂ , \ t → h t))
+    , ( ( \ fg t → (second fg) t , \ h → refl)
+      , ( ( \ fg t → (second fg) t , \ h → refl))))
 ```
 
 By the equivalence-invariance of contractibility, this proves the desired
@@ -1086,13 +1088,13 @@ logical equivalence
   :=
     ( ( \ C-has-unique-lifts x y f v →
         is-contr-equiv-is-contr
-          ( (t : Δ¹) → C (f t) [t ≡ 1₂ ↦ v])
+          ( ( t : Δ¹) → C (f t) [t ≡ 1₂ ↦ v])
           ( dhom-to A x y f C v)
           ( equiv-lifts-with-fixed-codomain A C x y f v)
-          ( C-has-unique-lifts x y f v)) ,
-      ( \ is-contravariant-C x y f v →
+          ( C-has-unique-lifts x y f v))
+    , ( \ is-contravariant-C x y f v →
         is-contr-equiv-is-contr'
-          ( (t : Δ¹) → C (f t) [t ≡ 1₂ ↦ v])
+          ( ( t : Δ¹) → C (f t) [t ≡ 1₂ ↦ v])
           ( dhom-to A x y f C v)
           ( equiv-lifts-with-fixed-codomain A C x y f v)
           ( is-contravariant-C x y f v)))
@@ -1127,19 +1129,19 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( v : hom A y a)
   : Equiv
     ( dhom-contra-representable A a x y f u v)
-    ( ((t , s) : Δ¹×Δ¹) →
-      A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ f t ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ a])
+    ( ( ( t , s) : Δ¹×Δ¹)
+    → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ f t
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ a])
   :=
     curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s → A)
-      ( \ (t , s) →
+      ( \ ( t , s) →
         recOR
-        ( (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-          (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-          (Δ¹ t) ∧ (s ≡ 0₂) ↦ f t ,
-          (Δ¹ t) ∧ (s ≡ 1₂) ↦ a))
+        ( ( t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+        , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+        , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ f t
+        , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ a))
 
 #def dhom-to-representable
   ( A : U)
@@ -1160,22 +1162,22 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( v : hom A y a)
   : Equiv
     ( dhom-to-representable A a x y f v)
-    ( Σ (u : hom A x a) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ f t ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
+    ( Σ ( u : hom A x a)
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ f t
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
   :=
     total-equiv-family-equiv
     ( hom A x a)
     ( \ u → dhom-contra-representable A a x y f u v)
     ( \ u →
-      ( ( (t , s) : Δ¹×Δ¹) →
-        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ f t ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
+      ( ( ( t , s) : Δ¹×Δ¹)
+      → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ f t
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
     ( \ u → uncurried-dhom-contra-representable A a x y f u v)
 
 #def representable-dhom-to-uncurry-hom2
@@ -1184,26 +1186,26 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( f : hom A x y)
   ( v : hom A y a)
   : Equiv
-    ( Σ ( u : hom A x a) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ f t ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
-    ( Σ (u : hom A x a) ,
-      (Σ (d : hom A x a) ,
-        product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
+    ( Σ ( u : hom A x a)
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ f t
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
+    ( Σ ( u : hom A x a)
+    , ( Σ ( d : hom A x a)
+      , product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
   :=
     total-equiv-family-equiv (hom A x a)
     ( \ u →
-      ( ( (t , s) : Δ¹×Δ¹) →
-        A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-            (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-            (Δ¹ t) ∧ (s ≡ 0₂) ↦ f t ,
-            (Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
+      ( ( ( t , s) : Δ¹×Δ¹)
+      → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+          , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+          , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ f t
+          , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
     ( \ u →
-      Σ ( d : hom A x a) ,
-        ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
+      Σ ( d : hom A x a)
+      , ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
     ( \ u → equiv-square-hom2-pushout A x a y a u (id-hom A a) f v)
 
 #def representable-dhom-to-hom2
@@ -1213,24 +1215,24 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( v : hom A y a)
   : Equiv
     ( dhom-to-representable A a x y f v)
-    ( Σ (d : hom A x a) ,
-      ( Σ (u : hom A x a) ,
-        product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
+    ( Σ ( d : hom A x a)
+    , ( Σ ( u : hom A x a)
+      , product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
   :=
     equiv-triple-comp
     ( dhom-to-representable A a x y f v)
-    ( Σ ( u : hom A x a) ,
-        ( ( (t , s) : Δ¹×Δ¹) →
-          A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s ,
-              (t ≡ 1₂) ∧ (Δ¹ s) ↦ v s ,
-              (Δ¹ t) ∧ (s ≡ 0₂) ↦ f t ,
-              (Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
-    ( Σ ( u : hom A x a) ,
-        ( Σ ( d : hom A x a) ,
-            ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))))
-    ( Σ ( d : hom A x a) ,
-        ( Σ ( u : hom A x a) ,
-            ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))))
+    ( Σ ( u : hom A x a)
+      , ( ( ( t , s) : Δ¹×Δ¹)
+        → A [ (t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
+            , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
+            , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ f t
+            , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ a]))
+    ( Σ ( u : hom A x a)
+      , ( Σ ( d : hom A x a)
+          , ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))))
+    ( Σ ( d : hom A x a)
+      , ( Σ ( u : hom A x a)
+          , ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))))
     ( uncurried-dhom-to-representable A a x y f v)
     ( representable-dhom-to-uncurry-hom2 A a x y f v)
     ( fubini-Σ (hom A x a) (hom A x a)
@@ -1243,26 +1245,26 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( v : hom A y a)
   : Equiv
     ( dhom-to-representable A a x y f v)
-    ( Σ ( d : hom A x a) ,
-        ( Σ ( u : hom A x a) ,
-            ( product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d))))
+    ( Σ ( d : hom A x a)
+      , ( Σ ( u : hom A x a)
+          , ( product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d))))
   :=
     equiv-comp
       ( dhom-to-representable A a x y f v)
-      ( Σ ( d : hom A x a) ,
-          ( Σ ( u : hom A x a) ,
-              ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))))
-      ( Σ ( d : hom A x a) ,
-          ( Σ ( u : hom A x a) ,
-              ( product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d))))
+      ( Σ ( d : hom A x a)
+        , ( Σ ( u : hom A x a)
+            , ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))))
+      ( Σ ( d : hom A x a)
+        , ( Σ ( u : hom A x a)
+            , ( product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d))))
       ( representable-dhom-to-hom2 A a x y f v)
       ( total-equiv-family-equiv (hom A x a)
-        (\ d →
-          Σ ( u : hom A x a) ,
-            ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
         ( \ d →
-          Σ ( u : hom A x a) ,
-            ( product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d)))
+          Σ ( u : hom A x a)
+          , ( product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d)))
+        ( \ d →
+          Σ ( u : hom A x a)
+          , ( product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d)))
         ( \ d → total-equiv-family-equiv (hom A x a)
           ( \ u → product (hom2 A x a a u (id-hom A a) d) (hom2 A x y a f v d))
           ( \ u → product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d))
@@ -1276,20 +1278,20 @@ By uncurrying (RS 4.2) we have an equivalence:
   ( v : hom A y a)
   : Equiv
       ( dhom-to-representable A a x y f v)
-      ( Σ ( d : hom A x a) ,
-          ( product
+      ( Σ ( d : hom A x a)
+        , ( product
             ( hom2 A x y a f v d)
-            ( Σ (u : hom A x a) , hom2 A x a a u (id-hom A a) d)))
+            ( Σ ( u : hom A x a) , hom2 A x a a u (id-hom A a) d)))
   :=
     equiv-right-cancel
     ( dhom-to-representable A a x y f v)
-    ( Σ (d : hom A x a) ,
-        ( product
+    ( Σ ( d : hom A x a)
+      , ( product
           ( hom2 A x y a f v d)
-          ( Σ (u : hom A x a) , hom2 A x a a u (id-hom A a) d)))
-    ( Σ ( d : hom A x a) ,
-        ( Σ (u : hom A x a) ,
-          product
+          ( Σ ( u : hom A x a) , hom2 A x a a u (id-hom A a) d)))
+    ( Σ ( d : hom A x a)
+      , ( Σ ( u : hom A x a)
+        , product
           ( hom2 A x y a f v d)
           ( hom2 A x a a u (id-hom A a) d)))
     ( representable-dhom-to-hom2-swap A a x y f v)
@@ -1297,10 +1299,10 @@ By uncurrying (RS 4.2) we have an equivalence:
       ( \ d →
         ( product
           ( hom2 A x y a f v d)
-          ( Σ (u : hom A x a) , hom2 A x a a u (id-hom A a) d)))
+          ( Σ ( u : hom A x a) , hom2 A x a a u (id-hom A a) d)))
       ( \ d →
-        ( Σ ( u : hom A x a) ,
-            ( product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d))))
+        ( Σ ( u : hom A x a)
+          , ( product (hom2 A x y a f v d) (hom2 A x a a u (id-hom A a) d))))
       ( \ d →
         ( distributive-product-Σ
           ( hom2 A x y a f v d)
@@ -1319,24 +1321,24 @@ Now we introduce the hypothesis that A is Segal type.
   ( v : hom A y a)
   : Equiv
     ( dhom-to-representable A a x y f v)
-    ( Σ ( d : hom A x a) ,
-        ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
+    ( Σ ( d : hom A x a)
+      , ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
   :=
     equiv-right-cancel
     ( dhom-to-representable A a x y f v)
-    ( Σ ( d : hom A x a) ,
-        ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
-    ( Σ ( d : hom A x a) ,
-        ( product
+    ( Σ ( d : hom A x a)
+      , ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
+    ( Σ ( d : hom A x a)
+      , ( product
           ( hom2 A x y a f v d)
-          ( Σ (u : hom A x a) , (hom2 A x a a u (id-hom A a) d))))
+          ( Σ ( u : hom A x a) , (hom2 A x a a u (id-hom A a) d))))
     ( representable-dhom-to-hom2-dist A a x y f v)
     ( total-equiv-family-equiv (hom A x a)
       ( \ d → product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d)))
       ( \ d →
         product
           ( hom2 A x y a f v d)
-          ( Σ (u : hom A x a) , hom2 A x a a u (id-hom A a) d))
+          ( Σ ( u : hom A x a) , hom2 A x a a u (id-hom A a) d))
       ( \ d →
         total-equiv-family-equiv
           ( hom2 A x y a f v d)
@@ -1357,13 +1359,13 @@ Now we introduce the hypothesis that A is Segal type.
   ( v : hom A y a)
   : Equiv
     ( dhom-to-representable A a x y f v)
-    ( Σ (d : hom A x a) , (hom2 A x y a f v d))
+    ( Σ ( d : hom A x a) , (hom2 A x y a f v d))
   :=
     equiv-comp
     ( dhom-to-representable A a x y f v)
-    ( Σ ( d : hom A x a) ,
-        ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
-    ( Σ (d : hom A x a) , (hom2 A x y a f v d))
+    ( Σ ( d : hom A x a)
+      , ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
+    ( Σ ( d : hom A x a) , (hom2 A x y a f v d))
     ( representable-dhom-to-path-space-is-segal A is-segal-A a x y f v)
     ( total-equiv-family-equiv
       ( hom A x a)
@@ -1381,7 +1383,7 @@ Now we introduce the hypothesis that A is Segal type.
   :=
     is-contr-equiv-is-contr'
       ( dhom-to-representable A a x y f v)
-      ( Σ (d : hom A x a) , (hom2 A x y a f v d))
+      ( Σ ( d : hom A x a) , (hom2 A x y a f v d))
       ( is-segal-representable-dhom-to-hom2 A is-segal-A a x y f v)
       ( is-segal-A x y a f v)
 ```
@@ -1405,31 +1407,31 @@ we argue as follows:
 ```rzk title="RS17, Proposition 8.13(→), dual"
 #def is-segal-is-contravariant-representable
   ( A : U)
-  ( representable-family-is-contravariant : (a : A) →
-    is-contravariant A (\ x → hom A x a))
+  ( representable-family-is-contravariant : (a : A)
+  → is-contravariant A (\ x → hom A x a))
   : is-segal A
   :=
     \ x y z f g →
       is-contr-base-is-contr-Σ
-      ( Σ (h : hom A x z) , (hom2 A x y z f g h))
+      ( Σ ( h : hom A x z) , (hom2 A x y z f g h))
       ( \ hk → Σ (u : hom A x z) , (hom2 A x z z u (id-hom A z) (first hk)))
       ( \ hk → (first hk , \ (t , s) → first hk t))
       ( is-contr-equiv-is-contr'
-        ( Σ ( hk : Σ (h : hom A x z) , (hom2 A x y z f g h)) ,
-            ( Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk)))
+        ( Σ ( hk : Σ (h : hom A x z) , (hom2 A x y z f g h))
+          , ( Σ ( u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk)))
         ( dhom-to-representable A z x y f g)
         ( inv-equiv
           ( dhom-to-representable A z x y f g)
-          ( Σ ( hk : Σ (h : hom A x z) , (hom2 A x y z f g h)) ,
-              ( Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk)))
+          ( Σ ( hk : Σ (h : hom A x z) , (hom2 A x y z f g h))
+            , ( Σ ( u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk)))
           ( equiv-comp
             ( dhom-to-representable A z x y f g)
-            ( Σ ( h : hom A x z) ,
-                ( product
+            ( Σ ( h : hom A x z)
+              , ( product
                   ( hom2 A x y z f g h)
-                  ( Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) h)))
-            ( Σ ( hk : Σ (h : hom A x z) , (hom2 A x y z f g h)) ,
-                ( Σ (u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk)))
+                  ( Σ ( u : hom A x z) , hom2 A x z z u (id-hom A z) h)))
+            ( Σ ( hk : Σ (h : hom A x z) , (hom2 A x y z f g h))
+              , ( Σ ( u : hom A x z) , hom2 A x z z u (id-hom A z) (first hk)))
             ( representable-dhom-to-hom2-dist A z x y f g)
             ( associative-Σ
               ( hom A x z)
@@ -1528,8 +1530,8 @@ commuting with the contravariant lifts.
   ( v : C y)
   : dhom-to A x y f D (ϕ y v)
   :=
-    ( ϕ x (contravariant-transport A x y f C is-contravariant-C v) ,
-      \ t → ϕ (f t) (contravariant-lift A x y f C is-contravariant-C v t))
+    ( ϕ x (contravariant-transport A x y f C is-contravariant-C v)
+    , \ t → ϕ (f t) (contravariant-lift A x y f C is-contravariant-C v t))
 
 #def naturality-contravariant-fiberwise-transformation
   ( A : U)
@@ -1540,8 +1542,8 @@ commuting with the contravariant lifts.
   ( is-contravariant-D : is-contravariant A D)
   ( ϕ : (z : A) → C z → D z)
   ( v : C y)
-  : ( contravariant-transport A x y f D is-contravariant-D (ϕ y v)) =
-    ( ϕ x (contravariant-transport A x y f C is-contravariant-C v))
+  : ( contravariant-transport A x y f D is-contravariant-D (ϕ y v))
+  = ( ϕ x (contravariant-transport A x y f C is-contravariant-C v))
   :=
     contravariant-uniqueness A x y f D is-contravariant-D (ϕ y v)
     ( contravariant-fiberwise-transformation-application
