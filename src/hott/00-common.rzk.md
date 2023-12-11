@@ -1,4 +1,4 @@
-# 0. Common
+# Common
 
 This is a literate `rzk` file:
 
@@ -6,7 +6,7 @@ This is a literate `rzk` file:
 #lang rzk-1
 ```
 
-## products of types
+## Products of types
 
 ```rzk
 #def product

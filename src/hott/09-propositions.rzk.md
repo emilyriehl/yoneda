@@ -1,4 +1,4 @@
-# 9. Propositions
+# Propositions
 
 This is a literate `rzk` file:
 
@@ -12,7 +12,7 @@ A type is a proposition when its identity types are contractible.
 
 ```rzk
 #def is-prop
-  (A : U)
+  ( A : U)
   : U
   := (a : A) → (b : A) → is-contr (a = b)
 
@@ -25,17 +25,17 @@ A type is a proposition when its identity types are contractible.
 
 ```rzk
 #def all-elements-equal
-  (A : U)
+  ( A : U)
   : U
   := (a : A) → (b : A) → (a = b)
 
 #def is-contr-is-inhabited
-  (A : U)
+  ( A : U)
   : U
   := A → is-contr A
 
 #def is-emb-terminal-map
-  (A : U)
+  ( A : U)
   : U
   := is-emb A Unit (terminal-map A)
 ```
@@ -67,7 +67,7 @@ A type is a proposition when its identity types are contractible.
 #def terminal-map-is-emb-is-contr-is-inhabited
   ( A : U)
   ( c : is-contr-is-inhabited A)
-  : (is-emb-terminal-map A)
+  : ( is-emb-terminal-map A)
   :=
     ( is-emb-is-inhabited-emb A Unit (terminal-map A)
       ( terminal-map-is-emb-is-inhabited-is-contr-is-inhabited A c))
@@ -79,7 +79,7 @@ A type is a proposition when its identity types are contractible.
   :=
     \ x y →
       ( is-contr-equiv-is-contr' (x = y) (unit = unit)
-        ( (ap A Unit x y (terminal-map A)) , (f x y))
+        ( ( ap A Unit x y (terminal-map A)) , (f x y))
         ( path-types-of-Unit-are-contractible unit unit))
 
 #def is-prop-is-contr-is-inhabited

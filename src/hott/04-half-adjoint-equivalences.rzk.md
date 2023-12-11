@@ -1,4 +1,4 @@
-# 4. Half Adjoint Equivalences
+# Half Adjoint Equivalences
 
 This is a literate `rzk` file:
 
@@ -17,10 +17,10 @@ We'll require a more coherent notion of equivalence. Namely, the notion of
   ( f : A → B)
   : U
   :=
-    Σ ( has-inverse-f : (has-inverse A B f)) ,
-      ( ( a : A) →
-        ( second (second has-inverse-f) (f a)) =
-        ( ap A B
+    Σ ( has-inverse-f : (has-inverse A B f))
+    , ( ( a : A)
+      → ( second (second has-inverse-f) (f a))
+      = ( ap A B
           ( retraction-composite-has-inverse A B f has-inverse-f a)
           ( a)
           ( f)
@@ -32,14 +32,14 @@ one:
 
 ```rzk
 #def is-half-adjoint-equiv'
-  (A B : U)
-  (f : A → B)
+  ( A B : U)
+  ( f : A → B)
   : U
   :=
-    Σ ( has-inverse-f : (has-inverse A B f)) ,
-      ( ( a : A) →
-        ( second (second has-inverse-f) (f a)) =
-        ( ap A B
+    Σ ( has-inverse-f : (has-inverse A B f))
+    , ( ( a : A)
+      → ( second (second has-inverse-f) (f a))
+      = ( ap A B
           ( retraction-composite-has-inverse A B f has-inverse-f a)
           ( a)
           ( f)
@@ -58,7 +58,7 @@ and discard the other.
   ( has-inverse-f : has-inverse A B f)
   : homotopy A A
     ( retraction-composite-has-inverse A B f has-inverse-f) (identity A)
-  := ( first (second has-inverse-f))
+  := (first (second has-inverse-f))
 
 #def has-inverse-discarded-htpy
   ( A B : U)
@@ -88,8 +88,8 @@ following naturality square.
     ( ap A B (retraction-composite-has-inverse A B f has-inverse-f a) a
       ( triple-composite-has-inverse A B f has-inverse-f)
       ( has-inverse-kept-htpy A B f has-inverse-f a))
-    ( has-inverse-discarded-htpy A B f has-inverse-f (f a)) =
-    concat B
+    ( has-inverse-discarded-htpy A B f has-inverse-f (f a))
+  = concat B
     ( quintuple-composite-has-inverse A B f has-inverse-f a)
       ( triple-composite-has-inverse A B f has-inverse-f a)
       ( f a)
@@ -112,8 +112,8 @@ We build a path that will be whiskered into the naturality square above:
 ```rzk
 #def has-inverse-cocone-homotopy-coherence
   : has-inverse-kept-htpy A B f has-inverse-f
-      ( retraction-composite-has-inverse A B f has-inverse-f a) =
-    ap A A (retraction-composite-has-inverse A B f has-inverse-f a) a
+      ( retraction-composite-has-inverse A B f has-inverse-f a)
+  = ap A A (retraction-composite-has-inverse A B f has-inverse-f a) a
       ( retraction-composite-has-inverse A B f has-inverse-f)
       ( has-inverse-kept-htpy A B f has-inverse-f a)
   :=
@@ -130,8 +130,8 @@ We build a path that will be whiskered into the naturality square above:
     ( retraction-composite-has-inverse A B f has-inverse-f a)
     ( f)
     ( has-inverse-kept-htpy A B f has-inverse-f
-      ( retraction-composite-has-inverse A B f has-inverse-f a)) =
-    ap A B
+      ( retraction-composite-has-inverse A B f has-inverse-f a))
+  = ap A B
     ( retraction-composite-has-inverse A B f has-inverse-f
       ( retraction-composite-has-inverse A B f has-inverse-f a))
     ( retraction-composite-has-inverse A B f has-inverse-f a)
@@ -159,14 +159,14 @@ We build a path that will be whiskered into the naturality square above:
     ( retraction-composite-has-inverse A B f has-inverse-f a)
     ( f)
     ( has-inverse-kept-htpy A B f has-inverse-f
-      ( retraction-composite-has-inverse A B f has-inverse-f a)) =
-    ( ap A B (retraction-composite-has-inverse A B f has-inverse-f a) a
+      ( retraction-composite-has-inverse A B f has-inverse-f a))
+  = ( ap A B (retraction-composite-has-inverse A B f has-inverse-f a) a
       ( triple-composite-has-inverse A B f has-inverse-f)
       ( has-inverse-kept-htpy A B f has-inverse-f a))
   :=
     concat
-      ( quintuple-composite-has-inverse A B f has-inverse-f a =
-        triple-composite-has-inverse A B f has-inverse-f a)
+      ( quintuple-composite-has-inverse A B f has-inverse-f a
+      = triple-composite-has-inverse A B f has-inverse-f a)
       ( ap A B
         ( retraction-composite-has-inverse A B f has-inverse-f
           ( retraction-composite-has-inverse A B f has-inverse-f a))
@@ -210,8 +210,8 @@ rotation.
       ( f)
       ( has-inverse-kept-htpy A B f has-inverse-f
         ( retraction-composite-has-inverse A B f has-inverse-f a)))
-    ( has-inverse-discarded-htpy A B f has-inverse-f (f a)) =
-    concat B
+    ( has-inverse-discarded-htpy A B f has-inverse-f (f a))
+  = concat B
     ( quintuple-composite-has-inverse A B f has-inverse-f a)
     ( triple-composite-has-inverse A B f has-inverse-f a)
     ( f a)
@@ -275,36 +275,36 @@ This will replace the discarded homotopy.
   :=
     \ b →
       concat B
-        ( (section-composite-has-inverse A B f has-inverse-f) b)
-        ( (section-composite-has-inverse A B f has-inverse-f)
-          ((section-composite-has-inverse A B f has-inverse-f) b))
+        ( ( section-composite-has-inverse A B f has-inverse-f) b)
+        ( ( section-composite-has-inverse A B f has-inverse-f)
+          ( ( section-composite-has-inverse A B f has-inverse-f) b))
         ( b)
         ( rev B
-          ( (section-composite-has-inverse A B f has-inverse-f)
-            ((section-composite-has-inverse A B f has-inverse-f) b))
-          ( (section-composite-has-inverse A B f has-inverse-f) b)
+          ( ( section-composite-has-inverse A B f has-inverse-f)
+            ( ( section-composite-has-inverse A B f has-inverse-f) b))
+          ( ( section-composite-has-inverse A B f has-inverse-f) b)
           ( has-inverse-discarded-htpy A B f has-inverse-f
-            ((section-composite-has-inverse A B f has-inverse-f) b)))
+            ( ( section-composite-has-inverse A B f has-inverse-f) b)))
         ( concat B
-          ( (section-composite-has-inverse A B f has-inverse-f)
-            ((section-composite-has-inverse A B f has-inverse-f) b))
-          ( (section-composite-has-inverse A B f has-inverse-f) b)
+          ( ( section-composite-has-inverse A B f has-inverse-f)
+            ( ( section-composite-has-inverse A B f has-inverse-f) b))
+          ( ( section-composite-has-inverse A B f has-inverse-f) b)
           ( b)
           ( ap A B
-            ( (retraction-composite-has-inverse A B f has-inverse-f)
-              (map-inverse-has-inverse A B f has-inverse-f b))
+            ( ( retraction-composite-has-inverse A B f has-inverse-f)
+              ( map-inverse-has-inverse A B f has-inverse-f b))
             ( map-inverse-has-inverse A B f has-inverse-f b) f
-            ( (first (second has-inverse-f))
-              (map-inverse-has-inverse A B f has-inverse-f b)))
-          ( (has-inverse-discarded-htpy A B f has-inverse-f b)))
+            ( ( first (second has-inverse-f))
+              ( map-inverse-has-inverse A B f has-inverse-f b)))
+          ( ( has-inverse-discarded-htpy A B f has-inverse-f b)))
 ```
 
 The following is the half adjoint coherence.
 
 ```rzk
 #def has-inverse-coherence
-  : ( has-inverse-corrected-htpy (f a)) =
-    ( ap A B (retraction-composite-has-inverse A B f has-inverse-f a) a f
+  : ( has-inverse-corrected-htpy (f a))
+  = ( ap A B (retraction-composite-has-inverse A B f has-inverse-f a) a f
       ( has-inverse-kept-htpy A B f has-inverse-f a))
   :=
     triangle-rotation B
@@ -312,18 +312,18 @@ The following is the half adjoint coherence.
       ( triple-composite-has-inverse A B f has-inverse-f a)
       ( f a)
       ( concat B
-        ( (section-composite-has-inverse A B f has-inverse-f)
-          ((section-composite-has-inverse A B f has-inverse-f) (f a)))
-        ( (section-composite-has-inverse A B f has-inverse-f) (f a))
+        ( ( section-composite-has-inverse A B f has-inverse-f)
+          ( ( section-composite-has-inverse A B f has-inverse-f) (f a)))
+        ( ( section-composite-has-inverse A B f has-inverse-f) (f a))
         ( f a)
         ( ap A B
-          ( (retraction-composite-has-inverse A B f has-inverse-f)
-            (map-inverse-has-inverse A B f has-inverse-f (f a)))
+          ( ( retraction-composite-has-inverse A B f has-inverse-f)
+            ( map-inverse-has-inverse A B f has-inverse-f (f a)))
           ( map-inverse-has-inverse A B f has-inverse-f (f a))
             ( f)
-            ( (first (second has-inverse-f))
-              (map-inverse-has-inverse A B f has-inverse-f (f a))))
-        ( (has-inverse-discarded-htpy A B f has-inverse-f (f a))))
+            ( ( first (second has-inverse-f))
+              ( map-inverse-has-inverse A B f has-inverse-f (f a))))
+        ( ( has-inverse-discarded-htpy A B f has-inverse-f (f a))))
       ( has-inverse-discarded-htpy A B f has-inverse-f
         ( triple-composite-has-inverse A B f has-inverse-f a))
       ( ap A B (retraction-composite-has-inverse A B f has-inverse-f a) a f
@@ -348,9 +348,9 @@ one.
   ( has-inverse-f : has-inverse A B f)
   : has-inverse A B f
   :=
-    ( map-inverse-has-inverse A B f has-inverse-f ,
-      ( has-inverse-kept-htpy A B f has-inverse-f ,
-        has-inverse-corrected-htpy A B f has-inverse-f))
+    ( map-inverse-has-inverse A B f has-inverse-f
+    , ( has-inverse-kept-htpy A B f has-inverse-f
+      , has-inverse-corrected-htpy A B f has-inverse-f))
 ```
 
 ```rzk title="Invertible maps are half adjoint equivalences!"
@@ -360,8 +360,8 @@ one.
   ( has-inverse-f : has-inverse A B f)
   : is-half-adjoint-equiv A B f
   :=
-    ( corrected-has-inverse-has-inverse A B f has-inverse-f ,
-      has-inverse-coherence A B f has-inverse-f)
+    ( corrected-has-inverse-has-inverse A B f has-inverse-f
+    , has-inverse-coherence A B f has-inverse-f)
 ```
 
 ```rzk title="Equivalences are half adjoint equivalences!"
@@ -391,29 +391,29 @@ have equivalent identity types.
   ( x y : A)
   : iff (x = y) (f x = f y)
   :=
-    ( ap A B x y f ,
-      \ q →
+    ( ap A B x y f
+    , \ q →
       triple-concat A
         ( x)
-        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+        ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+        ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
         ( y)
         ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
-          ( (first (second (first is-hae-f))) x))
+          ( ( first (second (first is-hae-f))) x))
         ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q)
-        ( (first (second (first is-hae-f))) y))
+        ( ( first (second (first is-hae-f))) y))
 
 #def has-retraction-ap-is-half-adjoint-equiv
-  (x y : A)
+  ( x y : A)
   : has-retraction (x = y) (f x = f y) (ap A B x y f)
   :=
-    ( ( second (iff-ap-is-half-adjoint-equiv x y)) ,
-      ( ind-path
+    ( ( second (iff-ap-is-half-adjoint-equiv x y))
+    , ( ind-path
           ( A)
           ( x)
           ( \ y' p' →
-            ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p') =
-            ( p'))
+            ( second (iff-ap-is-half-adjoint-equiv x y')) (ap A B x y' f p')
+          = ( p'))
           ( rev-refl-id-triple-concat A
             ( map-inverse-has-inverse A B f (first is-hae-f) (f x))
             ( x)
@@ -423,33 +423,33 @@ have equivalent identity types.
 #def ap-triple-concat-is-half-adjoint-equiv
   ( x y : A)
   ( q : f x = f y)
-  : ap A B x y f ((second (iff-ap-is-half-adjoint-equiv x y)) q) =
-    (triple-concat B
+  : ap A B x y f ((second (iff-ap-is-half-adjoint-equiv x y)) q)
+  = ( triple-concat B
       ( f x)
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
       ( ap A B x ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) f
         ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
-          ( (first (second (first is-hae-f))) x)))
+          ( ( first (second (first is-hae-f))) x)))
       ( ap A B
-        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+        ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+        ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
         ( f)
         ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
       ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
-        ( (first (second (first is-hae-f))) y)))
+        ( ( first (second (first is-hae-f))) y)))
   :=
     ap-triple-concat A B
       ( x)
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( y)
       ( f)
       ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
-        ( (first (second (first is-hae-f))) x))
+        ( ( first (second (first is-hae-f))) x))
       ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q)
-      ( (first (second (first is-hae-f))) y)
+      ( ( first (second (first is-hae-f))) y)
 
 #def ap-rev-triple-concat-eq-first-is-half-adjoint-equiv
   ( x y : A)
@@ -460,33 +460,33 @@ have equivalent identity types.
     ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
     ( f y)
     ( ap A B x ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) f
-      (rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
-        ( (first (second (first is-hae-f))) x)))
+      ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
+        ( ( first (second (first is-hae-f))) x)))
     ( ap A B
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( f)
       ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
     ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
-      ( (first (second (first is-hae-f))) y)) =
-    triple-concat B
+      ( ( first (second (first is-hae-f))) y))
+  = triple-concat B
     ( f x)
     ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
     ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
     ( f y)
     ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
       ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-        ( (first (second (first is-hae-f))) x)))
+        ( ( first (second (first is-hae-f))) x)))
     ( ap A B
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( f)
       ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
     ( ap A B
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( y)
       ( f)
-      ( (first (second (first is-hae-f))) y))
+      ( ( first (second (first is-hae-f))) y))
   :=
     triple-concat-eq-first B
     ( f x)
@@ -496,24 +496,24 @@ have equivalent identity types.
     ( ap A B
       ( x) ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) f
       ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
-        ( (first (second (first is-hae-f))) x)))
+        ( ( first (second (first is-hae-f))) x)))
     ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
       ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-        ( (first (second (first is-hae-f))) x)))
+        ( ( first (second (first is-hae-f))) x)))
     ( ap A B
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-      ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+      ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
       ( f)
       ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
     ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
-      ( (first (second (first is-hae-f))) y))
+      ( ( first (second (first is-hae-f))) y))
     ( ap-rev A B (retraction-composite-has-inverse A B f (first is-hae-f) x) x f
-      ( (first (second (first is-hae-f))) x))
+      ( ( first (second (first is-hae-f))) x))
 
 #def ap-ap-triple-concat-eq-first-is-half-adjoint-equiv
   ( x y : A)
   ( q : f x = f y)
-  : (triple-concat B
+  : ( triple-concat B
       ( f x)
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
@@ -522,16 +522,16 @@ have equivalent identity types.
         ( f (retraction-composite-has-inverse A B f (first is-hae-f) x))
         ( f x)
         ( ap A B
-          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-          ( (first (second (first is-hae-f))) x)))
+          ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
+          ( ( first (second (first is-hae-f))) x)))
       ( ap A B
-        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+        ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+        ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
         ( f)
         ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
       ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
-        ( (first (second (first is-hae-f))) y))) =
-    ( triple-concat B
+        ( ( first (second (first is-hae-f))) y)))
+  = ( triple-concat B
       ( f x)
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
@@ -539,7 +539,7 @@ have equivalent identity types.
       ( rev B
         ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
         ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-          ( (first (second (first is-hae-f))) x)))
+          ( ( first (second (first is-hae-f))) x)))
       ( ap B B (f x) (f y)
         ( section-composite-has-inverse A B f (first is-hae-f)) q)
       ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y
@@ -550,17 +550,17 @@ have equivalent identity types.
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
-      ( rev B ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+      ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
         ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-          ( (first (second (first is-hae-f))) x)))
+          ( ( first (second (first is-hae-f))) x)))
       ( ap A B
-        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-        ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y))
+        ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+        ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y))
         ( f)
         ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
       ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
       ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
-        ( (first (second (first is-hae-f))) y))
+        ( ( first (second (first is-hae-f))) y))
       ( rev-ap-comp B A B (f x) (f y)
         ( map-inverse-has-inverse A B f (first is-hae-f)) f q)
 
@@ -573,27 +573,27 @@ have equivalent identity types.
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
-      ( rev B ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
-        ( (second (second (first is-hae-f))) (f x)))
+      ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+        ( ( second (second (first is-hae-f))) (f x)))
       ( ap B B (f x) (f y)
         ( section-composite-has-inverse A B f (first is-hae-f)) q)
-      ( (second (second (first is-hae-f))) (f y)) =
-    triple-concat B
+      ( ( second (second (first is-hae-f))) (f y))
+  = triple-concat B
       ( f x)
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)))
       ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
       ( f y)
-      (rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
-        (ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f ((first (second (first is-hae-f))) x)))
-        (ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
-        (ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f ((first (second (first is-hae-f))) y))
+      ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
+        ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f ((first (second (first is-hae-f))) x)))
+        ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
+        ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f ((first (second (first is-hae-f))) y))
   :=
     triple-concat-higher-homotopy A B
       ( triple-composite-has-inverse A B f (first is-hae-f)) f
       ( \ a → (((second (second (first is-hae-f)))) (f a)))
       ( \ a →
         ( ap A B (retraction-composite-has-inverse A B f (first is-hae-f) a) a f
-          ( ((first (second (first is-hae-f)))) a)))
+          ( ( ( first (second (first is-hae-f)))) a)))
       ( second is-hae-f)
       ( x)
       ( y)
@@ -609,15 +609,15 @@ have equivalent identity types.
     ( f ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)))
     ( f y)
     ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
-      ( ((second (second (first is-hae-f)))) (f x)))
+      ( ( ( second (second (first is-hae-f)))) (f x)))
     ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
-    ( ((second (second (first is-hae-f)))) (f y))
+    ( ( ( second (second (first is-hae-f)))) (f y))
     = ap B B (f x) (f y) (identity B) q
   :=
     triple-concat-nat-htpy B B
       ( section-composite-has-inverse A B f (first is-hae-f))
       ( identity B)
-      ( (second (second (first is-hae-f))))
+      ( ( second (second (first is-hae-f))))
       ( f x)
       ( f y)
       q
@@ -632,11 +632,11 @@ have equivalent identity types.
     ( f y)
     ( rev B (f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
       ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-        ( (first (second (first is-hae-f))) x)))
+        ( ( first (second (first is-hae-f))) x)))
     ( ap B B (f x) (f y) (section-composite-has-inverse A B f (first is-hae-f)) q)
     ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
-      ( (first (second (first is-hae-f))) y)) =
-    ap B B (f x) (f y) (identity B) q
+      ( ( first (second (first is-hae-f))) y))
+  = ap B B (f x) (f y) (identity B) q
   :=
     zag-zig-concat (f x = f y)
       ( triple-concat B
@@ -647,7 +647,7 @@ have equivalent identity types.
         ( rev B
           ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
           ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-            ( (first (second (first is-hae-f))) x)))
+            ( ( first (second (first is-hae-f))) x)))
         ( ap B B (f x) (f y)
           ( section-composite-has-inverse A B f (first is-hae-f)) q)
         ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y
@@ -660,10 +660,10 @@ have equivalent identity types.
         ( rev B
           ( f (retraction-composite-has-inverse A B f (first is-hae-f) x))
           ( f x)
-          ( ((second (second (first is-hae-f)))) (f x)))
+          ( ( ( second (second (first is-hae-f)))) (f x)))
         ( ap B B (f x) (f y)
           ( section-composite-has-inverse A B f (first is-hae-f)) q)
-        ( ((second (second (first is-hae-f)))) (f y)))
+        ( ( ( second (second (first is-hae-f)))) (f y)))
       ( ap B B (f x) (f y) (identity B) q)
       ( triple-concat-higher-homotopy-is-half-adjoint-equiv x y q)
       ( triple-concat-nat-htpy-is-half-adjoint-equiv x y q)
@@ -688,13 +688,13 @@ have equivalent identity types.
         ( f y)
         ( ap A B x ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) f
           ( rev A (retraction-composite-has-inverse A B f (first is-hae-f) x) x
-            ( (first (second (first is-hae-f))) x)))
+            ( ( first (second (first is-hae-f))) x)))
         ( ap A B
-          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y)) f
+          ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+          ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y)) f
           ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
         ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
-          ( (first (second (first is-hae-f))) y)))
+          ( ( first (second (first is-hae-f))) y)))
       ( ap-triple-concat-is-half-adjoint-equiv x y q)
       ( triple-concat B
         ( f x)
@@ -704,13 +704,13 @@ have equivalent identity types.
         ( rev B
           ( f (retraction-composite-has-inverse A B f (first is-hae-f) x)) (f x)
           ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-            ( (first (second (first is-hae-f))) x)))
+            ( ( first (second (first is-hae-f))) x)))
         ( ap A B
-          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f x))
-          ( (map-inverse-has-inverse A B f (first is-hae-f)) (f y)) f
+          ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f x))
+          ( ( map-inverse-has-inverse A B f (first is-hae-f)) (f y)) f
           ( ap B A (f x) (f y) (map-inverse-has-inverse A B f (first is-hae-f)) q))
         ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y f
-          ( (first (second (first is-hae-f))) y)))
+          ( ( first (second (first is-hae-f))) y)))
       ( ap-rev-triple-concat-eq-first-is-half-adjoint-equiv x y q)
       ( triple-concat B
         ( f x)
@@ -721,7 +721,7 @@ have equivalent identity types.
           ( f (retraction-composite-has-inverse A B f (first is-hae-f) x))
           ( f x)
           ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f x)) x f
-            ( (first (second (first is-hae-f))) x)))
+            ( ( first (second (first is-hae-f))) x)))
         ( ap B B (f x) (f y)
           ( section-composite-has-inverse A B f (first is-hae-f)) q)
         ( ap A B ((map-inverse-has-inverse A B f (first is-hae-f)) (f y)) y
@@ -736,15 +736,15 @@ have equivalent identity types.
   ( x y : A)
   : has-section (x = y) (f x = f y) (ap A B x y f)
   :=
-    ( second (iff-ap-is-half-adjoint-equiv x y) ,
-      section-htpy-ap-is-half-adjoint-equiv x y)
+    ( second (iff-ap-is-half-adjoint-equiv x y)
+    , section-htpy-ap-is-half-adjoint-equiv x y)
 
 #def is-equiv-ap-is-half-adjoint-equiv uses (is-hae-f)
   ( x y : A)
   : is-equiv (x = y) (f x = f y) (ap A B x y f)
   :=
-    ( has-retraction-ap-is-half-adjoint-equiv x y ,
-      has-section-ap-is-half-adjoint-equiv x y)
+    ( has-retraction-ap-is-half-adjoint-equiv x y
+    , has-section-ap-is-half-adjoint-equiv x y)
 
 #end equiv-identity-types-equiv
 

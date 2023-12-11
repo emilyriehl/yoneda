@@ -1,4 +1,4 @@
-# The 2-category of Segal types
+# The 2-category of pre-∞-categories
 
 These formalisations correspond to Section 6 of the RS17 paper.
 
@@ -43,7 +43,7 @@ targets. The action is called `#!rzk ap-hom` to avoid conflicting with
   ( f : hom A x y)
   ( g : hom A y z)
   ( h : hom A x z)
-  (α : hom2 A x y z f g h)
+  ( α : hom2 A x y z f g h)
   : hom2 B (F x) (F y) (F z)
     ( ap-hom A B F x y f) (ap-hom A B F y z g) (ap-hom A B F x z h)
   := \ t → F (α t)
@@ -77,28 +77,28 @@ Preservation of composition requires the Segal hypothesis.
 ```rzk title="RS17, Proposition 6.1.b"
 #def functors-pres-comp
   ( A B : U)
-  ( is-segal-A : is-segal A)
-  ( is-segal-B : is-segal B)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( is-pre-∞-category-B : is-pre-∞-category B)
   ( F : A → B)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
   :
-    ( comp-is-segal B is-segal-B
+    ( comp-is-pre-∞-category B is-pre-∞-category-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g))
-    =
-    ( ap-hom A B F x z (comp-is-segal A is-segal-A x y z f g))
+
+  = ( ap-hom A B F x z (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g))
   :=
-    uniqueness-comp-is-segal B is-segal-B
+    uniqueness-comp-is-pre-∞-category B is-pre-∞-category-B
       ( F x) (F y) (F z)
       ( ap-hom A B F x y f)
       ( ap-hom A B F y z g)
-      ( ap-hom A B F x z (comp-is-segal A is-segal-A x y z f g))
+      ( ap-hom A B F x z (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g))
       ( ap-hom2 A B F x y z f g
-        ( comp-is-segal A is-segal-A x y z f g)
-        ( witness-comp-is-segal A is-segal-A x y z f g))
+        ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f g)
+        ( witness-comp-is-pre-∞-category A is-pre-∞-category-A x y z f g))
 ```
 
 ## Natural transformations
@@ -125,7 +125,7 @@ Equivalently , natural transformations can be determined by their **components**
   ( B : A → U)
   ( f g : (x : A) → (B x))
   : U
-  := ( x : A) → hom (B x) (f x) (g x)
+  := (x : A) → hom (B x) (f x) (g x)
 ```
 
 ```rzk
@@ -158,8 +158,8 @@ Equivalently , natural transformations can be determined by their **components**
       ( nat-trans-components A B f g)
       ( ev-components-nat-trans A B f g)
   :=
-    ( ( \ η t x → η x t , \ _ → refl) ,
-      ( \ η t x → η x t , \ _ → refl))
+    ( ( \ η t x → η x t , \ _ → refl)
+    , ( \ η t x → η x t , \ _ → refl))
 
 #def equiv-components-nat-trans
   ( A : U)
@@ -167,15 +167,15 @@ Equivalently , natural transformations can be determined by their **components**
   ( f g : (x : A) → (B x))
   : Equiv (nat-trans A B f g) (nat-trans-components A B f g)
   :=
-    ( ev-components-nat-trans A B f g ,
-      is-equiv-ev-components-nat-trans A B f g)
+    ( ev-components-nat-trans A B f g
+    , is-equiv-ev-components-nat-trans A B f g)
 ```
 
 ### Horizontal composition
 
 Horizontal composition of natural transformations makes sense over any type. In
 particular , contrary to what is written in [RS17] we do not need `#!rzk C` to
-be Segal.
+be a pre-∞-category.
 
 ```rzk
 #def horizontal-comp-nat-trans
@@ -199,31 +199,30 @@ be Segal.
 
 ### Vertical composition
 
-We can define vertical composition for natural transformations in families of
-Segal types.
+We can define vertical composition for natural transformations in families of pre-∞-categories.
 
 ```rzk
 #def vertical-comp-nat-trans-components
   ( A : U)
   ( B : A → U)
-  ( is-segal-B : (x : A) → is-segal (B x))
+  ( is-pre-∞-category-B : (x : A) → is-pre-∞-category (B x))
   ( f g h : (x : A) → (B x))
   ( η : nat-trans-components A B f g)
   ( η' : nat-trans-components A B g h)
   : nat-trans-components A B f h
-  := \ x → comp-is-segal (B x) (is-segal-B x) (f x) (g x) (h x) (η x) (η' x)
+  := \ x → comp-is-pre-∞-category (B x) (is-pre-∞-category-B x) (f x) (g x) (h x) (η x) (η' x)
 
 #def vertical-comp-nat-trans
   ( A : U)
   ( B : A → U)
-  ( is-segal-B : (x : A) → is-segal (B x))
+  ( is-pre-∞-category-B : (x : A) → is-pre-∞-category (B x))
   ( f g h : (x : A) → (B x))
   ( η : nat-trans A B f g)
   ( η' : nat-trans A B g h)
   : nat-trans A B f h
   :=
     \ t x →
-    vertical-comp-nat-trans-components A B is-segal-B f g h
+    vertical-comp-nat-trans-components A B is-pre-∞-category-B f g h
       ( \ x' t' → η t' x')
       ( \ x' t' → η' t' x')
       ( x)

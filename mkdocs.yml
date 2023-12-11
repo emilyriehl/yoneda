@@ -1,12 +1,14 @@
-site_name: 'yoneda'
+site_name: 'Yoneda for ∞-categories'
+site_url: https://emilyriehl.github.io/yoneda
 repo_url: https://github.com/emilyriehl/yoneda
 repo_name: emilyriehl/yoneda
 edit_uri: edit/master/src
 
 docs_dir: src
 nav:
-  - General:
-      - About: index.md
+  - About:
+      - index.md
+      - Other Yoneda formalizations: other.md
 
   - HoTT:
       - Common: hott/00-common.rzk.md
@@ -24,12 +26,12 @@ nav:
   - Simplicial HoTT:
       - Simplicial Type Theory: simplicial-hott/03-simplicial-type-theory.rzk.md
       - Extension Types: simplicial-hott/04-extension-types.rzk.md
-      - Segal Types: simplicial-hott/05-segal-types.rzk.md
-      - 2-Category of Segal Types: simplicial-hott/06-2cat-of-segal-types.rzk.md
-      - Discrete Types: simplicial-hott/07-discrete.rzk.md
+      - Pre-∞-categories (Segal Types): simplicial-hott/05-segal-types.rzk.md
+      - 2-Category of pre-∞-categories: simplicial-hott/06-2cat-of-segal-types.rzk.md
+      - ∞-groupoids (Discrete Types): simplicial-hott/07-discrete.rzk.md
       - Covariantly Functorial Type Families: simplicial-hott/08-covariant.rzk.md
       - The Yoneda Lemma: simplicial-hott/09-yoneda.rzk.md
-      - Rezk Types: simplicial-hott/10-rezk-types.rzk.md
+      - ∞-categories (Rezk Types): simplicial-hott/10-rezk-types.rzk.md
       - Cocartesian Families: simplicial-hott/12-cocartesian.rzk.md
 
 markdown_extensions:
@@ -49,11 +51,16 @@ markdown_extensions:
       generic: true
   - attr_list
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 theme:
   name: material
+  custom_dir: overrides
+  logo: images/logo-1000x1000.png
+  favicon: images/favicon.png
+  font:
+    text: Inria Sans
   icon:
     repo: fontawesome/brands/github
     edit: material/pencil
@@ -64,29 +71,44 @@ theme:
     - navigation.footer
     - navigation.sections
     - navigation.path
+    - navigation.tabs
+    - navigation.expand
+    - navigation.prune
+    - navigation.indexes
+    - toc.integrate
+    - announce.dismiss
   palette:
-    # Palette toggle for light mode
-    - media: '(prefers-color-scheme: light)'
-      primary: indigo
-      scheme: default
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
     # Palette toggle for dark mode
     - media: '(prefers-color-scheme: dark)'
-      primary: indigo
+      primary: black
       scheme: slate
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+    # Palette toggle for light mode
+    - media: '(prefers-color-scheme: light)'
+      primary: white
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
 
 extra_javascript:
   - javascript/mathjax.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
+extra_css:
+  - css/rzk-render.css
+
+extra:
+  version:
+    provider: mike
+
 plugins:
   - search
+  - mike
+  - social
   - rzk:
       render_svg: false
       anchor_definitions: true
