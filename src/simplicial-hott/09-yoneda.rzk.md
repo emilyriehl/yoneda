@@ -228,9 +228,9 @@ though it requires some work to prove that the domain is covariant.
     equiv-is-covariant
     ( extext)
     ( A)
-    ( \ a → ( z : A) → hom A a z → C z)
+    ( \ a → (z : A) → hom A a z → C z)
     ( C)
-    ( \ a → ( evid A a C , yoneda-lemma A is-pre-∞-category-A a C is-covariant-C))
+    ( \ a → (evid A a C , yoneda-lemma A is-pre-∞-category-A a C is-covariant-C))
     ( is-covariant-C)
 
 #def is-natural-in-object-evid uses (funext extext)
@@ -679,7 +679,7 @@ contractible.
   ( A : U)
   ( a : A)
   : U
-  := ( x : A) → is-contr (hom A a x)
+  := (x : A) → is-contr (hom A a x)
 ```
 
 Initial objects satisfy an induction principle relative to covariant families.
@@ -782,7 +782,7 @@ The type `#!rzk coslice A a` is the type of arrows in $A$ with domain $a$.
   ( A : U)
   ( a : A)
   : U
-  := Σ ( z : A) , (hom A a z)
+  := Σ (z : A) , (hom A a z)
 ```
 
 We now show that the coslice under $a$ in a pre-∞-category $A$ has an initial object
@@ -833,7 +833,7 @@ This proves the initiality of identity arrows in the coslice of a pre-∞-catego
   ( a : A)
   : is-initial (coslice A a) (a , id-hom A a)
   :=
-    \ ( x , f) →
+    \ (x , f) →
     is-contr-equiv-is-contr'
       ( hom (coslice A a) (a , id-hom A a) (x , f))
       ( ( t : Δ¹) → hom A a (f t) [t ≡ 0₂ ↦ id-hom A a])
@@ -907,7 +907,7 @@ contractible.
   ( A : U)
   ( a : A)
   : U
-  := ( x : A) → is-contr (hom A x a)
+  := (x : A) → is-contr (hom A x a)
 ```
 
 Final objects satisfy an induction principle relative to contravariant families.
@@ -1011,7 +1011,7 @@ The type `#!rzk slice A a` is the type of arrows in $A$ with codomain $a$.
   ( A : U)
   ( a : A)
   : U
-  := Σ ( z : A) , (hom A z a)
+  := Σ (z : A) , (hom A z a)
 ```
 
 We now show that the slice over $a$ in a pre-∞-category $A$ has a final object given
@@ -1062,7 +1062,7 @@ This proves the finality of identity arrows in the slice of a pre-∞-category.
   ( a : A)
   : is-final (slice A a) (a , id-hom A a)
   :=
-    \ ( x , f) →
+    \ (x , f) →
     is-contr-equiv-is-contr'
       ( hom (slice A a) (x , f) (a , id-hom A a))
       ( ( t : Δ¹) → hom A (f t) a [t ≡ 1₂ ↦ id-hom A a])

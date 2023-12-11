@@ -17,23 +17,23 @@ This is a literate `rzk` file:
   ( f : A → B)
   ( s : B → A)
   : U
-  := ( homotopy B B (comp B A B f s) (identity B))
+  := (homotopy B B (comp B A B f s) (identity B))
 
 #def has-section
   ( f : A → B)
   : U
-  := Σ ( s : B → A) , (witness-section f s)
+  := Σ (s : B → A) , (witness-section f s)
 
 #def witness-retraction
   ( f : A → B)
   ( r : B → A)
   : U
-  := ( homotopy A A (comp A B A r f) (identity A))
+  := (homotopy A A (comp A B A r f) (identity A))
 
 #def has-retraction
   ( f : A → B)
   : U
-  := Σ ( r : B → A) , (witness-retraction f r)
+  := Σ (r : B → A) , (witness-retraction f r)
 ```
 
 We define equivalences to be bi-invertible maps.
@@ -197,7 +197,7 @@ The type of equivalences between types uses `#!rzk is-equiv` rather than
 #def Equiv
   ( A B : U)
   : U
-  := Σ ( f : A → B) , (is-equiv A B f)
+  := Σ (f : A → B) , (is-equiv A B f)
 ```
 
 The data of an equivalence is not symmetric so we promote an equivalence to an
@@ -221,7 +221,7 @@ invertible map to prove symmetry:
   ( A B : U)
   ( e : Equiv A B)
   : ( witness-section A B (first e) (first (inv-equiv A B e)))
-  := ( second (first (second (inv-equiv A B e))))
+  := (second (first (second (inv-equiv A B e))))
 ```
 
 ```rzk
@@ -229,7 +229,7 @@ invertible map to prove symmetry:
   ( A B : U)
   ( e : Equiv A B)
   : ( witness-retraction A B (first e) (first (inv-equiv A B e)))
-  := ( second (second (second (inv-equiv A B e))))
+  := (second (second (second (inv-equiv A B e))))
 ```
 
 ```rzk title="Composition of equivalences in diagrammatic order"
@@ -313,8 +313,8 @@ Now we compose the functions that are equivalences.
         ( section-is-equiv B C g is-equiv-g)
       , ( \ c →
           concat C
-            ( g ( f (first (second is-equiv-f) (first (second is-equiv-g) c))))
-            ( g ( first (second is-equiv-g) c))
+            ( g (f (first (second is-equiv-f) (first (second is-equiv-g) c))))
+            ( g (first (second is-equiv-g) c))
             ( c)
             ( ap B C
               ( f (first (second is-equiv-f) (first (second is-equiv-g) c)))
@@ -392,7 +392,7 @@ If a map is homotopic to an equivalence it is an equivalence.
       , ( \ b →
           concat B
             ( f (first (second is-equiv-g) b))
-            ( g ( first (second is-equiv-g) b))
+            ( g (first (second is-equiv-g) b))
             ( b)
             ( H (first (second is-equiv-g) b))
             ( second (second is-equiv-g) b))))
@@ -437,7 +437,7 @@ equivalences.
     ( X : U)
   → ( A : X → U)
   → ( f : (x : X) → A x)
-  → ( g : ( x : X) → A x)
+  → ( g : (x : X) → A x)
   → is-equiv (f = g) ((x : X) → f x = g x) (htpy-eq X A f g)
 ```
 
@@ -458,7 +458,7 @@ extensionality:
   ( A : X → U)
   ( f g : (x : X) → A x)
   : Equiv (f = g) ((x : X) → f x = g x)
-  := ( htpy-eq X A f g , funext X A f g)
+  := (htpy-eq X A f g , funext X A f g)
 ```
 
 In particular, function extensionality implies that homotopies give rise to
@@ -512,12 +512,12 @@ dependent function types.
   ( A B : U)
   ( f : A → B)
   : U
-  := ( x : A) → (y : A) → is-equiv (x = y) (f x = f y) (ap A B x y f)
+  := (x : A) → (y : A) → is-equiv (x = y) (f x = f y) (ap A B x y f)
 
 #def Emb
   ( A B : U)
   : U
-  := ( Σ ( f : A → B) , is-emb A B f)
+  := (Σ (f : A → B) , is-emb A B f)
 
 #def is-emb-is-inhabited-emb
   ( A B : U)
@@ -580,5 +580,5 @@ dependent function types.
   ( A : U)
   ( x y : A)
   : is-equiv (x = y) (y = x) (rev A x y)
-  := ( ( has-retraction-rev A y x) , (has-section-rev A y x))
+  := ((has-retraction-rev A y x) , (has-section-rev A y x))
 ```

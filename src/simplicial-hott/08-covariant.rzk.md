@@ -37,7 +37,7 @@ live over a specified arrow in the base type.
   ( u : C x)
   ( v : C y)
   : U
-  := ( t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u , t ≡ 1₂ ↦ v]
+  := (t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u , t ≡ 1₂ ↦ v]
 ```
 
 It will be convenient to collect together dependent hom types with fixed domain
@@ -51,7 +51,7 @@ but varying codomain.
   ( C : A → U)
   ( u : C x)
   : U
-  := ( Σ ( v : C y) , dhom A x y f C u v)
+  := (Σ (v : C y) , dhom A x y f C u v)
 ```
 
 There is also a type of dependent commutative triangles over a base commutative
@@ -99,7 +99,7 @@ unique lift with specified domain.
 ```rzk title="The type of covariant families over a fixed type"
 #def covariant-family (A : U)
   : U
-  := ( Σ ( C : (A → U)) , is-covariant A C)
+  := (Σ (C : (A → U)) , is-covariant A C)
 ```
 
 The notion of having a unique lift with a fixed domain may also be expressed by
@@ -198,7 +198,7 @@ By uncurrying (RS 4.2) we have an equivalence:
         , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
   :=
     curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s → A)
-    ( \ ( t , s) →
+    ( \ (t , s) →
       recOR
         ( ( t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
         , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s
@@ -274,7 +274,7 @@ By uncurrying (RS 4.2) we have an equivalence:
           , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ g t
           , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t])
   :=
-    \ ( d , (α1 , α2)) (t , s) →
+    \ (d , (α1 , α2)) (t , s) →
     recOR
       ( t ≤ s ↦ α1 (s , t)
       , s ≤ t ↦ α2 (t , s))
@@ -562,11 +562,11 @@ types as follows.
   :=
     cofibration-union
     ( 2 × 2)
-    ( \ ( t , s) → (t ≡ 1₂) ∧ Δ¹ s)
-    ( \ ( t , s) →
+    ( \ (t , s) → (t ≡ 1₂) ∧ Δ¹ s)
+    ( \ (t , s) →
       ( ( t ≡ 0₂) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (s ≡ 0₂)) ∨ ((Δ¹ t) ∧ (s ≡ 1₂)))
-    ( \ ( t , s) → A)
-    ( \ ( t , s) →
+    ( \ (t , s) → A)
+    ( \ (t , s) →
       recOR
         ( ( t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
         , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
@@ -710,10 +710,10 @@ types as follows.
             , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ f t]))
   :=
     cofibration-composition (2 × 2) Δ¹×Δ¹ ∂□
-      ( \ ( t , s) →
+      ( \ (t , s) →
         ( ( t ≡ 0₂) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (s ≡ 0₂)) ∨ ((Δ¹ t) ∧ (s ≡ 1₂)))
       ( \ ts → A)
-      ( \ ( t , s) →
+      ( \ (t , s) →
         recOR
           ( ( t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
           , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ a
@@ -939,13 +939,13 @@ domain are equivalent:
   : is-equiv
     ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
     ( Σ ( i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
-    ( \ ( i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
+    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
   :=
     is-equiv-right-factor
     ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
     ( Σ ( i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
     ( Σ ( u : C x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ u]))
-    ( \ ( i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
+    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t)))
     ( first (equiv-pullback-total-covariant-dhom-equiv))
     ( second (equiv-pullback-total-covariant-dhom-equiv))
     ( second (equiv-total-covariant-dhom-equiv))
@@ -955,7 +955,7 @@ domain are equivalent:
     ( Σ ( i : B x) , ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ i]))
     ( Σ ( i : B x) , ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) i]))
   :=
-    ( \ ( i , h) → (i , \ t → (first (equiv-BC (f t))) (h t))
+    ( \ (i , h) → (i , \ t → (first (equiv-BC (f t))) (h t))
     , is-equiv-to-pullback-total-covariant-dhom-equiv)
 
 #def family-equiv-dhom-family-equiv uses (extext A y)
@@ -966,8 +966,8 @@ domain are equivalent:
   :=
     family-equiv-total-equiv
     ( B x)
-    ( \ ii → ( ( t : Δ¹) → B (f t) [t ≡ 0₂ ↦ ii]))
-    ( \ ii → ( ( t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) ii]))
+    ( \ ii → ((t : Δ¹) → B (f t) [t ≡ 0₂ ↦ ii]))
+    ( \ ii → ((t : Δ¹) → C (f t) [t ≡ 0₂ ↦ (first (equiv-BC x)) ii]))
     ( \ ii h t → (first (equiv-BC (f t))) (h t))
     ( is-equiv-to-pullback-total-covariant-dhom-equiv)
     ( i)
@@ -1021,7 +1021,7 @@ has a unique lift with specified codomain.
   ( C : A → U)
   ( v : C y)
   : U
-  := ( Σ ( u : C x) , dhom A x y f C u v)
+  := (Σ (u : C x) , dhom A x y f C u v)
 ```
 
 ```rzk title="RS17, Definition 8.2, dual form"
@@ -1037,7 +1037,7 @@ has a unique lift with specified codomain.
 ```rzk title="The type of contravariant families over a fixed type"
 #def contravariant-family (A : U)
   : U
-  := ( Σ ( C : A → U) , is-contravariant A C)
+  := (Σ (C : A → U) , is-contravariant A C)
 ```
 
 The notion of having a unique lift with a fixed codomain may also be expressed
@@ -1136,7 +1136,7 @@ By uncurrying (RS 4.2) we have an equivalence:
         , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ a])
   :=
     curry-uncurry 2 2 Δ¹ ∂Δ¹ Δ¹ ∂Δ¹ (\ t s → A)
-      ( \ ( t , s) →
+      ( \ (t , s) →
         recOR
         ( ( t ≡ 0₂) ∧ (Δ¹ s) ↦ u s
         , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ v s

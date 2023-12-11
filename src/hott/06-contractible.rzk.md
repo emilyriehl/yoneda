@@ -11,7 +11,7 @@ This is a literate `rzk` file:
 ```rzk title="The type of contractibility proofs"
 #def is-contr (A : U)
   : U
-  := Σ ( x : A) , ((y : A) → x = y)
+  := Σ (x : A) , ((y : A) → x = y)
 ```
 
 ## Contractible type data
@@ -24,7 +24,7 @@ This is a literate `rzk` file:
 
 #def center-contraction
   : A
-  := ( first is-contr-A)
+  := (first is-contr-A)
 ```
 
 ```rzk title="The path from the contraction center to any point"
@@ -97,7 +97,7 @@ The prototypical contractible type is the unit type, which is built-in to rzk.
 #def terminal-map-of-path-types-of-Unit-has-sec
   ( x y : Unit)
   : has-section (x = y) Unit (terminal-map (x = y))
-  := ( \ a → refl , \ a → refl)
+  := (\ a → refl , \ a → refl)
 
 #def terminal-map-of-path-types-of-Unit-is-equiv
   ( x y : Unit)
@@ -129,7 +129,7 @@ A type is contractible if and only if its terminal map is an equivalence.
   ( A : U)
   ( is-contr-A : is-contr A)
   : has-section A Unit (terminal-map A)
-  := ( constant Unit A (center-contraction A is-contr-A) , \ z → refl)
+  := (constant Unit A (center-contraction A is-contr-A) , \ z → refl)
 
 #def contr-implies-terminal-map-is-equiv
   ( A : U)
@@ -143,7 +143,7 @@ A type is contractible if and only if its terminal map is an equivalence.
   ( A : U)
   ( e : terminal-map-is-equiv A)
   : is-contr A
-  := ( ( first (first e)) unit , (second (first e)))
+  := ((first (first e)) unit , (second (first e)))
 
 #def contr-iff-terminal-map-is-equiv
   ( A : U)
@@ -202,7 +202,7 @@ A retract of contractible types is contractible.
 #def is-retract-of
   ( A B : U)
   : U
-  := Σ ( s : A → B) , has-retraction A B s
+  := Σ (s : A → B) , has-retraction A B s
 
 #section retraction-data
 
@@ -325,7 +325,7 @@ The center of contraction in the based path space is `#!rzk (a , refl)`.
   ( A : U)
   ( a : A)
   : Σ ( x : A) , (a = x)
-  := ( a , refl)
+  := (a , refl)
 ```
 
 ```rzk title="The contracting homotopy in the based path space"
@@ -338,7 +338,7 @@ The center of contraction in the based path space is `#!rzk (a , refl)`.
     path-of-pairs-pair-of-paths
       A (\ z → a = z) a (first p) (second p) (refl) (second p)
       ( concat
-        ( a = ( first p))
+        ( a = (first p))
         ( transport A (\ z → (a = z)) a (first p) (second p) (refl))
         ( concat A a a (first p) (refl) (second p))
         ( second p)
@@ -351,7 +351,7 @@ The center of contraction in the based path space is `#!rzk (a , refl)`.
   ( A : U)
   ( a : A)
   : is-contr (Σ (x : A) , a = x)
-  := ( center-based-paths A a , contraction-based-paths A a)
+  := (center-based-paths A a , contraction-based-paths A a)
 ```
 
 ## Contractible products
@@ -418,12 +418,12 @@ A type is contractible if and only if it has singleton induction.
   ( A : U)
   ( a : A)
   : U
-  := ( B : A → U) → has-section ((x : A) → B x) (B a) (ev-pt A a B)
+  := (B : A → U) → has-section ((x : A) → B x) (B a) (ev-pt A a B)
 
 #def has-singleton-induction
   ( A : U)
   : U
-  := Σ ( a : A) , (B : A → U) → (has-singleton-induction-pointed A a B)
+  := Σ (a : A) , (B : A → U) → (has-singleton-induction-pointed A a B)
 
 #def ind-sing
   ( A : U)
@@ -431,7 +431,7 @@ A type is contractible if and only if it has singleton induction.
   ( B : A → U)
   ( singleton-ind-A : has-singleton-induction-pointed A a B)
   : ( B a) → ((x : A) → B x)
-  := ( first singleton-ind-A)
+  := (first singleton-ind-A)
 
 #def compute-ind-sing
   ( A : U)
@@ -448,7 +448,7 @@ A type is contractible if and only if it has singleton induction.
         ( ev-pt A a B)
         ( ind-sing A a B singleton-ind-A))
       ( identity (B a)))
-  := ( second singleton-ind-A)
+  := (second singleton-ind-A)
 
 #def contr-implies-singleton-induction-ind
   ( A : U)
@@ -478,12 +478,12 @@ A type is contractible if and only if it has singleton induction.
   ( is-contr-A : is-contr A)
   ( B : A → U)
   : has-singleton-induction-pointed A (center-contraction A is-contr-A) B
-  := ( second (contr-implies-singleton-induction-ind A is-contr-A)) B
+  := (second (contr-implies-singleton-induction-ind A is-contr-A)) B
 
 #def singleton-induction-ind-implies-contr
   ( A : U)
   ( a : A)
   ( f : has-singleton-induction-pointed-structure A a)
   : ( is-contr A)
-  := ( a , ( first (f (\ x → a = x))) (refl_{a}))
+  := (a , (first (f (\ x → a = x))) (refl_{a}))
 ```

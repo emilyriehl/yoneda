@@ -512,7 +512,7 @@ Application of a function to homotopic paths yields homotopic paths.
   = ( ap A C x y (comp A B C g f) p)
   :=
     rev
-      ( g ( f x) = g (f y))
+      ( g (f x) = g (f y))
       ( ap A C x y (\ z → g (f z)) p)
       ( ap B C (f x) (f y) g (ap A B x y f p))
       ( ap-comp A B C x y f g p)

@@ -213,7 +213,7 @@ A pair of composable arrows form a horn.
   ( g : hom A y z)
   : Λ → A
   :=
-    \ ( t , s) →
+    \ (t , s) →
     recOR
       ( s ≡ 0₂ ↦ f t
       , t ≡ 1₂ ↦ g s)
@@ -381,7 +381,7 @@ We have now proven that both notions of pre-∞-categories are logically equival
 #def is-pre-∞-category-iff-is-local-horn-inclusion
   ( A : U)
   : iff (is-pre-∞-category A) (is-local-horn-inclusion A)
-  := ( is-local-horn-inclusion-is-pre-∞-category A , is-pre-∞-category-is-local-horn-inclusion A)
+  := (is-local-horn-inclusion-is-pre-∞-category A , is-pre-∞-category-is-local-horn-inclusion A)
 ```
 
 ## Function and extension types into pre-∞-categories
@@ -508,13 +508,13 @@ For later use, an equivalent characterization of the arrow type.
   ( A : U)
   : is-equiv (arr A) (Σ (x : A) , (Σ (y : A) , hom A x y)) (arr-Σ-hom A)
   :=
-    ( ( \ ( x , (y , f)) → f , \ f → refl)
-    , ( \ ( x , (y , f)) → f , \ xyf → refl))
+    ( ( \ (x , (y , f)) → f , \ f → refl)
+    , ( \ (x , (y , f)) → f , \ xyf → refl))
 
 #def equiv-arr-Σ-hom
   ( A : U)
   : Equiv (arr A) (Σ (x : A) , (Σ (y : A) , hom A x y))
-  := ( arr-Σ-hom A , is-equiv-arr-Σ-hom A)
+  := (arr-Σ-hom A , is-equiv-arr-Σ-hom A)
 ```
 
 ```rzk title="RS17, Corollary 5.6(ii), special case for locality at the horn inclusion"
@@ -584,7 +584,7 @@ Witness for the right identity law:
   ( x y : A)
   ( f : hom A x y)
   : hom2 A x y y f (id-hom A y) f
-  := \ ( t , s) → f t
+  := \ (t , s) → f t
 ```
 
 Witness for the left identity law:
@@ -609,7 +609,7 @@ Witness for the left identity law:
   ( x y : A)
   ( f : hom A x y)
   : hom2 A x x y (id-hom A x) f f
-  := \ ( t , s) → f s
+  := \ (t , s) → f s
 ```
 
 In a pre-∞-category, where composition is unique, it follows that composition with
@@ -677,7 +677,7 @@ that the type of arrows in a pre-∞-category is itself a pre-∞-category.
   ( triangle : Δ² → A)
   : Δ¹×Δ¹ → A
   :=
-    \ ( t , s) →
+    \ (t , s) →
     recOR
       ( t ≤ s ↦ triangle (s , t)
       , s ≤ t ↦ triangle (t , s))
@@ -821,7 +821,7 @@ middle-simplex map $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$
   ( h : hom A y z)
   : Δ³ → A
   :=
-    \ ( ( t , s) , r) →
+    \ ((t , s) , r) →
     ( witness-asociative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h) (t , r) s
 ```
 
@@ -894,7 +894,7 @@ The diagonal composite of three arrows extracted from the
     h
     ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
   :=
-    \ ( t , s) →
+    \ (t , s) →
     tetrahedron-associative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h
       ( ( t , t) , s)
 ```
@@ -934,7 +934,7 @@ The front face:
     ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g h)
     ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
   :=
-    \ ( t , s) →
+    \ (t , s) →
     tetrahedron-associative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h
       ( ( t , s) , s)
 ```
@@ -1035,7 +1035,7 @@ In a pre-∞-category, homotopies are equivalent to terms in `#!rzk hom2` types 
   ( f : hom A x y)
   : ( Σ ( g : hom A x y) , (f = g))
   → ( Σ ( g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
-  := \ ( g , p) → (g , map-hom2-homotopy A x y f g p)
+  := \ (g , p) → (g , map-hom2-homotopy A x y f g p)
 
 #def is-equiv-map-total-hom2-homotopy-is-pre-∞-category
   ( A : U)
@@ -1097,7 +1097,7 @@ A dual notion of homotopy can be defined similarly.
   ( f : hom A x y)
   : ( Σ ( g : hom A x y) , (f = g))
   → ( Σ ( g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
-  := \ ( g , p) → (g , map-hom2-homotopy' A x y f g p)
+  := \ (g , p) → (g , map-hom2-homotopy' A x y f g p)
 
 #def is-equiv-map-total-hom2-homotopy'-is-pre-∞-category
   ( A : U)
@@ -1165,7 +1165,7 @@ the data provided by a commutative triangle with that boundary.
   ( g : hom A y z)
   : ( Σ ( h : hom A x z) , (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = h)
   → ( Σ ( h : hom A x z) , (hom2 A x y z f g h))
-  := \ ( h , p) → (h , map-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g h p)
+  := \ (h , p) → (h , map-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g h p)
 
 #def is-equiv-map-total-hom2-eq-is-pre-∞-category
   ( A : U)
@@ -1199,7 +1199,7 @@ the data provided by a commutative triangle with that boundary.
     ( ( map-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g k)
     , ( total-equiv-family-of-equiv
         ( hom A x z)
-        ( \ m → ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = m)
+        ( \ m → (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = m)
         ( hom2 A x y z f g)
         ( map-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g)
         ( is-equiv-map-total-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g)
@@ -1318,7 +1318,7 @@ As a special case of the above:
 
 #def is-contr-Unit
   : is-contr Unit
-  := ( unit , \ _ → refl)
+  := (unit , \ _ → refl)
 
 #def is-contr-Δ²→Unit uses (extext)
   : is-contr (Δ² → Unit)
@@ -1338,7 +1338,7 @@ As a special case of the above:
     is-contr-is-retract-of-is-contr
       ( Σ ( h : hom Unit x z) , (hom2 Unit x y z f g h))
       ( Δ² → Unit)
-      ( ( \ ( _ , k) → k)
+      ( ( \ (_ , k) → k)
       , ( \ k → ((\ t → k (t , t)) , k) , \ _ → refl))
       ( is-contr-Δ²→Unit)
 

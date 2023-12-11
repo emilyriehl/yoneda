@@ -16,7 +16,7 @@ The homotopy fiber of a map is the following type:
   ( f : A → B)
   ( b : B)
   : U
-  := Σ ( a : A) , (f a) = b
+  := Σ (a : A) , (f a) = b
 ```
 
 ```rzk title="The total space of a family"
@@ -24,7 +24,7 @@ The homotopy fiber of a map is the following type:
   ( A : U)
   ( P : A → U)
   : U
-  := Σ ( a : A) , P a
+  := Σ (a : A) , P a
 ```
 
 We calculate the transport of (a , q) : fib b along p : a = a':
@@ -62,7 +62,7 @@ A map is contractible just when its fibers are contractible.
   ( A B : U)
   ( f : A → B)
   : U
-  := ( b : B) → is-contr (fib A B f b)
+  := (b : B) → is-contr (fib A B f b)
 ```
 
 Contractible maps are equivalences:
@@ -89,7 +89,7 @@ Contractible maps are equivalences:
 #def is-contr-map-data-in-fiber uses (is-contr-f)
   ( a : A)
   : fib A B f (f a)
-  := ( is-contr-map-inverse (f a) , (second has-section-is-contr-map) (f a))
+  := (is-contr-map-inverse (f a) , (second has-section-is-contr-map) (f a))
 
 #def is-contr-map-path-in-fiber
   ( a : A)
@@ -105,7 +105,7 @@ Contractible maps are equivalences:
   : has-retraction A B f
   :=
     ( is-contr-map-inverse
-    , \ a → ( ap (fib A B f (f a)) A
+    , \ a → (ap (fib A B f (f a)) A
                 ( is-contr-map-data-in-fiber a)
                 ( ( a , refl))
                 ( \ u → first u)
@@ -113,7 +113,7 @@ Contractible maps are equivalences:
 
 #def is-equiv-is-contr-map uses (is-contr-f)
   : is-equiv A B f
-  := ( is-contr-map-has-retraction , has-section-is-contr-map)
+  := (is-contr-map-has-retraction , has-section-is-contr-map)
 
 #end is-contr-map-is-equiv
 ```
@@ -1215,5 +1215,5 @@ Half adjoint equivalences define contractible maps:
   ( A B : U)
   ( f : A → B)
   : iff (is-contr-map A B f) (is-equiv A B f)
-  := ( is-equiv-is-contr-map A B f , is-contr-map-is-equiv A B f)
+  := (is-equiv-is-contr-map A B f , is-contr-map-is-equiv A B f)
 ```

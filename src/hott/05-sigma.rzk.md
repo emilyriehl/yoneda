@@ -43,7 +43,7 @@ This is a literate `rzk` file:
   ( B : U)
   ( P : B → U)
   : ( Σ ( b : B) , P b) → B
-  := \ ( b , x) → b
+  := \ (b , x) → b
 
 ```
 
@@ -93,7 +93,7 @@ This is a literate `rzk` file:
   ( s t : Σ (a : A) , B a)
   ( e : s = t)
   : Eq-Σ s t
-  := ( first-path-Σ s t e , second-path-Σ s t e)
+  := (first-path-Σ s t e , second-path-Σ s t e)
 ```
 
 A path in a fiber defines a path in the total space.
@@ -278,7 +278,7 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
   : ( q : u = u')
   → ( c' : C a' u')
   → ( r : product-transport a a' u u' p q c = c')
-  → ( ( a , ( u , c)) =_{(Σ (x : A) , (Σ (y : B) , C x y))} (a' , (u' , c')))
+  → ( ( a , (u , c)) =_{(Σ (x : A) , (Σ (y : B) , C x y))} (a' , (u' , c')))
   :=
     ind-path
       ( A)
@@ -287,7 +287,7 @@ saying that when `#!rzk p` is `#!rzk refl` this is ordinary transport.
         ( q : u = u')
       → ( c' : C a'' u')
       → ( r : product-transport a a'' u u' p' q c = c')
-      → ( ( a , ( u , c)) =_{(Σ (x : A) , (Σ (y : B) , C x y))} (a'' , (u' , c'))))
+      → ( ( a , (u , c)) =_{(Σ (x : A) , (Σ (y : B) , C x y))} (a'' , (u' , c'))))
       ( \ q c' r →
         eq-eq-fiber-Σ
           ( A) (\ x → (Σ (v : B) , C x v)) (a)
@@ -335,7 +335,7 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
   → ( c' : C a' b')
   → ( r : product-transport a a' b b' p q c = c')
   → ( triple-eq
-      ( a , ( b , c)) (a' , (b' , c'))
+      ( a , (b , c)) (a' , (b' , c'))
       ( eq-triple (a , (b , c)) (a' , (b' , c')) (p , (q , r))))
   = ( p , (q , r))
   :=
@@ -347,7 +347,7 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
       → ( c' : C a'' b')
       → ( r : product-transport a a'' b b' p' q c = c')
       → ( triple-eq
-          ( a , ( b , c)) (a'' , (b' , c'))
+          ( a , (b , c)) (a'' , (b' , c'))
           ( eq-triple (a , (b , c)) (a'' , (b' , c')) (p' , (q , r))))
       = ( p' , (q , r)))
       ( ind-path
@@ -357,7 +357,7 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
           ( c' : C a b'')
         → ( r : product-transport a a b b'' refl q' c = c')
         → ( triple-eq
-            ( a , ( b , c)) (a , (b'' , c'))
+            ( a , (b , c)) (a , (b'' , c'))
             ( eq-triple (a , (b , c)) (a , (b'' , c')) (refl , (q' , r))))
         = ( refl , (q' , r)))
         ( ind-path
@@ -365,9 +365,9 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
             ( c)
             ( \ c'' r' →
               triple-eq
-                ( a , ( b , c)) (a , (b , c''))
+                ( a , (b , c)) (a , (b , c''))
                 ( eq-triple
-                  ( a , ( b , c)) (a , (b , c''))
+                  ( a , (b , c)) (a , (b , c''))
                   ( refl , (refl , r')))
               = ( refl , (refl , r')))
             ( refl))
@@ -404,9 +404,9 @@ Here we've decomposed `#!rzk s`, `#!rzk t` and `#!rzk e` for induction purposes:
   ( A B : U)
   : Equiv (product A B) (product B A)
   :=
-    ( \ ( a , b) → (b , a)
-    , ( ( \ ( b , a) → (a , b) , \ p → refl)
-      , ( \ ( b , a) → (a , b) , \ p → refl)))
+    ( \ (a , b) → (b , a)
+    , ( ( \ (b , a) → (a , b) , \ p → refl)
+      , ( \ (b , a) → (a , b) , \ p → refl)))
 ```
 
 ## Fubini
@@ -433,9 +433,9 @@ unimportant.
   ( C : B → U)
   : Equiv (product A (Σ (b : B) , C b)) (Σ (b : B) , product A (C b))
   :=
-    ( \ ( a , ( b , c)) → (b , (a , c))
-    , ( ( \ ( b , (a , c)) → (a , (b , c)) , \ z → refl)
-      , ( \ ( b , (a , c)) → (a , (b , c)) , \ z → refl)))
+    ( \ (a , (b , c)) → (b , (a , c))
+    , ( ( \ (b , (a , c)) → (a , (b , c)) , \ z → refl)
+      , ( \ (b , (a , c)) → (a , (b , c)) , \ z → refl)))
 ```
 
 ## Associativity
@@ -449,9 +449,9 @@ unimportant.
       ( Σ ( a : A) , Σ (b : B a) , C a b)
       ( Σ ( ab : Σ (a : A) , B a) , C (first ab) (second ab))
   :=
-    ( \ ( a , ( b , c)) → ((a , b) , c)
-    , ( ( \ ( ( a , b) , c) → (a , (b , c)) , \ _ → refl)
-      , ( \ ( ( a , b) , c) → (a , (b , c)) , \ _ → refl)))
+    ( \ (a , (b , c)) → ((a , b) , c)
+    , ( ( \ ((a , b) , c) → (a , (b , c)) , \ _ → refl)
+      , ( \ ((a , b) , c) → (a , (b , c)) , \ _ → refl)))
 ```
 
 ## Currying

@@ -21,13 +21,13 @@ This is a literate `rzk` file:
 ```rzk title="The 2-simplex"
 #def Δ²
   : ( 2 × 2) → TOPE
-  := \ ( t , s) → s ≤ t
+  := \ (t , s) → s ≤ t
 ```
 
 ```rzk title="The 3-simplex"
 #def Δ³
   : ( 2 × 2 × 2) → TOPE
-  := \ ( ( t1 , t2) , t3) → t3 ≤ t2 ∧ t2 ≤ t1
+  := \ ((t1 , t2) , t3) → t3 ≤ t2 ∧ t2 ≤ t1
 ```
 
 ### Boundaries of simplices
@@ -42,7 +42,7 @@ This is a literate `rzk` file:
 #def ∂Δ²
   : Δ² → TOPE
   :=
-    \ ( t , s) → (s ≡ 0₂ ∨ t ≡ 1₂ ∨ s ≡ t)
+    \ (t , s) → (s ≡ 0₂ ∨ t ≡ 1₂ ∨ s ≡ t)
 ```
 
 ### The inner horn
@@ -50,7 +50,7 @@ This is a literate `rzk` file:
 ```rzk
 #def Λ
   : ( 2 × 2) → TOPE
-  := \ ( t , s) → (s ≡ 0₂ ∨ t ≡ 1₂)
+  := \ (t , s) → (s ≡ 0₂ ∨ t ≡ 1₂)
 ```
 
 ### Products
@@ -63,7 +63,7 @@ The product of topes defines the product of shapes.
   ( ψ : I → TOPE)
   ( χ : J → TOPE)
   : ( I × J) → TOPE
-  := \ ( t , s) → ψ t ∧ χ s
+  := \ (t , s) → ψ t ∧ χ s
 ```
 
 ```rzk title="The square as a product"
@@ -75,7 +75,7 @@ The product of topes defines the product of shapes.
 ```rzk title="The total boundary of the square"
 #def ∂□
   : ( 2 × 2) → TOPE
-  := \ ( t , s) → ((∂Δ¹ t) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (∂Δ¹ s))
+  := \ (t , s) → ((∂Δ¹ t) ∧ (Δ¹ s)) ∨ ((Δ¹ t) ∧ (∂Δ¹ s))
 ```
 
 ```rzk title="The vertical boundary of the square"

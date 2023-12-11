@@ -27,7 +27,7 @@ Some of the definitions in this file rely on extension extensionality:
   ( f : hom A x y)
   ( g : hom A y x)
   : U
-  := ( comp-is-pre-∞-category A is-pre-∞-category-A x y x f g) =_{hom A x x} (id-hom A x)
+  := (comp-is-pre-∞-category A is-pre-∞-category-A x y x f g) =_{hom A x x} (id-hom A x)
 
 #def Retraction-arrow
   ( A : U)
@@ -35,7 +35,7 @@ Some of the definitions in this file rely on extension extensionality:
   ( x y : A)
   ( f : hom A x y)
   : U
-  := Σ ( g : hom A y x) , (has-retraction-arrow A is-pre-∞-category-A x y f g)
+  := Σ (g : hom A y x) , (has-retraction-arrow A is-pre-∞-category-A x y f g)
 
 #def has-section-arrow
   ( A : U)
@@ -44,7 +44,7 @@ Some of the definitions in this file rely on extension extensionality:
   ( f : hom A x y)
   ( h : hom A y x)
   : U
-  := ( comp-is-pre-∞-category A is-pre-∞-category-A y x y h f) =_{hom A y y} (id-hom A y)
+  := (comp-is-pre-∞-category A is-pre-∞-category-A y x y h f) =_{hom A y y} (id-hom A y)
 
 #def Section-arrow
   ( A : U)
@@ -52,7 +52,7 @@ Some of the definitions in this file rely on extension extensionality:
   ( x y : A)
   ( f : hom A x y)
   : U
-  := Σ ( h : hom A y x) , (has-section-arrow A is-pre-∞-category-A x y f h)
+  := Σ (h : hom A y x) , (has-section-arrow A is-pre-∞-category-A x y f h)
 
 #def is-iso-arrow
   ( A : U)
@@ -70,7 +70,7 @@ Some of the definitions in this file rely on extension extensionality:
   ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   : U
-  := Σ ( f : hom A x y) , is-iso-arrow A is-pre-∞-category-A x y f
+  := Σ (f : hom A x y) , is-iso-arrow A is-pre-∞-category-A x y f
 ```
 
 ## Invertible arrows
@@ -99,7 +99,7 @@ invertible, meaning `#!rzk f` has a two-sided composition inverse
   ( f : hom A x y)
   : ( has-inverse-arrow A is-pre-∞-category-A x y f) → (is-iso-arrow A is-pre-∞-category-A x y f)
   :=
-    ( \ ( g , ( p , q)) → ((g , p) , (g , q)))
+    ( \ (g , (p , q)) → ((g , p) , (g , q)))
 
 #def has-inverse-arrow-is-iso-arrow uses (extext)
   ( A : U)
@@ -108,7 +108,7 @@ invertible, meaning `#!rzk f` has a two-sided composition inverse
   ( f : hom A x y)
   : ( is-iso-arrow A is-pre-∞-category-A x y f) → (has-inverse-arrow A is-pre-∞-category-A x y f)
   :=
-    ( \ ( ( g , p) , (h , q)) →
+    ( \ ((g , p) , (h , q)) →
       ( g
       , ( p
         , ( concat
@@ -451,7 +451,7 @@ map from `#!rzk x = y` to `#!rzk Iso A is-pre-∞-category-A x y` is an equivale
   ( A : U)
   ( is-∞-category-A : is-∞-category A)
   : is-pre-∞-category A
-  := ( first (is-∞-category-A))
+  := (first (is-∞-category-A))
 ```
 
 ## Uniqueness of initial and final objects

@@ -14,7 +14,7 @@ A type is a proposition when its identity types are contractible.
 #def is-prop
   ( A : U)
   : U
-  := ( a : A) → (b : A) → is-contr (a = b)
+  := (a : A) → (b : A) → is-contr (a = b)
 
 #def is-prop-Unit
   : is-prop Unit
@@ -27,7 +27,7 @@ A type is a proposition when its identity types are contractible.
 #def all-elements-equal
   ( A : U)
   : U
-  := ( a : A) → (b : A) → (a = b)
+  := (a : A) → (b : A) → (a = b)
 
 #def is-contr-is-inhabited
   ( A : U)
@@ -53,7 +53,7 @@ A type is a proposition when its identity types are contractible.
   ( A : U)
   ( all-elements-equal-A : all-elements-equal A)
   : is-contr-is-inhabited A
-  := \ a → ( a , all-elements-equal-A a)
+  := \ a → (a , all-elements-equal-A a)
 
 #def terminal-map-is-emb-is-inhabited-is-contr-is-inhabited
   ( A : U)

@@ -46,7 +46,7 @@ identity types.
 #def is-∞-groupoid
   ( A : U)
   : U
-  := ( x : A) → (y : A) → is-equiv (x = y) (hom A x y) (hom-eq A x y)
+  := (x : A) → (y : A) → is-equiv (x = y) (hom A x y) (hom-eq A x y)
 ```
 
 ## Families of ∞-groupoids
@@ -152,7 +152,7 @@ now.
         ( Δ¹)
         ( ∂Δ¹)
         ( \ t s → A t)
-        ( \ ( t , s) → recOR (s ≡ 0₂ ↦ f t , s ≡ 1₂ ↦ g t)))
+        ( \ (t , s) → recOR (s ≡ 0₂ ↦ f t , s ≡ 1₂ ↦ g t)))
 
 #def compute-hom-eq-extension-type-is-∞-groupoid uses (extext)
   ( I : CUBE)
@@ -218,11 +218,11 @@ For instance, the arrow type of a ∞-groupoid is itself ∞-groupoid.
 
 #def is-equiv-hom-eq-∞-groupoid uses (extext x y z w)
   : is-equiv (f =_{arr A} g) (hom (arr A) f g) (hom-eq (arr A) f g)
-  := ( is-∞-groupoid-arr A is-∞-groupoid-A) f g
+  := (is-∞-groupoid-arr A is-∞-groupoid-A) f g
 
 #def equiv-hom-eq-∞-groupoid uses (extext x y z w)
   : Equiv (f =_{arr A} g) (hom (arr A) f g)
-  := ( hom-eq (arr A) f g , (is-∞-groupoid-arr A is-∞-groupoid-A) f g)
+  := (hom-eq (arr A) f g , (is-∞-groupoid-arr A is-∞-groupoid-A) f g)
 
 #def equiv-square-hom-arr
   : Equiv
@@ -395,7 +395,7 @@ We close the section so we can use path induction.
                 , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ g' s
                 , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ x
                 , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
-          ( \ ( t , s) → f s))
+          ( \ (t , s) → f s))
         ( w)
         ( q))
       ( z)
@@ -533,7 +533,7 @@ We close the section so we can use path induction.
                 , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ k t])))
     ( first (equiv-square-sigma-over-product A is-∞-groupoid-A x y z w f g))
     ( square-sigma-over-product A x y z w f g)
-    ( \ ( p , (q , τ)) →
+    ( \ (p , (q , τ)) →
       map-equiv-square-sigma-over-product A is-∞-groupoid-A x y z w f p q g τ)
     ( second (equiv-square-sigma-over-product A is-∞-groupoid-A x y z w f g))
 
@@ -720,7 +720,7 @@ The extension types that appear in the Segal condition are retracts of this type
       , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ g s
       , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ x
       , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ y]
-  := \ ( t , s) → recOR (t ≤ s ↦ α (s , t) , s ≤ t ↦ g s)
+  := \ (t , s) → recOR (t ≤ s ↦ α (s , t) , s ≤ t ↦ g s)
 
 #def sigma-triangle-to-sigma-square-section
   ( A : U)
@@ -733,7 +733,7 @@ The extension types that appear in the Segal condition are retracts of this type
           , ( t ≡ 1₂) ∧ (Δ¹ s) ↦ g s
           , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ x
           , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ y])
-  := ( d , triangle-to-square-section A x y f d α)
+  := (d , triangle-to-square-section A x y f d α)
 
 #def sigma-square-to-sigma-triangle-retraction
   ( A : U)
@@ -747,7 +747,7 @@ The extension types that appear in the Segal condition are retracts of this type
           , ( Δ¹ t) ∧ (s ≡ 0₂) ↦ x
           , ( Δ¹ t) ∧ (s ≡ 1₂) ↦ y]))
   : Σ ( d : hom A x y) , (hom2 A x y y f (id-hom A y) d)
-  := ( ( \ t → σ (t , t)) , (\ (t , s) → σ (s , t)))
+  := ((\ t → σ (t , t)) , (\ (t , s) → σ (s , t)))
 
 #def sigma-triangle-to-sigma-square-retract
   ( A : U)

@@ -26,7 +26,7 @@ The following type asserts that the fibers of a type family are contractible.
   ( A : U)
   ( B : A → U)
   : U
-  := ( ( x : A) → is-contr (B x))
+  := ((x : A) → is-contr (B x))
 
 #section contractible-fibers-data
 
@@ -44,7 +44,7 @@ The following type asserts that the fibers of a type family are contractible.
 ```rzk title="The section of the total space projection built from the contraction centers"
 #def contractible-fibers-actual-section uses (contractible-fibers-A-B)
   : ( a : A) → Σ (x : A) , B x
-  := \ a → ( a , contractible-fibers-section a)
+  := \ a → (a , contractible-fibers-section a)
 
 #def contractible-fibers-section-htpy uses (contractible-fibers-A-B)
   : homotopy A A
@@ -55,7 +55,7 @@ The following type asserts that the fibers of a type family are contractible.
 
 #def contractible-fibers-section-is-section uses (contractible-fibers-A-B)
   : has-section (Σ (x : A) , B x) A (total-space-projection A B)
-  := ( contractible-fibers-actual-section , contractible-fibers-section-htpy)
+  := (contractible-fibers-actual-section , contractible-fibers-section-htpy)
 ```
 
 This can be used to define the retraction homotopy for the total space
@@ -75,7 +75,7 @@ projection, called `#!rzk first` here:
 
 #def contractible-fibers-retraction uses (contractible-fibers-A-B)
   : has-retraction (Σ (x : A) , B x) A (total-space-projection A B)
-  := ( contractible-fibers-actual-section , contractible-fibers-retraction-htpy)
+  := (contractible-fibers-actual-section , contractible-fibers-retraction-htpy)
 ```
 
 The first half of our main result:
@@ -83,11 +83,11 @@ The first half of our main result:
 ```rzk
 #def is-equiv-projection-contractible-fibers uses (contractible-fibers-A-B)
   : is-equiv (Σ (x : A) , B x) A (total-space-projection A B)
-  := ( contractible-fibers-retraction , contractible-fibers-section-is-section)
+  := (contractible-fibers-retraction , contractible-fibers-section-is-section)
 
 #def equiv-projection-contractible-fibers uses (contractible-fibers-A-B)
   : Equiv (Σ (x : A) , B x) A
-  := ( total-space-projection A B , is-equiv-projection-contractible-fibers)
+  := (total-space-projection A B , is-equiv-projection-contractible-fibers)
 
 #end contractible-fibers-data
 ```
@@ -140,12 +140,12 @@ We start over from a stronger hypothesis of a half adjoint equivalence.
 #def projection-hae-inverse
   ( a : A)
   : Σ ( x : A) , B x
-  := ( first (first proj-B-to-A-is-half-adjoint-equivalence)) a
+  := (first (first proj-B-to-A-is-half-adjoint-equivalence)) a
 
 #def projection-hae-base-htpy uses (B)
   ( a : A)
   : ( first (projection-hae-inverse a)) = a
-  := ( second (second (first proj-B-to-A-is-half-adjoint-equivalence))) a
+  := (second (second (first proj-B-to-A-is-half-adjoint-equivalence))) a
 
 #def projection-hae-section uses (proj-B-to-A-is-half-adjoint-equivalence)
   ( a : A)
@@ -157,7 +157,7 @@ We start over from a stronger hypothesis of a half adjoint equivalence.
 
 #def projection-hae-total-htpy
   : ( projection-hae-inverse (first w)) = w
-  := ( first (second (first proj-B-to-A-is-half-adjoint-equivalence))) w
+  := (first (second (first proj-B-to-A-is-half-adjoint-equivalence))) w
 
 #def projection-hae-fibered-htpy
   : ( transport A B (first ((projection-hae-inverse (first w)))) (first w)
@@ -174,7 +174,7 @@ We start over from a stronger hypothesis of a half adjoint equivalence.
   : ( projection-hae-base-htpy (first w))
   = ( first-path-Σ A B (projection-hae-inverse (first w)) w
       ( projection-hae-total-htpy))
-  := ( second proj-B-to-A-is-half-adjoint-equivalence) w
+  := (second proj-B-to-A-is-half-adjoint-equivalence) w
 
 #def projection-hae-transport-coherence
   : ( projection-hae-section (first w))

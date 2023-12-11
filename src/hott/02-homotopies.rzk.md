@@ -18,7 +18,7 @@ This is a literate `rzk` file:
 #def homotopy
   ( f g : A → B)
   : U
-  := ( a : A) → (f a = g a)
+  := (a : A) → (f a = g a)
 ```
 
 ```rzk title="The reversal of a homotopy"

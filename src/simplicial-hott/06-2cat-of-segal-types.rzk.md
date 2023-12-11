@@ -125,7 +125,7 @@ Equivalently , natural transformations can be determined by their **components**
   ( B : A → U)
   ( f g : (x : A) → (B x))
   : U
-  := ( x : A) → hom (B x) (f x) (g x)
+  := (x : A) → hom (B x) (f x) (g x)
 ```
 
 ```rzk

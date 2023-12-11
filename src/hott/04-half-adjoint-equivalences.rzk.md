@@ -58,7 +58,7 @@ and discard the other.
   ( has-inverse-f : has-inverse A B f)
   : homotopy A A
     ( retraction-composite-has-inverse A B f has-inverse-f) (identity A)
-  := ( first (second has-inverse-f))
+  := (first (second has-inverse-f))
 
 #def has-inverse-discarded-htpy
   ( A B : U)
@@ -66,7 +66,7 @@ and discard the other.
   ( has-inverse-f : has-inverse A B f)
   : homotopy B B
     ( section-composite-has-inverse A B f has-inverse-f) (identity B)
-  := ( second (second has-inverse-f))
+  := (second (second has-inverse-f))
 ```
 
 The required coherence will be built by transforming an instance of the
@@ -590,7 +590,7 @@ have equivalent identity types.
   :=
     triple-concat-higher-homotopy A B
       ( triple-composite-has-inverse A B f (first is-hae-f)) f
-      ( \ a → ( ( ( second (second (first is-hae-f)))) (f a)))
+      ( \ a → (((second (second (first is-hae-f)))) (f a)))
       ( \ a →
         ( ap A B (retraction-composite-has-inverse A B f (first is-hae-f) a) a f
           ( ( ( first (second (first is-hae-f)))) a)))
@@ -762,7 +762,7 @@ have equivalent identity types.
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
   : Emb A B
-  := ( f , is-emb-is-equiv A B f is-equiv-f)
+  := (f , is-emb-is-equiv A B f is-equiv-f)
 
 #def equiv-ap-is-equiv
   ( A B : U)
@@ -770,5 +770,5 @@ have equivalent identity types.
   ( is-equiv-f : is-equiv A B f)
   ( x y : A)
   : Equiv (x = y) (f x = f y)
-  := ( ap A B x y f , is-emb-is-equiv A B f is-equiv-f x y)
+  := (ap A B x y f , is-emb-is-equiv A B f is-equiv-f x y)
 ```
