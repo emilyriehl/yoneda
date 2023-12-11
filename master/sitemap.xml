@@ -6,6 +6,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://emilyriehl.github.io/yoneda/master/STYLEGUIDE/</loc>
+         <lastmod>2023-12-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://emilyriehl.github.io/yoneda/master/other/</loc>
          <lastmod>2023-12-11</lastmod>
          <changefreq>daily</changefreq>
