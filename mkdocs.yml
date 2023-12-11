@@ -8,6 +8,7 @@ docs_dir: src
 nav:
   - About:
       - index.md
+      - Code style: STYLEGUIDE.md
       - Other Yoneda formalizations: other.md
 
   - HoTT:
@@ -38,6 +39,9 @@ markdown_extensions:
   - admonition
   - footnotes
   - pymdownx.details
+  - pymdownx.tasklist
+  - pymdownx.snippets:
+      check_paths: true
   - mdx_math
   - pymdownx.highlight:
       anchor_linenums: true
