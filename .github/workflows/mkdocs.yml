@@ -3,7 +3,7 @@ name: MKDocs
 on:
   push:
     branches: [master, update-appearance]
-    tags: [v*]
+    tags: [arXiv-*, v*, CPP-2024]
     paths:
       - .github/workflows/mkdocs.yml
       - mkdocs.yml
@@ -40,7 +40,7 @@ jobs:
           chmod: 0755
 
       - name: 🔨 Install MkDocs Material and mike
-        run: pip install -r docs/requirements.txt
+        run: pip install -r requirements.txt
 
       - name: ⚙️  Configure Git user
         run: |
@@ -48,11 +48,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
       - name: 🚀 Deploy with mike (${{ github.ref_name }}, latest)
-        if: ${{ github.ref_name != 'master' }}
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: |
-          mike deploy --rebase --push --update-aliases --config-file docs/mkdocs.yml ${{ github.ref_name }} latest
+          mike deploy --push --update-aliases ${{ github.ref_name }} latest
 
       - name: 🚀 Deploy with mike (${{ github.ref_name }})
-        if: ${{ github.ref_name == 'master' }}
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         run: |
-          mike deploy --rebase --push --config-file docs/mkdocs.yml ${{ github.ref_name }}
+          mike deploy --push ${{ github.ref_name }}
