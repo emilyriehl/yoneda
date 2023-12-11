@@ -7,13 +7,13 @@
   {
     "version": "CPP-2024",
     "title": "CPP-2024",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "arXiv-v1",
     "title": "arXiv-v1",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   }
 ]
