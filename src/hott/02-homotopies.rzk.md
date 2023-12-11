@@ -1,4 +1,4 @@
-# 2. Homotopies
+# Homotopies
 
 This is a literate `rzk` file:
 

@@ -1,4 +1,4 @@
-# 5. Sigma types
+# Sigma types
 
 This is a literate `rzk` file:
 

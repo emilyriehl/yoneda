@@ -1,4 +1,4 @@
-# 3. Equivalences
+# Equivalences
 
 This is a literate `rzk` file:
 

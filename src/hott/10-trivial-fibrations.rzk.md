@@ -1,4 +1,4 @@
-# 10. Trivial Fibrations
+# Trivial Fibrations
 
 This is a literate `rzk` file:
 

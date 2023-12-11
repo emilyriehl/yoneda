@@ -1,4 +1,4 @@
-# 9. Propositions
+# Propositions
 
 This is a literate `rzk` file:
 

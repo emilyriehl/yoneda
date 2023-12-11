@@ -1,4 +1,4 @@
-# 6. Contractible
+# Contractible types
 
 This is a literate `rzk` file:
 

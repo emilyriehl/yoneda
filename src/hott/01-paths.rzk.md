@@ -1,4 +1,4 @@
-# 1. Paths
+# Paths
 
 This is a literate `rzk` file:
 
@@ -8,7 +8,7 @@ This is a literate `rzk` file:
 
 ## Path induction
 
-We define path induction in terms of the built-in J rule, so that we can apply
+We define path induction in terms of the built-in J rule (`#!rzk idJ`), so that we can apply
 it like any other function.
 
 ```rzk

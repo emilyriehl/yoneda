@@ -1,4 +1,4 @@
-# 4. Equivalences involving extension types
+# Equivalences involving extension types
 
 These formalisations correspond to Section 3 of the RS17 paper.
 

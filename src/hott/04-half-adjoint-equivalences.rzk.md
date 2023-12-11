@@ -1,4 +1,4 @@
-# 4. Half Adjoint Equivalences
+# Half Adjoint Equivalences
 
 This is a literate `rzk` file:
 

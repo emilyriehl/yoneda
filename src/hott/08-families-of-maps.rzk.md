@@ -1,4 +1,4 @@
-# 8. Families of maps
+# Families of maps
 
 This is a literate `rzk` file:
 
