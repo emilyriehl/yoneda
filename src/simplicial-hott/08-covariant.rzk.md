@@ -14,7 +14,7 @@ This is a literate `rzk` file:
   instance the notion of contractible types.
 - `3-simplicial-type-theory.md` — We rely on definitions of simplicies and their
   subshapes.
-- `5-segal-types.md` - We make use of the notion of Segal types and their
+- `5-segal-types.md` - We make use of the notion of pre-∞-categories and their
   structures.
 
 Some of the definitions in this file rely on extension extensionality:
@@ -164,9 +164,9 @@ logical equivalence
 
 ## Representable covariant families
 
-If A is a Segal type and a : A is any term, then hom A a defines a covariant
+If A is a pre-∞-category and a : A is any term, then hom A a defines a covariant
 family over A, and conversely if this family is covariant for every a : A, then
-A must be a Segal type. The proof involves a rather lengthy composition of
+A must be a pre-∞-category. The proof involves a rather lengthy composition of
 equivalences.
 
 ```rzk
@@ -395,12 +395,12 @@ By uncurrying (RS 4.2) we have an equivalence:
           ( \ v → hom2 A a a y (id-hom A a) v d))))
 ```
 
-Now we introduce the hypothesis that A is Segal type.
+Now we introduce the hypothesis that A is pre-∞-category.
 
 ```rzk
-#def representable-dhom-from-path-space-is-segal
+#def representable-dhom-from-path-space-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a x y : A)
   ( f : hom A x y)
   ( u : hom A a x)
@@ -435,7 +435,7 @@ Now we introduce the hypothesis that A is Segal type.
               ( hom A a y)
               ( \ v → (v = d))
               ( \ v → hom2 A a a y (id-hom A a) v d)
-              ( \ v → (equiv-homotopy-hom2-is-segal A is-segal-A a y v d)))))))
+              ( \ v → (equiv-homotopy-hom2-is-pre-∞-category A is-pre-∞-category-A a y v d)))))))
 
 
 #def codomain-based-paths-contraction
@@ -453,9 +453,9 @@ Now we introduce the hypothesis that A is Segal type.
       ( \ α → (Σ (v : hom A a y) , (v = d)))
       ( \ α → is-contr-codomain-based-paths (hom A a y) d)
 
-#def is-segal-representable-dhom-from-hom2
+#def is-pre-∞-category-representable-dhom-from-hom2
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a x y : A)
   ( f : hom A x y)
   ( u : hom A a x)
@@ -468,16 +468,16 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ ( d : hom A a y)
     , ( product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d))))
     ( Σ ( d : hom A a y) , (hom2 A a x y u f d))
-    ( representable-dhom-from-path-space-is-segal A is-segal-A a x y f u)
+    ( representable-dhom-from-path-space-is-pre-∞-category A is-pre-∞-category-A a x y f u)
     ( total-equiv-family-equiv
       ( hom A a y)
       ( \ d → product (hom2 A a x y u f d) (Σ (v : hom A a y) , (v = d)))
       ( \ d → hom2 A a x y u f d)
       ( \ d → codomain-based-paths-contraction A a x y f u d))
 
-#def is-segal-representable-dhom-from-contractible
+#def is-pre-∞-category-representable-dhom-from-contractible
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a x y : A)
   ( f : hom A x y)
   ( u : hom A a x)
@@ -486,31 +486,31 @@ Now we introduce the hypothesis that A is Segal type.
     is-contr-equiv-is-contr'
       ( dhom-from-representable A a x y f u)
       ( Σ ( d : hom A a y) , (hom2 A a x y u f d))
-      ( is-segal-representable-dhom-from-hom2 A is-segal-A a x y f u)
-      ( is-segal-A a x y u f)
+      ( is-pre-∞-category-representable-dhom-from-hom2 A is-pre-∞-category-A a x y f u)
+      ( is-pre-∞-category-A a x y u f)
 ```
 
-Finally, we see that covariant hom families in a Segal type are covariant.
+Finally, we see that covariant hom families in a pre-∞-category are covariant.
 
 ```rzk title="RS17, Proposition 8.13(<-)"
-#def is-covariant-representable-is-segal
+#def is-covariant-representable-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a : A)
   : is-covariant A (\ x → hom A a x)
-  := is-segal-representable-dhom-from-contractible A is-segal-A a
+  := is-pre-∞-category-representable-dhom-from-contractible A is-pre-∞-category-A a
 ```
 
 The proof of the claimed converse result given in the original source is
-circular - using Proposition 5.10, which holds only for Segal types - so instead
+circular - using Proposition 5.10, which holds only for pre-∞-categories - so instead
 we argue as follows:
 
 ```rzk title="RS17, Proposition 8.13(→)"
-#def is-segal-is-covariant-representable
+#def is-pre-∞-category-is-covariant-representable
   ( A : U)
   ( corepresentable-family-is-covariant : (a : A)
   → is-covariant A (\ x → hom A a x))
-  : is-segal A
+  : is-pre-∞-category A
   :=
     \ x y z f g →
     is-contr-base-is-contr-Σ
@@ -1102,9 +1102,9 @@ logical equivalence
 
 ## Representable contravariant families
 
-If A is a Segal type and a : A is any term, then the family \ x → hom A x a
+If A is a pre-∞-category and a : A is any term, then the family \ x → hom A x a
 defines a contravariant family over A , and conversely if this family is
-contravariant for every a : A , then A must be a Segal type. The proof involves
+contravariant for every a : A , then A must be a pre-∞-category. The proof involves
 a rather lengthy composition of equivalences.
 
 ```rzk
@@ -1310,12 +1310,12 @@ By uncurrying (RS 4.2) we have an equivalence:
           ( \ u → hom2 A x a a u (id-hom A a) d))))
 ```
 
-Now we introduce the hypothesis that A is Segal type.
+Now we introduce the hypothesis that A is pre-∞-category.
 
 ```rzk
-#def representable-dhom-to-path-space-is-segal
+#def representable-dhom-to-path-space-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a x y : A)
   ( f : hom A x y)
   ( v : hom A y a)
@@ -1349,11 +1349,11 @@ Now we introduce the hypothesis that A is Segal type.
             ( hom A x a)
             ( \ u → (u = d))
             ( \ u → hom2 A x a a u (id-hom A a) d)
-            ( \ u → equiv-homotopy-hom2'-is-segal A is-segal-A x a u d)))))
+            ( \ u → equiv-homotopy-hom2'-is-pre-∞-category A is-pre-∞-category-A x a u d)))))
 
-#def is-segal-representable-dhom-to-hom2
+#def is-pre-∞-category-representable-dhom-to-hom2
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a x y : A)
   ( f : hom A x y)
   ( v : hom A y a)
@@ -1366,16 +1366,16 @@ Now we introduce the hypothesis that A is Segal type.
     ( Σ ( d : hom A x a)
       , ( product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d))))
     ( Σ ( d : hom A x a) , (hom2 A x y a f v d))
-    ( representable-dhom-to-path-space-is-segal A is-segal-A a x y f v)
+    ( representable-dhom-to-path-space-is-pre-∞-category A is-pre-∞-category-A a x y f v)
     ( total-equiv-family-equiv
       ( hom A x a)
       ( \ d → product (hom2 A x y a f v d) (Σ (u : hom A x a) , (u = d)))
       ( \ d → hom2 A x y a f v d)
       ( \ d → codomain-based-paths-contraction A x y a v f d))
 
-#def is-segal-representable-dhom-to-contractible
+#def is-pre-∞-category-representable-dhom-to-contractible
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a x y : A)
   ( f : hom A x y)
   ( v : hom A y a)
@@ -1384,32 +1384,32 @@ Now we introduce the hypothesis that A is Segal type.
     is-contr-equiv-is-contr'
       ( dhom-to-representable A a x y f v)
       ( Σ ( d : hom A x a) , (hom2 A x y a f v d))
-      ( is-segal-representable-dhom-to-hom2 A is-segal-A a x y f v)
-      ( is-segal-A x y a f v)
+      ( is-pre-∞-category-representable-dhom-to-hom2 A is-pre-∞-category-A a x y f v)
+      ( is-pre-∞-category-A x y a f v)
 ```
 
-Finally, we see that contravariant hom families in a Segal type are
+Finally, we see that contravariant hom families in a pre-∞-category are
 contravariant.
 
 ```rzk title="RS17, Proposition 8.13(<-), dual"
-#def is-contravariant-representable-is-segal
+#def is-contravariant-representable-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a : A)
   : is-contravariant A (\ x → hom A x a)
-  := is-segal-representable-dhom-to-contractible A is-segal-A a
+  := is-pre-∞-category-representable-dhom-to-contractible A is-pre-∞-category-A a
 ```
 
 The proof of the claimed converse result given in the original source is
-circular - using Proposition 5.10, which holds only for Segal types - so instead
+circular - using Proposition 5.10, which holds only for pre-∞-categories - so instead
 we argue as follows:
 
 ```rzk title="RS17, Proposition 8.13(→), dual"
-#def is-segal-is-contravariant-representable
+#def is-pre-∞-category-is-contravariant-representable
   ( A : U)
   ( representable-family-is-contravariant : (a : A)
   → is-contravariant A (\ x → hom A x a))
-  : is-segal A
+  : is-pre-∞-category A
   :=
     \ x y z f g →
       is-contr-base-is-contr-Σ

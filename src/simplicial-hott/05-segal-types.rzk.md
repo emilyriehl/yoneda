@@ -1,6 +1,11 @@
-# Segal Types
+# Pre-∞-categories (Segal types)
 
 These formalisations correspond to Section 5 of the RS17 paper.
+
+!!! info "Segal types vs pre-∞-categories"
+
+    Riehl and Shulman refer to "Segal types" in RS17,
+    but here we call them "pre-∞-categories".
 
 This is a literate `rzk` file:
 
@@ -92,12 +97,12 @@ Extension types are also used to define the type of commutative triangles:
 
 ## The Segal condition
 
-A type is **Segal** if every composable pair of arrows has a unique composite.
+A type is **a pre-∞-category** if every composable pair of arrows has a unique composite.
 Note this is a considerable simplification of the usual Segal condition, which
 also requires homotopical uniqueness of higher-order composites.
 
 ```rzk title="RS17, Definition 5.3"
-#def is-segal
+#def is-pre-∞-category
   ( A : U)
   : U
   :=
@@ -106,31 +111,31 @@ also requires homotopical uniqueness of higher-order composites.
   → is-contr (Σ (h : hom A x z) , (hom2 A x y z f g h))
 ```
 
-Segal types have a composition functor and witnesses to the composition
+Pre-∞-categories have a composition functor and witnesses to the composition
 relation. Composition is written in diagrammatic order to match the order of
-arguments in `#!rzk is-segal`.
+arguments in `#!rzk is-pre-∞-category`.
 
 ```rzk
-#def comp-is-segal
+#def comp-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
   : hom A x z
-  := first (first (is-segal-A x y z f g))
+  := first (first (is-pre-∞-category-A x y z f g))
 
-#def witness-comp-is-segal
+#def witness-comp-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
-  : hom2 A x y z f g (comp-is-segal A is-segal-A x y z f g)
-  := second (first (is-segal-A x y z f g))
+  : hom2 A x y z f g (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g)
+  := second (first (is-pre-∞-category-A x y z f g))
 ```
 
-Composition in a Segal type is unique in the following sense. If there is a
+Composition in a pre-∞-category is unique in the following sense. If there is a
 witness that an arrow $h$ is a composite of $f$ and $g$, then the specified
 composite equals $h$.
 
@@ -156,36 +161,36 @@ composite equals $h$.
   <text x="170" y="370" fill="grey">z</text>
   <text x="100" y="215" fill="grey">f</text>
   <text x="185" y="300" fill="grey">g</text>
-  <text x="90" y="310" transform="rotate(45, 90, 310)" fill="red">comp-is-segal</text>
-  <text x="120" y="280" fill="rgb(128,0,0)" transform="rotate(45, 120, 280)" style="font-size: 10px">witness-comp-is-segal</text>
+  <text x="90" y="310" transform="rotate(45, 90, 310)" fill="red">comp-is-pre-∞-category</text>
+  <text x="120" y="280" fill="rgb(128,0,0)" transform="rotate(45, 120, 280)" style="font-size: 10px">witness-comp-is-pre-∞-category</text>
 </svg>
 
 ```rzk
-#def uniqueness-comp-is-segal
+#def uniqueness-comp-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
   ( h : hom A x z)
   ( alpha : hom2 A x y z f g h)
-  : ( comp-is-segal A is-segal-A x y z f g) = h
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = h
   :=
     first-path-Σ
       ( hom A x z)
       ( hom2 A x y z f g)
-      ( comp-is-segal A is-segal-A x y z f g
-      , witness-comp-is-segal A is-segal-A x y z f g)
+      ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f g
+      , witness-comp-is-pre-∞-category A is-pre-∞-category-A x y z f g)
       ( h , alpha)
       ( homotopy-contraction
         ( Σ ( k : hom A x z) , (hom2 A x y z f g k))
-        ( is-segal-A x y z f g)
+        ( is-pre-∞-category-A x y z f g)
         ( h , alpha))
 ```
 
-## Characterizing Segal types
+## Characterizing pre-∞-categories
 
-Our aim is to prove that a type is Segal if and only if the
+Our aim is to prove that a type is a pre-∞-category if and only if the
 `#!rzk horn-restriction` map, defined below, is an equivalence.
 
 <svg style="float: right" viewBox="0 0 200 180" width="150" height="150">
@@ -223,7 +228,7 @@ The underlying horn of a simplex:
   := \ f t → f t
 ```
 
-This provides an alternate definition of Segal types.
+This provides an alternate definition of pre-∞-categories.
 
 ```rzk
 #def is-local-horn-inclusion
@@ -273,9 +278,9 @@ witnesses of the equivalence).
 ```
 
 ```rzk title="RS17, Theorem 5.5 (the hard direction)"
-#def equiv-horn-restriction-is-segal
+#def equiv-horn-restriction-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   : Equiv (Δ² → A) (Λ → A)
   :=
     equiv-comp
@@ -305,35 +310,35 @@ witnesses of the equivalence).
                 ( \ t → k (t , 0₂)) (\ t → k (1₂ , t))
                 ( h)))
           ( \ k →
-            is-segal-A
+            is-pre-∞-category-A
               ( k (0₂ , 0₂)) (k (1₂ , 0₂)) (k (1₂ , 1₂))
               ( \ t → k (t , 0₂)) (\ t → k (1₂ , t)))))
 ```
 
-We verify that the mapping in `#!rzk Segal-equiv-horn-restriction A is-segal-A`
+We verify that the mapping in `#!rzk equiv-horn-restriction-is-pre-∞-category A is-pre-∞-category-A`
 is exactly `#!rzk horn-restriction A`.
 
 ```rzk
-#def test-equiv-horn-restriction-is-segal
+#def test-equiv-horn-restriction-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
-  : ( first (equiv-horn-restriction-is-segal A is-segal-A)) = (horn-restriction A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  : ( first (equiv-horn-restriction-is-pre-∞-category A is-pre-∞-category-A)) = (horn-restriction A)
   := refl
 ```
 
-```rzk title="Segal types are types that are local at the horn inclusion"
-#def is-local-horn-inclusion-is-segal
+```rzk title="Pre-∞-categories are types that are local at the horn inclusion"
+#def is-local-horn-inclusion-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   : is-local-horn-inclusion A
-  := second (equiv-horn-restriction-is-segal A is-segal-A)
+  := second (equiv-horn-restriction-is-pre-∞-category A is-pre-∞-category-A)
 ```
 
-```rzk title="Types that are local at the horn inclusion are Segal types"
-#def is-segal-is-local-horn-inclusion
+```rzk title="Types that are local at the horn inclusion are pre-∞-categories"
+#def is-pre-∞-category-is-local-horn-inclusion
   ( A : U)
   ( is-local-horn-inclusion-A : is-local-horn-inclusion A)
-  : is-segal A
+  : is-pre-∞-category A
   :=
     \ x y z f g →
     contractible-fibers-is-equiv-projection
@@ -370,27 +375,27 @@ is exactly `#!rzk horn-restriction A`.
     ( horn A x y z f g)
 ```
 
-We have now proven that both notions of Segal types are logically equivalent.
+We have now proven that both notions of pre-∞-categories are logically equivalent.
 
 ```rzk title="RS17, Theorem 5.5"
-#def is-segal-iff-is-local-horn-inclusion
+#def is-pre-∞-category-iff-is-local-horn-inclusion
   ( A : U)
-  : iff (is-segal A) (is-local-horn-inclusion A)
-  := ( is-local-horn-inclusion-is-segal A , is-segal-is-local-horn-inclusion A)
+  : iff (is-pre-∞-category A) (is-local-horn-inclusion A)
+  := ( is-local-horn-inclusion-is-pre-∞-category A , is-pre-∞-category-is-local-horn-inclusion A)
 ```
 
-## Segal function and extension types
+## Function and extension types into pre-∞-categories
 
-Using the new characterization of Segal types, we can show that the type of
-functions or extensions into a family of Segal types is again a Segal type. For
-instance if $X$ is a type and $A : X → U$ is such that $A x$ is a Segal type for
-all $x$ then $(x : X) → A x$ is a Segal type.
+Using the new characterization of pre-∞-categories, we can show that the type of
+functions or extensions into a family of pre-∞-categories is again a pre-∞-category. For
+instance if $X$ is a type and $A : X → U$ is such that $A x$ is a pre-∞-category for
+all $x$ then $(x : X) → A x$ is a pre-∞-category.
 
 ```rzk title="RS17, Corollary 5.6(i)"
-#def is-segal-function-type uses (funext)
+#def is-pre-∞-category-function-type uses (funext)
   ( X : U)
   ( A : X → U)
-  ( fiberwise-is-segal-A : (x : X) → is-local-horn-inclusion (A x))
+  ( fiberwise-is-pre-∞-category-A : (x : X) → is-local-horn-inclusion (A x))
   : is-local-horn-inclusion ((x : X) → A x)
   :=
     is-equiv-triple-comp
@@ -412,7 +417,7 @@ all $x$ then $(x : X) → A x$ is a Segal type.
         ( X)
         ( \ x → (Δ² → A x))
         ( \ x → (Λ → A x))
-        ( \ x → (horn-restriction (A x) , fiberwise-is-segal-A x))))
+        ( \ x → (horn-restriction (A x) , fiberwise-is-pre-∞-category-A x))))
       ( \ h t x → (h x) t) -- third equivalence
       ( second (flip-ext-fun-inv
         ( 2 × 2)
@@ -423,15 +428,15 @@ all $x$ then $(x : X) → A x$ is a Segal type.
         ( \ t → recBOT)))
 ```
 
-If $X$ is a shape and $A : X → U$ is such that $A x$ is a Segal type for all $x$
-then $(x : X) → A x$ is a Segal type.
+If $X$ is a shape and $A : X → U$ is such that $A x$ is a pre-∞-category for all $x$
+then $(x : X) → A x$ is a pre-∞-category.
 
 ```rzk title="RS17, Corollary 5.6(ii)"
-#def is-segal-extension-type' uses (extext)
+#def is-pre-∞-category-extension-type' uses (extext)
   ( I : CUBE)
   ( ψ : I → TOPE)
   ( A : ψ → U)
-  ( fiberwise-is-segal-A : (s : ψ) → is-local-horn-inclusion (A s))
+  ( fiberwise-is-pre-∞-category-A : (s : ψ) → is-local-horn-inclusion (A s))
   : is-local-horn-inclusion ((s : ψ) → A s)
   :=
     is-equiv-triple-comp
@@ -454,7 +459,7 @@ then $(x : X) → A x$ is a Segal type.
       ( second (equiv-extension-equiv-family extext I ψ
         ( \ s → Δ² → A s)
         ( \ s → Λ → A s)
-        ( \ s → (horn-restriction (A s) , fiberwise-is-segal-A s))))
+        ( \ s → (horn-restriction (A s) , fiberwise-is-pre-∞-category-A s))))
       ( \ h t s → (h s) t) -- third equivalence
       ( second
         ( fubini
@@ -467,22 +472,22 @@ then $(x : X) → A x$ is a Segal type.
           ( \ s t → A s)
           ( \ u → recBOT)))
 
-#def is-segal-extension-type uses (extext)
+#def is-pre-∞-category-extension-type uses (extext)
   ( I : CUBE)
   ( ψ : I → TOPE)
   ( A : ψ → U)
-  ( fiberwise-is-segal-A : (s : ψ) → is-segal (A s))
-  : is-segal ((s : ψ) → A s)
+  ( fiberwise-is-pre-∞-category-A : (s : ψ) → is-pre-∞-category (A s))
+  : is-pre-∞-category ((s : ψ) → A s)
   :=
-    is-segal-is-local-horn-inclusion
+    is-pre-∞-category-is-local-horn-inclusion
       ( ( s : ψ) → A s)
-      ( is-segal-extension-type'
+      ( is-pre-∞-category-extension-type'
         ( I) (ψ) (A)
-        ( \ s → is-local-horn-inclusion-is-segal (A s) (fiberwise-is-segal-A s)))
+        ( \ s → is-local-horn-inclusion-is-pre-∞-category (A s) (fiberwise-is-pre-∞-category-A s)))
 ```
 
-In particular, the arrow type of a Segal type is Segal. First, we define the
-arrow type:
+In particular, the arrow type of a pre-∞-category is a pre-∞-category.
+First, we define the arrow type:
 
 ```rzk
 #def arr
@@ -515,27 +520,27 @@ For later use, an equivalent characterization of the arrow type.
 ```rzk title="RS17, Corollary 5.6(ii), special case for locality at the horn inclusion"
 #def is-local-horn-inclusion-arr uses (extext)
   ( A : U)
-  ( is-segal-A : is-local-horn-inclusion A)
+  ( is-pre-∞-category-A : is-local-horn-inclusion A)
   : is-local-horn-inclusion (arr A)
   :=
-    is-segal-extension-type'
+    is-pre-∞-category-extension-type'
       ( 2)
       ( Δ¹)
       ( \ _ → A)
-      ( \ _ → is-segal-A)
+      ( \ _ → is-pre-∞-category-A)
 ```
 
 ```rzk title="RS17, Corollary 5.6(ii), special case for the Segal condition"
-#def is-segal-arr uses (extext)
+#def is-pre-∞-category-arr uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
-  : is-segal (arr A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  : is-pre-∞-category (arr A)
   :=
-    is-segal-extension-type
+    is-pre-∞-category-extension-type
       ( 2)
       ( Δ¹)
       ( \ _ → A)
-      ( \ _ → is-segal-A)
+      ( \ _ → is-pre-∞-category-A)
 ```
 
 ## Identity
@@ -607,21 +612,21 @@ Witness for the left identity law:
   := \ ( t , s) → f s
 ```
 
-In a Segal type, where composition is unique, it follows that composition with
+In a pre-∞-category, where composition is unique, it follows that composition with
 an identity arrow recovers the original arrow. Thus, an identity axiom was not
-needed in the definition of Segal types.
+needed in the definition of pre-∞-categorys.
 
-```rzk title="If A is Segal then the right unit law holds"
-#def comp-id-is-segal
+```rzk title="If A is a pre-∞-category then the right unit law holds"
+#def comp-id-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   ( f : hom A x y)
-  : ( comp-is-segal A is-segal-A x y y f (id-hom A y)) = f
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A x y y f (id-hom A y)) = f
   :=
-    uniqueness-comp-is-segal
+    uniqueness-comp-is-pre-∞-category
       ( A)
-      ( is-segal-A)
+      ( is-pre-∞-category-A)
       ( x) (y) (y)
       ( f)
       ( id-hom A y)
@@ -629,17 +634,17 @@ needed in the definition of Segal types.
       ( comp-id-witness A x y f)
 ```
 
-```rzk title="If A is Segal then the left unit law holds"
-#def id-comp-is-segal
+```rzk title="If A is a pre-∞-category then the left unit law holds"
+#def id-comp-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   ( f : hom A x y)
-  : ( comp-is-segal A is-segal-A x x y (id-hom A x) f) =_{hom A x y} f
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A x x y (id-hom A x) f) =_{hom A x y} f
   :=
-    uniqueness-comp-is-segal
+    uniqueness-comp-is-pre-∞-category
       ( A)
-      ( is-segal-A)
+      ( is-pre-∞-category-A)
       ( x) (x) (y)
       ( id-hom A x)
       ( f)
@@ -649,8 +654,8 @@ needed in the definition of Segal types.
 
 ## Associativity
 
-We now prove that composition in a Segal type is associative, by using the fact
-that the type of arrows in a Segal type is itself a Segal type.
+We now prove that composition in a pre-∞-category is associative, by using the fact
+that the type of arrows in a pre-∞-category is itself a pre-∞-category.
 
 <svg style="float: right" viewBox="0 0 200 180" width="150" height="150">
   <path style="fill: rgb(128,128,128,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
@@ -694,23 +699,23 @@ For use in the proof of associativity:
   <text x="30" y="170">y</text>
   <text x="100" y="15">f</text>
   <text x="185" y="100">g</text>
-  <text x="90" y="110" transform="rotate(45, 90, 110)" fill="red">comp-is-segal</text>
+  <text x="90" y="110" transform="rotate(45, 90, 110)" fill="red">comp-is-pre-∞-category</text>
   <text x="100" y="190">g</text>
   <text x="15" y="100">f</text>
 </svg>
 
 ```rzk
-#def witness-square-comp-is-segal
+#def witness-square-comp-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
   : Δ¹×Δ¹ → A
-  := unfolding-square A (witness-comp-is-segal A is-segal-A x y z f g)
+  := unfolding-square A (witness-comp-is-pre-∞-category A is-pre-∞-category-A x y z f g)
 ```
 
-The `#!rzk witness-square-comp-is-segal` as an arrow in the arrow type:
+The `#!rzk witness-square-comp-is-pre-∞-category` as an arrow in the arrow type:
 
 <svg style="float: right" viewBox="0 0 200 200" width="150" height="150">
   <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
@@ -725,14 +730,14 @@ The `#!rzk witness-square-comp-is-segal` as an arrow in the arrow type:
 </svg>
 
 ```rzk
-#def arr-in-arr-is-segal
+#def arr-in-arr-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
   : hom (arr A) f g
-  := \ t s → witness-square-comp-is-segal A is-segal-A x y z f g (t , s)
+  := \ t s → witness-square-comp-is-pre-∞-category A is-pre-∞-category-A x y z f g (t , s)
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -761,27 +766,27 @@ The `#!rzk witness-square-comp-is-segal` as an arrow in the arrow type:
 </svg>
 
 ```rzk
-#def witness-asociative-is-segal uses (extext)
+#def witness-asociative-is-pre-∞-category uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y z : A)
   ( f : hom A w x)
   ( g : hom A x y)
   ( h : hom A y z)
   : hom2 (arr A) f g h
-      ( arr-in-arr-is-segal A is-segal-A w x y f g)
-      ( arr-in-arr-is-segal A is-segal-A x y z g h)
-      ( comp-is-segal (arr A) (is-segal-arr A is-segal-A)
+      ( arr-in-arr-is-pre-∞-category A is-pre-∞-category-A w x y f g)
+      ( arr-in-arr-is-pre-∞-category A is-pre-∞-category-A x y z g h)
+      ( comp-is-pre-∞-category (arr A) (is-pre-∞-category-arr A is-pre-∞-category-A)
       f g h
-      ( arr-in-arr-is-segal A is-segal-A w x y f g)
-      ( arr-in-arr-is-segal A is-segal-A x y z g h))
+      ( arr-in-arr-is-pre-∞-category A is-pre-∞-category-A w x y f g)
+      ( arr-in-arr-is-pre-∞-category A is-pre-∞-category-A x y z g h))
   :=
-    witness-comp-is-segal
+    witness-comp-is-pre-∞-category
       ( arr A)
-      ( is-segal-arr A is-segal-A)
+      ( is-pre-∞-category-arr A is-pre-∞-category-A)
       f g h
-      ( arr-in-arr-is-segal A is-segal-A w x y f g)
-      ( arr-in-arr-is-segal A is-segal-A x y z g h)
+      ( arr-in-arr-is-pre-∞-category A is-pre-∞-category-A w x y f g)
+      ( arr-in-arr-is-pre-∞-category A is-pre-∞-category-A x y z g h)
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -802,14 +807,14 @@ The `#!rzk witness-square-comp-is-segal` as an arrow in the arrow type:
   <text x="140" y="205">h</text>
 </svg>
 
-The `#!rzk witness-associative-is-segal` curries to define a diagram
-$Δ²×Δ¹ → A$. The `#!rzk tetrahedron-associative-is-segal` is extracted via the
+The `#!rzk witness-associative-is-pre-∞-category` curries to define a diagram
+$Δ²×Δ¹ → A$. The `#!rzk tetrahedron-associative-is-pre-∞-category` is extracted via the
 middle-simplex map $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$.
 
 ```rzk
-#def tetrahedron-associative-is-segal uses (extext)
+#def tetrahedron-associative-is-pre-∞-category uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y z : A)
   ( f : hom A w x)
   ( g : hom A x y)
@@ -817,7 +822,7 @@ middle-simplex map $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$
   : Δ³ → A
   :=
     \ ( ( t , s) , r) →
-    ( witness-asociative-is-segal A is-segal-A w x y z f g h) (t , r) s
+    ( witness-asociative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h) (t , r) s
 ```
 
 <svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
@@ -839,12 +844,12 @@ middle-simplex map $((t , s) , r) ↦ ((t , r) , s)$ from $Δ³$ to $Δ²×Δ¹$
 </svg>
 
 The diagonal composite of three arrows extracted from the
-`#!rzk tetrahedron-associative-is-segal`.
+`#!rzk tetrahedron-associative-is-pre-∞-category`.
 
 ```rzk
-#def triple-comp-is-segal uses (extext)
+#def triple-comp-is-pre-∞-category uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y z : A)
   ( f : hom A w x)
   ( g : hom A x y)
@@ -852,7 +857,7 @@ The diagonal composite of three arrows extracted from the
   : hom A w z
   :=
     \ t →
-    tetrahedron-associative-is-segal A is-segal-A w x y z f g h
+    tetrahedron-associative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h
       ( ( t , t) , t)
 ```
 
@@ -877,20 +882,20 @@ The diagonal composite of three arrows extracted from the
 </svg>
 
 ```rzk
-#def left-witness-asociative-is-segal uses (extext)
+#def left-witness-asociative-is-pre-∞-category uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y z : A)
   ( f : hom A w x)
   ( g : hom A x y)
   ( h : hom A y z)
   : hom2 A w y z
-    ( comp-is-segal A is-segal-A w x y f g)
+    ( comp-is-pre-∞-category A is-pre-∞-category-A w x y f g)
     h
-    ( triple-comp-is-segal A is-segal-A w x y z f g h)
+    ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
   :=
     \ ( t , s) →
-    tetrahedron-associative-is-segal A is-segal-A w x y z f g h
+    tetrahedron-associative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h
       ( ( t , t) , s)
 ```
 
@@ -917,99 +922,98 @@ The front face:
 </svg>
 
 ```rzk
-#def right-witness-asociative-is-segal uses (extext)
+#def right-witness-asociative-is-pre-∞-category uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y z : A)
   ( f : hom A w x)
   ( g : hom A x y)
   ( h : hom A y z)
   : hom2 A w x z
     ( f)
-    ( comp-is-segal A is-segal-A x y z g h)
-    ( triple-comp-is-segal A is-segal-A w x y z f g h)
+    ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g h)
+    ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
   :=
     \ ( t , s) →
-    tetrahedron-associative-is-segal A is-segal-A w x y z f g h
+    tetrahedron-associative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h
       ( ( t , s) , s)
 ```
 
 ```rzk
-#def left-associative-is-segal uses (extext)
+#def left-associative-is-pre-∞-category uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y z : A)
   ( f : hom A w x)
   ( g : hom A x y)
   ( h : hom A y z)
-  : ( comp-is-segal A is-segal-A w y z (comp-is-segal A is-segal-A w x y f g) h)
-  = ( triple-comp-is-segal A is-segal-A w x y z f g h)
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A w y z (comp-is-pre-∞-category A is-pre-∞-category-A w x y f g) h)
+  = ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
   :=
-    uniqueness-comp-is-segal
-      A is-segal-A w y z (comp-is-segal A is-segal-A w x y f g) h
-      ( triple-comp-is-segal A is-segal-A w x y z f g h)
-      ( left-witness-asociative-is-segal A is-segal-A w x y z f g h)
+    uniqueness-comp-is-pre-∞-category
+      A is-pre-∞-category-A w y z (comp-is-pre-∞-category A is-pre-∞-category-A w x y f g) h
+      ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
+      ( left-witness-asociative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
 
-#def right-associative-is-segal uses (extext)
+#def right-associative-is-pre-∞-category uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y z : A)
   ( f : hom A w x)
   ( g : hom A x y)
   ( h : hom A y z)
-  : ( comp-is-segal A is-segal-A w x z f (comp-is-segal A is-segal-A x y z g h))
-  = ( triple-comp-is-segal A is-segal-A w x y z f g h)
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A w x z f (comp-is-pre-∞-category A is-pre-∞-category-A x y z g h))
+  = ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
   :=
-    uniqueness-comp-is-segal
-      ( A) (is-segal-A) (w) (x) (z) (f) (comp-is-segal A is-segal-A x y z g h)
-      ( triple-comp-is-segal A is-segal-A w x y z f g h)
-      ( right-witness-asociative-is-segal A is-segal-A w x y z f g h)
+    uniqueness-comp-is-pre-∞-category
+      ( A) (is-pre-∞-category-A) (w) (x) (z) (f) (comp-is-pre-∞-category A is-pre-∞-category-A x y z g h)
+      ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
+      ( right-witness-asociative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
 ```
 
-We conclude that Segal composition is associative.
+We conclude that composition in pre-∞-categories is associative.
 
 ```rzk title="RS17, Proposition 5.9"
-#def associative-is-segal uses (extext)
+#def associative-is-pre-∞-category uses (extext)
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y z : A)
   ( f : hom A w x)
   ( g : hom A x y)
   ( h : hom A y z)
-  : ( comp-is-segal A is-segal-A w y z (comp-is-segal A is-segal-A w x y f g) h)
-  = ( comp-is-segal A is-segal-A w x z f (comp-is-segal A is-segal-A x y z g h))
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A w y z (comp-is-pre-∞-category A is-pre-∞-category-A w x y f g) h)
+  = ( comp-is-pre-∞-category A is-pre-∞-category-A w x z f (comp-is-pre-∞-category A is-pre-∞-category-A x y z g h))
   :=
     zig-zag-concat
     ( hom A w z)
-    ( comp-is-segal A is-segal-A w y z (comp-is-segal A is-segal-A w x y f g) h)
-    ( triple-comp-is-segal A is-segal-A w x y z f g h)
-    ( comp-is-segal A is-segal-A w x z f (comp-is-segal A is-segal-A x y z g h))
-    ( left-associative-is-segal A is-segal-A w x y z f g h)
-    ( right-associative-is-segal A is-segal-A w x y z f g h)
+    ( comp-is-pre-∞-category A is-pre-∞-category-A w y z (comp-is-pre-∞-category A is-pre-∞-category-A w x y f g) h)
+    ( triple-comp-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
+    ( comp-is-pre-∞-category A is-pre-∞-category-A w x z f (comp-is-pre-∞-category A is-pre-∞-category-A x y z g h))
+    ( left-associative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
+    ( right-associative-is-pre-∞-category A is-pre-∞-category-A w x y z f g h)
 
 
-#def postcomp-is-segal
+#def postcomp-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   ( f : hom A x y)
   : ( z : A) → (hom A z x) → (hom A z y)
-  := \ z g → comp-is-segal A is-segal-A z x y g f
+  := \ z g → comp-is-pre-∞-category A is-pre-∞-category-A z x y g f
 
-#def precomp-is-segal
+#def precomp-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   ( f : hom A x y)
   : ( z : A) → (hom A y z) → (hom A x z)
-  := \ z → comp-is-segal A is-segal-A x y z f
+  := \ z → comp-is-pre-∞-category A is-pre-∞-category-A x y z f
 ```
 
 ## Homotopies
 
-We may define a "homotopy" to be a path between parallel arrows. In a Segal
-type, homotopies are equivalent to terms in hom2 types involving an identity
-arrow.
+We may define a "homotopy" to be a path between parallel arrows.
+In a pre-∞-category, homotopies are equivalent to terms in `#!rzk hom2` types involving an identity arrow.
 
 ```rzk
 #def map-hom2-homotopy
@@ -1033,9 +1037,9 @@ arrow.
   → ( Σ ( g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
   := \ ( g , p) → (g , map-hom2-homotopy A x y f g p)
 
-#def is-equiv-map-total-hom2-homotopy-is-segal
+#def is-equiv-map-total-hom2-homotopy-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   ( f : hom A x y)
   : is-equiv
@@ -1047,14 +1051,14 @@ arrow.
       ( Σ ( g : hom A x y) , (f = g))
       ( Σ ( g : hom A x y) , (hom2 A x x y (id-hom A x) f g))
       ( is-contr-based-paths (hom A x y) f)
-      ( is-segal-A x x y (id-hom A x) f)
+      ( is-pre-∞-category-A x x y (id-hom A x) f)
       ( map-total-hom2-homotopy A x y f)
 ```
 
 ```rzk title="RS17, Proposition 5.10"
-#def equiv-homotopy-hom2-is-segal
+#def equiv-homotopy-hom2-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   ( f h : hom A x y)
   : Equiv (f = h) (hom2 A x x y (id-hom A x) f h)
@@ -1065,7 +1069,7 @@ arrow.
         ( \ k → (f = k))
         ( \ k → (hom2 A x x y (id-hom A x) f k))
         ( map-hom2-homotopy A x y f)
-        ( is-equiv-map-total-hom2-homotopy-is-segal A is-segal-A x y f)
+        ( is-equiv-map-total-hom2-homotopy-is-pre-∞-category A is-pre-∞-category-A x y f)
         ( h)))
 ```
 
@@ -1095,9 +1099,9 @@ A dual notion of homotopy can be defined similarly.
   → ( Σ ( g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
   := \ ( g , p) → (g , map-hom2-homotopy' A x y f g p)
 
-#def is-equiv-map-total-hom2-homotopy'-is-segal
+#def is-equiv-map-total-hom2-homotopy'-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   ( f : hom A x y)
   : is-equiv
@@ -1109,14 +1113,14 @@ A dual notion of homotopy can be defined similarly.
       ( Σ ( g : hom A x y) , (f = g))
       ( Σ ( g : hom A x y) , (hom2 A x y y f (id-hom A y) g))
       ( is-contr-based-paths (hom A x y) f)
-      ( is-segal-A x y y f (id-hom A y))
+      ( is-pre-∞-category-A x y y f (id-hom A y))
       ( map-total-hom2-homotopy' A x y f)
 ```
 
 ```rzk title="RS17, Proposition 5.10"
-#def equiv-homotopy-hom2'-is-segal
+#def equiv-homotopy-hom2'-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y : A)
   ( f h : hom A x y)
   : Equiv (f = h) (hom2 A x y y f (id-hom A y) h)
@@ -1127,7 +1131,7 @@ A dual notion of homotopy can be defined similarly.
         ( \ k → (f = k))
         ( \ k → (hom2 A x y y f (id-hom A y) k))
         ( map-hom2-homotopy' A x y f)
-        ( is-equiv-map-total-hom2-homotopy'-is-segal A is-segal-A x y f)
+        ( is-equiv-map-total-hom2-homotopy'-is-pre-∞-category A is-pre-∞-category-A x y f)
         ( h)))
 ```
 
@@ -1135,70 +1139,70 @@ More generally, a homotopy between a composite and another map is equivalent to
 the data provided by a commutative triangle with that boundary.
 
 ```rzk
-#def map-hom2-eq-is-segal
+#def map-hom2-eq-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
   ( h : hom A x z)
-  ( p : (comp-is-segal A is-segal-A x y z f g) = h)
+  ( p : (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = h)
   : ( hom2 A x y z f g h)
   :=
     ind-path
       ( hom A x z)
-      ( comp-is-segal A is-segal-A x y z f g)
+      ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f g)
       ( \ h' p' → hom2 A x y z f g h')
-      ( witness-comp-is-segal A is-segal-A x y z f g)
+      ( witness-comp-is-pre-∞-category A is-pre-∞-category-A x y z f g)
       ( h)
       ( p)
 
-#def map-total-hom2-eq-is-segal
+#def map-total-hom2-eq-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
-  : ( Σ ( h : hom A x z) , (comp-is-segal A is-segal-A x y z f g) = h)
+  : ( Σ ( h : hom A x z) , (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = h)
   → ( Σ ( h : hom A x z) , (hom2 A x y z f g h))
-  := \ ( h , p) → (h , map-hom2-eq-is-segal A is-segal-A x y z f g h p)
+  := \ ( h , p) → (h , map-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g h p)
 
-#def is-equiv-map-total-hom2-eq-is-segal
+#def is-equiv-map-total-hom2-eq-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
   : is-equiv
-      ( Σ ( h : hom A x z) , (comp-is-segal A is-segal-A x y z f g) = h)
+      ( Σ ( h : hom A x z) , (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = h)
       ( Σ ( h : hom A x z) , (hom2 A x y z f g h))
-      ( map-total-hom2-eq-is-segal A is-segal-A x y z f g)
+      ( map-total-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g)
   :=
     is-equiv-are-contr
-      ( Σ ( h : hom A x z) , (comp-is-segal A is-segal-A x y z f g) = h)
+      ( Σ ( h : hom A x z) , (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = h)
       ( Σ ( h : hom A x z) , (hom2 A x y z f g h))
-      ( is-contr-based-paths (hom A x z) (comp-is-segal A is-segal-A x y z f g))
-      ( is-segal-A x y z f g)
-      ( map-total-hom2-eq-is-segal A is-segal-A x y z f g)
+      ( is-contr-based-paths (hom A x z) (comp-is-pre-∞-category A is-pre-∞-category-A x y z f g))
+      ( is-pre-∞-category-A x y z f g)
+      ( map-total-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g)
 ```
 
 ```rzk title="RS17, Proposition 5.12"
-#def equiv-hom2-eq-comp-is-segal
+#def equiv-hom2-eq-comp-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
   ( k : hom A x z)
-  : Equiv ((comp-is-segal A is-segal-A x y z f g) = k) (hom2 A x y z f g k)
+  : Equiv ((comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = k) (hom2 A x y z f g k)
   :=
-    ( ( map-hom2-eq-is-segal A is-segal-A x y z f g k)
+    ( ( map-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g k)
     , ( total-equiv-family-of-equiv
         ( hom A x z)
-        ( \ m → ( comp-is-segal A is-segal-A x y z f g) = m)
+        ( \ m → ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f g) = m)
         ( hom2 A x y z f g)
-        ( map-hom2-eq-is-segal A is-segal-A x y z f g)
-        ( is-equiv-map-total-hom2-eq-is-segal A is-segal-A x y z f g)
+        ( map-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g)
+        ( is-equiv-map-total-hom2-eq-is-pre-∞-category A is-pre-∞-category-A x y z f g)
         ( k)))
 ```
 
@@ -1206,29 +1210,29 @@ Homotopies form a congruence, meaning that homotopies are respected by
 composition:
 
 ```rzk title="RS17, Proposition 5.13"
-#def congruence-homotopy-is-segal
+#def congruence-homotopy-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f g : hom A x y)
   ( h k : hom A y z)
   ( p : f = g)
   ( q : h = k)
-  : ( comp-is-segal A is-segal-A x y z f h)
-  = ( comp-is-segal A is-segal-A x y z g k)
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f h)
+  = ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g k)
   :=
     ind-path
       ( hom A y z)
       ( h)
       ( \ k' q' →
-        ( comp-is-segal A is-segal-A x y z f h)
-      = ( comp-is-segal A is-segal-A x y z g k'))
+        ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f h)
+      = ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g k'))
       ( ind-path
         ( hom A x y)
         ( f)
         ( \ g' p' →
-          ( comp-is-segal A is-segal-A x y z f h)
-        = ( comp-is-segal A is-segal-A x y z g' h))
+          ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f h)
+        = ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g' h))
         ( refl)
         ( g)
         ( p))
@@ -1239,78 +1243,78 @@ composition:
 As a special case of the above:
 
 ```rzk
-#def postwhisker-homotopy-is-segal
+#def postwhisker-homotopy-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f g : hom A x y)
   ( h : hom A y z)
   ( p : f = g)
-  : ( comp-is-segal A is-segal-A x y z f h) = (comp-is-segal A is-segal-A x y z g h)
-  := congruence-homotopy-is-segal A is-segal-A x y z f g h h p refl
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f h) = (comp-is-pre-∞-category A is-pre-∞-category-A x y z g h)
+  := congruence-homotopy-is-pre-∞-category A is-pre-∞-category-A x y z f g h h p refl
 ```
 
 As a special case of the above:
 
 ```rzk
-#def prewhisker-homotopy-is-segal
+#def prewhisker-homotopy-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y : A)
   ( k : hom A w x)
   ( f g : hom A x y)
   ( p : f = g)
-  : ( comp-is-segal A is-segal-A w x y k f)
-  = ( comp-is-segal A is-segal-A w x y k g)
-  := congruence-homotopy-is-segal A is-segal-A w x y k k f g refl p
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A w x y k f)
+  = ( comp-is-pre-∞-category A is-pre-∞-category-A w x y k g)
+  := congruence-homotopy-is-pre-∞-category A is-pre-∞-category-A w x y k k f g refl p
 ```
 
 ```rzk title="RS17, Proposition 5.14(a)"
-#def compute-postwhisker-homotopy-is-segal
+#def compute-postwhisker-homotopy-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( x y z : A)
   ( f g : hom A x y)
   ( h : hom A y z)
   ( p : f = g)
-  : ( postwhisker-homotopy-is-segal A is-segal-A x y z f g h p)
-  = ( ap (hom A x y) (hom A x z) f g (\ k → comp-is-segal A is-segal-A x y z k h) p)
+  : ( postwhisker-homotopy-is-pre-∞-category A is-pre-∞-category-A x y z f g h p)
+  = ( ap (hom A x y) (hom A x z) f g (\ k → comp-is-pre-∞-category A is-pre-∞-category-A x y z k h) p)
   :=
     ind-path
       ( hom A x y)
       ( f)
       ( \ g' p' →
-        ( postwhisker-homotopy-is-segal A is-segal-A x y z f g' h p')
+        ( postwhisker-homotopy-is-pre-∞-category A is-pre-∞-category-A x y z f g' h p')
       = ( ap
           ( hom A x y) (hom A x z)
-          ( f) (g') (\ k → comp-is-segal A is-segal-A x y z k h) (p')))
+          ( f) (g') (\ k → comp-is-pre-∞-category A is-pre-∞-category-A x y z k h) (p')))
       ( refl)
       ( g)
       ( p)
 ```
 
 ```rzk title="RS17, Proposition 5.14(b)"
-#def prewhisker-homotopy-is-ap-is-segal
+#def prewhisker-homotopy-is-ap-is-pre-∞-category
   ( A : U)
-  ( is-segal-A : is-segal A)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
   ( w x y : A)
   ( k : hom A w x)
   ( f g : hom A x y)
   ( p : f = g)
-  : ( prewhisker-homotopy-is-segal A is-segal-A w x y k f g p)
-  = ( ap (hom A x y) (hom A w y) f g (comp-is-segal A is-segal-A w x y k) p)
+  : ( prewhisker-homotopy-is-pre-∞-category A is-pre-∞-category-A w x y k f g p)
+  = ( ap (hom A x y) (hom A w y) f g (comp-is-pre-∞-category A is-pre-∞-category-A w x y k) p)
   :=
     ind-path
       ( hom A x y)
       ( f)
       ( \ g' p' →
-        ( prewhisker-homotopy-is-segal A is-segal-A w x y k f g' p')
-      = ( ap (hom A x y) (hom A w y) f g' (comp-is-segal A is-segal-A w x y k) p'))
+        ( prewhisker-homotopy-is-pre-∞-category A is-pre-∞-category-A w x y k f g' p')
+      = ( ap (hom A x y) (hom A w y) f g' (comp-is-pre-∞-category A is-pre-∞-category-A w x y k) p'))
       ( refl)
       ( g)
       ( p)
 
-#section is-segal-Unit
+#section is-pre-∞-category-Unit
 
 #def is-contr-Unit
   : is-contr Unit
@@ -1327,8 +1331,8 @@ As a special case of the above:
         ( \ _ → unit) k
         ( \ _ → refl))
 
-#def is-segal-Unit uses (extext)
-  : is-segal Unit
+#def is-pre-∞-category-Unit uses (extext)
+  : is-pre-∞-category Unit
   :=
     \ x y z f g →
     is-contr-is-retract-of-is-contr
@@ -1338,7 +1342,7 @@ As a special case of the above:
       , ( \ k → ((\ t → k (t , t)) , k) , \ _ → refl))
       ( is-contr-Δ²→Unit)
 
-#end is-segal-Unit
+#end is-pre-∞-category-Unit
 ```
 
 <!-- Definitions for the SVG images above -->

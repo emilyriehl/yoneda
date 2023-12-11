@@ -36,8 +36,8 @@ families.
   : U
   :=
     product
-    ( product (is-segal B) (is-segal (Σ (b : B) , P b)))
-    ( ( b : B) → (is-segal (P b)))
+    ( product (is-pre-∞-category B) (is-pre-∞-category (Σ (b : B) , P b)))
+    ( ( b : B) → (is-pre-∞-category (P b)))
 
 #def is-isoinner-family
   ( B : U)
@@ -45,26 +45,26 @@ families.
   : U
   :=
     product
-    ( product (is-rezk B) (is-rezk (Σ (b : B) , P b)))
-    ( ( b : B) → (is-rezk (P b)))
+    ( product (is-∞-category B) (is-∞-category (Σ (b : B) , P b)))
+    ( ( b : B) → (is-∞-category (P b)))
 
-#def is-segal-base-is-isoinner
+#def is-pre-∞-category-base-is-isoinner
  ( B : U)
  ( P : B → U)
- ( is-isoinner-P : is-isoinner-family B P) 
-  : is-segal B
-  := ( is-segal-is-rezk B (first (first is-isoinner-P)))
+ ( is-isoinner-P : is-isoinner-family B P)
+  : is-pre-∞-category B
+  := ( is-pre-∞-category-is-∞-category B (first (first is-isoinner-P)))
 
 #def is-inner-is-isoinner
  ( B : U)
  ( P : B → U)
  ( is-isoinner-P : is-isoinner-family B P)
   : is-inner-family B P
-  := ( 
-      ( is-segal-is-rezk B (first (first is-isoinner-P))
-      , ( is-segal-is-rezk (total-type B P) (second (first is-isoinner-P)))
+  := (
+      ( is-pre-∞-category-is-∞-category B (first (first is-isoinner-P))
+      , ( is-pre-∞-category-is-∞-category (total-type B P) (second (first is-isoinner-P)))
         )
-    , ( \ b → (is-segal-is-rezk (P b) ((second is-isoinner-P) b)))
+    , ( \ b → (is-pre-∞-category-is-∞-category (P b) ((second is-isoinner-P) b)))
     )
 ```
 
@@ -86,12 +86,12 @@ some coherence seems to be needed going through the axiom of choice for extensio
       , ( dhom B a b u' P x y)
     )
   :=
-  ( axiom-choice 
-    2 
+  ( axiom-choice
+    2
     Δ¹
     ∂Δ¹
     ( \ t → B)
-    ( \ t → \ c → (P c)) 
+    ( \ t → \ c → (P c))
     ( \ t → recOR(t ≡ 0₂ ↦ a , t ≡ 1₂ ↦ b))
     ( \ t → recOR(t ≡ 0₂ ↦ x , t ≡ 1₂ ↦ y))
   )
@@ -135,12 +135,12 @@ some coherence seems to be needed going through the axiom of choice for extensio
       , ( dhom2 B a b c u v w α P x y z f g h)
     )
   :=
-  ( axiom-choice 
-    ( 2 × 2) 
+  ( axiom-choice
+    ( 2 × 2)
     Δ²
     ∂Δ²
     ( \ ( t , s) → B)
-    ( \ ( t , s) → \ k → (P k)) 
+    ( \ ( t , s) → \ k → (P k))
     ( \ ( t , s) → recOR(s ≡ 0₂ ↦ u t , t ≡ 1₂ ↦ v s , s ≡ t ↦ w s))
     ( \ ( t , s) → recOR(s ≡ 0₂ ↦ f t , t ≡ 1₂ ↦ g s , s ≡ t ↦ h s))
   )
@@ -161,8 +161,8 @@ some coherence seems to be needed going through the axiom of choice for extensio
   :=
         (
         ( first (axiom-choice-dhom B a c P x z))
-        
-        ( comp-is-segal (total-type B P) (second (first is-inner-family-P))
+
+        ( comp-is-pre-∞-category (total-type B P) (second (first is-inner-family-P))
         ( a , x) (b , y) (c , z)
         ( ( \ t → (u t , f t)))
         ( ( \ t → (v t , g t)))
@@ -190,8 +190,8 @@ some coherence seems to be needed going through the axiom of choice for extensio
   ( u : hom B a b)
   ( v : hom B b c)
   ( P : B → U)
-  ( is-segal-B : is-segal B)
-  ( is-segal-total-P : is-segal (total-type B P))
+  ( is-pre-∞-category-B : is-pre-∞-category B)
+  ( is-pre-∞-category-total-P : is-pre-∞-category (total-type B P))
   ( x : P a)
   ( y : P b)
   ( z : P c)
@@ -200,7 +200,7 @@ some coherence seems to be needed going through the axiom of choice for extensio
   : ( hom B a c)
   := ( first
       ( ( first (axiom-choice-dhom B a c P x z))
-        ( comp-is-segal (total-type B P) is-segal-total-P
+        ( comp-is-pre-∞-category (total-type B P) is-pre-∞-category-total-P
         ( a , x) (b , y) (c , z)
         ( \ t → (u t , f t))
         ( \ t → (v t , g t))
@@ -241,8 +241,8 @@ some coherence seems to be needed going through the axiom of choice for extensio
   ( u : hom B a b)
   ( v : hom B b c)
   ( P : B → U)
-  ( is-segal-B : is-segal B)
-  ( is-segal-total-P : is-segal (total-type B P))
+  ( is-pre-∞-category-B : is-pre-∞-category B)
+  ( is-pre-∞-category-total-P : is-pre-∞-category (total-type B P))
   ( x : P a)
   ( y : P b)
   ( z : P c)
@@ -253,8 +253,8 @@ some coherence seems to be needed going through the axiom of choice for extensio
     ( first (inv-axiom-choice-dhom B a c P x z))
     (
      ( first (axiom-choice-dhom B a c P x z))
-      ( comp-is-segal (total-type B P) is-segal-total-P (a , x) (b , y) (c , z) 
-     ( ( first (inv-axiom-choice-dhom B a b P x y))((\ t → u t , \ t → f t))) 
+      ( comp-is-pre-∞-category (total-type B P) is-pre-∞-category-total-P (a , x) (b , y) (c , z)
+     ( ( first (inv-axiom-choice-dhom B a b P x y))((\ t → u t , \ t → f t)))
      ( ( first (inv-axiom-choice-dhom B b c P y z))((\ t → v t , \ t → g t)))
     )
     )
@@ -266,19 +266,19 @@ some coherence seems to be needed going through the axiom of choice for extensio
   ( u : hom B a b)
   ( v : hom B b c)
   ( P : B → U)
-  ( is-segal-B : is-segal B)
-  ( is-segal-total-P : is-segal (total-type B P))
+  ( is-pre-∞-category-B : is-pre-∞-category B)
+  ( is-pre-∞-category-total-P : is-pre-∞-category (total-type B P))
   ( x : P a)
   ( y : P b)
   ( z : P c)
   ( f : dhom B a b u P x y)
   ( g : dhom B b c v P y z)
   : hom2 (total-type B P) (a , x) (b , y) (c , z)
-    ( ( first (inv-axiom-choice-dhom B a b P x y))((\ t → u t , \ t → f t))) 
+    ( ( first (inv-axiom-choice-dhom B a b P x y))((\ t → u t , \ t → f t)))
     ( ( first (inv-axiom-choice-dhom B b c P y z))((\ t → v t , \ t → g t)))
-    ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
-  := ( witness-comp-is-segal (total-type B P) is-segal-total-P  (a , x) (b , y) (c , z)
-    ( ( first (inv-axiom-choice-dhom B a b P x y))((\ t → u t , \ t → f t))) 
+    ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
+  := ( witness-comp-is-pre-∞-category (total-type B P) is-pre-∞-category-total-P  (a , x) (b , y) (c , z)
+    ( ( first (inv-axiom-choice-dhom B a b P x y))((\ t → u t , \ t → f t)))
     ( ( first (inv-axiom-choice-dhom B b c P y z))((\ t → v t , \ t → g t)))
    )
 
@@ -288,19 +288,19 @@ some coherence seems to be needed going through the axiom of choice for extensio
   ( u : hom B a b)
   ( v : hom B b c)
   ( P : B → U)
-  ( is-segal-B : is-segal B)
-  ( is-segal-total-P : is-segal (total-type B P))
+  ( is-pre-∞-category-B : is-pre-∞-category B)
+  ( is-pre-∞-category-total-P : is-pre-∞-category (total-type B P))
   ( x : P a)
   ( y : P b)
   ( z : P c)
   ( f : dhom B a b u P x y)
   ( g : dhom B b c v P y z)
   : dhom B a c (first ((first (axiom-choice-dhom B a c P x z))
-    ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)))
+    ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)))
   P x z
-  := 
+  :=
   ( second ((first (axiom-choice-dhom B a c P x z))
-    ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
+    ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
   )
   )
 
@@ -310,8 +310,8 @@ some coherence seems to be needed going through the axiom of choice for extensio
   ( u : hom B a b)
   ( v : hom B b c)
   ( P : B → U)
-  ( is-segal-B : is-segal B)
-  ( is-segal-total-P : is-segal (total-type B P))
+  ( is-pre-∞-category-B : is-pre-∞-category B)
+  ( is-pre-∞-category-total-P : is-pre-∞-category (total-type B P))
   ( x : P a)
   ( y : P b)
   ( z : P c)
@@ -320,7 +320,7 @@ some coherence seems to be needed going through the axiom of choice for extensio
   : hom2 B a b c u v
   (
   ( first ((first (axiom-choice-dhom B a c P x z))
-    ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
+    ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
   )
   )
   )
@@ -330,10 +330,10 @@ some coherence seems to be needed going through the axiom of choice for extensio
     B
     ( proj-base B P)
     ( a , x) (b , y) (c , z)
-    ( ( first (inv-axiom-choice-dhom B a b P x y))((\ t → u t , \ t → f t))) 
+    ( ( first (inv-axiom-choice-dhom B a b P x y))((\ t → u t , \ t → f t)))
     ( ( first (inv-axiom-choice-dhom B b c P y z))((\ t → v t , \ t → g t)))
-    ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
-    ( comp2-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
+    ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
+    ( comp2-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
     )
 
 #def coherence-comp-is-inner
@@ -342,25 +342,25 @@ some coherence seems to be needed going through the axiom of choice for extensio
   ( u : hom B a b)
   ( v : hom B b c)
   ( P : B → U)
-  ( is-segal-B : is-segal B)
-  ( is-segal-total-P : is-segal (total-type B P))
+  ( is-pre-∞-category-B : is-pre-∞-category B)
+  ( is-pre-∞-category-total-P : is-pre-∞-category (total-type B P))
   ( x : P a)
   ( y : P b)
   ( z : P c)
   ( f : dhom B a b u P x y)
   ( g : dhom B b c v P y z)
-  : ( comp-is-segal B is-segal-B a b c u v)
+  : ( comp-is-pre-∞-category B is-pre-∞-category-B a b c u v)
     = ( first ((first (axiom-choice-dhom B a c P x z))
-    ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
+    ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
   )
   )
-  := 
-    ( uniqueness-comp-is-segal B is-segal-B a b c u v
+  :=
+    ( uniqueness-comp-is-pre-∞-category B is-pre-∞-category-B a b c u v
      ( first ((first (axiom-choice-dhom B a c P x z))
-      ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
+      ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
       )
     )
-    ( hom2-base-hom2-total-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
+    ( hom2-base-hom2-total-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
     )
 
 #def dep-comp-is-inner
@@ -369,34 +369,34 @@ some coherence seems to be needed going through the axiom of choice for extensio
   ( u : hom B a b)
   ( v : hom B b c)
   ( P : B → U)
-  ( is-segal-B : is-segal B)
-  ( is-segal-total-P : is-segal (total-type B P))
+  ( is-pre-∞-category-B : is-pre-∞-category B)
+  ( is-pre-∞-category-total-P : is-pre-∞-category (total-type B P))
   ( x : P a)
   ( y : P b)
   ( z : P c)
   ( f : dhom B a b u P x y)
   ( g : dhom B b c v P y z)
-  : dhom B a c (comp-is-segal B is-segal-B a b c u v) P x z 
-  := 
+  : dhom B a c (comp-is-pre-∞-category B is-pre-∞-category-B a b c u v) P x z
+  :=
   ( transport
-  
+
     ( hom B a c)
 
     ( \ w → dhom B a c w P x z)
 
     ( first ((first (axiom-choice-dhom B a c P x z))
-    ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)))
+    ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)))
 
-    ( comp-is-segal B is-segal-B a b c u v)
+    ( comp-is-pre-∞-category B is-pre-∞-category-B a b c u v)
 
     ( rev (hom B a c)
-       ( comp-is-segal B is-segal-B a b c u v)
+       ( comp-is-pre-∞-category B is-pre-∞-category-B a b c u v)
        ( first ((first (axiom-choice-dhom B a c P x z))
-    ( comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)))
-     ( coherence-comp-is-inner B a b c u v P is-segal-B is-segal-total-P x y z f g)
+    ( comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)))
+     ( coherence-comp-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P x y z f g)
     )
-  
-    ( proj2-comp-total-type-is-inner B a b c u v P is-segal-B is-segal-total-P
+
+    ( proj2-comp-total-type-is-inner B a b c u v P is-pre-∞-category-B is-pre-∞-category-total-P
      x y z f g)
 
   )
@@ -413,13 +413,13 @@ some coherence seems to be needed going through the axiom of choice for extensio
   ( z : P c)
   ( f : dhom B a b u P x y)
   ( g : dhom B b c v P y z)
-  : dhom B a c (comp-is-segal B (first (first (is-inner-is-isoinner B P is-isoinner-P))) a b c u v) P x z 
-  := 
+  : dhom B a c (comp-is-pre-∞-category B (first (first (is-inner-is-isoinner B P is-isoinner-P))) a b c u v) P x z
+  :=
   ( dep-comp-is-inner B a b c u v P (first (first (is-inner-is-isoinner B P is-isoinner-P)))
    ( second (first (is-inner-is-isoinner B P is-isoinner-P)))
    x y z f g)
 ```
-      
+
 
 
 ## Cocartesian arrows
@@ -494,7 +494,7 @@ this is preferred for usage.
   ( h : dhom B b b'' w P e e'')
   : ( filling-data-cocartesian B b b' b'' u v w sigma
         P e e' e'' f h)
-  := ( ( center-contraction 
+  := ( ( center-contraction
        ( filling-data-cocartesian B b b' b'' u v w sigma
         P e e' e'' f h)
         ( is-cocartesian-arrow-f b'' v w sigma e'' h)
@@ -535,7 +535,7 @@ this is preferred for usage.
   ( f : dhom B b b' u P e e')
   ( is-cocartesian-arrow-f : is-cocartesian-arrow B b b' u P e e' f)
   ( h : dhom B b b'' w P e e'')
-  : ( dhom2 B b b' b'' u v w sigma P e e' e'' f 
+  : ( dhom2 B b b' b'' u v w sigma P e e' e'' f
       ( filling-arrow-is-cocartesian B b b' b'' u v w sigma P e e' e'' f is-cocartesian-arrow-f h)
    h)
   := ( second (filling-data-is-cocartesian B b b' b'' u v w sigma
@@ -543,7 +543,7 @@ this is preferred for usage.
         )
      )
 
-```     
+```
 
 ## Cocartesian lifts
 
@@ -586,4 +586,3 @@ the has a cocartesian lift, given a point in the fiber over the domain.
   : U
   := product (is-isoinner-family B P) (has-cocartesian-lifts B P)
 ```
-

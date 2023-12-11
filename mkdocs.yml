@@ -26,12 +26,12 @@ nav:
   - Simplicial HoTT:
       - Simplicial Type Theory: simplicial-hott/03-simplicial-type-theory.rzk.md
       - Extension Types: simplicial-hott/04-extension-types.rzk.md
-      - Segal Types: simplicial-hott/05-segal-types.rzk.md
-      - 2-Category of Segal Types: simplicial-hott/06-2cat-of-segal-types.rzk.md
-      - Discrete Types: simplicial-hott/07-discrete.rzk.md
+      - Pre-∞-categories (Segal Types): simplicial-hott/05-segal-types.rzk.md
+      - 2-Category of pre-∞-categories: simplicial-hott/06-2cat-of-segal-types.rzk.md
+      - ∞-groupoids (Discrete Types): simplicial-hott/07-discrete.rzk.md
       - Covariantly Functorial Type Families: simplicial-hott/08-covariant.rzk.md
       - The Yoneda Lemma: simplicial-hott/09-yoneda.rzk.md
-      - Rezk Types: simplicial-hott/10-rezk-types.rzk.md
+      - ∞-categories (Rezk Types): simplicial-hott/10-rezk-types.rzk.md
       - Cocartesian Families: simplicial-hott/12-cocartesian.rzk.md
 
 markdown_extensions:
