@@ -40,6 +40,12 @@ condition is not required for this result. By analogy, precategories are the
 non-univalent 1-categories in HoTT. See also
 [other Yoneda formalizations](other.md).
 
+We presented this work at [CPP 2024](https://popl24.sigplan.org/home/CPP-2024)
+and published an overview of our formalization project in the conference
+proceedings as
+"[Formalizing the ∞-Categorical Yoneda Lemma](https://dl.acm.org/doi/10.1145/3636501.3636945)"
+[^3]. This project has been frozen to match its state as of that publication.
+
 ## Checking the Formalisations Locally
 
 [Install](https://rzk-lang.github.io/rzk/latest/getting-started/install/) the
@@ -58,3 +64,9 @@ rzk typecheck
     Emily Riehl. Could ∞-category theory be taught to undergraduates? Notices of
     the AMS. May 2023.
     <https://www.ams.org/journals/notices/202305/noti2692/noti2692.html>
+
+[^3]:
+    Nikolai Kudasov, Emily Riehl, Jonathan Weinberger, Formalizing the
+    ∞-Categorical Yoneda Lemma. CPP 2024: Proceedings of the 13th ACM SIGPLAN
+    International Conference on Certified Programs and ProofsJanuary 2024Pages
+    274–290. https://dl.acm.org/doi/10.1145/3636501.3636945
