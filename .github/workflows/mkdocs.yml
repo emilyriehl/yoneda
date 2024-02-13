@@ -2,7 +2,7 @@ name: MKDocs
 
 on:
   push:
-    branches: [master, update-appearance]
+    branches: [master, update-appearance, CPP-2024, arXiv-*, v*]
     tags: [arXiv-*, v*, CPP-2024]
     paths:
       - .github/workflows/mkdocs.yml
