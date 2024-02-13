@@ -1,12 +1,12 @@
 # Yoneda for ∞-categories
 
-<img src="overrides/images/logo-1000x1000.png" alt="Yoneda for ∞-categories logo" width="100"/> 
+<img src="overrides/images/logo-1000x1000.png" alt="Yoneda for ∞-categories logo" width="100"/>
 
 [![Check with latest Rzk](https://github.com/emilyriehl/yoneda/actions/workflows/rzk.yml/badge.svg)](https://github.com/emilyriehl/yoneda/actions/workflows/rzk.yml)
 [![MkDocs to GitHub Pages](https://github.com/emilyriehl/yoneda/actions/workflows/mkdocs.yml/badge.svg)](https://github.com/emilyriehl/yoneda/actions/workflows/mkdocs.yml)
 
-> :warning: This project has been __❄ frozen ❄__.
-> For ongoing simplicial HoTT formalization see <http://rzk-lang.github.io/sHoTT/>.
+> :warning: This project has been **❄ frozen ❄**. For ongoing simplicial HoTT
+> formalization see <http://rzk-lang.github.io/sHoTT/>.
 
 This is a formalization library for simplicial Homotopy Type Theory (sHoTT) with
 the aim of proving the Yoneda lemma for ∞-categories following the paper
@@ -45,7 +45,10 @@ condition is not required for this result. By analogy, precategories are the
 non-univalent 1-categories in HoTT. See also
 [other Yoneda formalizations](other.md).
 
-We presented this work at [CPP 2024](https://popl24.sigplan.org/home/CPP-2024) and published an overview of our formalization project in the conference proceedings as "[Formalizing the ∞-Categorical Yoneda Lemma](https://dl.acm.org/doi/10.1145/3636501.3636945)"
+We presented this work at [CPP 2024](https://popl24.sigplan.org/home/CPP-2024)
+and published an overview of our formalization project in the conference
+proceedings as
+"[Formalizing the ∞-Categorical Yoneda Lemma](https://dl.acm.org/doi/10.1145/3636501.3636945)"
 [^3]. This project has been frozen to match its state as of that publication.
 
 ## Checking the Formalisations Locally
@@ -58,11 +61,17 @@ We presented this work at [CPP 2024](https://popl24.sigplan.org/home/CPP-2024) a
 rzk typecheck
 ```
 
-[^1]: Emily Riehl & Michael Shulman. A type theory for synthetic ∞-categories.
-   Higher Structures 1(1), 147-224. 2017. https://arxiv.org/abs/1705.07442
+[^1]:
+    Emily Riehl & Michael Shulman. A type theory for synthetic ∞-categories.
+    Higher Structures 1(1), 147-224. 2017. <https://arxiv.org/abs/1705.07442>
 
-[^2]: Emily Riehl. Could ∞-category theory be taught to undergraduates? Notices of
-   the AMS. May 2023.
-   https://www.ams.org/journals/notices/202305/noti2692/noti2692.html
+[^2]:
+    Emily Riehl. Could ∞-category theory be taught to undergraduates? Notices of
+    the AMS. May 2023.
+    <https://www.ams.org/journals/notices/202305/noti2692/noti2692.html>
 
-[^3]: Nikolai Kudasov, Emily Riehl, Jonathan Weinberger, Formalizing the ∞-Categorical Yoneda Lemma. CPP 2024: Proceedings of the 13th ACM SIGPLAN International Conference on Certified Programs and ProofsJanuary 2024Pages 274–290. https://dl.acm.org/doi/10.1145/3636501.3636945 
+[^3]:
+    Nikolai Kudasov, Emily Riehl, Jonathan Weinberger. Formalizing the
+    ∞-Categorical Yoneda Lemma. CPP 2024: Proceedings of the 13th ACM SIGPLAN
+    International Conference on Certified Programs and ProofsJanuary 2024Pages
+    274–290. <https://dl.acm.org/doi/10.1145/3636501.3636945>
