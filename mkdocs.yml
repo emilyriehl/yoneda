@@ -34,6 +34,7 @@ nav:
       - The Yoneda Lemma: simplicial-hott/09-yoneda.rzk.md
       - ∞-categories (Rezk Types): simplicial-hott/10-rezk-types.rzk.md
       - Cocartesian Families: simplicial-hott/12-cocartesian.rzk.md
+      - A self contained proof of the Yoneda lemma: simplicial-hott/13-yoneda-geodesic.rzk.md
 
 markdown_extensions:
   - admonition
