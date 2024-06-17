@@ -54,6 +54,163 @@ naturality-covariant-fiberwise-transformation naturality is automatic.
       ( is-contravariant-representable-is-pre-∞-category A is-pre-∞-category-A b)
       ( ϕ)
       ( f)
+
+-- Same as the above but without the contravariant transport.
+-- This unfolds a composition triangle to a square with an identity component
+#def id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( x y a : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  : ( t : Δ¹) → hom A (f t) a
+  := \ t s →
+    recOR
+      ( s ≤ t ↦
+        ( witness-comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)
+          ( t , s)
+      , t ≤ s ↦
+        ( comp-id-witness A x a
+          ( comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)) (s , t))
+
+-- We apply the transformation phi to the square just constructed.
+#def transformation-id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : ( t : Δ¹) → hom A (f t) b
+  := \ t → ϕ (f t) (\ s → id-codomain-square A is-pre-∞-category-A x y a f v t s)
+
+-- This extracts the diagonal composite of the square.
+#def diagonal-transformation-id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : hom A x b
+  :=
+    \ t →
+    transformation-id-codomain-square A is-pre-∞-category-A a b x y f v ϕ t t
+
+-- One half of transformation-id-codomain-square.
+#def witness-comp-transformation-id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : hom2 A x y b f (ϕ y v)
+    ( diagonal-transformation-id-codomain-square
+      A is-pre-∞-category-A a b x y f v ϕ)
+  :=
+    \ (t , s) →
+   transformation-id-codomain-square A is-pre-∞-category-A a b x y f v ϕ t s
+
+-- The associated coherence.
+#def coherence-witness-comp-transformation-id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))
+    = ( diagonal-transformation-id-codomain-square
+        A is-pre-∞-category-A a b x y f v ϕ)
+  :=
+    uniqueness-comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v)
+      ( diagonal-transformation-id-codomain-square
+          A is-pre-∞-category-A a b x y f v ϕ)
+      ( witness-comp-transformation-id-codomain-square
+          A is-pre-∞-category-A a b x y f v ϕ)
+
+-- The other half of transformation-id-codomain-square.
+#def witness-id-transformation-id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : hom2 A x b b
+    ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
+    ( id-hom A b)
+    ( diagonal-transformation-id-codomain-square
+      A is-pre-∞-category-A a b x y f v ϕ)
+  :=
+    \ (t , s) →
+   transformation-id-codomain-square A is-pre-∞-category-A a b x y f v ϕ s t
+
+-- The associated coherence.
+#def coherence-witness-id-transformation-id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A x b b
+      ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
+      ( id-hom A b))
+    = ( diagonal-transformation-id-codomain-square
+        A is-pre-∞-category-A a b x y f v ϕ)
+  :=
+    uniqueness-comp-is-pre-∞-category A is-pre-∞-category-A x b b
+    ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
+    ( id-hom A b)
+    ( diagonal-transformation-id-codomain-square
+        A is-pre-∞-category-A a b x y f v ϕ)
+    ( witness-id-transformation-id-codomain-square
+          A is-pre-∞-category-A a b x y f v ϕ)
+
+#def simplified-coherence-witness-id-transformation-id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
+    = ( diagonal-transformation-id-codomain-square
+        A is-pre-∞-category-A a b x y f v ϕ)
+  :=
+    zag-zig-concat (hom A x b)
+    ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
+    ( comp-is-pre-∞-category A is-pre-∞-category-A x b b
+      ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
+      ( id-hom A b))
+    ( diagonal-transformation-id-codomain-square
+        A is-pre-∞-category-A a b x y f v ϕ)
+    ( comp-id-is-pre-∞-category A is-pre-∞-category-A x b
+      ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)))
+    ( coherence-witness-id-transformation-id-codomain-square
+      A is-pre-∞-category-A a b x y f v ϕ)
+
+#def naturality-contravariant-fiberwise-representable-transformation**
+  ( A : U)
+  ( is-pre-∞-category-A : is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : ( comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))
+  = ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
+  :=
+    zig-zag-concat (hom A x b)
+    ( comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))
+    ( diagonal-transformation-id-codomain-square
+        A is-pre-∞-category-A a b x y f v ϕ)
+    ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
+    ( coherence-witness-comp-transformation-id-codomain-square
+        A is-pre-∞-category-A a b x y f v ϕ)
+    ( simplified-coherence-witness-id-transformation-id-codomain-square
+        A is-pre-∞-category-A a b x y f v ϕ)
 ```
 
 For any pre-∞-category $A$ terms $a b : A$, the contravariant Yoneda lemma
@@ -82,12 +239,7 @@ The inverse map only exists for pre-∞-categories.
   ( is-pre-∞-category-A : is-pre-∞-category A)
   ( a b : A)
   : hom A a b → ((z : A) → hom A z a → hom A z b)
-  :=
-    \ v z f →
-    contravariant-transport A z a f
-      ( \ z → hom A z b)
-      ( is-contravariant-representable-is-pre-∞-category A is-pre-∞-category-A b)
-      ( v)
+  := \ v z f → comp-is-pre-∞-category A is-pre-∞-category-A z a b f v
 ```
 
 It remains to show that the Yoneda maps are inverses. One retraction is
@@ -101,10 +253,7 @@ straightforward:
   ( v : hom A a b)
   : contra-evid* A a b (contra-yon* A is-pre-∞-category-A a b v) = v
   :=
-    id-arr-contravariant-transport A a
-      ( \ z → hom A z b)
-      ( is-contravariant-representable-is-pre-∞-category A is-pre-∞-category-A b)
-      ( v)
+    id-comp-is-pre-∞-category A is-pre-∞-category-A a b v
 ```
 
 The other composite carries $ϕ$ to an a priori distinct natural transformation.
@@ -136,8 +285,8 @@ The composite `#!rzk contra-yon-evid` of `#!rzk ϕ` equals `#!rzk ϕ` at all
             ( ( contra-evid* A a b) ϕ)) x f)
       ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x a a f (id-hom A a)))
       ( ϕ x f)
-      ( naturality-contravariant-fiberwise-representable-transformation*
-          A is-pre-∞-category-A a b x a (id-hom A a) f ϕ)
+      ( naturality-contravariant-fiberwise-representable-transformation**
+          A is-pre-∞-category-A a b x a f (id-hom A a) ϕ)
       ( ap
         ( hom A x a)
         ( hom A x b)
@@ -243,11 +392,9 @@ Naturality in $b$ is not automatic but can be proven easily:
       ( \ α z g → ψ z (α z g))
       ( contra-yon* A is-pre-∞-category-A a b)) u x f
   :=
-    naturality-contravariant-fiberwise-transformation
-      A x a f (\ z → hom A z b) (\ z → hom A z b')
-      ( is-contravariant-representable-is-pre-∞-category A is-pre-∞-category-A b)
-      ( is-contravariant-representable-is-pre-∞-category A is-pre-∞-category-A b')
-      ψ u
+    naturality-contravariant-fiberwise-representable-transformation**
+      A is-pre-∞-category-A b b' x a f u ψ
+
 
 #def is-natural-in-family-contra-yon-once-pointwise* uses (funext)
   ( A : U)
