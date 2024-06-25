@@ -17,14 +17,11 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-Some of the definitions in this file rely on function extensionality and
-extension extensionality:
+Some of the definitions in this file rely on function extensionality:
 
 ```rzk
 #assume funext : FunExt
-#assume extext : ExtExt
 ```
-
 ## Hom types
 
 Extension types are used to define the type of arrows between fixed terms:
@@ -590,9 +587,11 @@ equivalence.
 
 ## Contravariant Naturality
 
-The equivalences of the Yoneda lemma is natural in both $a : A$ and $b : A$.
+The equivalences of the Yoneda lemma is natural in both $a : A$ and $b : A$. Naturality of the map
+`#!rzk Contra-yon` follows formally from naturality of `#!rzk Contra-evid`, so we prove only the
+latter, which is easier.
 
-Naturality in $b$ is not automatic but can be proven easily:
+Naturality in $b$ is not automatic but can be proven by reflexivity:
 
 ```rzk title="RS17, Lemma 9.2(i), dual"
 #def Is-natural-in-family-contra-evid
@@ -608,90 +607,12 @@ Naturality in $b$ is not automatic but can be proven easily:
   := refl
 ```
 
-```rzk title="RS17, Lemma 9.2(ii), dual"
-#def Is-natural-in-family-contra-yon-twice-pointwise
-  ( A : U)
-  ( is-pre-∞-category-A : Is-pre-∞-category A)
-  ( a b b' : A)
-  ( ψ : (z : A) → Hom A z b → Hom A z b')
-  ( u : Hom A a b)
-  ( x : A)
-  ( f : Hom A x a)
-  : ( comp (Hom A a b) (Hom A a b') ((z : A) → Hom A z a → Hom A z b')
-      ( Contra-yon A is-pre-∞-category-A a b') (ψ a)) u x f
-  = ( comp (Hom A a b)
-      ( ( z : A) → Hom A z a → Hom A z b)
-      ( ( z : A) → Hom A z a → Hom A z b')
-      ( \ α z g → ψ z (α z g))
-      ( Contra-yon A is-pre-∞-category-A a b)) u x f
-  :=
-    Naturality-contravariant-fiberwise-representable-transformation
-      A is-pre-∞-category-A b b' x a f u ψ
-
-#def Is-natural-in-family-contra-yon-once-pointwise uses (funext)
-  ( A : U)
-  ( is-pre-∞-category-A : Is-pre-∞-category A)
-  ( a b b' : A)
-  ( ψ : (z : A) → Hom A z b → Hom A z b')
-  ( u : Hom A a b)
-  ( x : A)
-  : ( comp (Hom A a b) (Hom A a b') ((z : A) → Hom A z a → Hom A z b')
-      ( Contra-yon A is-pre-∞-category-A a b') (ψ a)) u x
-  = ( comp (Hom A a b)
-      ( ( z : A) → Hom A z a → Hom A z b)
-      ( ( z : A) → Hom A z a → Hom A z b')
-      ( \ α z g → ψ z (α z g))
-      ( Contra-yon A is-pre-∞-category-A a b)) u x
-  :=
-    eq-htpy funext
-      ( Hom A x a)
-      ( \ f → Hom A x b')
-      ( \ f →
-        ( comp (Hom A a b) (Hom A a b') ((z : A) → Hom A z a → Hom A z b')
-          ( Contra-yon A is-pre-∞-category-A a b') (ψ a)) u x f)
-      ( \ f →
-        ( comp (Hom A a b)
-          ( ( z : A) → Hom A z a → Hom A z b)
-          ( ( z : A) → Hom A z a → Hom A z b')
-        ( \ α z g → ψ z (α z g))
-        ( Contra-yon A is-pre-∞-category-A a b)) u x f)
-      ( \ f →
-        Is-natural-in-family-contra-yon-twice-pointwise
-          A is-pre-∞-category-A a b b' ψ u x f)
-
-#def Is-natural-in-family-contra-yon uses (funext)
-  ( A : U)
-  ( is-pre-∞-category-A : Is-pre-∞-category A)
-  ( a b b' : A)
-  ( ψ : (z : A) → Hom A z b → Hom A z b')
-  ( u : Hom A a b)
-  : ( comp (Hom A a b) (Hom A a b') ((z : A) → Hom A z a → Hom A z b')
-      ( Contra-yon A is-pre-∞-category-A a b') (ψ a)) u
-  = ( comp (Hom A a b)
-      ( ( z : A) → Hom A z a → Hom A z b)
-      ( ( z : A) → Hom A z a → Hom A z b')
-      ( \ α z g → ψ z (α z g))
-      ( Contra-yon A is-pre-∞-category-A a b)) u
-  :=
-    eq-htpy funext
-      ( A)
-      ( \ x → Hom A x a → Hom A x b')
-      ( \ x →
-        ( comp (Hom A a b) (Hom A a b') ((z : A) → Hom A z a → Hom A z b')
-          ( Contra-yon A is-pre-∞-category-A a b') (ψ a)) u x)
-      ( \ x →
-        ( comp (Hom A a b)
-          ( ( z : A) → Hom A z a → Hom A z b)
-          ( ( z : A) → Hom A z a → Hom A z b')
-        ( \ α z g → ψ z (α z g))
-        ( Contra-yon A is-pre-∞-category-A a b)) u x)
-      ( \ x →
-        Is-natural-in-family-contra-yon-once-pointwise
-          A is-pre-∞-category-A a b b' ψ u x)
-```
-
-Naturality in $a$ follows formally, but also can be proven directly. The proof
-requires associativity and thus extension extensionality.
+Naturality in $a$ in fact follows formally. By a generalization of
+`#!rzk Naturality-contravariant-fiberwise-representable-transformation` which is no
+harder to prove, any fiberwise map between contravariant families over $a : A$ is
+automatically natural. Since it would take time to introduce the notion of
+contravariant family and prove that the domain of  `#!rzk Contra-evid` is one, we
+instead give a direct proof of naturality in $a : A$.
 
 ```rzk title="RS17, Lemma 9.2(i), dual"
 #def Is-natural-in-object-contra-evid
@@ -728,92 +649,4 @@ requires associativity and thus extension extensionality.
           ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a (Id-hom A a') k)
           ( k)
           ( Id-comp-is-pre-∞-category A is-pre-∞-category-A a' a k))))
-```
-
-```rzk
-#def Is-natural-in-obj-contra-yon-twice-pointwise uses (extext)
-  ( A : U)
-  ( is-pre-∞-category-A : Is-pre-∞-category A)
-  ( a' a b : A)
-  ( k : Hom A a' a)
-  ( u : Hom A a b)
-  ( x : A)
-  ( g : Hom A x a')
-  : ( comp (Hom A a b)
-      ( ( z : A) → Hom A z a → Hom A z b)
-      ( ( z : A) → Hom A z a' → Hom A z b)
-      ( \ α z g → α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a' a g k))
-      ( Contra-yon A is-pre-∞-category-A a b)) u x g
-    = ( comp (Hom A a b) (Hom A a' b) ((z : A) → Hom A z a' → Hom A z b)
-      ( Contra-yon A is-pre-∞-category-A a' b)
-      ( \ f → Comp-is-pre-∞-category A is-pre-∞-category-A a' a b k f)) u x g
-  := associative-is-pre-∞-category extext A is-pre-∞-category-A x a' a b g k u
-
-#def Is-natural-in-obj-contra-yon-once-pointwise uses (funext extext)
-  ( A : U)
-  ( is-pre-∞-category-A : Is-pre-∞-category A)
-  ( a' a b : A)
-  ( k : Hom A a' a)
-  ( u : Hom A a b)
-  ( x : A)
-  : ( comp (Hom A a b)
-      ( ( z : A) → Hom A z a → Hom A z b)
-      ( ( z : A) → Hom A z a' → Hom A z b)
-      ( \ α z g → α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a' a g k))
-      ( Contra-yon A is-pre-∞-category-A a b)) u x
-  = ( comp (Hom A a b) (Hom A a' b) ((z : A) → Hom A z a' → Hom A z b)
-      ( Contra-yon A is-pre-∞-category-A a' b)
-      ( \ f → Comp-is-pre-∞-category A is-pre-∞-category-A a' a b k f)) u x
-  :=
-    eq-htpy funext
-      ( Hom A x a')
-      ( \ g → Hom A x b)
-      ( \ g →
-        ( comp (Hom A a b)
-          ( ( z : A) → Hom A z a → Hom A z b)
-          ( ( z : A) → Hom A z a' → Hom A z b)
-          ( \ α z g →
-            α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a' a g k))
-          ( Contra-yon A is-pre-∞-category-A a b)) u x g)
-      ( \ g →
-        ( comp (Hom A a b) (Hom A a' b) ((z : A) → Hom A z a' → Hom A z b)
-          ( Contra-yon A is-pre-∞-category-A a' b)
-          ( \ f → Comp-is-pre-∞-category A is-pre-∞-category-A a' a b k f))
-          u x g)
-      ( \ g →
-        Is-natural-in-obj-contra-yon-twice-pointwise
-          A is-pre-∞-category-A a' a b k u x g)
-
-#def Is-natural-in-obj-contra-yon uses (funext extext)
-  ( A : U)
-  ( is-pre-∞-category-A : Is-pre-∞-category A)
-  ( a' a b : A)
-  ( k : Hom A a' a)
-  ( u : Hom A a b)
-  : ( comp (Hom A a b)
-      ( ( z : A) → Hom A z a → Hom A z b)
-      ( ( z : A) → Hom A z a' → Hom A z b)
-      ( \ α z g → α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a' a g k))
-      ( Contra-yon A is-pre-∞-category-A a b)) u
-  = ( comp (Hom A a b) (Hom A a' b) ((z : A) → Hom A z a' → Hom A z b)
-      ( Contra-yon A is-pre-∞-category-A a' b)
-      ( \ f → Comp-is-pre-∞-category A is-pre-∞-category-A a' a b k f)) u
-  :=
-    eq-htpy funext
-      ( A)
-      ( \ x → Hom A x a' → Hom A x b)
-      ( \ x →
-        ( comp (Hom A a b)
-          ( ( z : A) → Hom A z a → Hom A z b)
-          ( ( z : A) → Hom A z a' → Hom A z b)
-          ( \ α z g →
-            α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a' a g k))
-          ( Contra-yon A is-pre-∞-category-A a b)) u x)
-      ( \ x →
-        ( comp (Hom A a b) (Hom A a' b) ((z : A) → Hom A z a' → Hom A z b)
-          ( Contra-yon A is-pre-∞-category-A a' b)
-          ( \ f → Comp-is-pre-∞-category A is-pre-∞-category-A a' a b k f)) u x)
-      ( \ x →
-        Is-natural-in-obj-contra-yon-once-pointwise
-          A is-pre-∞-category-A a' a b k u x)
 ```
