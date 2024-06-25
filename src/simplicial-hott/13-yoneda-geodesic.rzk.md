@@ -447,6 +447,8 @@ naturality-covariant-fiberwise-transformation* naturality is automatic.
         A is-pre-∞-category-A a b x y f v ϕ)
 ```
 
+## The Yoneda lemma
+
 For any pre-∞-category $A$ terms $a b : A$, the contravariant Yoneda lemma
 provides an equivalence between the type`#!rzk (z : A) → Hom A z a → Hom A z b`
 of natural transformations and the type `#!rzk Hom A a b`.
