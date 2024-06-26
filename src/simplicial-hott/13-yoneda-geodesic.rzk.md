@@ -145,8 +145,8 @@ arguments in `#!rzk is-pre-∞-category`.
 ```
 
 Composition in a pre-∞-category is unique in the following sense. If there is a
-witness that an arrow $h$ is a composite of $f$ and $g$, then the specified
-composite equals $h$.
+witness that an arrow `#!rzk h` is a composite of `#!rzk f` and `#!rzk g`, then
+the specified composite equals `#!rzk h`.
 
 <svg style="float: right" viewBox="0 0 200 380" width="125">
   <path style="fill: rgb(175,175,175,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
@@ -313,11 +313,11 @@ needed to prove the Yoneda lemma, it will not be discussed here.
 
 ## Natural transformations between representable functors
 
-Fix a pre-∞-category $A$ and terms $a b : A$. The Yoneda lemma characterizes
-natural transformations between the type families contravariantly represented by
-these terms.
+Fix a pre-∞-category `#!rzk A` and terms `#!rzk a b : A`. The Yoneda lemma
+characterizes natural transformations between the type families contravariantly
+represented by these terms.
 
-Ordinarily, such a natural transformation would involve a family of maps
+One might expect that such a natural transformation would involve a family of maps
 
 `#!rzk ϕ : (z : A) → Hom A z a → Hom A z b`
 
@@ -325,8 +325,33 @@ together with a proof of naturality of these components, but we will prove in
 `#!rzk naturality-contravariant-fiberwise-representable-transformation`
 that naturality is automatic.
 
+To see this, consider a composable pair of morphisms `#!rzk f : Hom A x y` and
+`#!rzk v : Hom A y a` in a pre-∞-category and form the square in `#!rzk A`
+whose vertical boundary is given by `#!rzk f` and `#!rzk Id-hom A a` and whose
+horizontal boundary is given by the composite morphism and by `#!rzk v`.
+
 ```rzk
--- We apply a fiberwise transformation ϕ to a square of a particular form.
+#def id-codomain-square
+  ( A : U)
+  ( is-pre-∞-category-A : Is-pre-∞-category A)
+  ( a b x y : A)
+  ( f : Hom A x y)
+  ( v : Hom A y a)
+  : ( t : Δ¹) → (s : Δ¹) → A
+  :=
+    \ t s →
+      recOR
+      ( s ≤ t ↦
+        ( Witness-comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)
+          ( t , s)
+      , t ≤ s ↦
+        ( Comp-id-witness A x a
+          ( Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)) (s , t))
+```
+
+Next apply the fiberwise transformation `#!rzk ϕ` to this square.
+
+```rzk
 #def square-representable-transformation
   ( A : U)
   ( is-pre-∞-category-A : Is-pre-∞-category A)
@@ -337,19 +362,15 @@ that naturality is automatic.
   : ( t : Δ¹) → Hom A (f t) b
   :=
     \ t →
-    ϕ
+      ϕ
       ( f t)
-      ( \ s →
-        recOR
-        ( s ≤ t ↦
-          ( Witness-comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)
-            ( t , s)
-        , t ≤ s ↦
-          ( Comp-id-witness A x a
-            ( Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)) (s , t)))
+      ( \ s → id-codomain-square A is-pre-∞-category-A a b x y f v t s)
+```
 
--- This extracts the diagonal composite of the square.
-#def diagonal-transformation-id-codomain-square
+We give a name to the diagonal composite arrow in this square.
+
+```rzk
+#def diagonal-square-representable-transformation
   ( A : U)
   ( is-pre-∞-category-A : Is-pre-∞-category A)
   ( a b x y : A)
@@ -360,7 +381,14 @@ that naturality is automatic.
   :=
     \ t →
     square-representable-transformation A is-pre-∞-category-A a b x y f v ϕ t t
+```
 
+The two halves of `#!rzk square-representable-transformation` define witnesses
+for composition relations in `#!rzk A`. We extract both witnesses and apply
+`#! Uniqueness-comp-is-pre-∞-category` to prove that the composite of the
+exterior edges equals the diagonal edge.
+
+```rzk
 -- One half of transformation-id-codomain-square.
 #def witness-comp-transformation-id-codomain-square
   ( A : U)
@@ -370,7 +398,7 @@ that naturality is automatic.
   ( v : Hom A y a)
   ( ϕ : (z : A) → Hom A z a → Hom A z b)
   : Hom2 A x y b f (ϕ y v)
-    ( diagonal-transformation-id-codomain-square
+    ( diagonal-square-representable-transformation
       A is-pre-∞-category-A a b x y f v ϕ)
   :=
     \ (t , s) →
@@ -385,11 +413,11 @@ that naturality is automatic.
   ( v : Hom A y a)
   ( ϕ : (z : A) → Hom A z a → Hom A z b)
   : ( Comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))
-    = ( diagonal-transformation-id-codomain-square
+    = ( diagonal-square-representable-transformation
         A is-pre-∞-category-A a b x y f v ϕ)
   :=
     Uniqueness-comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v)
-      ( diagonal-transformation-id-codomain-square
+      ( diagonal-square-representable-transformation
           A is-pre-∞-category-A a b x y f v ϕ)
       ( witness-comp-transformation-id-codomain-square
           A is-pre-∞-category-A a b x y f v ϕ)
@@ -405,7 +433,7 @@ that naturality is automatic.
   : Hom2 A x b b
     ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
     ( Id-hom A b)
-    ( diagonal-transformation-id-codomain-square
+    ( diagonal-square-representable-transformation
       A is-pre-∞-category-A a b x y f v ϕ)
   :=
     \ (t , s) →
@@ -422,17 +450,22 @@ that naturality is automatic.
   : ( Comp-is-pre-∞-category A is-pre-∞-category-A x b b
       ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
       ( Id-hom A b))
-    = ( diagonal-transformation-id-codomain-square
+    = ( diagonal-square-representable-transformation
         A is-pre-∞-category-A a b x y f v ϕ)
   :=
     Uniqueness-comp-is-pre-∞-category A is-pre-∞-category-A x b b
     ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
     ( Id-hom A b)
-    ( diagonal-transformation-id-codomain-square
+    ( diagonal-square-representable-transformation
         A is-pre-∞-category-A a b x y f v ϕ)
     ( witness-id-transformation-id-codomain-square
           A is-pre-∞-category-A a b x y f v ϕ)
+```
 
+By the identity law `#!rzk Comp-id-is-pre-∞-category`, this latter equality
+can be simplified.
+
+```rzk
 #def simplified-coherence-witness-id-transformation-id-codomain-square
   ( A : U)
   ( is-pre-∞-category-A : Is-pre-∞-category A)
@@ -441,7 +474,7 @@ that naturality is automatic.
   ( v : Hom A y a)
   ( ϕ : (z : A) → Hom A z a → Hom A z b)
   : ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
-    = ( diagonal-transformation-id-codomain-square
+    = ( diagonal-square-representable-transformation
         A is-pre-∞-category-A a b x y f v ϕ)
   :=
     zag-zig-concat (Hom A x b)
@@ -449,7 +482,7 @@ that naturality is automatic.
     ( Comp-is-pre-∞-category A is-pre-∞-category-A x b b
       ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
       ( Id-hom A b))
-    ( diagonal-transformation-id-codomain-square
+    ( diagonal-square-representable-transformation
         A is-pre-∞-category-A a b x y f v ϕ)
     ( Comp-id-is-pre-∞-category A is-pre-∞-category-A x b
       ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)))
@@ -457,11 +490,11 @@ that naturality is automatic.
       A is-pre-∞-category-A a b x y f v ϕ)
 ```
 
-We now prove that a fiberwise natural transformation
-`#!rzk ϕ : (z : A) → Hom A z a → Hom A z b` is automatically natural:
-for arrows `#!rzk f : Hom A x y` and `#!rzk v : Hom A y a` in a pre-∞-category,
-the composite of `#!rzk f` with `#!rzk ϕ y v` equals the arrow obtained by
-`#!rzk ϕ x` applied to the composite of `#!rzk f` with `#!rzk v`.
+By composing these equalities, we now prove that a fiberwise natural
+transformation `#!rzk ϕ : (z : A) → Hom A z a → Hom A z b` is automatically
+natural: for arrows `#!rzk f : Hom A x y` and `#!rzk v : Hom A y a` in a
+pre-∞-category, the composite of `#!rzk f` with `#!rzk ϕ y v` equals the arrow
+obtained by`#!rzk ϕ x` applied to the composite of `#!rzk f` with `#!rzk v`.
 
 ```rzk
 #def Naturality-contravariant-fiberwise-representable-transformation
@@ -476,7 +509,7 @@ the composite of `#!rzk f` with `#!rzk ϕ y v` equals the arrow obtained by
   :=
     zig-zag-concat (Hom A x b)
     ( Comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))
-    ( diagonal-transformation-id-codomain-square
+    ( diagonal-square-representable-transformation
         A is-pre-∞-category-A a b x y f v ϕ)
     ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))
     ( coherence-witness-comp-transformation-id-codomain-square
@@ -487,7 +520,7 @@ the composite of `#!rzk f` with `#!rzk ϕ y v` equals the arrow obtained by
 
 ## The Yoneda lemma
 
-For any pre-∞-category $A$ terms $a b : A$, the contravariant Yoneda lemma
+For any pre-∞-category `#!rzk A` terms `#!rzk a b : A`, the contravariant Yoneda lemma
 provides an equivalence between the type`#!rzk (z : A) → Hom A z a → Hom A z b`
 of natural transformations and the type `#!rzk Hom A a b`.
 
@@ -530,7 +563,7 @@ straightforward:
     Id-comp-is-pre-∞-category A is-pre-∞-category-A a b v
 ```
 
-The other composite carries $ϕ$ to an a priori distinct natural
+The other composite carries `#!rzk ϕ` to an a priori distinct natural
 transformation. We first show that these are pointwise equal at all
 `#!rzk x : A` and `#!rzk f : Hom A x a` in two steps.
 
@@ -627,11 +660,11 @@ equivalence.
 
 ## Contravariant Naturality
 
-The equivalences of the Yoneda lemma is natural in both $a : A$ and $b : A$.
-Naturality of the map`#!rzk Contra-yon` follows formally from naturality of
-`#!rzk Contra-evid`, so we prove only the latter, which is easier.
+The equivalences of the Yoneda lemma is natural in both `#!rzk a : A` and
+`#!rzk b : A`. Naturality of the map`#!rzk Contra-yon` follows formally from
+naturality of `#!rzk Contra-evid`, so we prove only the latter, which is easier.
 
-Naturality in $b$ is not automatic but can be proven by reflexivity:
+Naturality in `#!rzk b` is not automatic but can be proven by reflexivity:
 
 ```rzk title="RS17, Lemma 9.2(i), dual"
 #def Is-natural-in-family-contra-evid
@@ -647,12 +680,13 @@ Naturality in $b$ is not automatic but can be proven by reflexivity:
   := refl
 ```
 
-Naturality in $a$ in fact follows formally. By a generalization of
+Naturality in `#!rzk a` in fact follows formally. By a generalization of
 `#!rzk Naturality-contravariant-fiberwise-representable-transformation` which is
 no harder to prove, any fiberwise map between contravariant families over
-$a : A$ is automatically natural. Since it would take time to introduce the
-notion of contravariant family and prove that the domain of  `#!rzk Contra-evid`
-is one, we instead give a direct proof of naturality in $a : A$.
+`#!rzk a : A` is automatically natural. Since it would take time to introduce
+the notion of contravariant family and prove that the domain of
+`#!rzk Contra-evid`is one, we instead give a direct proof of naturality in
+`#!rzk a : A`.
 
 ```rzk title="RS17, Lemma 9.2(i), dual"
 #def Is-natural-in-object-contra-evid
@@ -672,8 +706,10 @@ is one, we instead give a direct proof of naturality in $a : A$.
   :=
     concat (Hom A a' b)
     ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a b k (φ a (Id-hom A a)))
-    ( φ a' (Comp-is-pre-∞-category A is-pre-∞-category-A a' a a k (Id-hom A a)))
-    ( φ a' (Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a (Id-hom A a') k))
+    ( φ a'
+      ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a a k (Id-hom A a)))
+    ( φ a'
+      ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a (Id-hom A a') k))
     ( Naturality-contravariant-fiberwise-representable-transformation
       A is-pre-∞-category-A a b a' a k (Id-hom A a) φ)
     ( ap (hom A a' a) (hom A a' b)
