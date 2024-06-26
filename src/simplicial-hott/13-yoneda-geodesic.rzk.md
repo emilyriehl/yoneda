@@ -1,13 +1,12 @@
 # A self contained proof of the Yoneda lemma
 
 This file, which is independent of the rest of the simplicial HoTT repository,
-contains a self-contained proof of the Yoneda lemma in the special case where
-both functors are contravariantly representable. This is intended for expository
-purposes.
+contains a self-contained proof of the ∞-categorical Yoneda lemma in the
+special case where both functors are contravariantly representable. This is
+intended for expository purposes.
 
 We capitalize the first letter of the terms defined here when they are either
 duplications of our specializations of terms defined in the braoder repository.
-
 
 This is a literate `rzk` file:
 
@@ -17,11 +16,41 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
+The definitions and proofs reference standard concepts from
+homotopy type theory including a universe of types denoted `#!rzk U`, the notion of contractible types, and the notion of
+equivalence between types.
+
 Some of the definitions in this file rely on function extensionality:
 
 ```rzk
 #assume funext : FunExt
 ```
+
+an axiom which characterizes the identity types of function types.
+
+## Simplices
+
+The language for synthetic ∞-categories includes a primative notion
+called **shapes** which can be used to index type-valued diagrams.
+Shapes are carved out of directed **cubes**, which are cartesian
+products of the directed 1-cube `#!rzk 2`, via predicates called
+topes. To state and prove the Yoneda lemma we require only two
+examples of shapes, the 1-simplex and 2-simplex defined below.
+In the rest of the library, these shapes are denoted using the more
+common superscripts.
+
+```rzk title="The 1-simplex"
+#def Δ₁
+  : 2 → TOPE
+  := \ t → TOP
+```
+
+```rzk title="The 2-simplex"
+#def Δ₂
+  : ( 2 × 2) → TOPE
+  := \ (t , s) → s ≤ t
+```
+
 ## Hom types
 
 Extension types are used to define the type of arrows between fixed terms:
@@ -38,7 +67,7 @@ Extension types are used to define the type of arrows between fixed terms:
   ( x y : A)
   : U
   :=
-    ( t : Δ¹)
+    ( t : Δ₁)
   → A [ t ≡ 0₂ ↦ x , -- the left endpoint is exactly x
         t ≡ 1₂ ↦ y]   -- the right endpoint is exactly y
 
@@ -68,7 +97,7 @@ Extension types are also used to define the type of commutative triangles:
   ( h : Hom A x z)
   : U
   :=
-    ( ( t₁ , t₂) : Δ²)
+    ( ( t₁ , t₂) : Δ₂)
   → A [ t₂ ≡ 0₂ ↦ f t₁ , -- the top edge is exactly `f`,
         t₁ ≡ 1₂ ↦ g t₂ , -- the right edge is exactly `g`, and
         t₂ ≡ t₁ ↦ h t₂]   -- the diagonal is exactly `h`
@@ -280,7 +309,7 @@ not needed in the definition of pre-∞-categories.
 ```
 
 Associativity is similarly automatic for pre-∞-categories, but since this is not
-needed to prove the Yoneda lemma, it will be discussed later.
+needed to prove the Yoneda lemma, it will not be discussed here.
 
 ## Natural transformations between representable functors
 
@@ -292,8 +321,9 @@ Ordinarily, such a natural transformation would involve a family of maps
 
 `#!rzk ϕ : (z : A) → Hom A z a → Hom A z b`
 
-together with a proof of naturality of these components, but by
-naturality-covariant-fiberwise-transformation* naturality is automatic.
+together with a proof of naturality of these components, but we will prove in
+`#!rzk naturality-contravariant-fiberwise-representable-transformation`
+that naturality is automatic.
 
 ```rzk
 -- We apply a fiberwise transformation ϕ to a square of a particular form.
@@ -425,7 +455,15 @@ naturality-covariant-fiberwise-transformation* naturality is automatic.
       ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)))
     ( coherence-witness-id-transformation-id-codomain-square
       A is-pre-∞-category-A a b x y f v ϕ)
+```
 
+We now prove that a fiberwise natural transformation
+`#!rzk ϕ : (z : A) → Hom A z a → Hom A z b` is automatically natural:
+for arrows `#!rzk f : Hom A x y` and `#!rzk v : Hom A y a` in a pre-∞-category,
+the composite of `#!rzk f` with `#!rzk ϕ y v` equals the arrow obtained by
+`#!rzk ϕ x` applied to the composite of `#!rzk f` with `#!rzk v`.
+
+```rzk
 #def Naturality-contravariant-fiberwise-representable-transformation
   ( A : U)
   ( is-pre-∞-category-A : Is-pre-∞-category A)
@@ -589,9 +627,9 @@ equivalence.
 
 ## Contravariant Naturality
 
-The equivalences of the Yoneda lemma is natural in both $a : A$ and $b : A$. Naturality of the map
-`#!rzk Contra-yon` follows formally from naturality of `#!rzk Contra-evid`, so we prove only the
-latter, which is easier.
+The equivalences of the Yoneda lemma is natural in both $a : A$ and $b : A$.
+Naturality of the map`#!rzk Contra-yon` follows formally from naturality of
+`#!rzk Contra-evid`, so we prove only the latter, which is easier.
 
 Naturality in $b$ is not automatic but can be proven by reflexivity:
 
@@ -610,11 +648,11 @@ Naturality in $b$ is not automatic but can be proven by reflexivity:
 ```
 
 Naturality in $a$ in fact follows formally. By a generalization of
-`#!rzk Naturality-contravariant-fiberwise-representable-transformation` which is no
-harder to prove, any fiberwise map between contravariant families over $a : A$ is
-automatically natural. Since it would take time to introduce the notion of
-contravariant family and prove that the domain of  `#!rzk Contra-evid` is one, we
-instead give a direct proof of naturality in $a : A$.
+`#!rzk Naturality-contravariant-fiberwise-representable-transformation` which is
+no harder to prove, any fiberwise map between contravariant families over
+$a : A$ is automatically natural. Since it would take time to introduce the
+notion of contravariant family and prove that the domain of  `#!rzk Contra-evid`
+is one, we instead give a direct proof of naturality in $a : A$.
 
 ```rzk title="RS17, Lemma 9.2(i), dual"
 #def Is-natural-in-object-contra-evid
