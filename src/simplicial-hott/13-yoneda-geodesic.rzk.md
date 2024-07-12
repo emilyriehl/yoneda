@@ -5,6 +5,10 @@ contains a self-contained proof of the ∞-categorical Yoneda lemma in the
 special case where both functors are contravariantly representable. This is
 intended for expository purposes.
 
+As the Yoneda lemma does not require Rezk's "completeness" condition, an axiom
+that says that paths are equivalent to isomorphisms, here
+we only introduce **pre-∞-categories**, which are simpler to define.
+
 We capitalize the first letter of the terms defined here when they are either
 duplications of our specializations of terms defined in the braoder repository.
 
@@ -16,9 +20,9 @@ This is a literate `rzk` file:
 
 ## Prerequisites
 
-The definitions and proofs reference standard concepts from
-homotopy type theory including a universe of types denoted `#!rzk U`, the notion of contractible types, and the notion of
-equivalence between types.
+The definitions and proofs reference standard concepts from homotopy type theory
+including a universe of types denoted `#!rzk U`, the notion of contractible
+types, and the notion of equivalence between types.
 
 Some of the definitions in this file rely on function extensionality:
 
@@ -34,8 +38,12 @@ The language for synthetic ∞-categories includes a primative notion
 called **shapes** which can be used to index type-valued diagrams.
 Shapes are carved out of directed **cubes**, which are cartesian
 products of the directed 1-cube `#!rzk 2`, via predicates called
-topes. To state and prove the Yoneda lemma we require only two
-examples of shapes, the 1-simplex and 2-simplex defined below.
+**topes**. The cube `#!rzk 2` has two axiomatic terms `#!rzk 0₂ 1₂ : 2` and
+a binary tope `#!rzk ≤ ` satisfying the axioms of a strict interval. In
+particular, for any `#!rzk t : 2`, `#!rzk 0₂ ≤ t` and `#!rzk t ≤ 1₂` hold.
+
+To state and prove the Yoneda lemma we require only two
+examples of shapes, the 1-simplex and 2-simplex defined by the topes below.
 In the rest of the library, these shapes are denoted using the more
 common superscripts.
 
@@ -53,7 +61,18 @@ common superscripts.
 
 ## Hom types
 
-Extension types are used to define the type of arrows between fixed terms:
+The language for synthetic ∞-categories includes a new family of types called
+**extension types**. Given a cube `#!rzk I`, a shape `#!rzk Ψ : I → TOPE`, a
+subshape `#!rzk (Φ : Ψ → TOPE)`, a type family `#!rzk A : Ψ → U` over the larger
+shape, and a function `#!rzk a : (t : Φ) → A t` out of the smaller shape, there
+is a type `#!rzk ( t : Ψ) → A [ Φ t ↦ a t]` whose terms are functions
+`#!rzk f : (t : Ψ) → A t` so that `#!rzk f t ≡ a t` whenever ``#!rzk Φ t` holds.
+
+Extension types are used to define the type of arrows between fixed terms.
+Note that `rzk` allows the function out of a subshape formed by a union of topes
+to be specified by a list of functions defined for those terms satisfying each
+tope individually. The tope solver built into `rzk` then checks that these
+partial functions are compatible on the intersection of the topes.
 
 <svg style="float: right" viewBox="0 0 200 60" width="150" height="60">
   <polyline points="40,30 160,30" stroke="blue" stroke-width="3" marker-end="url(#arrow-blue)"></polyline>
@@ -70,7 +89,6 @@ Extension types are used to define the type of arrows between fixed terms:
     ( t : Δ₁)
   → A [ t ≡ 0₂ ↦ x , -- the left endpoint is exactly x
         t ≡ 1₂ ↦ y]   -- the right endpoint is exactly y
-
 ```
 
 Extension types are also used to define the type of commutative triangles:
@@ -106,9 +124,12 @@ Extension types are also used to define the type of commutative triangles:
 ## Types with composition
 
 A type is **a pre-∞-category** if every composable pair of arrows has a unique
-composite. Note this is a considerable simplification of the usual Segal
+composite, meaning that the type of composites is contractible.
+
+Note this is a considerable simplification of the usual Segal
 condition, which also requires homotopical uniqueness of higher-order
-composites.
+composites. Here this higher-order uniqueness is a consequence of the uniqueness
+of binary composition.
 
 ```rzk title="RS17, Definition 5.3"
 #def Is-pre-∞-category
@@ -309,7 +330,7 @@ not needed in the definition of pre-∞-categories.
 ```
 
 Associativity is similarly automatic for pre-∞-categories, but since this is not
-needed to prove the Yoneda lemma, it will not be discussed here.
+needed to prove the Yoneda lemma, this will not be proven here.
 
 ## Natural transformations between representable functors
 
@@ -317,7 +338,8 @@ Fix a pre-∞-category `#!rzk A` and terms `#!rzk a b : A`. The Yoneda lemma
 characterizes natural transformations between the type families contravariantly
 represented by these terms.
 
-One might expect that such a natural transformation would involve a family of maps
+One might expect that such a natural transformation would involve a family of
+maps
 
 `#!rzk ϕ : (z : A) → Hom A z a → Hom A z b`
 
@@ -520,9 +542,10 @@ obtained by`#!rzk ϕ x` applied to the composite of `#!rzk f` with `#!rzk v`.
 
 ## The Yoneda lemma
 
-For any pre-∞-category `#!rzk A` terms `#!rzk a b : A`, the contravariant Yoneda lemma
-provides an equivalence between the type`#!rzk (z : A) → Hom A z a → Hom A z b`
-of natural transformations and the type `#!rzk Hom A a b`.
+For any pre-∞-category `#!rzk A` terms `#!rzk a b : A`, the contravariant Yoneda
+lemma provides an equivalence between the type
+`#!rzk (z : A) → Hom A z a → Hom A z b` of natural transformations and the type
+`#!rzk Hom A a b`.
 
 One of the maps in this equivalence is evaluation at the identity. The
 inverse map makes use of the contravariant transport operation.
@@ -722,7 +745,8 @@ the notion of contravariant family and prove that the domain of
         ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a (Id-hom A a') k)
         ( Comp-id-is-pre-∞-category A is-pre-∞-category-A a' a k)
         ( rev (hom A a' a)
-          ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a (Id-hom A a') k)
+          ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a
+            ( Id-hom A a') k)
           ( k)
           ( Id-comp-is-pre-∞-category A is-pre-∞-category-A a' a k))))
 ```
