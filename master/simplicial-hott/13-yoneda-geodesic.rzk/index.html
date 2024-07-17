@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.76a95c52.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -915,15 +915,18 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 contains a self-contained proof of the ∞-categorical Yoneda lemma in the
 special case where both functors are contravariantly representable. This is
 intended for expository purposes.</p>
+<p>As the Yoneda lemma does not require Rezk's "completeness" condition, an axiom
+that says that paths are equivalent to isomorphisms, here
+we only introduce <strong>pre-∞-categories</strong>, which are simpler to define.</p>
 <p>We capitalize the first letter of the terms defined here when they are either
 duplications of our specializations of terms defined in the braoder repository.</p>
 <p>This is a literate <code>rzk</code> file:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
 </span></code></pre></div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>The definitions and proofs reference standard concepts from
-homotopy type theory including a universe of types denoted <code class="language-rzk highlight"><span class="kt">U</span></code>, the notion of contractible types, and the notion of
-equivalence between types.</p>
+<p>The definitions and proofs reference standard concepts from homotopy type theory
+including a universe of types denoted <code class="language-rzk highlight"><span class="kt">U</span></code>, the notion of contractible
+types, and the notion of equivalence between types.</p>
 <p>Some of the definitions in this file rely on function extensionality:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">#assume</span><span class="p"> </span>funext<span class="err"> : FunExt</span>
 </span></code></pre></div>
@@ -933,8 +936,11 @@ equivalence between types.</p>
 called <strong>shapes</strong> which can be used to index type-valued diagrams.
 Shapes are carved out of directed <strong>cubes</strong>, which are cartesian
 products of the directed 1-cube <code class="language-rzk highlight"><span class="kt">2</span></code>, via predicates called
-topes. To state and prove the Yoneda lemma we require only two
-examples of shapes, the 1-simplex and 2-simplex defined below.
+<strong>topes</strong>. The cube <code class="language-rzk highlight"><span class="kt">2</span></code> has two axiomatic terms <code class="language-rzk highlight"><span class="err">0₂ </span><span class="m">1₂</span><span class="err"> : </span><span class="kt">2</span></code> and
+a binary tope <code class="language-rzk highlight"><span class="sx">≤</span></code> satisfying the axioms of a strict interval. In
+particular, for any <code class="language-rzk highlight"><span class="err">t : </span><span class="kt">2</span></code>, <code class="language-rzk highlight"><span class="err">0₂ </span><span class="sx">≤</span><span class="err"> t</span></code> and <code class="language-rzk highlight"><span class="err">t </span><span class="sx">≤</span><span class="err"> </span><span class="m">1₂</span></code> hold.</p>
+<p>To state and prove the Yoneda lemma we require only two
+examples of shapes, the 1-simplex and 2-simplex defined by the topes below.
 In the rest of the library, these shapes are denoted using the more
 common superscripts.</p>
 <div class="language-rzk highlight"><span class="filename">The 1-simplex</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ₁" id="define:Δ₁" style="visibility: visible; position: relative; color: inherit">Δ₁</a></span>
@@ -946,7 +952,17 @@ common superscripts.</p>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">  := \ (t , s) → s </span><span class="sx">≤</span><span class="err"> t</span>
 </span></code></pre></div>
 <h2 id="hom-types">Hom types<a class="headerlink" href="#hom-types" title="Permanent link">&para;</a></h2>
-<p>Extension types are used to define the type of arrows between fixed terms:</p>
+<p>The language for synthetic ∞-categories includes a new family of types called
+<strong>extension types</strong>. Given a cube <code class="language-rzk highlight"><span class="err">I</span></code>, a shape <code class="language-rzk highlight"><span class="err">Ψ : I → TOPE</span></code>, a
+subshape <code class="language-rzk highlight"><span class="p">(</span>Φ <span class="p">:</span><span class="err"> Ψ → TOPE)</span></code>, a type family <code class="language-rzk highlight"><span class="err">A : Ψ → U</span></code> over the larger
+shape, and a function <code class="language-rzk highlight"><span class="err">a : </span><span class="p">(</span>t <span class="p">:</span><span class="err"> Φ) → A t</span></code> out of the smaller shape, there
+is a type <code class="language-rzk highlight"><span class="p">( </span>t <span class="p">:</span><span class="err"> Ψ) → A [ Φ t ↦ a t]</span></code> whose terms are functions
+<code class="language-rzk highlight"><span class="err">f : </span><span class="p">(</span>t <span class="p">:</span><span class="err"> Ψ) → A t</span></code> so that <code class="language-rzk highlight"><span class="err">f t </span><span class="sx">≡</span><span class="err"> a t</span></code> whenever <code>`#!rzk Φ t</code> holds.</p>
+<p>Extension types are used to define the type of arrows between fixed terms.
+Note that <code>rzk</code> allows the function out of a subshape formed by a union of topes
+to be specified by a list of functions defined for those terms satisfying each
+tope individually. The tope solver built into <code>rzk</code> then checks that these
+partial functions are compatible on the intersection of the topes.</p>
 <p><svg style="float: right" viewBox="0 0 200 60" width="150" height="60">
   <polyline points="40,30 160,30" stroke="blue" stroke-width="3" marker-end="url(#arrow-blue)"></polyline>
   <text x="30" y="30">x</text>
@@ -989,9 +1005,11 @@ common superscripts.</p>
 </span></code></pre></div>
 <h2 id="types-with-composition">Types with composition<a class="headerlink" href="#types-with-composition" title="Permanent link">&para;</a></h2>
 <p>A type is <strong>a pre-∞-category</strong> if every composable pair of arrows has a unique
-composite. Note this is a considerable simplification of the usual Segal
+composite, meaning that the type of composites is contractible.</p>
+<p>Note this is a considerable simplification of the usual Segal
 condition, which also requires homotopical uniqueness of higher-order
-composites.</p>
+composites. Here this higher-order uniqueness is a consequence of the uniqueness
+of binary composition.</p>
 <div class="language-rzk highlight"><span class="filename">RS17, Definition 5.3</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Is-pre-∞-category" id="define:Is-pre-∞-category" style="visibility: visible; position: relative; color: inherit">Is-pre-∞-category</a></span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="err">  : U</span>
@@ -1022,8 +1040,8 @@ arguments in <code class="language-rzk highlight"><span class="err">is-pre-∞-c
 </span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="err">  := </span><span class="s">second</span><span class="err"> (</span><span class="s">first</span><span class="err"> (is-pre-∞-category-A x y z f g))</span>
 </span></code></pre></div>
 <p>Composition in a pre-∞-category is unique in the following sense. If there is a
-witness that an arrow <span class="arithmatex">\(h\)</span> is a composite of <span class="arithmatex">\(f\)</span> and <span class="arithmatex">\(g\)</span>, then the specified
-composite equals <span class="arithmatex">\(h\)</span>.</p>
+witness that an arrow <code class="language-rzk highlight"><span class="err">h</span></code> is a composite of <code class="language-rzk highlight"><span class="err">f</span></code> and <code class="language-rzk highlight"><span class="err">g</span></code>, then
+the specified composite equals <code class="language-rzk highlight"><span class="err">h</span></code>.</p>
 <p><svg style="float: right" viewBox="0 0 200 380" width="125">
   <path style="fill: rgb(175,175,175,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
   <polyline points="40,30 160,30" stroke="grey" stroke-width="3" marker-end="url(#arrow-grey)"></polyline>
@@ -1164,341 +1182,367 @@ not needed in the definition of pre-∞-categories.</p>
 </span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="err">      ( Id-comp-witness A x y f)</span>
 </span></code></pre></div>
 <p>Associativity is similarly automatic for pre-∞-categories, but since this is not
-needed to prove the Yoneda lemma, it will not be discussed here.</p>
+needed to prove the Yoneda lemma, this will not be proven here.</p>
 <h2 id="natural-transformations-between-representable-functors">Natural transformations between representable functors<a class="headerlink" href="#natural-transformations-between-representable-functors" title="Permanent link">&para;</a></h2>
-<p>Fix a pre-∞-category <span class="arithmatex">\(A\)</span> and terms <span class="arithmatex">\(a b : A\)</span>. The Yoneda lemma characterizes
-natural transformations between the type families contravariantly represented by
-these terms.</p>
-<p>Ordinarily, such a natural transformation would involve a family of maps</p>
+<p>Fix a pre-∞-category <code class="language-rzk highlight"><span class="err">A</span></code> and terms <code class="language-rzk highlight"><span class="err">a b : A</span></code>. The Yoneda lemma
+characterizes natural transformations between the type families contravariantly
+represented by these terms.</p>
+<p>One might expect that such a natural transformation would involve a family of
+maps</p>
 <p><code class="language-rzk highlight"><span class="err">ϕ : </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b</span></code></p>
 <p>together with a proof of naturality of these components, but we will prove in
 <code class="language-rzk highlight"><span class="err">naturality-contravariant-fiberwise-representable-transformation</span></code>
 that naturality is automatic.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c">-- We apply a fiberwise transformation ϕ to a square of a particular form.</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:square-representable-transformation" id="define:square-representable-transformation" style="visibility: visible; position: relative; color: inherit">square-representable-transformation</a></span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="err">  : </span><span class="p">( </span>t <span class="p">:</span><span class="err"> Δ¹) → Hom A (f t) b</span>
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="err">  :=</span>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="err">    </span><span class="p">\ </span>t <span class="err">→</span>
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="err">    ϕ</span>
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="err">      ( f t)</span>
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="err">      ( </span><span class="p">\ </span>s <span class="err">→</span>
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="err">        </span><span class="s">recOR</span>
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="err">        ( s </span><span class="sx">≤</span><span class="err"> t ↦</span>
-</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="err">          ( Witness-comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)</span>
-</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="err">            ( t , s)</span>
-</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="err">        , t </span><span class="sx">≤</span><span class="err"> s ↦</span>
-</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="err">          ( Comp-id-witness A x a</span>
-</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="err">            ( Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)) (s , t)))</span>
-</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
-</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="c">-- This extracts the diagonal composite of the square.</span>
-</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:diagonal-transformation-id-codomain-square" id="define:diagonal-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">diagonal-transformation-id-codomain-square</a></span>
-</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
-</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
-</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a><span class="err">  : Hom A x b</span>
-</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="err">  :=</span>
-</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a><span class="err">    </span><span class="p">\ </span>t <span class="err">→</span>
-</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a><span class="err">    square-representable-transformation A is-pre-∞-category-A a b x y f v ϕ t t</span>
-</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>
-</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a><span class="c">-- One half of transformation-id-codomain-square.</span>
-</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:witness-comp-transformation-id-codomain-square" id="define:witness-comp-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">witness-comp-transformation-id-codomain-square</a></span>
-</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
-</span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
-</span><span id="__span-14-43"><a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-14-44"><a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a><span class="err">  : Hom2 A x y b f (ϕ y v)</span>
-</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a><span class="err">    ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-14-46"><a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a><span class="err">      A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-47"><a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a><span class="err">  :=</span>
-</span><span id="__span-14-48"><a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a><span class="err">    \ (t , s) →</span>
-</span><span id="__span-14-49"><a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a><span class="err">   square-representable-transformation A is-pre-∞-category-A a b x y f v ϕ t s</span>
-</span><span id="__span-14-50"><a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a>
-</span><span id="__span-14-51"><a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a><span class="c">-- The associated coherence.</span>
-</span><span id="__span-14-52"><a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:coherence-witness-comp-transformation-id-codomain-square" id="define:coherence-witness-comp-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">coherence-witness-comp-transformation-id-codomain-square</a></span>
-</span><span id="__span-14-53"><a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-14-54"><a id="__codelineno-14-54" name="__codelineno-14-54" href="#__codelineno-14-54"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-14-55"><a id="__codelineno-14-55" name="__codelineno-14-55" href="#__codelineno-14-55"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-14-56"><a id="__codelineno-14-56" name="__codelineno-14-56" href="#__codelineno-14-56"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
-</span><span id="__span-14-57"><a id="__codelineno-14-57" name="__codelineno-14-57" href="#__codelineno-14-57"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
-</span><span id="__span-14-58"><a id="__codelineno-14-58" name="__codelineno-14-58" href="#__codelineno-14-58"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-14-59"><a id="__codelineno-14-59" name="__codelineno-14-59" href="#__codelineno-14-59"></a><span class="err">  : ( Comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))</span>
-</span><span id="__span-14-60"><a id="__codelineno-14-60" name="__codelineno-14-60" href="#__codelineno-14-60"></a><span class="err">    = ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-14-61"><a id="__codelineno-14-61" name="__codelineno-14-61" href="#__codelineno-14-61"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-62"><a id="__codelineno-14-62" name="__codelineno-14-62" href="#__codelineno-14-62"></a><span class="err">  :=</span>
-</span><span id="__span-14-63"><a id="__codelineno-14-63" name="__codelineno-14-63" href="#__codelineno-14-63"></a><span class="err">    Uniqueness-comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v)</span>
-</span><span id="__span-14-64"><a id="__codelineno-14-64" name="__codelineno-14-64" href="#__codelineno-14-64"></a><span class="err">      ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-14-65"><a id="__codelineno-14-65" name="__codelineno-14-65" href="#__codelineno-14-65"></a><span class="err">          A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-66"><a id="__codelineno-14-66" name="__codelineno-14-66" href="#__codelineno-14-66"></a><span class="err">      ( witness-comp-transformation-id-codomain-square</span>
-</span><span id="__span-14-67"><a id="__codelineno-14-67" name="__codelineno-14-67" href="#__codelineno-14-67"></a><span class="err">          A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-68"><a id="__codelineno-14-68" name="__codelineno-14-68" href="#__codelineno-14-68"></a>
-</span><span id="__span-14-69"><a id="__codelineno-14-69" name="__codelineno-14-69" href="#__codelineno-14-69"></a><span class="c">-- The other half of transformation-id-codomain-square.</span>
-</span><span id="__span-14-70"><a id="__codelineno-14-70" name="__codelineno-14-70" href="#__codelineno-14-70"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:witness-id-transformation-id-codomain-square" id="define:witness-id-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">witness-id-transformation-id-codomain-square</a></span>
-</span><span id="__span-14-71"><a id="__codelineno-14-71" name="__codelineno-14-71" href="#__codelineno-14-71"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-14-72"><a id="__codelineno-14-72" name="__codelineno-14-72" href="#__codelineno-14-72"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-14-73"><a id="__codelineno-14-73" name="__codelineno-14-73" href="#__codelineno-14-73"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-14-74"><a id="__codelineno-14-74" name="__codelineno-14-74" href="#__codelineno-14-74"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
-</span><span id="__span-14-75"><a id="__codelineno-14-75" name="__codelineno-14-75" href="#__codelineno-14-75"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
-</span><span id="__span-14-76"><a id="__codelineno-14-76" name="__codelineno-14-76" href="#__codelineno-14-76"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-14-77"><a id="__codelineno-14-77" name="__codelineno-14-77" href="#__codelineno-14-77"></a><span class="err">  : Hom2 A x b b</span>
-</span><span id="__span-14-78"><a id="__codelineno-14-78" name="__codelineno-14-78" href="#__codelineno-14-78"></a><span class="err">    ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
-</span><span id="__span-14-79"><a id="__codelineno-14-79" name="__codelineno-14-79" href="#__codelineno-14-79"></a><span class="err">    ( Id-hom A b)</span>
-</span><span id="__span-14-80"><a id="__codelineno-14-80" name="__codelineno-14-80" href="#__codelineno-14-80"></a><span class="err">    ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-14-81"><a id="__codelineno-14-81" name="__codelineno-14-81" href="#__codelineno-14-81"></a><span class="err">      A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-82"><a id="__codelineno-14-82" name="__codelineno-14-82" href="#__codelineno-14-82"></a><span class="err">  :=</span>
-</span><span id="__span-14-83"><a id="__codelineno-14-83" name="__codelineno-14-83" href="#__codelineno-14-83"></a><span class="err">    \ (t , s) →</span>
-</span><span id="__span-14-84"><a id="__codelineno-14-84" name="__codelineno-14-84" href="#__codelineno-14-84"></a><span class="err">   square-representable-transformation A is-pre-∞-category-A a b x y f v ϕ s t</span>
-</span><span id="__span-14-85"><a id="__codelineno-14-85" name="__codelineno-14-85" href="#__codelineno-14-85"></a>
-</span><span id="__span-14-86"><a id="__codelineno-14-86" name="__codelineno-14-86" href="#__codelineno-14-86"></a><span class="c">-- The associated coherence.</span>
-</span><span id="__span-14-87"><a id="__codelineno-14-87" name="__codelineno-14-87" href="#__codelineno-14-87"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:coherence-witness-id-transformation-id-codomain-square" id="define:coherence-witness-id-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">coherence-witness-id-transformation-id-codomain-square</a></span>
-</span><span id="__span-14-88"><a id="__codelineno-14-88" name="__codelineno-14-88" href="#__codelineno-14-88"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-14-89"><a id="__codelineno-14-89" name="__codelineno-14-89" href="#__codelineno-14-89"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-14-90"><a id="__codelineno-14-90" name="__codelineno-14-90" href="#__codelineno-14-90"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-14-91"><a id="__codelineno-14-91" name="__codelineno-14-91" href="#__codelineno-14-91"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
-</span><span id="__span-14-92"><a id="__codelineno-14-92" name="__codelineno-14-92" href="#__codelineno-14-92"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
-</span><span id="__span-14-93"><a id="__codelineno-14-93" name="__codelineno-14-93" href="#__codelineno-14-93"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-14-94"><a id="__codelineno-14-94" name="__codelineno-14-94" href="#__codelineno-14-94"></a><span class="err">  : ( Comp-is-pre-∞-category A is-pre-∞-category-A x b b</span>
-</span><span id="__span-14-95"><a id="__codelineno-14-95" name="__codelineno-14-95" href="#__codelineno-14-95"></a><span class="err">      ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
-</span><span id="__span-14-96"><a id="__codelineno-14-96" name="__codelineno-14-96" href="#__codelineno-14-96"></a><span class="err">      ( Id-hom A b))</span>
-</span><span id="__span-14-97"><a id="__codelineno-14-97" name="__codelineno-14-97" href="#__codelineno-14-97"></a><span class="err">    = ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-14-98"><a id="__codelineno-14-98" name="__codelineno-14-98" href="#__codelineno-14-98"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-99"><a id="__codelineno-14-99" name="__codelineno-14-99" href="#__codelineno-14-99"></a><span class="err">  :=</span>
-</span><span id="__span-14-100"><a id="__codelineno-14-100" name="__codelineno-14-100" href="#__codelineno-14-100"></a><span class="err">    Uniqueness-comp-is-pre-∞-category A is-pre-∞-category-A x b b</span>
-</span><span id="__span-14-101"><a id="__codelineno-14-101" name="__codelineno-14-101" href="#__codelineno-14-101"></a><span class="err">    ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
-</span><span id="__span-14-102"><a id="__codelineno-14-102" name="__codelineno-14-102" href="#__codelineno-14-102"></a><span class="err">    ( Id-hom A b)</span>
-</span><span id="__span-14-103"><a id="__codelineno-14-103" name="__codelineno-14-103" href="#__codelineno-14-103"></a><span class="err">    ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-14-104"><a id="__codelineno-14-104" name="__codelineno-14-104" href="#__codelineno-14-104"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-105"><a id="__codelineno-14-105" name="__codelineno-14-105" href="#__codelineno-14-105"></a><span class="err">    ( witness-id-transformation-id-codomain-square</span>
-</span><span id="__span-14-106"><a id="__codelineno-14-106" name="__codelineno-14-106" href="#__codelineno-14-106"></a><span class="err">          A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-107"><a id="__codelineno-14-107" name="__codelineno-14-107" href="#__codelineno-14-107"></a>
-</span><span id="__span-14-108"><a id="__codelineno-14-108" name="__codelineno-14-108" href="#__codelineno-14-108"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:simplified-coherence-witness-id-transformation-id-codomain-square" id="define:simplified-coherence-witness-id-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">simplified-coherence-witness-id-transformation-id-codomain-square</a></span>
-</span><span id="__span-14-109"><a id="__codelineno-14-109" name="__codelineno-14-109" href="#__codelineno-14-109"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-14-110"><a id="__codelineno-14-110" name="__codelineno-14-110" href="#__codelineno-14-110"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-14-111"><a id="__codelineno-14-111" name="__codelineno-14-111" href="#__codelineno-14-111"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-14-112"><a id="__codelineno-14-112" name="__codelineno-14-112" href="#__codelineno-14-112"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
-</span><span id="__span-14-113"><a id="__codelineno-14-113" name="__codelineno-14-113" href="#__codelineno-14-113"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
-</span><span id="__span-14-114"><a id="__codelineno-14-114" name="__codelineno-14-114" href="#__codelineno-14-114"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-14-115"><a id="__codelineno-14-115" name="__codelineno-14-115" href="#__codelineno-14-115"></a><span class="err">  : ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
-</span><span id="__span-14-116"><a id="__codelineno-14-116" name="__codelineno-14-116" href="#__codelineno-14-116"></a><span class="err">    = ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-14-117"><a id="__codelineno-14-117" name="__codelineno-14-117" href="#__codelineno-14-117"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-118"><a id="__codelineno-14-118" name="__codelineno-14-118" href="#__codelineno-14-118"></a><span class="err">  :=</span>
-</span><span id="__span-14-119"><a id="__codelineno-14-119" name="__codelineno-14-119" href="#__codelineno-14-119"></a><span class="err">    zag-zig-concat (Hom A x b)</span>
-</span><span id="__span-14-120"><a id="__codelineno-14-120" name="__codelineno-14-120" href="#__codelineno-14-120"></a><span class="err">    ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
-</span><span id="__span-14-121"><a id="__codelineno-14-121" name="__codelineno-14-121" href="#__codelineno-14-121"></a><span class="err">    ( Comp-is-pre-∞-category A is-pre-∞-category-A x b b</span>
-</span><span id="__span-14-122"><a id="__codelineno-14-122" name="__codelineno-14-122" href="#__codelineno-14-122"></a><span class="err">      ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
-</span><span id="__span-14-123"><a id="__codelineno-14-123" name="__codelineno-14-123" href="#__codelineno-14-123"></a><span class="err">      ( Id-hom A b))</span>
-</span><span id="__span-14-124"><a id="__codelineno-14-124" name="__codelineno-14-124" href="#__codelineno-14-124"></a><span class="err">    ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-14-125"><a id="__codelineno-14-125" name="__codelineno-14-125" href="#__codelineno-14-125"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-14-126"><a id="__codelineno-14-126" name="__codelineno-14-126" href="#__codelineno-14-126"></a><span class="err">    ( Comp-id-is-pre-∞-category A is-pre-∞-category-A x b</span>
-</span><span id="__span-14-127"><a id="__codelineno-14-127" name="__codelineno-14-127" href="#__codelineno-14-127"></a><span class="err">      ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)))</span>
-</span><span id="__span-14-128"><a id="__codelineno-14-128" name="__codelineno-14-128" href="#__codelineno-14-128"></a><span class="err">    ( coherence-witness-id-transformation-id-codomain-square</span>
-</span><span id="__span-14-129"><a id="__codelineno-14-129" name="__codelineno-14-129" href="#__codelineno-14-129"></a><span class="err">      A is-pre-∞-category-A a b x y f v ϕ)</span>
+<p>To see this, consider a composable pair of morphisms <code class="language-rzk highlight"><span class="err">f : Hom A x y</span></code> and
+<code class="language-rzk highlight"><span class="err">v : Hom A y a</span></code> in a pre-∞-category and form the square in <code class="language-rzk highlight"><span class="err">A</span></code>
+whose vertical boundary is given by <code class="language-rzk highlight"><span class="err">f</span></code> and <code class="language-rzk highlight"><span class="err">Id-hom A a</span></code> and whose
+horizontal boundary is given by the composite morphism and by <code class="language-rzk highlight"><span class="err">v</span></code>.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:id-codomain-square" id="define:id-codomain-square" style="visibility: visible; position: relative; color: inherit">id-codomain-square</a></span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="err">  : </span><span class="p">( </span>t <span class="p">:</span><span class="err"> Δ¹) → </span><span class="p">(</span>s <span class="p">:</span><span class="err"> Δ¹) → A</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="err">  :=</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="err">    </span><span class="p">\ </span>t s <span class="err">→</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="err">      </span><span class="s">recOR</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="err">      ( s </span><span class="sx">≤</span><span class="err"> t ↦</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="err">        ( Witness-comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="err">          ( t , s)</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="err">      , t </span><span class="sx">≤</span><span class="err"> s ↦</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="err">        ( Comp-id-witness A x a</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="err">          ( Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)) (s , t))</span>
 </span></code></pre></div>
-<p>We now prove that a fiberwise natural transformation
-<code class="language-rzk highlight"><span class="err">ϕ : </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b</span></code> is automatically natural:
-for arrows <code class="language-rzk highlight"><span class="err">f : Hom A x y</span></code> and <code class="language-rzk highlight"><span class="err">v : Hom A y a</span></code> in a pre-∞-category,
-the composite of <code class="language-rzk highlight"><span class="err">f</span></code> with <code class="language-rzk highlight"><span class="err">ϕ y v</span></code> equals the arrow obtained by
-<code class="language-rzk highlight"><span class="err">ϕ x</span></code> applied to the composite of <code class="language-rzk highlight"><span class="err">f</span></code> with <code class="language-rzk highlight"><span class="err">v</span></code>.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Naturality-contravariant-fiberwise-representable-transformation" id="define:Naturality-contravariant-fiberwise-representable-transformation" style="visibility: visible; position: relative; color: inherit">Naturality-contravariant-fiberwise-representable-transformation</a></span>
+<p>Next apply the fiberwise transformation <code class="language-rzk highlight"><span class="err">ϕ</span></code> to this square.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:square-representable-transformation" id="define:square-representable-transformation" style="visibility: visible; position: relative; color: inherit">square-representable-transformation</a></span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="err">  : ( Comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))</span>
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="err">  = ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="err">  :=</span>
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="err">    zig-zag-concat (Hom A x b)</span>
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="err">    ( Comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))</span>
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="err">    ( diagonal-transformation-id-codomain-square</span>
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="err">    ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
-</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="err">    ( coherence-witness-comp-transformation-id-codomain-square</span>
-</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
-</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="err">    ( simplified-coherence-witness-id-transformation-id-codomain-square</span>
-</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="err">  : </span><span class="p">( </span>t <span class="p">:</span><span class="err"> Δ¹) → Hom A (f t) b</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="err">  :=</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="err">    </span><span class="p">\ </span>t <span class="err">→</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="err">      ϕ</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="err">      ( f t)</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="err">      ( </span><span class="p">\ </span>s <span class="err">→ id-codomain-square A is-pre-∞-category-A a b x y f v t s)</span>
+</span></code></pre></div>
+<p>We give a name to the diagonal composite arrow in this square.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:diagonal-square-representable-transformation" id="define:diagonal-square-representable-transformation" style="visibility: visible; position: relative; color: inherit">diagonal-square-representable-transformation</a></span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="err">  : Hom A x b</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="err">  :=</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="err">    </span><span class="p">\ </span>t <span class="err">→</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="err">    square-representable-transformation A is-pre-∞-category-A a b x y f v ϕ t t</span>
+</span></code></pre></div>
+<p>The two halves of <code class="language-rzk highlight"><span class="err">square-representable-transformation</span></code> define witnesses
+for composition relations in <code class="language-rzk highlight"><span class="err">A</span></code>. We extract both witnesses and apply
+<code>Uniqueness-comp-is-pre-∞-category</code> to prove that the composite of the
+exterior edges equals the diagonal edge.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c">-- One half of transformation-id-codomain-square.</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:witness-comp-transformation-id-codomain-square" id="define:witness-comp-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">witness-comp-transformation-id-codomain-square</a></span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="err">  : Hom2 A x y b f (ϕ y v)</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="err">    ( diagonal-square-representable-transformation</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="err">      A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="err">  :=</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="err">    \ (t , s) →</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="err">   square-representable-transformation A is-pre-∞-category-A a b x y f v ϕ t s</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="c">-- The associated coherence.</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:coherence-witness-comp-transformation-id-codomain-square" id="define:coherence-witness-comp-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">coherence-witness-comp-transformation-id-codomain-square</a></span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="err">  : ( Comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))</span>
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a><span class="err">    = ( diagonal-square-representable-transformation</span>
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a><span class="err">  :=</span>
+</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a><span class="err">    Uniqueness-comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v)</span>
+</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a><span class="err">      ( diagonal-square-representable-transformation</span>
+</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a><span class="err">          A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-17-31"><a id="__codelineno-17-31" name="__codelineno-17-31" href="#__codelineno-17-31"></a><span class="err">      ( witness-comp-transformation-id-codomain-square</span>
+</span><span id="__span-17-32"><a id="__codelineno-17-32" name="__codelineno-17-32" href="#__codelineno-17-32"></a><span class="err">          A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-17-33"><a id="__codelineno-17-33" name="__codelineno-17-33" href="#__codelineno-17-33"></a>
+</span><span id="__span-17-34"><a id="__codelineno-17-34" name="__codelineno-17-34" href="#__codelineno-17-34"></a><span class="c">-- The other half of transformation-id-codomain-square.</span>
+</span><span id="__span-17-35"><a id="__codelineno-17-35" name="__codelineno-17-35" href="#__codelineno-17-35"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:witness-id-transformation-id-codomain-square" id="define:witness-id-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">witness-id-transformation-id-codomain-square</a></span>
+</span><span id="__span-17-36"><a id="__codelineno-17-36" name="__codelineno-17-36" href="#__codelineno-17-36"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-17-37"><a id="__codelineno-17-37" name="__codelineno-17-37" href="#__codelineno-17-37"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-17-38"><a id="__codelineno-17-38" name="__codelineno-17-38" href="#__codelineno-17-38"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-17-39"><a id="__codelineno-17-39" name="__codelineno-17-39" href="#__codelineno-17-39"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
+</span><span id="__span-17-40"><a id="__codelineno-17-40" name="__codelineno-17-40" href="#__codelineno-17-40"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
+</span><span id="__span-17-41"><a id="__codelineno-17-41" name="__codelineno-17-41" href="#__codelineno-17-41"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-17-42"><a id="__codelineno-17-42" name="__codelineno-17-42" href="#__codelineno-17-42"></a><span class="err">  : Hom2 A x b b</span>
+</span><span id="__span-17-43"><a id="__codelineno-17-43" name="__codelineno-17-43" href="#__codelineno-17-43"></a><span class="err">    ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
+</span><span id="__span-17-44"><a id="__codelineno-17-44" name="__codelineno-17-44" href="#__codelineno-17-44"></a><span class="err">    ( Id-hom A b)</span>
+</span><span id="__span-17-45"><a id="__codelineno-17-45" name="__codelineno-17-45" href="#__codelineno-17-45"></a><span class="err">    ( diagonal-square-representable-transformation</span>
+</span><span id="__span-17-46"><a id="__codelineno-17-46" name="__codelineno-17-46" href="#__codelineno-17-46"></a><span class="err">      A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-17-47"><a id="__codelineno-17-47" name="__codelineno-17-47" href="#__codelineno-17-47"></a><span class="err">  :=</span>
+</span><span id="__span-17-48"><a id="__codelineno-17-48" name="__codelineno-17-48" href="#__codelineno-17-48"></a><span class="err">    \ (t , s) →</span>
+</span><span id="__span-17-49"><a id="__codelineno-17-49" name="__codelineno-17-49" href="#__codelineno-17-49"></a><span class="err">   square-representable-transformation A is-pre-∞-category-A a b x y f v ϕ s t</span>
+</span><span id="__span-17-50"><a id="__codelineno-17-50" name="__codelineno-17-50" href="#__codelineno-17-50"></a>
+</span><span id="__span-17-51"><a id="__codelineno-17-51" name="__codelineno-17-51" href="#__codelineno-17-51"></a><span class="c">-- The associated coherence.</span>
+</span><span id="__span-17-52"><a id="__codelineno-17-52" name="__codelineno-17-52" href="#__codelineno-17-52"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:coherence-witness-id-transformation-id-codomain-square" id="define:coherence-witness-id-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">coherence-witness-id-transformation-id-codomain-square</a></span>
+</span><span id="__span-17-53"><a id="__codelineno-17-53" name="__codelineno-17-53" href="#__codelineno-17-53"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-17-54"><a id="__codelineno-17-54" name="__codelineno-17-54" href="#__codelineno-17-54"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-17-55"><a id="__codelineno-17-55" name="__codelineno-17-55" href="#__codelineno-17-55"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-17-56"><a id="__codelineno-17-56" name="__codelineno-17-56" href="#__codelineno-17-56"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
+</span><span id="__span-17-57"><a id="__codelineno-17-57" name="__codelineno-17-57" href="#__codelineno-17-57"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
+</span><span id="__span-17-58"><a id="__codelineno-17-58" name="__codelineno-17-58" href="#__codelineno-17-58"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-17-59"><a id="__codelineno-17-59" name="__codelineno-17-59" href="#__codelineno-17-59"></a><span class="err">  : ( Comp-is-pre-∞-category A is-pre-∞-category-A x b b</span>
+</span><span id="__span-17-60"><a id="__codelineno-17-60" name="__codelineno-17-60" href="#__codelineno-17-60"></a><span class="err">      ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
+</span><span id="__span-17-61"><a id="__codelineno-17-61" name="__codelineno-17-61" href="#__codelineno-17-61"></a><span class="err">      ( Id-hom A b))</span>
+</span><span id="__span-17-62"><a id="__codelineno-17-62" name="__codelineno-17-62" href="#__codelineno-17-62"></a><span class="err">    = ( diagonal-square-representable-transformation</span>
+</span><span id="__span-17-63"><a id="__codelineno-17-63" name="__codelineno-17-63" href="#__codelineno-17-63"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-17-64"><a id="__codelineno-17-64" name="__codelineno-17-64" href="#__codelineno-17-64"></a><span class="err">  :=</span>
+</span><span id="__span-17-65"><a id="__codelineno-17-65" name="__codelineno-17-65" href="#__codelineno-17-65"></a><span class="err">    Uniqueness-comp-is-pre-∞-category A is-pre-∞-category-A x b b</span>
+</span><span id="__span-17-66"><a id="__codelineno-17-66" name="__codelineno-17-66" href="#__codelineno-17-66"></a><span class="err">    ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
+</span><span id="__span-17-67"><a id="__codelineno-17-67" name="__codelineno-17-67" href="#__codelineno-17-67"></a><span class="err">    ( Id-hom A b)</span>
+</span><span id="__span-17-68"><a id="__codelineno-17-68" name="__codelineno-17-68" href="#__codelineno-17-68"></a><span class="err">    ( diagonal-square-representable-transformation</span>
+</span><span id="__span-17-69"><a id="__codelineno-17-69" name="__codelineno-17-69" href="#__codelineno-17-69"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-17-70"><a id="__codelineno-17-70" name="__codelineno-17-70" href="#__codelineno-17-70"></a><span class="err">    ( witness-id-transformation-id-codomain-square</span>
+</span><span id="__span-17-71"><a id="__codelineno-17-71" name="__codelineno-17-71" href="#__codelineno-17-71"></a><span class="err">          A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span></code></pre></div>
+<p>By the identity law <code class="language-rzk highlight"><span class="err">Comp-id-is-pre-∞-category</span></code>, this latter equality
+can be simplified.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:simplified-coherence-witness-id-transformation-id-codomain-square" id="define:simplified-coherence-witness-id-transformation-id-codomain-square" style="visibility: visible; position: relative; color: inherit">simplified-coherence-witness-id-transformation-id-codomain-square</a></span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="err">  : ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="err">    = ( diagonal-square-representable-transformation</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="err">  :=</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="err">    zag-zig-concat (Hom A x b)</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="err">    ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="err">    ( Comp-is-pre-∞-category A is-pre-∞-category-A x b b</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="err">      ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="err">      ( Id-hom A b))</span>
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a><span class="err">    ( diagonal-square-representable-transformation</span>
+</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="err">    ( Comp-id-is-pre-∞-category A is-pre-∞-category-A x b</span>
+</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="err">      ( ϕ x (comp-is-pre-∞-category A is-pre-∞-category-A x y a f v)))</span>
+</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a><span class="err">    ( coherence-witness-id-transformation-id-codomain-square</span>
+</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="err">      A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span></code></pre></div>
+<p>By composing these equalities, we now prove that a fiberwise natural
+transformation <code class="language-rzk highlight"><span class="err">ϕ : </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b</span></code> is automatically
+natural: for arrows <code class="language-rzk highlight"><span class="err">f : Hom A x y</span></code> and <code class="language-rzk highlight"><span class="err">v : Hom A y a</span></code> in a
+pre-∞-category, the composite of <code class="language-rzk highlight"><span class="err">f</span></code> with <code class="language-rzk highlight"><span class="err">ϕ y v</span></code> equals the arrow
+obtained by<code class="language-rzk highlight"><span class="err">ϕ x</span></code> applied to the composite of <code class="language-rzk highlight"><span class="err">f</span></code> with <code class="language-rzk highlight"><span class="err">v</span></code>.</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Naturality-contravariant-fiberwise-representable-transformation" id="define:Naturality-contravariant-fiberwise-representable-transformation" style="visibility: visible; position: relative; color: inherit">Naturality-contravariant-fiberwise-representable-transformation</a></span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="err">  </span><span class="p">( </span>a b x y <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x y)</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A y a)</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="err">  : ( Comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="err">  = ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="err">  :=</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="err">    zig-zag-concat (Hom A x b)</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="err">    ( Comp-is-pre-∞-category A is-pre-∞-category-A x y b f (ϕ y v))</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="err">    ( diagonal-square-representable-transformation</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="err">    ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x y a f v))</span>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="err">    ( coherence-witness-comp-transformation-id-codomain-square</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a><span class="err">    ( simplified-coherence-witness-id-transformation-id-codomain-square</span>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a><span class="err">        A is-pre-∞-category-A a b x y f v ϕ)</span>
 </span></code></pre></div>
 <h2 id="the-yoneda-lemma">The Yoneda lemma<a class="headerlink" href="#the-yoneda-lemma" title="Permanent link">&para;</a></h2>
-<p>For any pre-∞-category <span class="arithmatex">\(A\)</span> terms <span class="arithmatex">\(a b : A\)</span>, the contravariant Yoneda lemma
-provides an equivalence between the type<code class="language-rzk highlight"><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b</span></code>
-of natural transformations and the type <code class="language-rzk highlight"><span class="err">Hom A a b</span></code>.</p>
+<p>For any pre-∞-category <code class="language-rzk highlight"><span class="err">A</span></code> terms <code class="language-rzk highlight"><span class="err">a b : A</span></code>, the contravariant Yoneda
+lemma provides an equivalence between the type
+<code class="language-rzk highlight"><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b</span></code> of natural transformations and the type
+<code class="language-rzk highlight"><span class="err">Hom A a b</span></code>.</p>
 <p>One of the maps in this equivalence is evaluation at the identity. The
 inverse map makes use of the contravariant transport operation.</p>
 <p>The following map, <code class="language-rzk highlight"><span class="err">contra-evid</span></code> evaluates a natural transformation
 out of a representable functor at the identity arrow.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-evid" id="define:Contra-evid" style="visibility: visible; position: relative; color: inherit">Contra-evid</a></span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="err">  </span><span class="p">( </span>a b <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="err">  : </span><span class="p">( </span>( z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) → Hom A a b</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="err">  := </span><span class="p">\ </span>ϕ <span class="err">→ ϕ a (Id-hom A a)</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-evid" id="define:Contra-evid" style="visibility: visible; position: relative; color: inherit">Contra-evid</a></span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="err">  </span><span class="p">( </span>a b <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="err">  : </span><span class="p">( </span>( z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) → Hom A a b</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="err">  := </span><span class="p">\ </span>ϕ <span class="err">→ ϕ a (Id-hom A a)</span>
 </span></code></pre></div>
 <p>The inverse map only exists for pre-∞-categories.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yon" id="define:Contra-yon" style="visibility: visible; position: relative; color: inherit">Contra-yon</a></span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="err">  </span><span class="p">( </span>a b <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="err">  : Hom A a b → </span><span class="p">(</span>(z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="err">  := </span><span class="p">\ </span>v z f <span class="err">→ Comp-is-pre-∞-category A is-pre-∞-category-A z a b f v</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yon" id="define:Contra-yon" style="visibility: visible; position: relative; color: inherit">Contra-yon</a></span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="err">  </span><span class="p">( </span>a b <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="err">  : Hom A a b → </span><span class="p">(</span>(z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="err">  := </span><span class="p">\ </span>v z f <span class="err">→ Comp-is-pre-∞-category A is-pre-∞-category-A z a b f v</span>
 </span></code></pre></div>
 <p>It remains to show that the Yoneda maps are inverses. One retraction is
 straightforward:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-evid-yon" id="define:Contra-evid-yon" style="visibility: visible; position: relative; color: inherit">Contra-evid-yon</a></span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="err">  </span><span class="p">( </span>a b <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A a b)</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="err">  : Contra-evid A a b (Contra-yon A is-pre-∞-category-A a b v) = v</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="err">  :=</span>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="err">    Id-comp-is-pre-∞-category A is-pre-∞-category-A a b v</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-evid-yon" id="define:Contra-evid-yon" style="visibility: visible; position: relative; color: inherit">Contra-evid-yon</a></span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="err">  </span><span class="p">( </span>a b <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="err">  </span><span class="p">( </span>v <span class="p">:</span><span class="err"> Hom A a b)</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="err">  : Contra-evid A a b (Contra-yon A is-pre-∞-category-A a b v) = v</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="err">  :=</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="err">    Id-comp-is-pre-∞-category A is-pre-∞-category-A a b v</span>
 </span></code></pre></div>
-<p>The other composite carries <span class="arithmatex">\(ϕ\)</span> to an a priori distinct natural
+<p>The other composite carries <code class="language-rzk highlight"><span class="err">ϕ</span></code> to an a priori distinct natural
 transformation. We first show that these are pointwise equal at all
 <code class="language-rzk highlight"><span class="err">x : A</span></code> and <code class="language-rzk highlight"><span class="err">f : Hom A x a</span></code> in two steps.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nd">#section</span><span class="n"> contra-yon-evid</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="kr">#variable</span><span class="p"> </span>A<span class="err"> : U</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="kr">#variable</span><span class="p"> </span>is-pre-∞-category-A<span class="err"> : Is-pre-∞-category A</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="kr">#variables</span><span class="p"> </span>a b<span class="err"> : A</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nd">#section</span><span class="n"> contra-yon-evid</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="kr">#variable</span><span class="p"> </span>A<span class="err"> : U</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="kr">#variable</span><span class="p"> </span>is-pre-∞-category-A<span class="err"> : Is-pre-∞-category A</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="kr">#variables</span><span class="p"> </span>a b<span class="err"> : A</span>
 </span></code></pre></div>
 <p>The composite <code class="language-rzk highlight"><span class="err">Contra-yon-evid</span></code> of <code class="language-rzk highlight"><span class="err">ϕ</span></code> equals <code class="language-rzk highlight"><span class="err">ϕ</span></code> at all
 <code class="language-rzk highlight"><span class="err">x : A</span></code> and <code class="language-rzk highlight"><span class="err">f : Hom A x a</span></code>.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yon-evid-twice-pointwise" id="define:Contra-yon-evid-twice-pointwise" style="visibility: visible; position: relative; color: inherit">Contra-yon-evid-twice-pointwise</a></span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="err">  </span><span class="p">( </span>x <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x a)</span>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="err">  : ( ( Contra-yon A is-pre-∞-category-A a b)</span>
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="err">        ( ( Contra-evid A a b) ϕ)) x f = ϕ x f</span>
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="err">  :=</span>
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="err">    concat</span>
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="err">      ( Hom A x b)</span>
-</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="err">      ( ( ( Contra-yon A is-pre-∞-category-A a b)</span>
-</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="err">            ( ( Contra-evid A a b) ϕ)) x f)</span>
-</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="err">      ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x a a f (Id-hom A a)))</span>
-</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="err">      ( ϕ x f)</span>
-</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="err">      ( Naturality-contravariant-fiberwise-representable-transformation</span>
-</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="err">          A is-pre-∞-category-A a b x a f (Id-hom A a) ϕ)</span>
-</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="err">      ( ap</span>
-</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="err">        ( Hom A x a)</span>
-</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a><span class="err">        ( Hom A x b)</span>
-</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a><span class="err">        ( Comp-is-pre-∞-category A is-pre-∞-category-A x a a</span>
-</span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="err">          f (Id-hom A a))</span>
-</span><span id="__span-20-21"><a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a><span class="err">        ( f)</span>
-</span><span id="__span-20-22"><a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a><span class="err">        ( ϕ x)</span>
-</span><span id="__span-20-23"><a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a><span class="err">        ( Comp-id-is-pre-∞-category A is-pre-∞-category-A x a f))</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yon-evid-twice-pointwise" id="define:Contra-yon-evid-twice-pointwise" style="visibility: visible; position: relative; color: inherit">Contra-yon-evid-twice-pointwise</a></span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="err">  </span><span class="p">( </span>x <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="err">  </span><span class="p">( </span>f <span class="p">:</span><span class="err"> Hom A x a)</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="err">  : ( ( Contra-yon A is-pre-∞-category-A a b)</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="err">        ( ( Contra-evid A a b) ϕ)) x f = ϕ x f</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="err">  :=</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="err">    concat</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="err">      ( Hom A x b)</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="err">      ( ( ( Contra-yon A is-pre-∞-category-A a b)</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="err">            ( ( Contra-evid A a b) ϕ)) x f)</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="err">      ( ϕ x (Comp-is-pre-∞-category A is-pre-∞-category-A x a a f (Id-hom A a)))</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="err">      ( ϕ x f)</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="err">      ( Naturality-contravariant-fiberwise-representable-transformation</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="err">          A is-pre-∞-category-A a b x a f (Id-hom A a) ϕ)</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="err">      ( ap</span>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="err">        ( Hom A x a)</span>
+</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a><span class="err">        ( Hom A x b)</span>
+</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="err">        ( Comp-is-pre-∞-category A is-pre-∞-category-A x a a</span>
+</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a><span class="err">          f (Id-hom A a))</span>
+</span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a><span class="err">        ( f)</span>
+</span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a><span class="err">        ( ϕ x)</span>
+</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a><span class="err">        ( Comp-id-is-pre-∞-category A is-pre-∞-category-A x a f))</span>
 </span></code></pre></div>
 <p>By <code class="language-rzk highlight"><span class="err">funext</span></code>, these are equals as functions of <code class="language-rzk highlight"><span class="err">f</span></code> pointwise in
 <code class="language-rzk highlight"><span class="err">x</span></code>.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yon-evid-once-pointwise" id="define:Contra-yon-evid-once-pointwise" style="visibility: visible; position: relative; color: inherit">Contra-yon-evid-once-pointwise</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="err">  </span><span class="p">( </span>x <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="err">  : ( ( Contra-yon A is-pre-∞-category-A a b)</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="err">        ( ( Contra-evid A a b) ϕ)) x = ϕ x</span>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="err">  :=</span>
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="err">    eq-htpy funext</span>
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="err">      ( Hom A x a)</span>
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→ Hom A x b)</span>
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→</span>
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="err">        ( ( Contra-yon A is-pre-∞-category-A a b)</span>
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="err">          ( ( Contra-evid A a b) ϕ)) x f)</span>
-</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→ (ϕ x f))</span>
-</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→ Contra-yon-evid-twice-pointwise ϕ x f)</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yon-evid-once-pointwise" id="define:Contra-yon-evid-once-pointwise" style="visibility: visible; position: relative; color: inherit">Contra-yon-evid-once-pointwise</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="err">  </span><span class="p">( </span>x <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="err">  : ( ( Contra-yon A is-pre-∞-category-A a b)</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="err">        ( ( Contra-evid A a b) ϕ)) x = ϕ x</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="err">  :=</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="err">    eq-htpy funext</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="err">      ( Hom A x a)</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→ Hom A x b)</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="err">        ( ( Contra-yon A is-pre-∞-category-A a b)</span>
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="err">          ( ( Contra-evid A a b) ϕ)) x f)</span>
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→ (ϕ x f))</span>
+</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→ Contra-yon-evid-twice-pointwise ϕ x f)</span>
 </span></code></pre></div>
 <p>By <code class="language-rzk highlight"><span class="err">funext</span></code> again, these are equal as functions of <code class="language-rzk highlight"><span class="err">x</span></code> and
 <code class="language-rzk highlight"><span class="err">f</span></code>.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yon-evid" id="define:Contra-yon-evid" style="visibility: visible; position: relative; color: inherit">Contra-yon-evid</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="err">  : Contra-yon A is-pre-∞-category-A a b (Contra-evid A a b ϕ) = ϕ</span>
-</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="err">  :=</span>
-</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="err">    eq-htpy funext</span>
-</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="err">      ( A)</span>
-</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="err">      ( </span><span class="p">\ </span>x <span class="err">→ (Hom A x a → Hom A x b))</span>
-</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="err">      ( Contra-yon A is-pre-∞-category-A a b (Contra-evid A a b ϕ))</span>
-</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="err">      ( ϕ)</span>
-</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="err">      ( Contra-yon-evid-once-pointwise ϕ)</span>
-</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>
-</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="nd">#end</span><span class="n"> contra-yon-evid</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yon-evid" id="define:Contra-yon-evid" style="visibility: visible; position: relative; color: inherit">Contra-yon-evid</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="err">  </span><span class="p">( </span>ϕ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="err">  : Contra-yon A is-pre-∞-category-A a b (Contra-evid A a b ϕ) = ϕ</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="err">  :=</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="err">    eq-htpy funext</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="err">      ( A)</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="err">      ( </span><span class="p">\ </span>x <span class="err">→ (Hom A x a → Hom A x b))</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="err">      ( Contra-yon A is-pre-∞-category-A a b (Contra-evid A a b ϕ))</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="err">      ( ϕ)</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="err">      ( Contra-yon-evid-once-pointwise ϕ)</span>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="nd">#end</span><span class="n"> contra-yon-evid</span>
 </span></code></pre></div>
 <p>The contravariant Yoneda lemma says that evaluation at the identity defines an
 equivalence.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yoneda-lemma" id="define:Contra-yoneda-lemma" style="visibility: visible; position: relative; color: inherit">Contra-yoneda-lemma</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="err">  </span><span class="p">( </span>a b <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="err">  : is-equiv </span><span class="p">(</span>(z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) (Hom A a b) (Contra-evid A a b)</span>
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="err">  :=</span>
-</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="err">    ( ( ( Contra-yon A is-pre-∞-category-A a b)</span>
-</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="err">      , ( Contra-yon-evid A is-pre-∞-category-A a b))</span>
-</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="err">    , ( ( Contra-yon A is-pre-∞-category-A a b)</span>
-</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="err">      , ( Contra-evid-yon A is-pre-∞-category-A a b)))</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Contra-yoneda-lemma" id="define:Contra-yoneda-lemma" style="visibility: visible; position: relative; color: inherit">Contra-yoneda-lemma</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="err">  </span><span class="p">( </span>a b <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="err">  : is-equiv </span><span class="p">(</span>(z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) (Hom A a b) (Contra-evid A a b)</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="err">  :=</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="err">    ( ( ( Contra-yon A is-pre-∞-category-A a b)</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="err">      , ( Contra-yon-evid A is-pre-∞-category-A a b))</span>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="err">    , ( ( Contra-yon A is-pre-∞-category-A a b)</span>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="err">      , ( Contra-evid-yon A is-pre-∞-category-A a b)))</span>
 </span></code></pre></div>
 <h2 id="contravariant-naturality">Contravariant Naturality<a class="headerlink" href="#contravariant-naturality" title="Permanent link">&para;</a></h2>
-<p>The equivalences of the Yoneda lemma is natural in both <span class="arithmatex">\(a : A\)</span> and <span class="arithmatex">\(b : A\)</span>.
-Naturality of the map<code class="language-rzk highlight"><span class="err">Contra-yon</span></code> follows formally from naturality of
-<code class="language-rzk highlight"><span class="err">Contra-evid</span></code>, so we prove only the latter, which is easier.</p>
-<p>Naturality in <span class="arithmatex">\(b\)</span> is not automatic but can be proven by reflexivity:</p>
-<div class="language-rzk highlight"><span class="filename">RS17, Lemma 9.2(i), dual</span><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Is-natural-in-family-contra-evid" id="define:Is-natural-in-family-contra-evid" style="visibility: visible; position: relative; color: inherit">Is-natural-in-family-contra-evid</a></span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="err">  </span><span class="p">( </span>a b b&#39; <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="err">  </span><span class="p">( </span>ψ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z b → Hom A z b&#39;)</span>
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="err">  </span><span class="p">( </span>φ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="err">  : </span><span class="p">( </span>comp ((z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) (Hom A a b) (Hom A a b&#39;)</span>
-</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="err">      ( ψ a) (Contra-evid A a b)) φ</span>
-</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="err">  = </span><span class="p">( </span>comp ((z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) </span><span class="p">(</span>(z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b&#39;)</span>
-</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="err">      ( Hom A a b&#39;)</span>
-</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="err">      ( Contra-evid A a b&#39;) (</span><span class="p">\ </span>α z g <span class="err">→ ψ z (α z g))) φ</span>
-</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="err">  := </span><span class="s">refl</span>
+<p>The equivalences of the Yoneda lemma is natural in both <code class="language-rzk highlight"><span class="err">a : A</span></code> and
+<code class="language-rzk highlight"><span class="err">b : A</span></code>. Naturality of the map<code class="language-rzk highlight"><span class="err">Contra-yon</span></code> follows formally from
+naturality of <code class="language-rzk highlight"><span class="err">Contra-evid</span></code>, so we prove only the latter, which is easier.</p>
+<p>Naturality in <code class="language-rzk highlight"><span class="err">b</span></code> is not automatic but can be proven by reflexivity:</p>
+<div class="language-rzk highlight"><span class="filename">RS17, Lemma 9.2(i), dual</span><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Is-natural-in-family-contra-evid" id="define:Is-natural-in-family-contra-evid" style="visibility: visible; position: relative; color: inherit">Is-natural-in-family-contra-evid</a></span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="err">  </span><span class="p">( </span>a b b&#39; <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="err">  </span><span class="p">( </span>ψ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z b → Hom A z b&#39;)</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="err">  </span><span class="p">( </span>φ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="err">  : </span><span class="p">( </span>comp ((z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) (Hom A a b) (Hom A a b&#39;)</span>
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="err">      ( ψ a) (Contra-evid A a b)) φ</span>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="err">  = </span><span class="p">( </span>comp ((z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) </span><span class="p">(</span>(z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b&#39;)</span>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="err">      ( Hom A a b&#39;)</span>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="err">      ( Contra-evid A a b&#39;) (</span><span class="p">\ </span>α z g <span class="err">→ ψ z (α z g))) φ</span>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="err">  := </span><span class="s">refl</span>
 </span></code></pre></div>
-<p>Naturality in <span class="arithmatex">\(a\)</span> in fact follows formally. By a generalization of
+<p>Naturality in <code class="language-rzk highlight"><span class="err">a</span></code> in fact follows formally. By a generalization of
 <code class="language-rzk highlight"><span class="err">Naturality-contravariant-fiberwise-representable-transformation</span></code> which is
 no harder to prove, any fiberwise map between contravariant families over
-<span class="arithmatex">\(a : A\)</span> is automatically natural. Since it would take time to introduce the
-notion of contravariant family and prove that the domain of  <code class="language-rzk highlight"><span class="err">Contra-evid</span></code>
-is one, we instead give a direct proof of naturality in <span class="arithmatex">\(a : A\)</span>.</p>
-<div class="language-rzk highlight"><span class="filename">RS17, Lemma 9.2(i), dual</span><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Is-natural-in-object-contra-evid" id="define:Is-natural-in-object-contra-evid" style="visibility: visible; position: relative; color: inherit">Is-natural-in-object-contra-evid</a></span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
-</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="err">  </span><span class="p">( </span>a&#39; a b <span class="p">:</span><span class="err"> A)</span>
-</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="err">  </span><span class="p">( </span>k <span class="p">:</span><span class="err"> Hom A a&#39; a)</span>
-</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="err">  </span><span class="p">( </span>φ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
-</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="err">  : </span><span class="p">( </span>comp ((z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) (Hom A a b) (Hom A a&#39; b)</span>
-</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→ Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a b k f)</span>
-</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="err">      ( Contra-evid A a b)) φ</span>
-</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="err">  = </span><span class="p">( </span>comp ((z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) </span><span class="p">(</span>(z <span class="p">:</span><span class="err"> A) → Hom A z a&#39; → Hom A z b)</span>
-</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="err">      ( Hom A a&#39; b)</span>
-</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="err">      ( Contra-evid A a&#39; b)</span>
-</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="err">      ( </span><span class="p">\ </span>α z g <span class="err">→</span>
-</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="err">          α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a&#39; a g k))) φ</span>
-</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a><span class="err">  :=</span>
-</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a><span class="err">    concat (Hom A a&#39; b)</span>
-</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a><span class="err">    ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a b k (φ a (Id-hom A a)))</span>
-</span><span id="__span-25-18"><a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a><span class="err">    ( φ a&#39; (Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a)))</span>
-</span><span id="__span-25-19"><a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a><span class="err">    ( φ a&#39; (Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k))</span>
-</span><span id="__span-25-20"><a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a><span class="err">    ( Naturality-contravariant-fiberwise-representable-transformation</span>
-</span><span id="__span-25-21"><a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a><span class="err">      A is-pre-∞-category-A a b a&#39; a k (Id-hom A a) φ)</span>
-</span><span id="__span-25-22"><a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a><span class="err">    ( ap (hom A a&#39; a) (hom A a&#39; b)</span>
-</span><span id="__span-25-23"><a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a><span class="err">      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a))</span>
-</span><span id="__span-25-24"><a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a><span class="err">      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k)</span>
-</span><span id="__span-25-25"><a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a><span class="err">      ( </span><span class="p">\ </span>h <span class="err">→ φ a&#39; h)</span>
-</span><span id="__span-25-26"><a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a><span class="err">      ( concat (hom A a&#39; a)</span>
-</span><span id="__span-25-27"><a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a><span class="err">        ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a))</span>
-</span><span id="__span-25-28"><a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a><span class="err">        ( k)</span>
-</span><span id="__span-25-29"><a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a><span class="err">        ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k)</span>
-</span><span id="__span-25-30"><a id="__codelineno-25-30" name="__codelineno-25-30" href="#__codelineno-25-30"></a><span class="err">        ( Comp-id-is-pre-∞-category A is-pre-∞-category-A a&#39; a k)</span>
-</span><span id="__span-25-31"><a id="__codelineno-25-31" name="__codelineno-25-31" href="#__codelineno-25-31"></a><span class="err">        ( rev (hom A a&#39; a)</span>
-</span><span id="__span-25-32"><a id="__codelineno-25-32" name="__codelineno-25-32" href="#__codelineno-25-32"></a><span class="err">          ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k)</span>
-</span><span id="__span-25-33"><a id="__codelineno-25-33" name="__codelineno-25-33" href="#__codelineno-25-33"></a><span class="err">          ( k)</span>
-</span><span id="__span-25-34"><a id="__codelineno-25-34" name="__codelineno-25-34" href="#__codelineno-25-34"></a><span class="err">          ( Id-comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a k))))</span>
+<code class="language-rzk highlight"><span class="err">a : A</span></code> is automatically natural. Since it would take time to introduce
+the notion of contravariant family and prove that the domain of
+<code class="language-rzk highlight"><span class="err">Contra-evid</span></code>is one, we instead give a direct proof of naturality in
+<code class="language-rzk highlight"><span class="err">a : A</span></code>.</p>
+<div class="language-rzk highlight"><span class="filename">RS17, Lemma 9.2(i), dual</span><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Is-natural-in-object-contra-evid" id="define:Is-natural-in-object-contra-evid" style="visibility: visible; position: relative; color: inherit">Is-natural-in-object-contra-evid</a></span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="err">  </span><span class="p">( </span>A <span class="p">:</span><span class="err"> U)</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="err">  </span><span class="p">( </span>is-pre-∞-category-A <span class="p">:</span><span class="err"> Is-pre-∞-category A)</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="err">  </span><span class="p">( </span>a&#39; a b <span class="p">:</span><span class="err"> A)</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="err">  </span><span class="p">( </span>k <span class="p">:</span><span class="err"> Hom A a&#39; a)</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="err">  </span><span class="p">( </span>φ <span class="p">:</span><span class="err"> </span><span class="p">(</span>z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b)</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="err">  : </span><span class="p">( </span>comp ((z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) (Hom A a b) (Hom A a&#39; b)</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="err">      ( </span><span class="p">\ </span>f <span class="err">→ Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a b k f)</span>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="err">      ( Contra-evid A a b)) φ</span>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="err">  = </span><span class="p">( </span>comp ((z <span class="p">:</span><span class="err"> A) → Hom A z a → Hom A z b) </span><span class="p">(</span>(z <span class="p">:</span><span class="err"> A) → Hom A z a&#39; → Hom A z b)</span>
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="err">      ( Hom A a&#39; b)</span>
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="err">      ( Contra-evid A a&#39; b)</span>
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a><span class="err">      ( </span><span class="p">\ </span>α z g <span class="err">→</span>
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a><span class="err">          α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a&#39; a g k))) φ</span>
+</span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a><span class="err">  :=</span>
+</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a><span class="err">    concat (Hom A a&#39; b)</span>
+</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a><span class="err">    ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a b k (φ a (Id-hom A a)))</span>
+</span><span id="__span-29-18"><a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a><span class="err">    ( φ a&#39;</span>
+</span><span id="__span-29-19"><a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a><span class="err">      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a)))</span>
+</span><span id="__span-29-20"><a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a><span class="err">    ( φ a&#39;</span>
+</span><span id="__span-29-21"><a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a><span class="err">      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k))</span>
+</span><span id="__span-29-22"><a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a><span class="err">    ( Naturality-contravariant-fiberwise-representable-transformation</span>
+</span><span id="__span-29-23"><a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a><span class="err">      A is-pre-∞-category-A a b a&#39; a k (Id-hom A a) φ)</span>
+</span><span id="__span-29-24"><a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a><span class="err">    ( ap (hom A a&#39; a) (hom A a&#39; b)</span>
+</span><span id="__span-29-25"><a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a><span class="err">      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a))</span>
+</span><span id="__span-29-26"><a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a><span class="err">      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k)</span>
+</span><span id="__span-29-27"><a id="__codelineno-29-27" name="__codelineno-29-27" href="#__codelineno-29-27"></a><span class="err">      ( </span><span class="p">\ </span>h <span class="err">→ φ a&#39; h)</span>
+</span><span id="__span-29-28"><a id="__codelineno-29-28" name="__codelineno-29-28" href="#__codelineno-29-28"></a><span class="err">      ( concat (hom A a&#39; a)</span>
+</span><span id="__span-29-29"><a id="__codelineno-29-29" name="__codelineno-29-29" href="#__codelineno-29-29"></a><span class="err">        ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a))</span>
+</span><span id="__span-29-30"><a id="__codelineno-29-30" name="__codelineno-29-30" href="#__codelineno-29-30"></a><span class="err">        ( k)</span>
+</span><span id="__span-29-31"><a id="__codelineno-29-31" name="__codelineno-29-31" href="#__codelineno-29-31"></a><span class="err">        ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k)</span>
+</span><span id="__span-29-32"><a id="__codelineno-29-32" name="__codelineno-29-32" href="#__codelineno-29-32"></a><span class="err">        ( Comp-id-is-pre-∞-category A is-pre-∞-category-A a&#39; a k)</span>
+</span><span id="__span-29-33"><a id="__codelineno-29-33" name="__codelineno-29-33" href="#__codelineno-29-33"></a><span class="err">        ( rev (hom A a&#39; a)</span>
+</span><span id="__span-29-34"><a id="__codelineno-29-34" name="__codelineno-29-34" href="#__codelineno-29-34"></a><span class="err">          ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a</span>
+</span><span id="__span-29-35"><a id="__codelineno-29-35" name="__codelineno-29-35" href="#__codelineno-29-35"></a><span class="err">            ( Id-hom A a&#39;) k)</span>
+</span><span id="__span-29-36"><a id="__codelineno-29-36" name="__codelineno-29-36" href="#__codelineno-29-36"></a><span class="err">          ( k)</span>
+</span><span id="__span-29-37"><a id="__codelineno-29-37" name="__codelineno-29-37" href="#__codelineno-29-37"></a><span class="err">          ( Id-comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a k))))</span>
 </span></code></pre></div>
 
 
@@ -1576,7 +1620,7 @@ is one, we instead give a direct proof of naturality in <span class="arithmatex"
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "toc.integrate", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
         <script src="../../javascript/mathjax.js"></script>
       
