@@ -4,11 +4,6 @@ on:
   push:
     branches: [master, update-appearance]
     tags: [arXiv-*, v*, CPP-2024, master]
-    paths:
-      - .github/workflows/mkdocs.yml
-      - mkdocs.yml
-      - custom_theme/**
-      - requirements.txt
 
   workflow_dispatch:
 
