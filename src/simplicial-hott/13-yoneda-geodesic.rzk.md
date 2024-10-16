@@ -1,7 +1,8 @@
 # A self contained proof of the Yoneda lemma
 
-This file &mdash; which is independent of the rest of the simplicial HoTT repository but references a few HoTT preliminaries &mdash;
-contains a self-contained proof of the ∞-categorical Yoneda lemma in the
+This file &mdash; which is independent of the rest of the simplicial HoTT
+repository but references a few HoTT preliminaries &mdash; contains a
+self-contained proof of the ∞-categorical Yoneda lemma in the
 special case where both functors are contravariantly representable. This is
 intended for expository purposes.
 
@@ -22,7 +23,9 @@ This is a literate `rzk` file:
 
 The definitions and proofs reference standard concepts from homotopy type theory
 including a universe of types denoted `#!rzk U`, the notion of contractible
-types, and the notion of equivalence between types. The universe is built into `rzk`, while the homotopy type theory predicates `#!rzk is-contr` and `#!rzk is-equiv` can be found in the HoTT folder of this repository.
+types, and the notion of equivalence between types. The universe is built into
+`rzk`, while the homotopy type theory predicates `#!rzk is-contr` and
+`#!rzk is-equiv` can be found in the HoTT folder of this repository.
 
 Some of the definitions in this file rely on function extensionality:
 
