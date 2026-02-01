@@ -6,11 +6,11 @@
 [![MkDocs to GitHub Pages](https://github.com/emilyriehl/yoneda/actions/workflows/mkdocs.yml/badge.svg)](https://github.com/emilyriehl/yoneda/actions/workflows/mkdocs.yml)
 
 > :warning: This project has been **❄ frozen ❄**. For ongoing simplicial HoTT
-> formalization see <http://rzk-lang.github.io/sHoTT/>.
+> formalization see <https://rzk-lang.github.io/sHoTT/>.
 
 This is a formalization library for simplicial Homotopy Type Theory (sHoTT) with
 the aim of proving the Yoneda lemma for ∞-categories following the paper
-"[A type theory for synthetic ∞-categories](https://higher-structures.math.cas.cz/api/files/issues/Vol1Iss1/RiehlShulman)"
+"[A type theory for synthetic ∞-categories](https://arxiv.org/abs/1705.07442)"
 [^1]. This formalization project could be regarded as a companion to the article
 "[Could ∞-category theory be taught to undergraduates?](https://www.ams.org/journals/notices/202305/noti2692/noti2692.html)"
 [^2].
@@ -53,7 +53,7 @@ proceedings as
 
 ## Checking the Formalisations Locally
 
-[Install](https://rzk-lang.github.io/rzk/latest/getting-started/install/) the
+[Install](https://rzk-lang.github.io/rzk/) the
 `rzk` proof assistant. Then run the following command from the root of
 [our repository](https://github.com/emilyriehl/yoneda):
 
