@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1397,7 +1397,7 @@ all <span class="arithmatex">\(x\)</span> then <span class="arithmatex">\((x : X
 </span></code></pre></div>
 <p>If <span class="arithmatex">\(X\)</span> is a shape and <span class="arithmatex">\(A : X → U\)</span> is such that <span class="arithmatex">\(A x\)</span> is a pre-∞-category for all <span class="arithmatex">\(x\)</span>
 then <span class="arithmatex">\((x : X) → A x\)</span> is a pre-∞-category.</p>
-<div class="language-rzk highlight"><span class="filename">RS17, Corollary 5.6(ii)</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-pre-∞-category-extension-type&#39;" id="define:is-pre-∞-category-extension-type&#39;" style="visibility: visible; position: relative; color: inherit">is-pre-∞-category-extension-type&#39;</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>extext<span class="p">)</span>
+<div class="language-rzk highlight"><span class="filename">RS17, Corollary 5.6(ii)</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-pre-∞-category-extension-type'" id="define:is-pre-∞-category-extension-type'" style="visibility: visible; position: relative; color: inherit">is-pre-∞-category-extension-type'</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>extext<span class="p">)</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  <span class="p">( </span>I <span class="p">:</span> <span class="kt">CUBE</span>)
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  <span class="p">( </span>ψ <span class="p">:</span> I → <span class="kt">TOPE</span>)
 </span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  <span class="p">( </span>A <span class="p">:</span> ψ → <span class="kt">U</span>)
@@ -1446,7 +1446,7 @@ then <span class="arithmatex">\((x : X) → A x\)</span> is a pre-∞-category.<
 </span><span id="__span-18-47"><a id="__codelineno-18-47" name="__codelineno-18-47" href="#__codelineno-18-47"></a>  :=
 </span><span id="__span-18-48"><a id="__codelineno-18-48" name="__codelineno-18-48" href="#__codelineno-18-48"></a>    is-pre-∞-category-is-local-horn-inclusion
 </span><span id="__span-18-49"><a id="__codelineno-18-49" name="__codelineno-18-49" href="#__codelineno-18-49"></a>      <span class="p">( </span>( s <span class="p">:</span> ψ) → A s)
-</span><span id="__span-18-50"><a id="__codelineno-18-50" name="__codelineno-18-50" href="#__codelineno-18-50"></a>      ( is-pre-∞-category-extension-type&#39;
+</span><span id="__span-18-50"><a id="__codelineno-18-50" name="__codelineno-18-50" href="#__codelineno-18-50"></a>      ( is-pre-∞-category-extension-type'
 </span><span id="__span-18-51"><a id="__codelineno-18-51" name="__codelineno-18-51" href="#__codelineno-18-51"></a>        ( I) (ψ) (A)
 </span><span id="__span-18-52"><a id="__codelineno-18-52" name="__codelineno-18-52" href="#__codelineno-18-52"></a>        ( <span class="p">\ </span>s → is-local-horn-inclusion-is-pre-∞-category (A s) (fiberwise-is-pre-∞-category-A s)))
 </span></code></pre></div>
@@ -1480,7 +1480,7 @@ First, we define the arrow type:</p>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>  <span class="p">( </span>is-pre-∞-category-A <span class="p">:</span> is-local-horn-inclusion A)
 </span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>  : is-local-horn-inclusion (arr A)
 </span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>  :=
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    is-pre-∞-category-extension-type&#39;
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    is-pre-∞-category-extension-type'
 </span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>      ( <span class="kt">2</span>)
 </span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>      ( Δ¹)
 </span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>      ( <span class="p">\ </span>_ → A)
@@ -1922,7 +1922,7 @@ In a pre-∞-category, homotopies are equivalent to terms in <code class="langua
 </span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>    ind-path
 </span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>      ( hom A x y)
 </span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>      ( f)
-</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>      ( <span class="p">\ </span>g&#39; p&#39; → (hom2 A x x y (id-hom A x) f g&#39;))
+</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>      ( <span class="p">\ </span>g' p' → (hom2 A x x y (id-hom A x) f g'))
 </span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>      ( id-comp-witness A x y f)
 </span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a>      ( g)
 </span><span id="__span-38-13"><a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a>
@@ -1968,7 +1968,7 @@ In a pre-∞-category, homotopies are equivalent to terms in <code class="langua
 </span><span id="__span-39-15"><a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a>        ( h)))
 </span></code></pre></div>
 <p>A dual notion of homotopy can be defined similarly.</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:map-hom2-homotopy&#39;" id="define:map-hom2-homotopy&#39;" style="visibility: visible; position: relative; color: inherit">map-hom2-homotopy&#39;</a></span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:map-hom2-homotopy'" id="define:map-hom2-homotopy'" style="visibility: visible; position: relative; color: inherit">map-hom2-homotopy'</a></span>
 </span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
 </span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>  <span class="p">( </span>f g <span class="p">:</span> hom A x y)
@@ -1978,20 +1978,20 @@ In a pre-∞-category, homotopies are equivalent to terms in <code class="langua
 </span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>    ind-path
 </span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>      ( hom A x y)
 </span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>      ( f)
-</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>      ( <span class="p">\ </span>g&#39; p&#39; → (hom2 A x y y f (id-hom A y) g&#39;))
+</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>      ( <span class="p">\ </span>g' p' → (hom2 A x y y f (id-hom A y) g'))
 </span><span id="__span-40-12"><a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a>      ( comp-id-witness A x y f)
 </span><span id="__span-40-13"><a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a>      ( g)
 </span><span id="__span-40-14"><a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a>      ( p)
 </span><span id="__span-40-15"><a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a>
-</span><span id="__span-40-16"><a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:map-total-hom2-homotopy&#39;" id="define:map-total-hom2-homotopy&#39;" style="visibility: visible; position: relative; color: inherit">map-total-hom2-homotopy&#39;</a></span>
+</span><span id="__span-40-16"><a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:map-total-hom2-homotopy'" id="define:map-total-hom2-homotopy'" style="visibility: visible; position: relative; color: inherit">map-total-hom2-homotopy'</a></span>
 </span><span id="__span-40-17"><a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-40-18"><a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
 </span><span id="__span-40-19"><a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
 </span><span id="__span-40-20"><a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a>  : <span class="p">( </span>Σ ( g <span class="p">:</span> hom A x y) , (f = g))
 </span><span id="__span-40-21"><a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a>  → <span class="p">( </span>Σ ( g <span class="p">:</span> hom A x y) , (hom2 A x y y f (id-hom A y) g))
-</span><span id="__span-40-22"><a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a>  := \ (g , p) → (g , map-hom2-homotopy&#39; A x y f g p)
+</span><span id="__span-40-22"><a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a>  := \ (g , p) → (g , map-hom2-homotopy' A x y f g p)
 </span><span id="__span-40-23"><a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a>
-</span><span id="__span-40-24"><a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-equiv-map-total-hom2-homotopy&#39;-is-pre-∞-category" id="define:is-equiv-map-total-hom2-homotopy&#39;-is-pre-∞-category" style="visibility: visible; position: relative; color: inherit">is-equiv-map-total-hom2-homotopy&#39;-is-pre-∞-category</a></span>
+</span><span id="__span-40-24"><a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-equiv-map-total-hom2-homotopy'-is-pre-∞-category" id="define:is-equiv-map-total-hom2-homotopy'-is-pre-∞-category" style="visibility: visible; position: relative; color: inherit">is-equiv-map-total-hom2-homotopy'-is-pre-∞-category</a></span>
 </span><span id="__span-40-25"><a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-40-26"><a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a>  <span class="p">( </span>is-pre-∞-category-A <span class="p">:</span> is-pre-∞-category A)
 </span><span id="__span-40-27"><a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
@@ -1999,29 +1999,29 @@ In a pre-∞-category, homotopies are equivalent to terms in <code class="langua
 </span><span id="__span-40-29"><a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a>  : is-equiv
 </span><span id="__span-40-30"><a id="__codelineno-40-30" name="__codelineno-40-30" href="#__codelineno-40-30"></a>      <span class="p">( </span>Σ ( g <span class="p">:</span> hom A x y) , f = g)
 </span><span id="__span-40-31"><a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a>      <span class="p">( </span>Σ ( g <span class="p">:</span> hom A x y) , (hom2 A x y y f (id-hom A y) g))
-</span><span id="__span-40-32"><a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a>      ( map-total-hom2-homotopy&#39; A x y f)
+</span><span id="__span-40-32"><a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a>      ( map-total-hom2-homotopy' A x y f)
 </span><span id="__span-40-33"><a id="__codelineno-40-33" name="__codelineno-40-33" href="#__codelineno-40-33"></a>  :=
 </span><span id="__span-40-34"><a id="__codelineno-40-34" name="__codelineno-40-34" href="#__codelineno-40-34"></a>    is-equiv-are-contr
 </span><span id="__span-40-35"><a id="__codelineno-40-35" name="__codelineno-40-35" href="#__codelineno-40-35"></a>      <span class="p">( </span>Σ ( g <span class="p">:</span> hom A x y) , (f = g))
 </span><span id="__span-40-36"><a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a>      <span class="p">( </span>Σ ( g <span class="p">:</span> hom A x y) , (hom2 A x y y f (id-hom A y) g))
 </span><span id="__span-40-37"><a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a>      ( is-contr-based-paths (hom A x y) f)
 </span><span id="__span-40-38"><a id="__codelineno-40-38" name="__codelineno-40-38" href="#__codelineno-40-38"></a>      ( is-pre-∞-category-A x y y f (id-hom A y))
-</span><span id="__span-40-39"><a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a>      ( map-total-hom2-homotopy&#39; A x y f)
+</span><span id="__span-40-39"><a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a>      ( map-total-hom2-homotopy' A x y f)
 </span></code></pre></div>
-<div class="language-rzk highlight"><span class="filename">RS17, Proposition 5.10</span><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:equiv-homotopy-hom2&#39;-is-pre-∞-category" id="define:equiv-homotopy-hom2&#39;-is-pre-∞-category" style="visibility: visible; position: relative; color: inherit">equiv-homotopy-hom2&#39;-is-pre-∞-category</a></span>
+<div class="language-rzk highlight"><span class="filename">RS17, Proposition 5.10</span><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:equiv-homotopy-hom2'-is-pre-∞-category" id="define:equiv-homotopy-hom2'-is-pre-∞-category" style="visibility: visible; position: relative; color: inherit">equiv-homotopy-hom2'-is-pre-∞-category</a></span>
 </span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>  <span class="p">( </span>is-pre-∞-category-A <span class="p">:</span> is-pre-∞-category A)
 </span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
 </span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>  <span class="p">( </span>f h <span class="p">:</span> hom A x y)
 </span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>  : Equiv (f = h) (hom2 A x y y f (id-hom A y) h)
 </span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>  :=
-</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>    ( ( map-hom2-homotopy&#39; A x y f h)
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>    ( ( map-hom2-homotopy' A x y f h)
 </span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>    , ( total-equiv-family-of-equiv
 </span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>        ( hom A x y)
 </span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>        ( <span class="p">\ </span>k → (f = k))
 </span><span id="__span-41-12"><a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a>        ( <span class="p">\ </span>k → (hom2 A x y y f (id-hom A y) k))
-</span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>        ( map-hom2-homotopy&#39; A x y f)
-</span><span id="__span-41-14"><a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a>        ( is-equiv-map-total-hom2-homotopy&#39;-is-pre-∞-category A is-pre-∞-category-A x y f)
+</span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>        ( map-hom2-homotopy' A x y f)
+</span><span id="__span-41-14"><a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a>        ( is-equiv-map-total-hom2-homotopy'-is-pre-∞-category A is-pre-∞-category-A x y f)
 </span><span id="__span-41-15"><a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a>        ( h)))
 </span></code></pre></div>
 <p>More generally, a homotopy between a composite and another map is equivalent to
@@ -2039,7 +2039,7 @@ the data provided by a commutative triangle with that boundary.</p>
 </span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a>    ind-path
 </span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a>      ( hom A x z)
 </span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a>      ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f g)
-</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a>      ( <span class="p">\ </span>h&#39; p&#39; → hom2 A x y z f g h&#39;)
+</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a>      ( <span class="p">\ </span>h' p' → hom2 A x y z f g h')
 </span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a>      ( witness-comp-is-pre-∞-category A is-pre-∞-category-A x y z f g)
 </span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a>      ( h)
 </span><span id="__span-42-17"><a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a>      ( p)
@@ -2106,15 +2106,15 @@ composition:</p>
 </span><span id="__span-44-12"><a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a>    ind-path
 </span><span id="__span-44-13"><a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a>      ( hom A y z)
 </span><span id="__span-44-14"><a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a>      ( h)
-</span><span id="__span-44-15"><a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a>      ( <span class="p">\ </span>k&#39; q&#39; →
+</span><span id="__span-44-15"><a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a>      ( <span class="p">\ </span>k' q' →
 </span><span id="__span-44-16"><a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a>        ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f h)
-</span><span id="__span-44-17"><a id="__codelineno-44-17" name="__codelineno-44-17" href="#__codelineno-44-17"></a>      = ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g k&#39;))
+</span><span id="__span-44-17"><a id="__codelineno-44-17" name="__codelineno-44-17" href="#__codelineno-44-17"></a>      = ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g k'))
 </span><span id="__span-44-18"><a id="__codelineno-44-18" name="__codelineno-44-18" href="#__codelineno-44-18"></a>      ( ind-path
 </span><span id="__span-44-19"><a id="__codelineno-44-19" name="__codelineno-44-19" href="#__codelineno-44-19"></a>        ( hom A x y)
 </span><span id="__span-44-20"><a id="__codelineno-44-20" name="__codelineno-44-20" href="#__codelineno-44-20"></a>        ( f)
-</span><span id="__span-44-21"><a id="__codelineno-44-21" name="__codelineno-44-21" href="#__codelineno-44-21"></a>        ( <span class="p">\ </span>g&#39; p&#39; →
+</span><span id="__span-44-21"><a id="__codelineno-44-21" name="__codelineno-44-21" href="#__codelineno-44-21"></a>        ( <span class="p">\ </span>g' p' →
 </span><span id="__span-44-22"><a id="__codelineno-44-22" name="__codelineno-44-22" href="#__codelineno-44-22"></a>          ( comp-is-pre-∞-category A is-pre-∞-category-A x y z f h)
-</span><span id="__span-44-23"><a id="__codelineno-44-23" name="__codelineno-44-23" href="#__codelineno-44-23"></a>        = ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g&#39; h))
+</span><span id="__span-44-23"><a id="__codelineno-44-23" name="__codelineno-44-23" href="#__codelineno-44-23"></a>        = ( comp-is-pre-∞-category A is-pre-∞-category-A x y z g' h))
 </span><span id="__span-44-24"><a id="__codelineno-44-24" name="__codelineno-44-24" href="#__codelineno-44-24"></a>        ( <span class="s">refl</span>)
 </span><span id="__span-44-25"><a id="__codelineno-44-25" name="__codelineno-44-25" href="#__codelineno-44-25"></a>        ( g)
 </span><span id="__span-44-26"><a id="__codelineno-44-26" name="__codelineno-44-26" href="#__codelineno-44-26"></a>        ( p))
@@ -2157,11 +2157,11 @@ composition:</p>
 </span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a>    ind-path
 </span><span id="__span-47-12"><a id="__codelineno-47-12" name="__codelineno-47-12" href="#__codelineno-47-12"></a>      ( hom A x y)
 </span><span id="__span-47-13"><a id="__codelineno-47-13" name="__codelineno-47-13" href="#__codelineno-47-13"></a>      ( f)
-</span><span id="__span-47-14"><a id="__codelineno-47-14" name="__codelineno-47-14" href="#__codelineno-47-14"></a>      ( <span class="p">\ </span>g&#39; p&#39; →
-</span><span id="__span-47-15"><a id="__codelineno-47-15" name="__codelineno-47-15" href="#__codelineno-47-15"></a>        ( postwhisker-homotopy-is-pre-∞-category A is-pre-∞-category-A x y z f g&#39; h p&#39;)
+</span><span id="__span-47-14"><a id="__codelineno-47-14" name="__codelineno-47-14" href="#__codelineno-47-14"></a>      ( <span class="p">\ </span>g' p' →
+</span><span id="__span-47-15"><a id="__codelineno-47-15" name="__codelineno-47-15" href="#__codelineno-47-15"></a>        ( postwhisker-homotopy-is-pre-∞-category A is-pre-∞-category-A x y z f g' h p')
 </span><span id="__span-47-16"><a id="__codelineno-47-16" name="__codelineno-47-16" href="#__codelineno-47-16"></a>      = ( ap
 </span><span id="__span-47-17"><a id="__codelineno-47-17" name="__codelineno-47-17" href="#__codelineno-47-17"></a>          ( hom A x y) (hom A x z)
-</span><span id="__span-47-18"><a id="__codelineno-47-18" name="__codelineno-47-18" href="#__codelineno-47-18"></a>          ( f) (g&#39;) (<span class="p">\ </span>k → comp-is-pre-∞-category A is-pre-∞-category-A x y z k h) (p&#39;)))
+</span><span id="__span-47-18"><a id="__codelineno-47-18" name="__codelineno-47-18" href="#__codelineno-47-18"></a>          ( f) (g') (<span class="p">\ </span>k → comp-is-pre-∞-category A is-pre-∞-category-A x y z k h) (p')))
 </span><span id="__span-47-19"><a id="__codelineno-47-19" name="__codelineno-47-19" href="#__codelineno-47-19"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-47-20"><a id="__codelineno-47-20" name="__codelineno-47-20" href="#__codelineno-47-20"></a>      ( g)
 </span><span id="__span-47-21"><a id="__codelineno-47-21" name="__codelineno-47-21" href="#__codelineno-47-21"></a>      ( p)
@@ -2179,9 +2179,9 @@ composition:</p>
 </span><span id="__span-48-11"><a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a>    ind-path
 </span><span id="__span-48-12"><a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a>      ( hom A x y)
 </span><span id="__span-48-13"><a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a>      ( f)
-</span><span id="__span-48-14"><a id="__codelineno-48-14" name="__codelineno-48-14" href="#__codelineno-48-14"></a>      ( <span class="p">\ </span>g&#39; p&#39; →
-</span><span id="__span-48-15"><a id="__codelineno-48-15" name="__codelineno-48-15" href="#__codelineno-48-15"></a>        ( prewhisker-homotopy-is-pre-∞-category A is-pre-∞-category-A w x y k f g&#39; p&#39;)
-</span><span id="__span-48-16"><a id="__codelineno-48-16" name="__codelineno-48-16" href="#__codelineno-48-16"></a>      = ( ap (hom A x y) (hom A w y) f g&#39; (comp-is-pre-∞-category A is-pre-∞-category-A w x y k) p&#39;))
+</span><span id="__span-48-14"><a id="__codelineno-48-14" name="__codelineno-48-14" href="#__codelineno-48-14"></a>      ( <span class="p">\ </span>g' p' →
+</span><span id="__span-48-15"><a id="__codelineno-48-15" name="__codelineno-48-15" href="#__codelineno-48-15"></a>        ( prewhisker-homotopy-is-pre-∞-category A is-pre-∞-category-A w x y k f g' p')
+</span><span id="__span-48-16"><a id="__codelineno-48-16" name="__codelineno-48-16" href="#__codelineno-48-16"></a>      = ( ap (hom A x y) (hom A w y) f g' (comp-is-pre-∞-category A is-pre-∞-category-A w x y k) p'))
 </span><span id="__span-48-17"><a id="__codelineno-48-17" name="__codelineno-48-17" href="#__codelineno-48-17"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-48-18"><a id="__codelineno-48-18" name="__codelineno-48-18" href="#__codelineno-48-18"></a>      ( g)
 </span><span id="__span-48-19"><a id="__codelineno-48-19" name="__codelineno-48-19" href="#__codelineno-48-19"></a>      ( p)
@@ -2363,7 +2363,7 @@ composition:</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "toc.integrate", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascript/mathjax.js"></script>
       

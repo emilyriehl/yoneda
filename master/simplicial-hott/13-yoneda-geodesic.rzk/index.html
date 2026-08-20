@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1319,7 +1319,7 @@ horizontal boundary is given by the composite morphism and by <code class="langu
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:id-codomain-square" id="define:id-codomain-square" style="visibility: visible; position: relative; color: inherit">id-codomain-square</a></span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  <span class="p">( </span>is-pre-∞-category-A <span class="p">:</span> Is-pre-∞-category A)
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  <span class="p">( </span>a b x y <span class="p">:</span> A)
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  <span class="p">( </span>a x y <span class="p">:</span> A)
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>  <span class="p">( </span>f <span class="p">:</span> Hom A x y)
 </span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  <span class="p">( </span>v <span class="p">:</span> Hom A y a)
 </span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  : <span class="p">( </span>t <span class="p">:</span> Δ¹) → <span class="p">(</span>s <span class="p">:</span> Δ¹) → A
@@ -1346,7 +1346,7 @@ horizontal boundary is given by the composite morphism and by <code class="langu
 </span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="p">\ </span>t →
 </span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>      ϕ
 </span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>      ( f t)
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>      ( <span class="p">\ </span>s → id-codomain-square A is-pre-∞-category-A a b x y f v t s)
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>      ( <span class="p">\ </span>s → id-codomain-square A is-pre-∞-category-A a x y f v t s)
 </span></code></pre></div>
 <p>We give a name to the diagonal composite arrow in this square.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:diagonal-square-representable-transformation" id="define:diagonal-square-representable-transformation" style="visibility: visible; position: relative; color: inherit">diagonal-square-representable-transformation</a></span>
@@ -1608,14 +1608,14 @@ naturality of <code class="language-rzk highlight">Contra-evid</code>, so we pro
 <p>Naturality in <code class="language-rzk highlight">b</code> is not automatic but can be proven by reflexivity:</p>
 <div class="language-rzk highlight"><span class="filename">RS17, Lemma 9.2(i), dual</span><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Is-natural-in-family-contra-evid" id="define:Is-natural-in-family-contra-evid" style="visibility: visible; position: relative; color: inherit">Is-natural-in-family-contra-evid</a></span>
 </span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>  <span class="p">( </span>a b b&#39; <span class="p">:</span> A)
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>  <span class="p">( </span>ψ <span class="p">:</span> <span class="p">(</span>z <span class="p">:</span> A) → Hom A z b → Hom A z b&#39;)
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>  <span class="p">( </span>a b b' <span class="p">:</span> A)
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>  <span class="p">( </span>ψ <span class="p">:</span> <span class="p">(</span>z <span class="p">:</span> A) → Hom A z b → Hom A z b')
 </span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>  <span class="p">( </span>φ <span class="p">:</span> <span class="p">(</span>z <span class="p">:</span> A) → Hom A z a → Hom A z b)
-</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>  : <span class="p">( </span>comp ((z <span class="p">:</span> A) → Hom A z a → Hom A z b) (Hom A a b) (Hom A a b&#39;)
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>  : <span class="p">( </span>comp ((z <span class="p">:</span> A) → Hom A z a → Hom A z b) (Hom A a b) (Hom A a b')
 </span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>      ( ψ a) (Contra-evid A a b)) φ
-</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>  = <span class="p">( </span>comp ((z <span class="p">:</span> A) → Hom A z a → Hom A z b) <span class="p">(</span>(z <span class="p">:</span> A) → Hom A z a → Hom A z b&#39;)
-</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>      ( Hom A a b&#39;)
-</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>      ( Contra-evid A a b&#39;) (<span class="p">\ </span>α z g → ψ z (α z g))) φ
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>  = <span class="p">( </span>comp ((z <span class="p">:</span> A) → Hom A z a → Hom A z b) <span class="p">(</span>(z <span class="p">:</span> A) → Hom A z a → Hom A z b')
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>      ( Hom A a b')
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>      ( Contra-evid A a b') (<span class="p">\ </span>α z g → ψ z (α z g))) φ
 </span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>  := <span class="s">refl</span>
 </span></code></pre></div>
 <p>Naturality in <code class="language-rzk highlight">a</code> in fact follows formally. By a generalization of
@@ -1628,40 +1628,40 @@ the notion of contravariant family and prove that the domain of
 <div class="language-rzk highlight"><span class="filename">RS17, Lemma 9.2(i), dual</span><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Is-natural-in-object-contra-evid" id="define:Is-natural-in-object-contra-evid" style="visibility: visible; position: relative; color: inherit">Is-natural-in-object-contra-evid</a></span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>  <span class="p">( </span>is-pre-∞-category-A <span class="p">:</span> Is-pre-∞-category A)
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>  <span class="p">( </span>a&#39; a b <span class="p">:</span> A)
-</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>  <span class="p">( </span>k <span class="p">:</span> Hom A a&#39; a)
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>  <span class="p">( </span>a' a b <span class="p">:</span> A)
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>  <span class="p">( </span>k <span class="p">:</span> Hom A a' a)
 </span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>  <span class="p">( </span>φ <span class="p">:</span> <span class="p">(</span>z <span class="p">:</span> A) → Hom A z a → Hom A z b)
-</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>  : <span class="p">( </span>comp ((z <span class="p">:</span> A) → Hom A z a → Hom A z b) (Hom A a b) (Hom A a&#39; b)
-</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>      ( <span class="p">\ </span>f → Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a b k f)
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>  : <span class="p">( </span>comp ((z <span class="p">:</span> A) → Hom A z a → Hom A z b) (Hom A a b) (Hom A a' b)
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>      ( <span class="p">\ </span>f → Comp-is-pre-∞-category A is-pre-∞-category-A a' a b k f)
 </span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>      ( Contra-evid A a b)) φ
-</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>  = <span class="p">( </span>comp ((z <span class="p">:</span> A) → Hom A z a → Hom A z b) <span class="p">(</span>(z <span class="p">:</span> A) → Hom A z a&#39; → Hom A z b)
-</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>      ( Hom A a&#39; b)
-</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>      ( Contra-evid A a&#39; b)
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>  = <span class="p">( </span>comp ((z <span class="p">:</span> A) → Hom A z a → Hom A z b) <span class="p">(</span>(z <span class="p">:</span> A) → Hom A z a' → Hom A z b)
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>      ( Hom A a' b)
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>      ( Contra-evid A a' b)
 </span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>      ( <span class="p">\ </span>α z g →
-</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>          α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a&#39; a g k))) φ
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>          α z (Comp-is-pre-∞-category A is-pre-∞-category-A z a' a g k))) φ
 </span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>  :=
-</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>    concat (Hom A a&#39; b)
-</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>    ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a b k (φ a (Id-hom A a)))
-</span><span id="__span-29-18"><a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>    ( φ a&#39;
-</span><span id="__span-29-19"><a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a)))
-</span><span id="__span-29-20"><a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>    ( φ a&#39;
-</span><span id="__span-29-21"><a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a>      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k))
+</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>    concat (Hom A a' b)
+</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>    ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a b k (φ a (Id-hom A a)))
+</span><span id="__span-29-18"><a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>    ( φ a'
+</span><span id="__span-29-19"><a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>      ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a a k (Id-hom A a)))
+</span><span id="__span-29-20"><a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>    ( φ a'
+</span><span id="__span-29-21"><a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a>      ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a (Id-hom A a') k))
 </span><span id="__span-29-22"><a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a>    ( Naturality-contravariant-fiberwise-representable-transformation
-</span><span id="__span-29-23"><a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a>      A is-pre-∞-category-A a b a&#39; a k (Id-hom A a) φ)
-</span><span id="__span-29-24"><a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a>    ( ap (hom A a&#39; a) (hom A a&#39; b)
-</span><span id="__span-29-25"><a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a>      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a))
-</span><span id="__span-29-26"><a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a>      ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k)
-</span><span id="__span-29-27"><a id="__codelineno-29-27" name="__codelineno-29-27" href="#__codelineno-29-27"></a>      ( <span class="p">\ </span>h → φ a&#39; h)
-</span><span id="__span-29-28"><a id="__codelineno-29-28" name="__codelineno-29-28" href="#__codelineno-29-28"></a>      ( concat (hom A a&#39; a)
-</span><span id="__span-29-29"><a id="__codelineno-29-29" name="__codelineno-29-29" href="#__codelineno-29-29"></a>        ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a a k (Id-hom A a))
+</span><span id="__span-29-23"><a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a>      A is-pre-∞-category-A a b a' a k (Id-hom A a) φ)
+</span><span id="__span-29-24"><a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a>    ( ap (hom A a' a) (hom A a' b)
+</span><span id="__span-29-25"><a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a>      ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a a k (Id-hom A a))
+</span><span id="__span-29-26"><a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a>      ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a (Id-hom A a') k)
+</span><span id="__span-29-27"><a id="__codelineno-29-27" name="__codelineno-29-27" href="#__codelineno-29-27"></a>      ( <span class="p">\ </span>h → φ a' h)
+</span><span id="__span-29-28"><a id="__codelineno-29-28" name="__codelineno-29-28" href="#__codelineno-29-28"></a>      ( concat (hom A a' a)
+</span><span id="__span-29-29"><a id="__codelineno-29-29" name="__codelineno-29-29" href="#__codelineno-29-29"></a>        ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a a k (Id-hom A a))
 </span><span id="__span-29-30"><a id="__codelineno-29-30" name="__codelineno-29-30" href="#__codelineno-29-30"></a>        ( k)
-</span><span id="__span-29-31"><a id="__codelineno-29-31" name="__codelineno-29-31" href="#__codelineno-29-31"></a>        ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a (Id-hom A a&#39;) k)
-</span><span id="__span-29-32"><a id="__codelineno-29-32" name="__codelineno-29-32" href="#__codelineno-29-32"></a>        ( Comp-id-is-pre-∞-category A is-pre-∞-category-A a&#39; a k)
-</span><span id="__span-29-33"><a id="__codelineno-29-33" name="__codelineno-29-33" href="#__codelineno-29-33"></a>        ( rev (hom A a&#39; a)
-</span><span id="__span-29-34"><a id="__codelineno-29-34" name="__codelineno-29-34" href="#__codelineno-29-34"></a>          ( Comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a&#39; a
-</span><span id="__span-29-35"><a id="__codelineno-29-35" name="__codelineno-29-35" href="#__codelineno-29-35"></a>            ( Id-hom A a&#39;) k)
+</span><span id="__span-29-31"><a id="__codelineno-29-31" name="__codelineno-29-31" href="#__codelineno-29-31"></a>        ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a (Id-hom A a') k)
+</span><span id="__span-29-32"><a id="__codelineno-29-32" name="__codelineno-29-32" href="#__codelineno-29-32"></a>        ( Comp-id-is-pre-∞-category A is-pre-∞-category-A a' a k)
+</span><span id="__span-29-33"><a id="__codelineno-29-33" name="__codelineno-29-33" href="#__codelineno-29-33"></a>        ( rev (hom A a' a)
+</span><span id="__span-29-34"><a id="__codelineno-29-34" name="__codelineno-29-34" href="#__codelineno-29-34"></a>          ( Comp-is-pre-∞-category A is-pre-∞-category-A a' a' a
+</span><span id="__span-29-35"><a id="__codelineno-29-35" name="__codelineno-29-35" href="#__codelineno-29-35"></a>            ( Id-hom A a') k)
 </span><span id="__span-29-36"><a id="__codelineno-29-36" name="__codelineno-29-36" href="#__codelineno-29-36"></a>          ( k)
-</span><span id="__span-29-37"><a id="__codelineno-29-37" name="__codelineno-29-37" href="#__codelineno-29-37"></a>          ( Id-comp-is-pre-∞-category A is-pre-∞-category-A a&#39; a k))))
+</span><span id="__span-29-37"><a id="__codelineno-29-37" name="__codelineno-29-37" href="#__codelineno-29-37"></a>          ( Id-comp-is-pre-∞-category A is-pre-∞-category-A a' a k))))
 </span></code></pre></div>
 
 
@@ -1739,7 +1739,7 @@ the notion of contravariant family and prove that the domain of
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "toc.integrate", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascript/mathjax.js"></script>
       

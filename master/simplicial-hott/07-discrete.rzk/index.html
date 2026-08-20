@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1016,7 +1016,7 @@ identity types.</p>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  <span class="p">( </span>p <span class="p">:</span> x = y)
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  : hom A x y
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  := ind-path (A) (x) (<span class="p">\ </span>y&#39; p&#39; → hom A x y&#39;) ((id-hom A x)) (y) (p)
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  := ind-path (A) (x) (<span class="p">\ </span>y' p' → hom A x y') ((id-hom A x)) (y) (p)
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-∞-groupoid" id="define:is-∞-groupoid" style="visibility: visible; position: relative; color: inherit">is-∞-groupoid</a></span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
@@ -1063,9 +1063,9 @@ of ∞-groupoids is itself ∞-groupoid.</p>
 </span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>    ind-path
 </span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>      <span class="p">( </span>( x <span class="p">:</span> X) → A x)
 </span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>      ( f)
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>      <span class="p">( </span>\ g&#39; h&#39; →
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>        hom-eq ((x <span class="p">:</span> X) → A x) f g&#39; h&#39;
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>      = ( <span class="s">first</span> (equiv-hom-eq-function-type-is-∞-groupoid X A is-∞-groupoid-A f g&#39;)) h&#39;)
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>      <span class="p">( </span>\ g' h' →
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>        hom-eq ((x <span class="p">:</span> X) → A x) f g' h'
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>      = ( <span class="s">first</span> (equiv-hom-eq-function-type-is-∞-groupoid X A is-∞-groupoid-A f g')) h')
 </span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>      ( g)
 </span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>      ( h)
@@ -1133,9 +1133,9 @@ now.</p>
 </span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>    ind-path
 </span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>      <span class="p">( </span>( t <span class="p">:</span> ψ) → A t)
 </span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>      ( f)
-</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>      <span class="p">( </span>\ g&#39; h&#39; →
-</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>        ( hom-eq ((t <span class="p">:</span> ψ) → A t) f g&#39; h&#39;)
-</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>      = ( <span class="s">first</span> (equiv-hom-eq-extension-type-is-∞-groupoid I ψ A is-∞-groupoid-A f g&#39;) h&#39;))
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>      <span class="p">( </span>\ g' h' →
+</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>        ( hom-eq ((t <span class="p">:</span> ψ) → A t) f g' h')
+</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>      = ( <span class="s">first</span> (equiv-hom-eq-extension-type-is-∞-groupoid I ψ A is-∞-groupoid-A f g') h'))
 </span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-5-49"><a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a>      ( g)
 </span><span id="__span-5-50"><a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a>      ( h)
@@ -1316,32 +1316,32 @@ now.</p>
 </span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>    ind-path
 </span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>      ( A)
 </span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>      ( x)
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>      <span class="p">( </span>\ z&#39; p&#39; →
-</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>        ( g <span class="p">:</span> hom A z&#39; w)
-</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>      → ( product-transport A A (hom A) x z&#39; y w p&#39; q f = g)
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>      <span class="p">( </span>\ z' p' →
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>        ( g <span class="p">:</span> hom A z' w)
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>      → ( product-transport A A (hom A) x z' y w p' q f = g)
 </span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>      → ( ( ( t , s) : Δ¹×Δ¹)
 </span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>        → A [ (t <span class="sx">≡</span> <span class="m">0₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ f s
 </span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>            , ( t <span class="sx">≡</span> <span class="m">1₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ g s
-</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>            , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">0₂</span>) ↦ (hom-eq A x z&#39; p&#39;) t
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>            , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">0₂</span>) ↦ (hom-eq A x z' p') t
 </span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>            , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">1₂</span>) ↦ (hom-eq A y w q) t]))
 </span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>      ( ind-path
 </span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>        ( A)
 </span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>        ( y)
-</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>        <span class="p">( </span>\ w&#39; q&#39; →
-</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>          ( g <span class="p">:</span> hom A x w&#39;)
-</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>        → ( product-transport A A (hom A) x x y w&#39; <span class="s">refl</span> q&#39; f = g)
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>        <span class="p">( </span>\ w' q' →
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>          ( g <span class="p">:</span> hom A x w')
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>        → ( product-transport A A (hom A) x x y w' <span class="s">refl</span> q' f = g)
 </span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>        → ( ( ( t , s) : Δ¹×Δ¹)
 </span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>          → A [ (t <span class="sx">≡</span> <span class="m">0₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ f s
 </span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>              , ( t <span class="sx">≡</span> <span class="m">1₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ g s
 </span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a>              , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">0₂</span>) ↦ x
-</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>              , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">1₂</span>) ↦ (hom-eq A y w&#39; q&#39;) t]))
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>              , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">1₂</span>) ↦ (hom-eq A y w' q') t]))
 </span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a>        ( ind-path
 </span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a>          ( hom A x y)
 </span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a>          ( f)
-</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a>          ( <span class="p">\ </span>g&#39; τ&#39; →
+</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a>          ( <span class="p">\ </span>g' τ' →
 </span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a>            ( ( ( t , s) : Δ¹×Δ¹)
 </span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a>            → A [ (t <span class="sx">≡</span> <span class="m">0₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ f s
-</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a>                , ( t <span class="sx">≡</span> <span class="m">1₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ g&#39; s
+</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a>                , ( t <span class="sx">≡</span> <span class="m">1₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ g' s
 </span><span id="__span-11-44"><a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a>                , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">0₂</span>) ↦ x
 </span><span id="__span-11-45"><a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a>                , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">1₂</span>) ↦ y]))
 </span><span id="__span-11-46"><a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a>          ( \ (t , s) → f s))
@@ -1393,15 +1393,15 @@ now.</p>
 </span><span id="__span-11-92"><a id="__codelineno-11-92" name="__codelineno-11-92" href="#__codelineno-11-92"></a>    ind-path
 </span><span id="__span-11-93"><a id="__codelineno-11-93" name="__codelineno-11-93" href="#__codelineno-11-93"></a>      ( hom A x y)
 </span><span id="__span-11-94"><a id="__codelineno-11-94" name="__codelineno-11-94" href="#__codelineno-11-94"></a>      ( f)
-</span><span id="__span-11-95"><a id="__codelineno-11-95" name="__codelineno-11-95" href="#__codelineno-11-95"></a>      ( <span class="p">\ </span>g&#39; τ&#39; →
+</span><span id="__span-11-95"><a id="__codelineno-11-95" name="__codelineno-11-95" href="#__codelineno-11-95"></a>      ( <span class="p">\ </span>g' τ' →
 </span><span id="__span-11-96"><a id="__codelineno-11-96" name="__codelineno-11-96" href="#__codelineno-11-96"></a>        ( <span class="s">first</span>
-</span><span id="__span-11-97"><a id="__codelineno-11-97" name="__codelineno-11-97" href="#__codelineno-11-97"></a>          ( equiv-square-sigma-over-product A is-∞-groupoid-A x y x y f g&#39;)
-</span><span id="__span-11-98"><a id="__codelineno-11-98" name="__codelineno-11-98" href="#__codelineno-11-98"></a>          ( <span class="s">refl</span> , (<span class="s">refl</span> , τ&#39;)))
+</span><span id="__span-11-97"><a id="__codelineno-11-97" name="__codelineno-11-97" href="#__codelineno-11-97"></a>          ( equiv-square-sigma-over-product A is-∞-groupoid-A x y x y f g')
+</span><span id="__span-11-98"><a id="__codelineno-11-98" name="__codelineno-11-98" href="#__codelineno-11-98"></a>          ( <span class="s">refl</span> , (<span class="s">refl</span> , τ')))
 </span><span id="__span-11-99"><a id="__codelineno-11-99" name="__codelineno-11-99" href="#__codelineno-11-99"></a>      = ( square-sigma-over-product
 </span><span id="__span-11-100"><a id="__codelineno-11-100" name="__codelineno-11-100" href="#__codelineno-11-100"></a>          ( A)
 </span><span id="__span-11-101"><a id="__codelineno-11-101" name="__codelineno-11-101" href="#__codelineno-11-101"></a>          ( x) (y) (x) (y)
-</span><span id="__span-11-102"><a id="__codelineno-11-102" name="__codelineno-11-102" href="#__codelineno-11-102"></a>          ( f) (g&#39;)
-</span><span id="__span-11-103"><a id="__codelineno-11-103" name="__codelineno-11-103" href="#__codelineno-11-103"></a>          ( <span class="s">refl</span> , (<span class="s">refl</span> , τ&#39;))))
+</span><span id="__span-11-102"><a id="__codelineno-11-102" name="__codelineno-11-102" href="#__codelineno-11-102"></a>          ( f) (g')
+</span><span id="__span-11-103"><a id="__codelineno-11-103" name="__codelineno-11-103" href="#__codelineno-11-103"></a>          ( <span class="s">refl</span> , (<span class="s">refl</span> , τ'))))
 </span><span id="__span-11-104"><a id="__codelineno-11-104" name="__codelineno-11-104" href="#__codelineno-11-104"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-11-105"><a id="__codelineno-11-105" name="__codelineno-11-105" href="#__codelineno-11-105"></a>      ( g)
 </span><span id="__span-11-106"><a id="__codelineno-11-106" name="__codelineno-11-106" href="#__codelineno-11-106"></a>      ( τ)
@@ -1424,25 +1424,25 @@ now.</p>
 </span><span id="__span-11-123"><a id="__codelineno-11-123" name="__codelineno-11-123" href="#__codelineno-11-123"></a>    ind-path
 </span><span id="__span-11-124"><a id="__codelineno-11-124" name="__codelineno-11-124" href="#__codelineno-11-124"></a>      ( A)
 </span><span id="__span-11-125"><a id="__codelineno-11-125" name="__codelineno-11-125" href="#__codelineno-11-125"></a>      ( y)
-</span><span id="__span-11-126"><a id="__codelineno-11-126" name="__codelineno-11-126" href="#__codelineno-11-126"></a>      <span class="p">( </span>\ w&#39; q&#39; →
-</span><span id="__span-11-127"><a id="__codelineno-11-127" name="__codelineno-11-127" href="#__codelineno-11-127"></a>        ( g <span class="p">:</span> hom A z w&#39;)
-</span><span id="__span-11-128"><a id="__codelineno-11-128" name="__codelineno-11-128" href="#__codelineno-11-128"></a>      → <span class="p">( </span>τ <span class="p">:</span> product-transport A A (hom A) x z y w&#39; p q&#39; f = g)
+</span><span id="__span-11-126"><a id="__codelineno-11-126" name="__codelineno-11-126" href="#__codelineno-11-126"></a>      <span class="p">( </span>\ w' q' →
+</span><span id="__span-11-127"><a id="__codelineno-11-127" name="__codelineno-11-127" href="#__codelineno-11-127"></a>        ( g <span class="p">:</span> hom A z w')
+</span><span id="__span-11-128"><a id="__codelineno-11-128" name="__codelineno-11-128" href="#__codelineno-11-128"></a>      → <span class="p">( </span>τ <span class="p">:</span> product-transport A A (hom A) x z y w' p q' f = g)
 </span><span id="__span-11-129"><a id="__codelineno-11-129" name="__codelineno-11-129" href="#__codelineno-11-129"></a>      → ( <span class="s">first</span>
 </span><span id="__span-11-130"><a id="__codelineno-11-130" name="__codelineno-11-130" href="#__codelineno-11-130"></a>          ( equiv-square-sigma-over-product
-</span><span id="__span-11-131"><a id="__codelineno-11-131" name="__codelineno-11-131" href="#__codelineno-11-131"></a>              A is-∞-groupoid-A x y z w&#39; f g))
-</span><span id="__span-11-132"><a id="__codelineno-11-132" name="__codelineno-11-132" href="#__codelineno-11-132"></a>          ( p , (q&#39; , τ))
-</span><span id="__span-11-133"><a id="__codelineno-11-133" name="__codelineno-11-133" href="#__codelineno-11-133"></a>      = ( square-sigma-over-product A x y z w&#39; f g)
-</span><span id="__span-11-134"><a id="__codelineno-11-134" name="__codelineno-11-134" href="#__codelineno-11-134"></a>          ( p , (q&#39; , τ)))
+</span><span id="__span-11-131"><a id="__codelineno-11-131" name="__codelineno-11-131" href="#__codelineno-11-131"></a>              A is-∞-groupoid-A x y z w' f g))
+</span><span id="__span-11-132"><a id="__codelineno-11-132" name="__codelineno-11-132" href="#__codelineno-11-132"></a>          ( p , (q' , τ))
+</span><span id="__span-11-133"><a id="__codelineno-11-133" name="__codelineno-11-133" href="#__codelineno-11-133"></a>      = ( square-sigma-over-product A x y z w' f g)
+</span><span id="__span-11-134"><a id="__codelineno-11-134" name="__codelineno-11-134" href="#__codelineno-11-134"></a>          ( p , (q' , τ)))
 </span><span id="__span-11-135"><a id="__codelineno-11-135" name="__codelineno-11-135" href="#__codelineno-11-135"></a>      ( ind-path
 </span><span id="__span-11-136"><a id="__codelineno-11-136" name="__codelineno-11-136" href="#__codelineno-11-136"></a>        ( A)
 </span><span id="__span-11-137"><a id="__codelineno-11-137" name="__codelineno-11-137" href="#__codelineno-11-137"></a>        ( x)
-</span><span id="__span-11-138"><a id="__codelineno-11-138" name="__codelineno-11-138" href="#__codelineno-11-138"></a>        <span class="p">( </span>\ z&#39; p&#39; →
-</span><span id="__span-11-139"><a id="__codelineno-11-139" name="__codelineno-11-139" href="#__codelineno-11-139"></a>          ( g <span class="p">:</span> hom A z&#39; y)
-</span><span id="__span-11-140"><a id="__codelineno-11-140" name="__codelineno-11-140" href="#__codelineno-11-140"></a>        → <span class="p">( </span>τ <span class="p">:</span> product-transport A A (hom A) x z&#39; y y p&#39; <span class="s">refl</span> f = g)
+</span><span id="__span-11-138"><a id="__codelineno-11-138" name="__codelineno-11-138" href="#__codelineno-11-138"></a>        <span class="p">( </span>\ z' p' →
+</span><span id="__span-11-139"><a id="__codelineno-11-139" name="__codelineno-11-139" href="#__codelineno-11-139"></a>          ( g <span class="p">:</span> hom A z' y)
+</span><span id="__span-11-140"><a id="__codelineno-11-140" name="__codelineno-11-140" href="#__codelineno-11-140"></a>        → <span class="p">( </span>τ <span class="p">:</span> product-transport A A (hom A) x z' y y p' <span class="s">refl</span> f = g)
 </span><span id="__span-11-141"><a id="__codelineno-11-141" name="__codelineno-11-141" href="#__codelineno-11-141"></a>        → ( <span class="s">first</span>
-</span><span id="__span-11-142"><a id="__codelineno-11-142" name="__codelineno-11-142" href="#__codelineno-11-142"></a>            ( equiv-square-sigma-over-product A is-∞-groupoid-A x y z&#39; y f g)
-</span><span id="__span-11-143"><a id="__codelineno-11-143" name="__codelineno-11-143" href="#__codelineno-11-143"></a>            ( p&#39; , (<span class="s">refl</span> , τ)))
-</span><span id="__span-11-144"><a id="__codelineno-11-144" name="__codelineno-11-144" href="#__codelineno-11-144"></a>        = ( square-sigma-over-product A x y z&#39; y f g (p&#39; , (<span class="s">refl</span> , τ))))
+</span><span id="__span-11-142"><a id="__codelineno-11-142" name="__codelineno-11-142" href="#__codelineno-11-142"></a>            ( equiv-square-sigma-over-product A is-∞-groupoid-A x y z' y f g)
+</span><span id="__span-11-143"><a id="__codelineno-11-143" name="__codelineno-11-143" href="#__codelineno-11-143"></a>            ( p' , (<span class="s">refl</span> , τ)))
+</span><span id="__span-11-144"><a id="__codelineno-11-144" name="__codelineno-11-144" href="#__codelineno-11-144"></a>        = ( square-sigma-over-product A x y z' y f g (p' , (<span class="s">refl</span> , τ))))
 </span><span id="__span-11-145"><a id="__codelineno-11-145" name="__codelineno-11-145" href="#__codelineno-11-145"></a>        ( refl-refl-map-equiv-square-sigma-over-product
 </span><span id="__span-11-146"><a id="__codelineno-11-146" name="__codelineno-11-146" href="#__codelineno-11-146"></a>            ( A) (is-∞-groupoid-A) (x) (y) (f))
 </span><span id="__span-11-147"><a id="__codelineno-11-147" name="__codelineno-11-147" href="#__codelineno-11-147"></a>        ( z)
@@ -1508,22 +1508,22 @@ now.</p>
 </span><span id="__span-11-207"><a id="__codelineno-11-207" name="__codelineno-11-207" href="#__codelineno-11-207"></a>      ( hom A x z)
 </span><span id="__span-11-208"><a id="__codelineno-11-208" name="__codelineno-11-208" href="#__codelineno-11-208"></a>      ( y = w)
 </span><span id="__span-11-209"><a id="__codelineno-11-209" name="__codelineno-11-209" href="#__codelineno-11-209"></a>      ( hom A y w)
-</span><span id="__span-11-210"><a id="__codelineno-11-210" name="__codelineno-11-210" href="#__codelineno-11-210"></a>      ( <span class="p">\ </span>p&#39; q&#39; → (product-transport A A (hom A) x z y w p&#39; q&#39; f) = g)
-</span><span id="__span-11-211"><a id="__codelineno-11-211" name="__codelineno-11-211" href="#__codelineno-11-211"></a>      ( <span class="p">\ </span>h&#39; k&#39; →
+</span><span id="__span-11-210"><a id="__codelineno-11-210" name="__codelineno-11-210" href="#__codelineno-11-210"></a>      ( <span class="p">\ </span>p' q' → (product-transport A A (hom A) x z y w p' q' f) = g)
+</span><span id="__span-11-211"><a id="__codelineno-11-211" name="__codelineno-11-211" href="#__codelineno-11-211"></a>      ( <span class="p">\ </span>h' k' →
 </span><span id="__span-11-212"><a id="__codelineno-11-212" name="__codelineno-11-212" href="#__codelineno-11-212"></a>        ( ( ( t , s) : Δ¹×Δ¹)
 </span><span id="__span-11-213"><a id="__codelineno-11-213" name="__codelineno-11-213" href="#__codelineno-11-213"></a>        → A [ (t <span class="sx">≡</span> <span class="m">0₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ f s
 </span><span id="__span-11-214"><a id="__codelineno-11-214" name="__codelineno-11-214" href="#__codelineno-11-214"></a>            , ( t <span class="sx">≡</span> <span class="m">1₂</span>) <span class="sx">∧</span> (Δ¹ s) ↦ g s
-</span><span id="__span-11-215"><a id="__codelineno-11-215" name="__codelineno-11-215" href="#__codelineno-11-215"></a>            , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">0₂</span>) ↦ h&#39; t
-</span><span id="__span-11-216"><a id="__codelineno-11-216" name="__codelineno-11-216" href="#__codelineno-11-216"></a>            , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">1₂</span>) ↦ k&#39; t]))
+</span><span id="__span-11-215"><a id="__codelineno-11-215" name="__codelineno-11-215" href="#__codelineno-11-215"></a>            , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">0₂</span>) ↦ h' t
+</span><span id="__span-11-216"><a id="__codelineno-11-216" name="__codelineno-11-216" href="#__codelineno-11-216"></a>            , ( Δ¹ t) <span class="sx">∧</span> (s <span class="sx">≡</span> <span class="m">1₂</span>) ↦ k' t]))
 </span><span id="__span-11-217"><a id="__codelineno-11-217" name="__codelineno-11-217" href="#__codelineno-11-217"></a>      ( hom-eq A x z)
 </span><span id="__span-11-218"><a id="__codelineno-11-218" name="__codelineno-11-218" href="#__codelineno-11-218"></a>      ( hom-eq A y w)
-</span><span id="__span-11-219"><a id="__codelineno-11-219" name="__codelineno-11-219" href="#__codelineno-11-219"></a>      ( <span class="p">\ </span>p&#39; q&#39; →
+</span><span id="__span-11-219"><a id="__codelineno-11-219" name="__codelineno-11-219" href="#__codelineno-11-219"></a>      ( <span class="p">\ </span>p' q' →
 </span><span id="__span-11-220"><a id="__codelineno-11-220" name="__codelineno-11-220" href="#__codelineno-11-220"></a>        fibered-map-square-sigma-over-product
 </span><span id="__span-11-221"><a id="__codelineno-11-221" name="__codelineno-11-221" href="#__codelineno-11-221"></a>          ( A)
 </span><span id="__span-11-222"><a id="__codelineno-11-222" name="__codelineno-11-222" href="#__codelineno-11-222"></a>          ( x) (y) (z) (w)
 </span><span id="__span-11-223"><a id="__codelineno-11-223" name="__codelineno-11-223" href="#__codelineno-11-223"></a>          ( f)
-</span><span id="__span-11-224"><a id="__codelineno-11-224" name="__codelineno-11-224" href="#__codelineno-11-224"></a>          ( p&#39;)
-</span><span id="__span-11-225"><a id="__codelineno-11-225" name="__codelineno-11-225" href="#__codelineno-11-225"></a>          ( q&#39;)
+</span><span id="__span-11-224"><a id="__codelineno-11-224" name="__codelineno-11-224" href="#__codelineno-11-224"></a>          ( p')
+</span><span id="__span-11-225"><a id="__codelineno-11-225" name="__codelineno-11-225" href="#__codelineno-11-225"></a>          ( q')
 </span><span id="__span-11-226"><a id="__codelineno-11-226" name="__codelineno-11-226" href="#__codelineno-11-226"></a>          ( g))
 </span><span id="__span-11-227"><a id="__codelineno-11-227" name="__codelineno-11-227" href="#__codelineno-11-227"></a>      ( is-equiv-square-sigma-over-product A is-∞-groupoid-A x y z w f g)
 </span><span id="__span-11-228"><a id="__codelineno-11-228" name="__codelineno-11-228" href="#__codelineno-11-228"></a>      ( is-∞-groupoid-A x z)
@@ -1847,7 +1847,7 @@ general case to the one just proven:</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "toc.integrate", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascript/mathjax.js"></script>
       

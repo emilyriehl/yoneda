@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1150,7 +1150,7 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  : has-retraction (x = y) <span class="kt">Unit</span> (terminal-map (x = y))
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  :=
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    ( <span class="p">\ </span>a → <span class="s">refl</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    , <span class="p">\ </span>p → ind-path (<span class="kt">Unit</span>) (x) (<span class="p">\ </span>y&#39; p&#39; → <span class="s">refl</span> =_{x = y&#39;} p&#39;) (<span class="s">refl</span>) (y) (p))
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    , <span class="p">\ </span>p → ind-path (<span class="kt">Unit</span>) (x) (<span class="p">\ </span>y' p' → <span class="s">refl</span> =_{x = y'} p') (<span class="s">refl</span>) (y) (p))
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:terminal-map-of-path-types-of-Unit-has-sec" id="define:terminal-map-of-path-types-of-Unit-has-sec" style="visibility: visible; position: relative; color: inherit">terminal-map-of-path-types-of-Unit-has-sec</a></span>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  <span class="p">( </span>x y <span class="p">:</span> <span class="kt">Unit</span>)
@@ -1314,7 +1314,7 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>      , <span class="p">\ </span>b → eq-is-contr B is-contr-B
 </span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>                ( f (center-contraction A is-contr-A)) b))
 </span></code></pre></div>
-<div class="language-rzk highlight"><span class="filename">A type equivalent to a contractible type is contractible</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-contr-equiv-is-contr&#39;" id="define:is-contr-equiv-is-contr&#39;" style="visibility: visible; position: relative; color: inherit">is-contr-equiv-is-contr&#39;</a></span>
+<div class="language-rzk highlight"><span class="filename">A type equivalent to a contractible type is contractible</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-contr-equiv-is-contr'" id="define:is-contr-equiv-is-contr'" style="visibility: visible; position: relative; color: inherit">is-contr-equiv-is-contr'</a></span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>  <span class="p">( </span>e <span class="p">:</span> Equiv A B)
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  <span class="p">( </span>is-contr-B <span class="p">:</span> is-contr B)
@@ -1344,8 +1344,8 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    ind-path
 </span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>      ( A)
 </span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>      ( x)
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>      ( <span class="p">\ </span>y&#39; q&#39; →
-</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>        ( transport A (<span class="p">\ </span>z → (a = z)) x y&#39; q&#39; p) = (concat A a x y&#39; p q&#39;))
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>      ( <span class="p">\ </span>y' q' →
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>        ( transport A (<span class="p">\ </span>z → (a = z)) x y' q' p) = (concat A a x y' p q'))
 </span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>      ( y)
 </span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>      ( q)
@@ -1598,7 +1598,7 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "toc.integrate", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascript/mathjax.js"></script>
       

@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1055,14 +1055,14 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kr">#variables</span><span class="p"> </span>A B : <span class="kt">U</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:path-product" id="define:path-product" style="visibility: visible; position: relative; color: inherit">path-product</a></span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  <span class="p">( </span>a a&#39; <span class="p">:</span> A)
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  <span class="p">( </span>b b&#39; <span class="p">:</span> B)
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  <span class="p">( </span>e_A <span class="p">:</span> a = a&#39;)
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  <span class="p">( </span>e_B <span class="p">:</span> b = b&#39;)
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  : ( a , b) =_{product A B} (a&#39; , b&#39;)
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  <span class="p">( </span>a a' <span class="p">:</span> A)
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  <span class="p">( </span>b b' <span class="p">:</span> B)
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  <span class="p">( </span>e_A <span class="p">:</span> a = a')
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  <span class="p">( </span>e_B <span class="p">:</span> b = b')
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  : ( a , b) =_{product A B} (a' , b')
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  :=
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    transport A (<span class="p">\ </span>x → (a , b) =_{product A B} (x , b&#39;)) a a&#39; e_A
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>      ( transport B (<span class="p">\ </span>y → (a , b) =_{product A B} (a , y)) b b&#39; e_B <span class="s">refl</span>)
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    transport A (<span class="p">\ </span>x → (a , b) =_{product A B} (x , b')) a a' e_A
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>      ( transport B (<span class="p">\ </span>y → (a , b) =_{product A B} (a , y)) b b' e_B <span class="s">refl</span>)
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:first-path-product" id="define:first-path-product" style="visibility: visible; position: relative; color: inherit">first-path-product</a></span>
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  <span class="p">( </span>x y <span class="p">:</span> product A B)
@@ -1105,10 +1105,10 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    ind-path
 </span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>      <span class="p">( </span>Σ ( a <span class="p">:</span> A) , B a)
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>      ( s)
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>      ( <span class="p">\ </span>t&#39; e&#39; →
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>      ( <span class="p">\ </span>t' e' →
 </span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        ( transport A B
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>          ( <span class="s">first</span> s) (<span class="s">first</span> t&#39;) (first-path-Σ s t&#39; e&#39;) (<span class="s">second</span> s))
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>      = ( <span class="s">second</span> t&#39;))
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>          ( <span class="s">first</span> s) (<span class="s">first</span> t') (first-path-Σ s t' e') (<span class="s">second</span> s))
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>      = ( <span class="s">second</span> t'))
 </span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>      ( t)
 </span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>      ( e)
@@ -1132,7 +1132,7 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  <span class="p">( </span>u v <span class="p">:</span> B x)
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  <span class="p">( </span>p <span class="p">:</span> u = v)
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  : ( x , u) =_{<span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a} (x , v)
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  := ind-path (B x) (u) (<span class="p">\ </span>v&#39; p&#39; → (x , u) = (x , v&#39;)) (<span class="s">refl</span>) (v) (p)
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  := ind-path (B x) (u) (<span class="p">\ </span>v' p' → (x , u) =_{<span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a} (x , v')) (<span class="s">refl</span>) (v) (p)
 </span></code></pre></div>
 <p>The following is essentially <code class="language-rzk highlight">eq-pair</code> but with explicit arguments.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:path-of-pairs-pair-of-paths" id="define:path-of-pairs-pair-of-paths" style="visibility: visible; position: relative; color: inherit">path-of-pairs-pair-of-paths</a></span>
@@ -1141,17 +1141,16 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  : <span class="p">( </span>u <span class="p">:</span> B x)
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  → <span class="p">( </span>v <span class="p">:</span> B y)
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  → ( ( transport A B x y p u) = v)
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  → ( x , u) =_{<span class="kt">Σ</span> <span class="p">(</span>z <span class="p">:</span> A) , B z} (y , v)
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  :=
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    ind-path
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>      ( A)
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>      ( x)
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>      <span class="p">( </span>\ y&#39; p&#39; → (u&#39; <span class="p">:</span> B x) → <span class="p">(</span>v&#39; <span class="p">:</span> B y&#39;)
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>      → ( ( transport A B x y&#39; p&#39; u&#39;) = v&#39;)
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>      → ( x , u&#39;) =_{<span class="kt">Σ</span> <span class="p">(</span>z <span class="p">:</span> A) , B z} (y&#39; , v&#39;))
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>      ( <span class="p">\ </span>u&#39; v&#39; q&#39; → (eq-eq-fiber-Σ x u&#39; v&#39; q&#39;))
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>      ( y)
-</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>      ( p)
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  → ( x , u) =_{<span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a} (y , v)
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  := ind-path
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>      ( A)
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>      ( x)
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>      <span class="p">( </span>\ y' p' → (u' <span class="p">:</span> B x) → <span class="p">(</span>v' <span class="p">:</span> B y')
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>      → ( ( transport A B x y' p' u') = v')
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>      → ( x , u') =_{<span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a} (y' , v'))
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>      ( <span class="p">\ </span>u' v' q' → (eq-eq-fiber-Σ x u' v' q'))
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>      ( y)
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>      ( p)
 </span></code></pre></div>
 <div class="language-rzk highlight"><span class="filename">The inverse to pair-eq</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:eq-pair" id="define:eq-pair" style="visibility: visible; position: relative; color: inherit">eq-pair</a></span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  <span class="p">( </span>s t <span class="p">:</span> <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a)
@@ -1169,7 +1168,7 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    ind-path
 </span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>      <span class="p">( </span>Σ ( a <span class="p">:</span> A) , (B a))
 </span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>      ( s)
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>      ( <span class="p">\ </span>t&#39; e&#39; → (eq-pair s t&#39; (pair-eq s t&#39; e&#39;)) = e&#39;)
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>      ( <span class="p">\ </span>t' e' → (eq-pair s t' (pair-eq s t' e')) = e')
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>      ( t)
 </span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>      ( e)
@@ -1184,49 +1183,48 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  : <span class="p">( </span>t1 <span class="p">:</span> B t0)
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  → <span class="p">( </span>e1 <span class="p">:</span> (transport A B s0 t0 e0 s1) = t1)
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>  → ( ( pair-eq (s0 , s1) (t0 , t1) (eq-pair (s0 , s1) (t0 , t1) (e0 , e1)))
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>      =_{Eq-Σ (s0 , s1) (t0 , t1)}
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>      ( e0 , e1))
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>  :=
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    ind-path
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>      ( A)
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>      ( s0)
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>      <span class="p">( </span>\ t0&#39; e0&#39; →
-</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>        ( t1 <span class="p">:</span> B t0&#39;)
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>      → <span class="p">( </span>e1 <span class="p">:</span> (transport A B s0 t0&#39; e0&#39; s1) = t1)
-</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>      → ( pair-eq (s0 , s1) (t0&#39; , t1) (eq-pair (s0 , s1) (t0&#39; , t1) (e0&#39; , e1)))
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>        =_{Eq-Σ (s0 , s1) (t0&#39; , t1)}
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>        ( e0&#39; , e1))
-</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>      ( ind-path
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>        ( B s0)
-</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>        ( s1)
-</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>        ( <span class="p">\ </span>t1&#39; e1&#39; →
-</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>          ( pair-eq
-</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>            ( s0 , s1)
-</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>            ( s0 , t1&#39;)
-</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>            ( eq-pair (s0 , s1) (s0 , t1&#39;) (<span class="s">refl</span> , e1&#39;)))
-</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>          =_{Eq-Σ (s0 , s1) (s0 , t1&#39;)}
-</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>          ( <span class="s">refl</span> , e1&#39;))
-</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>        ( <span class="s">refl</span>))
-</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>      ( t0)
-</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>      ( e0)
-</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>
-</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:pair-eq-eq-pair" id="define:pair-eq-eq-pair" style="visibility: visible; position: relative; color: inherit">pair-eq-eq-pair</a></span>
-</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>  <span class="p">( </span>s t <span class="p">:</span> <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a)
-</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>  <span class="p">( </span>e <span class="p">:</span> Eq-Σ s t)
-</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>  : ( pair-eq s t (eq-pair s t e)) =_{Eq-Σ s t} e
-</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>  :=
-</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>    pair-eq-eq-pair-split
-</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>      ( <span class="s">first</span> s) (<span class="s">second</span> s) (<span class="s">first</span> t) (<span class="s">first</span> e) (<span class="s">second</span> t) (<span class="s">second</span> e)
-</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>
-</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:extensionality-Σ" id="define:extensionality-Σ" style="visibility: visible; position: relative; color: inherit">extensionality-Σ</a></span>
-</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>  <span class="p">( </span>s t <span class="p">:</span> <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a)
-</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>  : Equiv (s = t) (Eq-Σ s t)
-</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>  :=
-</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>    ( pair-eq s t
-</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>    , ( ( eq-pair s t , eq-pair-pair-eq s t)
-</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>      , ( eq-pair s t , pair-eq-eq-pair s t)))
-</span><span id="__span-9-50"><a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a>
-</span><span id="__span-9-51"><a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a><span class="nd">#end</span><span class="n"> paths-in-sigma</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  = ( e0 , e1))
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  :=
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    ind-path
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>      ( A)
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>      ( s0)
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>      <span class="p">( </span>\ t0' e0' →
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>        ( t1 <span class="p">:</span> B t0')
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>      → <span class="p">( </span>e1 <span class="p">:</span> (transport A B s0 t0' e0' s1) = t1)
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>      → ( pair-eq (s0 , s1) (t0' , t1) (eq-pair (s0 , s1) (t0' , t1) (e0' , e1)))
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>        =_{Eq-Σ (s0 , s1) (t0' , t1)}
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>  ( e0' , e1))
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>      ( ind-path
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>        ( B s0)
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>        ( s1)
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>        ( <span class="p">\ </span>t1' e1' →
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>          ( pair-eq
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>            ( s0 , s1)
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>            ( s0 , t1')
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>            ( eq-pair (s0 , s1) (s0 , t1') (<span class="s">refl</span> , e1')))
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>          =_{Eq-Σ (s0 , s1) (s0 , t1')}
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>  ( <span class="s">refl</span> , e1'))
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>        ( <span class="s">refl</span>))
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>      ( t0)
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>      ( e0)
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:pair-eq-eq-pair" id="define:pair-eq-eq-pair" style="visibility: visible; position: relative; color: inherit">pair-eq-eq-pair</a></span>
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>  <span class="p">( </span>s t <span class="p">:</span> <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a)
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>  <span class="p">( </span>e <span class="p">:</span> Eq-Σ s t)
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>  : ( pair-eq s t (eq-pair s t e)) =_{Eq-Σ s t} e
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>  :=
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>    pair-eq-eq-pair-split
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>      ( <span class="s">first</span> s) (<span class="s">second</span> s) (<span class="s">first</span> t) (<span class="s">first</span> e) (<span class="s">second</span> t) (<span class="s">second</span> e)
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>
+</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:extensionality-Σ" id="define:extensionality-Σ" style="visibility: visible; position: relative; color: inherit">extensionality-Σ</a></span>
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>  <span class="p">( </span>s t <span class="p">:</span> <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a)
+</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>  : Equiv (s = t) (Eq-Σ s t)
+</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>  :=
+</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>    ( pair-eq s t
+</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>    , ( ( eq-pair s t , eq-pair-pair-eq s t)
+</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>      , ( eq-pair s t , pair-eq-eq-pair s t)))
+</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>
+</span><span id="__span-9-50"><a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a><span class="nd">#end</span><span class="n"> paths-in-sigma</span>
 </span></code></pre></div>
 <h2 id="identity-types-of-sigma-types-over-a-product">Identity types of Sigma types over a product<a class="headerlink" href="#identity-types-of-sigma-types-over-a-product" title="Permanent link">&para;</a></h2>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nd">#section</span><span class="n"> paths-in-sigma-over-product</span>
@@ -1235,19 +1233,19 @@ For ongoing simplicial HoTT formalization see <a href="http://rzk-lang.github.io
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="kr">#variable</span><span class="p"> </span>C : A → B → <span class="kt">U</span>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
 </span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:product-transport" id="define:product-transport" style="visibility: visible; position: relative; color: inherit">product-transport</a></span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  <span class="p">( </span>a a&#39; <span class="p">:</span> A)
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  <span class="p">( </span>b b&#39; <span class="p">:</span> B)
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>  <span class="p">( </span>p <span class="p">:</span> a = a&#39;)
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>  <span class="p">( </span>q <span class="p">:</span> b = b&#39;)
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  <span class="p">( </span>a a' <span class="p">:</span> A)
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  <span class="p">( </span>b b' <span class="p">:</span> B)
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>  <span class="p">( </span>p <span class="p">:</span> a = a')
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>  <span class="p">( </span>q <span class="p">:</span> b = b')
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>  <span class="p">( </span>c <span class="p">:</span> C a b)
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>  : C a&#39; b&#39;
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>  : C a' b'
 </span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>  :=
 </span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    ind-path
 </span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>      ( B)
 </span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>      ( b)
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>      ( <span class="p">\ </span>b&#39;&#39; q&#39; → C a&#39; b&#39;&#39;)
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>      ( ind-path (A) (a) (<span class="p">\ </span>a&#39;&#39; p&#39; → C a&#39;&#39; b) (c) (a&#39;) (p))
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>      ( b&#39;)
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>      ( <span class="p">\ </span>b'' q' → C a' b'')
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>      ( ind-path (A) (a) (<span class="p">\ </span>a'' p' → C a'' b) (c) (a') (p))
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>      ( b')
 </span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>      ( q)
 </span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
 </span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Eq-Σ-over-product" id="define:Eq-Σ-over-product" style="visibility: visible; position: relative; color: inherit">Eq-Σ-over-product</a></span>
@@ -1274,7 +1272,7 @@ is the lazy definition with bad computational properties.</p>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    ind-path
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>      <span class="p">( </span>Σ ( a <span class="p">:</span> A) , <span class="p">(</span>Σ (b <span class="p">:</span> B) , C a b))
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>      ( s)
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>      ( <span class="p">\ </span>t&#39; e&#39; → (Eq-Σ-over-product s t&#39;))
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>      ( <span class="p">\ </span>t' e' → (Eq-Σ-over-product s t'))
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>      ( ( <span class="s">refl</span> , (<span class="s">refl</span> , <span class="s">refl</span>)))
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>      ( t)
 </span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>      ( e)
@@ -1283,29 +1281,29 @@ is the lazy definition with bad computational properties.</p>
 by a dual path induction over both <code class="language-rzk highlight">p</code> and <code class="language-rzk highlight">q</code>, rather than by
 saying that when <code class="language-rzk highlight">p</code> is <code class="language-rzk highlight"><span class="s">refl</span></code> this is ordinary transport.</p>
 <div class="language-rzk highlight"><span class="filename">The inverse with explicit arguments</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:triple-of-paths-path-of-triples" id="define:triple-of-paths-path-of-triples" style="visibility: visible; position: relative; color: inherit">triple-of-paths-path-of-triples</a></span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  <span class="p">( </span>a a&#39; <span class="p">:</span> A)
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  <span class="p">( </span>u u&#39; <span class="p">:</span> B)
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  <span class="p">( </span>a a' <span class="p">:</span> A)
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  <span class="p">( </span>u u' <span class="p">:</span> B)
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  <span class="p">( </span>c <span class="p">:</span> C a u)
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  <span class="p">( </span>p <span class="p">:</span> a = a&#39;)
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  : <span class="p">( </span>q <span class="p">:</span> u = u&#39;)
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  → <span class="p">( </span>c&#39; <span class="p">:</span> C a&#39; u&#39;)
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  → <span class="p">( </span>r <span class="p">:</span> product-transport a a&#39; u u&#39; p q c = c&#39;)
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>  → ( ( a , (u , c)) =_{<span class="p">(</span>Σ (x <span class="p">:</span> A) , <span class="p">(</span>Σ (y <span class="p">:</span> B) , C x y))} (a&#39; , (u&#39; , c&#39;)))
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  <span class="p">( </span>p <span class="p">:</span> a = a')
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  : <span class="p">( </span>q <span class="p">:</span> u = u')
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  → <span class="p">( </span>c' <span class="p">:</span> C a' u')
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  → <span class="p">( </span>r <span class="p">:</span> product-transport a a' u u' p q c = c')
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>  → ( ( a , (u , c)) =_{<span class="p">(</span>Σ (x <span class="p">:</span> A) , <span class="p">(</span>Σ (y <span class="p">:</span> B) , C x y))} (a' , (u' , c')))
 </span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>  :=
 </span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    ind-path
 </span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>      ( A)
 </span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>      ( a)
-</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>      <span class="p">( </span>\ a&#39;&#39; p&#39; →
-</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>        ( q <span class="p">:</span> u = u&#39;)
-</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>      → <span class="p">( </span>c&#39; <span class="p">:</span> C a&#39;&#39; u&#39;)
-</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>      → <span class="p">( </span>r <span class="p">:</span> product-transport a a&#39;&#39; u u&#39; p&#39; q c = c&#39;)
-</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>      → ( ( a , (u , c)) =_{<span class="p">(</span>Σ (x <span class="p">:</span> A) , <span class="p">(</span>Σ (y <span class="p">:</span> B) , C x y))} (a&#39;&#39; , (u&#39; , c&#39;))))
-</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>      ( <span class="p">\ </span>q c&#39; r →
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>      <span class="p">( </span>\ a'' p' →
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>        ( q <span class="p">:</span> u = u')
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>      → <span class="p">( </span>c' <span class="p">:</span> C a'' u')
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>      → <span class="p">( </span>r <span class="p">:</span> product-transport a a'' u u' p' q c = c')
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>      → ( ( a , (u , c)) =_{<span class="p">(</span>Σ (x <span class="p">:</span> A) , <span class="p">(</span>Σ (y <span class="p">:</span> B) , C x y))} (a'' , (u' , c'))))
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>      ( <span class="p">\ </span>q c' r →
 </span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>        eq-eq-fiber-Σ
 </span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>          ( A) <span class="p">(</span>\ x → (Σ (v <span class="p">:</span> B) , C x v)) (a)
-</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>          ( u , c) (u&#39; , c&#39;)
-</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>          ( path-of-pairs-pair-of-paths B (<span class="p">\ </span>y → C a y) u u&#39; q c c&#39; r))
-</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>      ( a&#39;)
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>          ( u , c) (u' , c')
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>          ( path-of-pairs-pair-of-paths B (<span class="p">\ </span>y → C a y) u u' q c c' r))
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>      ( a')
 </span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>      ( p)
 </span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>
 </span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:eq-triple" id="define:eq-triple" style="visibility: visible; position: relative; color: inherit">eq-triple</a></span>
@@ -1328,60 +1326,60 @@ saying that when <code class="language-rzk highlight">p</code> is <code class="l
 </span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a>    ind-path
 </span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a>      <span class="p">( </span>Σ ( a <span class="p">:</span> A) , <span class="p">(</span>Σ (b <span class="p">:</span> B) , C a b))
 </span><span id="__span-12-46"><a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>      ( s)
-</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a>      ( <span class="p">\ </span>t&#39; e&#39; → (eq-triple s t&#39; (triple-eq s t&#39; e&#39;)) = e&#39;)
+</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a>      ( <span class="p">\ </span>t' e' → (eq-triple s t' (triple-eq s t' e')) = e')
 </span><span id="__span-12-48"><a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a>      ( <span class="s">refl</span>)
 </span><span id="__span-12-49"><a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a>      ( t)
 </span><span id="__span-12-50"><a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a>      ( e)
 </span></code></pre></div>
 <p>Here we've decomposed <code class="language-rzk highlight">s</code>, <code class="language-rzk highlight">t</code> and <code class="language-rzk highlight">e</code> for induction purposes:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:triple-eq-eq-triple-split" id="define:triple-eq-eq-triple-split" style="visibility: visible; position: relative; color: inherit">triple-eq-eq-triple-split</a></span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  <span class="p">( </span>a a&#39; <span class="p">:</span> A)
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  <span class="p">( </span>b b&#39; <span class="p">:</span> B)
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  <span class="p">( </span>a a' <span class="p">:</span> A)
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  <span class="p">( </span>b b' <span class="p">:</span> B)
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  <span class="p">( </span>c <span class="p">:</span> C a b)
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  : <span class="p">( </span>p <span class="p">:</span> a = a&#39;)
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>  → <span class="p">( </span>q <span class="p">:</span> b = b&#39;)
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>  → <span class="p">( </span>c&#39; <span class="p">:</span> C a&#39; b&#39;)
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>  → <span class="p">( </span>r <span class="p">:</span> product-transport a a&#39; b b&#39; p q c = c&#39;)
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  : <span class="p">( </span>p <span class="p">:</span> a = a')
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>  → <span class="p">( </span>q <span class="p">:</span> b = b')
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>  → <span class="p">( </span>c' <span class="p">:</span> C a' b')
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>  → <span class="p">( </span>r <span class="p">:</span> product-transport a a' b b' p q c = c')
 </span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>  → ( triple-eq
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>      ( a , (b , c)) (a&#39; , (b&#39; , c&#39;))
-</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>      ( eq-triple (a , (b , c)) (a&#39; , (b&#39; , c&#39;)) (p , (q , r))))
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>      ( a , (b , c)) (a' , (b' , c'))
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>      ( eq-triple (a , (b , c)) (a' , (b' , c')) (p , (q , r))))
 </span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>  = ( p , (q , r))
 </span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>  :=
 </span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>    ind-path
 </span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>      ( A)
 </span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>      ( a)
-</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>      <span class="p">( </span>\ a&#39;&#39; p&#39; →
-</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>        ( q <span class="p">:</span> b = b&#39;)
-</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>      → <span class="p">( </span>c&#39; <span class="p">:</span> C a&#39;&#39; b&#39;)
-</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>      → <span class="p">( </span>r <span class="p">:</span> product-transport a a&#39;&#39; b b&#39; p&#39; q c = c&#39;)
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>      <span class="p">( </span>\ a'' p' →
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>        ( q <span class="p">:</span> b = b')
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>      → <span class="p">( </span>c' <span class="p">:</span> C a'' b')
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>      → <span class="p">( </span>r <span class="p">:</span> product-transport a a'' b b' p' q c = c')
 </span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>      → ( triple-eq
-</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>          ( a , (b , c)) (a&#39;&#39; , (b&#39; , c&#39;))
-</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>          ( eq-triple (a , (b , c)) (a&#39;&#39; , (b&#39; , c&#39;)) (p&#39; , (q , r))))
-</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>      = ( p&#39; , (q , r)))
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>          ( a , (b , c)) (a'' , (b' , c'))
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>          ( eq-triple (a , (b , c)) (a'' , (b' , c')) (p' , (q , r))))
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>      = ( p' , (q , r)))
 </span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>      ( ind-path
 </span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>        ( B)
 </span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>        ( b)
-</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>        <span class="p">( </span>\ b&#39;&#39; q&#39; →
-</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>          ( c&#39; <span class="p">:</span> C a b&#39;&#39;)
-</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>        → <span class="p">( </span>r <span class="p">:</span> product-transport a a b b&#39;&#39; <span class="s">refl</span> q&#39; c = c&#39;)
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>        <span class="p">( </span>\ b'' q' →
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>          ( c' <span class="p">:</span> C a b'')
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>        → <span class="p">( </span>r <span class="p">:</span> product-transport a a b b'' <span class="s">refl</span> q' c = c')
 </span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>        → ( triple-eq
-</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>            ( a , (b , c)) (a , (b&#39;&#39; , c&#39;))
-</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>            ( eq-triple (a , (b , c)) (a , (b&#39;&#39; , c&#39;)) (<span class="s">refl</span> , (q&#39; , r))))
-</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>        = ( <span class="s">refl</span> , (q&#39; , r)))
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>            ( a , (b , c)) (a , (b'' , c'))
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>            ( eq-triple (a , (b , c)) (a , (b'' , c')) (<span class="s">refl</span> , (q' , r))))
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>        = ( <span class="s">refl</span> , (q' , r)))
 </span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>        ( ind-path
 </span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>            ( C a b)
 </span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>            ( c)
-</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>            ( <span class="p">\ </span>c&#39;&#39; r&#39; →
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>            ( <span class="p">\ </span>c'' r' →
 </span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>              triple-eq
-</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>                ( a , (b , c)) (a , (b , c&#39;&#39;))
+</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>                ( a , (b , c)) (a , (b , c''))
 </span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>                ( eq-triple
-</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>                  ( a , (b , c)) (a , (b , c&#39;&#39;))
-</span><span id="__span-13-44"><a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>                  ( <span class="s">refl</span> , (<span class="s">refl</span> , r&#39;)))
-</span><span id="__span-13-45"><a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>              = ( <span class="s">refl</span> , (<span class="s">refl</span> , r&#39;)))
+</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>                  ( a , (b , c)) (a , (b , c''))
+</span><span id="__span-13-44"><a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>                  ( <span class="s">refl</span> , (<span class="s">refl</span> , r')))
+</span><span id="__span-13-45"><a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>              = ( <span class="s">refl</span> , (<span class="s">refl</span> , r')))
 </span><span id="__span-13-46"><a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a>            ( <span class="s">refl</span>))
-</span><span id="__span-13-47"><a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>        ( b&#39;))
-</span><span id="__span-13-48"><a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a>      ( a&#39;)
+</span><span id="__span-13-47"><a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>        ( b'))
+</span><span id="__span-13-48"><a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a>      ( a')
 </span><span id="__span-13-49"><a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a>
 </span><span id="__span-13-50"><a id="__codelineno-13-50" name="__codelineno-13-50" href="#__codelineno-13-50"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:triple-eq-eq-triple" id="define:triple-eq-eq-triple" style="visibility: visible; position: relative; color: inherit">triple-eq-eq-triple</a></span>
 </span><span id="__span-13-51"><a id="__codelineno-13-51" name="__codelineno-13-51" href="#__codelineno-13-51"></a>  <span class="p">( </span>s t <span class="p">:</span> <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , <span class="p">(</span>Σ (b <span class="p">:</span> B) , C a b))
@@ -1558,7 +1556,7 @@ unimportant.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "toc.integrate", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascript/mathjax.js"></script>
       

@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1814,7 +1814,7 @@ contractible.</p>
 </span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>  : is-initial (coslice A a) (a , id-hom A a)
 </span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>  :=
 </span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>    \ (x , f) →
-</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>    is-contr-equiv-is-contr&#39;
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>    is-contr-equiv-is-contr'
 </span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>      ( hom (coslice A a) (a , id-hom A a) (x , f))
 </span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>      <span class="p">( </span>( t <span class="p">:</span> Δ¹) → hom A a (f t) [t <span class="sx">≡</span> <span class="m">0₂</span> ↦ id-hom A a])
 </span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>      ( equiv-hom-<span class="k">in</span>-coslice A a x f)
@@ -1829,7 +1829,7 @@ contractible.</p>
 </span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>  : <span class="p">( </span>( p <span class="p">:</span> coslice A a) → C p) → C (a , id-hom A a)
 </span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>  := <span class="p">\ </span>s → s (a , id-hom A a)
 </span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>
-</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:dependent-yoneda-lemma&#39;" id="define:dependent-yoneda-lemma&#39;" style="visibility: visible; position: relative; color: inherit">dependent-yoneda-lemma&#39;</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:dependent-yoneda-lemma'" id="define:dependent-yoneda-lemma'" style="visibility: visible; position: relative; color: inherit">dependent-yoneda-lemma'</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
 </span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>  <span class="p">( </span>is-pre-∞-category-A <span class="p">:</span> is-pre-∞-category A)
 </span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a>  <span class="p">( </span>a <span class="p">:</span> A)
@@ -1867,7 +1867,7 @@ an equivalent type in the domain of the evaluation map.</p>
 </span><span id="__span-33-16"><a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>      ( <span class="s">first</span> (equiv-dependent-curry A (<span class="p">\ </span>z → hom A a z) (<span class="p">\ </span>x f → C (x , f))))
 </span><span id="__span-33-17"><a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a>      ( <span class="s">second</span> (equiv-dependent-curry A (<span class="p">\ </span>z → hom A a z) (<span class="p">\ </span>x f → C (x , f))))
 </span><span id="__span-33-18"><a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a>      ( <span class="p">\ </span>s → s a (id-hom A a))
-</span><span id="__span-33-19"><a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>      ( dependent-yoneda-lemma&#39; A is-pre-∞-category-A a C is-covariant-C)
+</span><span id="__span-33-19"><a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>      ( dependent-yoneda-lemma' A is-pre-∞-category-A a C is-covariant-C)
 </span></code></pre></div>
 <h2 id="final-objects">Final objects<a class="headerlink" href="#final-objects" title="Permanent link">&para;</a></h2>
 <p>A term <span class="arithmatex">\(a\)</span> in a type <span class="arithmatex">\(A\)</span> is initial if all of its mapping-out hom types are
@@ -2013,7 +2013,7 @@ contractible.</p>
 </span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>  : is-final (slice A a) (a , id-hom A a)
 </span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>  :=
 </span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>    \ (x , f) →
-</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>    is-contr-equiv-is-contr&#39;
+</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>    is-contr-equiv-is-contr'
 </span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>      ( hom (slice A a) (x , f) (a , id-hom A a))
 </span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>      <span class="p">( </span>( t <span class="p">:</span> Δ¹) → hom A (f t) a [t <span class="sx">≡</span> <span class="m">1₂</span> ↦ id-hom A a])
 </span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>      ( equiv-hom-<span class="k">in</span>-slice A a x f)
@@ -2029,7 +2029,7 @@ specializing these results.</p>
 </span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>  : <span class="p">( </span>( p <span class="p">:</span> slice A a) → C p) → C (a , id-hom A a)
 </span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>  := <span class="p">\ </span>s → s (a , id-hom A a)
 </span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>
-</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:contra-dependent-yoneda-lemma&#39;" id="define:contra-dependent-yoneda-lemma&#39;" style="visibility: visible; position: relative; color: inherit">contra-dependent-yoneda-lemma&#39;</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:contra-dependent-yoneda-lemma'" id="define:contra-dependent-yoneda-lemma'" style="visibility: visible; position: relative; color: inherit">contra-dependent-yoneda-lemma'</a></span><span class="p"> </span><span class="k">uses</span><span class="p"> (</span>funext<span class="p">)</span>
 </span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>  <span class="p">( </span>is-pre-∞-category-A <span class="p">:</span> is-pre-∞-category A)
 </span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>  <span class="p">( </span>a <span class="p">:</span> A)
@@ -2067,7 +2067,7 @@ proven, just with an equivalent type in the domain of the evaluation map.</p>
 </span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a>      ( <span class="s">first</span> (equiv-dependent-curry A (<span class="p">\ </span>z → hom A z a) (<span class="p">\ </span>x f → C (x , f))))
 </span><span id="__span-42-17"><a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a>      ( <span class="s">second</span> (equiv-dependent-curry A (<span class="p">\ </span>z → hom A z a) (<span class="p">\ </span>x f → C (x , f))))
 </span><span id="__span-42-18"><a id="__codelineno-42-18" name="__codelineno-42-18" href="#__codelineno-42-18"></a>      ( <span class="p">\ </span>s → s a (id-hom A a))
-</span><span id="__span-42-19"><a id="__codelineno-42-19" name="__codelineno-42-19" href="#__codelineno-42-19"></a>      ( contra-dependent-yoneda-lemma&#39;
+</span><span id="__span-42-19"><a id="__codelineno-42-19" name="__codelineno-42-19" href="#__codelineno-42-19"></a>      ( contra-dependent-yoneda-lemma'
 </span><span id="__span-42-20"><a id="__codelineno-42-20" name="__codelineno-42-20" href="#__codelineno-42-20"></a>          A is-pre-∞-category-A a C is-contravariant-C)
 </span></code></pre></div>
 
@@ -2162,7 +2162,7 @@ proven, just with an equivalent type in the domain of the evaluation map.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.footer", "navigation.sections", "navigation.path", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "toc.integrate", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascript/mathjax.js"></script>
       
