@@ -104,7 +104,7 @@ A path in a fiber defines a path in the total space.
   ( u v : B x)
   ( p : u = v)
   : ( x , u) =_{Σ (a : A) , B a} (x , v)
-  := ind-path (B x) (u) (\ v' p' → (x , u) = (x , v')) (refl) (v) (p)
+  := ind-path (B x) (u) (\ v' p' → (x , u) =_{Σ (a : A) , B a} (x , v')) (refl) (v) (p)
 ```
 
 The following is essentially `#!rzk eq-pair` but with explicit arguments.
@@ -116,14 +116,13 @@ The following is essentially `#!rzk eq-pair` but with explicit arguments.
   : ( u : B x)
   → ( v : B y)
   → ( ( transport A B x y p u) = v)
-  → ( x , u) =_{Σ (z : A) , B z} (y , v)
-  :=
-    ind-path
+  → ( x , u) =_{Σ (a : A) , B a} (y , v)
+  := ind-path
       ( A)
       ( x)
       ( \ y' p' → (u' : B x) → (v' : B y')
       → ( ( transport A B x y' p' u') = v')
-      → ( x , u') =_{Σ (z : A) , B z} (y' , v'))
+      → ( x , u') =_{Σ (a : A) , B a} (y' , v'))
       ( \ u' v' q' → (eq-eq-fiber-Σ x u' v' q'))
       ( y)
       ( p)
@@ -164,8 +163,7 @@ Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
   : ( t1 : B t0)
   → ( e1 : (transport A B s0 t0 e0 s1) = t1)
   → ( ( pair-eq (s0 , s1) (t0 , t1) (eq-pair (s0 , s1) (t0 , t1) (e0 , e1)))
-      =_{Eq-Σ (s0 , s1) (t0 , t1)}
-      ( e0 , e1))
+  = ( e0 , e1))
   :=
     ind-path
       ( A)
@@ -175,7 +173,7 @@ Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
       → ( e1 : (transport A B s0 t0' e0' s1) = t1)
       → ( pair-eq (s0 , s1) (t0' , t1) (eq-pair (s0 , s1) (t0' , t1) (e0' , e1)))
         =_{Eq-Σ (s0 , s1) (t0' , t1)}
-        ( e0' , e1))
+  ( e0' , e1))
       ( ind-path
         ( B s0)
         ( s1)
@@ -185,7 +183,7 @@ Here we've decomposed `#!rzk e : Eq-Σ s t` as `#!rzk (e0, e1)` and decomposed
             ( s0 , t1')
             ( eq-pair (s0 , s1) (s0 , t1') (refl , e1')))
           =_{Eq-Σ (s0 , s1) (s0 , t1')}
-          ( refl , e1'))
+  ( refl , e1'))
         ( refl))
       ( t0)
       ( e0)

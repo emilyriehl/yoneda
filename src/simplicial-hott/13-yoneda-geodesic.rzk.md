@@ -359,7 +359,7 @@ horizontal boundary is given by the composite morphism and by `#!rzk v`.
 #def id-codomain-square
   ( A : U)
   ( is-pre-∞-category-A : Is-pre-∞-category A)
-  ( a b x y : A)
+  ( a x y : A)
   ( f : Hom A x y)
   ( v : Hom A y a)
   : ( t : Δ¹) → (s : Δ¹) → A
@@ -389,7 +389,7 @@ Next apply the fiberwise transformation `#!rzk ϕ` to this square.
     \ t →
       ϕ
       ( f t)
-      ( \ s → id-codomain-square A is-pre-∞-category-A a b x y f v t s)
+      ( \ s → id-codomain-square A is-pre-∞-category-A a x y f v t s)
 ```
 
 We give a name to the diagonal composite arrow in this square.
